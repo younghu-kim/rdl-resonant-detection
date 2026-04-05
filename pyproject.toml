@@ -1,0 +1,30 @@
+[project]
+name = "gdl-unified"
+version = "0.1.0"
+description = "Unified Geometric Deep Learning (5G + Time) + Resonant Deep Learning"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0",
+    "numpy",
+    "scipy",
+    "mpmath",
+    "einops",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov", "ruff", "mypy"]
+graphs = ["torch_geometric", "networkx"]
+groups = ["e3nn", "escnn"]
+geodesics = ["potpourri3d", "robust_laplacian", "trimesh"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--tb=short -q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.mypy]
+ignore_missing_imports = true
