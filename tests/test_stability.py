@@ -51,13 +51,11 @@ def make_dummy_data(domain_type: str, batch: int, in_ch: int, out_ch: int):
         return NodeSignal(dom, feat), target
 
     elif domain_type == "3G_ATTENTION":
-        # Transformer는 embed_dim을 유지하므로 출력 채널이 in_ch와 동일하다.
         ei = torch.tensor([[0,1,1,2,2,3,3,0],[1,0,2,1,3,2,0,3]], dtype=torch.long)
         ew = torch.ones(8)
         dom = GraphDomain(num_nodes=4, edge_index=ei, edge_weight=ew)
         feat = torch.randn(batch, 4, in_ch)
-        # 타겟도 in_ch에 맞춘다 (Transformer readout이 in_ch를 출력)
-        attn_target = torch.randn(batch, in_ch)
+        attn_target = torch.randn(batch, out_ch)
         return NodeSignal(dom, feat), attn_target
 
     elif domain_type == "4G_GEODESIC":

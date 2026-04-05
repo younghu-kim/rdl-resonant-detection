@@ -141,10 +141,11 @@ class GDLFactory:
 
         elif domain_type == "3G_ATTENTION":
             num_heads = kwargs.get("num_heads", 1)
+            # Transformer는 embed_dim 보존 → DeepSets로 차원 변환
             blocks = [
                 TransformerEquivariantLayer(embed_dim=in_channels, num_heads=num_heads),
                 GraphNonLinearity(),
-                TransformerEquivariantLayer(embed_dim=in_channels, num_heads=num_heads),
+                DeepSetsLayer(in_channels, out_channels),
                 GraphNonLinearity(),
             ]
             readout = GraphGlobalPooling(aggregation="mean")
