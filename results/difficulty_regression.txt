@@ -1,0 +1,79 @@
+========================================================================
+  difficulty_regression — F₂ 난이도 다중회귀 (N4)
+========================================================================
+
+[A] 전역 회귀 (51 밴드, 전 영점)
+    데이터: N=15320
+    label: |final_F2|  mean=5.9037e-03  std=8.5446e-03  max=2.1831e-01
+
+    표준화 회귀계수 (β, t-stat):
+             feature            β         se        t   |t|>3?
+         (intercept)   5.9037e-03 6.5969e-05    89.49
+               log_t   6.0102e-03 1.5910e-04    37.77      ***
+            gap_prev   6.2487e-03 4.8543e-04    12.87      ***
+            gap_next   6.7055e-03 5.1941e-04    12.91      ***
+             gap_min  -3.6028e-04 6.6545e-04    -0.54         
+            gap_asym  -5.0631e-04 2.9977e-04    -1.69         
+         g_prev_norm  -5.3013e-03 5.0031e-04   -10.60      ***
+         g_next_norm  -5.7627e-03 5.2925e-04   -10.89      ***
+          g_min_norm  -2.6585e-04 7.1464e-04    -0.37         
+
+    R² = 0.0874   adj R² = 0.0869
+
+    VIF (다중공선성, >10 경고):
+               log_t  VIF =     5.82
+            gap_prev  VIF =    54.14 ⚠
+            gap_next  VIF =    61.99 ⚠
+             gap_min  VIF =   101.74 ⚠
+            gap_asym  VIF =    20.65 ⚠
+         g_prev_norm  VIF =    57.51 ⚠
+         g_next_norm  VIF =    64.36 ⚠
+          g_min_norm  VIF =   117.34 ⚠
+
+    단변량 상관 (표준화 y vs 각 X 열):
+               log_t  corr = +0.1616
+            gap_prev  corr = -0.0161
+            gap_next  corr = -0.0219
+             gap_min  corr = -0.0186
+            gap_asym  corr = -0.0060
+         g_prev_norm  corr = +0.0002
+         g_next_norm  corr = -0.0025
+          g_min_norm  corr = +0.0020
+
+    축소 모델 A1 (log_t + g_min_norm 만):
+      β[log_t]      = +1.3808e-03  t=20.27
+      β[g_min_norm] = +2.3549e-05  t=0.35
+      R² = 0.0261
+
+    축소 모델 A2 (log_t 만):
+      β[log_t] = +1.3807e-03  t=20.27
+      R² = 0.0261
+
+========================================================================
+[B] 풍부 회귀 (t∈[100,200], 50 영점)
+    영점 수: 50  (cstd len=50, xi_p len=50)
+    N=48   label |F₂| mean=0.0208
+
+           feature            β        t
+       (intercept)   2.0833e-02     7.29
+             log_t  -8.9756e-04    -0.29 
+           gap_min   1.1008e-03     0.27 
+              cstd   2.3952e-03     0.82 
+      abs_xi_prime   1.5220e-35      nan 
+      peak_rel_min  -2.4072e-03    -0.60 
+
+    R² = 0.0289  adj R² = -0.0867
+
+    단변량 상관:
+               log_t  corr = -0.0786
+             gap_min  corr = -0.0068
+                cstd  corr = +0.1215
+        abs_xi_prime  corr = +0.0000
+        peak_rel_min  corr = -0.0790
+
+    최대 잔차 5개 영점 (모델이 예측 못한 난이도):
+      t=173.4115  |F₂|=0.1149  pred=0.0243  resid=+0.0906  cstd=1.620  peak_rel=0.080
+      t=107.1686  |F₂|=0.0721  pred=0.0271  resid=+0.0449  cstd=1.589  peak_rel=0.092
+      t=178.3774  |F₂|=0.0506  pred=0.0154  resid=+0.0352  cstd=0.388  peak_rel=0.194
+      t=121.3701  |F₂|=0.0004  pred=0.0241  resid=-0.0237  cstd=0.911  peak_rel=0.027
+      t=169.0945  |F₂|=0.0394  pred=0.0164  resid=+0.0230  cstd=0.264  peak_rel=0.060

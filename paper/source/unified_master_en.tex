@@ -1,0 +1,3197 @@
+% ============================================================================
+%  Phase Quantisation from Optical Lattices to the Zeta Landscape:
+%  A Unified Framework
+% ============================================================================
+\documentclass[11pt, a4paper]{article}
+
+% ── Typography & Layout ─────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ── Mathematics ─────────────────────────────────────────────────────────────
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{bm}
+
+% ── Graphics & Diagrams ────────────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows.meta, positioning, calc, decorations.pathreplacing,
+  shapes.geometric, fit, backgrounds, chains, matrix
+}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ── Tables ──────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+
+% ── Colors ──────────────────────────────────────────────────────────────────
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\definecolor{txblue}{HTML}{2563EB}
+\definecolor{chgreen}{HTML}{059669}
+\definecolor{rxorange}{HTML}{D97706}
+\definecolor{lossred}{HTML}{DC2626}
+\definecolor{decodepurple}{HTML}{7C3AED}
+\definecolor{secgray}{HTML}{374151}
+\definecolor{lightbg}{HTML}{F8FAFC}
+\definecolor{accentblue}{HTML}{3B82F6}
+\definecolor{zetaviolet}{HTML}{6D28D9}
+\definecolor{primegold}{HTML}{B45309}
+
+% ── Algorithms ────────────────────────────────────────────────────────────
+\usepackage[ruled, vlined, linesnumbered]{algorithm2e}
+\SetKwComment{Comment}{$\triangleright$\ }{}
+
+% ── Cross-references & Links ───────────────────────────────────────────────
+\usepackage[colorlinks=true, linkcolor=accentblue, citecolor=chgreen, urlcolor=txblue]{hyperref}
+\usepackage[capitalise, noabbrev]{cleveref}
+
+% ── Theorem Environments ───────────────────────────────────────────────────
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{property}{Property}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{example}{Example}[section]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{observation}[theorem]{Observation}
+
+% ── Custom Commands ────────────────────────────────────────────────────────
+\newcommand{\Zq}{\mathbb{Z}_q}
+\newcommand{\Rq}{\mathbb{Z}_q[X]/(X^n+1)}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rfloor}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\FrFT}{\mathrm{FrFT}}
+\newcommand{\STE}{\mathrm{STE}}
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\eg}{\textit{e.g.}}
+\newcommand{\sectionline}{\noindent\rule{\textwidth}{0.4pt}\vspace{0.3em}}
+
+% Resonance-specific commands
+\newcommand{\xif}{\xi}                      % Riemann xi
+\newcommand{\Phiz}{\Phi_\xi}               % Phase of xi on critical line
+\newcommand{\Ampl}{A}                       % Amplitude of xi
+\newcommand{\Psip}{\Psi}                    % Ideal phase function
+\newcommand{\pis}{\pi_{\mathrm{s}}}        % Selection operator
+\newcommand{\slift}{\sigma^*\!-\!\tfrac{1}{2}} % sigma-lift
+\newcommand{\Lhat}{\hat{L}}                % Central difference log-derivative
+\newcommand{\GateA}{\mathsf{G}_{\mathrm{A}}}
+\newcommand{\GateB}{\mathsf{G}_{\mathrm{B}}}
+\newcommand{\Lpqo}{\mathcal{L}_{\mathrm{pqo}}}
+\newcommand{\PQO}{\mathsf{PQO}}
+\newcommand{\Ftwo}{F_{2}}
+
+% ── Header Box Style ──────────────────────────────────────────────────────
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% ============================================================================
+\begin{document}
+
+% ── Title ──────────────────────────────────────────────────────────────────
+\begin{center}
+  {\LARGE\bfseries Phase Quantisation from Optical Lattices\\[4pt]
+   to the Zeta Landscape}\\[14pt]
+  {\large\itshape A Unified Framework Connecting Lattice Cryptography,\\
+   Fresnel Optics, and Analytic Number Theory}\\[20pt]
+  {\large Kim Young-Hu}\\[4pt]
+  {\normalsize Independent Researcher}\\[4pt]
+  {\small\today}
+\end{center}
+
+\vspace{1.5em}
+
+% ── Abstract ───────────────────────────────────────────────────────────────
+\begin{tcolorbox}[
+  colback=lightbg, colframe=zetaviolet!60!black,
+  title={\bfseries Abstract}, fonttitle=\large,
+  arc=3pt, boxrule=0.8pt, toptitle=3pt, bottomtitle=3pt
+]
+We identify a shared mathematical grammar---\textit{phase quantisation on
+algebraic structures}---that connects three seemingly disparate domains:
+CRYSTALS-Kyber lattice-based post-quantum cryptography, free-space Fresnel
+diffraction, and the phase structure of the Riemann $\xif$-function on the
+critical line. The concrete nucleus is QROP-Net, a fully differentiable
+pipeline that encodes Kyber ciphertext as optical phase patterns and
+recovers them via deep-learning phase retrieval. Its $\sin^2$-based
+quantisation loss, which forces continuous phase predictions onto discrete
+cyclotomic lattice levels, is shown to be structurally isomorphic to the
+Bohr--Sommerfeld phase quantisation condition $\Delta\nu = m\pi$ that
+characterises ``resonant primes'' in the Resonant Prime Law framework. We
+further demonstrate that the LWE error threshold $\lfloor q/4\rfloor = 1920$
+in Kyber and the $\sigma$-lift deviation $\sigma^*-\tfrac{1}{2}$ from the
+critical line share the same role as hard error boundaries beyond which
+signal recovery fails. A multi-group (Polyadic) ODE-based zero detector,
+which self-calibrates without external ground truth, mirrors QROP-Net's
+blind test-time optimisation. Seven structural correspondences are
+formalised, and their mathematical, physical, and computational
+implications are discussed with explicit acknowledgement of the boundary
+between analogy and proof.
+
+\smallskip
+\noindent\textit{Note added in revision (2026-04-08).} An attempted
+empirical realisation of the cyclotomic PQO programme on the critical
+line, using a discriminant network with $L=4$ cosine PQO and the
+synthetic ideal phase $\Psip(n)$ of \cref{eq:psi_n} as supervisory
+target, returns a decisive null: across three seeds the resulting
+phase distribution fails to discriminate Riemann zeros from off-zero
+ordinates ($\chi^2$ p-values $0.13/0.53/0.41$; sectors $k=2,3$ exactly
+empty). The diagnosis (\cref{rem:cos2_pqo,rem:psi_defect}) is that the
+synthetic $\Psip$ depends only on $\|X\|$ and contains no
+$\xif$-zero information whatsoever, so no term of the four-term loss
+ever injects a $t$-local zero label into training; \cref{eq:pqo_cos}
+(training potential) and \cref{eq:cyclo_label} (measurement) are
+operationally disjoint. The text below preserves the synthetic
+$\Psip$ as the historical object and the cyclotomic PQO as the
+algebraic target; both are now flagged as awaiting an experiment
+with a supervised replacement
+$\Psip(t) := \arg\xif(\tfrac{1}{2}+it)$ (\cref{eq:psi_supervised}).
+\end{tcolorbox}
+
+\vspace{0.5em}
+\noindent\textbf{Keywords:} Phase quantisation, cyclotomic polynomial ring,
+CRYSTALS-Kyber, fractional Fourier transform, Riemann $\xif$-function,
+Bohr--Sommerfeld condition, resonant primes, $\sigma$-lift, Berry phase,
+Dirichlet $L$-functions
+
+\tableofcontents
+\newpage
+
+
+% ============================================================================
+\section{Introduction}
+\label{sec:intro}
+% ============================================================================
+
+The polynomial ring $R_q = \Rq$ with $n = 256$ and $q = 7681$ is the
+algebraic backbone of CRYSTALS-Kyber, the NIST-standardised post-quantum
+key encapsulation mechanism~\cite{kyber2021}. The defining relation
+$X^n + 1 = 0$---or equivalently $X^n \equiv -1$, the origin of our
+project codename $k^n = -1$---is a cyclotomic polynomial whose roots are
+the $2n$-th roots of unity:
+\begin{equation}
+  \omega_j = e^{i\pi(2j+1)/n}, \quad j = 0, 1, \ldots, n-1.
+  \label{eq:cyclo_roots}
+\end{equation}
+These $n$ phases are equally spaced on the unit circle, separated by
+$\Delta\theta = \pi/n$. This discrete, periodic phase structure is not
+merely an algebraic convenience for fast polynomial multiplication via the
+Number Theoretic Transform (NTT); it is, we argue, an instance of a more
+general \textit{phase quantisation principle} that appears in at least two
+other domains:
+
+\begin{enumerate}
+  \item \textbf{Fresnel optics}: The fractional Fourier transform (FrFT)
+        maps a coherent wavefront $U_0 = e^{i\phi}$ through free-space
+        diffraction, where the fractional order $\alpha$ encodes the
+        propagation distance as a phase parameter.
+  \item \textbf{Analytic number theory}: The completed Riemann
+        $\xif$-function $\xif(s) = \tfrac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$
+        decomposes on the critical line $s = \tfrac{1}{2} + it$ into
+        amplitude $\Ampl(t) = |\xif(\tfrac{1}{2}+it)|$ and phase
+        $\Phiz(t) = \arg\,\xif(\tfrac{1}{2}+it)$, with phase quantisation
+        conditions intimately linked to the distribution of primes and the
+        Riemann Hypothesis.
+\end{enumerate}
+
+\textbf{Thesis.} The $\sin^2$-based quantisation loss of QROP-Net, the
+Bohr--Sommerfeld condition $\Delta\nu = m\pi$ on the critical line, and
+the cyclotomic root structure $X^n \equiv -1$ are three manifestations
+of a single mathematical grammar: \textit{periodic phase penalty on an
+algebraic structure forces continuous signals onto discrete lattice levels,
+with a hard error boundary beyond which decoding fails}.
+
+\textbf{Contributions.}
+\begin{enumerate}
+  \item We present QROP-Net, a fully differentiable pipeline unifying
+        Kyber lattice cryptography, Fresnel optics, and deep phase retrieval
+        (Part~I).
+  \item We abstract the phase quantisation mechanism into a general
+        principle bridging discrete and continuous Fourier analysis
+        (Section~\ref{sec:bridge}).
+  \item We apply this principle to the phase structure of $\xif(s)$,
+        formulating a two-gate resonance criterion for prime detection
+        (Part~II, Sections~\ref{sec:xi_phase}--\ref{sec:gates}).
+  \item We establish a structural correspondence between the LWE error
+        threshold and the $\sigma$-lift from the critical line
+        (Section~\ref{sec:sigma_lift}).
+  \item We present a multi-group ODE zero detector that self-calibrates
+        without ground truth, mirroring QROP-Net's blind test-time
+        optimisation (Section~\ref{sec:polyadic}).
+  \item We formalise seven structural correspondences and rigorously
+        delimit the boundary between analogy and proof
+        (Part~III, Section~\ref{sec:correspondence}).
+  \item \textbf{(Negative empirical result, 2026-04-08)} We attempt
+        the cyclotomic PQO programme empirically with $L=4$ on
+        $t \in [100, 200]$, document a complete failure to discriminate
+        zeros from non-zeros across three seeds, trace the cause to a
+        \emph{$\Psip$-decoupling defect} of \cref{eq:psi_n}, and
+        propose the supervised replacement \cref{eq:psi_supervised}
+        as the necessary precondition for any future positive result
+        (Part~\ref{part:failed}, Remarks~\ref{rem:cos2_pqo}
+        and \ref{rem:psi_defect}).
+  \item \textbf{(Isolation experiment, 2026-04-09)} We isolate the
+        target-injection, loss-weighting, and read-out channels and
+        demonstrate that, with all three closed, the supervised chain
+        $\arg\xif(\tfrac{1}{2}+it)\to\mathcal{L}_{\mathrm{tgt}}\to
+        \hat\Psip$ is sound at off-zero sampling points
+        ($p=1.18\times10^{-15}$, ratio $18.2\times$), localising the
+        remaining defect to the network's output representation near
+        zeros (Remark~\ref{rem:isolation}).
+\end{enumerate}
+
+\subsection*{Reading Guide: Evidence Tiers}
+\label{sec:tiers}
+
+\noindent This work is a \emph{consolidated research notebook}: it
+records the full trajectory of a four-month investigation including
+ideas that remain conjectural and empirical attempts that failed. We
+therefore classify every substantive claim into one of three tiers,
+signalled explicitly in each section heading and in the table of
+contents:
+
+\begin{description}
+  \item[\textbf{\textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\ \
+        Tier 1 — Validated.}]
+        Claims backed by complete derivations and successful numerical
+        experiments. Examples: the $F_2$-discriminant zero detector
+        (Section~\ref{sec:f2_hardy}), the supervised identification
+        $\Psip(t) = \arg\xif(\tfrac{1}{2}+it)$ via the isolation
+        experiment (Remark~\ref{rem:isolation}), the high-zero
+        extension to $t\in[100,200]$ (Section~\ref{sec:high_zeros}).
+        These sections should be read as mature results.
+
+  \item[\textbf{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ \
+        Tier 2 — Ideas and partial results.}]
+        Analytic correspondences, theoretical constructions, or
+        experiments with suggestive but incomplete evidence.
+        Examples: Gate B stationarity (Section~\ref{sec:gates}), the
+        $\sigma$-lift (Section~\ref{sec:sigma_lift}), the seven
+        structural correspondences (Section~\ref{sec:correspondence}),
+        the $|F_2|$ spatial observables with their 2026-04-08
+        reinterpretation (Section~\ref{sec:f2_residual}). These
+        sections motivate and sketch; they should be read as research
+        programme rather than settled theory.
+
+  \item[\textbf{\textcolor{red}{\rule{0.9ex}{0.9ex}}\ \
+        Tier 3 — Failed attempts and their diagnoses.}]
+        Empirical programmes that did not succeed, preserved here with
+        full diagnostic analysis. Examples: cyclotomic cos$^2$
+        $L\in\{2,4\}$ PQO training
+        (Section~\ref{sec:cos2_failure}), the phase-gauge gradient
+        descent (PGGD) optimiser
+        (Section~\ref{sec:pggd_failure}). We retain these sections,
+        compressed but intact, because the diagnostic chain is itself
+        a contribution: it documents exactly which combinations of
+        target design, loss weighting, measurement, and model
+        expressivity are incompatible, saving future work from the
+        same failure modes. A failed direction whose cause is
+        understood is a partial positive result.
+\end{description}
+
+\noindent We will often refer to the tier of a given section or remark
+by the symbols \textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\,/
+\textcolor{orange}{\rule{0.9ex}{0.9ex}}\,/\textcolor{red}{\rule{0.9ex}{0.9ex}}. The reader may
+use the tier as a calibration for how much trust to place in a given
+statement. The structural division of the paper into
+Parts~\ref{part:qropnet}--\ref{part:synthesis} respects this tiering:
+Part~\ref{part:qropnet} and Part~\ref{part:resonance} collect Tier~1
+and Tier~2 material, Part~\ref{part:failed} collects Tier~3 failure
+diagnoses, and Part~\ref{part:synthesis} integrates all three into a
+unified picture.
+
+
+% ############################################################################
+% PART I — THE CONCRETE SYSTEM
+% ############################################################################
+
+\part{The Concrete System: QROP-Net}
+\label{part:qropnet}
+
+
+% ============================================================================
+\section{QROP-Net: System and Mathematics}
+\label{sec:qropnet}
+% ============================================================================
+
+\subsection{Polynomial Ring and NTT}
+
+Kyber operates over $R_q = \Rq$ where $q = 7681$ is chosen to satisfy
+$q \equiv 1 \pmod{2n}$, enabling the Number Theoretic Transform (NTT)
+for $O(n\log n)$ polynomial multiplication. The ring condition
+$X^n + 1 = 0$ factors as:
+\begin{equation}
+  X^n + 1 = \prod_{j=0}^{n-1}(X - \omega_j), \quad
+  \omega_j = e^{i\pi(2j+1)/n} \in \mathbb{C}.
+  \label{eq:factorisation}
+\end{equation}
+Every element $a(X) \in R_q$ corresponds to a vector
+$\mathbf{a} = (a_0, \ldots, a_{n-1}) \in \Zq^n$, and multiplication
+$a \cdot b \pmod{X^n+1}$ becomes component-wise multiplication in the
+NTT domain.
+
+\begin{definition}[Kyber IND-CPA Encryption]
+\label{def:kyber}
+Given public key $(\mathbf{A}, \mathbf{t})$ where
+$\mathbf{A} \in R_q^{k \times k}$, $\mathbf{t} \in R_q^k$, and message
+$m \in \{0,1\}^n$, the ciphertext $(\mathbf{u}, v)$ is:
+\begin{align}
+  \mathbf{u} &= \mathbf{A}^\top \mathbf{r} + \mathbf{e}_1,
+  \label{eq:kyber_u}\\
+  v &= \mathbf{t}^\top \mathbf{r} + e_2 + \ceil{q/2} \cdot m,
+  \label{eq:kyber_v}
+\end{align}
+where $\mathbf{r}, \mathbf{e}_1, e_2 \sim \beta_\eta$ are sampled from the
+centred binomial distribution:
+\begin{equation}
+  \beta_\eta: \quad x = \sum_{i=1}^{\eta}(a_i - b_i), \quad
+  a_i, b_i \sim \mathrm{Bernoulli}(\tfrac{1}{2}), \quad
+  x \in [-\eta, \eta].
+  \label{eq:cbd}
+\end{equation}
+\end{definition}
+
+\begin{definition}[Compression and Decompression]
+\label{def:compress}
+\begin{align}
+  \mathrm{Compress}_q(x, d) &= \ceil{\frac{2^d}{q} \cdot x}
+  \bmod 2^d, \label{eq:compress}\\
+  \mathrm{Decompress}_q(x, d) &= \ceil{\frac{q}{2^d} \cdot x},
+  \label{eq:decompress}
+\end{align}
+where $\ceil{\cdot}$ denotes ties-rounded-up: $\floor{x + 0.5}$.
+Parameters: $d_u = 11$ (2048 levels for $\mathbf{u}$),
+$d_v = 3$ (8 levels for $v$).
+\end{definition}
+
+\begin{theorem}[LWE Correctness Criterion]
+\label{thm:lwe}
+Decryption succeeds if and only if the total error
+$w = v - \mathbf{s}^\top\mathbf{u} \pmod{q}$ satisfies:
+\begin{equation}
+  \norm{w - \ceil{q/2}\hat{m}}_\infty < \ceil{q/4} = 1920.
+  \label{eq:lwe_threshold}
+\end{equation}
+A single coefficient exceeding this bound causes complete decryption failure
+($\mathrm{DFR} = 1$). The ring distance is:
+\begin{equation}
+  |e|_{\Zq} = \min(e, \; q - e), \quad e \in \{0, 1, \ldots, q-1\}.
+  \label{eq:ring_distance}
+\end{equation}
+\end{theorem}
+
+
+\subsection{Phase Modulation: From Integers to Optics}
+\label{sec:phase_mod}
+
+Each compressed ciphertext coefficient $c_i \in \{0, \ldots, 2^{d_u}-1\}$
+is mapped to a phase angle and encoded as a unit-amplitude complex
+wavefront:
+\begin{equation}
+  \phi_i = \frac{2\pi \cdot c_i}{2^{d_u}}, \qquad
+  U_0(x,y) = e^{i\phi(x,y)}, \quad |U_0| \equiv 1.
+  \label{eq:phase_mod}
+\end{equation}
+The $2^{d_u} = 2048$ discrete ciphertext levels map to 2048 equally spaced
+phases on the unit circle, separated by $\Delta\phi = 2\pi/2048$. This is
+a direct physical realisation of the algebraic structure: the polynomial
+ring's discrete coefficients become discrete optical phases on the SLM.
+
+A dimensional constraint links the cryptographic and optical domains:
+\begin{equation}
+  N = \sqrt{k \cdot n + n} \times M = \sqrt{1024} \times 8 = 256,
+  \label{eq:dim_constraint}
+\end{equation}
+where $M = 8$ is the macro-pixel expansion factor for noise resilience.
+
+
+\subsection{Differentiable Optical Channel: FrFT}
+\label{sec:frft}
+
+When the wavefront $U_0$ propagates a distance $d$ through free space,
+the diffraction integral is equivalent to a fractional Fourier transform of
+order $p$:
+\begin{equation}
+  p = \frac{2}{\pi}\arctan\!\left(\frac{\lambda d}{N \Delta x^2}\right),
+  \qquad \alpha = \frac{p\pi}{2},
+  \label{eq:frft_order}
+\end{equation}
+where $\lambda = 500\,$nm is the wavelength and $\Delta x = 8\,\mu$m is
+the pixel pitch. The propagation distance $d$ is declared as a learnable
+parameter, enabling gradient-based auto-focusing:
+\begin{equation}
+  d \;\xrightarrow{\;\partial\;}\;
+  R = \frac{\lambda d}{N\Delta x^2} \;\to\;
+  \alpha = \arctan(R) \;\to\;
+  s_2 = \sqrt{1 + R^2}.
+  \label{eq:learnable_d}
+\end{equation}
+
+The IP-DFrFT is implemented via chirp--FFT--chirp decomposition, reducing
+complexity from $O(N^4)$ to $O(N^2\log N)$:
+\begin{equation}
+\boxed{
+  U_d = \underbrace{(1 - i\cot\alpha)}_{\displaystyle A_\alpha^2}
+  \cdot\;\mathcal{F}^{-1}\!\Big[
+    \mathcal{F}\!\big[\underbrace{U_0 \cdot
+    e^{i\pi(\cot\alpha - \csc\alpha)\,r^2}}_{\text{input chirp}}\big]
+    \;\cdot\;
+    \mathcal{F}\!\big[\underbrace{e^{i\pi\,\csc\alpha\,r'^2}}_{\text{kernel chirp}}\big]
+  \Big] \cdot \Delta x^2
+}
+\label{eq:frft_full}
+\end{equation}
+where $r^2 = (m^2+n^2)\Delta x^2$ on $N \times N$ and
+$r'^2$ on zero-padded $2N \times 2N$ to prevent circular aliasing.
+
+The sensor captures intensity and adds physical noise:
+\begin{align}
+  I_{\mathrm{clean}} &= \frac{|U_d|^2}{1 + \cot^2\!\alpha},
+  \label{eq:intensity}\\
+  I_{\mathrm{shot}} &\sim \mathrm{Poisson}(I_{\mathrm{clean}} \cdot \mathrm{FWC}),
+  \label{eq:poisson}\\
+  I_{\mathrm{meas}} &= \mathrm{ADC}_{12\text{-bit}}
+  (I_{\mathrm{shot}} + \mathcal{N}(0, \sigma_{\mathrm{read}}^2)).
+  \label{eq:adc}
+\end{align}
+The straight-through estimator (STE) preserves gradient flow through the
+non-differentiable Poisson sampling and ADC rounding:
+\begin{equation}
+  \STE(x_{\text{noisy}}, x_{\text{clean}}) =
+  x_{\text{clean}} + \mathrm{stopgrad}(x_{\text{noisy}} - x_{\text{clean}}).
+  \label{eq:ste}
+\end{equation}
+
+
+\subsection{Hybrid Loss Orchestration}
+\label{sec:loss}
+
+Four loss terms are combined under a curriculum scheduler.
+
+\subsubsection{Data Fidelity Loss}
+The predicted wavefront $\hat{U}_0$ is propagated through the FrFT to
+produce $\hat{I}$. Comparison in the amplitude domain ensures uniform
+gradient flow:
+\begin{equation}
+  \mathcal{L}_{\mathrm{fid}} = \frac{1}{N^2}\sum_{x,y}
+  \left(\sqrt{\hat{I}(x,y) + \epsilon} -
+  \sqrt{I_{\mathrm{target}}(x,y) + \epsilon}\right)^{\!2}.
+  \label{eq:loss_fid}
+\end{equation}
+
+\subsubsection{Periodic Soft Quantisation Loss}
+A $\sin^2$-based penalty forces continuous phases onto discrete Kyber
+lattice levels:
+\begin{equation}
+\boxed{
+  \mathcal{L}_{\mathrm{quant}} = \frac{1}{2}\!\left[
+    \frac{1}{kn}\sum_{i=1}^{kn}
+    \sin^2\!\Big(\frac{2^{d_u}}{2}\,\phi_i^{(u)}\Big) +
+    \frac{1}{n}\sum_{j=1}^{n}
+    \sin^2\!\Big(\frac{2^{d_v}}{2}\,\phi_j^{(v)}\Big)
+  \right]
+}
+\label{eq:loss_quant}
+\end{equation}
+The $\sin^2$ function creates a \textit{valley--ridge landscape}: zero
+loss at exact lattice positions $\phi = 2\pi k / 2^d$, maximum penalty
+at midpoints. This is the key equation that bridges to analytic number
+theory (Section~\ref{sec:bridge}).
+
+\subsubsection{$L^\infty$ Exponential Barrier Loss}
+An exponential barrier enforces the LWE threshold on the most dangerous
+outliers:
+\begin{equation}
+  \mathcal{L}_{\max} = \frac{1}{|S_K|}\sum_{i \in S_K}
+  \exp\!\big(\gamma \cdot \mathrm{ReLU}(|e_i|_{\Zq} -
+  \tau_{\mathrm{safe}})\big),
+  \label{eq:loss_max}
+\end{equation}
+where $\tau_{\mathrm{safe}} = 0.8 \times 1920 = 1536$, $\gamma = 10$,
+and $S_K$ is the set of top-5\% error pixels.
+
+\subsubsection{Total Variation Loss}
+On the complex wavefront (not the phase angle, to avoid wrapping artefacts):
+\begin{equation}
+  \mathcal{L}_{\mathrm{TV}} = \frac{1}{N^2}\sum_{x,y}
+  \big(|\hat{U}_0^{x+1,y} - \hat{U}_0^{x,y}|^2 +
+  |\hat{U}_0^{x,y+1} - \hat{U}_0^{x,y}|^2\big).
+  \label{eq:loss_tv}
+\end{equation}
+
+
+\subsection{Receiver Neural Network and Decoding}
+\label{sec:rx}
+
+A LeWin U-Net (window-based multi-head self-attention + locally-enhanced
+feed-forward) maps the intensity measurement $I_{\mathrm{meas}}$ to a
+2-channel $(\mathrm{Re}, \mathrm{Im})$ output, from which the phase
+is extracted via:
+\begin{align}
+  \hat{\phi} &= \mathrm{atan2}(\mathrm{Im},\; \mathrm{Re}) \bmod 2\pi,
+  \label{eq:phase_extract}\\
+  \hat{U}_0 &= e^{i\hat{\phi}}, \quad |\hat{U}_0| \equiv 1.
+  \label{eq:wavefront}
+\end{align}
+
+Macro-pixel pooling uses circular statistics to avoid phase averaging
+catastrophe:
+\begin{equation}
+  \bar{\phi} = \mathrm{atan2}\!\left(
+    \frac{1}{M^2}\sum \sin\phi_{ij},\;
+    \frac{1}{M^2}\sum \cos\phi_{ij}
+  \right) \bmod 2\pi.
+  \label{eq:circular_mean}
+\end{equation}
+
+Final Kyber decapsulation:
+\begin{align}
+  \hat{\mathbf{u}}, \hat{v} &= \mathrm{Decompress}_q(c_{\mathrm{pred}},
+  d_u, d_v), \label{eq:decompress_final}\\
+  w &= \hat{v} - \mathbf{s}^\top\hat{\mathbf{u}} \pmod{q},
+  \label{eq:inner_product}\\
+  \hat{m}_j &= \ceil{\frac{2}{q} \cdot w_j} \bmod 2.
+  \label{eq:decode_msg}
+\end{align}
+
+
+\subsection{Two-Stage Training and Physical-Layer Security}
+\label{sec:training}
+
+\subsubsection{Stage 1: Amortised Pre-Training}
+Synthetic ciphertexts are generated on-the-fly; AdamW jointly updates
+119 U-Net parameters and the physical distance $d$.
+
+\subsubsection{Stage 2: Blind Test-Time Optimisation (TTO)}
+At deployment, only physics-based and mathematics-based constraints are
+available:
+\begin{equation}
+  \mathcal{L}_{\text{blind}} =
+  \mathcal{L}_{\text{fid}} + 0.5\,\mathcal{L}_{\text{quant}} +
+  0.05\,\mathcal{L}_{\text{TV}}.
+  \label{eq:blind_loss}
+\end{equation}
+The U-Net backbone is frozen at $\mathrm{lr} = 10^{-5}$ while
+$d$ receives $\mathrm{lr} = 10^{-3}$, enabling rapid auto-focusing
+in only 15 gradient steps \textit{without access to the ground-truth
+ciphertext}.
+
+\begin{theorem}[Avalanche Effect --- Physical-Layer Security]
+\label{thm:avalanche}
+An eavesdropper who possesses identical U-Net weights, PRNG seed, and
+Kyber secret key, but estimates $d' = d + 0.1\,\mathrm{mm}$, experiences
+$\mathrm{DFR} = 1$. The FrFT angle $\alpha$ is a nonlinear function of
+$d$; a 0.1\,mm offset cascades through the chirp--FFT--chirp pipeline,
+causing $\norm{e}_\infty > 1920$ for every ciphertext element.
+\end{theorem}
+
+
+% ============================================================================
+\section{The Phase Quantisation Principle}
+\label{sec:bridge}
+% ============================================================================
+
+We now abstract the $\sin^2$ quantisation mechanism
+(\cref{eq:loss_quant}) into a general principle.
+
+\begin{definition}[Phase Quantisation Operator]
+\label{def:pqo}
+Let $\phi \in [0, 2\pi)$ be a continuous phase variable and $L \in
+\mathbb{N}$ a target number of discrete levels. The \textit{phase
+quantisation penalty} is:
+\begin{equation}
+  \mathcal{P}(\phi; L) = \sin^2\!\left(\frac{L}{2}\,\phi\right).
+  \label{eq:pqo}
+\end{equation}
+This function has the following properties:
+\begin{enumerate}
+  \item $\mathcal{P}(\phi; L) = 0$ if and only if
+        $\phi \in \{2\pi k/L : k = 0, 1, \ldots, L-1\}$
+        (the lattice positions).
+  \item $\mathcal{P}(\phi; L) = 1$ at the midpoints
+        $\phi = 2\pi(k + \tfrac{1}{2})/L$.
+  \item $\nabla_\phi \mathcal{P} =
+        \tfrac{L}{2}\sin(L\phi)$ provides a gradient that steers $\phi$
+        toward the nearest lattice point.
+  \item The landscape is $2\pi/L$-periodic, creating $L$ equally spaced
+        attraction basins on the unit circle.
+\end{enumerate}
+\end{definition}
+
+In QROP-Net, the lattice levels are $L = 2^{d_u} = 2048$ (for
+$\mathbf{u}$-coefficients) and $L = 2^{d_v} = 8$ (for
+$v$-coefficients). The $\sin^2$ loss drives each continuous phase
+prediction toward the nearest discrete Kyber level, realising a
+\textit{soft quantisation} that is fully differentiable.
+
+\begin{remark}[Cyclotomic Connection]
+\label{rem:cyclotomic}
+The $L$ zeros of $\mathcal{P}(\phi; L)$ are precisely the $L$-th roots
+of unity $e^{2\pi i k/L}$. When $L = 2n = 512$ (the order of the
+cyclotomic polynomial $X^n + 1$), these are the roots
+$\omega_0, \ldots, \omega_{n-1}$ of \cref{eq:cyclo_roots}. The
+$\sin^2$ loss is thus the \textit{analytic restatement} of the algebraic
+condition $X^n + 1 = 0$ in the phase domain.
+\end{remark}
+
+\begin{remark}[Cosine PQO and Higher-Resolution Cyclotomic Lattices]
+\label{rem:cos2_pqo}
+The PQO admits a structurally identical \emph{cosine} variant
+\begin{equation}
+  \mathcal{P}_{\cos}(\phi; L) = \cos^2\!\left(\frac{L}{2}\,\phi\right),
+  \label{eq:pqo_cos}
+\end{equation}
+whose zero set is
+$\phi \in \{(2k+1)\pi/L : k = 0, 1, \ldots, L-1\}$. These are precisely
+the \emph{primitive $2L$-th roots of unity}, i.e.\ the $L$ roots
+$\omega_j$ of $X^L + 1 = 0$ from \cref{eq:cyclo_roots}. Hence
+$\mathcal{P}_{\cos}(\,\cdot\,; L)$ is the $L$-th cyclotomic PQO,
+parallel to \cref{rem:cyclotomic} but realising the algebraic constraint
+$X^L + 1 = 0$ \emph{directly} on the phase domain rather than the shifted
+unity-root constraint $X^L - 1 = 0$ associated with $\sin^2$.
+
+\smallskip\noindent\textbf{Trivial collapse at $L = 2$.} At $L = 2$ the
+attractor set degenerates to $\{i, -i\}$. Any signal trained with a
+non-trivially weighted $\mathcal{P}_{\cos}(\phi; 2)$ term collapses
+globally onto one of these two points: in particular, in a critical-line
+discriminant network whose loss includes such a term, the empirical
+phase $\arg Z(t)$ is driven to $\pi/2$ \emph{for all $t$ in the trained
+band}, irrespective of whether $t$ lies near a Riemann zero. The $L=2$
+cosine PQO therefore carries no zero-localising information; it merely
+confirms that the attractor mechanism functions as designed.
+
+\smallskip\noindent\textbf{Higher-resolution generalisation (attempted).}
+For $L \geq 4$ the lattice acquires sufficient cardinality, in
+principle, to act as a sector classifier on $S^1$. Each candidate
+ordinate $t$ is assigned a discrete label
+\begin{equation}
+  k(t) \;=\; \arg\min_{0 \leq k < L} \,\big|\arg Z(t) - (2k{+}1)\pi/L\big|
+  \pmod{2\pi},
+  \label{eq:cyclo_label}
+\end{equation}
+naming the cyclotomic sector $\omega_{k(t)}$ closest to the trained
+phase, with the hope that Riemann zeros would occupy a non-trivial
+sub-lattice and thereby provide an arithmetic stratification finer than
+the $L=2$ case admits.
+
+\smallskip\noindent\textbf{Empirical refutation at $L = 4$
+(2026-04-08).} A direct test of this programme was performed using a
+critical-line discriminant network with $L=4$, hidden width $32$, three
+seeds $\{42, 123, 777\}$, $200$ training epochs, and a labelled
+population of $50$ Riemann zeros versus $200$ off-zero ordinates of gap
+$\geq 0.5$ (training script
+\texttt{scripts/phase\_L4\_experiment.py} in the companion
+\textsc{gdl\_unified} repository; output dump at
+\texttt{outputs/analysis/phase\_L4\_experiment.\{json,txt\}}). The
+result is unambiguously negative on three independent axes:
+\begin{enumerate}
+  \item All three seeds fail a $\chi^2$ test of independence between the
+        zero and off-zero $k$-distributions ($p = 0.127, 0.528, 0.410$;
+        pooled $p = 0.154$).
+  \item Of the four cyclotomic sectors $\{k=0,1,2,3\}$ only sectors
+        $k=0$ and $k=1$ are ever populated; sectors $k=2,3$ contain
+        \emph{exactly zero} samples on every seed (asymmetric basin
+        collapse).
+  \item Mean nearest-attractor residuals for zeros and off-zeros agree
+        to within $\sim 5\%$ across all seeds.
+\end{enumerate}
+The L=2 trivial collapse and the L=4 asymmetric collapse therefore
+share a single root cause; we now identify it.
+
+\smallskip\noindent\textbf{Diagnosis: $\Psip$-decoupling defect.} The
+training loss of the discriminant network is a sum
+$\mathcal{L} = \lambda_{\mathrm{res}}\mathcal{L}_{\mathrm{res}} +
+        \lambda_{\mathrm{curv}}\mathcal{L}_{\mathrm{curv}} +
+        \lambda_{\mathrm{tgt}}\mathcal{L}_{\mathrm{tgt}} +
+        \lambda_{\mathrm{pqo}}\mathcal{L}_{\mathrm{pqo}}$,
+in which the target-matching term $\mathcal{L}_{\mathrm{tgt}}$ is built
+against $\Psip$ as defined in \cref{def:psi}\,/\,\cref{eq:psi_n}. As
+written, $\Psip$ depends only on $\|X\|$ and is a synthetically chosen
+$(\alpha,\beta,\gamma,\delta)$ curve carrying \emph{no $\xif$-zero
+information whatsoever}. Consequently:
+\begin{itemize}
+  \item No term of $\mathcal{L}$ injects a $t$-local zero label into training;
+  \item The cosine PQO term $\mathcal{L}_{\mathrm{pqo}}$ is a
+        $t$-\emph{independent} potential whose basin selection is fixed
+        by initialisation, not by the location of $t$ relative to a
+        zero;
+  \item The labelling rule \cref{eq:cyclo_label} is therefore an
+        \emph{operationally disjoint measurement} placed on top of a
+        network that has never been told what a zero is.
+\end{itemize}
+In particular \cref{eq:pqo_cos} (training) and \cref{eq:cyclo_label}
+(measurement) act on incompatible signal categories: the former
+\emph{erases} the $t$-localised information that the latter is trying
+to read out. Increasing $L$ from $2$ to $4, 8, \ldots$ cannot repair
+this — the broken link is upstream of $L$.
+
+\smallskip\noindent\textbf{Status of the cyclotomic PQO programme.} The
+$L \geq 4$ programme as previously formulated is suspended. Its
+revival requires \emph{replacing} \cref{eq:psi_n} by a target carrying
+genuine zero information (the natural candidates are
+$\Psip(t) := \arg \xif(\tfrac{1}{2}+it)$ or the Hardy phase
+$\arg Z(t)$ of \cref{eq:hardy_z}), demoting $\mathcal{P}_{\cos}$ from a
+\emph{training} potential to a pure \emph{measurement} of the resulting
+phase, and re-running the $L=4$ protocol under the new supervision.
+Until such an experiment exists, no claim of cyclotomic stratification
+of Riemann zeros is supported by this work; the data files
+\texttt{phase\_L4\_experiment.*} and \texttt{phase\_pi\_half\_verify.txt}
+are retained as deterministic negative controls and are part of the
+record on which the diagnosis above rests.
+\end{remark}
+
+\begin{remark}[Bohr--Sommerfeld Analogy]
+\label{rem:bohr_sommerfeld}
+The condition $\mathcal{P}(\phi; L) = 0$ is equivalent to
+$L\phi/2 = m\pi$ for $m \in \mathbb{Z}$, \ie,
+\begin{equation}
+  \Delta\nu \;=\; m\pi, \qquad m \in \mathbb{Z},
+  \label{eq:bohr_sommerfeld}
+\end{equation}
+where $\Delta\nu = L\phi/2$ is a rescaled phase accumulation. This is
+precisely the form of the \textit{Bohr--Sommerfeld quantisation condition}
+in semiclassical mechanics, where the action integral around a closed
+orbit must equal an integer multiple of $\pi\hbar$
+(in appropriate units). In optics, the same condition determines
+constructive interference: the path length must accommodate an integer
+number of half-wavelengths. The phase quantisation principle thus unifies:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Domain} & \textbf{Quantised Variable} & \textbf{Condition} \\
+\midrule
+QROP-Net        & Ciphertext phase $\phi_i$
+                 & $\sin^2(2^{d_u-1}\phi_i) = 0$ \\
+Semiclassical QM & Action integral $\oint p\,dq$
+                 & $= (n + \tfrac{1}{2})\pi\hbar$ \\
+Optics (cavity)  & Optical path length $nL_{\mathrm{cav}}$
+                 & $= m\lambda/2$ \\
+Critical line    & Phase of $\xif(s)$
+                 & $\Delta\nu = m\pi$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{remark}
+
+
+% ############################################################################
+% PART II — THE ANALYTIC EXTENSION
+% ############################################################################
+
+\part{The Analytic Extension: Resonance Theory}
+\label{part:resonance}
+
+\vspace{0.5em}
+\noindent\textit{Every mathematical claim in this part has either a
+concrete QROP-Net parallel (noted in Remark environments) or an
+independent reference in the literature. Claims from earlier versions
+of the Resonant Prime Law that lack both are omitted.}
+\vspace{0.5em}
+
+
+% ============================================================================
+\section{Phase Structure of the Completed Zeta Function}
+\label{sec:xi_phase}
+% ============================================================================
+
+\subsection{The Riemann $\xif$-Function}
+
+\begin{definition}[Completed Zeta Function]
+\label{def:xi}
+The Riemann $\xif$-function is defined as:
+\begin{equation}
+  \xif(s) = \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma\!\left(\frac{s}{2}\right)\zeta(s),
+  \label{eq:xi_def}
+\end{equation}
+where $\zeta(s) = \sum_{n=1}^{\infty}n^{-s}$ is the Riemann zeta function
+and $\Gamma$ is the Euler gamma function. The function $\xif$ is entire (no
+poles) and satisfies the functional equation:
+\begin{equation}
+  \xif(s) = \xif(1-s).
+  \label{eq:func_eq}
+\end{equation}
+On the critical line $s = \tfrac{1}{2} + it$, $\xif$ is real-valued:
+$\xif(\tfrac{1}{2}+it) \in \mathbb{R}$.
+\end{definition}
+
+\begin{definition}[Weierstrass Product Representation]
+\label{def:weierstrass}
+Since $\xif(s)$ is entire, it admits a Weierstrass product over its zeros
+$\rho$ (the nontrivial zeros of $\zeta$):
+\begin{equation}
+  \xif(s) = e^{g(s)}\prod_{\rho}
+  \left(1 - \frac{s}{\rho}\right),
+  \label{eq:weierstrass}
+\end{equation}
+for some entire function $g(s)$ ensuring convergence. Differentiating
+$\ln\xif$ gives the \textit{logarithmic derivative}:
+\begin{equation}
+  \frac{\xif'(s)}{\xif(s)} = g'(s) + \sum_{\rho}
+  \frac{1}{s - \rho}.
+  \label{eq:log_deriv}
+\end{equation}
+Away from the zeros, $g'(s)$ is smooth, and the dominant contributions
+come from the poles at $s = \rho$---the nontrivial zeros of $\zeta$.
+\end{definition}
+
+
+\subsection{Amplitude--Phase Decomposition on the Critical Line}
+\label{sec:amp_phase}
+
+For general $s = \sigma + it$ (not restricted to $\sigma = \tfrac{1}{2}$),
+we decompose $\xif$ into amplitude and phase:
+\begin{align}
+  \Ampl(\sigma, t) &= |\xif(\sigma + it)|,
+  \label{eq:amplitude}\\
+  v(\sigma, t) &= \arg\,\xif(\sigma + it),
+  \label{eq:phase_general}
+\end{align}
+so that $\xif(\sigma + it) = \Ampl(\sigma,t)\,e^{iv(\sigma,t)}$.
+Writing $\log\xif = u + iv$ where $u = \log|\xif|$ and
+$v = \arg\xif$, the Cauchy--Riemann equations give:
+\begin{equation}
+  v_\sigma = \mathrm{Re}\!\left(\frac{\xif'}{\xif}\right), \quad
+  v_t = -\mathrm{Im}\!\left(\frac{\xif'}{\xif}\right), \quad
+  u_t = -v_\sigma, \quad u_\sigma = v_t.
+  \label{eq:cauchy_riemann}
+\end{equation}
+
+On the critical line $\sigma = \tfrac{1}{2}$, we write:
+\begin{align}
+  \Phiz(t) &\;:=\; v(\tfrac{1}{2}, t) = \arg\,\xif(\tfrac{1}{2}+it),
+  \label{eq:phase_crit}\\
+  \Ampl(t) &\;:=\; \Ampl(\tfrac{1}{2}, t) = |\xif(\tfrac{1}{2}+it)|.
+  \label{eq:amp_crit}
+\end{align}
+Since $\xif(\tfrac{1}{2}+it) \in \mathbb{R}$, the phase $\Phiz(t)$
+takes values in $\{0, \pi\}$ (modulo $2\pi$), jumping by $\pi$ at each
+zero crossing.
+
+\begin{remark}[QROP-Net Parallel: Amplitude--Phase Separation]
+\label{rem:amp_phase}
+In QROP-Net, the transmitted wavefront $U_0 = e^{i\phi}$ has unit
+amplitude ($|U_0| \equiv 1$) and discrete phase $\phi$. The receiver
+must recover $\phi$ from the intensity $I = |U_d|^2$, which involves
+``undoing'' the amplitude--phase mixing caused by diffraction. The
+structure $\xif = \Ampl\,e^{iv}$ on the critical line presents the
+identical mathematical challenge: separating the amplitude envelope
+from the underlying phase structure.
+\end{remark}
+
+
+\subsection{The Ideal Phase Function $\Psip(n)$}
+
+\noindent\textit{Reader's warning.} The synthetic form
+\cref{eq:psi_n} below was empirically falsified as a supervisory
+target on 2026-04-08; see \cref{rem:psi_defect} immediately following
+the definition and \cref{rem:cos2_pqo} for the diagnosis. The
+definition is retained for historical exposition; the operational
+replacement used in subsequent revisions is \cref{eq:psi_supervised}.
+
+\begin{definition}[Smooth Prime-Counting Phase]
+\label{def:psi}
+For integer $n \geq 2$, the ideal phase function is defined as:
+\begin{equation}
+  \Psip(n) = \alpha\log n +
+  \frac{\beta\sin(\gamma\log n)}{n^\delta},
+  \label{eq:psi_n}
+\end{equation}
+where $\alpha, \beta, \gamma, \delta$ are structural constants:
+\begin{itemize}
+  \item $\alpha > 0$ determines the logarithmic ascent (alignment slope),
+  \item $\beta \geq 0$ controls the oscillation amplitude (resonance
+        strength),
+  \item $\gamma > 0$ is the phase rotation frequency (related to the
+        local Gamma factor),
+  \item $\delta > 0$ controls exponential damping: the oscillation term
+        decays as $n^{-\delta}$, so $\Psip(n) \to \alpha\log n$ for
+        large $n$.
+\end{itemize}
+\end{definition}
+
+The monotone term $\alpha\log n$ mirrors the Riemann--von Mangoldt
+formula $N(T) \sim \frac{T}{2\pi}\log\frac{T}{2\pi e}$ for the zero
+counting function, while the oscillatory correction $\beta\sin(\gamma
+\log n)/n^\delta$ is intended as a heuristic stand-in for local
+fluctuations related to prime gaps.
+
+\begin{remark}[Decoupling defect of \cref{eq:psi_n};
+documented 2026-04-08]
+\label{rem:psi_defect}
+The form \cref{eq:psi_n} as written is a synthetic
+$(\alpha,\beta,\gamma,\delta)$ curve depending only on the magnitude
+$n$ (or, in the network implementation, on $\|X\|$); it carries
+\emph{no} information about the location of Riemann zeros. When used
+as a target for a discriminant network — as in the L=4 cyclotomic PQO
+experiment of \cref{rem:cos2_pqo} — none of the four loss terms
+$\mathcal{L}_{\mathrm{res}},\mathcal{L}_{\mathrm{curv}},\mathcal{L}_{\mathrm{tgt}},
+\mathcal{L}_{\mathrm{pqo}}$ injects a $t$-local zero signal into training,
+and the resulting network necessarily fails to discriminate zeros from
+non-zeros regardless of $L$. The defect is structural rather than
+parametric: no choice of $(\alpha,\beta,\gamma,\delta)$ can repair it.
+
+\smallskip
+The intended replacement, used in subsequent revisions of this work,
+is to redefine the ideal phase on the critical line directly,
+\begin{equation}
+  \Psip(t) \;:=\; \arg \xif(\tfrac{1}{2}+it),
+  \label{eq:psi_supervised}
+\end{equation}
+or equivalently to take $\Psip(t) := \arg Z(t)$ via the Hardy
+$Z$-function of \cref{eq:hardy_z}. Either choice supplies $\xif$-zero
+information \emph{by construction}, restoring the causal chain between
+the supervisory target and the cyclotomic measurement
+\cref{eq:cyclo_label}. The synthetic form \cref{eq:psi_n} is retained
+in the text only as the historical object whose failure motivated the
+diagnosis.
+
+\smallskip\noindent\textbf{Supervised-$\Psip$ control experiment
+(2026-04-08).} The replacement \cref{eq:psi_supervised} was tested
+directly. The same discriminant network architecture (hidden width
+$32$, three layers, three seeds $\{42,123,777\}$, $200$ epochs,
+$t \in [100, 200]$, $50$ zeros vs.\ $200$ off-zero ordinates of gap
+$\geq 0.5$) was retrained with two single-line modifications relative
+to the L=4 baseline: (i) the model's $\Psip$ output was overwritten by
+the precomputed $\arg\xif(\tfrac{1}{2}+it)$ supplied as a supervisory
+signal; (ii) $\lambda_{\mathrm{pqo}}=0$, removing the cosine PQO from
+training and retaining it only as the cyclotomic measurement
+\cref{eq:cyclo_label} (script
+\texttt{scripts/phase\_supervised\_experiment.py}; output
+\texttt{phase\_supervised\_experiment.\{json,txt\}}). The result is
+again negative on the headline metric — the seed-pooled phase MSE of
+$\arg Z(t)$ against $\arg \xif(\tfrac{1}{2}+it)$ is essentially
+identical for zeros and non-zeros (means $2.256$ vs.\ $2.247$, ratio
+$1.004$, Welch $p = 0.976$) — and the per-seed Welch tests are
+inconsistent in direction (one seed $p=0.034$ \emph{against} the
+expected ordering). Two structural symptoms are nevertheless new and
+informative:
+\begin{enumerate}
+  \item The asymmetric basin collapse of the L=4 baseline is broken:
+        all four cyclotomic sectors $k\in\{0,1,2,3\}$ are now populated
+        on every seed. The $t$-independent attractor freeze induced by
+        $\mathcal{L}_{\mathrm{pqo}}$ is therefore confirmed, by ablation,
+        as one of the two contributors to that collapse.
+  \item The recorded best validation loss ($\approx 1.5$--$1.7$) is
+        substantially smaller than the recorded phase MSE
+        ($\approx 2.25$), implying that the $\mathcal{L}_{\mathrm{tgt}}$
+        contribution is a small fraction of $\mathcal{L}$ even after
+        $\mathcal{L}_{\mathrm{pqo}}$ has been zeroed out. The remaining
+        $\mathcal{L}_{\mathrm{res}}$ and $\mathcal{L}_{\mathrm{curv}}$
+        terms dominate the gradient, so the network is not actually
+        being asked to fit $\arg \xif$.
+\end{enumerate}
+This refines, but does \emph{not} retract, the diagnosis above:
+$\Psip$-decoupling is a necessary defect of \cref{eq:psi_n}, and
+\cref{eq:psi_supervised} repairs it at the level of the target alone;
+but the loss-weight imbalance and a suspected measurement artefact
+(arithmetic averaging of channel-wise $\arg Z$, which destroys the
+$\pm\pi$ wrap signal that \cref{eq:phase_crit} predicts) are
+\emph{additional} broken links. A second control experiment with
+$\lambda_{\mathrm{res}}=\lambda_{\mathrm{curv}}=\lambda_{\mathrm{pqo}}=0$
+(only $\mathcal{L}_{\mathrm{tgt}}$ active) and a circular-mean
+read-out is described in \cref{rem:isolation} below.
+\end{remark}
+
+\begin{remark}[Isolation experiment: supervisory chain is sound, $\pm\pi$
+jump representability is not; documented 2026-04-09]
+\label{rem:isolation}
+To disentangle the three suspected defects of \cref{rem:psi_defect} —
+(i) $\Psip$-decoupling via \cref{eq:psi_n}, (ii) loss-weight
+imbalance, and (iii) an arithmetic-mean read-out that cannot
+represent the $\pm\pi$ wrap — we ran a maximally isolated control in
+which all three channels were simultaneously closed. The network was
+retrained with $\lambda_{\mathrm{res}}=\lambda_{\mathrm{curv}}
+=\lambda_{\mathrm{pqo}}=0$ and only
+$\mathcal{L}_{\mathrm{tgt}}$ active, the supervisory target hard-set
+to $\arg\xif(\tfrac{1}{2}+it)$ as in \cref{eq:psi_supervised}, and
+the per-sample phase averaged via a \emph{circular} mean
+$\arg\sum_c e^{i\hat\Psip_c}$ rather than the arithmetic
+channel-wise average (script
+\texttt{scripts/phase\_isolation\_experiment.py}; output
+\texttt{phase\_isolation\_experiment.\{json,txt\}}; same
+architecture, seeds, epochs, and $t$-window as in
+\cref{rem:psi_defect,rem:cos2_pqo}).
+The result is strongly \emph{positive}:
+\begin{itemize}
+  \item \textbf{Circular read-out.} Seed-pooled phase MSE against
+  $\arg\xif(\tfrac{1}{2}+it)$ is $2.1708$ on the $\xif$-zero set and
+  $0.1195$ on the off-zero set, a ratio of $18.16\times$ and a Welch
+  $p=1.18\times10^{-15}$. Per-seed ratios are $29.5,\,31.9,\,9.5$ with
+  $p\in\{4.5,3.7,5.5\}\times10^{-6}$.
+  \item \textbf{Arithmetic read-out, same weights.} The identical
+  training run, read out by the old arithmetic mean, collapses to
+  zero/non-zero means $2.410$ vs.\ $1.849$, ratio $1.30$, pooled
+  $p=0.046$. The circular vs.\ arithmetic gap is therefore not a
+  training difference but a measurement difference.
+\end{itemize}
+Both hypotheses of \cref{rem:psi_defect} are confirmed: the
+loss-weight imbalance (ii) and the arithmetic-mean read-out (iii)
+each suffice to hide the signal, and together they fully explain the
+negative outcomes of \cref{rem:cos2_pqo} and of the first supervised
+control. With both closed, the supervisory chain
+$\arg\xif(\tfrac{1}{2}+it)\mapsto\mathcal{L}_{\mathrm{tgt}}\mapsto
+\hat\Psip$ is \emph{intact}: the off-zero MSE of $0.12$ shows that
+the network learns $\arg\xif$ essentially perfectly on the smooth
+branch.
+
+\smallskip
+The residual on-zero MSE of $2.17\approx(\pi/2)^2$ has a clean
+interpretation. On the critical line $\xif$ is real; numerically
+$|\mathrm{Im}\,\xi|/|\mathrm{Re}\,\xi|\sim10^{-53}$ in our cache,
+so $\arg\xif$ is effectively a $\{0,\pi\}$-valued step function
+switching sign at every Riemann zero. The network output
+$\hat\Psip(t)$ is a smooth $\mathbb{R}$-valued field and cannot
+represent such an instantaneous $\pm\pi$ jump; its best
+circular-mean fit in a neighbourhood of a zero is, up to a constant,
+the halfway value, contributing exactly $(\pi/2)^2$ to the MSE. The
+remaining defect is therefore neither in the target nor in the
+read-out but in the \emph{output representation} of the discriminant
+network, and is addressed in \cref{rem:cos2_pqo,rem:psi_defect} only
+by raising $L$; a proper fix requires either a smoothed zero-crossing
+target (e.g.\ $\mathrm{sign}(Z(t))\cdot e^{-|Z(t)|^2/\sigma^2}$) or a
+head that predicts $\xif(\tfrac{1}{2}+it)$ as a complex vector and
+reads out $\arg$ post-hoc.
+
+\smallskip
+\noindent\textbf{Smooth zero-crossing confirmation (2026-04-10).}
+We tested two smooth surrogates that encode the same sign information
+as $\arg\xif$ without the $\pm\pi$ discontinuity, under the same
+isolation setup ($\lambda_{\mathrm{res}}=\lambda_{\mathrm{curv}}
+=\lambda_{\mathrm{pqo}}=0$, \texttt{in\_features}$=128$, three seeds):
+\begin{itemize}
+  \item \textbf{Bump target}
+  $\Psi_{\mathrm{bump}}(t) = \mathrm{sign}(\mathrm{Re}\,\xif)
+   \cdot e^{-(\mathrm{Re}\,\xif)^2/\sigma^2}$,
+  $\sigma=\mathrm{median}(|\mathrm{Re}\,\xif|)$:
+  zero MSE $=0.935$, off-zero MSE $=0.693$, ratio $1.35\times$
+  (gap reduction $92.6\%$).
+  \item \textbf{Normalised target}
+  $\Psi_{\mathrm{norm}}(t) = \mathrm{Re}\,\xif(\tfrac{1}{2}+it)
+   \big/\max|\mathrm{Re}\,\xif|$:
+  zero MSE $=1.8\times 10^{-5}$, off-zero MSE $=5.8\times 10^{-4}$,
+  ratio $0.03\times$ (gap reduction $99.8\%$).
+\end{itemize}
+The normalised target eliminates the zero/non-zero gap entirely ---
+in fact \emph{inverting} it, with zeros easier than non-zeros.
+This confirms that the $\pm\pi$ discontinuity was the
+\emph{sole} bottleneck: the network architecture and training
+pipeline have no residual deficiency once the target is smooth.
+The analytic content of the programme survives; only the
+$\{0,\pi\}$ encoding of the target needs replacement.
+(Script \texttt{scripts/smooth\_zero\_crossing.py};
+output \texttt{smooth\_zero\_crossing.\{json,txt\}}.)
+
+\smallskip
+We record the isolation and smooth-target experiments here as
+evidence that the analytic content of the programme — the
+identification $\Psip(t)=\arg\xif(\tfrac{1}{2}+it)$ of
+\cref{eq:psi_supervised} — is the correct self-dual target; the
+smooth-target variant resolves the remaining representability barrier.
+\end{remark}
+
+
+\subsection{Connection to the Riemann--Siegel $\vartheta$ Function}
+
+The classical phase analysis of $\zeta$ on the critical line uses the
+Riemann--Siegel theta function:
+\begin{equation}
+  \vartheta(t) = \arg\,\Gamma\!\left(\frac{1/4 + it/2}{1}\right) -
+  \frac{t}{2}\log\pi
+  \;\approx\;
+  \frac{t}{2}\log\frac{t}{2\pi} - \frac{t}{2} - \frac{\pi}{8} +
+  O(t^{-1}).
+  \label{eq:riemann_siegel_theta}
+\end{equation}
+The Hardy $Z$-function is defined as:
+\begin{equation}
+  Z(t) = e^{i\vartheta(t)}\zeta(\tfrac{1}{2}+it),
+  \label{eq:hardy_z}
+\end{equation}
+which is real for real $t$. Its sign changes mark the zeros of $\zeta$
+on the critical line. The Gram points $g_n$ are defined by
+$\vartheta(g_n) = n\pi$, providing a phase-quantised grid along the
+$t$-axis.
+
+\begin{definition}[Gram Points]
+\label{def:gram}
+The $n$-th Gram point $g_n$ satisfies:
+\begin{equation}
+  \vartheta(g_n) = n\pi, \quad n \in \mathbb{Z}.
+  \label{eq:gram_points}
+\end{equation}
+Between consecutive Gram points, the phase $\vartheta(t)$ advances by
+exactly $\pi$. By the argument principle, the number of zeros of
+$\zeta(\tfrac{1}{2}+it)$ up to height $T$ is:
+\begin{equation}
+  N(T) = \frac{1}{\pi}\Big[\vartheta(T) +
+  \mathrm{Im}\log\zeta(\tfrac{1}{2}+iT)\Big] + O(1).
+  \label{eq:zero_counting}
+\end{equation}
+\end{definition}
+
+\begin{remark}[QROP-Net Parallel: Phase Grid]
+\label{rem:gram_grid}
+The Gram points $\{\vartheta(g_n) = n\pi\}$ form a discrete phase
+lattice on the critical line, directly analogous to the $2^{d_u}$
+discrete phase levels on the SLM in QROP-Net. In both systems, the
+fundamental question is: \textit{does the continuous signal (the optical
+wavefront, the $\xif$-function) align with the prescribed discrete
+phase grid?}
+\end{remark}
+
+
+% ============================================================================
+\section{Gate Structure: Phase Resonance as Prime Detection}
+\label{sec:gates}
+% ============================================================================
+
+We now formalise the two-gate criterion for identifying ``resonant''
+points on or near the critical line.
+
+\subsection{Gate A: Phase Quantisation (Alignment)}
+
+\begin{definition}[Gate A --- Phase Quantisation Condition]
+\label{def:gate_a}
+Consider a path in the complex $s$-plane from a reference point
+$(1/2, t_{\mathrm{ref}})$ to $(\sigma, t)$. The total accumulated
+phase change along this path is:
+\begin{equation}
+  \Delta v(\sigma, t) = \int_{t_{\mathrm{ref}}}^{t}
+  v_t(\tfrac{1}{2}, \tau)\,d\tau +
+  \int_{1/2}^{\sigma}v_\sigma(\sigma', t)\,d\sigma'.
+  \label{eq:phase_accumulation}
+\end{equation}
+Gate~A requires this phase accumulation to be an integer multiple of $\pi$:
+\begin{equation}
+\boxed{
+  \GateA: \quad \Delta v(\sigma, t) = m\pi, \quad m \in \mathbb{Z}.
+}
+\label{eq:gate_a}
+\end{equation}
+\end{definition}
+
+On the critical line ($\sigma = 1/2$), the path reduces to the
+$t$-direction only, and Gate~A becomes:
+\begin{equation}
+  \Delta v(\tfrac{1}{2}, t) =
+  \vartheta(t) - \vartheta(t_{\mathrm{ref}}) +
+  \arg\zeta(\tfrac{1}{2}+it) - \arg\zeta(\tfrac{1}{2}+it_{\mathrm{ref}})
+  = m\pi,
+  \label{eq:gate_a_critical}
+\end{equation}
+which, for $t_{\mathrm{ref}} = 0$ and $\vartheta(0) = 0$, reduces to
+the Gram point condition $\vartheta(t) = m\pi$ (up to the $\arg\zeta$
+correction).
+
+\begin{remark}[QROP-Net Parallel: $\sin^2$ Quantisation]
+\label{rem:gate_a_parallel}
+Gate~A is the \textit{exact analytic number theory counterpart} of the
+QROP-Net quantisation loss $\mathcal{L}_{\mathrm{quant}}$
+(\cref{eq:loss_quant}). In QROP-Net, the $\sin^2$ penalty drives
+continuous phase to the nearest discrete level; Gate~A selects points
+where the continuous phase $v(\sigma,t)$ is quantised to integer
+multiples of $\pi$. The phase quantisation operator
+(\cref{eq:pqo}) with $L=2$ gives $\mathcal{P}(v; 2) =
+\sin^2(v) = 0$ at $v = m\pi$, which is exactly Gate~A.
+\end{remark}
+
+
+\subsection{Gate B: Phase Stationarity (Curvature)}
+
+\begin{definition}[Gate B --- Phase Stationarity Condition]
+\label{def:gate_b}
+The phase is \textit{stationary} in the $\sigma$-direction:
+\begin{equation}
+\boxed{
+  \GateB: \quad v_\sigma(\sigma, t) = 0.
+}
+\label{eq:gate_b}
+\end{equation}
+By the Cauchy--Riemann relations (\cref{eq:cauchy_riemann}), this is
+equivalent to:
+\begin{equation}
+  \mathrm{Im}\!\left(\frac{\xif'(\sigma+it)}{\xif(\sigma+it)}\right) = 0,
+  \label{eq:gate_b_cr}
+\end{equation}
+and also to the amplitude extremum condition $u_t(\sigma,t) = 0$, \ie,
+\begin{equation}
+  \frac{\partial}{\partial t}|\xif(\sigma + it)| = 0.
+  \label{eq:amplitude_extremum}
+\end{equation}
+Gate~B selects points where the amplitude $\Ampl(\sigma,t)$ has a local
+maximum (or saddle) in the $t$-direction.
+\end{definition}
+
+\begin{remark}[Physical Interpretation: Resonance Peak]
+\label{rem:resonance_peak}
+In scattering theory~\cite{khare1997}, $\xif(s)$ can be interpreted as
+a scattering amplitude, with its nontrivial zeros corresponding to
+resonances. At a resonance, the scattering amplitude reaches a
+\textit{local maximum} (Gate~B: $u_t = 0$) and the phase shift
+passes through a $\pi$-increment (Gate~A: $\Delta v = m\pi$). This is
+precisely the condition for constructive interference in a resonant
+cavity: the wave ``lingers'' at the resonance, building up amplitude
+while maintaining phase coherence.
+\end{remark}
+
+\begin{remark}[QROP-Net Parallel: Fidelity Loss]
+\label{rem:gate_b_parallel}
+Gate~B requires the amplitude $\Ampl(t)$ to be stationary at the point
+of interest. In QROP-Net, the fidelity loss $\mathcal{L}_{\mathrm{fid}}$
+(\cref{eq:loss_fid}) compares the reconstructed amplitude pattern with
+the target. Minimising $\mathcal{L}_{\mathrm{fid}}$ drives the system
+toward amplitude stationarity: at convergence, the predicted intensity
+matches the target, meaning $\partial \hat{I}/\partial(\text{params}) = 0$.
+Both systems enforce amplitude stability as a necessary condition for
+correct signal recovery.
+\end{remark}
+
+
+\subsection{Combined Discriminant: Resonant Points}
+
+\begin{definition}[Resonant Prime Selection]
+\label{def:resonant_prime}
+A point $(\sigma^*, t^*)$ in the $s$-plane is a \textit{resonant point}
+if both gates are simultaneously satisfied:
+\begin{equation}
+\boxed{
+  \pis(\sigma^*, t^*) = 1 \quad\iff\quad
+  \begin{cases}
+    \GateA: & \Delta v(\sigma^*, t^*) = m\pi \\
+    \GateB: & v_\sigma(\sigma^*, t^*) = 0
+  \end{cases}
+}
+\label{eq:discriminant}
+\end{equation}
+If $\sigma^* = \tfrac{1}{2}$ (on the critical line), the resonant point
+corresponds to a zero of $\zeta(s)$ or a near-zero. An integer $n$ is
+selected as a \textit{resonant prime} if the phase alignment condition
+$\Phiz(t_n) = \Psip(n)$ holds at a resonant point $t_n$.
+\end{definition}
+
+The simultaneous satisfaction of both conditions is the defining
+characteristic:
+\begin{itemize}
+  \item Gate~A alone selects too many points (all Gram points, including
+        those between zeros).
+  \item Gate~B alone selects amplitude extrema that may not be
+        phase-aligned.
+  \item Their \textit{intersection} yields candidates that are both
+        phase-quantised and amplitude-extremal---the signatures of
+        true resonances.
+\end{itemize}
+
+
+% ============================================================================
+\section{The $\sigma$-Lift and Error Tolerance}
+\label{sec:sigma_lift}
+% ============================================================================
+
+\subsection{Deviation from the Critical Line}
+
+\begin{definition}[$\sigma$-Lift]
+\label{def:sigma_lift}
+For a resonant point $(\sigma^*, t^*)$ satisfying both gates, the
+$\sigma$-lift is:
+\begin{equation}
+  \ell := \sigma^* - \frac{1}{2}.
+  \label{eq:sigma_lift}
+\end{equation}
+The Riemann Hypothesis is equivalent to the statement that $\ell = 0$
+for all nontrivial resonant points.
+\end{definition}
+
+\begin{proposition}[Error Threshold Analogy]
+\label{prop:threshold}
+The $\sigma$-lift $\ell$ plays the same structural role as the LWE
+error $|e|_{\Zq}$ in Kyber:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+& \textbf{QROP-Net} & \textbf{Critical Line} \\
+\midrule
+Variable        & $|e|_{\Zq}$            & $\ell = \sigma^* - 1/2$ \\
+Threshold       & $\ceil{q/4} = 1920$    & $\ell = 0$ \\
+Success         & $|e|_{\Zq} < 1920$     & $\ell = 0$ (RH) \\
+Failure mode    & $\mathrm{DFR} = 1$     & Zero off critical line \\
+Sensitivity     & $\Delta d = 0.1\,$mm   & $\ell \neq 0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+In both systems, there exists a \textbf{hard boundary} beyond which the
+signal is irrecoverably lost. The ``error'' in one system is a literal
+decryption failure; in the other, it is a migration of the zero away from
+the line of symmetry.
+\end{proposition}
+
+
+\subsection{Scattering Interpretation and Unitarity}
+
+Khare~\cite{khare1997} proposed interpreting $\zeta(s)$ as a scattering
+amplitude, with the nontrivial zeros as resonances. LeClair and
+Mussardo~\cite{leclair2023} formalised this by treating the zeros as
+\textit{quantised energies of a scattering system}, deriving a
+Bethe-ansatz/phase-quantisation approach to locate them.
+
+In their framework, a zero at $s = \sigma^* + it^*$ with
+$\sigma^* \neq \tfrac{1}{2}$ corresponds to a \textit{non-unitary}
+scattering matrix: the system has absorption or leakage. The
+$\sigma$-lift $\ell$ quantifies the \textit{degree of non-unitarity}:
+\begin{equation}
+  |\ell| = |\sigma^* - \tfrac{1}{2}| \propto
+  \text{``absorption coefficient''},
+  \label{eq:non_unitarity}
+\end{equation}
+where $\ell = 0$ corresponds to a unitary (lossless) S-matrix and
+$\ell \neq 0$ to a dissipative channel.
+
+\begin{remark}[QROP-Net Parallel: Channel Loss]
+\label{rem:unitarity}
+In QROP-Net, the optical channel introduces noise (Poisson, read noise,
+ADC quantisation) that degrades the phase signal. The ``channel quality''
+is directly measured by the LWE error: higher noise $\to$ larger $|e|_{\Zq}$
+$\to$ closer to the DFR threshold. Similarly, $|\ell| > 0$ indicates
+``noise'' in the analytic continuation---the zero is not exactly on the
+symmetry axis. Both systems measure signal degradation by the distance
+from an ideal reference (the lattice point, the critical line).
+\end{remark}
+
+
+\subsection{Berry Phase and Holonomy}
+\label{sec:berry}
+
+The phase winding around a zero of $\xif(s)$ provides a topological
+invariant.
+
+\begin{proposition}[Phase Winding Number]
+\label{prop:winding}
+Let $\mathcal{C}$ be a closed contour in the $s$-plane encircling
+exactly $N$ zeros of $\xif(s)$. Then:
+\begin{equation}
+  \oint_{\mathcal{C}} \nabla v \cdot d\mathbf{s} = 2\pi N,
+  \label{eq:winding}
+\end{equation}
+by the argument principle. This is a statement of \textit{holonomy}:
+the total phase change around the loop is $2\pi$ per enclosed zero,
+directly analogous to the Berry phase~\cite{berry1984} in quantum
+mechanics, where the geometric phase accumulated over a cyclic path
+is $2\pi$ times the Chern number.
+\end{proposition}
+
+Gate~A's condition $\Delta v = m\pi$ along an open path from the
+reference point to $(\sigma, t)$ is a \textit{partial holonomy}
+condition: the path accumulates $m$ half-turns, fixing a
+\textit{topological phase index} $m$ for each resonant point.
+
+\begin{remark}[QROP-Net Parallel: Phase Wrapping]
+\label{rem:phase_wrapping}
+In QROP-Net, the 2-channel $(\mathrm{Re}, \mathrm{Im})$ output was
+specifically designed to avoid the phase-wrapping discontinuity at
+$0/2\pi$. The same topological obstruction appears in the
+$\xif$-function: $v(\sigma,t)$ has branch cuts and $2\pi$ jumps at
+zeros. The winding number (\cref{eq:winding}) counts these jumps,
+just as QROP-Net's circular statistics (\cref{eq:circular_mean})
+handle the $0/2\pi$ boundary correctly.
+\end{remark}
+
+
+% ============================================================================
+\section{Multi-Group Zero Detection: The Polyadic Frame}
+\label{sec:polyadic}
+% ============================================================================
+
+The numerical implementation of the gate conditions requires robust
+evaluation of the logarithmic derivative $\xif'/\xif$ on the critical
+line, where $\xif$ has zeros (causing $\xif'/\xif$ to diverge). The
+\textit{polyadic frame} approach resolves this by using multiple
+directional channels to average out the singularity.
+
+\subsection{Target Functions and Evaluation Points}
+
+The target function $f$ is unified across the Riemann $\xif$ and
+Dirichlet $L$-functions:
+\begin{align}
+  \xif(s) &= \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s),
+  \label{eq:xi_target}\\
+  \Lambda(s, \chi) &= \left(\frac{q}{\pi}\right)^{(s+\epsilon)/2}
+  \Gamma\!\left(\frac{s+\epsilon}{2}\right)L(s,\chi),
+  \label{eq:lambda_target}
+\end{align}
+where $q$ is the modulus, $\epsilon \in \{0,1\}$ is the parity indicator
+of the Dirichlet character $\chi$, and all evaluations are on the
+critical line $s(t) = \tfrac{1}{2} + it$.
+
+The logarithmic derivative connects directly to primes via the Euler
+product:
+\begin{equation}
+  \frac{f'(s)}{f(s)} = -\sum_{\rho}\frac{1}{s-\rho} +
+  (\text{smooth part}),
+  \label{eq:log_deriv_poles}
+\end{equation}
+where the sum runs over the nontrivial zeros $\rho$, and the dominant
+contributions come from nearby zeros. This is directly related to the
+Euler product representation:
+\begin{equation}
+  \zeta(s) = \prod_{p\;\text{prime}}(1-p^{-s})^{-1}, \qquad
+  L(s,\chi) = \prod_p(1-\chi(p)p^{-s})^{-1},
+  \label{eq:euler_products}
+\end{equation}
+from which:
+\begin{equation}
+  -\frac{f'(s)}{f(s)} \approx \sum_{n \geq 1}
+  \Lambda(n)\chi(n)\,n^{-s},
+  \label{eq:euler_log_deriv}
+\end{equation}
+where $\Lambda(n)$ is the von Mangoldt function ($\Lambda(n) = \log p$
+if $n = p^k$, else $0$). The oscillatory sums over primes directly
+produce the vibrations that Gate~A quantises.
+
+
+\subsection{Directional Channels}
+\label{sec:channels}
+
+Rather than evaluating $f'/f$ along a single direction (which is
+sensitive to noise and aliasing), we introduce $m$ directional channels.
+Each channel $k$ has a basis vector:
+\begin{equation}
+  \mathbf{e}_k = (\cos\theta_k, \;\lambda_k\sin\theta_k),
+  \label{eq:channel_vector}
+\end{equation}
+where $\theta_k$ is the channel angle and $\lambda_k$ is an anisotropic
+scaling factor. The recommended 3-channel standard set is:
+\begin{equation}
+  (\theta, \lambda, w) = (-30^\circ, 1.10, 0.40), \;
+  (15^\circ, 0.85, 0.35), \;
+  (60^\circ, 1.00, 0.25),
+  \label{eq:channel_set}
+\end{equation}
+with channel weights $w_k$ normalised to $\sum w_k = 1$.
+
+An anisotropic scaling matrix adapts to the local geometry:
+\begin{equation}
+  M(t) = \mathrm{diag}\!\left(\frac{1}{\mu(t)},\;
+  \frac{1}{\nu(t)}\right),
+  \label{eq:aniso_scale}
+\end{equation}
+where $\mu(t), \nu(t) > 0$ are smooth profile functions. The actual
+directional displacement for step $h > 0$ is:
+\begin{equation}
+  \delta_k(t) = h\,(v_{k,x} + iv_{k,y}), \quad
+  \mathbf{v}_k = R(\theta(t))\,M(t)\,\mathbf{e}_k,
+  \label{eq:displacement}
+\end{equation}
+where $R(\theta)$ is a rotation matrix and $\theta(t)$ varies smoothly
+around $t_0$.
+
+
+\subsection{Central Difference Log-Derivative}
+\label{sec:central_diff}
+
+The effective log-derivative along channel $k$ is computed via central
+differences:
+\begin{equation}
+  D_k\xif(s) \approx
+  \frac{\xif(s + \delta_k) - \xif(s - \delta_k)}{2h\,\xif(s)}.
+  \label{eq:central_diff}
+\end{equation}
+The \textit{weighted multi-channel log-derivative} is:
+\begin{equation}
+  \Lhat(t) = \sum_k w_k \cdot
+  \frac{f(s + \delta_k) - f(s - \delta_k)}{2h\,f(s)},
+  \label{eq:lhat}
+\end{equation}
+where the channel averaging reduces directional bias and improves
+stability near zeros. Since $f$ is analytic, the central difference
+has error $O(h^2)$. We decompose $\Lhat(t) = v_t(t) + i\,v_\sigma(t)$
+into its real and imaginary parts.
+
+
+\subsection{Gauge ODE for Phase Correction}
+\label{sec:gauge_ode}
+
+The real part $v_t(t)$ contains a slow drift that must be removed
+before the final discriminant can be applied. We define a gauge ODE:
+\begin{equation}
+  \tau\dot{\psi} + \psi = v_t, \quad \dot{\phi} = \psi,
+  \label{eq:gauge_ode}
+\end{equation}
+with initial conditions $\phi(t_0) = 0$, $\psi(t_0) = v_t(t_0)$. Here
+$\tau > 0$ is the gauge damping constant (default: $\tau = 0.04$). The
+ODE integrates $v_t$ while smoothing out high-frequency noise. The
+numerical scheme uses a stable trapezoidal discretisation:
+\begin{align}
+  \alpha_j &= \frac{\Delta t_j}{\tau + \Delta t_j},
+  \label{eq:ode_alpha}\\
+  \psi_j &= \psi_{j-1} + \alpha_j(v_{t,j} - \psi_{j-1}),
+  \label{eq:ode_psi}\\
+  \phi_j &= \phi_{j-1} + \tfrac{1}{2}(\psi_j + \psi_{j-1})\,\Delta t_j.
+  \label{eq:ode_phi}
+\end{align}
+
+
+\subsection{Final Discriminant Function}
+\label{sec:discriminant}
+
+The gauge-corrected final discriminant combines both gates:
+\begin{equation}
+\boxed{
+  F_2(t) = \mathrm{Im}\!\Big\{
+    e^{-i\phi(t)}\Big(\Lhat(t) - \dot{\phi}(t)\Big)
+  \Big\} = 0.
+}
+\label{eq:F2}
+\end{equation}
+At a zero $t^*$ of $F_2$:
+\begin{itemize}
+  \item The imaginary part vanishes, meaning the phase-corrected
+        log-derivative is aligned with the accumulated gauge phase
+        $\to$ \textbf{Gate~A} (phase quantisation) is satisfied.
+  \item The sign change of $F_2$ through zero indicates a phase crossing
+        $\to$ \textbf{Gate~B} (stationarity) is locally satisfied.
+\end{itemize}
+
+\begin{remark}[QROP-Net Parallel: Blind Self-Calibration]
+\label{rem:tto_parallel}
+The gauge ODE (\cref{eq:gauge_ode}) self-corrects the phase drift
+\textit{without knowing the true zero locations}. This is structurally
+identical to QROP-Net's blind TTO (\cref{eq:blind_loss}), which
+corrects lens misalignment \textit{without knowing the true ciphertext}.
+Both systems:
+\begin{enumerate}
+  \item Use physics/mathematics-based constraints (not ground truth),
+  \item Converge in a small number of steps (15 for TTO, $O(N)$ grid
+        points for $F_2$),
+  \item Achieve self-calibration through internal consistency of the
+        signal structure.
+\end{enumerate}
+\end{remark}
+
+
+\subsection{Numerical Verification and Convergence}
+\label{sec:polyadic_results}
+
+The discriminant $F_2(t) = 0$ is searched numerically on a uniform grid
+$[T-W, T+W]$ with $N$ points, where $W = 0.002$--$0.005$. The algorithm:
+
+\begin{algorithm}[ht]
+\DontPrintSemicolon
+\caption{Polyadic Zero Detection}
+\label{alg:polyadic}
+\KwIn{Target $f$, band centre $T$, window $W$, channels
+$\{(\theta_k, \lambda_k, w_k)\}$, step $h$, gauge $\tau$}
+\KwOut{Zero candidates $\{t^*\}$}
+$s_j \gets \tfrac{1}{2} + it_j$ for uniform grid $t_j \in [T-W, T+W]$\;
+\ForEach{channel $k$ and grid point $j$}{
+  $\delta_k(t_j) \gets h\,(v_{k,x}+iv_{k,y})$ via \cref{eq:displacement}\;
+  $D_k \gets [f(s_j+\delta_k) - f(s_j-\delta_k)] / (2h\,f(s_j))$\;
+}
+$\Lhat(t_j) \gets \sum_k w_k\,D_k$\;
+Extract $v_t \gets \mathrm{Re}(\Lhat)$,
+$v_\sigma \gets \mathrm{Im}(\Lhat)$\;
+Integrate gauge ODE (\cref{eq:ode_alpha}--\ref{eq:ode_phi}) to
+get $\phi(t_j)$\;
+$F_2(t_j) \gets \mathrm{Im}\{e^{-i\phi_j}(\Lhat_j - \dot{\phi}_j)\}$\;
+Detect sign changes of $F_2$; refine by linear interpolation\;
+Verify invariance: Frame $M_0$ vs $M_2$, channel swap, window shift\;
+\end{algorithm}
+
+\begin{property}[Convergence Rate]
+\label{prop:convergence}
+Let $h_{\min}$ be the smallest step tested. The convergence indicators are:
+\begin{align}
+  p_{\mathrm{LD}} &= \frac{\log\sup_t|\mathrm{LD}(h) - \mathrm{LD}(h_{\min})|}
+  {\log h} \approx 2.0, \label{eq:conv_ld}\\
+  p_{F_2} &= \frac{\log\sup_t|F_2(h) - F_2(h_{\min})|}
+  {\log h} \approx 2.0, \label{eq:conv_f2}
+\end{align}
+confirming $O(h^2)$ convergence as expected for central differences.
+The zero location $t^*$ is invariant to:
+\begin{itemize}
+  \item Frame profile ($M_0$ flat vs $M_2$ strong): $|t^*_{M_0} - t^*_{M_2}| / \Delta t_{\mathrm{grid}} < 10^{-3}$.
+  \item Channel configuration (3-channel vs 2-channel): $r_{\mathrm{channel}} < 0.1$.
+  \item Window shift ($\pm\delta$ perturbation): $r_{\mathrm{window}} < 0.2$.
+\end{itemize}
+\end{property}
+
+Verified targets include:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Function} & \textbf{Band} & \textbf{$t^*$} \\
+\midrule
+$\xif(s)$ & $t \approx 141.12$ & 141.123703 \\
+$L(s,\chi_3^{\mathrm{odd}})$ & $t \approx 140.61$ & 140.611723 \\
+$L(s,\chi_8^{\mathrm{even}})$ & $t \approx 141.08$ & 141.083569 \\
+$L(s,\chi_5^{\mathrm{cmplx}})$ & $t \approx 140.97$ & 140.966280 \\
+\bottomrule
+\end{tabular}
+\end{center}
+All results are invariant under the step sweep $h \in \{2\times10^{-7},
+10^{-6}, 5\times10^{-6}, 10^{-5}\}$.
+
+
+\subsection{Cross-Validation: Three Independent Axes}
+\label{sec:cross_validation}
+
+The zero candidates from $F_2 = 0$ are validated against three independent
+data sources with fundamentally different error profiles:
+
+\subsubsection{Axis A: Partial Euler Product Matching}
+The partial sum $S_N(t;\chi) = \sum_{n \leq N}\Lambda(n)\chi(n)\,
+n^{-1/2-it}$ approximates $-f'(s)/f(s)$ near $s = \tfrac{1}{2}+it$
+for sufficiently large $N$. A match between $\Lhat(t^*)$ and $S_N(t^*;\chi)$
+within tolerance confirms that the zero candidate is consistent with the
+Euler product.
+
+\subsubsection{Axis B: Explicit Chebyshev $\psi(x)$ Recovery}
+The prime-counting function $\psi(x) = \sum_{n \leq x}\Lambda(n)$ can be
+reconstructed from the zeros via the explicit formula:
+\begin{equation}
+  \psi(x) = x - \sum_{\rho}\frac{x^\rho}{\rho} - \log(2\pi) -
+  \frac{1}{2}\log(1-x^{-2}),
+  \label{eq:explicit_formula}
+\end{equation}
+where $\rho$ runs over the nontrivial zeros of $\zeta$. Inserting the
+zero heights $t^*$ from $F_2 = 0$ and comparing the reconstructed
+$\psi(x)$ with the exact step function provides an independent
+verification.
+
+\subsubsection{Axis C: Arithmetic Progression Bias Signal}
+For Dirichlet $L$-functions, the distribution of primes in arithmetic
+progressions $p \equiv a \pmod{q}$ provides a third signal. The bias
+term $\sum_\rho x^\rho/\rho$ in the explicit formula for $\psi(x;q,a)$
+oscillates with frequencies determined by the zero heights, providing
+independent confirmation.
+
+
+% ============================================================================
+\section{\textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\ The
+  $F_2$-Discriminant as a Hardy-$Z$ Sign-Change Detector}
+\label{sec:f2_hardy}
+% ============================================================================
+
+\noindent\textbf{Tier 1.} This section identifies the central
+validated empirical result of the programme: the multi-channel
+discriminant $F_2$ introduced through the gauge ODE of
+\cref{sec:polyadic} is, up to an analytic signal construction,
+exactly the Hardy $Z$-function sign-change detector. The
+identification is established in two steps: an analytic statement
+about the argument of the analytic signal of a real function at its
+zeros (\cref{prop:phase_zero}), and a neural corollary explaining
+why a smooth network approximating $Z(t)$ saturates at
+$\arg(Z_{\mathrm{out}})=\pi/2$ at simple zeros
+(\cref{cor:neural_reg}).
+
+\subsection{Hardy $Z$ and the Analytic-Signal Identity}
+\label{sec:hardy_analytic}
+
+We recall from \cref{eq:hardy_z} that the Hardy $Z$-function
+\begin{equation}
+  Z(t) = e^{i\vartheta(t)}\,\zeta\bigl(\tfrac{1}{2}+it\bigr)
+\end{equation}
+is real for real $t$ and that its sign changes are in bijection with
+the non-trivial zeros of $\zeta$ on the critical line. This makes
+$Z$ the natural real-valued signal on which to test a discriminant
+designed to locate Riemann zeros.
+
+\begin{proposition}[Phase at zeros of real functions]
+\label{prop:phase_zero}
+Let $f : \mathbb{R} \to \mathbb{R}$ be a real-valued function with a
+simple zero at $t_0$, and let $z(t) = f(t) + i\,H[f](t)$ be its
+analytic signal, where $H$ denotes the Hilbert transform. Then
+\[
+  \arg\bigl(z(t_0)\bigr) = \pm\tfrac{\pi}{2},
+\]
+with the sign determined by whether $f$ crosses from negative to
+positive or vice versa.
+\end{proposition}
+\begin{proof}
+At $t_0$, $f(t_0)=0$ so $\mathrm{Re}\,z(t_0)=0$, while
+$H[f](t_0)\neq 0$ generically by Titchmarsh's theorem. Hence
+$z(t_0)$ is purely imaginary, with sign determined by the direction
+of the crossing.
+\end{proof}
+
+\begin{corollary}[Neural sign-change regularisation]
+\label{cor:neural_reg}
+A neural network approximating $Z(t)$ as a continuous complex-valued
+function $Z_{\mathrm{out}}(t)$ necessarily satisfies
+$\arg(Z_{\mathrm{out}}(t_0)) \to \pm\pi/2$ at simple zeros $t_0$,
+since the ideal discontinuity $\arg\xif : 0 \to \pi$ of
+\cref{eq:phase_crit} is regularised to its midpoint.
+\end{corollary}
+
+Combining \cref{prop:phase_zero,cor:neural_reg} with the definition
+of the discriminant
+$F_2(t) = \operatorname{Im}\{e^{-i\varphi}(\hat L - \dot\varphi)\}$
+from \cref{sec:polyadic} gives the following identification.
+
+\begin{theorem}[$F_2 = $ Hardy $Z$ sign-change detector]
+\label{thm:f2_hardy}
+Let $Z_{\mathrm{out}}(t)$ be a smooth neural approximation of
+$Z(t)$ satisfying the gauge ODE $\dot\varphi = \hat L(t)$ of
+\cref{eq:gauge_ode}. Then on any interval
+$I\subset\mathbb{R}$ where the approximation is faithful,
+\[
+  \{\,t\in I : F_2(t)=0\,\}
+  \;=\;
+  \{\,t\in I : Z(t)=0\,\}
+  \;=\;
+  \{\,t\in I : \zeta(\tfrac{1}{2}+it)=0\,\}.
+\]
+\end{theorem}
+\begin{proof}
+$F_2(t)=\operatorname{Im}\{e^{-i\varphi(t)}(\hat L(t)-\dot\varphi(t))\}=0$
+iff $\hat L(t)-\dot\varphi(t)$ is colinear with $e^{i\varphi(t)}$, which
+by the gauge ODE is equivalent to the analytic-signal argument
+reaching the midpoint $\pm\pi/2$, i.e.\ by
+\cref{prop:phase_zero} to a zero of $Z$.
+\end{proof}
+
+\subsection{Empirical Validation: 10/10 Zero Detection on
+  $t\in[10,50]$}
+\label{sec:f2_low}
+
+\begin{observation}[$F_2$ detection, low range]
+\label{obs:f2_low}
+With Adam ($\eta=10^{-3}$, 200 epochs), the smooth neural
+approximation of $Z(t)$ on $t\in[10,50]$ converges to
+$|F_2(t_k)| < 0.021$ at all ten LMFDB zeros, with residual loss
+$\mathcal{L}_{\mathrm{res}} < 10^{-4}$ after epoch $15$. The output
+phases $\arg(Z_{\mathrm{out}}) \in [1.47,1.62]$ fall inside a
+$\pm 0.06$ window around $\pi/2\approx 1.5708$, in precise agreement
+with \cref{cor:neural_reg}.
+\end{observation}
+
+\begin{table}[h]
+\centering
+\caption{Adam~$+$~$\cos^2$ PQO detection results on
+  $t\in[10,50]$, 10 LMFDB zeros, 200 epochs.}
+\label{tab:f2_low}
+\begin{tabular}{c|cccc}
+\toprule
+$t_k$ & $|F_2|$ & $\sin^2$ PQO & $\cos^2$ PQO & $\arg(Z_{\mathrm{out}})$ \\
+\midrule
+14.13 & 0.021 & 1.000 & \textbf{0.000} & 1.581 \\
+21.02 & 0.001 & 1.000 & \textbf{0.000} & 1.563 \\
+25.01 & 0.003 & 1.000 & \textbf{0.000} & 1.557 \\
+30.42 & 0.019 & 1.000 & \textbf{0.000} & 1.562 \\
+32.94 & 0.000 & 1.000 & \textbf{0.000} & 1.562 \\
+37.59 & 0.009 & 1.000 & \textbf{0.000} & 1.571 \\
+40.92 & 0.000 & 1.000 & \textbf{0.000} & 1.565 \\
+43.33 & 0.004 & 1.000 & \textbf{0.000} & 1.573 \\
+48.01 & 0.003 & 1.000 & \textbf{0.000} & 1.584 \\
+49.77 & 0.005 & 1.000 & \textbf{0.000} & 1.582 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two observations deserve emphasis. First, the simultaneous
+satisfaction $|F_2|<0.021$ and $\cos^2\mathrm{PQO}<0.0002$ is a
+non-trivial joint condition: it says the network has located a point
+where (i) the analytic signal's imaginary component vanishes and
+(ii) the quantised phase attractors of the cyclotomic lattice are
+satisfied. The fact that both conditions can be met simultaneously
+on the same ten points is the $\cos^2$ Maslov correction at work.
+Second, the residual gap
+$\arg(Z_{\mathrm{out}})\neq\pi/2$ (at most $\approx 0.01$) is an
+artefact of finite training, not a structural obstruction; the gap
+narrows monotonically with training time.
+
+\subsection{Zero Difficulty Hierarchy and the Lehmer Phenomenon}
+\label{sec:lehmer}
+
+Not all zeros are equally easy to detect. The ten zeros of
+\cref{tab:f2_low} span nearly two orders of magnitude in $|F_2|$:
+the easiest zeros converge to $|F_2|\lesssim 10^{-3}$, while the
+hardest ($t_1=14.13$ and $t_6=37.59$) saturate around
+$2\times 10^{-2}$.
+
+\begin{remark}[Lehmer--Odlyzko connection]
+\label{rem:lehmer}
+Zero pairs where $Z(t)$ nearly grazes the real axis without crossing
+it — the classical Lehmer phenomenon — correspond to close zero
+pairs in the GUE spacing statistics of Montgomery--Odlyzko. In our
+setting, these are precisely the zeros where the analytic signal's
+phase spends longer time near $\pm\pi/2$, making the
+$F_2$-discriminant slower to converge. The difficulty hierarchy in
+\cref{tab:f2_low} is therefore expected rather than anomalous.
+\end{remark}
+
+% ============================================================================
+\section{\textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\ Extension to
+  High Zeros: $t\in[100,200]$}
+\label{sec:high_zeros}
+% ============================================================================
+
+\noindent\textbf{Tier 1.} The identification
+$F_2 = \text{Hardy-}Z\text{ sign-change detector}$ of
+\cref{thm:f2_hardy} is a statement about the analytic signal of
+$Z(t)$, with no intrinsic height dependence. A natural sanity
+check is whether the numerical pipeline of \cref{sec:f2_low}
+continues to produce complete detection when the target range is
+raised by an order of magnitude. We find that it does.
+
+\begin{observation}[High-zero detection]
+\label{obs:high_zeros}
+The experiment of \cref{sec:f2_low} was repeated on
+$t\in[100,200]$ with $50$ LMFDB zeros (computed via
+\texttt{mpmath.zetazero}$(k)$ for $k=26,\ldots,79$), $500$ grid
+points, and an enlarged network (hidden width $64$, $33{,}540$
+parameters). With Adam~$+$~$\cos^2$ PQO, $\eta=10^{-3}$, $200$
+epochs:
+\end{observation}
+
+\begin{table}[h]
+\centering
+\caption{Low-range vs.\ high-range detection.}
+\label{tab:high_zeros}
+\begin{tabular}{l|c|c}
+\toprule
+\textbf{Metric} & $t\in[10,50]$, 10 zeros & $t\in[100,200]$, 50 zeros \\
+\midrule
+Detection rate              & 10/10          & \textbf{50/50} \\
+$\max|F_2|$                 & 0.021          & 0.060          \\
+$\max \cos^2$ PQO           & 0.0002         & 0.0011         \\
+$\arg(Z_{\mathrm{out}})$ range & $[1.55,1.58]$ & $[1.54,1.60]$ \\
+Training wall time          & $2$\,min       & $19$\,min      \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All fifty high zeros satisfy $|F_2|<0.1$, with forty-eight of them
+below $0.04$. The two hardest — $t=118.79$ ($|F_2|=0.060$) and
+$t=114.32$ ($|F_2|=0.058$) — are still comfortably inside the
+detection threshold. The critical synchronisation transition of
+\cref{rem:kuramoto_transition} at $\sim 10$ epochs and the
+$\arg(Z_{\mathrm{out}})\approx\pi/2$ pattern are identical to the
+low range, confirming that the Maslov correction and the
+phase-locking mechanism are not artefacts of a particular height
+window. This is the direct numerical corroboration of
+\cref{thm:f2_hardy} at a non-trivial scale.
+
+\begin{remark}[What the extension does \emph{not} establish]
+\label{rem:high_zeros_limits}
+The experiment verifies that the $F_2$-detector continues to work
+when its ground truth — the zero list — is supplied. It does
+\emph{not} verify that the detector would \emph{find} unknown
+zeros: the training loop uses the LMFDB zero list to locate the
+grid points on which $F_2$ is evaluated. The question of
+self-calibrating, blind zero discovery remains open and is one of
+the motivations for Part~\ref{part:failed} and the open-problem
+discussion of \cref{sec:open}.
+\end{remark}
+
+% ============================================================================
+\section{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ The $|\Ftwo|$
+  residual: a tentative mesoscopic observable}
+\label{sec:f2_residual}
+% ============================================================================
+
+\noindent\textbf{Tier 2 (with 2026-04-08 partial reinterpretation).}
+While running the high-zero extension of \cref{sec:high_zeros} we
+noticed that the post-convergence magnitudes
+$|F_2(t_k)|$ of the discriminant at individual zeros are not a
+featureless random scatter but display systematic height and
+spatial patterns. This section records the original observations
+(April 2026, $14{,}441$ zeros) and then the 2026-04-08 partial
+reinterpretation that weakened the per-zero claim while leaving the
+aggregate scale claim intact. We keep both so that the reader can
+see how the claim was narrowed.
+
+\subsection{Original observations (April 2026)}
+\label{sec:f2_residual_original}
+
+The $|F_2|$ residual was computed on $14{,}441$ zeros across seven
+wide intervals $[10,50]$ through $[5000,10000]$ and $23$ fine
+intervals covering $[10000,13000]$. The cumulative detection rate
+(zeros for which $|F_2|$ is below a uniform threshold) was
+$99.99\%$.
+
+\begin{table}[ht]
+\centering
+\caption{$|F_2|$ mean residual by height interval,
+  from the original $14{,}441$-zero sweep.}
+\label{tab:f2_scale}
+\small
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Range} & \textbf{Zeros} & \textbf{Detection rate}
+  & $\overline{|F_2|}$ \\
+\midrule
+$[10, 50]$       & 10     & 10/10     & 0.0209 \\
+$[100, 200]$     & 50     & 49/50     & 0.0208 \\
+$[200, 500]$     & 190    & 190/190   & 0.0119 \\
+$[500, 1000]$    & 380    & 380/380   & 0.0083 \\
+$[1000, 2000]$   & 868    & 868/868   & 0.0058 \\
+$[2000, 5000]$   & 3{,}003  & 3{,}003/3{,}003 & 0.0020 \\
+$[5000, 10000]$  & 5{,}622  & 5{,}622/5{,}622 & 0.0014 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three per-zero claims were originally made from this dataset:
+\begin{enumerate}
+  \item[(O1)] \textbf{Independence from classical statistics.} The
+        per-zero residual $|F_2(t_k)|$ showed Pearson
+        $|r|<0.09$ and Spearman $|\rho|<0.09$ against all of
+        $|Z'(t_k)|$, $|Z''(t_k)|$, normalised spacing $s_k$, the
+        argument function $S(t_k)$, the Riemann--Siegel derivative
+        $\vartheta'(t_k)$, local density, spacing variance,
+        spacing autocorrelation, and the local $Z$-area
+        $\int_{t_k-0.3}^{t_k+0.3}|Z|$.
+  \item[(O2)] \textbf{Spatial clustering.} $|F_2(t_k)|$ was
+        Spearman-correlated with the mean of $|F_2|$ at its six
+        nearest zero neighbours, $\rho=+0.895$
+        ($p\approx 10^{-141}$), interpreted as evidence for
+        ``mesoscopic domains'' of different character along the
+        critical line.
+  \item[(O3)] \textbf{Long-range autocorrelation.} The lag-$\Delta$
+        autocorrelation $C(\Delta)$ dropped rapidly to $\approx 0.4$
+        within $\Delta\sim 3$ and then remained nearly flat at
+        $\approx 0.33$ out to $\Delta=200$, suggesting a
+        two-component (short-range exponential + long-range
+        plateau) structure.
+\end{enumerate}
+
+Taken together these were read as evidence that the gauge ODE acts
+as ``a new lens on the critical line'' revealing structure
+invisible to random matrix theory and to the classical
+$S(t)$-based tools.
+
+\subsection{2026-04-08 partial reinterpretation}
+\label{sec:f2_residual_reinterp}
+
+\begin{remark}[Partial reinterpretation of
+the $|F_2|$ per-zero claim]
+\label{rem:f2_reinterp}
+A model-independence audit performed on 2026-04-08 substantially
+weakens (O1)--(O3) at the \emph{per-zero} level while leaving the
+aggregate scale structure of \cref{tab:f2_scale} intact.
+
+Specifically, retraining the same architecture with different
+seeds, different random initialisations of the gauge buffer
+$(\varphi_0,\psi_0)$, and different shuffles of the training zero
+list produces $|F_2(t_k)|$ values whose rank order at individual
+zeros is \emph{not} reproducible across runs. The per-zero
+Spearman correlation between two independent runs on the same
+interval drops below $+0.2$ for most intervals, inconsistent with
+the interpretation of $|F_2(t_k)|$ as an intrinsic property of the
+zero $t_k$. In particular, the spatial clustering statistic
+$\rho_{\mathrm{cluster}}=+0.895$ is partially inflated by a
+training-time smoothness prior that couples neighbouring zero
+residuals; the long-range plateau of $C(\Delta)$ at $\approx 0.33$
+appears in every run but with a training-dependent level.
+
+What \emph{does} survive reinterpretation is the height-dependent
+\textbf{mean scale} of $\overline{|F_2|}$ across the intervals of
+\cref{tab:f2_scale}: the monotone decay from
+$\overline{|F_2|}\approx 0.021$ at $t\sim 50$ to
+$\overline{|F_2|}\approx 0.0014$ at $t\sim 10{,}000$ is reproduced
+across all seeds up to ${\sim}10\%$ relative variation, and its
+shape is consistent with a power law
+$\overline{|F_2|}\sim t^{-\alpha}$ with $\alpha\in[0.4,0.5]$.
+
+We therefore \emph{retain} \cref{tab:f2_scale} and the mean-scale
+claim as Tier 2 evidence of a genuine height dependence in the
+detector's residual, and we \emph{downgrade} the per-zero claims
+(O1)--(O3) to ``suggestive but model-contaminated'': the patterns
+are real features of the trained model, but the inference from
+model to underlying arithmetic of the critical line is blocked by
+the observed non-reproducibility at the per-zero level. The
+section is retained in this paper precisely because the narrowing
+is itself an informative diagnostic; see also
+\cref{sec:open} on the role of such retraction records.
+\end{remark}
+
+\subsection{2026-04-10 follow-up: the ``hard cluster'' was a
+basis-bandwidth artifact}
+\label{sec:f2_residual_cluster_artifact}
+
+Between 2026-04-09 and 2026-04-10 a ten-experiment cascade
+(Lehmer regression, five-seed ensemble, hidden-width scaling,
+sample-density scaling, residual spectrum, cluster physics,
+input-basis scaling, and a convergence extension) was run
+against a residual difficulty cluster inside the $|F_2|$
+dataset. Specifically, in the trained model
+(\texttt{in\_features}$=64$, \texttt{hidden}$=64$, seed$=42$)
+over the band $t\in[100,200]$, five zeros in
+$t\in[165,173.5]$ carried mean $|F_2|\approx 0.036$, roughly
+$1.8\times$ the band mean $0.020$. The cascade eliminated four
+candidate explanations and identified a fifth.
+
+\smallskip
+\noindent\textbf{Eliminated hypotheses.}
+\begin{enumerate}
+  \item[(E1)] \emph{Lehmer-type near pairs.} A multivariate
+        regression of $|F_2(t_k)|$ on Riemann--von Mangoldt
+        normalised gaps $g_{\min}^{\mathrm{norm}}(t_k)$ across
+        all $15{,}422$ zeros in the $51$ training bands, and a
+        separate \texttt{mpmath}-based high-$t$ scan, both gave
+        $|r|<0.03$. The zero with the tightest normalised gap in
+        the cluster band, $t=121.37$ with
+        $g_{\min}^{\mathrm{norm}}=0.027$, is in fact the
+        \emph{easiest} zero in its band.
+  \item[(E2)] \emph{Multi-basin seed dependence.} Five-seed
+        ensemble training with identical hyperparameters
+        gave $\mathrm{corr}(\mathrm{mean},\mathrm{std})=+0.70$
+        across zeros, but zero ensemble gain at the hard zeros
+        ($|F_2|^{\mathrm{ensemble}}/|F_2|^{\mathrm{seed-mean}}
+        \approx 1.00$), ruling out a
+        many-local-minima reading of the cluster.
+  \item[(E3)] \emph{Hidden-layer capacity.} Scaling
+        $\texttt{hidden}\in\{32,64,128\}$ at fixed
+        \texttt{in\_features}$=64$ produced a \emph{monotone
+        opposite} trend: global $\overline{|F_2|}$ went
+        $0.019\to 0.022\to 0.030$, so larger hidden width did
+        not help the cluster.
+  \item[(E4)] \emph{Training-sample density.} Increasing
+        \texttt{num\_points} from $500$ to $1500$ improved
+        global $\overline{|F_2|}$ by $32\%$ and cluster-max
+        $|F_2|$ by $57\%$; at $t=173.41$ the improvement was
+        $65\%$. This was initially read as a ``sampling
+        resolution'' cure but turned out to be a proxy for the
+        basis-bandwidth bottleneck identified below.
+\end{enumerate}
+
+\smallskip
+\noindent\textbf{Identified cause: input-basis bandwidth.} The
+input embedding lifts the scalar $t$ to a Fourier feature
+vector
+\[
+  t\;\longmapsto\;\Bigl(\tfrac{t-\mu}{\sigma},\;
+  \sin(\omega_1 t),\cos(\omega_1 t),\dots,
+  \sin(\omega_K t),\cos(\omega_K t)\Bigr),
+\]
+with
+$\omega_k = 2\pi k/(t_{\max}-t_{\min})$ and
+$K=(\texttt{in\_features}-1)/2$. For the band $[100,200]$ at
+\texttt{in\_features}$=64$ this gives $K=31$ and a hard
+representational ceiling
+\[
+  \omega_{\max}^{(64)}
+  \;=\; \frac{2\pi\cdot 31}{100}\;\approx\; 1.948\;
+  \mathrm{rad}/\mathrm{unit}\,t,
+  \qquad \text{minimum period }\approx 3.23\text{ in }t.
+\]
+Inside the cluster, the zeros at $t\approx 169.095$ and
+$t\approx 169.912$ form a pair of separation
+$\Delta t\approx 0.82$. Representing two sign changes across
+this separation requires basis content at
+\begin{equation}
+  \omega\;\gtrsim\; \frac{\pi}{\Delta t}\;\approx\; 3.83\;
+  \mathrm{rad}/\mathrm{unit}\,t,
+  \label{eq:required_omega}
+\end{equation}
+which is $\approx 1.97\times$ the
+\texttt{in\_features}$=64$ ceiling. We now state this
+observation as a falsifiable proposition.
+
+\begin{proposition}[Input-basis bandwidth necessary condition]
+\label{prop:basis_bandwidth}
+Let $\mathcal{F}_K^{\mathrm{lin}}$ denote the class of
+functions on a band $[t_{\min},t_{\max}]$ of width
+$W=t_{\max}-t_{\min}$ that are \emph{linear} in the Fourier
+feature map
+$t\mapsto(\sin\omega_k t,\cos\omega_k t)_{k=1}^{K}$ with
+$\omega_k=2\pi k/W$. For any pair of ordinates
+$t_a,t_b\in[t_{\min},t_{\max}]$ with $0<\Delta t:=|t_a-t_b|$,
+the following sampling-theoretic bound holds: if
+\begin{equation}
+  K \;<\; \frac{W}{2\,\Delta t},
+  \label{eq:basis_bandwidth_condition}
+\end{equation}
+then no $f\in\mathcal{F}_K^{\mathrm{lin}}$ with
+$f(t_a)=f(t_b)=0$ can have $f'(t_a)\cdot f'(t_b)<0$ while
+being orthogonal (in $L^2[t_{\min},t_{\max}]$) to the null
+function. In particular, two sign-changing zeros of
+$f\in\mathcal{F}_K^{\mathrm{lin}}$ at separation $\Delta t$
+force $K\geq W/(2\Delta t)$.
+\end{proposition}
+
+\begin{proof}[Sketch]
+A function in $\mathcal{F}_K^{\mathrm{lin}}$ is a real
+trigonometric polynomial of degree $\leq K$ on $[0,W]$ (after
+recentring). By the Nyquist--Shannon sampling theorem applied
+to its $2K$-dimensional Fourier basis, its minimum period
+between consecutive sign changes is bounded below by
+$W/(2K)$. Two sign changes at separation $\Delta t<W/(2K)$
+therefore cannot be realised in $\mathcal{F}_K^{\mathrm{lin}}$,
+which is \eqref{eq:basis_bandwidth_condition}.
+\end{proof}
+
+\begin{remark}[Nonlinear extension and the intermodulation
+gap]\label{rem:intermodulation_gap}
+The network in question is \emph{not} in
+$\mathcal{F}_K^{\mathrm{lin}}$: the three ResonantBlock layers
+compose multiplications, ridge nonlinearities, and gauge ODE
+integration with the Fourier features. In principle, products
+of the form $\sin(\omega_j t)\cdot\sin(\omega_k t)=
+\tfrac{1}{2}[\cos((\omega_j-\omega_k)t)-
+\cos((\omega_j+\omega_k)t)]$ and higher-order intermodulation
+cascades produce components up to
+$\omega^{\mathrm{eff}}_{\max}=L\cdot\omega_{\max}$ where $L$
+is the network depth, formally lifting the bandwidth ceiling.
+Our empirical data (\cref{tab:basis_scaling}) show a sharp
+failure at exactly the linear-basis ceiling
+\eqref{eq:basis_bandwidth_condition}, \emph{not} at the
+nonlinearly-lifted ceiling $L\cdot\omega_{\max}$.
+
+This gap is consistent with the \emph{spectral bias} literature
+for neural networks: under finite training budgets, MLPs
+preferentially learn the lowest-frequency components first and
+only activate intermodulation cascades at training times that
+diverge with frequency \cite{Rahaman2019SpectralBias,
+BasriGeifman2020FrequencyBias}, a phenomenon derivable from
+Neural Tangent Kernel eigenvalue decay
+\cite{Jacot2018NTK}. Within such a finite-budget regime, the
+\emph{effective} bandwidth of the trained network remains
+bounded above by a multiple of the linear-basis ceiling, not
+by the formal multiplicative lift $L\cdot\omega_{\max}$.
+A rigorous statement of the form
+``$\omega^{\mathrm{eff}}_{\max}(E)\leq c(E)\cdot
+\omega^{\mathrm{basis}}_{\max}$ with $c(E)=O(1)$ as
+$E\to E_{\max}$ (finite training budget)'' for the
+ResonantBlock architecture is not derived here and is left as
+an open problem; what the experiment shows is that
+\emph{empirically} the ceiling behaves as in
+Proposition~\ref{prop:basis_bandwidth} rather than as
+$L\cdot\omega_{\max}$.
+\end{remark}
+
+For the band $[100,200]$ and the $t\approx 169$ pair,
+\eqref{eq:basis_bandwidth_condition} gives $K\geq 61$,
+equivalently $\texttt{in\_features}\geq 123$.
+
+\smallskip
+\noindent\textbf{Riemann--von Mangoldt substitution.} The
+condition \eqref{eq:basis_bandwidth_condition} acquires
+analytic-number-theoretic content when combined with the
+Riemann--von Mangoldt local zero density
+$N'(t)\sim (2\pi)^{-1}\log(t/2\pi)$, which gives mean zero gap
+\begin{equation}
+  \langle\Delta t\rangle(t)\;\sim\;\frac{2\pi}{\log(t/2\pi)}.
+\end{equation}
+Assuming a Lehmer-compression factor $c_{\mathrm{L}}\in(0,1]$
+so that the smallest gap in a typical band of width $W$ at
+height $t$ satisfies
+$\Delta t_{\min}\gtrsim c_{\mathrm{L}}\cdot\langle\Delta
+  t\rangle(t)$,
+substitution into \eqref{eq:basis_bandwidth_condition} yields
+the \emph{height-dependent bandwidth requirement}
+\begin{equation}
+  K(t,W)\;\geq\;
+  \frac{W\,\log(t/2\pi)}{4\pi\,c_{\mathrm{L}}},
+  \label{eq:basis_bandwidth_rvm}
+\end{equation}
+or equivalently
+$\texttt{in\_features}\geq (W\log(t/2\pi))/(2\pi\,c_{\mathrm{L}})+1$.
+For $W=100$, $t\approx 150$, and $c_{\mathrm{L}}\approx 1/3$
+(a Lehmer-type cluster), this gives $K\gtrsim 82$,
+$\texttt{in\_features}\gtrsim 165$, bracketing the empirical
+transition at $\texttt{in\_features}\in[64,128]$. Equation
+\eqref{eq:basis_bandwidth_rvm} is an architectural--analytic
+bridge: the Fourier-feature capacity required to detect
+$\xi$-zeros in a band scales \emph{logarithmically} with
+height, matching the $N'(t)$ law. In particular, the apparent
+improvement of $\overline{|F_2|}$ with height in
+\cref{tab:f2_scale} is \emph{compatible} with a fixed
+\texttt{in\_features} satisfying
+\eqref{eq:basis_bandwidth_rvm} only because the high-$t$ bands
+in the original sweep were run with
+$\texttt{num\_points}=\max(200,10\,n_{\mathrm{zeros}})$
+auto-scaling, which preserved the dimensionless ratio
+$K/(W\log t)$ and therefore kept
+\eqref{eq:basis_bandwidth_rvm} implicitly satisfied; this
+connects the height-scaling table to the architectural
+condition rather than to any analytic property of $\xi$
+itself.
+
+\smallskip
+\noindent\textbf{Confirmation via basis-scaling.} Scaling
+\texttt{in\_features}$\in\{32,64,128,256\}$ at fixed
+\texttt{hidden}$=64$, seed$=42$, \texttt{num\_points}$=500$,
+training budget $100$ epochs gave:
+
+\begin{table}[ht]
+\centering
+\caption{Cluster vs.\ non-cluster $\overline{|F_2|}$ at fixed
+training budget. The 5-seed ensemble row (seeds $42,7,123,2026,314$)
+replaces the single-run claim; cluster improvement is $25\%$ on
+average but with high seed variance.}
+\label{tab:basis_scaling}
+\small
+\begin{tabular}{rrrrrr}
+\toprule
+\texttt{in\_feat} & $\omega_{\max}$ & global &
+  cluster & other & ratio \\
+\midrule
+32   & 0.942 & 0.0140 & 0.0140 & 0.0140 & $1.00\times$ \\
+64   & 1.948 & 0.0218 & 0.0361 & 0.0202 & $1.79\times$ \\
+128 (seed 42)  & 3.958 & 0.0164 &
+  0.0150 & 0.0166 & $0.90\times$ \\
+\textbf{128 (5-seed)} & \textbf{3.958} & \textbf{0.0207} &
+  \textbf{0.0269}$\pm$\textbf{0.012} & \textbf{0.0200} & $\mathbf{1.42\pm0.73\times}$ \\
+256  & 7.980 & 0.0214 & 0.0581 & 0.0173 & $3.36\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent Two features stand out. First, the cluster excess
+at \texttt{in\_features}$=64$ \emph{disappears} at
+\texttt{in\_features}$=128$ in the best seed, but a
+five-seed ensemble (seeds $42, 7, 123, 2026, 314$) reveals
+substantial variability: the cluster-to-non-cluster ratio
+averages $1.42\pm0.73$ (range $0.61$--$2.44\times$), with
+$3/5$ seeds achieving ratio${}<1.2$ and $2/5$ showing a
+\emph{persisting} or worsened cluster. Per-zero coefficient
+of variation in the cluster ranges from $46\%$ to $106\%$
+across seeds. Thus the bandwidth condition
+\eqref{eq:basis_bandwidth_condition} is a \emph{necessary}
+condition for cluster resolution but not a \emph{sufficient}
+one: training dynamics (seed-dependent initialisation) retain
+significant influence even after the Nyquist ceiling is
+cleared. Averaging over the ensemble, cluster
+$\overline{|F_2|}$ improves by $25\%$ relative to the
+\texttt{in\_features}$=64$ baseline ($0.0269$ vs.\ $0.0361$),
+confirming the bandwidth mechanism at the population level
+while excluding any single-run claim of complete resolution.
+Second,
+\texttt{in\_features}$=256$ fails to converge in $100$ epochs
+and presents a \emph{new}, unrelated difficulty cluster.
+
+\smallskip
+\noindent\textbf{Isolation of the over-parameterisation
+artefact.} Extending training to $300$ epochs with $50$-epoch
+best-validation checkpoints separates the bandwidth effect
+from the optimisation effect. For
+\texttt{in\_features}$=128$, the best validation loss settles
+at $0.0550$ by epoch $143$ and stays flat; the cluster ratio
+improves to $0.75\times$ and $\overline{|F_2|}^{\mathrm{cluster}}$
+drops to $0.0106$ versus $\overline{|F_2|}^{\mathrm{other}}
+=0.0142$. For \texttt{in\_features}$=256$, the best validation
+loss stays at $0.224$ throughout $300$ epochs, roughly $4\times$
+worse than the \texttt{in\_features}$=128$ minimum; global
+$\overline{|F_2|}$ improves from $0.0214$ to $0.0099$, but the
+cluster ratio stays at $3.87\times$. The
+\texttt{in\_features}$=256$ failure is therefore an independent
+over-parameterisation pathology (the Adam-with-gradient-clip
+training budget is insufficient for the enlarged parameter
+space), not a bandwidth problem; it does not undermine the
+bandwidth interpretation at $\texttt{in\_features}\in\{32,64,128\}$.
+
+\smallskip
+\noindent\textbf{Consequence for the 2026-04-08 reinterpretation.}
+This experiment closes the second open question of
+\cref{sec:f2_residual_open}: it exhibits a concrete,
+\emph{model-dependent} per-zero difficulty (the cluster in
+$[165,173.5]$) that is not an intrinsic property of the zeros
+but a property of the embedding $\{\omega_k\}_{k=1}^{K}$. Any
+attempt to read per-zero $|F_2|$ values as observables on the
+critical line must therefore first verify that the input-basis
+bandwidth condition \eqref{eq:basis_bandwidth_condition} is
+satisfied for the smallest zero pair in the band under study.
+The mean-scale claim of \cref{tab:f2_scale} is unaffected,
+since it averages over bands in which the condition is
+(implicitly, via the auto-scaling rule
+\texttt{num\_points}$=\max(200,10\cdot n_{\mathrm{zeros}})$)
+met or approximately met.
+
+\subsection{What remains open}
+\label{sec:f2_residual_open}
+
+After the 2026-04-10 follow-up the following questions remain
+open:
+\begin{enumerate}
+  \item \textbf{Height scaling law.} Is the observed decay of
+        $\overline{|F_2|}$ with $t$ a genuine power law, and if so,
+        does its exponent match any analytic quantity (for example
+        the expected scale of $\log\log t$ corrections to
+        $N(t)$)? The answer requires a clean refit of
+        $\overline{|F_2|}(t)$ with error bars over disjoint seed
+        families, which has not yet been performed.
+  \item \textbf{Bandwidth-clean per-zero observable.} A
+        five-seed ensemble at \texttt{in\_features}$=128$ confirms
+        that per-zero $|F_2|$ values have coefficient of variation
+        $46$--$106\%$ across seeds even after
+        \eqref{eq:basis_bandwidth_condition} is satisfied.
+        Individual per-zero values are therefore \emph{not}
+        reproducible in any naive sense. The \emph{ensemble mean}
+        cluster $\overline{|F_2|}$ improves by $25\%$ relative to
+        the bandwidth-deficient baseline, confirming the
+        population-level mechanism. Whether a tighter invariant
+        can be extracted (e.g.\ the \emph{minimum} of $|F_2(t_k)|$
+        over a bootstrap ensemble, interpreted as the ``achievable
+        residual'') remains open.
+  \item \textbf{Over-parameterisation failure mode.} The
+        \texttt{in\_features}$=256$ failure to converge within
+        $300$ epochs (best validation $0.224$ versus $0.055$ at
+        \texttt{in\_features}$=128$) exhibits a ``new'' cluster
+        at the same $t\in[165,173.5]$ that cannot be bandwidth
+        in origin. Whether this is (a) an Adam-plus-gradient-clip
+        training-schedule artefact, (b) a genuine
+        over-parameterisation pathology that revives the same
+        cluster through a different mechanism, or (c) a seed
+        accident remains unresolved.
+\end{enumerate}
+
+
+% ############################################################################
+% PART III — FAILED DIRECTIONS AND DIAGNOSES
+% ############################################################################
+
+\part{Failed Directions and Their Diagnoses}
+\label{part:failed}
+
+\noindent This part collects, in compact form, the empirical
+programmes that did not succeed. Each section is labelled
+\textcolor{red}{\rule{0.9ex}{0.9ex}}\ (Tier~3); each opens with a
+one-paragraph description of the programme, followed by a diagnostic
+chain, and closes with the lesson extracted. The content is
+deliberately dense — typically one to two pages per failed
+direction — so as not to crowd out the validated and conjectural
+material while retaining the full diagnosis. A reader in a hurry may
+skim Part~\ref{part:failed}; a reader planning a follow-up
+experiment should read it carefully.
+
+% ============================================================================
+\section{\textcolor{red}{\rule{0.9ex}{0.9ex}}\ Cyclotomic cos$^2$ PQO
+  training ($L=2,4$): $\Psip$-decoupling and the isolation cascade}
+\label{sec:cos2_failure}
+% ============================================================================
+
+\textbf{Programme.} Train a three-layer resonant discriminator
+network to separate Riemann zeros from non-zero ordinates on
+$t\in[100,200]$ using the cyclotomic $L\in\{2,4\}$ cosine-squared
+quantisation loss $\Lpqo$ of \cref{rem:cos2_pqo} together with the
+synthetic magnitude-only target $\Psi_n$ of \cref{eq:psi_n}.
+
+\textbf{Outcome.} Negative at both $L=2$ and $L=4$. At $L=2$ the
+network collapses to the trivial attractor $\phi\to\pi/2$ and
+discriminates neither zeros nor non-zeros. At $L=4$ the training
+converges without attractor collapse but the resulting phase MSE
+against $\arg Z(t)$ is indistinguishable between zeros and non-zeros
+(pooled Welch $p>0.12$ across three seeds, cyclotomic sectors $k=2,3$
+empty). See \cref{rem:cos2_pqo} for the full tabulated results.
+
+\textbf{Diagnosis.} We trace the failure through four stages (the
+dates indicate the diagnostic chain, not the experimental schedule):
+\begin{enumerate}
+  \item \textbf{Target decoupling (\cref{rem:psi_defect},
+        2026-04-08).} The synthetic target $\Psi_n$ of
+        \cref{eq:psi_n} depends only on $\|X\|$ (or on $n$) and
+        carries no $t$-local Riemann-zero information. No choice of
+        $(\alpha,\beta,\gamma,\delta)$ repairs this; the defect is
+        structural.
+  \item \textbf{Supervised replacement is necessary but not
+        sufficient (\cref{rem:psi_defect}, 2026-04-08).} Replacing
+        the target by the analytic ground truth
+        $\Psip(t)=\arg\xif(\tfrac{1}{2}+it)$ and removing
+        $\Lpqo$ from training (keeping it only as measurement)
+        unlocks the asymmetric basin collapse of $L=4$ but leaves the
+        headline separation metric near the null
+        ($p=0.976$, ratio $1.004$).
+  \item \textbf{Loss-weight imbalance and arithmetic mean read-out
+        are additional broken links (\cref{rem:psi_defect},
+        2026-04-08).} The residual loss weights
+        $\lambda_{\mathrm{res}}=1$, $\lambda_{\mathrm{curv}}=0.1$
+        dominate the supervisory $\mathcal{L}_{\mathrm{tgt}}$, and the
+        channel-wise arithmetic mean used to read out $\hat\Psip$
+        destroys the $\pm\pi$ wrap signal predicted by the
+        phase-jump structure on the critical line.
+  \item \textbf{Isolation confirms the chain
+        (\cref{rem:isolation}, 2026-04-09).} Setting
+        $\lambda_{\mathrm{res}}=\lambda_{\mathrm{curv}}=\lambda_{\mathrm{pqo}}=0$
+        and reading out via a circular mean restores supervised
+        learning with $p=1.18\times10^{-15}$ on the off-zero set,
+        leaving a residual on-zero MSE of $\approx(\pi/2)^2$
+        explained entirely by the smooth network's inability to
+        represent the $\pm\pi$ discontinuity of
+        $\arg\xif(\tfrac{1}{2}+it)$ at each zero.
+\end{enumerate}
+
+\textbf{Lesson.} \emph{Four independent failure modes can stack to
+produce a single negative result.} Before declaring that an analytic
+identification is experimentally refuted, every link of the
+supervisory chain must be individually isolated: target injection,
+loss weighting, measurement operator, and output-space expressivity.
+The analytic content of the programme
+$\Psip(t)=\arg\xif(\tfrac{1}{2}+it)$ survives the cascade; the
+smooth-field output representation was the last obstruction,
+\emph{resolved} on 2026-04-10 by replacing the $\{0,\pi\}$ step
+target with a normalised smooth surrogate
+$\mathrm{Re}\,\xif/\max|\mathrm{Re}\,\xif|$, which reduces the
+zero/non-zero MSE ratio from $18.2\times$ to $0.03\times$
+(\cref{rem:isolation}). The complex-vector readout head remains
+an untested alternative (Section~\ref{sec:open}).
+
+% ============================================================================
+\section{\textcolor{red}{\rule{0.9ex}{0.9ex}}\ Phase-Gauge Gradient
+  Descent (PGGD)}
+\label{sec:pggd_failure}
+% ============================================================================
+
+\textbf{Programme.} PGGD is a custom optimiser introduced to exploit
+the $S^1$-valued phase structure of the discriminant network's
+intermediate state. Each parameter update is projected onto the
+tangent space of the ambient circle bundle so that the optimisation
+trajectory respects the gauge symmetry
+$\phi\mapsto\phi+\mathrm{const}$. The hypothesis was that PGGD would
+outperform Adam on the $F_2$-based zero detection task of
+Section~\ref{sec:f2_hardy} by eliminating the spurious global-phase
+degree of freedom.
+
+\textbf{Outcome.} Negative relative to Adam on every seed tested.
+PGGD either (i) fails to converge within the same epoch budget, or
+(ii) converges to a higher training loss with a discriminant gap
+smaller than Adam's baseline. On the $t\in[10,50]$ benchmark,
+Adam's final $F_2$-MSE is consistently $2$--$4\times$ smaller than
+PGGD's best run.
+
+\textbf{Diagnosis.} Two related mechanisms:
+\begin{enumerate}
+  \item \textbf{Ergodic diffusion on $S^1$.} The tangent projection
+        used by PGGD removes the radial component of each update but
+        preserves the full angular component. Over many steps the
+        angular update accumulates approximately diffusively, with
+        effective step size $\eta$ and variance growing linearly in
+        the epoch count. The projected trajectory therefore explores
+        $S^1$ essentially uniformly (Weyl equidistribution of angles
+        modulo $2\pi$), defeating the very gauge-removal the
+        optimiser was designed to implement. What PGGD gains by
+        removing the radial degree of freedom, it loses to a random
+        walk in the angular one.
+  \item \textbf{Gradient scale mismatch with $\Lpqo$.} The cosine
+        quantisation loss has $O(1)$ gradient away from its minima
+        and $O(|\phi - \phi_*|)$ gradient near them. PGGD's tangent
+        projection amplifies the first regime relative to Adam's
+        adaptive per-parameter scaling, producing an effective
+        learning rate that is too large near the attractors.
+\end{enumerate}
+
+\textbf{Lesson.} \emph{Gauge-respecting optimisers do not
+automatically inherit the sample efficiency of adaptive first-order
+methods.} A correct tangent projection is compatible with, but does
+not imply, coherent detection. The PGGD programme is retained as an
+idea for possible rehabilitation via adaptive per-angle step sizes
+(see Section~\ref{sec:open}), but in its present form it
+should not be used in place of Adam on the $F_2$ detector.
+
+
+% ############################################################################
+% PART IV — SYNTHESIS
+% ############################################################################
+
+\part{Synthesis}
+\label{part:synthesis}
+
+
+% ============================================================================
+\section{Structural Correspondence Table}
+\label{sec:correspondence}
+% ============================================================================
+
+We formalise the seven structural correspondences identified throughout
+this work:
+
+\begin{table}[ht]
+\centering
+\caption{Seven structural correspondences between QROP-Net and the
+resonance framework.}
+\label{tab:correspondence}
+\rowcolors{2}{lightbg}{white}
+\small
+\begin{tabular}{@{} c p{3.5cm} p{3.5cm} p{4.5cm} @{}}
+\toprule
+\textbf{\#} & \textbf{QROP-Net (Concrete)} & \textbf{Resonance (Analytic)}
+& \textbf{Shared Mathematical Structure} \\
+\midrule
+1 & $\sin^2(2^{d-1}\phi)$ quantisation loss
+  & $\Delta v = m\pi$ phase quantisation (Gate~A)
+  & Periodic phase penalty: $\mathcal{P}(\phi;L) = \sin^2(L\phi/2) = 0$
+    at lattice positions \\
+
+2 & NTT (discrete) $+$ FrFT (continuous fractional)
+  & Fourier analysis of $\xif(s)$ on the critical line
+  & Spectral decomposition: algebraic structure $\leftrightarrow$
+    frequency domain \\
+
+3 & $X^n + 1 = 0$ roots: $n$ equally-spaced phases on unit circle
+  & Phase winding $\oint\nabla v \cdot ds = 2\pi N$
+  & Cyclotomic/circular quantisation: discrete phases on $S^1$ \\
+
+4 & LWE error threshold: $|e|_{\Zq} < q/4 = 1920$
+  & $\sigma$-lift: $|\sigma^* - 1/2| = 0$ (RH)
+  & Hard error boundary beyond which signal recovery fails \\
+
+5 & $U_0 = e^{i\phi}$, $|U_0| \equiv 1$; intensity $I = |U_d|^2$
+  & $\Ampl(t) = |\xif|$ vs $\Phiz(t) = \arg\xif$
+  & Amplitude--phase separation: information encoded in phase,
+    measured via amplitude \\
+
+6 & Blind TTO: self-calibration without ground truth
+  & Gauge ODE: $F_2 = 0$ without knowing zero locations
+  & Ground-truth-free convergence via internal consistency \\
+
+7 & $\Delta d = 0.1\,$mm $\to$ DFR $= 1$
+  & $\sigma$-lift $\neq 0$ $\to$ non-unitarity (absorption)
+  & Sensitivity threshold: small parameter shift $\to$ catastrophic
+    failure \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Mathematical Formalisation of the Correspondences}
+
+We express each correspondence as a structural mapping.
+
+\begin{definition}[Phase Quantisation Functor]
+\label{def:functor}
+Let $(\mathcal{A}, \Phi_{\mathcal{A}}, L_{\mathcal{A}})$ be a
+\textit{phase quantisation triple} consisting of an algebraic structure
+$\mathcal{A}$, a phase function $\Phi_{\mathcal{A}}: \mathcal{A} \to
+[0, 2\pi)$, and a lattice level count $L_{\mathcal{A}} \in \mathbb{N}$.
+The phase quantisation operator $\mathcal{P}(\cdot; L)$ acts identically
+on all such triples:
+
+\medskip
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+& $\mathcal{A}$ & $\Phi_{\mathcal{A}}$ & $L_{\mathcal{A}}$ \\
+\midrule
+QROP-Net  & $\Zq^{1024}$ & $\phi_i = 2\pi c_i/2^{d_u}$
+          & $2^{d_u} = 2048$ \\
+Cyclotomic& $R_q$ & $\arg(\omega_j) = \pi(2j+1)/n$
+          & $2n = 512$ \\
+Critical line & $\{t \in \mathbb{R}^+\}$
+          & $\vartheta(t) \bmod \pi$
+          & $2$ (per Gram interval) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\medskip
+
+In each case, the condition $\mathcal{P}(\Phi_{\mathcal{A}}; L_{\mathcal{A}}) = 0$
+selects the ``aligned'' elements, and $\nabla\mathcal{P}$ drives
+misaligned elements toward the nearest lattice position.
+\end{definition}
+
+\subsection{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ Dynamical and
+  spectral correspondences}
+\label{sec:extended_corr}
+
+\noindent\textbf{Tier 2.} The correspondence table above is
+structural. This subsection records four additional correspondences
+that connect the empirical phenomena of
+Sections~\ref{sec:f2_hardy}--\ref{sec:high_zeros} to classical
+mathematical frameworks. Each is established at the level of
+analogy and partial numerical agreement; we do not claim rigorous
+equivalences.
+
+\subsubsection{Maslov correction as the metaplectic sheet shift}
+\label{sec:maslov_corr}
+
+The replacement of $\sin^2(L\phi/2)$ by $\cos^2(L\phi/2)$ as the
+quantisation penalty — the ``$\cos^2$ Maslov correction'' invoked
+throughout \cref{sec:f2_hardy} — is the neural shadow of a
+classical metaplectic phenomenon.
+
+\begin{theorem}[Metaplectic correction of Gate~A]
+\label{thm:maslov}
+For the phase quantisation operator $\PQO(\varphi; L)$ applied at
+zeros of a real-valued function where $\varphi\to\pi/2$
+(\cref{cor:neural_reg}), the $\sin^2$ form gives
+$\PQO(\pi/2; 2) = 1$ (maximal penalty), while the $\cos^2$ form
+gives
+\begin{equation}\label{eq:pqo_cos}
+  \PQO_{\cos}(\varphi; L) := \cos^2\!\bigl(L\varphi/2\bigr),
+  \quad \PQO_{\cos}(\pi/2; 2) = 0.
+\end{equation}
+The replacement $\sin^2\to\cos^2$ is the \emph{Maslov correction}
+with index $\mu=2$, corresponding to a phase shift of
+$\mu\pi/4=\pi/2$.
+\end{theorem}
+
+\begin{table}[ht]
+\centering
+\caption{The $\sin^2\leftrightarrow\cos^2$ duality across mathematics.}
+\label{tab:maslov_duality}
+\small
+\begin{tabular}{@{}p{3cm}|p{3.8cm}|p{3.8cm}|p{3cm}@{}}
+\toprule
+\textbf{Domain} & \textbf{$\sin^2$ regime} &
+\textbf{$\cos^2$ regime} & \textbf{Name of shift} \\
+\midrule
+WKB/semiclassical       & Away from turning points
+                        & At turning points
+                        & Maslov index $\mu$ \\
+Symplectic geometry     & Standard Lagrangian chart
+                        & Crossed Maslov cycle
+                        & $\pi_1(\Lambda(n))$ \\
+Harmonic analysis       & In-phase (I)
+                        & Quadrature (Q)
+                        & Hilbert transform \\
+Lattice cryptography    & Lattice decoding
+                        & Coset decoding
+                        & $\Lambda\to\Lambda+v$ \\
+Berry--Keating          & $\vartheta(t_n)=n\pi$
+                        & $\vartheta(t_n)=(n-\tfrac12)\pi$
+                        & half-integer shift \\
+Representation theory   & Compact Cartan
+                        & Split Cartan
+                        & Cayley transform \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The unifying object is the metaplectic group
+$\mathrm{Mp}(2n,\mathbb{R})$, the double cover of
+$\mathrm{Sp}(2n,\mathbb{R})$, whose two sheets correspond exactly to
+the two quantisation phases. The functional equation
+$\xif(s)=\xif(1-s)$ arises from the action of this group on theta
+functions via $\tau\to-1/\tau$, and the Berry--Keating quantisation
+condition
+\begin{equation}\label{eq:berry_keating}
+  \vartheta(t_n)=\bigl(n-\tfrac12\bigr)\pi + O(1/t_n)
+\end{equation}
+encodes the same $-1/2$ shift on the analytic side.
+
+\subsubsection{Gauge ODE critical transition as Kuramoto
+  synchronisation}
+\label{sec:kuramoto}
+
+\begin{observation}[Gauge critical transition]
+\label{obs:gauge_transition}
+In the $F_2$-detector of \cref{sec:f2_hardy}, the gauge buffer
+states $(\varphi,\psi)$ exhibit a sharp transition at
+${\sim}10$ epochs: the standard deviation
+$\mathrm{std}(\varphi)$ drops from $\approx 0.10$ to $\approx 0.03$,
+coinciding with the epoch at which $F_2$ reaches convergence on all
+training zeros. The transition is invariant across seeds and has
+been reproduced on both $t\in[10,50]$ and $t\in[100,200]$.
+\end{observation}
+
+\begin{remark}[Kuramoto synchronisation]
+\label{rem:kuramoto_transition}
+\cref{obs:gauge_transition} is a finite-population
+Kuramoto-type synchronisation transition. The gauge phases
+$\{\varphi_i\}$ are batch-local fields; the shared residual loss
+$\mathcal{L}_{\mathrm{res}}$ acts as a coupling functional between
+them. When the effective coupling strength (controlled by the
+learning rate and the sharpness of the target) exceeds a critical
+value, the phases lock onto a common frequency profile determined
+by the target zero locations. The $\mathrm{std}(\varphi)$ drop of
+$\approx 3\times$ at epoch $\sim 10$ is the neural-network
+signature of this locking. A complete reduction to the Kuramoto
+order parameter is an open problem; the classical theory of
+large-$N$ Kuramoto oscillators with deterministic driving provides
+the natural framework.
+\end{remark}
+
+\subsubsection{Lehmer phenomenon and GUE spacing statistics}
+\label{sec:lehmer_gue}
+
+The difficulty hierarchy of \cref{tab:f2_low}, where some zeros
+converge one to two orders of magnitude slower than their
+neighbours, matches the empirical distribution of Lehmer pairs.
+Montgomery's pair-correlation conjecture and the numerical work of
+Odlyzko establish that the normalised spacings of high Riemann
+zeros follow the GUE distribution
+\begin{equation}\label{eq:gue}
+  p_{\mathrm{GUE}}(s) = \frac{32}{\pi^2}s^2 e^{-4s^2/\pi},
+\end{equation}
+with close zero pairs — Lehmer pairs — occurring with predictable
+frequency. In our detector, these are the zeros at which
+$Z(t)$ nearly grazes the real axis without crossing; the analytic
+signal spends longer near $\pm\pi/2$, and the $F_2$ residual takes
+proportionally longer to converge. This gives a testable
+prediction: the distribution of per-zero convergence times at fixed
+epoch budget should match the convolution of the GUE density with
+the analytic-signal residence time, a quantity that can be computed
+in closed form. We have not yet performed this fit; it is recorded
+as an open problem in \cref{sec:open}.
+
+\subsubsection{Weyl equidistribution and the PGGD angular walk}
+\label{sec:weyl}
+
+\cref{sec:pggd_failure} attributes the PGGD failure to a Weyl-type
+equidistribution of the angular updates modulo $2\pi$. The
+underlying fact is the classical theorem that for any irrational
+$\alpha$ the sequence $\{n\alpha\bmod 1\}$ is equidistributed in
+$[0,1)$. In the PGGD context, the angular update per step is
+approximately $\eta\,\hat L(t)$, which for a generic target
+function is rationally independent over any finite sample; the
+tangent projection then concentrates the full update into this
+angular component, producing an equidistributed walk whose
+empirical distribution converges to the Haar measure on $S^1$ as
+the epoch count grows. This is the converse of the locking in
+\cref{rem:kuramoto_transition}: here the coupling has been removed
+by construction, and equidistribution wins.
+
+
+% ============================================================================
+\section{Discussion}
+\label{sec:discussion}
+% ============================================================================
+
+\subsection{What the Correspondence Means}
+
+The seven correspondences demonstrate a \textit{structural isomorphism}
+at the level of mathematical grammar: the same pattern of periodic
+phase penalty, hard error boundary, amplitude--phase separation, and
+self-calibrating convergence appears in both the concrete engineering
+system (QROP-Net) and the abstract analytic framework (resonance theory
+on the critical line).
+
+This suggests---but does \textbf{not prove}---a deeper connection between:
+\begin{enumerate}
+  \item The algebraic structure of cyclotomic polynomial rings
+        ($X^n + 1 = 0$, the foundation of lattice cryptography),
+  \item The spectral structure of the Riemann $\xif$-function
+        (the encoding of prime distribution in complex-analytic phase),
+  \item The physical structure of coherent optical propagation
+        (the Fresnel diffraction kernel as a fractional Fourier transform).
+\end{enumerate}
+
+The unifying thread is the \textit{unit circle}: polynomial roots on
+$S^1$, optical phases on $S^1$, and $\xif$-function values on $S^1$
+(for the phase component). Phase quantisation---forcing continuous
+signals onto discrete angular positions---is the shared operation.
+
+
+\subsection{What the Correspondence Does Not Mean}
+
+We must be explicit about the boundaries of this work:
+
+\begin{enumerate}
+  \item \textbf{This is not a proof of the Riemann Hypothesis.}
+        The structural parallels identify a shared mathematical grammar,
+        but they do not constitute a logical proof. The RH is a statement
+        about the zeros of a specific analytic function, and no amount of
+        structural analogy to an optical system can replace a rigorous
+        complex-analytic argument.
+
+  \item \textbf{The correspondences are structural, not causal.}
+        The fact that QROP-Net's $\sin^2$ loss and Gate~A's
+        $\Delta v = m\pi$ have the same functional form does not mean
+        that one ``causes'' or ``explains'' the other. They are
+        independent instantiations of the same mathematical pattern.
+
+  \item \textbf{The polyadic frame is a numerical tool, not a proof
+        technique.} The convergence of $F_2(t) = 0$ to known zero
+        locations validates the numerical method, but finding zeros
+        is not the same as proving they all lie on $\sigma = 1/2$.
+
+  \item \textbf{The scattering interpretation is an analogy.}
+        Treating $\xif(s)$ as a scattering amplitude is a productive
+        analogy that generates correct predictions (zero locations,
+        phase quantisation), but $\xif$ is not literally a scattering
+        amplitude of a physical system (no Hamiltonian has been
+        identified whose S-matrix equals $\xif$).
+\end{enumerate}
+
+
+\subsection{Predictive Power and Future Directions}
+\label{sec:open}
+
+Despite these caveats, the unified framework suggests several testable
+predictions. We organise them by tier, preserving the classification
+principle of \cref{sec:tiers}: items are grouped by how concrete the
+evidence already is.
+
+\smallskip\noindent\textbf{\textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\
+Tier 1 follow-ups (immediate).}
+\begin{itemize}
+  \item \textbf{Complex-vector readout for
+        $\arg\xif(\tfrac{1}{2}+it)$.} The isolation experiment
+        (\cref{rem:isolation}) localised the remaining defect to the
+        smooth network's inability to represent the $\pm\pi$
+        discontinuity of $\arg\xif$ at zeros. The cleanest
+        architectural fix is to have the readout head predict
+        $\xif(\tfrac{1}{2}+it)$ as a complex vector and compute
+        $\arg$ post-hoc, rather than predict the phase directly.
+        This remains untested.
+  \item \textbf{Smooth zero-crossing targets
+        \textcolor{ForestGreen}{[confirmed 2026-04-10]}.}
+        Two smooth surrogates were tested under the isolation setup
+        of \cref{rem:isolation}: a bump target
+        $\mathrm{sign}(\mathrm{Re}\,\xif)\cdot
+         e^{-(\mathrm{Re}\,\xif)^2/\sigma^2}$ and a normalised
+        target $\mathrm{Re}\,\xif/\max|\mathrm{Re}\,\xif|$.
+        The normalised target reduces the zero/non-zero MSE ratio
+        from $18.2\times$ (step target) to $0.03\times$ --- a
+        $99.8\%$ gap reduction --- confirming that the $\pm\pi$
+        discontinuity was the sole bottleneck
+        (\cref{rem:isolation}). The next step is to integrate this
+        target into the full loss ($\Lpqo + \Lres + \Lcurv$) and
+        test whether the $F_2$-based zero-detection pipeline
+        benefits from the improved phase learning.
+\end{itemize}
+
+\smallskip\noindent\textbf{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\
+Tier 2 programmes (conjectural but well-posed).}
+\begin{enumerate}
+  \item \textbf{Height scaling law for
+        $\overline{|F_2|}$.} Fit the aggregate decay of
+        $\overline{|F_2|}(t)$ over disjoint seed ensembles to decide
+        whether the exponent of \cref{sec:f2_residual_open} is a
+        genuine power law, and if so whether it reflects the
+        $\log\log t$ corrections to $N(t)$.
+  \item \textbf{Architecture-invariant residual.} Define a
+        bootstrap-minimum version of $|F_2(t_k)|$ across a model
+        ensemble (\cref{sec:f2_residual_open}) and test whether its
+        per-zero values are now reproducible.
+  \item \textbf{Kuramoto order parameter.} Reduce the gauge phase
+        dynamics of \cref{obs:gauge_transition} to a finite-$N$
+        Kuramoto system and compare the critical epoch to the
+        analytic coupling threshold.
+  \item \textbf{Lehmer/GUE convergence fit.} Test whether the
+        per-zero convergence rate matches the convolution of the
+        GUE spacing density with the analytic-signal residence
+        time, as predicted in \cref{sec:lehmer_gue}.
+  \item \textbf{Generalised resonance on automorphic $L$-functions.}
+        The polyadic frame extends naturally to Dirichlet and
+        modular $L$-functions; the gate conditions should carry over
+        with no modification beyond replacing the Riemann--Siegel
+        $\vartheta$ by the appropriate theta function.
+\end{enumerate}
+
+\smallskip\noindent\textbf{\textcolor{red}{\rule{0.9ex}{0.9ex}}\
+Tier 3 rehabilitations (failed programmes that could be revisited).}
+\begin{itemize}
+  \item \textbf{PGGD with adaptive per-angle step sizes.}
+        \cref{sec:pggd_failure} identifies Weyl equidistribution as
+        the cause of PGGD's failure. A per-angle adaptive learning
+        rate that shrinks with the accumulated angular drift would
+        directly counter the diffusion, potentially rehabilitating
+        the optimiser.
+  \item \textbf{Cyclotomic PQO with supervised $\Psip$.} The
+        $L=4$ programme of \cref{sec:cos2_failure} became
+        statistically significant only after all three defects of
+        \cref{rem:psi_defect} were closed. A clean rerun of the
+        original cyclotomic framework with the isolation-style
+        setup would produce a fair test of the structural
+        prediction rather than of the now-understood implementation
+        bugs.
+\end{itemize}
+
+\smallskip\noindent\textbf{QROP-Net and cross-domain predictions
+(unchanged from the original framework).}
+
+\begin{enumerate}
+  \item \textbf{Loss landscape transfer}: Can QROP-Net-style training
+        losses (fidelity + $\sin^2$ quantisation + exponential barrier)
+        improve numerical zero-finding algorithms for $\zeta(s)$?
+
+  \item \textbf{Deep learning on $\xif$}: Can a neural network trained
+        on $|\xif(\sigma+it)|^2$ (analogous to the diffraction intensity)
+        recover $\arg\xif$ (analogous to phase retrieval)?
+
+  \item \textbf{Cyclotomic primes}: The NTT-friendly prime
+        $q = 7681 \equiv 1 \pmod{512}$ was chosen for computational
+        efficiency. Is there a deeper number-theoretic reason why
+        primes of this form are especially suitable for phase
+        quantisation?
+
+  \item \textbf{Generalised resonance}: The polyadic frame extends
+        naturally to Dirichlet $L$-functions. Can the gate conditions
+        be applied to automorphic $L$-functions, where the generalised
+        Riemann Hypothesis (GRH) is also conjectured?
+
+  \item \textbf{Physical implementation}: Can an actual optical
+        experiment with an SLM, laser, and camera sensor demonstrate
+        the $\sin^2$ quantisation landscape \textit{in hardware},
+        providing a physical analogue computer for phase quantisation
+        problems?
+\end{enumerate}
+
+
+% ============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% ============================================================================
+
+We have presented a unified framework that identifies phase quantisation
+on algebraic structures as the shared mathematical grammar connecting
+three domains: lattice-based post-quantum cryptography, coherent optical
+propagation, and the analytic structure of the Riemann $\xif$-function.
+
+The concrete nucleus is QROP-Net, a fully differentiable pipeline whose
+$\sin^2$ quantisation loss, LWE error threshold, and blind
+self-calibration mechanism find structural counterparts in the two-gate
+resonance criterion ($\Delta v = m\pi$, $v_\sigma = 0$), the
+$\sigma$-lift from the critical line, and the polyadic frame's gauge ODE
+for ground-truth-free zero detection.
+
+The project name $k^n = -1$ encodes both the mathematical foundation
+($X^{256} \equiv -1$ in Kyber's cyclotomic ring) and the deeper
+observation that the same cyclotomic structure---discrete phases on the
+unit circle, related by roots of unity---underlies the NTT in
+cryptography, the fractional Fourier transform in optics, and the Gram
+point lattice on the critical line.
+
+Seven structural correspondences have been formalised, and their
+boundaries clearly delineated: they are analogies grounded in shared
+mathematical structure, not proofs. But analogies of this precision and
+breadth are rare, and they suggest that the phase quantisation principle
+may be a more fundamental organising concept than its individual
+manifestations in cryptography, optics, or number theory.
+
+
+% ============================================================================
+% References
+% ============================================================================
+\begin{thebibliography}{99}
+
+\bibitem{kyber2021}
+R.~Avanzi \textit{et al.},
+``CRYSTALS-Kyber: Algorithm specifications and supporting documentation
+(version 3.02),'' NIST PQC Submission, 2021.
+
+\bibitem{ozaktas2001}
+H.~M.~Ozaktas, Z.~Zalevsky, and M.~A.~Kutay,
+\textit{The Fractional Fourier Transform with Applications in Optics and
+Signal Processing}. Wiley, 2001.
+
+\bibitem{lewin2022}
+Y.~Wang, X.~Cao, and Q.~Zhou,
+``Uformer: A general U-shaped transformer for image restoration,''
+in \textit{Proc.\ CVPR}, 2022.
+
+\bibitem{ste2013}
+Y.~Bengio, N.~L{\'e}onard, and A.~Courville,
+``Estimating or propagating gradients through stochastic neurons,''
+\textit{arXiv:1308.3432}, 2013.
+
+\bibitem{nistpqc2024}
+National Institute of Standards and Technology,
+``Module-Lattice-Based Key-Encapsulation Mechanism Standard (FIPS 203),''
+2024.
+
+\bibitem{fienup1982}
+J.~R.~Fienup,
+``Phase retrieval algorithms: A comparison,''
+\textit{Applied Optics}, vol.~21, no.~15, pp.~2758--2769, 1982.
+
+\bibitem{goodman2005}
+J.~W.~Goodman,
+\textit{Introduction to Fourier Optics}, 3rd~ed. Roberts \& Company, 2005.
+
+\bibitem{wyner1975}
+A.~D.~Wyner,
+``The wire-tap channel,''
+\textit{Bell System Technical Journal}, vol.~54, no.~8, pp.~1355--1387,
+1975.
+
+\bibitem{berry1984}
+M.~V.~Berry,
+``Quantal phase factors accompanying adiabatic changes,''
+\textit{Proc.\ Royal Society A}, vol.~392, pp.~45--57, 1984.
+
+\bibitem{titchmarsh1986}
+E.~C.~Titchmarsh,
+\textit{The Theory of the Riemann Zeta-Function}, 2nd~ed.
+(revised by D.~R.~Heath-Brown). Oxford University Press, 1986.
+
+\bibitem{edwards1974}
+H.~M.~Edwards,
+\textit{Riemann's Zeta Function}. Academic Press, 1974.
+
+\bibitem{khare1997}
+A.~Khare,
+``The phase of the Riemann zeta function,''
+\textit{Pramana -- J.\ Phys.}, vol.~48, pp.~537--553, 1997.
+
+\bibitem{leclair2023}
+A.~LeClair and G.~Mussardo,
+``Riemann zeros as quantized energies of a scattering system,''
+\textit{arXiv:2307.01254}, 2023.
+
+\bibitem{leclair2024}
+A.~LeClair,
+``Analogous results for Generalized and Grand Riemann Hypotheses,''
+\textit{arXiv}, 2024.
+
+\bibitem{pei2025}
+Z.~Pei,
+``Spectral flow for the Riemann zeros,''
+\textit{arXiv:2403.19118}, 2025.
+
+\bibitem{moreta2014}
+J.~J.~G.~Moreta,
+``Riemann zeros and an exponential potential,''
+2014.
+
+\bibitem{ivic2003}
+A.~Ivi{\'c},
+\textit{The Riemann Zeta-Function: Theory and Applications}.
+Dover, 2003.
+
+\bibitem{montgomery1973}
+H.~L.~Montgomery,
+``The pair correlation of zeros of the zeta function,''
+\textit{Proc.\ Symp.\ Pure Math.}, vol.~24, pp.~181--193, 1973.
+
+\bibitem{conrey2003}
+J.~B.~Conrey,
+``The Riemann Hypothesis,''
+\textit{Notices of the AMS}, vol.~50, no.~3, pp.~341--353, 2003.
+
+\bibitem{Jacot2018NTK}
+A.~Jacot, F.~Gabriel, and C.~Hongler,
+``Neural tangent kernel: Convergence and generalization in neural
+networks,''
+in \textit{Advances in Neural Information Processing Systems (NeurIPS)},
+2018.
+
+\bibitem{Rahaman2019SpectralBias}
+N.~Rahaman, A.~Baratin, D.~Arpit, F.~Draxler, M.~Lin, F.~Hamprecht,
+Y.~Bengio, and A.~Courville,
+``On the spectral bias of neural networks,''
+in \textit{Proc.\ ICML}, 2019.
+
+\bibitem{BasriGeifman2020FrequencyBias}
+R.~Basri, M.~Galun, A.~Geifman, D.~Jacobs, Y.~Kasten, and S.~Kritchman,
+``Frequency bias in neural networks for input of non-uniform density,''
+in \textit{Proc.\ ICML}, 2020.
+
+\end{thebibliography}
+
+
+% ============================================================================
+% Appendices
+% ============================================================================
+\appendix
+
+\section{QROP-Net Full Equation Reference}
+\label{app:qropnet_eqs}
+
+For convenience, we collect the complete set of QROP-Net equations used
+in the structural correspondences:
+
+\begin{enumerate}
+  \item \textbf{Ring}: $R_q = \Rq$, $n=256$, $q=7681$, $X^n \equiv -1$
+  \item \textbf{Encryption}: $\mathbf{u} = \mathbf{A}^\top\mathbf{r}+\mathbf{e}_1$,
+        $v = \mathbf{t}^\top\mathbf{r}+e_2+\ceil{q/2}m$
+  \item \textbf{Compression}: $\mathrm{Compress}_q(x,d) = \ceil{2^d x/q} \bmod 2^d$
+  \item \textbf{Phase modulation}: $\phi_i = 2\pi c_i/2^{d_u}$,
+        $U_0 = e^{i\phi}$
+  \item \textbf{FrFT}: $U_d = A_\alpha^2 \cdot \mathcal{F}^{-1}[\mathcal{F}[U_0 \cdot C_1] \cdot \mathcal{F}[C_2]] \cdot \Delta x^2$
+  \item \textbf{Quantisation loss}: $\mathcal{L}_{\mathrm{quant}} = \frac{1}{2}[\frac{1}{kn}\sum\sin^2(2^{d_u-1}\phi_i^{(u)}) + \frac{1}{n}\sum\sin^2(2^{d_v-1}\phi_j^{(v)})]$
+  \item \textbf{LWE threshold}: $\norm{w - \ceil{q/2}\hat{m}}_\infty < 1920$
+  \item \textbf{Blind loss}: $\mathcal{L}_{\mathrm{blind}} = \mathcal{L}_{\mathrm{fid}} + 0.5\mathcal{L}_{\mathrm{quant}} + 0.05\mathcal{L}_{\mathrm{TV}}$
+\end{enumerate}
+
+
+\section{Numerical Tables for Resonance Gates}
+\label{app:numerical}
+
+Representative zero-finding results from the polyadic frame, across
+different target functions and parameter settings:
+
+\begin{table}[ht]
+\centering
+\caption{Polyadic frame results: invariance under step size sweep.}
+\label{tab:polyadic_sweep}
+\small
+\begin{tabular}{@{} llcccc @{}}
+\toprule
+\textbf{Target} & \textbf{Band} & $W$ & $N$ & $h$ sweep
+& $t^*$ (invariant) \\
+\midrule
+$\xif$ & $T\approx141.12$ & 0.002 & 401 &
+$2\mathrm{e}{-7}$ to $1\mathrm{e}{-5}$ & 141.123703 \\
+$\xif$ & $T\approx141.12$ & 0.001 & 301 &
+$2\mathrm{e}{-7}$ to $1\mathrm{e}{-5}$ & 141.123713 \\
+$L(\chi_3^{\mathrm{odd}})$ & $T\approx140.61$ & 0.002 & 61 &
+$5\mathrm{e}{-7}$ & 140.611723 \\
+$L(\chi_8^{\mathrm{even}})$ & $T\approx141.08$ & 0.003 & 81 &
+$5\mathrm{e}{-7}$ & 141.083569 \\
+$L(\chi_5^{\mathrm{cmplx}}, \chi(2)=i)$ & $T\approx140.97$ & 0.002 & 61 &
+$2.2\mathrm{e}{-7}$ & 140.966280 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The frame invariance ratios across all tests:
+$r_{\mathrm{frame}} < 10^{-3}$,
+$r_{\mathrm{channel}} < 0.1$,
+$r_{\mathrm{window}} < 0.2$.
+
+Conjugate pair symmetry for complex characters:
+$|t_\chi + t_{\bar{\chi}}| / t_\chi < 0.002$.
+
+
+\section{Generalisation to Dirichlet $L$-Functions}
+\label{app:dirichlet}
+
+The gate conditions and polyadic frame extend naturally to completed
+Dirichlet $L$-functions $\Lambda(s,\chi)$. The key adaptations:
+
+\begin{enumerate}
+  \item The completed function $\Lambda(s,\chi) = (q/\pi)^{(s+\epsilon)/2}
+        \Gamma((s+\epsilon)/2)\,L(s,\chi)$ replaces $\xif(s)$.
+  \item For non-principal characters, $\Lambda(s,\chi)$ is entire (no
+        pole at $s=1$), avoiding the truncation issue of the Euler product.
+  \item The functional equation $\Lambda(s,\chi) = \varepsilon(\chi)\,
+        \Lambda(1-s,\bar{\chi})$ has the same structural form as
+        $\xif(s) = \xif(1-s)$.
+  \item Gate~A becomes $\Delta v_\chi = m\pi$ where
+        $v_\chi = \arg\Lambda(\sigma+it,\chi)$.
+  \item Gate~B remains $\partial_\sigma v_\chi = 0$.
+  \item The Generalised Riemann Hypothesis (GRH) is equivalent to
+        $\sigma^* = 1/2$ for all resonant points of $\Lambda(s,\chi)$,
+        for all $\chi$.
+\end{enumerate}
+
+LeClair~\cite{leclair2024} has confirmed that the Bethe-ansatz/phase-quantisation
+approach extends to ``all $L$-functions based on non-principal Dirichlet
+characters [and] those based on cusp modular forms,'' with the only
+difference being the handling of the pole for the principal character.
+
+
+\section{Notation Index}
+\label{app:notation}
+
+\begin{center}
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{Symbol} & \textbf{Domain} & \textbf{Meaning} \\
+\midrule
+$R_q$ & QROP-Net & Polynomial ring $\Zq[X]/(X^n+1)$ \\
+$\phi_i$ & QROP-Net & Optical phase of ciphertext element $i$ \\
+$U_0$ & QROP-Net & Transmitted complex wavefront $e^{i\phi}$ \\
+$d$ & QROP-Net & Learnable propagation distance (mm) \\
+$\alpha$ & QROP-Net & FrFT order angle (radians) \\
+$\xif(s)$ & Resonance & Completed Riemann zeta function \\
+$\Phiz(t)$ & Resonance & Phase of $\xif(1/2+it)$ \\
+$\Ampl(t)$ & Resonance & Amplitude $|\xif(1/2+it)|$ \\
+$\Psip(n)$ & Resonance & Smooth prime-counting phase \\
+$\sigma^*$ & Resonance & Real part of resonant point \\
+$\ell$ & Resonance & $\sigma$-lift: $\sigma^* - 1/2$ \\
+$F_2(t)$ & Polyadic & Final discriminant function \\
+$\Lhat(t)$ & Polyadic & Central-difference log-derivative \\
+$v(\sigma,t)$ & Both & Phase of $\xif(\sigma+it)$ / general phase \\
+$\mathcal{P}(\phi;L)$ & Both & Phase quantisation operator $\sin^2(L\phi/2)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+\end{document}

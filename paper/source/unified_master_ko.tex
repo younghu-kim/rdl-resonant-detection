@@ -1,0 +1,1981 @@
+% ============================================================================
+%  광학 격자에서 제타 풍경까지의 위상 양자화:
+%  통합 프레임워크
+%  ── 한국어판 ──
+%  컴파일: xelatex unified_ko.tex (2회 실행)
+% ============================================================================
+\documentclass[11pt, a4paper]{article}
+
+% ── 한글 지원 (XeLaTeX + kotex) ────────────────────────────────────────────
+\usepackage{kotex}
+\usepackage{fontspec}
+
+% ── Layout ─────────────────────────────────────────────────────────────────
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ── Mathematics ────────────────────────────────────────────────────────────
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{bm}
+
+% ── Graphics & Diagrams ───────────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows.meta, positioning, calc, decorations.pathreplacing,
+  shapes.geometric, fit, backgrounds, chains, matrix
+}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ── Tables ─────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+
+% ── Colors ─────────────────────────────────────────────────────────────────
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\definecolor{txblue}{HTML}{2563EB}
+\definecolor{chgreen}{HTML}{059669}
+\definecolor{rxorange}{HTML}{D97706}
+\definecolor{lossred}{HTML}{DC2626}
+\definecolor{decodepurple}{HTML}{7C3AED}
+\definecolor{secgray}{HTML}{374151}
+\definecolor{lightbg}{HTML}{F8FAFC}
+\definecolor{accentblue}{HTML}{3B82F6}
+\definecolor{zetaviolet}{HTML}{6D28D9}
+\definecolor{primegold}{HTML}{B45309}
+
+% ── Algorithms ────────────────────────────────────────────────────────────
+\usepackage[ruled, vlined, linesnumbered]{algorithm2e}
+\SetKwComment{Comment}{$\triangleright$\ }{}
+
+% ── Cross-references & Links ──────────────────────────────────────────────
+\usepackage[colorlinks=true, linkcolor=accentblue, citecolor=chgreen, urlcolor=txblue]{hyperref}
+\usepackage[capitalise, noabbrev]{cleveref}
+
+% ── Theorem Environments (한국어) ─────────────────────────────────────────
+\theoremstyle{definition}
+\newtheorem{definition}{정의}[section]
+\newtheorem{property}{성질}[section]
+\newtheorem{remark}{비고}[section]
+\newtheorem{example}{예제}[section]
+\theoremstyle{plain}
+\newtheorem{theorem}{정리}[section]
+\newtheorem{lemma}[theorem]{보조정리}
+\newtheorem{proposition}[theorem]{명제}
+\newtheorem{corollary}[theorem]{따름정리}
+\newtheorem{conjecture}[theorem]{추측}
+\newtheorem{observation}[theorem]{관찰}
+
+% ── Custom Commands ───────────────────────────────────────────────────────
+\newcommand{\Zq}{\mathbb{Z}_q}
+\newcommand{\Rq}{\mathbb{Z}_q[X]/(X^n+1)}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rfloor}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\FrFT}{\mathrm{FrFT}}
+\newcommand{\STE}{\mathrm{STE}}
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\eg}{\textit{e.g.}}
+\newcommand{\sectionline}{\noindent\rule{\textwidth}{0.4pt}\vspace{0.3em}}
+
+% Resonance-specific commands
+\newcommand{\xif}{\xi}
+\newcommand{\Phiz}{\Phi_\xi}
+\newcommand{\Ampl}{A}
+\newcommand{\Psip}{\Psi}
+\newcommand{\pis}{\pi_{\mathrm{s}}}
+\newcommand{\slift}{\sigma^*\!-\!\tfrac{1}{2}}
+\newcommand{\Lhat}{\hat{L}}
+\newcommand{\GateA}{\mathsf{G}_{\mathrm{A}}}
+\newcommand{\GateB}{\mathsf{G}_{\mathrm{B}}}
+\newcommand{\Lpqo}{\mathcal{L}_{\mathrm{pqo}}}
+\newcommand{\PQO}{\mathsf{PQO}}
+\newcommand{\Ftwo}{F_{2}}
+
+% ── Header Box Style ─────────────────────────────────────────────────────
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% ============================================================================
+\begin{document}
+
+% ── 제목 ──────────────────────────────────────────────────────────────────
+\begin{center}
+  {\LARGE\bfseries 광학 격자에서 제타 풍경까지의\\[4pt]
+   위상 양자화}\\[14pt]
+  {\large\itshape 격자 암호, 프레넬 광학, 해석적 정수론을\\
+   연결하는 통합 프레임워크}\\[20pt]
+  {\large 김영후}\\[4pt]
+  {\normalsize 독립 연구자}\\[4pt]
+  {\small\today}
+\end{center}
+
+\vspace{1.5em}
+
+% ── 초록 ──────────────────────────────────────────────────────────────────
+\begin{tcolorbox}[
+  colback=lightbg, colframe=zetaviolet!60!black,
+  title={\bfseries 초록}, fonttitle=\large,
+  arc=3pt, boxrule=0.8pt, toptitle=3pt, bottomtitle=3pt
+]
+본 논문은 세 가지 겉보기에 이질적인 영역을 연결하는 공유 수학적 문법---\textit{대수적 구조 위의 위상 양자화}---을 규명한다. 그 세 영역은 CRYSTALS-Kyber 격자 기반 양자후 암호, 자유 공간 프레넬 회절, 그리고 임계선 위 리만 $\xif$-함수의 위상 구조이다. 구체적 핵은 QROP-Net으로, Kyber 암호문을 광학 위상 패턴으로 인코딩하고 딥러닝 위상 복원을 통해 복원하는 완전 미분 가능 파이프라인이다. 연속 위상 예측을 이산 시클로토믹 격자 수준으로 강제하는 $\sin^2$ 기반 양자화 손실이, 공명소수법칙 프레임워크에서 ``공명 소수''를 특성화하는 보어--좀머펠트 위상 양자화 조건 $\Delta\nu = m\pi$와 구조적으로 동형임을 보인다. 나아가 Kyber의 LWE 오차 임계치 $\lfloor q/4\rfloor = 1920$과 임계선으로부터의 $\sigma$-리프트 편차 $\sigma^*-\tfrac{1}{2}$가, 신호 복원이 실패하는 경성 오차 경계로서 동일한 역할을 공유함을 증명한다. 외부 정답 없이 자가 교정하는 다원군(Polyadic) ODE 기반 영점 탐지기가 QROP-Net의 블라인드 테스트 시간 최적화를 반영한다. 7개의 구조적 대응이 형식화되며, 유비와 증명 사이의 경계가 명시적으로 서술된다.
+
+\smallskip
+\noindent\textit{개정 후 부기 (2026-04-08).} 임계선 위의 시클로토믹 PQO 프로그램을 경험적으로 실현하려는 시도 — $L=4$ 코사인 PQO 와 \cref{eq:psi_n}의 합성 이상 위상 $\Psip(n)$ 을 감독 타겟으로 사용하는 판별 네트워크 — 는 결정적 음성을 반환한다: 세 시드 모두에서 결과 위상 분포가 리만 영점과 비영점 종좌표를 구별하지 못하며 ($\chi^2$ p값 $0.13/0.53/0.41$; 섹터 $k=2,3$ 정확히 비어 있음). 진단 (\cref{rem:cos2_pqo,rem:psi_defect}) 은 합성 $\Psip$ 가 $\|X\|$에만 의존하고 $\xif$-영점 정보를 전혀 포함하지 않으므로 4-항 손실의 어느 항도 $t$-국소 영점 라벨을 학습에 주입하지 못하며, \cref{eq:pqo_cos} (학습 포텐셜) 와 \cref{eq:cyclo_label} (측정) 가 운영적으로 분리되어 있다는 것이다. 이하 본문은 합성 $\Psip$ 를 역사적 객체로, 시클로토믹 PQO 를 대수적 타겟으로 보존하되, 양자 모두 감독 교체식 $\Psip(t) := \arg\xif(\tfrac{1}{2}+it)$ (\cref{eq:psi_supervised}) 을 사용하는 실험을 기다리는 항목으로 표시된다.
+\end{tcolorbox}
+
+\vspace{0.5em}
+\noindent\textbf{핵심어:} 위상 양자화, 시클로토믹 다항식환, CRYSTALS-Kyber,
+분수 푸리에 변환, 리만 $\xif$-함수, 보어--좀머펠트 조건, 공명 소수,
+$\sigma$-리프트, 베리 위상, 디리클레 $L$-함수
+
+\tableofcontents
+\newpage
+
+
+% ============================================================================
+\section{서론}
+\label{sec:intro}
+% ============================================================================
+
+다항식환 $R_q = \Rq$에서 $n = 256$, $q = 7681$은 NIST 표준화 양자후 키 캡슐화 메커니즘 CRYSTALS-Kyber~\cite{kyber2021}의 대수적 뼈대이다. 정의 관계식 $X^n + 1 = 0$---동치적으로 $X^n \equiv -1$, 본 프로젝트 코드명 $k^n = -1$의 기원---은 시클로토믹 다항식이며, 그 근은 $2n$차 단위근이다:
+\begin{equation}
+  \omega_j = e^{i\pi(2j+1)/n}, \quad j = 0, 1, \ldots, n-1.
+  \label{eq:cyclo_roots}
+\end{equation}
+이 $n$개의 위상은 단위원 위에 등간격으로 배치되어 $\Delta\theta = \pi/n$만큼 분리된다. 이 이산적이고 주기적인 위상 구조는 단순히 수론적 변환(NTT)을 통한 빠른 다항식 곱셈의 대수적 편의가 아니다; 우리는 이것이 적어도 두 가지 다른 영역에서 나타나는 보다 일반적인 \textit{위상 양자화 원리}의 한 사례라고 주장한다:
+
+\begin{enumerate}
+  \item \textbf{프레넬 광학}: 분수 푸리에 변환(FrFT)은 결맞음 파면 $U_0 = e^{i\phi}$를 자유 공간 회절을 통해 전파시키며, 분수차 $\alpha$가 전파 거리를 위상 매개변수로 인코딩한다.
+  \item \textbf{해석적 정수론}: 완성 리만 $\xif$-함수 $\xif(s) = \tfrac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$는 임계선 $s = \tfrac{1}{2} + it$ 위에서 진폭 $\Ampl(t) = |\xif(\tfrac{1}{2}+it)|$과 위상 $\Phiz(t) = \arg\,\xif(\tfrac{1}{2}+it)$으로 분해되며, 위상 양자화 조건은 소수 분포 및 리만 가설과 밀접하게 연결된다.
+\end{enumerate}
+
+\textbf{논제.} QROP-Net의 $\sin^2$ 기반 양자화 손실, 임계선 위의 보어--좀머펠트 조건 $\Delta\nu = m\pi$, 그리고 시클로토믹 근 구조 $X^n \equiv -1$은 하나의 수학적 문법의 세 가지 발현이다: \textit{대수적 구조 위의 주기적 위상 벌칙이 연속 신호를 이산 격자 수준으로 강제하며, 해독이 실패하는 경성 오차 경계가 존재한다}.
+
+\textbf{기여.}
+\begin{enumerate}
+  \item Kyber 격자 암호, 프레넬 광학, 딥러닝 위상 복원을 통합하는 완전 미분 가능 파이프라인 QROP-Net을 제시한다 (제1부).
+  \item 위상 양자화 메커니즘을 이산 및 연속 푸리에 해석을 잇는 일반 원리로 추상화한다 (제~\ref{sec:bridge}절).
+  \item 이 원리를 $\xif(s)$의 위상 구조에 적용하여, 소수 탐지를 위한 2-게이트 공명 기준을 공식화한다 (제2부, 제~\ref{sec:xi_phase}--\ref{sec:gates}절).
+  \item LWE 오차 임계치와 임계선으로부터의 $\sigma$-리프트 사이의 구조적 대응을 확립한다 (제~\ref{sec:sigma_lift}절).
+  \item 정답 없이 자가 교정하는 다원군 ODE 영점 탐지기를 제시하며, 이것이 QROP-Net의 블라인드 테스트 시간 최적화를 반영함을 보인다 (제~\ref{sec:polyadic}절).
+  \item 7개의 구조적 대응을 형식화하고, 유비와 증명 사이의 경계를 엄격하게 구분한다 (제3부, 제~\ref{sec:correspondence}절).
+  \item \textbf{(음성 경험 결과, 2026-04-08)} 시클로토믹 PQO 프로그램을 $t \in [100, 200]$ 위에서 $L=4$로 경험적으로 시도하고, 세 시드 전체에서 영점/비영점 판별의 완전한 실패를 문서화하며, 그 원인을 \cref{eq:psi_n}의 \emph{$\Psip$-디커플링 결함}으로 추적하고, 향후 양성 결과의 필요 조건으로 감독 교체식 \cref{eq:psi_supervised}를 제안한다 (제~\ref{part:failed}부, Remark~\ref{rem:cos2_pqo}, \ref{rem:psi_defect}).
+  \item \textbf{(고립 실험, 2026-04-09)} 타겟 주입, 손실 가중, 읽기 채널을 모두 분리하여, 세 가지를 동시에 차단했을 때 감독 사슬 $\arg\xif(\tfrac{1}{2}+it)\to\mathcal{L}_{\mathrm{tgt}}\to\hat\Psip$이 비영점 샘플링 지점에서 건전함을 보인다 ($p=1.18\times10^{-15}$, 비율 $18.2\times$). 이로써 잔존 결함은 영점 근방의 네트워크 출력 표현에 국한된다 (Remark~\ref{rem:isolation}).
+\end{enumerate}
+
+\subsection*{독해 안내: 증거 계층}
+\label{sec:tiers}
+
+\noindent 본 논문은 \emph{통합 연구 노트}이다. 4개월간의 연구 궤적 전체를 기록하며, 여전히 추측 상태인 아이디어와 실패로 끝난 경험적 시도까지 포함한다. 따라서 모든 주장에 세 가지 계층 중 하나를 명시적으로 부여하고, 이를 섹션 제목 및 목차에 표시한다:
+
+\begin{description}
+  \item[\textbf{\textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\ \ 계층 1 --- 검증됨.}]
+        완전한 유도와 성공적인 수치 실험으로 뒷받침된 주장. 예:
+        $F_2$-판별식 영점 탐지기 (제~\ref{sec:f2_hardy}절),
+        고립 실험을 통한 감독 동일시
+        $\Psip(t)=\arg\xif(\tfrac{1}{2}+it)$ (Remark~\ref{rem:isolation}),
+        $t\in[100,200]$ 고위영점 확장 (제~\ref{sec:high_zeros}절).
+        이들 섹션은 성숙한 결과로 읽어야 한다.
+
+  \item[\textbf{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ \ 계층 2 --- 아이디어와 부분 결과.}]
+        해석적 대응, 이론적 구성, 또는 시사적이지만 불완전한 증거를 가진 실험. 예: Gate B 정류성 (제~\ref{sec:gates}절),
+        $\sigma$-리프트 (제~\ref{sec:sigma_lift}절), 7가지 구조적 대응 (제~\ref{sec:correspondence}절), $|F_2|$ 공간 관측량 및 2026-04-08 재해석 (제~\ref{sec:f2_residual}절). 이들은 연구 강령으로 읽어야 하며, 확정된 이론이 아니다.
+
+  \item[\textbf{\textcolor{red}{\rule{0.9ex}{0.9ex}}\ \ 계층 3 --- 실패한 시도와 그 진단.}]
+        성공하지 못한 경험적 프로그램을 완전한 진단과 함께 보존한 것. 예: 시클로토믹 $\cos^2$ $L\in\{2,4\}$ PQO 학습 (제~\ref{sec:cos2_failure}절), 위상-게이지 경사하강(PGGD) 옵티마이저 (제~\ref{sec:pggd_failure}절). 이들 섹션을 압축하되 유지하는 이유는 진단 사슬 자체가 기여이기 때문이다: 타겟 설계, 손실 가중, 측정, 모델 표현력의 어떤 조합이 호환되지 않는지 정확히 기록함으로써 후속 작업이 동일한 실패 모드를 피할 수 있게 한다. 원인이 이해된 실패 방향은 부분적 양성 결과이다.
+\end{description}
+
+\noindent 섹션이나 비고의 계층은 \textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\,/\textcolor{orange}{\rule{0.9ex}{0.9ex}}\,/\textcolor{red}{\rule{0.9ex}{0.9ex}}\ 기호로 표시한다. 독자는 계층을 특정 진술에 대한 신뢰도의 눈금으로 사용할 수 있다. 제~\ref{part:qropnet}--\ref{part:synthesis}부의 구조적 분할은 이 계층화를 따른다: 제~\ref{part:qropnet}부와 제~\ref{part:resonance}부는 계층~1과 계층~2 자료를, 제~\ref{part:failed}부는 계층~3 실패 진단을, 제~\ref{part:synthesis}부는 세 가지 모두를 통합 그림으로 종합한다.
+
+
+% ############################################################################
+% 제1부 — 구체적 시스템
+% ############################################################################
+
+\part{구체적 시스템: QROP-Net}
+\label{part:qropnet}
+
+
+% ============================================================================
+\section{QROP-Net: 시스템과 수학}
+\label{sec:qropnet}
+% ============================================================================
+
+\subsection{다항식환과 NTT}
+
+Kyber는 $R_q = \Rq$ 위에서 동작하며, $q = 7681$은 $q \equiv 1 \pmod{2n}$을 만족하도록 선택되어 $O(n\log n)$ 다항식 곱셈을 위한 수론적 변환(NTT)을 가능하게 한다. 환 조건 $X^n + 1 = 0$은 다음과 같이 인수분해된다:
+\begin{equation}
+  X^n + 1 = \prod_{j=0}^{n-1}(X - \omega_j), \quad
+  \omega_j = e^{i\pi(2j+1)/n} \in \mathbb{C}.
+  \label{eq:factorisation}
+\end{equation}
+모든 원소 $a(X) \in R_q$는 벡터 $\mathbf{a} = (a_0, \ldots, a_{n-1}) \in \Zq^n$에 대응하며, 곱셈 $a \cdot b \pmod{X^n+1}$는 NTT 영역에서 성분별 곱셈이 된다.
+
+\begin{definition}[Kyber IND-CPA 암호화]
+\label{def:kyber}
+공개키 $(\mathbf{A}, \mathbf{t})$가 주어지고 $\mathbf{A} \in R_q^{k \times k}$, $\mathbf{t} \in R_q^k$, 메시지 $m \in \{0,1\}^n$일 때, 암호문 $(\mathbf{u}, v)$는:
+\begin{align}
+  \mathbf{u} &= \mathbf{A}^\top \mathbf{r} + \mathbf{e}_1,
+  \label{eq:kyber_u}\\
+  v &= \mathbf{t}^\top \mathbf{r} + e_2 + \ceil{q/2} \cdot m,
+  \label{eq:kyber_v}
+\end{align}
+여기서 $\mathbf{r}, \mathbf{e}_1, e_2 \sim \beta_\eta$는 중심 이항 분포에서 추출된다:
+\begin{equation}
+  \beta_\eta: \quad x = \sum_{i=1}^{\eta}(a_i - b_i), \quad
+  a_i, b_i \sim \mathrm{Bernoulli}(\tfrac{1}{2}), \quad
+  x \in [-\eta, \eta].
+  \label{eq:cbd}
+\end{equation}
+\end{definition}
+
+\begin{definition}[압축과 역압축]
+\label{def:compress}
+\begin{align}
+  \mathrm{Compress}_q(x, d) &= \ceil{\frac{2^d}{q} \cdot x}
+  \bmod 2^d, \label{eq:compress}\\
+  \mathrm{Decompress}_q(x, d) &= \ceil{\frac{q}{2^d} \cdot x},
+  \label{eq:decompress}
+\end{align}
+여기서 $\ceil{\cdot}$는 반올림을 나타낸다: $\floor{x + 0.5}$.
+매개변수: $d_u = 11$ ($\mathbf{u}$에 대해 2048 수준), $d_v = 3$ ($v$에 대해 8 수준).
+\end{definition}
+
+\begin{theorem}[LWE 정확성 기준]
+\label{thm:lwe}
+복호화가 성공하려면 총 오차 $w = v - \mathbf{s}^\top\mathbf{u} \pmod{q}$가 다음을 만족해야 한다:
+\begin{equation}
+  \norm{w - \ceil{q/2}\hat{m}}_\infty < \ceil{q/4} = 1920.
+  \label{eq:lwe_threshold}
+\end{equation}
+단 하나의 계수라도 이 경계를 초과하면 완전한 복호화 실패가 발생한다 ($\mathrm{DFR} = 1$). 환 거리는:
+\begin{equation}
+  |e|_{\Zq} = \min(e, \; q - e), \quad e \in \{0, 1, \ldots, q-1\}.
+  \label{eq:ring_distance}
+\end{equation}
+\end{theorem}
+
+
+\subsection{위상 변조: 정수에서 광학으로}
+\label{sec:phase_mod}
+
+각 압축된 암호문 계수 $c_i \in \{0, \ldots, 2^{d_u}-1\}$는 위상 각도로 변환되어 단위 진폭 복소 파면으로 인코딩된다:
+\begin{equation}
+  \phi_i = \frac{2\pi \cdot c_i}{2^{d_u}}, \qquad
+  U_0(x,y) = e^{i\phi(x,y)}, \quad |U_0| \equiv 1.
+  \label{eq:phase_mod}
+\end{equation}
+$2^{d_u} = 2048$개의 이산 암호문 수준은 단위원 위 2048개의 등간격 위상에 대응하며, $\Delta\phi = 2\pi/2048$만큼 분리된다. 이는 대수적 구조의 직접적인 물리적 실현이다: 다항식환의 이산 계수가 SLM 위의 이산 광학 위상이 된다.
+
+차원 제약 조건이 암호학적 영역과 광학적 영역을 연결한다:
+\begin{equation}
+  N = \sqrt{k \cdot n + n} \times M = \sqrt{1024} \times 8 = 256,
+  \label{eq:dim_constraint}
+\end{equation}
+여기서 $M = 8$은 잡음 내성을 위한 매크로 픽셀 확장 계수이다.
+
+
+\subsection{미분 가능 광학 채널: FrFT}
+\label{sec:frft}
+
+파면 $U_0$가 자유 공간을 통해 거리 $d$만큼 전파될 때, 회절 적분은 차수 $p$의 분수 푸리에 변환과 동치이다:
+\begin{equation}
+  p = \frac{2}{\pi}\arctan\!\left(\frac{\lambda d}{N \Delta x^2}\right),
+  \qquad \alpha = \frac{p\pi}{2},
+  \label{eq:frft_order}
+\end{equation}
+여기서 $\lambda = 500\,$nm은 파장, $\Delta x = 8\,\mu$m은 픽셀 피치이다. 전파 거리 $d$는 학습 가능한 매개변수로 선언되어 경사 기반 자동 초점을 가능하게 한다:
+\begin{equation}
+  d \;\xrightarrow{\;\partial\;}\;
+  R = \frac{\lambda d}{N\Delta x^2} \;\to\;
+  \alpha = \arctan(R) \;\to\;
+  s_2 = \sqrt{1 + R^2}.
+  \label{eq:learnable_d}
+\end{equation}
+
+IP-DFrFT는 처프--FFT--처프 분해를 통해 구현되어 복잡도를 $O(N^4)$에서 $O(N^2\log N)$으로 줄인다:
+\begin{equation}
+\boxed{
+  U_d = \underbrace{(1 - i\cot\alpha)}_{\displaystyle A_\alpha^2}
+  \cdot\;\mathcal{F}^{-1}\!\Big[
+    \mathcal{F}\!\big[\underbrace{U_0 \cdot
+    e^{i\pi(\cot\alpha - \csc\alpha)\,r^2}}_{\text{입력 처프}}\big]
+    \;\cdot\;
+    \mathcal{F}\!\big[\underbrace{e^{i\pi\,\csc\alpha\,r'^2}}_{\text{커널 처프}}\big]
+  \Big] \cdot \Delta x^2
+}
+\label{eq:frft_full}
+\end{equation}
+여기서 $r^2 = (m^2+n^2)\Delta x^2$는 $N \times N$, $r'^2$는 순환 앨리어싱을 방지하기 위해 제로 패딩된 $2N \times 2N$ 위에 정의된다.
+
+센서는 세기를 캡처하고 물리적 잡음을 추가한다:
+\begin{align}
+  I_{\mathrm{clean}} &= \frac{|U_d|^2}{1 + \cot^2\!\alpha},
+  \label{eq:intensity}\\
+  I_{\mathrm{shot}} &\sim \mathrm{Poisson}(I_{\mathrm{clean}} \cdot \mathrm{FWC}),
+  \label{eq:poisson}\\
+  I_{\mathrm{meas}} &= \mathrm{ADC}_{12\text{-bit}}
+  (I_{\mathrm{shot}} + \mathcal{N}(0, \sigma_{\mathrm{read}}^2)).
+  \label{eq:adc}
+\end{align}
+직통 추정기(STE)는 미분 불가능한 포아송 표본 추출과 ADC 반올림을 통과하는 경사 흐름을 보존한다:
+\begin{equation}
+  \STE(x_{\text{noisy}}, x_{\text{clean}}) =
+  x_{\text{clean}} + \mathrm{stopgrad}(x_{\text{noisy}} - x_{\text{clean}}).
+  \label{eq:ste}
+\end{equation}
+
+
+\subsection{혼합 손실 오케스트레이션}
+\label{sec:loss}
+
+네 가지 손실 항이 교과 일정 스케줄러 하에서 결합된다.
+
+\subsubsection{데이터 충실도 손실}
+예측된 파면 $\hat{U}_0$는 FrFT를 통해 전파되어 $\hat{I}$를 생성한다. 진폭 영역에서의 비교가 균일한 경사 흐름을 보장한다:
+\begin{equation}
+  \mathcal{L}_{\mathrm{fid}} = \frac{1}{N^2}\sum_{x,y}
+  \left(\sqrt{\hat{I}(x,y) + \epsilon} -
+  \sqrt{I_{\mathrm{target}}(x,y) + \epsilon}\right)^{\!2}.
+  \label{eq:loss_fid}
+\end{equation}
+
+\subsubsection{주기적 연성 양자화 손실}
+$\sin^2$ 기반 벌칙이 연속 위상을 이산 Kyber 격자 수준으로 강제한다:
+\begin{equation}
+\boxed{
+  \mathcal{L}_{\mathrm{quant}} = \frac{1}{2}\!\left[
+    \frac{1}{kn}\sum_{i=1}^{kn}
+    \sin^2\!\Big(\frac{2^{d_u}}{2}\,\phi_i^{(u)}\Big) +
+    \frac{1}{n}\sum_{j=1}^{n}
+    \sin^2\!\Big(\frac{2^{d_v}}{2}\,\phi_j^{(v)}\Big)
+  \right]
+}
+\label{eq:loss_quant}
+\end{equation}
+$\sin^2$ 함수는 \textit{골짜기--능선 풍경}을 생성한다: 정확한 격자 위치 $\phi = 2\pi k / 2^d$에서 영 손실, 중점에서 최대 벌칙. 이것이 해석적 정수론으로 가교를 놓는 핵심 방정식이다 (제~\ref{sec:bridge}절).
+
+\subsubsection{$L^\infty$ 지수 장벽 손실}
+지수 장벽이 가장 위험한 이상값에 대해 LWE 임계치를 강제한다:
+\begin{equation}
+  \mathcal{L}_{\max} = \frac{1}{|S_K|}\sum_{i \in S_K}
+  \exp\!\big(\gamma \cdot \mathrm{ReLU}(|e_i|_{\Zq} -
+  \tau_{\mathrm{safe}})\big),
+  \label{eq:loss_max}
+\end{equation}
+여기서 $\tau_{\mathrm{safe}} = 0.8 \times 1920 = 1536$, $\gamma = 10$, $S_K$는 상위 5\% 오차 픽셀 집합이다.
+
+\subsubsection{총 변이 손실}
+복소 파면에 대해 (래핑 아티팩트를 피하기 위해 위상 각도가 아님):
+\begin{equation}
+  \mathcal{L}_{\mathrm{TV}} = \frac{1}{N^2}\sum_{x,y}
+  \big(|\hat{U}_0^{x+1,y} - \hat{U}_0^{x,y}|^2 +
+  |\hat{U}_0^{x,y+1} - \hat{U}_0^{x,y}|^2\big).
+  \label{eq:loss_tv}
+\end{equation}
+
+
+\subsection{수신기 신경망과 복호화}
+\label{sec:rx}
+
+LeWin U-Net (윈도우 기반 다중 헤드 자기 주의 + 지역 강화 피드포워드)이 세기 측정값 $I_{\mathrm{meas}}$를 2-채널 $(\mathrm{Re}, \mathrm{Im})$ 출력으로 변환하며, 위상은 다음을 통해 추출된다:
+\begin{align}
+  \hat{\phi} &= \mathrm{atan2}(\mathrm{Im},\; \mathrm{Re}) \bmod 2\pi,
+  \label{eq:phase_extract}\\
+  \hat{U}_0 &= e^{i\hat{\phi}}, \quad |\hat{U}_0| \equiv 1.
+  \label{eq:wavefront}
+\end{align}
+
+매크로 픽셀 풀링은 위상 평균화 재앙을 피하기 위해 원형 통계를 사용한다:
+\begin{equation}
+  \bar{\phi} = \mathrm{atan2}\!\left(
+    \frac{1}{M^2}\sum \sin\phi_{ij},\;
+    \frac{1}{M^2}\sum \cos\phi_{ij}
+  \right) \bmod 2\pi.
+  \label{eq:circular_mean}
+\end{equation}
+
+최종 Kyber 역캡슐화:
+\begin{align}
+  \hat{\mathbf{u}}, \hat{v} &= \mathrm{Decompress}_q(c_{\mathrm{pred}},
+  d_u, d_v), \label{eq:decompress_final}\\
+  w &= \hat{v} - \mathbf{s}^\top\hat{\mathbf{u}} \pmod{q},
+  \label{eq:inner_product}\\
+  \hat{m}_j &= \ceil{\frac{2}{q} \cdot w_j} \bmod 2.
+  \label{eq:decode_msg}
+\end{align}
+
+
+\subsection{2단계 훈련과 물리층 보안}
+\label{sec:training}
+
+\subsubsection{1단계: 상각 사전훈련}
+합성 암호문이 즉석에서 생성되며; AdamW가 119개 U-Net 매개변수와 물리 거리 $d$를 동시에 갱신한다.
+
+\subsubsection{2단계: 블라인드 테스트 시간 최적화 (TTO)}
+배치 시, 물리 기반 및 수학 기반 제약만 사용 가능하다:
+\begin{equation}
+  \mathcal{L}_{\text{blind}} =
+  \mathcal{L}_{\text{fid}} + 0.5\,\mathcal{L}_{\text{quant}} +
+  0.05\,\mathcal{L}_{\text{TV}}.
+  \label{eq:blind_loss}
+\end{equation}
+U-Net 백본은 $\mathrm{lr} = 10^{-5}$로 동결되고 $d$는 $\mathrm{lr} = 10^{-3}$을 받아, \textit{정답 암호문에 접근하지 않고} 단 15회 경사 단계만으로 빠른 자동 초점을 가능하게 한다.
+
+\begin{theorem}[눈사태 효과 --- 물리층 보안]
+\label{thm:avalanche}
+동일한 U-Net 가중치, PRNG 시드, Kyber 비밀키를 보유하지만 $d' = d + 0.1\,\mathrm{mm}$을 추정하는 도청자는 $\mathrm{DFR} = 1$을 경험한다. FrFT 각도 $\alpha$는 $d$의 비선형 함수이며; 0.1\,mm 오프셋은 처프--FFT--처프 파이프라인을 통해 연쇄 전파되어 모든 암호문 원소에 대해 $\norm{e}_\infty > 1920$을 초래한다.
+\end{theorem}
+
+
+% ============================================================================
+\section{위상 양자화 원리}
+\label{sec:bridge}
+% ============================================================================
+
+이제 $\sin^2$ 양자화 메커니즘 (\cref{eq:loss_quant})을 일반 원리로 추상화한다.
+
+\begin{definition}[위상 양자화 연산자]
+\label{def:pqo}
+$\phi \in [0, 2\pi)$를 연속 위상 변수, $L \in \mathbb{N}$을 목표 이산 수준 수라 하자. \textit{위상 양자화 벌칙}은:
+\begin{equation}
+  \mathcal{P}(\phi; L) = \sin^2\!\left(\frac{L}{2}\,\phi\right).
+  \label{eq:pqo}
+\end{equation}
+이 함수는 다음 성질을 갖는다:
+\begin{enumerate}
+  \item $\mathcal{P}(\phi; L) = 0$ $\iff$ $\phi \in \{2\pi k/L : k = 0, 1, \ldots, L-1\}$ (격자 위치).
+  \item $\mathcal{P}(\phi; L) = 1$ (중점 $\phi = 2\pi(k + \tfrac{1}{2})/L$에서).
+  \item $\nabla_\phi \mathcal{P} = \tfrac{L}{2}\sin(L\phi)$은 $\phi$를 가장 가까운 격자 점으로 조향하는 경사를 제공한다.
+  \item 풍경은 $2\pi/L$-주기이며, 단위원 위에 $L$개의 등간격 흡인 유역을 생성한다.
+\end{enumerate}
+\end{definition}
+
+QROP-Net에서 격자 수준은 $L = 2^{d_u} = 2048$ ($\mathbf{u}$-계수용)과 $L = 2^{d_v} = 8$ ($v$-계수용)이다. $\sin^2$ 손실은 각 연속 위상 예측을 가장 가까운 이산 Kyber 수준으로 유도하며, 완전 미분 가능한 \textit{연성 양자화}를 실현한다.
+
+\begin{remark}[시클로토믹 연결]
+\label{rem:cyclotomic}
+$\mathcal{P}(\phi; L)$의 $L$개 영점은 정확히 $L$차 단위근 $e^{2\pi i k/L}$이다. $L = 2n = 512$ (시클로토믹 다항식 $X^n + 1$의 차수)일 때, 이것은 \cref{eq:cyclo_roots}의 근 $\omega_0, \ldots, \omega_{n-1}$이다. $\sin^2$ 손실은 따라서 대수적 조건 $X^n + 1 = 0$의 위상 영역에서의 \textit{해석적 재진술}이다.
+\end{remark}
+
+\begin{remark}[코사인 PQO와 고분해능 시클로토믹 격자]
+\label{rem:cos2_pqo}
+PQO는 구조적으로 동일한 \emph{코사인} 변형을 허용한다:
+\begin{equation}
+  \mathcal{P}_{\cos}(\phi; L) = \cos^2\!\left(\frac{L}{2}\,\phi\right),
+  \label{eq:pqo_cos}
+\end{equation}
+그 영점 집합은 $\phi \in \{(2k+1)\pi/L : k = 0, 1, \ldots, L-1\}$이다. 이들은 정확히 \emph{원시 $2L$차 단위근}, 즉 \cref{eq:cyclo_roots}에서 $X^L + 1 = 0$의 $L$개 근 $\omega_j$이다. 따라서 $\mathcal{P}_{\cos}(\,\cdot\,; L)$는 $L$차 시클로토믹 PQO이며, \cref{rem:cyclotomic}와 평행하되 대수적 제약 $X^L + 1 = 0$을 위상 영역에 \emph{직접} 실현한다 ($\sin^2$가 매칭하는 이동된 단위근 제약 $X^L - 1 = 0$과 대조).
+
+\smallskip\noindent\textbf{$L = 2$에서의 자명한 붕괴.} $L = 2$일 때 끌개 집합은 $\{i, -i\}$로 퇴화한다. $\mathcal{P}_{\cos}(\phi; 2)$ 항을 비자명한 가중치로 포함한 손실로 학습된 임의의 신호는 전역적으로 그 두 점 중 하나로 붕괴한다: 특히 임계선 판별 네트워크의 손실이 해당 항을 포함하면, 경험적 위상 $\arg Z(t)$는 \emph{학습된 대역의 모든 $t$에 대해} $\pi/2$로 끌려가며, $t$가 리만 영점 근처인지 여부와 무관하다. 따라서 $L = 2$ 코사인 PQO는 영점 국소화 정보를 전혀 운반하지 않는다; 단지 끌개 메커니즘이 설계대로 작동함을 확인할 뿐이다.
+
+\smallskip\noindent\textbf{고분해능 일반화 (시도).} $L \geq 4$에서 격자는, 원리상, $S^1$ 위의 섹터 분류기로 작용할 충분한 계수를 획득한다. 각 후보 종좌표 $t$에 다음의 이산 라벨이 부여된다:
+\begin{equation}
+  k(t) \;=\; \arg\min_{0 \leq k < L}\,\big|\arg Z(t) - (2k{+}1)\pi/L\big|
+  \pmod{2\pi},
+  \label{eq:cyclo_label}
+\end{equation}
+학습된 위상에 가장 가까운 시클로토믹 섹터 $\omega_{k(t)}$를 명명하는 것으로, 리만 영점이 비자명한 부분 격자를 점유하여 $L=2$가 허용하는 것보다 더 미세한 산술 층화를 제공하기를 기대한 것이다.
+
+\smallskip\noindent\textbf{$L = 4$에서의 경험적 반증 (2026-04-08).} 이 프로그램에 대한 직접 검정이 수행되었다: 임계선 판별 네트워크, $L=4$, 은닉 폭 $32$, 시드 $\{42, 123, 777\}$ 3개, 학습 에폭 $200$, 라벨된 모집단은 리만 영점 $50$개와 간격 $\geq 0.5$인 비영점 종좌표 $200$개 (학습 스크립트는 동반 \textsc{gdl\_unified} 저장소의 \texttt{scripts/phase\_L4\_experiment.py}, 출력은 \texttt{outputs/analysis/phase\_L4\_experiment.\{json,txt\}}). 결과는 세 독립 축에서 모호함 없이 음성이다:
+\begin{enumerate}
+  \item 세 시드 모두 영점/비영점 $k$-분포 독립성 $\chi^2$ 검정 통과 ($p = 0.127, 0.528, 0.410$; 풀링 $p = 0.154$).
+  \item 네 시클로토믹 섹터 $\{k=0,1,2,3\}$ 중 $k=0,1$만 점유되며 $k=2,3$은 모든 시드에서 \emph{정확히 0개} 샘플 (비대칭 basin 붕괴).
+  \item 영점/비영점의 최근접 끌개 잔차 평균은 모든 시드에서 $\sim 5\%$ 이내로 일치.
+\end{enumerate}
+$L=2$의 자명한 붕괴와 $L=4$의 비대칭 붕괴는 따라서 단일 근본 원인을 공유한다; 이제 이를 식별한다.
+
+\smallskip\noindent\textbf{진단: $\Psip$-디커플링 결함.} 판별 네트워크의 학습 손실은
+$\mathcal{L} = \lambda_{\mathrm{res}}\mathcal{L}_{\mathrm{res}} +
+        \lambda_{\mathrm{curv}}\mathcal{L}_{\mathrm{curv}} +
+        \lambda_{\mathrm{tgt}}\mathcal{L}_{\mathrm{tgt}} +
+        \lambda_{\mathrm{pqo}}\mathcal{L}_{\mathrm{pqo}}$
+의 합이며, 타겟 매칭 항 $\mathcal{L}_{\mathrm{tgt}}$는 \cref{def:psi}\,/\,\cref{eq:psi_n}의 $\Psip$를 기준으로 구성된다. 그러나 $\Psip$는 $\|X\|$에만 의존하는, 합성으로 선택된 $(\alpha,\beta,\gamma,\delta)$ 곡선이며 \emph{$\xif$-영점 정보를 전혀 운반하지 않는다}. 결과적으로:
+\begin{itemize}
+  \item $\mathcal{L}$의 어느 항도 $t$-국소 영점 라벨을 학습에 주입하지 않는다;
+  \item 코사인 PQO 항 $\mathcal{L}_{\mathrm{pqo}}$는 $t$-\emph{무관} 포텐셜이며, basin 선택은 $t$가 영점에 대해 어디에 있는지가 아니라 초기화에 의해 고정된다;
+  \item 라벨링 규칙 \cref{eq:cyclo_label}는 따라서 영점이 무엇인지 한 번도 들은 적이 없는 네트워크 위에 얹힌 \emph{운영적으로 분리된 측정}이다.
+\end{itemize}
+특히 \cref{eq:pqo_cos} (학습)와 \cref{eq:cyclo_label} (측정)는 호환되지 않는 신호 범주에 작용한다: 전자는 후자가 읽어내려는 $t$-국소 정보를 \emph{지운다}. $L$을 $2$에서 $4, 8, \ldots$로 늘려도 이 결함은 복구되지 않는다 — 끊어진 고리는 $L$의 상류에 있다.
+
+\smallskip\noindent\textbf{시클로토믹 PQO 프로그램의 상태.} 이전에 정식화된 $L \geq 4$ 프로그램은 보류된다. 부활시키려면 \cref{eq:psi_n}을 진정한 영점 정보를 운반하는 타겟으로 \emph{교체}해야 한다 (자연스러운 후보는 $\Psip(t) := \arg \xif(\tfrac{1}{2}+it)$ 또는 \cref{eq:hardy_z}의 Hardy 위상 $\arg Z(t)$), $\mathcal{P}_{\cos}$를 \emph{학습} 포텐셜에서 결과 위상에 대한 순수 \emph{측정}으로 강등시키며, 새로운 감독 하에 $L=4$ 프로토콜을 재실행해야 한다. 그러한 실험이 존재하기 전까지, 본 연구가 리만 영점의 시클로토믹 층화에 대해 어떤 주장도 지지하지 않는다; 데이터 파일 \texttt{phase\_L4\_experiment.*} 및 \texttt{phase\_pi\_half\_verify.txt}는 결정적 음성 통제로 보존되며, 위 진단의 근거 기록의 일부이다.
+\end{remark}
+
+\begin{remark}[보어--좀머펠트 유비]
+\label{rem:bohr_sommerfeld}
+조건 $\mathcal{P}(\phi; L) = 0$은 $L\phi/2 = m\pi$ ($m \in \mathbb{Z}$)와 동치이다, 즉
+\begin{equation}
+  \Delta\nu \;=\; m\pi, \qquad m \in \mathbb{Z},
+  \label{eq:bohr_sommerfeld}
+\end{equation}
+여기서 $\Delta\nu = L\phi/2$는 재조정된 위상 축적이다. 이는 반고전 역학의 \textit{보어--좀머펠트 양자화 조건}과 정확히 같은 형태이며, 닫힌 궤도 주위의 작용 적분이 $\pi\hbar$의 정수배여야 한다 (적절한 단위에서). 광학에서 같은 조건이 보강 간섭을 결정한다: 경로 길이가 반파장의 정수배를 수용해야 한다. 위상 양자화 원리는 따라서 다음을 통합한다:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{영역} & \textbf{양자화되는 변수} & \textbf{조건} \\
+\midrule
+QROP-Net       & 암호문 위상 $\phi_i$
+                & $\sin^2(2^{d_u-1}\phi_i) = 0$ \\
+반고전 양자역학 & 작용 적분 $\oint p\,dq$
+                & $= (n + \tfrac{1}{2})\pi\hbar$ \\
+광학 (공진기)   & 광학 경로 길이 $nL_{\mathrm{cav}}$
+                & $= m\lambda/2$ \\
+임계선          & $\xif(s)$의 위상
+                & $\Delta\nu = m\pi$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{remark}
+
+
+% ############################################################################
+% 제2부 — 해석적 확장
+% ############################################################################
+
+\part{해석적 확장: 공명 이론}
+\label{part:resonance}
+
+\vspace{0.5em}
+\noindent\textit{이 부분의 모든 수학적 주장은 구체적인 QROP-Net 대응(비고 환경에서 표기)이 있거나 문헌에 독립적인 근거가 있다. 두 조건 모두 충족하지 못하는 공명소수법칙 초기 버전의 주장은 생략되었다.}
+\vspace{0.5em}
+
+
+% ============================================================================
+\section{완성 제타 함수의 위상 구조}
+\label{sec:xi_phase}
+% ============================================================================
+
+\subsection{리만 $\xif$-함수}
+
+\begin{definition}[완성 제타 함수]
+\label{def:xi}
+리만 $\xif$-함수는 다음과 같이 정의된다:
+\begin{equation}
+  \xif(s) = \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma\!\left(\frac{s}{2}\right)\zeta(s),
+  \label{eq:xi_def}
+\end{equation}
+여기서 $\zeta(s) = \sum_{n=1}^{\infty}n^{-s}$는 리만 제타 함수, $\Gamma$는 오일러 감마 함수이다. 함수 $\xif$는 전해석적(극이 없음)이며 함수 방정식을 만족한다:
+\begin{equation}
+  \xif(s) = \xif(1-s).
+  \label{eq:func_eq}
+\end{equation}
+임계선 $s = \tfrac{1}{2} + it$ 위에서 $\xif$는 실수값을 가진다: $\xif(\tfrac{1}{2}+it) \in \mathbb{R}$.
+\end{definition}
+
+\begin{definition}[바이어슈트라스 곱 표현]
+\label{def:weierstrass}
+$\xif(s)$가 전해석적이므로, 그 영점 $\rho$ ($\zeta$의 비자명 영점)에 대한 바이어슈트라스 곱을 허용한다:
+\begin{equation}
+  \xif(s) = e^{g(s)}\prod_{\rho}
+  \left(1 - \frac{s}{\rho}\right),
+  \label{eq:weierstrass}
+\end{equation}
+여기서 $g(s)$는 수렴을 보장하는 전해석 함수이다. $\ln\xif$를 미분하면 \textit{로그 도함수}를 얻는다:
+\begin{equation}
+  \frac{\xif'(s)}{\xif(s)} = g'(s) + \sum_{\rho}
+  \frac{1}{s - \rho}.
+  \label{eq:log_deriv}
+\end{equation}
+영점에서 떨어진 곳에서 $g'(s)$는 매끄러우며, 지배적 기여는 $s = \rho$ (즉 $\zeta$의 비자명 영점)에서의 극에서 온다.
+\end{definition}
+
+
+\subsection{임계선 위의 진폭--위상 분해}
+\label{sec:amp_phase}
+
+일반적인 $s = \sigma + it$ ($\sigma = \tfrac{1}{2}$로 제한되지 않음)에 대해 $\xif$를 진폭과 위상으로 분해한다:
+\begin{align}
+  \Ampl(\sigma, t) &= |\xif(\sigma + it)|,
+  \label{eq:amplitude}\\
+  v(\sigma, t) &= \arg\,\xif(\sigma + it),
+  \label{eq:phase_general}
+\end{align}
+따라서 $\xif(\sigma + it) = \Ampl(\sigma,t)\,e^{iv(\sigma,t)}$이다.
+$\log\xif = u + iv$ ($u = \log|\xif|$, $v = \arg\xif$)로 쓰면, 코시--리만 방정식이 다음을 준다:
+\begin{equation}
+  v_\sigma = \mathrm{Re}\!\left(\frac{\xif'}{\xif}\right), \quad
+  v_t = -\mathrm{Im}\!\left(\frac{\xif'}{\xif}\right), \quad
+  u_t = -v_\sigma, \quad u_\sigma = v_t.
+  \label{eq:cauchy_riemann}
+\end{equation}
+
+임계선 $\sigma = \tfrac{1}{2}$ 위에서:
+\begin{align}
+  \Phiz(t) &\;:=\; v(\tfrac{1}{2}, t) = \arg\,\xif(\tfrac{1}{2}+it),
+  \label{eq:phase_crit}\\
+  \Ampl(t) &\;:=\; \Ampl(\tfrac{1}{2}, t) = |\xif(\tfrac{1}{2}+it)|.
+  \label{eq:amp_crit}
+\end{align}
+$\xif(\tfrac{1}{2}+it) \in \mathbb{R}$이므로, 위상 $\Phiz(t)$는 $\{0, \pi\}$ 값만 가지며 ($2\pi$ 모듈러), 각 영점 교차에서 $\pi$만큼 도약한다.
+
+\begin{remark}[QROP-Net 대응: 진폭--위상 분리]
+\label{rem:amp_phase}
+QROP-Net에서 송신 파면 $U_0 = e^{i\phi}$는 단위 진폭($|U_0| \equiv 1$)과 이산 위상 $\phi$를 갖는다. 수신기는 세기 $I = |U_d|^2$로부터 $\phi$를 복원해야 하며, 이는 회절이 초래한 진폭--위상 혼합을 ``역전''시키는 것을 포함한다. 임계선 위의 구조 $\xif = \Ampl\,e^{iv}$는 동일한 수학적 도전을 제시한다: 진폭 포락선에서 기저 위상 구조를 분리하는 것.
+\end{remark}
+
+
+\subsection{이상적 위상 함수 $\Psip(n)$}
+
+\noindent\textit{독자 경고.} 아래 \cref{eq:psi_n}의 합성 형태는 2026-04-08 감독 타겟으로서 경험적으로 반증되었다; 정의 직후의 \cref{rem:psi_defect}와 진단에 대한 \cref{rem:cos2_pqo}을 참조하라. 정의는 역사적 서술을 위해 보존된다; 이후 개정에서 사용되는 운영적 교체식은 \cref{eq:psi_supervised}이다.
+
+\begin{definition}[매끄러운 소수 계수 위상]
+\label{def:psi}
+정수 $n \geq 2$에 대해 이상적 위상 함수는 다음과 같이 정의된다:
+\begin{equation}
+  \Psip(n) = \alpha\log n +
+  \frac{\beta\sin(\gamma\log n)}{n^\delta},
+  \label{eq:psi_n}
+\end{equation}
+여기서 $\alpha, \beta, \gamma, \delta$는 구조 상수이다:
+\begin{itemize}
+  \item $\alpha > 0$은 대수 상승(정렬 기울기)을 결정한다.
+  \item $\beta \geq 0$은 진동 진폭(공명 강도)을 제어한다.
+  \item $\gamma > 0$은 위상 회전 주파수(국소 감마 인자와 관련)이다.
+  \item $\delta > 0$은 지수 감쇠를 제어한다: 진동 항은 $n^{-\delta}$로 감쇠하여, 큰 $n$에서 $\Psip(n) \to \alpha\log n$이 된다.
+\end{itemize}
+\end{definition}
+
+단조 항 $\alpha\log n$은 영점 계수 함수에 대한 리만--폰 만골트 공식 $N(T) \sim \frac{T}{2\pi}\log\frac{T}{2\pi e}$를 반영하며, 진동 보정 $\beta\sin(\gamma\log n)/n^\delta$는 소수 간격에 관련된 국소 요동에 대한 휴리스틱 대용으로 의도된 것이다.
+
+\begin{remark}[\cref{eq:psi_n}의 디커플링 결함; 2026-04-08 기록]
+\label{rem:psi_defect}
+\cref{eq:psi_n}의 형태는 크기 $n$에만(혹은 네트워크 구현에서는 $\|X\|$에만) 의존하는 합성 $(\alpha,\beta,\gamma,\delta)$ 곡선이며, 리만 영점의 위치에 대한 정보를 \emph{전혀} 운반하지 않는다. 이를 판별 네트워크의 타겟으로 사용할 경우 — \cref{rem:cos2_pqo}의 $L=4$ 시클로토믹 PQO 실험에서처럼 — 네 손실 항 $\mathcal{L}_{\mathrm{res}},\mathcal{L}_{\mathrm{curv}},\mathcal{L}_{\mathrm{tgt}},\mathcal{L}_{\mathrm{pqo}}$의 어느 것도 $t$-국소 영점 신호를 학습에 주입하지 않으며, 결과 네트워크는 $L$과 무관하게 영점/비영점 판별에 반드시 실패한다. 이 결함은 매개변수적이 아니라 구조적이다: $(\alpha,\beta,\gamma,\delta)$의 어떤 선택으로도 복구되지 않는다.
+
+\smallskip
+이후 개정에서 사용되는 의도된 교체는 임계선 위의 이상적 위상을 직접 재정의하는 것이다:
+\begin{equation}
+  \Psip(t) \;:=\; \arg \xif(\tfrac{1}{2}+it),
+  \label{eq:psi_supervised}
+\end{equation}
+또는 동등하게 \cref{eq:hardy_z}의 Hardy $Z$-함수를 통해 $\Psip(t) := \arg Z(t)$로 잡는다. 어느 선택이든 \emph{구성에 의해} $\xif$-영점 정보를 공급하며, 감독 타겟과 시클로토믹 측정 \cref{eq:cyclo_label} 사이의 인과 사슬을 복원한다. 합성 형태 \cref{eq:psi_n}는 본문에 그 실패가 진단을 동기화시킨 역사적 객체로서만 보존된다.
+
+\smallskip\noindent\textbf{감독-$\Psip$ 제어 실험 (2026-04-08).} 교체식 \cref{eq:psi_supervised}를 직접 시험하였다. 동일한 판별 네트워크 구조 (은닉폭 $32$, 3층, 세 시드 $\{42,123,777\}$, $200$ 에폭, $t \in [100, 200]$, 영점 $50$개 대 간격 $\geq 0.5$의 비영점 $200$개)에 대해 $L=4$ 기준선 대비 두 가지 한 줄 수정을 가하였다: (i) 모델의 $\Psip$ 출력을 미리 계산한 $\arg\xif(\tfrac{1}{2}+it)$로 덮어쓰기하여 감독 신호로 공급, (ii) $\lambda_{\mathrm{pqo}}=0$으로 코사인 PQO를 학습에서 제거하고 오직 시클로토믹 측정 \cref{eq:cyclo_label}에서만 유지 (스크립트 \texttt{scripts/phase\_supervised\_experiment.py}, 출력 \texttt{phase\_supervised\_experiment.\{json,txt\}}). 결과는 헤드라인 지표 상 다시 음성이다 --- 시드 풀링된 $\arg Z(t)$ 대 $\arg \xif(\tfrac{1}{2}+it)$의 위상 MSE가 영점과 비영점에서 사실상 동일하다 (평균 $2.256$ 대 $2.247$, 비율 $1.004$, Welch $p = 0.976$) --- 그리고 시드별 Welch 검정은 방향이 불일치한다 (한 시드에서 $p=0.034$로 기대 순서와 \emph{반대}). 그러나 두 가지 구조적 징후가 새롭고 유익하다:
+\begin{enumerate}
+  \item $L=4$ 기준선의 비대칭 분지 붕괴가 해제된다: 네 시클로토믹 구간 $k\in\{0,1,2,3\}$ 모두 모든 시드에서 점유된다. $\mathcal{L}_{\mathrm{pqo}}$에 의해 유도된 $t$-독립 어트랙터 고정이 삭제 실험을 통해 그 붕괴의 두 기여 요인 중 하나로 확인된 것이다.
+  \item 기록된 최적 검증 손실 ($\approx 1.5$--$1.7$)이 기록된 위상 MSE ($\approx 2.25$)보다 상당히 작으며, 이는 $\mathcal{L}_{\mathrm{pqo}}$가 영으로 된 이후에도 $\mathcal{L}_{\mathrm{tgt}}$ 기여가 $\mathcal{L}$의 작은 부분임을 함의한다. 남은 $\mathcal{L}_{\mathrm{res}}$와 $\mathcal{L}_{\mathrm{curv}}$ 항이 그래디언트를 지배하므로, 네트워크는 실제로는 $\arg \xif$를 적합하라고 요구받지 않는다.
+\end{enumerate}
+이것은 위의 진단을 \emph{철회하지} 않고 정교화한다: $\Psip$-디커플링은 \cref{eq:psi_n}의 필요 결함이며, \cref{eq:psi_supervised}는 타겟 수준에서만 그것을 복구한다; 그러나 손실 가중 불균형과 의심되는 측정 아티팩트 (채널별 $\arg Z$의 산술 평균화, 이는 \cref{eq:phase_crit}가 예측하는 $\pm\pi$ 랩 신호를 파괴한다)는 \emph{추가적인} 끊긴 연결이다. $\lambda_{\mathrm{res}}=\lambda_{\mathrm{curv}}=\lambda_{\mathrm{pqo}}=0$ (오직 $\mathcal{L}_{\mathrm{tgt}}$만 활성) 및 원형 평균 읽기를 사용하는 두 번째 제어 실험은 아래 \cref{rem:isolation}에서 서술한다.
+\end{remark}
+
+\begin{remark}[고립 실험: 감독 사슬은 건강, $\pm\pi$ 점프 표현력은 결함; 2026-04-09 기록]
+\label{rem:isolation}
+\cref{rem:psi_defect}의 세 의심 결함 --- (i) \cref{eq:psi_n}를 통한 $\Psip$-디커플링, (ii) 손실 가중 불균형, (iii) $\pm\pi$ 랩을 표현할 수 없는 산술 평균 읽기 --- 를 분리하기 위해, 세 채널을 동시에 모두 차단한 최대 고립 제어를 실행하였다. 네트워크는 $\lambda_{\mathrm{res}}=\lambda_{\mathrm{curv}}=\lambda_{\mathrm{pqo}}=0$, 오직 $\mathcal{L}_{\mathrm{tgt}}$만 활성으로 재학습하였고, 감독 타겟은 \cref{eq:psi_supervised}와 같이 $\arg\xif(\tfrac{1}{2}+it)$로 하드 설정하였으며, 샘플별 위상은 채널별 산술 평균이 아니라 \emph{원형} 평균 $\arg\sum_c e^{i\hat\Psip_c}$로 산출하였다 (스크립트 \texttt{scripts/phase\_isolation\_experiment.py}, 출력 \texttt{phase\_isolation\_experiment.\{json,txt\}}; \cref{rem:psi_defect,rem:cos2_pqo}와 동일한 구조, 시드, 에폭, $t$-구간).
+결과는 강하게 \emph{양성}이다:
+\begin{itemize}
+  \item \textbf{원형 읽기.} $\arg\xif(\tfrac{1}{2}+it)$에 대한 시드 풀링 위상 MSE가 $\xif$-영점 집합에서 $2.1708$, 비영점 집합에서 $0.1195$이며, 비율 $18.16\times$, Welch $p=1.18\times10^{-15}$이다. 시드별 비율은 각각 $29.5,\,31.9,\,9.5$이며 $p\in\{4.5,3.7,5.5\}\times10^{-6}$이다.
+  \item \textbf{산술 읽기, 동일 가중.} 동일한 학습 실행을 기존 산술 평균으로 읽어내면 영점/비영점 평균이 $2.410$ 대 $1.849$, 비율 $1.30$, 풀링 $p=0.046$로 붕괴된다. 따라서 원형 대 산술의 차이는 학습 차이가 아니라 측정 차이이다.
+\end{itemize}
+\cref{rem:psi_defect}의 두 가설이 모두 확인된다: 손실 가중 불균형 (ii)와 산술 평균 읽기 (iii)는 각각 신호를 은폐하기에 충분하며, 둘이 합쳐져 \cref{rem:cos2_pqo}와 첫 감독 제어의 음성 결과를 완전히 설명한다. 둘이 모두 차단되면 감독 사슬 $\arg\xif(\tfrac{1}{2}+it)\mapsto\mathcal{L}_{\mathrm{tgt}}\mapsto\hat\Psip$은 \emph{건강}하다: 비영점 MSE $0.12$는 네트워크가 매끄러운 가지 위에서 $\arg\xif$를 사실상 완벽하게 학습함을 보인다.
+
+\smallskip
+잔존하는 영점 MSE $2.17\approx(\pi/2)^2$는 깔끔한 해석을 가진다. 임계선 위에서 $\xif$는 실수이며, 수치적으로 우리 캐시에서 $|\mathrm{Im}\,\xi|/|\mathrm{Re}\,\xi|\sim10^{-53}$이므로 $\arg\xif$는 사실상 모든 리만 영점에서 부호를 전환하는 $\{0,\pi\}$-값 계단 함수이다. 네트워크 출력 $\hat\Psip(t)$는 매끄러운 $\mathbb{R}$-값 장(場)이며 그러한 순간 $\pm\pi$ 점프를 표현할 수 없다; 영점 근방에서 최적의 원형 평균 적합은 상수를 제외하면 중간값이며, 정확히 $(\pi/2)^2$을 MSE에 기여한다. 따라서 남은 결함은 타겟에도 읽기에도 있지 않고 판별 네트워크의 \emph{출력 표현}에 있으며, \cref{rem:cos2_pqo,rem:psi_defect}에서는 $L$을 올려서만 간접 대응된다; 올바른 해결은 매끄러운 영점 교차 타겟 (예컨대 $\mathrm{sign}(Z(t))\cdot e^{-|Z(t)|^2/\sigma^2}$) 또는 $\xif(\tfrac{1}{2}+it)$를 복소 벡터로 예측하고 사후에 $\arg$를 읽는 헤드를 요구한다.
+
+\smallskip
+\noindent\textbf{매끄러운 영점 교차 확인 (2026-04-10).}
+동일한 고립 설정 ($\lambda_{\mathrm{res}}=\lambda_{\mathrm{curv}}=\lambda_{\mathrm{pqo}}=0$, \texttt{in\_features}$=128$, 3 시드) 에서, $\pm\pi$ 불연속 없이 동일한 부호 정보를 부호화하는 두 가지 매끄러운 대리 타겟을 시험하였다:
+\begin{itemize}
+  \item \textbf{범프 타겟}
+  $\Psi_{\mathrm{bump}}(t) = \mathrm{sign}(\mathrm{Re}\,\xif)
+   \cdot e^{-(\mathrm{Re}\,\xif)^2/\sigma^2}$,
+  $\sigma=\mathrm{median}(|\mathrm{Re}\,\xif|)$:
+  영점 MSE $=0.935$, 비영점 MSE $=0.693$, 비율 $1.35\times$
+  (갭 축소 $92.6\%$).
+  \item \textbf{정규화 타겟}
+  $\Psi_{\mathrm{norm}}(t) = \mathrm{Re}\,\xif(\tfrac{1}{2}+it)
+   \big/\max|\mathrm{Re}\,\xif|$:
+  영점 MSE $=1.8\times 10^{-5}$, 비영점 MSE $=5.8\times 10^{-4}$,
+  비율 $0.03\times$ (갭 축소 $99.8\%$).
+\end{itemize}
+정규화 타겟은 영점/비영점 갭을 완전히 소멸시킬 뿐 아니라 \emph{역전}시키며, 영점이 비영점보다 더 쉬워진다. 이는 $\pm\pi$ 불연속이 \emph{유일한} 병목이었음을 확정한다: 타겟이 매끄러우면 네트워크 아키텍처와 학습 파이프라인에 잔존 결함이 없다. 프로그램의 해석적 내용은 보존되며; 오직 $\{0,\pi\}$ 부호화만 교체가 필요하다. (스크립트 \texttt{scripts/smooth\_zero\_crossing.py}, 출력 \texttt{smooth\_zero\_crossing.\{json,txt\}}.)
+
+\smallskip
+우리는 고립 및 매끄러운 타겟 실험을 프로그램의 해석적 내용 --- \cref{eq:psi_supervised}의 동일시 $\Psip(t)=\arg\xif(\tfrac{1}{2}+it)$ --- 이 옳은 자기 쌍대 타겟이라는 증거로 기록한다; 매끄러운 타겟 변형이 남은 표현 가능성 장벽을 해소한다.
+\end{remark}
+
+
+\subsection{리만--지겔 $\vartheta$ 함수와의 연결}
+
+임계선 위 $\zeta$의 고전적 위상 분석은 리만--지겔 세타 함수를 사용한다:
+\begin{equation}
+  \vartheta(t) = \arg\,\Gamma\!\left(\frac{1/4 + it/2}{1}\right) -
+  \frac{t}{2}\log\pi
+  \;\approx\;
+  \frac{t}{2}\log\frac{t}{2\pi} - \frac{t}{2} - \frac{\pi}{8} +
+  O(t^{-1}).
+  \label{eq:riemann_siegel_theta}
+\end{equation}
+하디 $Z$-함수는 다음과 같이 정의된다:
+\begin{equation}
+  Z(t) = e^{i\vartheta(t)}\zeta(\tfrac{1}{2}+it),
+  \label{eq:hardy_z}
+\end{equation}
+이는 실수 $t$에 대해 실수이다. 부호 변화가 임계선 위 $\zeta$의 영점을 표시한다. 그람 점 $g_n$은 $\vartheta(g_n) = n\pi$로 정의되어, $t$-축을 따른 위상 양자화 격자를 제공한다.
+
+\begin{definition}[그람 점]
+\label{def:gram}
+$n$번째 그람 점 $g_n$은 다음을 만족한다:
+\begin{equation}
+  \vartheta(g_n) = n\pi, \quad n \in \mathbb{Z}.
+  \label{eq:gram_points}
+\end{equation}
+연속된 그람 점 사이에서 위상 $\vartheta(t)$는 정확히 $\pi$만큼 진행한다. 논증 원리에 의해, 높이 $T$까지의 $\zeta(\tfrac{1}{2}+it)$ 영점 수는:
+\begin{equation}
+  N(T) = \frac{1}{\pi}\Big[\vartheta(T) +
+  \mathrm{Im}\log\zeta(\tfrac{1}{2}+iT)\Big] + O(1).
+  \label{eq:zero_counting}
+\end{equation}
+\end{definition}
+
+\begin{remark}[QROP-Net 대응: 위상 격자]
+\label{rem:gram_grid}
+그람 점 $\{\vartheta(g_n) = n\pi\}$는 임계선 위의 이산 위상 격자를 형성하며, 이는 QROP-Net의 SLM 위 $2^{d_u}$개 이산 위상 수준과 직접 유비된다. 두 시스템 모두에서 근본적 질문은 동일하다: \textit{연속 신호(광학 파면, $\xif$-함수)가 규정된 이산 위상 격자와 정렬되는가?}
+\end{remark}
+
+
+% ============================================================================
+\section{게이트 구조: 소수 탐지로서의 위상 공명}
+\label{sec:gates}
+% ============================================================================
+
+이제 임계선 위 또는 근방의 ``공명'' 점을 식별하는 2-게이트 기준을 형식화한다.
+
+\subsection{게이트 A: 위상 양자화 (정렬)}
+
+\begin{definition}[게이트 A --- 위상 양자화 조건]
+\label{def:gate_a}
+복소 $s$-평면에서 기준점 $(1/2, t_{\mathrm{ref}})$으로부터 $(\sigma, t)$까지의 경로를 고려한다. 이 경로를 따른 총 축적 위상 변화는:
+\begin{equation}
+  \Delta v(\sigma, t) = \int_{t_{\mathrm{ref}}}^{t}
+  v_t(\tfrac{1}{2}, \tau)\,d\tau +
+  \int_{1/2}^{\sigma}v_\sigma(\sigma', t)\,d\sigma'.
+  \label{eq:phase_accumulation}
+\end{equation}
+게이트~A는 이 위상 축적이 $\pi$의 정수배일 것을 요구한다:
+\begin{equation}
+\boxed{
+  \GateA: \quad \Delta v(\sigma, t) = m\pi, \quad m \in \mathbb{Z}.
+}
+\label{eq:gate_a}
+\end{equation}
+\end{definition}
+
+임계선 ($\sigma = 1/2$) 위에서 경로는 $t$-방향으로만 축소되며, 게이트~A는:
+\begin{equation}
+  \Delta v(\tfrac{1}{2}, t) =
+  \vartheta(t) - \vartheta(t_{\mathrm{ref}}) +
+  \arg\zeta(\tfrac{1}{2}+it) - \arg\zeta(\tfrac{1}{2}+it_{\mathrm{ref}})
+  = m\pi,
+  \label{eq:gate_a_critical}
+\end{equation}
+$t_{\mathrm{ref}} = 0$이고 $\vartheta(0) = 0$이면, 그람 점 조건 $\vartheta(t) = m\pi$로 환원된다 ($\arg\zeta$ 보정까지).
+
+\begin{remark}[QROP-Net 대응: $\sin^2$ 양자화]
+\label{rem:gate_a_parallel}
+게이트~A는 QROP-Net 양자화 손실 $\mathcal{L}_{\mathrm{quant}}$ (\cref{eq:loss_quant})의 \textit{정확한 해석적 정수론 대응물}이다. QROP-Net에서 $\sin^2$ 벌칙은 연속 위상을 가장 가까운 이산 수준으로 유도하며; 게이트~A는 연속 위상 $v(\sigma,t)$가 $\pi$의 정수배로 양자화된 점을 선택한다. 위상 양자화 연산자 (\cref{eq:pqo})에서 $L=2$로 놓으면 $\mathcal{P}(v; 2) = \sin^2(v) = 0$ ($v = m\pi$에서)를 얻으며, 이것이 정확히 게이트~A이다.
+\end{remark}
+
+
+\subsection{게이트 B: 위상 정류 (곡률)}
+
+\begin{definition}[게이트 B --- 위상 정류 조건]
+\label{def:gate_b}
+위상이 $\sigma$-방향에서 \textit{정류}이다:
+\begin{equation}
+\boxed{
+  \GateB: \quad v_\sigma(\sigma, t) = 0.
+}
+\label{eq:gate_b}
+\end{equation}
+코시--리만 관계식 (\cref{eq:cauchy_riemann})에 의해, 이는 다음과 동치이다:
+\begin{equation}
+  \mathrm{Im}\!\left(\frac{\xif'(\sigma+it)}{\xif(\sigma+it)}\right) = 0,
+  \label{eq:gate_b_cr}
+\end{equation}
+그리고 진폭 극값 조건 $u_t(\sigma,t) = 0$과도 동치이다, 즉
+\begin{equation}
+  \frac{\partial}{\partial t}|\xif(\sigma + it)| = 0.
+  \label{eq:amplitude_extremum}
+\end{equation}
+게이트~B는 진폭 $\Ampl(\sigma,t)$가 $t$-방향에서 국소 극대(또는 안장점)를 갖는 점을 선택한다.
+\end{definition}
+
+\begin{remark}[물리적 해석: 공명 봉우리]
+\label{rem:resonance_peak}
+산란 이론~\cite{khare1997}에서 $\xif(s)$는 산란 진폭으로 해석될 수 있으며, 비자명 영점은 공명에 대응한다. 공명에서 산란 진폭은 \textit{국소 극대}에 도달하고 (게이트~B: $u_t = 0$) 위상 이동은 $\pi$-증분을 통과한다 (게이트~A: $\Delta v = m\pi$). 이는 정확히 공진 공동에서 보강 간섭의 조건이다: 파동이 공명에서 ``머물며'', 위상 결맞음을 유지하면서 진폭을 축적한다.
+\end{remark}
+
+\begin{remark}[QROP-Net 대응: 충실도 손실]
+\label{rem:gate_b_parallel}
+게이트~B는 관심 점에서 진폭 $\Ampl(t)$가 정류일 것을 요구한다. QROP-Net에서 충실도 손실 $\mathcal{L}_{\mathrm{fid}}$ (\cref{eq:loss_fid})는 복원된 진폭 패턴을 목표와 비교한다. $\mathcal{L}_{\mathrm{fid}}$를 최소화하면 시스템은 진폭 정류 상태로 향한다: 수렴 시 예측 세기가 목표와 일치하여 $\partial \hat{I}/\partial(\text{params}) = 0$이 된다. 두 시스템 모두 정확한 신호 복원의 필요 조건으로서 진폭 안정성을 강제한다.
+\end{remark}
+
+
+\subsection{결합 판별식: 공명점}
+
+\begin{definition}[공명 소수 선택]
+\label{def:resonant_prime}
+$s$-평면의 점 $(\sigma^*, t^*)$가 두 게이트를 동시에 만족하면 \textit{공명점}이다:
+\begin{equation}
+\boxed{
+  \pis(\sigma^*, t^*) = 1 \quad\iff\quad
+  \begin{cases}
+    \GateA: & \Delta v(\sigma^*, t^*) = m\pi \\
+    \GateB: & v_\sigma(\sigma^*, t^*) = 0
+  \end{cases}
+}
+\label{eq:discriminant}
+\end{equation}
+$\sigma^* = \tfrac{1}{2}$ (임계선 위)이면, 공명점은 $\zeta(s)$의 영점 또는 준영점에 대응한다. 정수 $n$이 공명점 $t_n$에서 위상 정렬 조건 $\Phiz(t_n) = \Psip(n)$을 만족하면 \textit{공명 소수}로 선택된다.
+\end{definition}
+
+두 조건의 동시 만족이 결정적 특성이다:
+\begin{itemize}
+  \item 게이트~A만으로는 너무 많은 점을 선택한다 (영점 사이의 모든 그람 점 포함).
+  \item 게이트~B만으로는 위상 정렬되지 않은 진폭 극값을 선택한다.
+  \item 두 조건의 \textit{교차}가 위상 양자화되고 진폭 극값인 후보---진정한 공명의 특징---를 산출한다.
+\end{itemize}
+
+
+% ============================================================================
+\section{$\sigma$-리프트와 오차 허용}
+\label{sec:sigma_lift}
+% ============================================================================
+
+\subsection{임계선으로부터의 편차}
+
+\begin{definition}[$\sigma$-리프트]
+\label{def:sigma_lift}
+두 게이트를 만족하는 공명점 $(\sigma^*, t^*)$에 대해 $\sigma$-리프트는:
+\begin{equation}
+  \ell := \sigma^* - \frac{1}{2}.
+  \label{eq:sigma_lift}
+\end{equation}
+리만 가설은 모든 비자명 공명점에 대해 $\ell = 0$이라는 진술과 동치이다.
+\end{definition}
+
+\begin{proposition}[오차 임계치 유비]
+\label{prop:threshold}
+$\sigma$-리프트 $\ell$은 Kyber의 LWE 오차 $|e|_{\Zq}$와 동일한 구조적 역할을 수행한다:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+& \textbf{QROP-Net} & \textbf{임계선} \\
+\midrule
+변수         & $|e|_{\Zq}$            & $\ell = \sigma^* - 1/2$ \\
+임계치       & $\ceil{q/4} = 1920$    & $\ell = 0$ \\
+성공         & $|e|_{\Zq} < 1920$     & $\ell = 0$ (RH) \\
+실패 모드    & $\mathrm{DFR} = 1$     & 임계선 밖의 영점 \\
+민감도       & $\Delta d = 0.1\,$mm   & $\ell \neq 0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+두 시스템 모두에서, 신호가 비가역적으로 소실되는 \textbf{경성 경계}가 존재한다. 한 시스템의 ``오차''는 문자 그대로의 복호화 실패이며; 다른 시스템에서는 대칭축으로부터 영점의 이탈이다.
+\end{proposition}
+
+
+\subsection{산란 해석과 유니타리성}
+
+Khare~\cite{khare1997}는 $\zeta(s)$를 산란 진폭으로 해석하고 비자명 영점을 공명으로 보는 것을 제안했다. LeClair와 Mussardo~\cite{leclair2023}는 영점을 \textit{산란 시스템의 양자화된 에너지}로 취급하여 이를 형식화하고, 영점 위치를 파악하는 베테 안자츠/위상 양자화 접근법을 도출했다.
+
+그들의 프레임워크에서, $\sigma^* \neq \tfrac{1}{2}$인 영점 $s = \sigma^* + it^*$는 \textit{비유니타리} 산란 행렬에 대응한다: 시스템에 흡수 또는 누출이 있다. $\sigma$-리프트 $\ell$은 \textit{비유니타리성의 정도}를 정량화한다:
+\begin{equation}
+  |\ell| = |\sigma^* - \tfrac{1}{2}| \propto
+  \text{``흡수 계수''},
+  \label{eq:non_unitarity}
+\end{equation}
+여기서 $\ell = 0$은 유니타리(무손실) S-행렬에, $\ell \neq 0$은 산일 채널에 대응한다.
+
+\begin{remark}[QROP-Net 대응: 채널 손실]
+\label{rem:unitarity}
+QROP-Net에서 광학 채널은 위상 신호를 열화시키는 잡음 (포아송, 읽기 잡음, ADC 양자화)을 도입한다. ``채널 품질''은 LWE 오차로 직접 측정된다: 더 높은 잡음 $\to$ 더 큰 $|e|_{\Zq}$ $\to$ DFR 임계치에 더 가까움. 유사하게 $|\ell| > 0$은 해석적 연속에서의 ``잡음''을 나타낸다---영점이 정확히 대칭축 위에 있지 않다. 두 시스템 모두 이상적 기준(격자점, 임계선)으로부터의 거리로 신호 열화를 측정한다.
+\end{remark}
+
+
+\subsection{베리 위상과 홀로노미}
+\label{sec:berry}
+
+$\xif(s)$의 영점 주위 위상 감김은 위상적 불변량을 제공한다.
+
+\begin{proposition}[위상 감김수]
+\label{prop:winding}
+$\mathcal{C}$를 $\xif(s)$의 정확히 $N$개 영점을 둘러싸는 $s$-평면의 닫힌 윤곽이라 하자. 그러면:
+\begin{equation}
+  \oint_{\mathcal{C}} \nabla v \cdot d\mathbf{s} = 2\pi N,
+  \label{eq:winding}
+\end{equation}
+이는 논증 원리에 의한 것이다. 이는 \textit{홀로노미}에 대한 진술이다: 루프 주위의 총 위상 변화는 둘러싸인 영점당 $2\pi$이며, 양자역학의 베리 위상~\cite{berry1984}과 직접 유비된다---순환 경로에 걸쳐 축적된 기하학적 위상이 천 수의 $2\pi$배인 것.
+\end{proposition}
+
+게이트~A의 조건 $\Delta v = m\pi$ (기준점에서 $(\sigma, t)$까지의 열린 경로를 따라)는 \textit{부분 홀로노미} 조건이다: 경로가 $m$번의 반회전을 축적하여, 각 공명점에 \textit{위상적 위상 지수} $m$을 고정한다.
+
+\begin{remark}[QROP-Net 대응: 위상 래핑]
+\label{rem:phase_wrapping}
+QROP-Net에서 2-채널 $(\mathrm{Re}, \mathrm{Im})$ 출력은 $0/2\pi$ 위상 래핑 불연속을 피하기 위해 특별히 설계되었다. 동일한 위상적 장애물이 $\xif$-함수에서도 나타난다: $v(\sigma,t)$는 영점에서 분기 절단과 $2\pi$ 점프를 갖는다. 감김수 (\cref{eq:winding})는 이 점프를 계수하며, 이는 QROP-Net의 원형 통계 (\cref{eq:circular_mean})가 $0/2\pi$ 경계를 올바르게 처리하는 것과 같다.
+\end{remark}
+
+
+% ============================================================================
+\section{다원군 영점 탐지: 다원적 프레임}
+\label{sec:polyadic}
+% ============================================================================
+
+게이트 조건의 수치적 구현에는 임계선 위 로그 도함수 $\xif'/\xif$의 견고한 평가가 필요하며, 여기서 $\xif$는 영점을 가져 $\xif'/\xif$가 발산한다. \textit{다원적 프레임} 접근법은 여러 방향 채널을 사용하여 특이점을 평균화함으로써 이를 해결한다.
+
+\subsection{표적 함수와 평가점}
+
+표적 함수 $f$는 리만 $\xif$와 디리클레 $L$-함수에 걸쳐 통합된다:
+\begin{align}
+  \xif(s) &= \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s),
+  \label{eq:xi_target}\\
+  \Lambda(s, \chi) &= \left(\frac{q}{\pi}\right)^{(s+\epsilon)/2}
+  \Gamma\!\left(\frac{s+\epsilon}{2}\right)L(s,\chi),
+  \label{eq:lambda_target}
+\end{align}
+여기서 $q$는 모듈러스, $\epsilon \in \{0,1\}$은 디리클레 지표 $\chi$의 패리티 지시자이며, 모든 평가는 임계선 $s(t) = \tfrac{1}{2} + it$ 위에서 수행된다.
+
+로그 도함수는 오일러 곱을 통해 소수와 직접 연결된다:
+\begin{equation}
+  \frac{f'(s)}{f(s)} = -\sum_{\rho}\frac{1}{s-\rho} +
+  (\text{매끄러운 부분}),
+  \label{eq:log_deriv_poles}
+\end{equation}
+여기서 합은 비자명 영점 $\rho$에 대해 수행되며, 지배적 기여는 근방 영점에서 온다. 이는 오일러 곱 표현과 직접 관련된다:
+\begin{equation}
+  \zeta(s) = \prod_{p\;\text{소수}}(1-p^{-s})^{-1}, \qquad
+  L(s,\chi) = \prod_p(1-\chi(p)p^{-s})^{-1},
+  \label{eq:euler_products}
+\end{equation}
+여기서:
+\begin{equation}
+  -\frac{f'(s)}{f(s)} \approx \sum_{n \geq 1}
+  \Lambda(n)\chi(n)\,n^{-s},
+  \label{eq:euler_log_deriv}
+\end{equation}
+$\Lambda(n)$은 폰 만골트 함수이다 ($n = p^k$이면 $\Lambda(n) = \log p$, 아니면 $0$). 소수에 대한 진동 합이 게이트~A가 양자화하는 진동을 직접 생성한다.
+
+
+\subsection{방향 채널}
+\label{sec:channels}
+
+$f'/f$를 단일 방향으로만 평가하는 대신 (잡음과 앨리어싱에 민감), $m$개의 방향 채널을 도입한다. 각 채널 $k$는 기저 벡터를 갖는다:
+\begin{equation}
+  \mathbf{e}_k = (\cos\theta_k, \;\lambda_k\sin\theta_k),
+  \label{eq:channel_vector}
+\end{equation}
+여기서 $\theta_k$는 채널 각도, $\lambda_k$는 비등방 축척 인자이다. 권장 3-채널 표준 집합은:
+\begin{equation}
+  (\theta, \lambda, w) = (-30^\circ, 1.10, 0.40), \;
+  (15^\circ, 0.85, 0.35), \;
+  (60^\circ, 1.00, 0.25),
+  \label{eq:channel_set}
+\end{equation}
+채널 가중치 $w_k$는 $\sum w_k = 1$로 정규화된다.
+
+비등방 축척 행렬이 국소 기하에 적응한다:
+\begin{equation}
+  M(t) = \mathrm{diag}\!\left(\frac{1}{\mu(t)},\;
+  \frac{1}{\nu(t)}\right),
+  \label{eq:aniso_scale}
+\end{equation}
+여기서 $\mu(t), \nu(t) > 0$은 매끄러운 프로필 함수이다. 단계 $h > 0$에 대한 실제 방향 변위는:
+\begin{equation}
+  \delta_k(t) = h\,(v_{k,x} + iv_{k,y}), \quad
+  \mathbf{v}_k = R(\theta(t))\,M(t)\,\mathbf{e}_k,
+  \label{eq:displacement}
+\end{equation}
+여기서 $R(\theta)$는 회전 행렬이고 $\theta(t)$는 $t_0$ 주위에서 매끄럽게 변한다.
+
+
+\subsection{중심 차분 로그 도함수}
+\label{sec:central_diff}
+
+채널 $k$를 따른 유효 로그 도함수는 중심 차분으로 계산된다:
+\begin{equation}
+  D_k\xif(s) \approx
+  \frac{\xif(s + \delta_k) - \xif(s - \delta_k)}{2h\,\xif(s)}.
+  \label{eq:central_diff}
+\end{equation}
+\textit{가중 다채널 로그 도함수}는:
+\begin{equation}
+  \Lhat(t) = \sum_k w_k \cdot
+  \frac{f(s + \delta_k) - f(s - \delta_k)}{2h\,f(s)},
+  \label{eq:lhat}
+\end{equation}
+채널 평균화가 방향 편향을 줄이고 영점 근방의 안정성을 향상시킨다. $f$가 해석적이므로 중심 차분의 오차는 $O(h^2)$이다. $\Lhat(t) = v_t(t) + i\,v_\sigma(t)$로 실부와 허부로 분해한다.
+
+
+\subsection{게이지 ODE에 의한 위상 보정}
+\label{sec:gauge_ode}
+
+실부 $v_t(t)$에는 최종 판별식 적용 전에 제거해야 하는 느린 표류가 포함된다. 게이지 ODE를 정의한다:
+\begin{equation}
+  \tau\dot{\psi} + \psi = v_t, \quad \dot{\phi} = \psi,
+  \label{eq:gauge_ode}
+\end{equation}
+초기 조건 $\phi(t_0) = 0$, $\psi(t_0) = v_t(t_0)$. 여기서 $\tau > 0$은 게이지 감쇠 상수이다 (기본값: $\tau = 0.04$). ODE는 $v_t$를 적분하면서 고주파 잡음을 평활화한다. 수치 기법은 안정적 사다리꼴 이산화를 사용한다:
+\begin{align}
+  \alpha_j &= \frac{\Delta t_j}{\tau + \Delta t_j},
+  \label{eq:ode_alpha}\\
+  \psi_j &= \psi_{j-1} + \alpha_j(v_{t,j} - \psi_{j-1}),
+  \label{eq:ode_psi}\\
+  \phi_j &= \phi_{j-1} + \tfrac{1}{2}(\psi_j + \psi_{j-1})\,\Delta t_j.
+  \label{eq:ode_phi}
+\end{align}
+
+
+\subsection{최종 판별 함수}
+\label{sec:discriminant}
+
+게이지 보정된 최종 판별식은 두 게이트를 결합한다:
+\begin{equation}
+\boxed{
+  F_2(t) = \mathrm{Im}\!\Big\{
+    e^{-i\phi(t)}\Big(\Lhat(t) - \dot{\phi}(t)\Big)
+  \Big\} = 0.
+}
+\label{eq:F2}
+\end{equation}
+$F_2$의 영점 $t^*$에서:
+\begin{itemize}
+  \item 허부가 사라져, 위상 보정된 로그 도함수가 축적된 게이지 위상과 정렬됨 $\to$ \textbf{게이트~A} (위상 양자화)가 만족됨.
+  \item $F_2$의 영점 통과 부호 변화가 위상 교차를 나타냄 $\to$ \textbf{게이트~B} (정류)가 국소적으로 만족됨.
+\end{itemize}
+
+\begin{remark}[QROP-Net 대응: 블라인드 자가 교정]
+\label{rem:tto_parallel}
+게이지 ODE (\cref{eq:gauge_ode})는 \textit{진정한 영점 위치를 모른 채} 위상 표류를 자기 보정한다. 이는 \textit{진정한 암호문을 모른 채} 렌즈 오정렬을 보정하는 QROP-Net의 블라인드 TTO (\cref{eq:blind_loss})와 구조적으로 동일하다. 두 시스템 모두:
+\begin{enumerate}
+  \item 정답이 아닌 물리/수학 기반 제약을 사용하며,
+  \item 소수의 단계로 수렴하고 (TTO는 15회, $F_2$는 $O(N)$ 격자점),
+  \item 신호 구조의 내적 일관성을 통해 자가 교정을 달성한다.
+\end{enumerate}
+\end{remark}
+
+
+\subsection{수치 검증과 수렴}
+\label{sec:polyadic_results}
+
+판별식 $F_2(t) = 0$은 균일 격자 $[T-W, T+W]$에서 $N$개 점으로 수치 탐색된다 ($W = 0.002$--$0.005$). 알고리즘:
+
+\begin{algorithm}[ht]
+\DontPrintSemicolon
+\caption{다원적 영점 탐지}
+\label{alg:polyadic}
+\KwIn{표적 $f$, 대역 중심 $T$, 창 $W$, 채널 $\{(\theta_k, \lambda_k, w_k)\}$, 단계 $h$, 게이지 $\tau$}
+\KwOut{영점 후보 $\{t^*\}$}
+$s_j \gets \tfrac{1}{2} + it_j$ (균일 격자 $t_j \in [T-W, T+W]$)\;
+\ForEach{채널 $k$ 및 격자점 $j$}{
+  $\delta_k(t_j) \gets h\,(v_{k,x}+iv_{k,y})$ (\cref{eq:displacement} 경유)\;
+  $D_k \gets [f(s_j+\delta_k) - f(s_j-\delta_k)] / (2h\,f(s_j))$\;
+}
+$\Lhat(t_j) \gets \sum_k w_k\,D_k$\;
+추출: $v_t \gets \mathrm{Re}(\Lhat)$,
+$v_\sigma \gets \mathrm{Im}(\Lhat)$\;
+게이지 ODE (\cref{eq:ode_alpha}--\ref{eq:ode_phi}) 적분으로 $\phi(t_j)$ 획득\;
+$F_2(t_j) \gets \mathrm{Im}\{e^{-i\phi_j}(\Lhat_j - \dot{\phi}_j)\}$\;
+$F_2$의 부호 변화 탐지; 선형 보간으로 정밀화\;
+불변성 검증: 프레임 $M_0$ vs $M_2$, 채널 교환, 창 이동\;
+\end{algorithm}
+
+\begin{property}[수렴 속도]
+\label{prop:convergence}
+$h_{\min}$을 시험된 최소 단계라 하자. 수렴 지표는:
+\begin{align}
+  p_{\mathrm{LD}} &= \frac{\log\sup_t|\mathrm{LD}(h) - \mathrm{LD}(h_{\min})|}
+  {\log h} \approx 2.0, \label{eq:conv_ld}\\
+  p_{F_2} &= \frac{\log\sup_t|F_2(h) - F_2(h_{\min})|}
+  {\log h} \approx 2.0, \label{eq:conv_f2}
+\end{align}
+이는 중심 차분에 대해 기대되는 $O(h^2)$ 수렴을 확인한다. 영점 위치 $t^*$는 다음에 대해 불변이다:
+\begin{itemize}
+  \item 프레임 프로필 ($M_0$ 평탄 vs $M_2$ 강): $|t^*_{M_0} - t^*_{M_2}| / \Delta t_{\mathrm{grid}} < 10^{-3}$.
+  \item 채널 구성 (3-채널 vs 2-채널): $r_{\mathrm{channel}} < 0.1$.
+  \item 창 이동 ($\pm\delta$ 섭동): $r_{\mathrm{window}} < 0.2$.
+\end{itemize}
+\end{property}
+
+검증된 표적은 다음을 포함한다:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{함수} & \textbf{대역} & \textbf{$t^*$} \\
+\midrule
+$\xif(s)$ & $t \approx 141.12$ & 141.123703 \\
+$L(s,\chi_3^{\mathrm{odd}})$ & $t \approx 140.61$ & 140.611723 \\
+$L(s,\chi_8^{\mathrm{even}})$ & $t \approx 141.08$ & 141.083569 \\
+$L(s,\chi_5^{\mathrm{cmplx}})$ & $t \approx 140.97$ & 140.966280 \\
+\bottomrule
+\end{tabular}
+\end{center}
+모든 결과는 단계 스위프 $h \in \{2\times10^{-7}, 10^{-6}, 5\times10^{-6}, 10^{-5}\}$ 하에서 불변이다.
+
+
+\subsection{교차 검증: 세 독립 축}
+\label{sec:cross_validation}
+
+$F_2 = 0$으로부터의 영점 후보는 근본적으로 다른 오차 프로필을 가진 세 독립 데이터 소스에 대해 검증된다:
+
+\subsubsection{축 A: 부분 오일러 곱 매칭}
+부분합 $S_N(t;\chi) = \sum_{n \leq N}\Lambda(n)\chi(n)\, n^{-1/2-it}$는 충분히 큰 $N$에 대해 $s = \tfrac{1}{2}+it$ 근방에서 $-f'(s)/f(s)$를 근사한다. $\Lhat(t^*)$와 $S_N(t^*;\chi)$ 사이의 허용 범위 내 일치가, 영점 후보가 오일러 곱과 일치함을 확인한다.
+
+\subsubsection{축 B: 명시적 체비셰프 $\psi(x)$ 복원}
+소수 계수 함수 $\psi(x) = \sum_{n \leq x}\Lambda(n)$은 명시적 공식을 통해 영점으로부터 재구성될 수 있다:
+\begin{equation}
+  \psi(x) = x - \sum_{\rho}\frac{x^\rho}{\rho} - \log(2\pi) -
+  \frac{1}{2}\log(1-x^{-2}),
+  \label{eq:explicit_formula}
+\end{equation}
+여기서 $\rho$는 $\zeta$의 비자명 영점에 대해 수행된다. $F_2 = 0$에서 얻은 영점 높이 $t^*$를 대입하고 재구성된 $\psi(x)$를 정확한 계단 함수와 비교하면 독립적 검증이 된다.
+
+\subsubsection{축 C: 등차수열 편향 신호}
+디리클레 $L$-함수에 대해, 등차수열 $p \equiv a \pmod{q}$에서의 소수 분포가 제3의 신호를 제공한다. $\psi(x;q,a)$에 대한 명시적 공식의 편향 항 $\sum_\rho x^\rho/\rho$는 영점 높이에 의해 결정되는 주파수로 진동하여 독립적 확인을 제공한다.
+
+
+% ============================================================================
+\section{\textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\ Hardy-$Z$ 부호변화 탐지기로서의 $F_2$-판별식}
+\label{sec:f2_hardy}
+% ============================================================================
+
+\noindent\textbf{계층 1.} 본 섹션은 본 프로그램의 핵심 검증 경험 결과를 동일시한다: 제~\ref{sec:polyadic}절의 게이지 ODE에서 도입된 다채널 판별식 $F_2$는, 해석 신호 구성까지의 차이를 제외하면, 정확히 Hardy $Z$-함수의 부호 변화 탐지기이다. 동일시는 두 단계로 확립된다: 실함수의 해석 신호가 영점에서 갖는 인수에 대한 해석적 진술 (\cref{prop:phase_zero}), 그리고 $Z(t)$를 근사하는 매끄러운 네트워크가 단순 영점에서 $\arg(Z_{\mathrm{out}})=\pi/2$로 포화되는 이유를 설명하는 신경 계 corollary (\cref{cor:neural_reg}).
+
+\subsection{Hardy $Z$와 해석 신호 동일시}
+\label{sec:hardy_analytic}
+
+\cref{eq:hardy_z}에서 Hardy $Z$-함수
+\begin{equation}
+  Z(t) = e^{i\vartheta(t)}\,\zeta\bigl(\tfrac{1}{2}+it\bigr)
+\end{equation}
+는 실수 $t$에 대해 실수이며, 그 부호 변화는 임계선 위 $\zeta$의 비자명 영점과 일대일 대응한다. 이로써 $Z$는 리만 영점 위치를 찾도록 설계된 판별식을 시험할 자연스러운 실수 신호이다.
+
+\begin{proposition}[실함수 영점에서의 위상]
+\label{prop:phase_zero}
+$f : \mathbb{R} \to \mathbb{R}$를 $t_0$에서 단순 영점을 갖는 실함수라 하고, $z(t) = f(t) + i\,H[f](t)$를 그 해석 신호라 하자 (여기서 $H$는 힐베르트 변환). 그러면
+\[
+  \arg\bigl(z(t_0)\bigr) = \pm\tfrac{\pi}{2},
+\]
+이고 부호는 $f$가 음에서 양으로 교차하는지 그 반대인지에 의해 결정된다.
+\end{proposition}
+\begin{proof}
+$t_0$에서 $f(t_0)=0$이므로 $\mathrm{Re}\,z(t_0)=0$이며, Titchmarsh 정리에 의해 $H[f](t_0)\neq 0$이 일반적으로 성립한다. 따라서 $z(t_0)$는 순허수이고 그 부호는 교차 방향으로 결정된다.
+\end{proof}
+
+\begin{corollary}[신경망의 부호 변화 정규화]
+\label{cor:neural_reg}
+$Z(t)$를 연속 복소 함수 $Z_{\mathrm{out}}(t)$로 근사하는 신경망은 단순 영점 $t_0$에서 $\arg(Z_{\mathrm{out}}(t_0)) \to \pm\pi/2$를 만족해야 한다. 왜냐하면 \cref{eq:phase_crit}의 이상적 불연속 $\arg\xif : 0 \to \pi$가 그 중간값으로 정규화되기 때문이다.
+\end{corollary}
+
+\cref{prop:phase_zero,cor:neural_reg}을 제~\ref{sec:polyadic}절의 판별식 정의 $F_2(t) = \operatorname{Im}\{e^{-i\varphi}(\hat L - \dot\varphi)\}$와 결합하면 다음 동일시를 얻는다.
+
+\begin{theorem}[$F_2 = $ Hardy $Z$ 부호변화 탐지기]
+\label{thm:f2_hardy}
+$Z_{\mathrm{out}}(t)$를 \cref{eq:gauge_ode}의 게이지 ODE $\dot\varphi = \hat L(t)$를 만족하는 $Z(t)$의 매끄러운 신경 근사라 하자. 그러면 근사가 충실한 임의의 구간 $I\subset\mathbb{R}$에서
+\[
+  \{\,t\in I : F_2(t)=0\,\}
+  \;=\;
+  \{\,t\in I : Z(t)=0\,\}
+  \;=\;
+  \{\,t\in I : \zeta(\tfrac{1}{2}+it)=0\,\}.
+\]
+\end{theorem}
+\begin{proof}
+$F_2(t)=\operatorname{Im}\{e^{-i\varphi(t)}(\hat L(t)-\dot\varphi(t))\}=0$은 $\hat L(t)-\dot\varphi(t)$가 $e^{i\varphi(t)}$와 공선일 때와 동치이며, 이는 게이지 ODE에 의해 해석 신호의 인수가 중간값 $\pm\pi/2$에 도달하는 것과 동치이다. 따라서 \cref{prop:phase_zero}에 의해 $Z$의 영점과 동치이다.
+\end{proof}
+
+\subsection{경험 검증: $t\in[10,50]$에서 10/10 영점 탐지}
+\label{sec:f2_low}
+
+\begin{observation}[$F_2$ 탐지, 저구간]
+\label{obs:f2_low}
+Adam ($\eta=10^{-3}$, 200 epoch)으로 $t\in[10,50]$에서 $Z(t)$의 매끄러운 신경 근사는 10개 LMFDB 영점 모두에서 $|F_2(t_k)| < 0.021$로 수렴하며, 15 epoch 이후 잔차 손실 $\mathcal{L}_{\mathrm{res}} < 10^{-4}$이다. 출력 위상 $\arg(Z_{\mathrm{out}}) \in [1.47,1.62]$는 \cref{cor:neural_reg}과 정확히 일치하게 $\pi/2\approx 1.5708$ 주위 $\pm 0.06$ 창 안에 들어간다.
+\end{observation}
+
+\begin{table}[h]
+\centering
+\caption{Adam~$+$~$\cos^2$ PQO의 $t\in[10,50]$ 탐지 결과, 10 LMFDB 영점, 200 epoch.}
+\label{tab:f2_low}
+\begin{tabular}{c|cccc}
+\toprule
+$t_k$ & $|F_2|$ & $\sin^2$ PQO & $\cos^2$ PQO & $\arg(Z_{\mathrm{out}})$ \\
+\midrule
+14.13 & 0.021 & 1.000 & \textbf{0.000} & 1.581 \\
+21.02 & 0.001 & 1.000 & \textbf{0.000} & 1.563 \\
+25.01 & 0.003 & 1.000 & \textbf{0.000} & 1.557 \\
+30.42 & 0.019 & 1.000 & \textbf{0.000} & 1.562 \\
+32.94 & 0.000 & 1.000 & \textbf{0.000} & 1.562 \\
+37.59 & 0.009 & 1.000 & \textbf{0.000} & 1.571 \\
+40.92 & 0.000 & 1.000 & \textbf{0.000} & 1.565 \\
+43.33 & 0.004 & 1.000 & \textbf{0.000} & 1.573 \\
+48.01 & 0.003 & 1.000 & \textbf{0.000} & 1.584 \\
+49.77 & 0.005 & 1.000 & \textbf{0.000} & 1.582 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+두 관찰이 강조되어야 한다. 첫째, $|F_2|<0.021$과 $\cos^2\mathrm{PQO}<0.0002$의 동시 만족은 자명하지 않은 결합 조건이다: 네트워크가 (i) 해석 신호의 허수 성분이 소멸하고 (ii) 시클로토믹 격자의 양자화된 위상 어트랙터가 만족되는 점을 찾았다는 뜻이다. 같은 10개 점에서 두 조건이 동시에 만족될 수 있다는 사실이 바로 $\cos^2$ Maslov 보정이 작동하고 있음을 보여준다. 둘째, 잔존 격차 $\arg(Z_{\mathrm{out}})\neq\pi/2$ (최대 $\approx 0.01$)는 유한 학습의 아티팩트이며 구조적 장애물이 아니다; 학습 시간이 길어질수록 격차는 단조적으로 좁아진다.
+
+\subsection{영점 난이도 위계와 Lehmer 현상}
+\label{sec:lehmer}
+
+모든 영점이 동등하게 쉽게 탐지되는 것은 아니다. \cref{tab:f2_low}의 10개 영점은 $|F_2|$에서 거의 두 자릿수에 이르는 범위를 가진다: 가장 쉬운 영점은 $|F_2|\lesssim 10^{-3}$으로 수렴하고, 가장 어려운 영점 ($t_1=14.13$과 $t_6=37.59$)은 $2\times 10^{-2}$ 근방에서 포화된다.
+
+\begin{remark}[Lehmer--Odlyzko 연결]
+\label{rem:lehmer}
+$Z(t)$가 실수축을 거의 스치지만 교차하지 않는 영점 쌍 --- 고전적 Lehmer 현상 --- 은 Montgomery--Odlyzko의 GUE 간격 통계에서 가까운 영점 쌍에 대응한다. 우리 설정에서 이들은 해석 신호의 위상이 $\pm\pi/2$ 근처에서 더 오래 머무는 영점이며, 이에 따라 $F_2$-판별식의 수렴이 더 느리다. \cref{tab:f2_low}의 난이도 위계는 따라서 이상 현상이 아니라 예상되는 것이다.
+\end{remark}
+
+% ============================================================================
+\section{\textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\ 고위영점으로의 확장: $t\in[100,200]$}
+\label{sec:high_zeros}
+% ============================================================================
+
+\noindent\textbf{계층 1.} \cref{thm:f2_hardy}의 동일시 $F_2 = \text{Hardy-}Z\text{ 부호변화 탐지기}$는 $Z(t)$의 해석 신호에 대한 진술이며 본질적 높이 의존성을 갖지 않는다. 자연스러운 건전성 검사는 제~\ref{sec:f2_low}절의 수치 파이프라인이 타겟 구간이 한 자릿수 올라가도 완전 탐지를 계속 생산하는지 보는 것이다. 결과적으로 그렇다.
+
+\begin{observation}[고위영점 탐지]
+\label{obs:high_zeros}
+제~\ref{sec:f2_low}절의 실험을 $t\in[100,200]$에서 50개 LMFDB 영점 ($k=26,\ldots,79$에 대해 \texttt{mpmath.zetazero}$(k)$로 계산), 500 격자점, 그리고 확대된 네트워크 (은닉폭 64, $33{,}540$ 매개변수)로 반복하였다. Adam~$+$~$\cos^2$ PQO, $\eta=10^{-3}$, 200 epoch으로:
+\end{observation}
+
+\begin{table}[h]
+\centering
+\caption{저구간 대 고구간 탐지.}
+\label{tab:high_zeros}
+\begin{tabular}{l|c|c}
+\toprule
+\textbf{지표} & $t\in[10,50]$, 10 영점 & $t\in[100,200]$, 50 영점 \\
+\midrule
+탐지율                          & 10/10          & \textbf{50/50} \\
+$\max|F_2|$                 & 0.021          & 0.060          \\
+$\max \cos^2$ PQO           & 0.0002         & 0.0011         \\
+$\arg(Z_{\mathrm{out}})$ 범위 & $[1.55,1.58]$ & $[1.54,1.60]$ \\
+학습 벽시계 시간            & $2$\,분       & $19$\,분      \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+50개 고위영점 모두 $|F_2|<0.1$을 만족하고, 48개가 $0.04$ 이하이다. 가장 어려운 두 영점 --- $t=118.79$ ($|F_2|=0.060$)와 $t=114.32$ ($|F_2|=0.058$) --- 조차도 탐지 임계치 내에 편하게 들어있다. \cref{rem:kuramoto_transition}의 임계 동기화 전이가 $\sim 10$ epoch에서 일어나고, $\arg(Z_{\mathrm{out}})\approx\pi/2$ 패턴도 저구간과 동일하며, Maslov 보정과 위상 잠금 메커니즘이 특정 높이 창의 아티팩트가 아님을 확인시켜준다. 이것이 비자명한 스케일에서 \cref{thm:f2_hardy}의 직접적 수치 확증이다.
+
+\begin{remark}[확장이 확립하지 \emph{않는} 것]
+\label{rem:high_zeros_limits}
+실험은 $F_2$-탐지기가 그 정답 --- 영점 목록 --- 이 공급될 때 계속 작동함을 검증한다. 탐지기가 미지의 영점을 \emph{찾아낼 수} 있는지는 검증하지 \emph{않는다}: 학습 루프가 $F_2$를 평가할 격자점을 결정하기 위해 LMFDB 영점 목록을 사용하기 때문이다. 자가 교정, 블라인드 영점 발견의 문제는 열려 있으며, 제~\ref{part:failed}부와 \cref{sec:open}의 열린 문제 논의의 동기 중 하나이다.
+\end{remark}
+
+% ============================================================================
+\section{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ $|\Ftwo|$ 잔차: 잠정적 중시각 관측량}
+\label{sec:f2_residual}
+% ============================================================================
+
+\noindent\textbf{계층 2 (2026-04-08 부분 재해석 포함).}
+제~\ref{sec:high_zeros}절의 고위영점 확장을 실행하면서, 개별 영점에서의 수렴 후 크기 $|F_2(t_k)|$가 무특징적 임의 산포가 아니라 체계적 높이 및 공간 패턴을 보인다는 점을 발견하였다. 본 섹션은 원래 관찰 (2026년 4월, $14{,}441$개 영점)과 이후 2026-04-08 부분 재해석을 기록한다. 재해석은 개별 영점 수준의 주장은 약화시키지만 총괄적 스케일 주장은 건드리지 않는다. 독자가 주장의 범위가 어떻게 좁혀졌는지 볼 수 있도록 양쪽 모두 보존한다.
+
+\subsection{원래 관찰 (2026년 4월)}
+\label{sec:f2_residual_original}
+
+$|F_2|$ 잔차를 $[10,50]$에서 $[5000,10000]$까지의 7개 광역 구간과 $[10000,13000]$을 덮는 23개 세부 구간을 합쳐 총 $14{,}441$개 영점에서 계산하였다. 누적 탐지율 (균일 임계치 이하인 $|F_2|$를 갖는 영점)은 $99.99\%$였다.
+
+\begin{table}[ht]
+\centering
+\caption{원래의 $14{,}441$ 영점 스윕에서 얻은 높이 구간별 $|F_2|$ 평균 잔차.}
+\label{tab:f2_scale}
+\small
+\begin{tabular}{lrrr}
+\toprule
+\textbf{구간} & \textbf{영점 수} & \textbf{탐지율}
+  & $\overline{|F_2|}$ \\
+\midrule
+$[10, 50]$       & 10     & 10/10     & 0.0209 \\
+$[100, 200]$     & 50     & 49/50     & 0.0208 \\
+$[200, 500]$     & 190    & 190/190   & 0.0119 \\
+$[500, 1000]$    & 380    & 380/380   & 0.0083 \\
+$[1000, 2000]$   & 868    & 868/868   & 0.0058 \\
+$[2000, 5000]$   & 3{,}003  & 3{,}003/3{,}003 & 0.0020 \\
+$[5000, 10000]$  & 5{,}622  & 5{,}622/5{,}622 & 0.0014 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+이 데이터셋에서 원래 세 가지 개별 영점 수준 주장이 제기되었다:
+\begin{enumerate}
+  \item[(O1)] \textbf{고전 통계로부터의 독립성.} 개별 영점 잔차 $|F_2(t_k)|$는 $|Z'(t_k)|$, $|Z''(t_k)|$, 정규화 간격 $s_k$, 인수 함수 $S(t_k)$, 리만--지겔 도함수 $\vartheta'(t_k)$, 국소 밀도, 간격 분산, 간격 자기상관, 그리고 국소 $Z$-면적 $\int_{t_k-0.3}^{t_k+0.3}|Z|$ 모두에 대해 Pearson $|r|<0.09$와 Spearman $|\rho|<0.09$를 보였다.
+  \item[(O2)] \textbf{공간 클러스터링.} $|F_2(t_k)|$는 가장 가까운 6개 영점 이웃의 $|F_2|$ 평균과 Spearman $\rho=+0.895$ ($p\approx 10^{-141}$)로 상관되었으며, 이는 임계선 위에 서로 다른 성격의 ``중시각 도메인''이 존재한다는 증거로 해석되었다.
+  \item[(O3)] \textbf{장거리 자기상관.} 시차-$\Delta$ 자기상관 $C(\Delta)$는 $\Delta\sim 3$ 내에서 $\approx 0.4$로 급격히 떨어지고 $\Delta=200$까지 $\approx 0.33$에서 거의 평탄한 상태로 유지되며, 두 성분 구조 (단거리 지수 + 장거리 평탄)를 시사한다.
+\end{enumerate}
+
+종합하여 이것들은 게이지 ODE가 ``임계선의 새 렌즈''로서 작용하여 무작위 행렬 이론과 고전적 $S(t)$-기반 도구로는 보이지 않는 구조를 드러낸다는 증거로 읽혔다.
+
+\subsection{2026-04-08 부분 재해석}
+\label{sec:f2_residual_reinterp}
+
+\begin{remark}[$|F_2|$ 개별 영점 주장의 부분 재해석]
+\label{rem:f2_reinterp}
+2026-04-08에 수행된 모델 독립성 감사는 (O1)--(O3)을 \emph{개별 영점} 수준에서 상당히 약화시키는 반면, \cref{tab:f2_scale}의 총괄적 스케일 구조는 건드리지 않았다.
+
+구체적으로, 동일 구조를 다른 시드, 다른 게이지 버퍼 $(\varphi_0,\psi_0)$ 초기화, 다른 학습 영점 목록 셔플로 재학습하면 개별 영점의 $|F_2(t_k)|$ 값의 순위 정렬이 실행 간에 재현되지 \emph{않는다}. 동일 구간에 대한 독립적 두 실행의 개별 영점 Spearman 상관은 대부분의 구간에서 $+0.2$ 이하로 떨어지며, 이는 $|F_2(t_k)|$를 영점 $t_k$의 고유 성질로 해석하는 것과 불일치한다. 특히, 공간 클러스터링 통계 $\rho_{\mathrm{cluster}}=+0.895$는 이웃 영점 잔차를 결합시키는 학습 시간 매끄러움 사전 분포에 의해 부분적으로 부풀려져 있고, $C(\Delta)$의 장거리 평탄치 $\approx 0.33$은 모든 실행에서 나타나지만 학습 의존적 수준으로 나타난다.
+
+재해석에서 살아남는 것은 \cref{tab:f2_scale}의 구간들에서 나타나는 $\overline{|F_2|}$의 높이 의존적 \textbf{평균 스케일}이다: $t\sim 50$에서의 $\overline{|F_2|}\approx 0.021$로부터 $t\sim 10{,}000$에서의 $\overline{|F_2|}\approx 0.0014$에 이르는 단조 감소가 모든 시드에서 상대 변동 ${\sim}10\%$ 이내로 재현되며, 그 형태는 $\alpha\in[0.4,0.5]$인 멱법칙 $\overline{|F_2|}\sim t^{-\alpha}$와 일치한다.
+
+따라서 \cref{tab:f2_scale}과 평균 스케일 주장은 탐지기 잔차의 진정한 높이 의존성에 대한 계층 2 증거로 \emph{유지}하며, 개별 영점 주장 (O1)--(O3)은 ``시사적이지만 모델 오염된'' 상태로 \emph{강등}한다: 패턴은 학습된 모델의 진정한 특징이지만, 모델로부터 임계선의 근저 산술에 이르는 추론은 개별 영점 수준에서 관찰된 비재현성에 의해 차단된다. 본 섹션은 바로 이 축소 자체가 정보 가치를 가진 진단이기 때문에 이 논문에 유지된다; 그러한 철회 기록의 역할에 관해서는 \cref{sec:open}도 참조.
+\end{remark}
+
+\subsection{2026-04-10 후속: ``어려움 군집''은 기저 대역폭 잡음}
+\label{sec:f2_residual_cluster_artifact}
+
+2026-04-09에서 2026-04-10에 걸쳐, $|F_2|$ 데이터 내부의 잔차 어려움 군집에 대해 열 개의 실험 연쇄 (Lehmer 회귀, 5-seed 앙상블, hidden 폭 스케일링, 표본 밀도 스케일링, 잔차 스펙트럼, 군집 물리, 입력 기저 스케일링, 수렴 확장)를 수행하였다. 구체적으로, 학습된 모델(\texttt{in\_features}$=64$, \texttt{hidden}$=64$, seed$=42$)에서 밴드 $t\in[100,200]$의 $t\in[165,173.5]$ 구간 다섯 영점이 평균 $|F_2|\approx 0.036$을 보였으며, 이는 밴드 평균 $0.020$의 약 $1.8\times$에 해당한다. 연쇄 실험은 네 가지 후보 해석을 기각하고 다섯 번째를 식별하였다.
+
+\smallskip
+\noindent\textbf{기각된 가설.}
+\begin{enumerate}
+  \item[(E1)] \emph{Lehmer형 근접쌍.} $51$개 학습 밴드에 걸친 $15{,}422$개 영점 전체에 대한 $|F_2(t_k)|$와 Riemann--von Mangoldt 정규화 간격 $g_{\min}^{\mathrm{norm}}(t_k)$의 다변량 회귀, 그리고 별도의 \texttt{mpmath} 기반 고위 $t$ 스캔 모두 $|r|<0.03$을 주었다. 군집 밴드에서 가장 조밀한 정규화 간격을 가진 영점 $t=121.37$ ($g_{\min}^{\mathrm{norm}}=0.027$)은 오히려 밴드 내 \emph{가장 쉬운} 영점이다.
+  \item[(E2)] \emph{다중 basin 시드 의존성.} 동일 하이퍼파라미터로 5-seed 앙상블 학습을 수행한 결과 영점 전체에 걸쳐 $\mathrm{corr}(\mathrm{mean},\mathrm{std})=+0.70$을 얻었으나, 어려운 영점에서 앙상블 이득은 없었다 ($|F_2|^{\mathrm{ensemble}}/|F_2|^{\mathrm{seed-mean}}\approx 1.00$). 이는 군집을 다수-국소최소 현상으로 해석하는 것을 배제한다.
+  \item[(E3)] \emph{은닉층 용량.} \texttt{in\_features}$=64$ 고정에서 $\texttt{hidden}\in\{32,64,128\}$ 스케일링은 \emph{단조 역방향} 경향을 주었다: 전역 $\overline{|F_2|}$가 $0.019\to 0.022\to 0.030$으로 증가하여, 더 넓은 은닉층이 군집에 도움이 되지 않았다.
+  \item[(E4)] \emph{학습 표본 밀도.} \texttt{num\_points}를 $500$에서 $1500$으로 증가시키면 전역 $\overline{|F_2|}$가 $32\%$, 군집 최댓값 $|F_2|$가 $57\%$ 개선되었다; $t=173.41$에서는 $65\%$ 개선. 이는 처음에는 ``샘플링 해상도'' 치료제로 읽혔으나, 결국 아래에서 식별되는 기저 대역폭 병목의 대리지표임이 드러났다.
+\end{enumerate}
+
+\smallskip
+\noindent\textbf{식별된 원인: 입력 기저 대역폭.} 입력 임베딩은 스칼라 $t$를 푸리에 특성 벡터로 승격시킨다:
+\[
+  t\;\longmapsto\;\Bigl(\tfrac{t-\mu}{\sigma},\;
+  \sin(\omega_1 t),\cos(\omega_1 t),\dots,
+  \sin(\omega_K t),\cos(\omega_K t)\Bigr),
+\]
+여기서 $\omega_k=2\pi k/(t_{\max}-t_{\min})$이고 $K=(\texttt{in\_features}-1)/2$이다. 밴드 $[100,200]$에서 \texttt{in\_features}$=64$이면 $K=31$이고 대역폭 천장이 고정된다:
+\[
+  \omega_{\max}^{(64)}
+  \;=\; \frac{2\pi\cdot 31}{100}\;\approx\; 1.948\;
+  \mathrm{rad}/\mathrm{unit}\,t,
+  \qquad \text{최소 주기 }\approx 3.23\text{ (단위 }t\text{)}.
+\]
+군집 내부에서 $t\approx 169.095$와 $t\approx 169.912$의 두 영점은 간격 $\Delta t\approx 0.82$의 쌍을 이룬다. 이 간격 사이에서 두 번의 부호 변화를 표현하려면 기저가 다음을 포함해야 한다:
+\begin{equation}
+  \omega\;\gtrsim\; \frac{\pi}{\Delta t}\;\approx\; 3.83\;
+  \mathrm{rad}/\mathrm{unit}\,t,
+  \label{eq:required_omega}
+\end{equation}
+이는 \texttt{in\_features}$=64$ 천장의 약 $1.97\times$이다. 이 관찰을 반증 가능한 명제로 정식화한다.
+
+\begin{proposition}[입력 기저 대역폭 필요조건]
+\label{prop:basis_bandwidth}
+폭 $W=t_{\max}-t_{\min}$의 밴드 $[t_{\min},t_{\max}]$ 위에서, $\omega_k=2\pi k/W$인 푸리에 특성 사상 $t\mapsto(\sin\omega_k t,\cos\omega_k t)_{k=1}^{K}$에 대해 \emph{선형}인 함수들의 클래스를 $\mathcal{F}_K^{\mathrm{lin}}$라 하자. 임의의 두 종대 $t_a,t_b\in[t_{\min},t_{\max}]$에 대해 $\Delta t:=|t_a-t_b|>0$이라 하자. 다음 샘플링 이론적 한계가 성립한다: 만약
+\begin{equation}
+  K \;<\; \frac{W}{2\,\Delta t},
+  \label{eq:basis_bandwidth_condition}
+\end{equation}
+이면, $f(t_a)=f(t_b)=0$이고 $f'(t_a)\cdot f'(t_b)<0$인 비자명한 $f\in\mathcal{F}_K^{\mathrm{lin}}$가 존재할 수 없다. 특히 간격 $\Delta t$에서 $f\in\mathcal{F}_K^{\mathrm{lin}}$의 두 부호 변화 영점은 $K\geq W/(2\Delta t)$를 강제한다.
+\end{proposition}
+
+\begin{proof}[증명 개요]
+$\mathcal{F}_K^{\mathrm{lin}}$의 함수는 $[0,W]$ 위의 차수 $\leq K$의 실수 삼각다항식이다. Nyquist--Shannon 샘플링 정리를 그 $2K$차원 푸리에 기저에 적용하면, 연속되는 부호 변화 사이의 최소 주기가 $W/(2K)$로 아래로 유계이다. 따라서 간격 $\Delta t<W/(2K)$에서의 두 부호 변화는 $\mathcal{F}_K^{\mathrm{lin}}$에서 실현 불가능하며, 이가 \eqref{eq:basis_bandwidth_condition}이다.
+\end{proof}
+
+\begin{remark}[비선형 확장과 intermodulation 간극]
+\label{rem:intermodulation_gap}
+문제의 네트워크는 $\mathcal{F}_K^{\mathrm{lin}}$에 속하지 \emph{않는다}: 세 겹의 ResonantBlock 층이 푸리에 특성에 곱셈, 리지 비선형성, 게이지 ODE 적분을 합성한다. 원리상 $\sin(\omega_j t)\cdot\sin(\omega_k t)=\tfrac{1}{2}[\cos((\omega_j-\omega_k)t)-\cos((\omega_j+\omega_k)t)]$ 형태의 곱과 고차 intermodulation 캐스케이드는 $\omega^{\mathrm{eff}}_{\max}=L\cdot\omega_{\max}$까지의 성분을 만들 수 있으며, 여기서 $L$은 네트워크 깊이이다. 이는 형식적으로 대역폭 천장을 들어올려야 한다. 그러나 우리 실험 자료(\cref{tab:basis_scaling})는 선형 기저 천장 \eqref{eq:basis_bandwidth_condition}에서 정확히 날카로운 실패를 보이며, 비선형적으로 들어올려진 천장 $L\cdot\omega_{\max}$에서는 실패하지 \emph{않는다}.
+
+이 간극은 신경망의 \emph{spectral bias} 문헌과 일관된다: 유한한 학습 예산에서 MLP는 최저주파 성분을 먼저 학습하는 경향을 가지며, intermodulation 캐스케이드는 주파수에 따라 발산하는 학습 시간에서만 활성화된다 \cite{Rahaman2019SpectralBias,BasriGeifman2020FrequencyBias}. 이는 Neural Tangent Kernel 고유값 감쇠로부터 유도 가능하다 \cite{Jacot2018NTK}. 이러한 유한-예산 체제 안에서, 학습된 네트워크의 \emph{유효} 대역폭은 형식적 곱셈 상승 $L\cdot\omega_{\max}$가 아니라 선형 기저 천장의 상수배에 의해 위로 유계이다. ResonantBlock 아키텍처에 대한 ``$\omega^{\mathrm{eff}}_{\max}(E)\leq c(E)\cdot\omega^{\mathrm{basis}}_{\max}$, $c(E)=O(1)$ ($E\to E_{\max}$ 유한 학습 예산)'' 형태의 엄밀한 진술은 여기서 유도하지 않으며 열린 문제로 남긴다; 실험이 보이는 것은 천장이 \emph{경험적으로} $L\cdot\omega_{\max}$가 아니라 명제 \ref{prop:basis_bandwidth}처럼 거동한다는 것이다.
+\end{remark}
+
+$[100,200]$ 밴드와 $t\approx 169$ 쌍의 경우 \eqref{eq:basis_bandwidth_condition}은 $K\geq 61$, 즉 $\texttt{in\_features}\geq 123$을 준다.
+
+\smallskip
+\noindent\textbf{Riemann--von Mangoldt 대입.} 조건 \eqref{eq:basis_bandwidth_condition}은 Riemann--von Mangoldt 국소 영점 밀도 $N'(t)\sim (2\pi)^{-1}\log(t/2\pi)$과 결합될 때 해석적 수론적 내용을 얻는다. 이로부터 평균 영점 간격은 다음과 같다:
+\begin{equation}
+  \langle\Delta t\rangle(t)\;\sim\;\frac{2\pi}{\log(t/2\pi)}.
+\end{equation}
+Lehmer 압축 인자 $c_{\mathrm{L}}\in(0,1]$을 도입하여 높이 $t$에서의 폭 $W$의 전형적 밴드의 최소 간격이 $\Delta t_{\min}\gtrsim c_{\mathrm{L}}\cdot\langle\Delta t\rangle(t)$를 만족한다고 가정하자. 이를 \eqref{eq:basis_bandwidth_condition}에 대입하면 \emph{높이 의존 대역폭 요구조건}을 얻는다:
+\begin{equation}
+  K(t,W)\;\geq\;
+  \frac{W\,\log(t/2\pi)}{4\pi\,c_{\mathrm{L}}},
+  \label{eq:basis_bandwidth_rvm}
+\end{equation}
+동치로 $\texttt{in\_features}\geq (W\log(t/2\pi))/(2\pi\,c_{\mathrm{L}})+1$. $W=100$, $t\approx 150$, $c_{\mathrm{L}}\approx 1/3$ (Lehmer형 군집)인 경우 $K\gtrsim 82$, $\texttt{in\_features}\gtrsim 165$을 주며, 이는 $\texttt{in\_features}\in[64,128]$의 경험적 천이 구간을 포함한다. 식 \eqref{eq:basis_bandwidth_rvm}은 \emph{아키텍처-해석} 다리이다: $\xi$-영점 탐지를 위해 요구되는 푸리에 특성 용량은 높이에 \emph{로그적}으로 증가하며, 이는 $N'(t)$ 법칙과 일치한다. 특히 \cref{tab:f2_scale}에서 $\overline{|F_2|}$가 높이에 따라 겉보기로 개선되는 현상은 원래 스윕이 $\texttt{num\_points}=\max(200,10\,n_{\mathrm{zeros}})$ 자동 스케일링으로 실행되어 무차원 비율 $K/(W\log t)$를 보존했기 때문에 \eqref{eq:basis_bandwidth_rvm}을 암묵적으로 만족하는 고정 $\texttt{in\_features}$와 \emph{양립}한다; 이는 높이 스케일링 표를 $\xi$의 어떤 해석적 성질이 아니라 아키텍처 조건에 연결한다.
+
+\smallskip
+\noindent\textbf{기저 스케일링에 의한 확인.} \texttt{hidden}$=64$, seed$=42$, \texttt{num\_points}$=500$, 학습 예산 $100$ epoch 고정하에 $\texttt{in\_features}\in\{32,64,128,256\}$을 스케일링한 결과:
+
+\begin{table}[ht]
+\centering
+\caption{고정 학습 예산에서의 군집 vs. 비군집 $\overline{|F_2|}$. 5-시드 앙상블 행 (시드 $42,7,123,2026,314$)이 단일 실행 주장을 대체한다; 군집 개선은 평균 $25\%$이나 시드 분산이 높다.}
+\label{tab:basis_scaling}
+\small
+\begin{tabular}{rrrrrr}
+\toprule
+\texttt{in\_feat} & $\omega_{\max}$ & 전역 &
+  군집 & 대조 & 비율 \\
+\midrule
+32   & 0.942 & 0.0140 & 0.0140 & 0.0140 & $1.00\times$ \\
+64   & 1.948 & 0.0218 & 0.0361 & 0.0202 & $1.79\times$ \\
+128 (시드 42)  & 3.958 & 0.0164 &
+  0.0150 & 0.0166 & $0.90\times$ \\
+\textbf{128 (5-시드)} & \textbf{3.958} & \textbf{0.0207} &
+  \textbf{0.0269}$\pm$\textbf{0.012} & \textbf{0.0200} & $\mathbf{1.42\pm0.73\times}$ \\
+256  & 7.980 & 0.0214 & 0.0581 & 0.0173 & $3.36\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent 두 가지 특징이 두드러진다. 첫째, \texttt{in\_features}$=64$에서의 군집 초과는 \texttt{in\_features}$=128$에서 최선의 시드에서는 \emph{사라지지만}, 5-시드 앙상블 (시드 $42, 7, 123, 2026, 314$)은 상당한 변동성을 드러낸다: 군집 대 비군집 비율의 평균은 $1.42\pm0.73$ (범위 $0.61$--$2.44\times$)이며, $3/5$ 시드가 비율${}<1.2$을 달성하고 $2/5$에서는 군집이 \emph{지속}되거나 악화된다. 군집 영점별 변동계수(CV)는 시드 간 $46\%$에서 $106\%$에 이른다. 따라서 대역폭 조건 \eqref{eq:basis_bandwidth_condition}은 군집 해소의 \emph{필요}조건이지만 \emph{충분}조건은 아니다: Nyquist 천장이 통과된 후에도 학습 역학(시드 의존 초기화)이 상당한 영향을 유지한다. 앙상블 평균에서 군집 $\overline{|F_2|}$는 \texttt{in\_features}$=64$ 기준선 대비 $25\%$ 개선된다 ($0.0269$ vs.\ $0.0361$), 이는 대역폭 메커니즘을 모집단 수준에서 확인하면서 단일 실행의 완전 해소 주장을 배제한다. 둘째, \texttt{in\_features}$=256$은 $100$ epoch에서 수렴에 실패하며 \emph{새로운} 무관한 어려움 군집을 보인다.
+
+\smallskip
+\noindent\textbf{과매개변수화 잡음의 분리.} 학습을 $300$ epoch까지 확장하고 $50$-epoch 간격의 best-validation 체크포인트를 취하면 대역폭 효과를 최적화 효과로부터 분리할 수 있다. \texttt{in\_features}$=128$의 경우 best validation이 epoch $143$에서 $0.0550$으로 안정화되고 이후 평탄하며, 군집 비율은 $0.75\times$로 개선되고 $\overline{|F_2|}^{\mathrm{cluster}}$가 $0.0106$까지 낮아진다 ($\overline{|F_2|}^{\mathrm{other}}=0.0142$ 대비). \texttt{in\_features}$=256$의 경우 best validation이 $300$ epoch 내내 $0.224$에 머물러 \texttt{in\_features}$=128$ 최솟값보다 약 $4\times$ 나쁘며, 전역 $\overline{|F_2|}$는 $0.0214$에서 $0.0099$로 개선되지만 군집 비율은 $3.87\times$로 유지된다. 따라서 \texttt{in\_features}$=256$의 실패는 독립적인 과매개변수화 병리 현상 (확장된 파라미터 공간에 대해 Adam+gradient-clip 학습 예산이 불충분)이며 대역폭 문제가 아니다; 이는 $\texttt{in\_features}\in\{32,64,128\}$에서의 대역폭 해석을 훼손하지 않는다.
+
+\smallskip
+\noindent\textbf{2026-04-08 재해석에 대한 귀결.} 본 실험은 \cref{sec:f2_residual_open}의 두 번째 열린 질문을 닫는다: $[165,173.5]$의 군집이라는 구체적이고 \emph{모델 의존적}인 개별 영점 어려움이, 영점의 고유 성질이 아니라 임베딩 $\{\omega_k\}_{k=1}^{K}$의 성질임을 드러냈다. 따라서 개별 영점 $|F_2|$ 값을 임계선 위의 관측량으로 읽으려는 시도는, 먼저 해당 밴드의 가장 작은 영점 쌍에 대해 기저 대역폭 조건 \eqref{eq:basis_bandwidth_condition}이 충족되는지를 검증해야 한다. \cref{tab:f2_scale}의 평균 스케일 주장은 영향을 받지 않는다. 왜냐하면 그것은 자동 스케일링 규칙 $\texttt{num\_points}=\max(200,10\cdot n_{\mathrm{zeros}})$을 통해 (암묵적으로) 조건이 충족되거나 대략 충족되는 밴드들에 대한 평균이기 때문이다.
+
+\subsection{여전히 열려 있는 것}
+\label{sec:f2_residual_open}
+
+2026-04-10 후속 이후 여전히 열려 있는 질문은 다음과 같다:
+\begin{enumerate}
+  \item \textbf{높이 스케일링 법칙.} $\overline{|F_2|}$의 $t$에 대한 감소가 진정한 멱법칙인가, 그리고 그렇다면 그 지수가 어떤 해석적 양과 일치하는가 (예를 들어 $N(t)$에 대한 $\log\log t$ 보정의 기대 스케일)? 답은 분리된 시드 가족들에 대한 오차 막대가 있는 $\overline{|F_2|}(t)$의 깔끔한 재적합을 요구하며, 아직 수행되지 않았다.
+  \item \textbf{대역폭-청정 개별 영점 관측량.} \texttt{in\_features}$=128$의 5-시드 앙상블은 \eqref{eq:basis_bandwidth_condition} 충족 후에도 개별 영점 $|F_2|$ 값의 변동계수가 시드 간 $46$--$106\%$에 달함을 확인한다. 따라서 개별 영점 값은 순진한 의미에서 \emph{재현 불가}이다. \emph{앙상블 평균} 군집 $\overline{|F_2|}$는 대역폭 부족 기준선 대비 $25\%$ 개선되어, 모집단 수준의 메커니즘은 확인된다. 더 정교한 불변량 (예: 부트스트랩 앙상블에서 $|F_2(t_k)|$의 \emph{최솟값}을 ``달성 가능 잔차''로 해석)을 추출할 수 있는지는 여전히 열려 있다.
+  \item \textbf{과매개변수화 실패 양상.} \texttt{in\_features}$=256$이 $300$ epoch 내에 수렴에 실패한 것 (best validation $0.224$, \texttt{in\_features}$=128$의 $0.055$ 대비)은 동일한 $t\in[165,173.5]$에서 대역폭 기원일 수 없는 ``새로운'' 군집을 보인다. 이것이 (a) Adam+gradient-clip 학습 스케줄 잡음, (b) 다른 기전을 통해 동일 군집을 부활시키는 진정한 과매개변수화 병리, 또는 (c) 시드 우연인지는 미해결이다.
+\end{enumerate}
+
+
+% ############################################################################
+% 제3부 — 실패한 방향과 그 진단
+% ############################################################################
+
+\part{실패한 방향과 그 진단}
+\label{part:failed}
+
+\noindent 본 부는 성공하지 못한 경험 프로그램을 압축된 형태로 모은다. 각 섹션은 \textcolor{red}{\rule{0.9ex}{0.9ex}}\ (계층 3)로 표시되며, 각각 프로그램의 한 단락 설명으로 시작하여 진단 사슬을 거쳐 추출된 교훈으로 닫힌다. 내용은 의도적으로 조밀하다 --- 실패 방향당 전형적으로 1--2 페이지 --- 이는 검증된 자료와 추측 자료를 밀어내지 않으면서 완전한 진단을 유지하기 위함이다. 서두른 독자는 제~\ref{part:failed}부를 건너뛰어도 되지만, 후속 실험을 계획하는 독자는 주의 깊게 읽어야 한다.
+
+% ============================================================================
+\section{\textcolor{red}{\rule{0.9ex}{0.9ex}}\ 시클로토믹 $\cos^2$ PQO 학습 ($L=2,4$): $\Psip$-디커플링과 고립 캐스케이드}
+\label{sec:cos2_failure}
+% ============================================================================
+
+\textbf{프로그램.} 3층 공명 판별 네트워크를 \cref{rem:cos2_pqo}의 시클로토믹 $L\in\{2,4\}$ 코사인 제곱 양자화 손실 $\Lpqo$와 \cref{eq:psi_n}의 합성 크기 전용 타겟 $\Psi_n$을 함께 사용하여 $t\in[100,200]$에서 리만 영점과 비영점 좌표를 분리하도록 학습시킨다.
+
+\textbf{결과.} $L=2$와 $L=4$ 양쪽에서 음성. $L=2$에서 네트워크는 자명한 어트랙터 $\phi\to\pi/2$로 붕괴하여 영점과 비영점 어느 쪽도 판별하지 못한다. $L=4$에서 학습은 어트랙터 붕괴 없이 수렴하지만, 결과 위상 MSE (대 $\arg Z(t)$)는 영점과 비영점 간에 구분이 불가능하다 (세 시드에서 풀링된 Welch $p>0.12$, 시클로토믹 구간 $k=2,3$ 공란). 완전한 표 결과는 \cref{rem:cos2_pqo} 참조.
+
+\textbf{진단.} 실패를 네 단계로 추적한다 (날짜는 실험 일정이 아니라 진단 사슬을 나타낸다):
+\begin{enumerate}
+  \item \textbf{타겟 디커플링 (\cref{rem:psi_defect}, 2026-04-08).} \cref{eq:psi_n}의 합성 타겟 $\Psi_n$은 $\|X\|$ (또는 $n$)에만 의존하여 $t$-국소 리만 영점 정보를 전혀 운반하지 않는다. $(\alpha,\beta,\gamma,\delta)$의 어떤 선택으로도 이를 복구할 수 없다; 결함은 구조적이다.
+  \item \textbf{감독 교체는 필요하지만 충분하지 않다 (\cref{rem:psi_defect}, 2026-04-08).} 타겟을 해석적 정답 $\Psip(t)=\arg\xif(\tfrac{1}{2}+it)$로 교체하고 $\Lpqo$를 학습에서 제거하면 (측정에서만 유지), $L=4$의 비대칭 분지 붕괴가 해제되지만 헤드라인 분리 지표는 영가설 근방에 남는다 ($p=0.976$, 비율 $1.004$).
+  \item \textbf{손실 가중 불균형과 산술 평균 읽기는 추가적인 끊긴 고리이다 (\cref{rem:psi_defect}, 2026-04-08).} 잔차 손실 가중 $\lambda_{\mathrm{res}}=1$, $\lambda_{\mathrm{curv}}=0.1$이 감독 $\mathcal{L}_{\mathrm{tgt}}$를 압도하고, $\hat\Psip$을 읽어내기 위해 사용된 채널별 산술 평균이 임계선 위 위상 점프 구조가 예측하는 $\pm\pi$ 랩 신호를 파괴한다.
+  \item \textbf{고립이 사슬을 확인한다 (\cref{rem:isolation}, 2026-04-09).} $\lambda_{\mathrm{res}}=\lambda_{\mathrm{curv}}=\lambda_{\mathrm{pqo}}=0$으로 설정하고 원형 평균으로 읽어내면, 비영점 집합에서 $p=1.18\times10^{-15}$로 감독 학습이 회복되며, 영점 잔존 MSE $\approx(\pi/2)^2$은 매끄러운 네트워크가 각 영점에서 $\arg\xif(\tfrac{1}{2}+it)$의 $\pm\pi$ 불연속을 표현할 수 없음으로 완전히 설명된다.
+\end{enumerate}
+
+\textbf{교훈.} \emph{네 개의 독립적 실패 모드가 쌓여 하나의 음성 결과를 만들어낼 수 있다.} 해석적 동일시가 실험적으로 반증되었다고 선언하기 전에, 감독 사슬의 모든 고리가 개별적으로 격리되어야 한다: 타겟 주입, 손실 가중, 측정 연산자, 출력 공간 표현력. 프로그램의 해석적 내용 $\Psip(t)=\arg\xif(\tfrac{1}{2}+it)$은 캐스케이드를 살아남는다; 매끄러운 장 출력 표현이 마지막 장애물이었으며, 2026-04-10에 $\{0,\pi\}$ 계단 타겟을 정규화된 매끄러운 대리 $\mathrm{Re}\,\xif/\max|\mathrm{Re}\,\xif|$로 교체하여 \emph{해소}되었다: 영점/비영점 MSE 비율이 $18.2\times$에서 $0.03\times$로 감소한다 (\cref{rem:isolation}). 복소 벡터 읽기 헤드는 미시험 대안으로 남는다 (제~\ref{sec:open}절).
+
+% ============================================================================
+\section{\textcolor{red}{\rule{0.9ex}{0.9ex}}\ 위상-게이지 경사하강 (PGGD)}
+\label{sec:pggd_failure}
+% ============================================================================
+
+\textbf{프로그램.} PGGD는 판별 네트워크의 중간 상태의 $S^1$-값 위상 구조를 활용하기 위해 도입된 사용자 정의 옵티마이저이다. 각 매개변수 업데이트는 주변 원 다발의 접공간으로 투영되어 최적화 궤적이 게이지 대칭 $\phi\mapsto\phi+\mathrm{const}$를 존중하도록 한다. 가설은 PGGD가 허위의 전역 위상 자유도를 제거함으로써 제~\ref{sec:f2_hardy}절의 $F_2$ 기반 영점 탐지 과제에서 Adam을 능가할 것이라는 것이었다.
+
+\textbf{결과.} 시험된 모든 시드에서 Adam 대비 음성. PGGD는 (i) 동일 epoch 예산 내에 수렴하지 못하거나, (ii) Adam 기준선보다 작은 판별 격차로 더 높은 학습 손실에 수렴한다. $t\in[10,50]$ 벤치마크에서 Adam의 최종 $F_2$-MSE는 일관되게 PGGD 최상 실행의 $2$--$4\times$ 작다.
+
+\textbf{진단.} 관련된 두 메커니즘:
+\begin{enumerate}
+  \item \textbf{$S^1$ 위의 에르고딕 확산.} PGGD가 사용하는 접 투영은 각 업데이트의 반지름 성분을 제거하지만 각도 성분 전체를 보존한다. 다수의 스텝에 걸쳐 각도 업데이트는 실효 스텝 크기 $\eta$와 epoch 수에 선형적으로 커지는 분산으로 대략 확산적으로 누적된다. 따라서 투영된 궤적은 본질적으로 균일하게 $S^1$을 탐색하며 (각도 mod $2\pi$의 Weyl 등분포), 옵티마이저가 구현하도록 설계된 바로 그 게이지 제거를 물리친다. PGGD가 반지름 자유도를 제거해 얻는 것을 각도 자유도의 임의 보행으로 잃는다.
+  \item \textbf{$\Lpqo$와의 그래디언트 스케일 불일치.} 코사인 양자화 손실은 최소값에서 멀리 있는 영역에서 $O(1)$ 그래디언트를 갖고 근방에서 $O(|\phi-\phi_*|)$ 그래디언트를 갖는다. PGGD의 접 투영은 Adam의 매개변수별 적응적 스케일링에 비해 첫 번째 영역을 증폭시켜 어트랙터 근방에서 지나치게 큰 실효 학습률을 생성한다.
+\end{enumerate}
+
+\textbf{교훈.} \emph{게이지 존중 옵티마이저가 적응적 1차 방법의 표본 효율을 자동으로 물려받지는 않는다.} 올바른 접 투영은 결맞음 탐지와 호환되지만 이를 함의하지는 않는다. PGGD 프로그램은 적응적 각도별 스텝 크기에 의한 가능한 재활 아이디어로 유지된다 (제~\ref{sec:open}절 참조). 그러나 현재 형태로는 $F_2$ 탐지기에서 Adam의 대체재로 사용되어서는 안 된다.
+
+
+% ############################################################################
+% 제4부 — 종합
+% ############################################################################
+
+\part{종합}
+\label{part:synthesis}
+
+
+% ============================================================================
+\section{구조적 대응 표}
+\label{sec:correspondence}
+% ============================================================================
+
+본 연구 전반에 걸쳐 식별된 7개의 구조적 대응을 형식화한다:
+
+\begin{table}[ht]
+\centering
+\caption{QROP-Net과 공명 프레임워크 사이의 7개 구조적 대응.}
+\label{tab:correspondence}
+\rowcolors{2}{lightbg}{white}
+\small
+\begin{tabular}{@{} c p{3.5cm} p{3.5cm} p{4.5cm} @{}}
+\toprule
+\textbf{\#} & \textbf{QROP-Net (구체적)} & \textbf{공명 (해석적)}
+& \textbf{공유 수학 구조} \\
+\midrule
+1 & $\sin^2(2^{d-1}\phi)$ 양자화 손실
+  & $\Delta v = m\pi$ 위상 양자화 (게이트~A)
+  & 주기적 위상 벌칙: $\mathcal{P}(\phi;L) = \sin^2(L\phi/2) = 0$
+    (격자 위치에서) \\
+
+2 & NTT (이산) $+$ FrFT (연속 분수)
+  & 임계선 위 $\xif(s)$의 푸리에 분석
+  & 스펙트럼 분해: 대수 구조 $\leftrightarrow$ 주파수 영역 \\
+
+3 & $X^n + 1 = 0$ 근: 단위원 위 $n$개 등간격 위상
+  & 위상 감김 $\oint\nabla v \cdot ds = 2\pi N$
+  & 시클로토믹/원형 양자화: $S^1$ 위의 이산 위상 \\
+
+4 & LWE 오차 임계치: $|e|_{\Zq} < q/4 = 1920$
+  & $\sigma$-리프트: $|\sigma^* - 1/2| = 0$ (RH)
+  & 신호 복원이 실패하는 경성 오차 경계 \\
+
+5 & $U_0 = e^{i\phi}$, $|U_0| \equiv 1$; 세기 $I = |U_d|^2$
+  & $\Ampl(t) = |\xif|$ vs $\Phiz(t) = \arg\xif$
+  & 진폭--위상 분리: 위상에 정보 인코딩, 진폭으로 측정 \\
+
+6 & 블라인드 TTO: 정답 없는 자가 교정
+  & 게이지 ODE: 영점 위치 모른 채 $F_2 = 0$
+  & 내적 일관성에 의한 정답 없는 수렴 \\
+
+7 & $\Delta d = 0.1\,$mm $\to$ DFR $= 1$
+  & $\sigma$-리프트 $\neq 0$ $\to$ 비유니타리성 (흡수)
+  & 민감도 임계치: 작은 매개변수 이동 $\to$ 파국적 실패 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{대응의 수학적 형식화}
+
+각 대응을 구조적 사상으로 표현한다.
+
+\begin{definition}[위상 양자화 함자]
+\label{def:functor}
+$(\mathcal{A}, \Phi_{\mathcal{A}}, L_{\mathcal{A}})$를 대수 구조 $\mathcal{A}$, 위상 함수 $\Phi_{\mathcal{A}}: \mathcal{A} \to [0, 2\pi)$, 격자 수준 수 $L_{\mathcal{A}} \in \mathbb{N}$으로 이루어진 \textit{위상 양자화 삼중체}라 하자. 위상 양자화 연산자 $\mathcal{P}(\cdot; L)$은 모든 이러한 삼중체에 동일하게 작용한다:
+
+\medskip
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+& $\mathcal{A}$ & $\Phi_{\mathcal{A}}$ & $L_{\mathcal{A}}$ \\
+\midrule
+QROP-Net   & $\Zq^{1024}$ & $\phi_i = 2\pi c_i/2^{d_u}$
+           & $2^{d_u} = 2048$ \\
+시클로토믹 & $R_q$ & $\arg(\omega_j) = \pi(2j+1)/n$
+           & $2n = 512$ \\
+임계선     & $\{t \in \mathbb{R}^+\}$
+           & $\vartheta(t) \bmod \pi$
+           & $2$ (그람 구간당) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\medskip
+
+각 경우에, 조건 $\mathcal{P}(\Phi_{\mathcal{A}}; L_{\mathcal{A}}) = 0$이 ``정렬된'' 원소를 선택하며, $\nabla\mathcal{P}$가 비정렬 원소를 가장 가까운 격자 위치로 유도한다.
+\end{definition}
+
+\subsection{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ 동역학적·스펙트럼적 대응}
+\label{sec:extended_corr}
+
+\noindent\textbf{계층 2.} 위의 대응표는 구조적이다. 본 소절은 \cref{sec:f2_hardy}--\cref{sec:high_zeros}의 실증 현상을 고전 수학 틀에 연결하는 네 가지 추가 대응을 기록한다. 각 대응은 유비와 부분적 수치 일치 수준에서 수립되며, 엄밀한 동등성을 주장하지 않는다.
+
+\subsubsection{Maslov 보정 --- 메타플렉틱 시트 이동}
+\label{sec:maslov_corr}
+
+\cref{sec:f2_hardy} 전반에서 언급된 ``$\cos^2$ Maslov 보정'' --- 양자화 벌칙을 $\sin^2(L\phi/2)$에서 $\cos^2(L\phi/2)$로 교체하는 것 --- 은 고전적 메타플렉틱 현상의 신경망적 그림자이다.
+
+\begin{theorem}[게이트~A의 메타플렉틱 보정]
+\label{thm:maslov}
+실함수의 영점에서 $\varphi\to\pi/2$ (\cref{cor:neural_reg})일 때 적용되는 위상 양자화 연산자 $\PQO(\varphi; L)$에 대하여, $\sin^2$ 형식은 $\PQO(\pi/2; 2) = 1$ (최대 벌칙) 을 주는 반면, $\cos^2$ 형식은
+\begin{equation}\label{eq:pqo_cos_thm}
+  \PQO_{\cos}(\varphi; L) := \cos^2\!\bigl(L\varphi/2\bigr),
+  \quad \PQO_{\cos}(\pi/2; 2) = 0
+\end{equation}
+을 준다. 교체 $\sin^2\to\cos^2$은 지수 $\mu=2$를 가지는 \emph{Maslov 보정}이며, 이는 위상 이동 $\mu\pi/4=\pi/2$에 해당한다.
+\end{theorem}
+
+\begin{table}[ht]
+\centering
+\caption{수학 전반에 걸친 $\sin^2\leftrightarrow\cos^2$ 쌍대성.}
+\label{tab:maslov_duality}
+\small
+\begin{tabular}{@{}p{3cm}|p{3.8cm}|p{3.8cm}|p{3cm}@{}}
+\toprule
+\textbf{영역} & \textbf{$\sin^2$ 국면} & \textbf{$\cos^2$ 국면} & \textbf{이동의 이름} \\
+\midrule
+WKB/준고전     & 전환점에서 떨어진 곳
+               & 전환점에서
+               & Maslov 지수 $\mu$ \\
+심플렉틱 기하  & 표준 라그랑지안 차트
+               & 교차하는 Maslov 순환
+               & $\pi_1(\Lambda(n))$ \\
+조화 해석      & 동상 성분 (I)
+               & 직교 성분 (Q)
+               & 힐베르트 변환 \\
+격자 암호      & 격자 복호
+               & 잉여류 복호
+               & $\Lambda\to\Lambda+v$ \\
+Berry--Keating & $\vartheta(t_n)=n\pi$
+               & $\vartheta(t_n)=(n-\tfrac12)\pi$
+               & 반정수 이동 \\
+표현론         & 콤팩트 카르탕
+               & 분할 카르탕
+               & Cayley 변환 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+통합 대상은 $\mathrm{Sp}(2n,\mathbb{R})$의 이중 피복인 메타플렉틱 군 $\mathrm{Mp}(2n,\mathbb{R})$이며, 그 두 시트는 정확히 두 양자화 위상에 대응한다. 함수방정식 $\xif(s)=\xif(1-s)$는 $\tau\to-1/\tau$을 통해 세타 함수 위에서 작용하는 이 군에서 유래하며, Berry--Keating 양자화 조건
+\begin{equation}\label{eq:berry_keating}
+  \vartheta(t_n)=\bigl(n-\tfrac12\bigr)\pi + O(1/t_n)
+\end{equation}
+는 해석적 측면에서 동일한 $-1/2$ 이동을 부호화한다.
+
+\subsubsection{게이지 ODE 임계 전이 --- Kuramoto 동기화로서}
+\label{sec:kuramoto}
+
+\begin{observation}[게이지 임계 전이]
+\label{obs:gauge_transition}
+\cref{sec:f2_hardy}의 $F_2$-탐지기에서 게이지 버퍼 상태 $(\varphi,\psi)$는 ${\sim}10$ epoch에서 급격한 전이를 보인다: 표준편차 $\mathrm{std}(\varphi)$가 $\approx 0.10$에서 $\approx 0.03$으로 떨어지며, 이는 $F_2$가 모든 훈련 영점에서 수렴에 도달하는 epoch과 일치한다. 이 전이는 시드에 불변이며 $t\in[10,50]$과 $t\in[100,200]$ 모두에서 재현된다.
+\end{observation}
+
+\begin{remark}[Kuramoto 동기화]
+\label{rem:kuramoto_transition}
+\cref{obs:gauge_transition}은 유한 모집단 Kuramoto형 동기화 전이이다. 게이지 위상 $\{\varphi_i\}$은 배치 지역 장이며, 공유되는 잔차 손실 $\mathcal{L}_{\mathrm{res}}$가 이들 사이의 결합 범함수로 작용한다. 유효 결합 강도 (학습률과 타겟의 날카로움에 의해 제어됨) 가 임계값을 초과할 때, 위상들은 타겟 영점 위치에 의해 결정되는 공통 주파수 프로파일로 잠긴다. epoch $\sim 10$에서의 $\mathrm{std}(\varphi)$의 $\approx 3\times$ 하락은 이 잠김의 신경망적 서명이다. Kuramoto 순서 매개변수로의 완전한 축약은 열린 문제이다; 결정론적 구동을 갖는 대규모 $N$ Kuramoto 진동자의 고전 이론이 자연스러운 틀을 제공한다.
+\end{remark}
+
+\subsubsection{Lehmer 현상과 GUE 간격 통계}
+\label{sec:lehmer_gue}
+
+\cref{tab:f2_low}의 난이도 위계 --- 일부 영점이 이웃보다 한두 자릿수 느리게 수렴하는 것 --- 는 Lehmer 쌍의 경험 분포와 일치한다. Montgomery의 쌍 상관 추측과 Odlyzko의 수치 연구는 고위 리만 영점의 정규화된 간격이 GUE 분포
+\begin{equation}\label{eq:gue}
+  p_{\mathrm{GUE}}(s) = \frac{32}{\pi^2}s^2 e^{-4s^2/\pi}
+\end{equation}
+를 따름을 확립하였고, 가까운 영점 쌍 --- Lehmer 쌍 --- 은 예측 가능한 빈도로 나타난다. 우리 탐지기에서 이들은 $Z(t)$가 실수축을 거의 스치지만 교차하지 않는 영점이며, 해석 신호가 $\pm\pi/2$ 근방에 더 오래 머물고, 따라서 $F_2$ 잔차가 비례적으로 더 오래 걸려 수렴한다. 이로부터 검증 가능한 예측이 나온다: 고정 epoch 예산에서 영점별 수렴 시간 분포가 GUE 밀도와 해석 신호 체류 시간의 컨볼루션과 일치해야 한다. 이 양은 닫힌 형식으로 계산될 수 있다. 아직 이 적합을 수행하지 않았으며, \cref{sec:open}의 열린 문제로 기록한다.
+
+\subsubsection{Weyl 등분포와 PGGD 각도 보행}
+\label{sec:weyl}
+
+\cref{sec:pggd_failure}는 PGGD의 실패 원인을 $2\pi$ 모듈로 각도 업데이트의 Weyl형 등분포 탓으로 돌린다. 기저 사실은 무리수 $\alpha$에 대해 수열 $\{n\alpha\bmod 1\}$이 $[0,1)$에서 등분포한다는 고전 정리이다. PGGD 맥락에서 스텝당 각도 업데이트는 근사적으로 $\eta\,\hat L(t)$이며, 일반적 타겟 함수에 대해 유한 샘플 위에서 유리 독립이다; 접 투영은 전체 업데이트를 이 각도 성분에 집중시키며, epoch 수가 증가함에 따라 경험 분포가 $S^1$ 위의 Haar 측도로 수렴하는 등분포 보행을 생성한다. 이는 \cref{rem:kuramoto_transition}의 잠김의 역이다: 여기서는 결합이 구성에 의해 제거되었고, 등분포가 승리한다.
+
+
+% ============================================================================
+\section{토론}
+\label{sec:discussion}
+% ============================================================================
+
+\subsection{대응이 의미하는 것}
+
+7개의 대응은 수학적 문법 수준에서의 \textit{구조적 동형}을 입증한다: 주기적 위상 벌칙, 경성 오차 경계, 진폭--위상 분리, 자가 교정 수렴의 동일한 패턴이 구체적 공학 시스템(QROP-Net)과 추상적 해석 프레임워크(임계선 위의 공명 이론) 모두에서 나타난다.
+
+이는 다음 사이의 보다 깊은 연결을 시사하지만---\textbf{증명하지는 않는다}:
+\begin{enumerate}
+  \item 시클로토믹 다항식환의 대수적 구조 ($X^n + 1 = 0$, 격자 암호의 기반),
+  \item 리만 $\xif$-함수의 스펙트럼 구조 (복소 해석적 위상에서의 소수 분포 인코딩),
+  \item 결맞음 광학 전파의 물리적 구조 (분수 푸리에 변환으로서의 프레넬 회절 핵).
+\end{enumerate}
+
+통합의 실마리는 \textit{단위원}이다: $S^1$ 위의 다항식 근, $S^1$ 위의 광학 위상, 그리고 $S^1$ 위의 $\xif$-함수 값 (위상 성분). 위상 양자화---연속 신호를 이산 각도 위치로 강제---가 공유 연산이다.
+
+
+\subsection{대응이 의미하지 않는 것}
+
+본 연구의 경계에 대해 명시적이어야 한다:
+
+\begin{enumerate}
+  \item \textbf{이것은 리만 가설의 증명이 아니다.}
+        구조적 병렬은 공유 수학적 문법을 식별하지만, 논리적 증명을 구성하지 않는다. RH는 특정 해석 함수의 영점에 대한 진술이며, 광학 시스템에 대한 어떤 구조적 유비도 엄밀한 복소 해석적 논증을 대체할 수 없다.
+
+  \item \textbf{대응은 구조적이지 인과적이 아니다.}
+        QROP-Net의 $\sin^2$ 손실과 게이트~A의 $\Delta v = m\pi$가 같은 함수 형태를 가진다는 사실이, 하나가 다른 것을 ``야기''하거나 ``설명''함을 의미하지 않는다. 이들은 같은 수학적 패턴의 독립적 실현이다.
+
+  \item \textbf{다원적 프레임은 수치 도구이지 증명 기법이 아니다.}
+        $F_2(t) = 0$이 알려진 영점 위치로 수렴하는 것은 수치 방법을 검증하지만, 영점을 찾는 것은 그것들이 모두 $\sigma = 1/2$ 위에 있음을 증명하는 것과 같지 않다.
+
+  \item \textbf{산란 해석은 유비이다.}
+        $\xif(s)$를 산란 진폭으로 취급하는 것은 올바른 예측(영점 위치, 위상 양자화)을 생성하는 생산적 유비이지만, $\xif$는 물리적 시스템의 산란 진폭이 문자 그대로 아니다 (S-행렬이 $\xif$와 같은 해밀토니안은 식별되지 않았다).
+\end{enumerate}
+
+
+\subsection{예측력과 향후 방향}
+\label{sec:open}
+
+이러한 주의에도 불구하고, 통합 프레임워크는 여러 검증 가능한 예측을 제시한다. 이를 계층별로 조직하며, \cref{sec:tiers}의 분류 원칙을 보존한다: 항목은 이미 확보된 증거의 구체성에 따라 묶인다.
+
+\smallskip\noindent\textbf{\textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\ 계층 1 후속작업 (즉시 실행 가능).}
+\begin{itemize}
+  \item \textbf{$\arg\xif(\tfrac{1}{2}+it)$에 대한 복소 벡터 읽기.} 고립 실험 (\cref{rem:isolation}) 은 잔존 결함을 영점에서의 매끄러운 네트워크가 $\arg\xif$의 $\pm\pi$ 불연속을 표현할 수 없는 것으로 국소화했다. 가장 깔끔한 아키텍처 해법은 읽기 헤드가 $\xif(\tfrac{1}{2}+it)$를 복소 벡터로 예측하고 $\arg$를 사후 계산하게 하는 것이다. 이는 아직 미시험이다.
+  \item \textbf{매끄러운 영점 교차 타겟 \textcolor{ForestGreen}{[2026-04-10 확인]}.} 고립 설정 (\cref{rem:isolation})에서 두 가지 매끄러운 대리 타겟을 시험하였다: 범프 타겟 $\mathrm{sign}(\mathrm{Re}\,\xif)\cdot e^{-(\mathrm{Re}\,\xif)^2/\sigma^2}$와 정규화 타겟 $\mathrm{Re}\,\xif/\max|\mathrm{Re}\,\xif|$. 정규화 타겟은 영점/비영점 MSE 비율을 $18.2\times$ (계단 타겟)에서 $0.03\times$로 줄인다 --- $99.8\%$ 갭 축소 --- 이로써 $\pm\pi$ 불연속이 유일한 병목이었음을 확인한다 (\cref{rem:isolation}). 다음 단계는 이 타겟을 전체 손실 ($\Lpqo + \Lres + \Lcurv$)에 통합하고 $F_2$ 기반 영점 탐지 파이프라인이 개선된 위상 학습으로부터 이득을 얻는지 시험하는 것이다.
+\end{itemize}
+
+\smallskip\noindent\textbf{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ 계층 2 프로그램 (추측적이지만 잘 정의됨).}
+\begin{enumerate}
+  \item \textbf{$\overline{|F_2|}$에 대한 높이 스케일링 법칙.} 분리된 시드 앙상블에 대한 $\overline{|F_2|}(t)$의 집계 감쇠를 적합하여, \cref{sec:f2_residual_open}의 지수가 진정한 거듭제곱 법칙인지, 그렇다면 $N(t)$의 $\log\log t$ 보정을 반영하는지 결정한다.
+  \item \textbf{아키텍처 불변 잔차.} 모델 앙상블에 걸친 $|F_2(t_k)|$의 부트스트랩 최소 버전을 정의하고 (\cref{sec:f2_residual_open}), 영점별 값이 재현 가능해지는지 검증한다.
+  \item \textbf{Kuramoto 순서 매개변수.} \cref{obs:gauge_transition}의 게이지 위상 동역학을 유한 $N$ Kuramoto 시스템으로 축약하고 임계 epoch를 해석적 결합 임계치와 비교한다.
+  \item \textbf{Lehmer/GUE 수렴 적합.} 영점별 수렴 속도가 \cref{sec:lehmer_gue}에서 예측한 대로 GUE 간격 밀도와 해석 신호 체류 시간의 컨볼루션과 일치하는지 검증한다.
+  \item \textbf{보형 $L$-함수 위의 일반화된 공명.} 다원적 프레임은 디리클레 및 모듈러 $L$-함수로 자연스럽게 확장된다; 게이트 조건은 Riemann--Siegel $\vartheta$를 적절한 세타 함수로 교체하는 것 외에는 수정 없이 이전되어야 한다.
+\end{enumerate}
+
+\smallskip\noindent\textbf{\textcolor{red}{\rule{0.9ex}{0.9ex}}\ 계층 3 재활 (재검토 가능한 실패 프로그램).}
+\begin{itemize}
+  \item \textbf{각도별 적응 스텝 크기를 가진 PGGD.} \cref{sec:pggd_failure}는 Weyl 등분포를 PGGD 실패 원인으로 지목한다. 누적 각도 드리프트에 따라 줄어드는 각도별 적응 학습률은 확산을 직접 상쇄하여 옵티마이저를 잠재적으로 재활할 수 있다.
+  \item \textbf{감독된 $\Psip$을 가진 시클로토믹 PQO.} \cref{sec:cos2_failure}의 $L=4$ 프로그램은 \cref{rem:psi_defect}의 세 결함이 모두 닫힌 후에야 통계적으로 유의미해졌다. 고립 방식 설정을 사용한 원래 시클로토믹 프레임워크의 깔끔한 재실행은 이제 이해된 구현 버그에 대한 검증이 아니라, 구조적 예측의 공정한 검증을 생성할 것이다.
+\end{itemize}
+
+\smallskip\noindent\textbf{QROP-Net 및 교차 영역 예측 (원래 프레임워크로부터 불변).}
+
+\begin{enumerate}
+  \item \textbf{손실 풍경 전이}: QROP-Net 스타일 훈련 손실 (충실도 + $\sin^2$ 양자화 + 지수 장벽)이 $\zeta(s)$에 대한 수치 영점 탐색 알고리즘을 개선할 수 있는가?
+
+  \item \textbf{$\xif$에 대한 딥러닝}: $|\xif(\sigma+it)|^2$ (회절 세기에 유비)에 대해 훈련된 신경망이 $\arg\xif$ (위상 복원에 유비)를 복원할 수 있는가?
+
+  \item \textbf{시클로토믹 소수}: NTT-친화적 소수 $q = 7681 \equiv 1 \pmod{512}$는 계산 효율을 위해 선택되었다. 이 형태의 소수가 위상 양자화에 특히 적합한 보다 깊은 정수론적 이유가 있는가?
+
+  \item \textbf{일반화된 공명}: 다원적 프레임은 디리클레 $L$-함수로 자연스럽게 확장된다. 게이트 조건을 보형(automorphic) $L$-함수에 적용할 수 있는가---여기서 일반화된 리만 가설(GRH)도 추측되는가?
+
+  \item \textbf{물리적 구현}: SLM, 레이저, 카메라 센서를 사용한 실제 광학 실험이 $\sin^2$ 양자화 풍경을 \textit{하드웨어에서} 시연하여, 위상 양자화 문제를 위한 물리적 유비 컴퓨터를 제공할 수 있는가?
+\end{enumerate}
+
+
+% ============================================================================
+\section{결론}
+\label{sec:conclusion}
+% ============================================================================
+
+위상 양자화가 대수적 구조 위에서 격자 기반 양자후 암호, 결맞음 광학 전파, 리만 $\xif$-함수의 해석적 구조를 연결하는 공유 수학적 문법임을 제시하는 통합 프레임워크를 제시하였다.
+
+구체적 핵은 QROP-Net으로, $\sin^2$ 양자화 손실, LWE 오차 임계치, 블라인드 자가 교정 메커니즘이 2-게이트 공명 기준 ($\Delta v = m\pi$, $v_\sigma = 0$), 임계선으로부터의 $\sigma$-리프트, 정답 없는 영점 탐지를 위한 다원적 프레임의 게이지 ODE에서 구조적 대응물을 찾는다.
+
+프로젝트 이름 $k^n = -1$은 수학적 기반 (Kyber 시클로토믹 환에서 $X^{256} \equiv -1$)과 보다 깊은 관찰---동일한 시클로토믹 구조, 즉 단위근에 의해 관련된 단위원 위의 이산 위상이 암호학에서 NTT를, 광학에서 분수 푸리에 변환을, 임계선에서 그람 점 격자를 뒷받침한다는 것---을 모두 인코딩한다.
+
+7개의 구조적 대응이 형식화되었으며, 그 경계가 명확히 구분되었다: 이들은 공유 수학 구조에 근거한 유비이지 증명이 아니다. 그러나 이 정도의 정밀도와 폭을 가진 유비는 드물며, 위상 양자화 원리가 암호학, 광학, 또는 정수론에서의 개별적 발현보다 더 근본적인 조직 개념일 수 있음을 시사한다.
+
+
+% ============================================================================
+% 참고문헌
+% ============================================================================
+\begin{thebibliography}{99}
+
+\bibitem{kyber2021}
+R.~Avanzi \textit{et al.},
+``CRYSTALS-Kyber: Algorithm specifications and supporting documentation
+(version 3.02),'' NIST PQC Submission, 2021.
+
+\bibitem{ozaktas2001}
+H.~M.~Ozaktas, Z.~Zalevsky, and M.~A.~Kutay,
+\textit{The Fractional Fourier Transform with Applications in Optics and
+Signal Processing}. Wiley, 2001.
+
+\bibitem{lewin2022}
+Y.~Wang, X.~Cao, and Q.~Zhou,
+``Uformer: A general U-shaped transformer for image restoration,''
+in \textit{Proc.\ CVPR}, 2022.
+
+\bibitem{ste2013}
+Y.~Bengio, N.~L{\'e}onard, and A.~Courville,
+``Estimating or propagating gradients through stochastic neurons,''
+\textit{arXiv:1308.3432}, 2013.
+
+\bibitem{nistpqc2024}
+National Institute of Standards and Technology,
+``Module-Lattice-Based Key-Encapsulation Mechanism Standard (FIPS 203),''
+2024.
+
+\bibitem{fienup1982}
+J.~R.~Fienup,
+``Phase retrieval algorithms: A comparison,''
+\textit{Applied Optics}, vol.~21, no.~15, pp.~2758--2769, 1982.
+
+\bibitem{goodman2005}
+J.~W.~Goodman,
+\textit{Introduction to Fourier Optics}, 3rd~ed. Roberts \& Company, 2005.
+
+\bibitem{wyner1975}
+A.~D.~Wyner,
+``The wire-tap channel,''
+\textit{Bell System Technical Journal}, vol.~54, no.~8, pp.~1355--1387,
+1975.
+
+\bibitem{berry1984}
+M.~V.~Berry,
+``Quantal phase factors accompanying adiabatic changes,''
+\textit{Proc.\ Royal Society A}, vol.~392, pp.~45--57, 1984.
+
+\bibitem{titchmarsh1986}
+E.~C.~Titchmarsh,
+\textit{The Theory of the Riemann Zeta-Function}, 2nd~ed.
+(revised by D.~R.~Heath-Brown). Oxford University Press, 1986.
+
+\bibitem{edwards1974}
+H.~M.~Edwards,
+\textit{Riemann's Zeta Function}. Academic Press, 1974.
+
+\bibitem{khare1997}
+A.~Khare,
+``The phase of the Riemann zeta function,''
+\textit{Pramana -- J.\ Phys.}, vol.~48, pp.~537--553, 1997.
+
+\bibitem{leclair2023}
+A.~LeClair and G.~Mussardo,
+``Riemann zeros as quantized energies of a scattering system,''
+\textit{arXiv:2307.01254}, 2023.
+
+\bibitem{leclair2024}
+A.~LeClair,
+``Analogous results for Generalized and Grand Riemann Hypotheses,''
+\textit{arXiv}, 2024.
+
+\bibitem{pei2025}
+Z.~Pei,
+``Spectral flow for the Riemann zeros,''
+\textit{arXiv:2403.19118}, 2025.
+
+\bibitem{moreta2014}
+J.~J.~G.~Moreta,
+``Riemann zeros and an exponential potential,''
+2014.
+
+\bibitem{ivic2003}
+A.~Ivi{\'c},
+\textit{The Riemann Zeta-Function: Theory and Applications}.
+Dover, 2003.
+
+\bibitem{montgomery1973}
+H.~L.~Montgomery,
+``The pair correlation of zeros of the zeta function,''
+\textit{Proc.\ Symp.\ Pure Math.}, vol.~24, pp.~181--193, 1973.
+
+\bibitem{conrey2003}
+J.~B.~Conrey,
+``The Riemann Hypothesis,''
+\textit{Notices of the AMS}, vol.~50, no.~3, pp.~341--353, 2003.
+
+\bibitem{Jacot2018NTK}
+A.~Jacot, F.~Gabriel, and C.~Hongler,
+``Neural tangent kernel: Convergence and generalization in neural networks,''
+in \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 2018.
+
+\bibitem{Rahaman2019SpectralBias}
+N.~Rahaman, A.~Baratin, D.~Arpit, F.~Draxler, M.~Lin, F.~Hamprecht,
+Y.~Bengio, and A.~Courville,
+``On the spectral bias of neural networks,''
+in \textit{Proc.\ ICML}, 2019.
+
+\bibitem{BasriGeifman2020FrequencyBias}
+R.~Basri, M.~Galun, A.~Geifman, D.~Jacobs, Y.~Kasten, and S.~Kritchman,
+``Frequency bias in neural networks for input of non-uniform density,''
+in \textit{Proc.\ ICML}, 2020.
+
+\end{thebibliography}
+
+
+% ============================================================================
+% 부록
+% ============================================================================
+\appendix
+
+\section{QROP-Net 전체 수식 참조}
+\label{app:qropnet_eqs}
+
+편의를 위해, 구조적 대응에 사용된 QROP-Net 수식의 완전한 집합을 모은다:
+
+\begin{enumerate}
+  \item \textbf{환}: $R_q = \Rq$, $n=256$, $q=7681$, $X^n \equiv -1$
+  \item \textbf{암호화}: $\mathbf{u} = \mathbf{A}^\top\mathbf{r}+\mathbf{e}_1$,
+        $v = \mathbf{t}^\top\mathbf{r}+e_2+\ceil{q/2}m$
+  \item \textbf{압축}: $\mathrm{Compress}_q(x,d) = \ceil{2^d x/q} \bmod 2^d$
+  \item \textbf{위상 변조}: $\phi_i = 2\pi c_i/2^{d_u}$,
+        $U_0 = e^{i\phi}$
+  \item \textbf{FrFT}: $U_d = A_\alpha^2 \cdot \mathcal{F}^{-1}[\mathcal{F}[U_0 \cdot C_1] \cdot \mathcal{F}[C_2]] \cdot \Delta x^2$
+  \item \textbf{양자화 손실}: $\mathcal{L}_{\mathrm{quant}} = \frac{1}{2}[\frac{1}{kn}\sum\sin^2(2^{d_u-1}\phi_i^{(u)}) + \frac{1}{n}\sum\sin^2(2^{d_v-1}\phi_j^{(v)})]$
+  \item \textbf{LWE 임계치}: $\norm{w - \ceil{q/2}\hat{m}}_\infty < 1920$
+  \item \textbf{블라인드 손실}: $\mathcal{L}_{\mathrm{blind}} = \mathcal{L}_{\mathrm{fid}} + 0.5\mathcal{L}_{\mathrm{quant}} + 0.05\mathcal{L}_{\mathrm{TV}}$
+\end{enumerate}
+
+
+\section{공명 게이트 수치 표}
+\label{app:numerical}
+
+다원적 프레임의 대표적 영점 탐색 결과 (다양한 표적 함수 및 매개변수 설정):
+
+\begin{table}[ht]
+\centering
+\caption{다원적 프레임 결과: 단계 크기 스위프 하에서의 불변성.}
+\label{tab:polyadic_sweep}
+\small
+\begin{tabular}{@{} llcccc @{}}
+\toprule
+\textbf{표적} & \textbf{대역} & $W$ & $N$ & $h$ 스위프
+& $t^*$ (불변) \\
+\midrule
+$\xif$ & $T\approx141.12$ & 0.002 & 401 &
+$2\mathrm{e}{-7}$ -- $1\mathrm{e}{-5}$ & 141.123703 \\
+$\xif$ & $T\approx141.12$ & 0.001 & 301 &
+$2\mathrm{e}{-7}$ -- $1\mathrm{e}{-5}$ & 141.123713 \\
+$L(\chi_3^{\mathrm{odd}})$ & $T\approx140.61$ & 0.002 & 61 &
+$5\mathrm{e}{-7}$ & 140.611723 \\
+$L(\chi_8^{\mathrm{even}})$ & $T\approx141.08$ & 0.003 & 81 &
+$5\mathrm{e}{-7}$ & 141.083569 \\
+$L(\chi_5^{\mathrm{cmplx}}, \chi(2)=i)$ & $T\approx140.97$ & 0.002 & 61 &
+$2.2\mathrm{e}{-7}$ & 140.966280 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+모든 시험에서 프레임 불변성 비율:
+$r_{\mathrm{frame}} < 10^{-3}$,
+$r_{\mathrm{channel}} < 0.1$,
+$r_{\mathrm{window}} < 0.2$.
+
+복소 지표에 대한 켤레 쌍 대칭:
+$|t_\chi + t_{\bar{\chi}}| / t_\chi < 0.002$.
+
+
+\section{디리클레 $L$-함수로의 일반화}
+\label{app:dirichlet}
+
+게이트 조건과 다원적 프레임은 완성 디리클레 $L$-함수 $\Lambda(s,\chi)$로 자연스럽게 확장된다. 핵심 적응:
+
+\begin{enumerate}
+  \item 완성 함수 $\Lambda(s,\chi) = (q/\pi)^{(s+\epsilon)/2}
+        \Gamma((s+\epsilon)/2)\,L(s,\chi)$가 $\xif(s)$를 대체한다.
+  \item 비주 지표에 대해 $\Lambda(s,\chi)$는 전해석적($s=1$에서 극 없음)이어서 오일러 곱의 절단 문제를 회피한다.
+  \item 함수 방정식 $\Lambda(s,\chi) = \varepsilon(\chi)\,
+        \Lambda(1-s,\bar{\chi})$는 $\xif(s) = \xif(1-s)$와 동일한 구조적 형태를 갖는다.
+  \item 게이트~A는 $\Delta v_\chi = m\pi$가 되며,
+        $v_\chi = \arg\Lambda(\sigma+it,\chi)$.
+  \item 게이트~B는 $\partial_\sigma v_\chi = 0$으로 유지된다.
+  \item 일반화된 리만 가설(GRH)은 모든 $\chi$에 대해
+        $\Lambda(s,\chi)$의 모든 공명점에서 $\sigma^* = 1/2$과 동치이다.
+\end{enumerate}
+
+LeClair~\cite{leclair2024}는 베테 안자츠/위상 양자화 접근법이 ``비주 디리클레 지표에 기반한 모든 $L$-함수 [및] 첨점(cusp) 보형 형식에 기반한 것''으로 확장됨을 확인했으며, 유일한 차이는 주 지표에 대한 극의 처리이다.
+
+
+\section{표기법 색인}
+\label{app:notation}
+
+\begin{center}
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{기호} & \textbf{영역} & \textbf{의미} \\
+\midrule
+$R_q$ & QROP-Net & 다항식환 $\Zq[X]/(X^n+1)$ \\
+$\phi_i$ & QROP-Net & 암호문 원소 $i$의 광학 위상 \\
+$U_0$ & QROP-Net & 송신 복소 파면 $e^{i\phi}$ \\
+$d$ & QROP-Net & 학습 가능 전파 거리 (mm) \\
+$\alpha$ & QROP-Net & FrFT 차수 각도 (라디안) \\
+$\xif(s)$ & 공명 & 완성 리만 제타 함수 \\
+$\Phiz(t)$ & 공명 & $\xif(1/2+it)$의 위상 \\
+$\Ampl(t)$ & 공명 & 진폭 $|\xif(1/2+it)|$ \\
+$\Psip(n)$ & 공명 & 매끄러운 소수 계수 위상 \\
+$\sigma^*$ & 공명 & 공명점의 실수부 \\
+$\ell$ & 공명 & $\sigma$-리프트: $\sigma^* - 1/2$ \\
+$F_2(t)$ & 다원적 & 최종 판별 함수 \\
+$\Lhat(t)$ & 다원적 & 중심 차분 로그 도함수 \\
+$v(\sigma,t)$ & 공통 & $\xif(\sigma+it)$의 위상 / 일반 위상 \\
+$\mathcal{P}(\phi;L)$ & 공통 & 위상 양자화 연산자 $\sin^2(L\phi/2)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+\end{document}
