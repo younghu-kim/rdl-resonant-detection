@@ -2837,10 +2837,27 @@ Tier 1 follow-ups (immediate).}
         from $18.2\times$ (step target) to $0.03\times$ --- a
         $99.8\%$ gap reduction --- confirming that the $\pm\pi$
         discontinuity was the sole bottleneck
-        (\cref{rem:isolation}). The next step is to integrate this
-        target into the full loss ($\Lpqo + \Lres + \Lcurv$) and
-        test whether the $F_2$-based zero-detection pipeline
-        benefits from the improved phase learning.
+        (\cref{rem:isolation}).
+        \emph{Full-pipeline test
+        \textcolor{ForestGreen}{[completed 2026-04-10]}:}
+        integrating the smooth target into the full loss
+        ($\Lres + \Lcurv + \Lpqo$ + MSE smooth) \emph{worsened}
+        global $|F_2|$ by $5.2\%$ (3-seed ensemble), indicating
+        that the angular target $\Ltgt$ synergises with $\Lres$
+        and $\Lpqo$ and should not be replaced wholesale.  The
+        smooth target remains valid as an \emph{isolation diagnostic}
+        but not as a drop-in substitute for the full pipeline.
+  \item \textbf{Blind zero extrapolation
+        \textcolor{ForestGreen}{[confirmed 2026-04-10]}.}
+        Training on $t\in[100,150]$ and predicting local $|F_2|$
+        minima on the unseen interval $[150,200]$ (and vice versa)
+        yields recall $96{-}99\%$ across 5 seeds and both
+        $K\in\{64,128\}$ settings; reverse direction with
+        $K=128$ achieves $99.1\pm1.7\%$ recall.  Precision is low
+        ($\sim\!15{-}18\%$) due to spurious grid minima, but the
+        near-perfect recall demonstrates that the $F_2$ residual
+        generalises to unseen height ranges and is not merely
+        fitting training-set zeros.
 \end{itemize}
 
 \smallskip\noindent\textbf{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\
@@ -2920,6 +2937,54 @@ Tier 3 rehabilitations (failed programmes that could be revisited).}
         problems?
 \end{enumerate}
 
+
+% ============================================================================
+\section{Related Work}
+\label{sec:related}
+% ============================================================================
+
+\noindent\textbf{ML for Riemann zeros.}
+Shanker~\cite{Shanker2015NNZeta} trained a two-layer neural network on
+Gram-point features to predict the distance from a Gram point to the
+next zero, achieving $R^2>0.99$ on 80{,}000 observations.
+Avysogorets~\cite{Avysogorets2021RiemannZeta} extended this with SVR
+and RNN regressors over 50 hand-engineered features.  Both approaches
+are direct regression on zero locations; our method differs in using a
+physics-informed gauge ODE whose residual $F_2$ vanishes at zeros,
+providing an interpretable diagnostic channel rather than a black-box
+predictor.
+
+\smallskip\noindent\textbf{Fourier feature networks and spectral bias.}
+Tancik et~al.~\cite{Tancik2020FourierFeatures} showed that mapping
+inputs through random Fourier features
+$\gamma(x) = [\sin(2\pi Bx),\,\cos(2\pi Bx)]$ with
+$B\sim\mathcal{N}(0,\sigma^2)$ overcomes the spectral bias of
+standard MLPs~\cite{Rahaman2019SpectralBias}.  Our Fourier embedding
+(\cref{sec:f2_residual_cluster_artifact}) uses deterministic
+equally-spaced frequencies $\omega_k = 2\pi k/W$ instead of random
+ones.  Proposition~\ref{prop:basis_bandwidth} can be viewed as a
+\emph{deterministic} analogue of their bandwidth-tuning insight: where
+they sweep $\sigma$, we derive the minimum number of frequencies $K$
+from the Riemann--von Mangoldt density.  Testing random Fourier
+features against our deterministic basis is an immediate open
+experiment.
+
+\smallskip\noindent\textbf{Equivariant networks.}
+The gauge-equivariant architecture we use is related to the steerable
+CNN framework of Cohen et~al.~\cite{Cohen2019Gauge} and its
+implementation in the \texttt{escnn} library~\cite{Cesa2022ESCNN},
+which formalises SO(2) equivariance via principal fibre bundles and
+steerable kernels.  Our ResonantBlock implements a U(1) gauge
+structure via Lie-exponential phase propagation; a future direction is
+to replace it with \texttt{escnn}'s steerable convolution backend for
+automatic equivariance verification.
+
+\smallskip\noindent\textbf{Symbolic mathematics with deep learning.}
+Lample and Charton~\cite{Lample2020SymbolicMath} demonstrated that
+sequence-to-sequence transformers can solve symbolic integration and
+ODE problems.  Their approach is complementary to ours: where they
+learn symbolic manipulation, our gauge ODE encodes the target
+equation's structure directly in the architecture.
 
 % ============================================================================
 \section{Conclusion}
@@ -3069,6 +3134,40 @@ in \textit{Proc.\ ICML}, 2019.
 R.~Basri, M.~Galun, A.~Geifman, D.~Jacobs, Y.~Kasten, and S.~Kritchman,
 ``Frequency bias in neural networks for input of non-uniform density,''
 in \textit{Proc.\ ICML}, 2020.
+
+\bibitem{Shanker2015NNZeta}
+O.~Shanker,
+``Neural network prediction of Riemann zeta zeros,''
+\textit{Advanced Modeling and Optimization}, vol.~17, no.~1, pp.~45--54,
+2015.
+
+\bibitem{Avysogorets2021RiemannZeta}
+M.~Avysogorets, J.~Bhutani, and P.~Beineke,
+``Machine learning for predicting Riemann zeta zeros,''
+\textit{arXiv:2104.12285}, 2021.
+
+\bibitem{Tancik2020FourierFeatures}
+M.~Tancik, P.~P.~Srinivasan, B.~Mildenhall, S.~Fridovich-Keil,
+N.~Ramasinghe, U.~Kamber, and R.~Ng,
+``Fourier features let networks learn high frequency functions in low
+dimensional domains,''
+in \textit{Advances in Neural Information Processing Systems (NeurIPS)},
+2020.
+
+\bibitem{Cohen2019Gauge}
+T.~S.~Cohen, M.~Weiler, B.~Kicanaoglu, and M.~Welling,
+``Gauge equivariant convolutional networks and the icosahedral CNN,''
+in \textit{Proc.\ ICML}, 2019.
+
+\bibitem{Cesa2022ESCNN}
+G.~Cesa, L.~Lang, and M.~Weiler,
+``A program to build E(N)-equivariant steerable CNNs,''
+in \textit{Proc.\ ICLR}, 2022.
+
+\bibitem{Lample2020SymbolicMath}
+G.~Lample and F.~Charton,
+``Deep learning for symbolic mathematics,''
+in \textit{Proc.\ ICLR}, 2020.
 
 \end{thebibliography}
 
