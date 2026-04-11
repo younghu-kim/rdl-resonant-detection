@@ -130,4 +130,4 @@ via Gauge ODE Residuals." Preprint, 2026.
 
 ## License
 
-MIT License. See [LICENSE](LICENSE).
+GPL-3.0 License. See [LICENSE](LICENSE).
