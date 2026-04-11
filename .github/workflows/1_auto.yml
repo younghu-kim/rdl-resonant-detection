@@ -1,0 +1,17 @@
+name: 1. 자율 연구
+
+on:
+  workflow_dispatch:
+
+jobs:
+  auto:
+    runs-on: self-hosted
+    timeout-minutes: 60
+    steps:
+      - name: 자율 연구 사이클
+        run: |
+          cd ~/Desktop/gdl_unified
+          /home/k0who029/.npm-global/bin/claude -p "$(cat scripts/auto_research_prompt.md)" \
+            --model opus \
+            --permission-mode bypassPermissions \
+            --max-turns 50

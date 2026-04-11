@@ -1,0 +1,23 @@
+name: 2. 상태 확인
+
+on:
+  workflow_dispatch:
+
+jobs:
+  status:
+    runs-on: self-hosted
+    timeout-minutes: 5
+    steps:
+      - name: 상태 보고
+        run: |
+          echo "========== 실행 중인 실험 =========="
+          ps aux | grep -E "qrop_env.*python" | grep -v grep || echo "없음"
+          echo ""
+          echo "========== 최근 결과 파일 =========="
+          ls -lt ~/Desktop/gdl_unified/results/*.txt | head -5
+          echo ""
+          echo "========== 연구 일지 =========="
+          cat ~/Desktop/gdl_unified/scripts/research_journal.md
+          echo ""
+          echo "========== Git 로그 =========="
+          cd ~/Desktop/gdl_unified && git log --oneline -10

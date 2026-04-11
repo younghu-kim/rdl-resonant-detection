@@ -1,0 +1,17 @@
+name: 3. 다음 실험
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-next:
+    runs-on: self-hosted
+    timeout-minutes: 30
+    steps:
+      - name: 다음 실험 실행
+        run: |
+          cd ~/Desktop/gdl_unified
+          /home/k0who029/.npm-global/bin/claude -p "scripts/auto_research_prompt.md 의 Phase 2, 3만 실행하세요. 현재 실행 중이 아닌 가장 우선순위 높은 실험을 즉시 시작하세요." \
+            --model opus \
+            --permission-mode bypassPermissions \
+            --max-turns 20

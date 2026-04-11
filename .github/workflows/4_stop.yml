@@ -1,0 +1,16 @@
+name: 4. 실험 중지
+
+on:
+  workflow_dispatch:
+
+jobs:
+  stop:
+    runs-on: self-hosted
+    timeout-minutes: 5
+    steps:
+      - name: 실험 중지
+        run: |
+          echo "실행 중인 실험:"
+          ps aux | grep -E "qrop_env.*python.*scripts/" | grep -v grep || echo "없음"
+          pkill -f "qrop_env.*python.*scripts/" || echo "중지할 프로세스 없음"
+          echo "완료"
