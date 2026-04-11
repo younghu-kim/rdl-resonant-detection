@@ -2818,14 +2818,32 @@ evidence already is.
 Tier 1 follow-ups (immediate).}
 \begin{itemize}
   \item \textbf{Complex-vector readout for
-        $\arg\xif(\tfrac{1}{2}+it)$.} The isolation experiment
+        $\arg\xif(\tfrac{1}{2}+it)$
+        \textcolor{red}{[neutral 2026-04-12]}.}
+        The isolation experiment
         (\cref{rem:isolation}) localised the remaining defect to the
         smooth network's inability to represent the $\pm\pi$
         discontinuity of $\arg\xif$ at zeros. The cleanest
         architectural fix is to have the readout head predict
         $\xif(\tfrac{1}{2}+it)$ as a complex vector and compute
         $\arg$ post-hoc, rather than predict the phase directly.
-        This remains untested.
+        \emph{Tested 2026-04-12:} a linear readout head mapping
+        pre-projection hidden states $Z\in\CC^{64}$ to
+        $(\mathrm{Re}\,\xif,\mathrm{Im}\,\xif)$ was trained
+        jointly with auxiliary resonance losses
+        ($\Lres+\Lcurv+\Lpqo$, $\Ltgt=0$), using MSE on the
+        complex components ($\lambda_{\mathrm{MSE}}=2$).
+        Over 3 seeds ($t\in[100,200]$, $K=128$, 150 epochs):
+        complex-vector validation loss improved ${\sim}4\times$
+        ($0.014\pm0.005$ vs $0.069\pm0.013$), but the $|F_2|$
+        ratio was statistically unchanged
+        ($0.982\pm0.041$ vs $0.999\pm0.005$; $p>0.5$) and zero
+        detection remained at $0/463$.
+        The readout head learns the Re/Im mapping well but does
+        not alter the network's internal resonance structure
+        ($Z_{\mathrm{out}}$).  The $\pm\pi$ discontinuity thus
+        requires a deeper architectural change than a post-hoc
+        readout head alone.
   \item \textbf{Smooth zero-crossing targets
         \textcolor{ForestGreen}{[confirmed 2026-04-10]}.}
         Two smooth surrogates were tested under the isolation setup

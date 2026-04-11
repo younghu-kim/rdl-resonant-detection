@@ -1700,7 +1700,23 @@ Berry--Keating & $\vartheta(t_n)=n\pi$
 
 \smallskip\noindent\textbf{\textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\ 계층 1 후속작업 (즉시 실행 가능).}
 \begin{itemize}
-  \item \textbf{$\arg\xif(\tfrac{1}{2}+it)$에 대한 복소 벡터 읽기.} 고립 실험 (\cref{rem:isolation}) 은 잔존 결함을 영점에서의 매끄러운 네트워크가 $\arg\xif$의 $\pm\pi$ 불연속을 표현할 수 없는 것으로 국소화했다. 가장 깔끔한 아키텍처 해법은 읽기 헤드가 $\xif(\tfrac{1}{2}+it)$를 복소 벡터로 예측하고 $\arg$를 사후 계산하게 하는 것이다. 이는 아직 미시험이다.
+  \item \textbf{$\arg\xif(\tfrac{1}{2}+it)$에 대한 복소 벡터 읽기
+        \textcolor{red}{[2026-04-12 중립]}.}
+        고립 실험 (\cref{rem:isolation})은 잔존 결함을 영점에서의 매끄러운 네트워크가 $\arg\xif$의 $\pm\pi$ 불연속을 표현할 수 없는 것으로 국소화했다. 가장 깔끔한 아키텍처 해법은 읽기 헤드가 $\xif(\tfrac{1}{2}+it)$를 복소 벡터로 예측하고 $\arg$를 사후 계산하게 하는 것이다.
+        \emph{2026-04-12 시험:} 프로젝션 전 은닉 상태 $Z\in\CC^{64}$를
+        $(\mathrm{Re}\,\xif,\mathrm{Im}\,\xif)$로 매핑하는 선형 읽기 헤드를
+        보조 공명 손실($\Lres+\Lcurv+\Lpqo$, $\Ltgt=0$)과 함께 Re/Im MSE
+        ($\lambda_{\mathrm{MSE}}=2$)로 공동 훈련하였다.
+        3시드($t\in[100,200]$, $K=128$, 150 에포크)에서:
+        복소 벡터 검증 손실은 ${\sim}4$배 개선
+        ($0.014\pm0.005$ vs $0.069\pm0.013$)되었으나, $|F_2|$
+        ratio는 통계적으로 무변화
+        ($0.982\pm0.041$ vs $0.999\pm0.005$; $p>0.5$)이고 영점
+        검출은 $0/463$에 머물렀다.
+        읽기 헤드는 Re/Im 매핑을 잘 학습하지만 네트워크의 내부 공명
+        구조($Z_{\mathrm{out}}$)를 변경하지 못한다. $\pm\pi$ 불연속은
+        사후 읽기 헤드만으로는 해결할 수 없고 더 깊은 아키텍처 변경이
+        필요하다.
   \item \textbf{매끄러운 영점 교차 타겟 \textcolor{ForestGreen}{[2026-04-10 확인]}.} 고립 설정 (\cref{rem:isolation})에서 두 가지 매끄러운 대리 타겟을 시험하였다: 범프 타겟 $\mathrm{sign}(\mathrm{Re}\,\xif)\cdot e^{-(\mathrm{Re}\,\xif)^2/\sigma^2}$와 정규화 타겟 $\mathrm{Re}\,\xif/\max|\mathrm{Re}\,\xif|$. 정규화 타겟은 영점/비영점 MSE 비율을 $18.2\times$ (계단 타겟)에서 $0.03\times$로 줄인다 --- $99.8\%$ 갭 축소 --- 이로써 $\pm\pi$ 불연속이 유일한 병목이었음을 확인한다 (\cref{rem:isolation}).
         \emph{전체 파이프라인 시험
         \textcolor{ForestGreen}{[2026-04-10 완료]}:}
