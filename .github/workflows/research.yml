@@ -1,0 +1,77 @@
+name: RDL Research Coworker
+
+on:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: '실행할 작업'
+        required: true
+        default: 'auto'
+        type: choice
+        options:
+          - auto          # 자율 판단 사이클
+          - status        # 현재 상태만 확인
+          - run-next      # 다음 실험 즉시 실행
+          - stop-all      # 실행 중인 실험 중지
+      custom_prompt:
+        description: '커스텀 지시 (선택사항)'
+        required: false
+        type: string
+
+jobs:
+  research:
+    runs-on: self-hosted
+    timeout-minutes: 60
+
+    steps:
+      - name: 상태 확인
+        if: inputs.command == 'status'
+        run: |
+          echo "=== 실행 중인 실험 ==="
+          ps aux | grep -E "qrop_env.*python" | grep -v grep || echo "없음"
+          echo ""
+          echo "=== 최근 결과 ==="
+          ls -lt ~/Desktop/gdl_unified/results/*.txt | head -5
+          echo ""
+          echo "=== 연구 일지 (최근) ==="
+          tail -20 ~/Desktop/gdl_unified/scripts/research_journal.md
+          echo ""
+          echo "=== Git 로그 ==="
+          cd ~/Desktop/gdl_unified && git log --oneline -5
+
+      - name: 자율 연구 사이클
+        if: inputs.command == 'auto'
+        run: |
+          cd ~/Desktop/gdl_unified
+          /home/k0who029/.npm-global/bin/claude -p "$(cat scripts/auto_research_prompt.md)" \
+            --model opus \
+            --permission-mode bypassPermissions \
+            --max-turns 50
+
+      - name: 다음 실험 실행
+        if: inputs.command == 'run-next'
+        run: |
+          cd ~/Desktop/gdl_unified
+          PROMPT="scripts/auto_research_prompt.md 의 Phase 2, 3만 실행하세요.
+          현재 실행 중이 아닌 가장 우선순위 높은 실험을 즉시 시작하세요."
+          /home/k0who029/.npm-global/bin/claude -p "$PROMPT" \
+            --model opus \
+            --permission-mode bypassPermissions \
+            --max-turns 20
+
+      - name: 실험 중지
+        if: inputs.command == 'stop-all'
+        run: |
+          echo "실행 중인 Python 실험 프로세스:"
+          ps aux | grep -E "qrop_env.*python.*scripts/" | grep -v grep
+          pkill -f "qrop_env.*python.*scripts/" || echo "중지할 프로세스 없음"
+          echo "중지 완료"
+
+      - name: 커스텀 지시
+        if: inputs.custom_prompt != ''
+        run: |
+          cd ~/Desktop/gdl_unified
+          /home/k0who029/.npm-global/bin/claude -p "${{ inputs.custom_prompt }}" \
+            --model opus \
+            --permission-mode bypassPermissions \
+            --max-turns 30
