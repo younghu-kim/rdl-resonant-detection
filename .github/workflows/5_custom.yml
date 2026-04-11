@@ -1,0 +1,22 @@
+name: 5. 커스텀 명령
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: '명령어 입력'
+        required: true
+        type: string
+
+jobs:
+  custom:
+    runs-on: self-hosted
+    timeout-minutes: 60
+    steps:
+      - name: 커스텀 명령 실행
+        run: |
+          cd ~/Desktop/gdl_unified
+          /home/k0who029/.npm-global/bin/claude -p "${{ inputs.prompt }}" \
+            --model opus \
+            --permission-mode bypassPermissions \
+            --max-turns 30
