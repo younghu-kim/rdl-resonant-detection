@@ -1,5 +1,28 @@
 # RDL 자율 연구 일지
 
+## 2026-04-12 02:15 사이클
+**상황**: complex_vector_readout 실험 완료 — **중립 판정**.
+  - 3시드 (42,7,123), t∈[100,200], K=128, 150ep
+  - Complex Vector val loss ~4배 개선 (0.014±0.005 vs 0.069±0.013)
+  - F₂ ratio 무변화 (0.982±0.041 vs 0.999±0.005), 검출 0/463
+  - readout 헤드가 Re/Im을 잘 학습하지만 네트워크 내부 Z_out 공명 구조에 영향 없음
+  - ±π 불연속은 사후 readout이 아닌 더 깊은 아키텍처 변경 필요
+
+**핵심 최적화**: 이전 3개 실험이 29시간+ CPU 소비에도 결과 없었던 원인 해결
+  - 3 프로세스 병렬 → 단일 순차 실행 (12코어 단독 사용, ~9x CPU 활용)
+  - eval_F2/compute_dense_f2: 1개씩 → 64개 배치 처리
+  - 진행 로깅 추가 (30ep마다 출력)
+  - 결과: complex_vector 97분 완료 (이전 추정 30시간+ → 60배 가속)
+
+**실행**:
+  - 논문 EN/KO Tier 1 "Complex-vector readout" 항목에 [neutral 2026-04-12] 반영
+  - PDF 컴파일·배포, git commit+push 완료
+  - precision_filter.py (최적화판) 단독 실행 시작 (PID 54188, 803% CPU)
+
+**판단**: complex vector readout이 중립이므로 ±π 해결의 다음 후보는 **S¹ 기하학적 각도 예측** (arg ξ 대신 (cos θ, sin θ)∈S¹, geodesic 손실). precision_filter와 high_height 결과 확보 후 S¹ 실험 설계.
+
+**다음**: precision_filter 완료 대기 (~1.5시간). 완료 시 즉시 결과 분석 → 논문 반영 → high_height 시작.
+
 ## 2026-04-11 23:48 사이클
 **상황**: 3개 실험 모두 정상 실행 중, 새 결과 없음. complex_vector 벽시계 4h19m/CPU 17h13m (seed=42 baseline 아직 진행 중, 6 runs 중 1번째), high_height 벽시계 6h50m/CPU 27h07m, precision 벽시계 6h50m/CPU 26h59m. 모든 프로세스 Rl 상태, CPU 각 ~396%.
 **판단**: 휴식. CPU 12코어 포화, 결과 없음, 모든 프로세스 건강. complex_vector의 run당 ~3.75h 추정 대비 4h19m 경과 — 첫 baseline run 완료 임박 가능. 로그 줄 수 변화 없음(17줄).
