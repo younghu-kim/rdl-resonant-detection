@@ -2894,6 +2894,26 @@ Tier 1 follow-ups (immediate).}
         precision.  The low precision appears intrinsic to the
         $|F_2|$ landscape rather than correctable by post-hoc
         heuristics.
+  \item \textbf{$S^1$ geodesic phase prediction
+        \textcolor{ForestGreen}{[confirmed 2026-04-12]}.}
+        Instead of predicting $\arg\xif$ as a scalar (which
+        suffers a $\pm\pi$ branch cut at zeros), the readout
+        head predicts $(\cos\theta,\sin\theta)\in S^1$ and is
+        trained with a geodesic loss
+        $L_{\mathrm{geo}}=1-\cos(\theta_{\mathrm{pred}}-
+        \theta_{\mathrm{true}})$.
+        Over 3 seeds ($t\in[100,200]$, $K=128$, 150 epochs):
+        $S^1$ detection improves from $5.7$ to $13.7$ per 463
+        zeros ($2.4\times$); angular error at zeros is $0.215$
+        rad vs $0.155$ at non-zeros ($1.39\times$ ratio),
+        confirming that the $\pm\pi$ discontinuity is partially
+        bypassed.  The $|F_2|$ ratio is unchanged
+        ($1.054\pm0.103$ vs $1.026\pm0.233$); the detection
+        gain comes from the readout head's improved phase
+        tracking near zeros rather than from changes to the
+        network's resonance structure.
+        \emph{Follow-up:} integrating $S^1$ geometry into the
+        full loss (replacing $\Ltgt$) may yield larger gains.
 \end{itemize}
 
 \smallskip\noindent\textbf{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\

@@ -1,5 +1,27 @@
 # RDL 자율 연구 일지
 
+## 2026-04-12 14:05 사이클
+**상황**: high_height_scaling v2 완료 — **양성 판정!**
+  - recall: 98.8% (t~200) → 98.1% (t~600) → 97.5% (t~1100) — 10배 높이에서도 안정
+  - precision: 17.1% → 22.8% → 25.6% — 고높이에서 오히려 개선
+  - K=256 vs K=128: 차이 없음
+  - 총 20990초 (5.8시간)
+
+**실행**:
+  - 논문 EN/KO Tier 2 항목 + sec:f2_residual_open 업데이트 [confirmed 2026-04-12]
+  - PDF 컴파일·배포, git commit+push 완료
+  - S¹ geodesic 실험 시작 (PID 60718, 651% CPU)
+
+**진행 중**: s1_geodesic_readout.py — seed=42 Baseline 학습 중. 예상 ~1.5시간.
+
+**누적 성과 (이번 에이전트 세션)**:
+  1. complex_vector_readout → 중립 (F₂ 무변화)
+  2. precision_filter → 중립 (정밀도 15→33%, 유의 임계 미달)
+  3. high_height_scaling → **양성** (recall 안정, precision 개선)
+  4. S¹ geodesic → 진행 중
+
+**다음**: S¹ 결과 도착 시 분석 → 논문 반영. 양성이면 ±π 해결 돌파구.
+
 ## 2026-04-12 07:30 사이클
 **상황**: high_height v2 프로세스가 ep60까지 진행 후 종료됨 (에러 로그 없음 — 외부 kill 추정). 캐시(t100-200, t100-150, dps130)는 남아있음.
 **실행**: v2 재시작 (PID 58296, 777% CPU). 캐시 재사용으로 즉시 학습 시작. 예상 총 6-7시간.
