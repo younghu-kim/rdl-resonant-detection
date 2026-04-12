@@ -1,5 +1,92 @@
 # RDL 자율 연구 일지
 
+## 2026-04-13 02:25 사이클
+**상황**: s1_full_integration.py 실행 중 (PID 62487, ~10시간 경과).
+  - seed=42 완료: Baseline 검출=7/463 (F₂=0.894), S¹ Geo 검출=5/463 (F₂=1.059)
+  - seed=7 Baseline 완료: 검출=5/463 (F₂=1.353), S¹ Geo ep 120/150 진행 중
+  - seed=123 미시작. 잔여 ~35분
+  - 결과 파일 미생성
+
+**중간 관찰**: seed=42에서 S¹ Geodesic 검출이 오히려 감소 (7→5).
+  F₂ ratio는 1.0에 수렴 (0.894→1.059)하지만 검출 수 하락은 우려 신호.
+  seed=7 Baseline도 검출=5로 seed=42보다 낮음 → 시드 변동성 큰 상황.
+  seed=7 S¹ 및 seed=123까지 완료되어야 앙상블 판정 가능.
+
+**판단**: 휴식. 실험 정상 진행, 중간 결과는 seed 간 변동성이 커서 조기 판정 불가.
+
+**실행**: 상황 파악 + 연구 일지 업데이트
+
+**다음**: s1_full_integration.txt 도착 시 즉시 Phase 1.
+  - 현재 중간 결과는 음성 쪽 신호이나, 시드 변동이 크므로 최종 판단 보류
+  - 음성 확정 시: L_tgt의 atan2 기반이 이미 충분 → Kuramoto 또는 Lehmer/GUE로 전환
+  - 양성 (seed=7,123에서 반전): geodesic 통합이 시드 의존적 → 조건부 양성 보고
+
+## 2026-04-12 21:15 사이클
+**상황**: s1_full_integration.py 실행 중 (PID 62487, 923% CPU, ~4.8시간 경과).
+  - seed=42 Baseline 완료: val=0.0565, F₂ ratio=0.8941, 검출=7/463
+  - seed=42 S¹ Geodesic ep 120/150 진행 중 (~200초 후 완료)
+  - 6 runs 중 약 1.8번째, 잔여 약 1시간
+  - 결과 파일 미생성, 프로세스 건강
+
+**판단**: 휴식. 실험 정상 진행, CPU 효율적 사용(923%), 잔여 약 1시간.
+  - 참고: seed=42 Baseline 검출 7/463은 이전 s1_geodesic_readout Baseline(5.7/463)과 유사
+  - L_geo 결과가 핵심 — Baseline 대비 검출 증가 여부로 판정
+
+**실행**: 상황 파악 + 연구 일지 업데이트
+
+**다음**: s1_full_integration.txt 도착 시 즉시 Phase 1.
+  - 양성 (L_geo 검출 > Baseline): L_tgt→L_geo 대체가 유효, ±π 해결 핵심 돌파구 → 논문 Tier 1 반영
+  - 음성 (L_geo ≤ Baseline): geodesic 손실이 Z_out 학습에 불충분 → 다른 접근 필요
+  - 중립: readout과 동일 수준 → 위상 구조 자체의 한계
+
+## 2026-04-12 16:25 사이클
+**상황**: 이전 사이클에서 S¹ readout 양성 확인, 후속 실험으로 S¹ full integration 결정됨.
+  - 실행 중 실험: 없음 (CPU 여유)
+  - 새 결과: 없음 (모든 결과 반영 완료)
+  - 누적 성과: complex_vector(중립), precision_filter(중립), high_height(양성), S¹ readout(양성)
+
+**판단**: S¹ full integration 실험 실행.
+  - L_tgt(atan2 기반 angular MSE)를 L_geo(1-cos(Δφ), geodesic)로 대체
+  - 이전 S¹ readout은 별도 head → F₂ ratio 무변화
+  - L_tgt 자체를 대체하면 Z_out 학습에 직접 영향 → F₂ ratio 변화 기대
+  - GeodesicTargetLoss: gradient = sin(Δφ), ±π에서도 연속 (vs atan2 기반 불안정)
+
+**실행**: s1_full_integration.py 시작 (PID 62487, 321% CPU)
+  - 3시드(42,7,123), t∈[100,200], 1000점, if=128, ep=150
+  - (A) Baseline: 표준 TotalResonanceLoss
+  - (B) S¹ Integration: L_tgt=0 + λ_geo=1.0 × GeodesicTargetLoss
+  - 예상 소요: ~1.5시간
+
+**다음**: s1_full_integration.txt 도착 시 결과 분석
+  - 양성 (F₂ ratio 개선 또는 검출 증가): Tier 1에 반영, ±π 해결의 핵심 돌파구
+  - 음성 (F₂ ratio 악화): L_tgt의 atan2 구현이 이미 충분히 ±π 처리 → 다른 접근 필요
+  - 중립: readout과 동일한 개선폭이면 geodesic 손실 자체의 효과, 위상 구조 문제가 아님
+
+## 2026-04-12 15:50 사이클
+**상황**: S¹ geodesic 실험 완료 — **양성 판정!**
+  - 검출 5.7→13.7/463 (2.4배 개선)
+  - 영점 위상오차 0.215rad, 비영점 0.155rad (1.39x)
+  - F₂ ratio 무변화 — 개선은 readout의 위상 추적에서 기인
+  - complex vector (중립)과 달리, S¹ 기하학이 ±π를 부분적으로 우회
+
+**실행**:
+  - 논문 EN/KO Tier 1에 S¹ 결과 추가 [confirmed 2026-04-12]
+  - PDF 컴파일·배포, git commit+push 완료
+
+**누적 성과 (이번 에이전트 세션)**:
+  1. complex_vector_readout → 중립
+  2. precision_filter → 중립
+  3. high_height_scaling → **양성** (recall 안정, precision 개선)
+  4. S¹ geodesic → **양성** (검출 2.4배)
+
+**연구 판단**: S¹이 양성이므로 후속 실험 결정:
+  - **즉시**: S¹ geodesic을 전체 손실에 통합 (L_tgt를 S¹ geodesic으로 대체)
+  - 이유: 현재 S¹은 보조 readout이므로 Z_out 구조에 직접 영향 못함.
+    L_tgt를 geodesic으로 대체하면 네트워크 자체가 S¹ 표현으로 학습하여
+    F₂ ratio까지 개선될 가능성.
+
+**다음**: s1_full_integration.py 작성 → 실행 → 결과 분석
+
 ## 2026-04-12 14:05 사이클
 **상황**: high_height_scaling v2 완료 — **양성 판정!**
   - recall: 98.8% (t~200) → 98.1% (t~600) → 97.5% (t~1100) — 10배 높이에서도 안정

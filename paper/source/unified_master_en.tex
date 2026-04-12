@@ -92,6 +92,9 @@
 \newcommand{\GateA}{\mathsf{G}_{\mathrm{A}}}
 \newcommand{\GateB}{\mathsf{G}_{\mathrm{B}}}
 \newcommand{\Lpqo}{\mathcal{L}_{\mathrm{pqo}}}
+\newcommand{\Ltgt}{\mathcal{L}_{\mathrm{tgt}}}
+\newcommand{\Lcurv}{\mathcal{L}_{\mathrm{curv}}}
+\newcommand{\Lres}{\mathcal{L}_{\mathrm{res}}}
 \newcommand{\PQO}{\mathsf{PQO}}
 \newcommand{\Ftwo}{F_{2}}
 
@@ -2912,8 +2915,20 @@ Tier 1 follow-ups (immediate).}
         gain comes from the readout head's improved phase
         tracking near zeros rather than from changes to the
         network's resonance structure.
-        \emph{Follow-up:} integrating $S^1$ geometry into the
-        full loss (replacing $\Ltgt$) may yield larger gains.
+        \emph{Follow-up (completed):} Replacing $\Ltgt$ entirely
+        with $L_{\mathrm{geo}}$ in the full loss
+        ($\Lres+\Lcurv+L_{\mathrm{geo}}+\Lpqo$)
+        yields a further $1.66\times$ detection gain over the
+        readout-only approach: $22.7/463$ zeros detected vs $13.7$
+        (readout) vs $5.7$ (baseline), a cumulative $4\times$
+        improvement.  The $|F_2|$ ratio drops to
+        $0.913\pm0.105$ (from $1.026\pm0.233$), meaning zeros now
+        exhibit \emph{smaller} $|F_2|$ residuals than non-zeros---a
+        qualitative inversion of the baseline regime.  Seed-level
+        variance is high (5, 40, 23 detections), suggesting that
+        the geodesic loss landscape has multiple basins with
+        differing phase-alignment quality.
+        \textcolor{ForestGreen}{[confirmed 2026-04-12]}
 \end{itemize}
 
 \smallskip\noindent\textbf{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\

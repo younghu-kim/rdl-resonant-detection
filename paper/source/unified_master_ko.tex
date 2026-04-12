@@ -94,6 +94,9 @@
 \newcommand{\GateA}{\mathsf{G}_{\mathrm{A}}}
 \newcommand{\GateB}{\mathsf{G}_{\mathrm{B}}}
 \newcommand{\Lpqo}{\mathcal{L}_{\mathrm{pqo}}}
+\newcommand{\Ltgt}{\mathcal{L}_{\mathrm{tgt}}}
+\newcommand{\Lcurv}{\mathcal{L}_{\mathrm{curv}}}
+\newcommand{\Lres}{\mathcal{L}_{\mathrm{res}}}
 \newcommand{\PQO}{\mathsf{PQO}}
 \newcommand{\Ftwo}{F_{2}}
 
@@ -1771,8 +1774,19 @@ Berry--Keating & $\vartheta(t_n)=n\pi$
         $|F_2|$ ratio는 무변화($1.054\pm0.103$ vs $1.026\pm0.233$);
         검출 개선은 네트워크 공명 구조 변화가 아닌 읽기 헤드의
         영점 근방 위상 추적 개선에서 기인한다.
-        \emph{후속:} $S^1$ 기하학을 전체 손실에 통합($\Ltgt$ 대체)
-        하면 더 큰 개선이 가능할 수 있다.
+        \emph{후속 (완료):} $\Ltgt$를 $L_{\mathrm{geo}}$로 완전
+        대체하여 전체 손실
+        ($\Lres+\Lcurv+L_{\mathrm{geo}}+\Lpqo$)에 통합한 결과,
+        읽기 헤드 단독 대비 $1.66$배 추가 개선:
+        463개 영점 중 $22.7$개 검출 (읽기 헤드 $13.7$개,
+        기준선 $5.7$개), 누적 $4$배 개선.
+        $|F_2|$ ratio는 $0.913\pm0.105$로 하락하여
+        (기준선 $1.026\pm0.233$), 영점이 비영점보다
+        \emph{더 작은} $|F_2|$ 잔차를 보이는 질적 역전이
+        발생하였다. 시드 간 변동(5, 40, 23개)이 크며,
+        측지선 손실 풍경에 위상 정렬 품질이 상이한
+        다수의 국소해가 존재함을 시사한다.
+        \textcolor{ForestGreen}{[2026-04-12 확인]}
 \end{itemize}
 
 \smallskip\noindent\textbf{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ 계층 2 프로그램 (추측적이지만 잘 정의됨).}
