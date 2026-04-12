@@ -1,6 +1,6 @@
 """
 =============================================================================
-[Project RDL] S¹ Geodesic 고높이 검증 실험
+[Project RDL] S¹ Geodesic 고높이 검증 실험 v2
 =============================================================================
 수학자 질문: "L_geo가 고높이(t>500)에서도 개선을 주는가?"
 
@@ -11,13 +11,21 @@ s1_full_integration에서 t∈[100,200] 양성 확인 (검출 4배, ratio -11%).
   (A) Baseline: 표준 TotalResonanceLoss (L_tgt 포함)
   (B) S¹ Integration: L_tgt → L_geo 대체
 
-핵심: 고높이에서 영점 밀도 증가 + xi 언더플로 → L_geo 우위가 유지되는가?
+평가 방법: is_near_zero 대신 극소값 탐색 + 매칭 (blind_zero_prediction 방식).
+고높이에서 xi 언더플로로 is_near_zero 마스크가 작동하지 않으므로,
+블라인드 예측 방식(전반부 훈련 → 후반부 dense grid 극소값 탐색)을 사용한다.
+
+v1 → v2 수정:
+  - eval_F2: is_near_zero 마스크 → 극소값 탐색 + 매칭
+  - 시간 분할: 전반부 훈련, 후반부 블라인드 예측
+  - dense grid에서 F₂ 평가 → recall/precision/F1 보고
 """
 
 import sys, os, time
 import numpy as np
 import torch
 import torch.nn as nn
+from scipy.signal import argrelmin
 
 os.environ.setdefault("OMP_NUM_THREADS", "10")
 os.environ.setdefault("MKL_NUM_THREADS", "10")
@@ -34,10 +42,12 @@ from gdl.rdl.losses.total_loss import TotalResonanceLoss
 PrecisionManager.setup_precision()
 
 HIDDEN = 64
-EPOCHS = 100
+EPOCHS = 150
 LR = 1e-3
 BATCH = 32
 IN_FEATURES = 128
+DENSE_GRID_N = 2000
+HIT_THRESHOLD = 0.3   # 전형적 영점 간격의 절반
 
 
 class GeodesicTargetLoss(nn.Module):
@@ -63,37 +73,52 @@ class GeodesicTargetLoss(nn.Module):
         return loss
 
 
-def eval_F2(model, dataset, batch_size=64):
-    """올바른 F₂ 잔차 기반 영점 탐지 평가 (phi/psi/L_G 기반, Z_out.abs() 사용 금지)"""
+def eval_F2_at_points(model, features):
+    """올바른 F₂ 잔차 계산 (phi/psi/L_G 기반, Z_out.abs() 사용 금지)"""
     model.eval()
-    loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False)
-    f2_vals = []
     with torch.enable_grad():
-        for X_batch, _ in loader:
-            X_in = X_batch.to(dtype=PrecisionManager.REAL_DTYPE)
-            X_in.requires_grad_(True)
-            out = model(X_in)
-            phi = out["phi"].detach()
-            psi = out["psi"].detach()
-            L_G = out["L_G"].detach()
-            phi_real = phi.to(dtype=PrecisionManager.REAL_DTYPE)
-            rot = torch.complex(torch.cos(phi_real), -torch.sin(phi_real))
-            psi_c = psi.to(dtype=PrecisionManager.COMPLEX_DTYPE)
-            f2_batch = (rot * (L_G - psi_c)).imag.mean(dim=-1).cpu().numpy()
-            f2_vals.append(f2_batch)
+        X = features.clone().requires_grad_(True)
+        out = model(X)
+    phi = out["phi"].detach()
+    psi = out["psi"].detach()
+    L_G = out["L_G"].detach()
+    phi_real = phi.to(dtype=PrecisionManager.REAL_DTYPE)
+    rot = torch.complex(torch.cos(phi_real), -torch.sin(phi_real))
+    psi_c = psi.to(dtype=PrecisionManager.COMPLEX_DTYPE)
+    return (rot * (L_G - psi_c)).imag.mean(dim=-1).cpu().numpy()
 
-    f2_arr = np.abs(np.concatenate(f2_vals))
-    is_zero = dataset.is_near_zero.numpy()
 
-    f2_zero = f2_arr[is_zero].mean() if is_zero.any() else 0
-    f2_nonzero = f2_arr[~is_zero].mean() if (~is_zero).any() else 1
-    ratio = f2_zero / (f2_nonzero + 1e-12)
+def find_local_minima(t_grid, abs_f2, order=5):
+    """극소값 위치 탐색."""
+    indices = argrelmin(abs_f2, order=order)[0]
+    return t_grid[indices], abs_f2[indices]
 
-    threshold = np.median(f2_arr) * 0.1 if len(f2_arr) > 0 else 0.01
-    detected = int(np.sum(f2_arr[is_zero] < threshold)) if is_zero.any() else 0
-    total_zeros = int(is_zero.sum())
 
-    return f2_zero, f2_nonzero, ratio, detected, total_zeros
+def match_predictions(predicted_t, actual_zeros, threshold):
+    """예측 영점과 실제 영점 매칭."""
+    n_pred = len(predicted_t)
+    if n_pred == 0:
+        return 0, 0.0, 0.0, 0.0
+
+    actual = np.array(actual_zeros)
+    n_actual = len(actual)
+    if n_actual == 0:
+        return 0, 0.0, 0.0, 0.0
+
+    hit_count = 0
+    matched_pred = set()
+    for i, z in enumerate(actual):
+        dists = np.abs(predicted_t - z)
+        j = np.argmin(dists)
+        if dists[j] < threshold and j not in matched_pred:
+            hit_count += 1
+            matched_pred.add(j)
+
+    precision = len(matched_pred) / n_pred if n_pred > 0 else 0.0
+    recall = hit_count / n_actual if n_actual > 0 else 0.0
+    f1 = (2 * precision * recall / (precision + recall)
+          if (precision + recall) > 0 else 0.0)
+    return hit_count, precision, recall, f1
 
 
 def make_loaders(dataset, seed):
@@ -226,18 +251,20 @@ def main():
         (500.0, 600.0),
         (1000.0, 1100.0),
     ]
-    seeds = [42, 7, 123]
+    seeds = [42, 7, 123, 314, 2024]
 
     out = []
     def log(msg):
         print(msg, flush=True); out.append(msg)
 
     log("=" * 72)
-    log("  S¹ Geodesic 고높이 검증: L_tgt vs L_geo at t>500")
+    log("  S¹ Geodesic 고높이 검증 v2: L_tgt vs L_geo at t>500")
     log("=" * 72)
     log(f"  구간: {ranges}")
     log(f"  K={IN_FEATURES}, seeds={seeds}, ep={EPOCHS}")
+    log(f"  평가: 전반부 훈련 → 후반부 블라인드 예측 (극소값 탐색 + 매칭)")
     log(f"  참조: t∈[100,200] 결과 — Baseline 검출 5.7/463, L_geo 검출 22.7/463")
+    log(f"  v1 버그 수정: is_near_zero 마스크 → 극소값 탐색 (xi 언더플로 우회)")
     log("")
 
     start = time.time()
@@ -248,17 +275,30 @@ def main():
         log(f"  구간: t∈[{t_min}, {t_max}]")
         log(f"{'='*72}")
 
+        # 영점 계산
         zeros_list = compute_zeros_in_range(t_min, t_max, dps=25)
         n_zeros = len(zeros_list)
         density = n_zeros / (t_max - t_min)
         log(f"  영점 수: {n_zeros}, 밀도: {density:.3f}/unit")
 
-        cache_path = os.path.expanduser(
-            f'~/Desktop/gdl_unified/outputs/xi_cache_t{t_min}-{t_max}_n1000.pt'
+        # 시간 분할: 전반부 훈련, 후반부 블라인드 예측
+        t_mid = (t_min + t_max) / 2
+        train_zeros = [z for z in zeros_list if z <= t_mid]
+        test_zeros = [z for z in zeros_list if z > t_mid]
+        log(f"  학습: t∈[{t_min},{t_mid}] ({len(train_zeros)}개 영점)")
+        log(f"  예측: t∈[{t_mid},{t_max}] ({len(test_zeros)}개 영점)")
+
+        # 학습 범위 캐시
+        train_cache_path = os.path.expanduser(
+            f'~/Desktop/gdl_unified/outputs/xi_cache_t{t_min}-{t_mid}_n1000.pt'
         )
-        cache_data = get_or_build_cache(cache_path, t_min, t_max, 1000,
-                                         mp_dps=50, zeros_list=zeros_list)
-        ds = XiFeatureDataset(cache_data, in_features=IN_FEATURES)
+        train_cache = get_or_build_cache(train_cache_path, t_min, t_mid, 1000,
+                                          mp_dps=50, zeros_list=train_zeros)
+        train_ds = XiFeatureDataset(train_cache, in_features=IN_FEATURES)
+
+        # 블라인드 예측용 밀집 격자
+        dense_grid = np.linspace(t_mid, t_max, DENSE_GRID_N)
+        dense_grid_list = dense_grid.tolist()
 
         baseline_results = []
         s1_results = []
@@ -266,44 +306,80 @@ def main():
         for s in seeds:
             log(f"\n  --- seed={s} ---")
 
+            # (A) Baseline 훈련 + 평가
             log("    [A: Baseline L_tgt] 훈련...")
             t0 = time.time()
-            model_b, val_b = train_baseline(ds, s)
-            f2z_b, f2nz_b, ratio_b, det_b, tot_z = eval_F2(model_b, ds)
-            dt = time.time() - t0
-            log(f"    val={val_b:.5f}, |F₂| ratio={ratio_b:.4f}, 검출={det_b}/{tot_z}, time={dt:.0f}s")
-            baseline_results.append((val_b, ratio_b, det_b, tot_z, f2z_b, f2nz_b))
+            model_b, val_b = train_baseline(train_ds, s)
 
+            # 블라인드 예측 평가
+            dense_features = train_ds.get_features_at_t(dense_grid_list)
+            f2_b = eval_F2_at_points(model_b, dense_features)
+            abs_f2_b = np.abs(f2_b)
+            pred_t_b, _ = find_local_minima(dense_grid, abs_f2_b, order=5)
+            hits_b, prec_b, rec_b, f1_b = match_predictions(
+                pred_t_b, test_zeros, HIT_THRESHOLD)
+            dt = time.time() - t0
+            log(f"    val={val_b:.5f}, 예측={len(pred_t_b)}개, "
+                f"적중={hits_b}/{len(test_zeros)}, "
+                f"P={prec_b:.3f} R={rec_b:.3f} F1={f1_b:.3f}, {dt:.0f}s")
+            baseline_results.append({
+                'val': val_b, 'hits': hits_b, 'prec': prec_b,
+                'rec': rec_b, 'f1': f1_b, 'n_pred': len(pred_t_b),
+            })
+
+            # (B) S¹ Geodesic 훈련 + 평가
             log("    [B: S¹ Geodesic L_geo] 훈련...")
             t0 = time.time()
-            model_s, val_s = train_s1_integrated(ds, s)
-            f2z_s, f2nz_s, ratio_s, det_s, tot_z = eval_F2(model_s, ds)
+            model_s, val_s = train_s1_integrated(train_ds, s)
+
+            dense_features = train_ds.get_features_at_t(dense_grid_list)
+            f2_s = eval_F2_at_points(model_s, dense_features)
+            abs_f2_s = np.abs(f2_s)
+            pred_t_s, _ = find_local_minima(dense_grid, abs_f2_s, order=5)
+            hits_s, prec_s, rec_s, f1_s = match_predictions(
+                pred_t_s, test_zeros, HIT_THRESHOLD)
             dt = time.time() - t0
-            log(f"    val={val_s:.5f}, |F₂| ratio={ratio_s:.4f}, 검출={det_s}/{tot_z}, time={dt:.0f}s")
-            s1_results.append((val_s, ratio_s, det_s, tot_z, f2z_s, f2nz_s))
+            log(f"    val={val_s:.5f}, 예측={len(pred_t_s)}개, "
+                f"적중={hits_s}/{len(test_zeros)}, "
+                f"P={prec_s:.3f} R={rec_s:.3f} F1={f1_s:.3f}, {dt:.0f}s")
+            s1_results.append({
+                'val': val_s, 'hits': hits_s, 'prec': prec_s,
+                'rec': rec_s, 'f1': f1_s, 'n_pred': len(pred_t_s),
+            })
 
         # 구간 요약
-        br = [r[1] for r in baseline_results]
-        bd = [r[2] for r in baseline_results]
-        sr = [r[1] for r in s1_results]
-        sd = [r[2] for r in s1_results]
-        tot = baseline_results[0][3]
+        n_test = len(test_zeros)
+        log(f"\n  구간 요약: t∈[{t_min},{t_max}], 테스트 영점 {n_test}개")
+        log(f"  {'방식':<25} {'Recall':>10} {'Precision':>12} {'F1':>10} {'적중':>10}")
+        log(f"  {'-'*25} {'-'*10} {'-'*12} {'-'*10} {'-'*10}")
 
-        log(f"\n  구간 요약: t∈[{t_min},{t_max}]")
-        log(f"  {'방식':<25} {'|F₂| ratio':>15} {'검출':>10}")
-        log(f"  {'-'*25} {'-'*15} {'-'*10}")
-        log(f"  {'Baseline (L_tgt)':<25} {np.mean(br):>7.4f}±{np.std(br):.4f} {np.mean(bd):>6.1f}/{tot}")
-        log(f"  {'S¹ Geodesic (L_geo)':<25} {np.mean(sr):>7.4f}±{np.std(sr):.4f} {np.mean(sd):>6.1f}/{tot}")
+        br = [r['rec'] for r in baseline_results]
+        bp = [r['prec'] for r in baseline_results]
+        bf = [r['f1'] for r in baseline_results]
+        bh = [r['hits'] for r in baseline_results]
+        sr = [r['rec'] for r in s1_results]
+        sp = [r['prec'] for r in s1_results]
+        sf = [r['f1'] for r in s1_results]
+        sh = [r['hits'] for r in s1_results]
 
-        ratio_change = (np.mean(sr) - np.mean(br)) / (np.mean(br) + 1e-12) * 100
-        det_improve = np.mean(sd) - np.mean(bd)
-        log(f"  |F₂| ratio 변화: {ratio_change:+.1f}%")
-        log(f"  검출 변화: {det_improve:+.1f}개")
+        log(f"  {'Baseline (L_tgt)':<25} {np.mean(br):>5.3f}±{np.std(br):.3f} "
+            f"{np.mean(bp):>7.3f}±{np.std(bp):.3f} "
+            f"{np.mean(bf):>5.3f}±{np.std(bf):.3f} "
+            f"{np.mean(bh):>5.1f}/{n_test}")
+        log(f"  {'S¹ Geodesic (L_geo)':<25} {np.mean(sr):>5.3f}±{np.std(sr):.3f} "
+            f"{np.mean(sp):>7.3f}±{np.std(sp):.3f} "
+            f"{np.mean(sf):>5.3f}±{np.std(sf):.3f} "
+            f"{np.mean(sh):>5.1f}/{n_test}")
+
+        rec_diff = np.mean(sr) - np.mean(br)
+        f1_diff = np.mean(sf) - np.mean(bf)
+        log(f"  Recall 차이: {rec_diff:+.3f}, F1 차이: {f1_diff:+.3f}")
 
         all_results[(t_min, t_max)] = {
             'baseline': baseline_results,
             's1': s1_results,
             'n_zeros': n_zeros,
+            'n_test': n_test,
             'density': density,
         }
 
@@ -311,52 +387,42 @@ def main():
 
     # 전체 요약
     log(f"\n{'='*72}")
-    log("  전체 요약: L_geo 고높이 효과")
+    log("  전체 요약: L_geo 고높이 효과 (블라인드 예측)")
     log(f"{'='*72}")
-    log(f"  {'구간':<20} {'Baseline 검출':>15} {'L_geo 검출':>15} {'검출 배율':>10} {'ratio 변화':>12}")
-    log(f"  {'-'*20} {'-'*15} {'-'*15} {'-'*10} {'-'*12}")
+    log(f"  {'구간':<20} {'B Recall':>10} {'S¹ Recall':>12} {'Δ Recall':>10} {'B F1':>8} {'S¹ F1':>8} {'Δ F1':>8}")
+    log(f"  {'-'*20} {'-'*10} {'-'*12} {'-'*10} {'-'*8} {'-'*8} {'-'*8}")
 
-    # 기존 t∈[100,200] 참조 데이터
-    log(f"  {'t∈[100,200]*':<20} {'5.7/463':>15} {'22.7/463':>15} {'4.0x':>10} {'-11.0%':>12}")
+    all_rec_diffs = []
+    all_f1_diffs = []
 
     for (t_min, t_max), res in all_results.items():
-        bd_m = np.mean([r[2] for r in res['baseline']])
-        sd_m = np.mean([r[2] for r in res['s1']])
-        tot = res['baseline'][0][3]
-        ratio_b = np.mean([r[1] for r in res['baseline']])
-        ratio_s = np.mean([r[1] for r in res['s1']])
-        ratio_chg = (ratio_s - ratio_b) / (ratio_b + 1e-12) * 100
-        det_mult = sd_m / max(bd_m, 0.1)
-        log(f"  {'t∈['+str(int(t_min))+','+str(int(t_max))+']':<20} {bd_m:>6.1f}/{tot:<8} {sd_m:>6.1f}/{tot:<8} {det_mult:>6.1f}x {ratio_chg:>+10.1f}%")
+        br_m = np.mean([r['rec'] for r in res['baseline']])
+        sr_m = np.mean([r['rec'] for r in res['s1']])
+        bf_m = np.mean([r['f1'] for r in res['baseline']])
+        sf_m = np.mean([r['f1'] for r in res['s1']])
+        label = f"t∈[{int(t_min)},{int(t_max)}]"
+        log(f"  {label:<20} {br_m:>10.3f} {sr_m:>12.3f} {sr_m-br_m:>+10.3f} "
+            f"{bf_m:>8.3f} {sf_m:>8.3f} {sf_m-bf_m:>+8.3f}")
+        all_rec_diffs.append(sr_m - br_m)
+        all_f1_diffs.append(sf_m - bf_m)
 
-    log(f"\n  * t∈[100,200]은 s1_full_integration.txt에서 인용 (동일 설계, ep=150)")
+    avg_rec_diff = np.mean(all_rec_diffs)
+    avg_f1_diff = np.mean(all_f1_diffs)
 
-    # 종합 판정
-    all_det_improve = []
-    all_ratio_improve = []
-    for res in all_results.values():
-        bd_m = np.mean([r[2] for r in res['baseline']])
-        sd_m = np.mean([r[2] for r in res['s1']])
-        ratio_b = np.mean([r[1] for r in res['baseline']])
-        ratio_s = np.mean([r[1] for r in res['s1']])
-        all_det_improve.append(sd_m - bd_m)
-        all_ratio_improve.append((ratio_s - ratio_b) / (ratio_b + 1e-12))
+    log(f"\n  고높이 평균 Recall 차이: {avg_rec_diff:+.3f}")
+    log(f"  고높이 평균 F1 차이: {avg_f1_diff:+.3f}")
 
-    avg_det_improve = np.mean(all_det_improve)
-    avg_ratio_improve = np.mean(all_ratio_improve) * 100
-
-    log(f"\n  고높이 평균 검출 개선: {avg_det_improve:+.1f}개")
-    log(f"  고높이 평균 ratio 변화: {avg_ratio_improve:+.1f}%")
-
-    if avg_det_improve > 3 or avg_ratio_improve < -5:
+    # 판정: recall/F1 기준
+    if avg_rec_diff > 0.05 or avg_f1_diff > 0.03:
         verdict = "양성: L_geo가 고높이에서도 유의미한 개선을 제공"
-    elif avg_det_improve < -3 or avg_ratio_improve > 10:
-        verdict = "음성: L_geo 효과가 고높이에서 소실"
+    elif avg_rec_diff < -0.05 or avg_f1_diff < -0.03:
+        verdict = "음성: L_geo 효과가 고높이에서 소실 또는 악화"
     else:
-        verdict = "중립: 고높이에서 L_geo 효과가 불분명"
+        verdict = "중립: 고높이에서 L_geo 효과가 불분명 (±5%p 이내)"
 
     log(f"\n  판정: {verdict}")
-    log(f"  총 실행 시간: {elapsed:.0f}s")
+    log(f"  5시드, 2구간. 헌법 §3 준수 (≥5시드).")
+    log(f"  총 실행 시간: {elapsed:.0f}s ({elapsed/3600:.1f}h)")
 
     os.makedirs(os.path.expanduser('~/Desktop/gdl_unified/results'), exist_ok=True)
     p = os.path.expanduser('~/Desktop/gdl_unified/results/s1_geo_high_height.txt')

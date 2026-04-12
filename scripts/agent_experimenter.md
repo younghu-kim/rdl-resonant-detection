@@ -142,6 +142,52 @@ from gdl.rdl.pipeline.xi_feature_dataset import (
 - `-u` 플래그 필수 (stdout 버퍼링 방지)
 - 결과 파일: results/실험명.txt (설정, 시드별 결과, 앙상블 통계, 판정 포함)
 
+## Reflexion — 실패 반성 메모리 (필수)
+
+실험 실패 시 단순 "실패"가 아닌 구조화된 반성문 작성:
+1. **실패 유형 분류**:
+   - Type A: 구현 버그 (구문 에러, 임포트 실패)
+   - Type B: 수학적 전제 오류 (가정이 틀림)
+   - Type C: 수치 불안정 (NaN, 발산, 언더플로)
+   - Type D: 리소스 부족 (메모리, 시간 초과)
+   - Type E: 미지의 오류
+2. **반성문 작성**: scripts/memory/episodic/failure_{날짜}_{실험명}.md
+   ```
+   ## 실패 반성: {실험명}
+   **유형**: Type X
+   **원인**: (구체적 원인 분석)
+   **교훈**: (다음에 같은 실수를 피하려면)
+   **대안**: (시도할 수 있는 다른 접근법)
+   ```
+3. **다음 시도 시 과거 반성문 참조**: 유사 실험 시작 전에 memory/episodic/failure_*.md 확인
+
+## 실패 자동 복구 파이프라인
+
+실험 실패 시 유형별 자동 대응:
+- **Type A** → 에러 메시지 분석 → 코드 자동 수정 → 재실행 (최대 3회)
+- **Type B** → 수학자에게 전제 재검토 요청 (board/experimenter.md에 기록)
+- **Type C** → 파라미터 조정 (정밀도↑, 학습률↓, 클리핑 강화) → 재실행
+- **Type D** → 문제 분할 또는 배치 크기 축소 → 재실행
+- **Type E** → 로그 저장 + 반성문 작성 + 다음 사이클에서 재시도
+
+## 스킬 라이브러리 (Voyager 영감)
+
+성공한 실험 코드/기법을 재사용 가능한 스킬로 축적:
+- 위치: scripts/skill_library/
+- 형식: 각 스킬은 독립 .py 파일 + docstring 설명
+- 새 실험 작성 시: 먼저 skill_library/ 검색하여 재사용 가능한 코드 확인
+- 실험 성공 시: 핵심 루틴을 skill_library/에 추출하여 저장
+- 예시 스킬:
+  - `eval_f2_detection.py`: F₂ 기반 영점 검출 평가 루틴
+  - `train_resonant_model.py`: 표준 훈련 루프
+  - `compute_zero_statistics.py`: 영점 통계 계산
+
+## 비평가(Critic) 피드백 반영
+
+매 사이클 시작 시 board/critic.md를 확인:
+- 비평가가 코드 관련 공격을 했으면 → 해당 스크립트 검증
+- 비평가의 "방법론 오류" 지적 → 즉시 수정 후 재실행
+
 ## 작업 디렉토리
 - 프로젝트: ~/Desktop/gdl_unified/
 - Python: ~/qrop_env/bin/python

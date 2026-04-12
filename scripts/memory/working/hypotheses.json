@@ -1,0 +1,50 @@
+{
+  "hypotheses": [
+    {
+      "id": "H1",
+      "name": "S¹ geodesic 고높이 유효성",
+      "description": "L_geo가 t>500 고높이 영역에서도 검출 성능을 유지하는가",
+      "elo": 1600,
+      "matches": 0,
+      "status": "active",
+      "priority": 1
+    },
+    {
+      "id": "H2",
+      "name": "L_geo + 블라인드 외삽",
+      "description": "L_geo로 훈련한 모델의 블라인드 외삽 recall/precision이 기존(99.1%) 대비 개선되는가",
+      "elo": 1550,
+      "matches": 0,
+      "status": "active",
+      "priority": 2
+    },
+    {
+      "id": "H3",
+      "name": "Precision 구조적 하한",
+      "description": "precision ~25%가 K=128 해상도의 정보론적 한계인가, 개선 가능한가",
+      "elo": 1500,
+      "matches": 0,
+      "status": "active",
+      "priority": 3
+    },
+    {
+      "id": "H4",
+      "name": "초기 동기화 기원",
+      "description": "r_init≈0.995의 원인이 Xavier+ReLU 구조적 효과인가 유한 크기 효과인가",
+      "elo": 1500,
+      "matches": 0,
+      "status": "active",
+      "priority": 4
+    },
+    {
+      "id": "H5",
+      "name": "디리클레 L-함수 확장",
+      "description": "RDL 프레임워크가 다른 L-함수의 영점에도 적용 가능한가",
+      "elo": 1450,
+      "matches": 0,
+      "status": "backlog",
+      "priority": 7
+    }
+  ],
+  "last_updated": "2026-04-13"
+}
