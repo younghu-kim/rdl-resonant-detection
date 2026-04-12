@@ -1,5 +1,86 @@
 # RDL 자율 연구 일지
 
+## 2026-04-13 수학자 사이클 (Kuramoto 심층 분석)
+**상황**: kuramoto_order_parameter.txt (양성) 최종 분석. 모든 결과 반영 완료 상태.
+
+**Kuramoto 핵심 수학적 발견**:
+1. r_final=0.9994, std ratio 3.43x — 논문 Obs 8.6 정량 재현
+2. **전이 아닌 정련**: r_init≈0.995 (무작위면 1/√64≈0.125). 초기화에서 이미 동기화.
+3. von Mises 자기일관성 확인: σ=0.032 → r=exp(-σ²/2)=0.9995 ≈ 실측
+4. **삼각 연결 발견**: von Mises 분포 ↔ L_geo(=NLL) ↔ Kuramoto r 최대화
+   - L_geo를 쓰면 von Mises MLE를 자연스럽게 수행 → 이론적으로 최적
+   - L_tgt(atan2)는 이 통계적 구조와 무관 → 차선
+5. t-범위 불변성: [10,50]과 [100,200]에서 동일 → 보편적 현상
+
+**새 명제 후보**: Spontaneous Gauge Fixing
+- U(1)^H → U(1) 자발적 대칭 파괴
+- r_init ≈ 1 - O(1/H), 학습은 κ를 O(H)→O(H²)로 정련
+- 검증 필요: H-스케일링 실험
+
+**다음 실험 우선순위 (실험자에게)**:
+1순위: H-스케일링 (H=16,32,64,128,256에서 r_init 측정) — Prop 검증
+2순위: FP 해부 (|F₂|'' 부호, FP-zero 거리, GUE 비교) — precision 원인
+3순위: L_geo vs L_tgt 동기화 궤적 비교 — 인과성 검증 (병렬 가능)
+
+**논문 수정 제안**: Obs 8.6 "전이"→"supercritical 정련" 재해석 (저술가에게)
+
+**보드 업데이트 완료**: mathematician.md
+
+## 2026-04-12 수학자 사이클 (전략 정리)
+**상황**: 새 결과 없음. 6실험 모두 완료 및 논문 반영 완료. 전략적 방향 재정립 시점.
+
+**이론적 위치 정리**:
+확립: (1) r→1 자발적 게이지 고정, (2) von Mises κ≈980, (3) L_geo=von Mises NLL, (4) S¹ geodesic 4배 개선, (5) t-범위 불변성
+미해결: (1) r_init≈0.995 기원, (2) precision ~25% 구조적 원인, (3) L_geo↔동기화 인과성
+
+**다음 실험 우선순위 결정**:
+1순위: 초기 동기화 기원 — H/N 스케일링 실험. Xavier+ReLU 구조 vs 유한 크기 구분.
+  이론적 추측: 3층 ReLU의 실수 가중치가 출력 위상의 다양성을 억제 → r_init≫1/√H.
+  Marchenko-Pastur 분포로 정량화 가능할 수 있음.
+2순위: FP 해부 — |F₂|'' 부호, FP→true zero 거리, GUE pair correlation 비교.
+  정보론적 추측: 해상도 ~(b-a)/(2K)가 FP의 자연 하한.
+3순위: L_geo+Kuramoto — 인과성 검증. 빠른 실험이므로 1순위와 병렬 가능.
+
+**실행**: team_board.md 수학자 섹션 업데이트
+
+## 2026-04-13 수학자 사이클
+**상황**: kuramoto_order_parameter.txt 양성 + s1_full_integration.txt 양성 분석.
+
+**Kuramoto 수학적 분석**:
+- r_final=0.9994±0.0001, std(φ) ratio 3.43±0.09x → 논문 Obs 8.6 정량적 재현
+- **핵심 발견**: 전이가 아닌 정련. 초기 r≈0.995 (무작위 위상이면 1/√64≈0.125)
+- von Mises 자기일관성 검증: σ=0.032 → r=exp(-σ²/2)=0.9995 vs 실측 0.9994 (일치)
+- 물리적 해석: 게이지 위상 φ_j(x)→const = 자발적 게이지 고정 (U(1)^H→U(1))
+- L_geo=1-cos(Δφ)는 von Mises 음의 로그우도 → 동기화와 자연스러운 정합
+
+**새 명제 후보**: Spontaneous Gauge Fixing Proposition
+  φ_j(x)→const는 U(1)^H 대칭 파괴. κ≈1/σ²≈980 (강결합 Kuramoto supercritical)
+
+**논문 수정 제안**: Obs 8.6의 "~10 에포크 전이"를 "supercritical 정련"으로 재해석.
+  실측에서 r>0.99은 에포크 0부터. 전이는 초기화에서 이미 발생.
+
+**다음 수학적 질문 (실험자 확인 필요)**:
+1. L_geo 학습 시 r 궤적이 L_tgt와 다른가? (cos 손실 = von Mises MLE이므로 더 빠른 동기화 예상)
+2. 에포크별 κ(t)와 검출 성능의 상관관계
+3. N→∞(데이터 점 수 증가)에서 r_init 변화 → 초기 동기화가 구조적인지 유한 크기 효과인지
+
+**실행**: team_board.md "수학자 → 전체" 업데이트, research_journal.md 기록
+
+## 2026-04-13 저술가 사이클
+**상황**: kuramoto_order_parameter.txt 양성 결과 도착. EN/KO tex에 이미 반영 확인.
+  - rem:kuramoto_transition에 [confirmed 2026-04-12] 마킹 완료
+  - sec:open Tier 2 항목에 [completed 2026-04-12] 마킹 완료
+  - .reflected에 미등록 상태였음 → 등록 완료
+
+**실행**: 
+  - .reflected에 kuramoto_order_parameter.txt 추가
+  - 최신 PDF(20:09) → ~/Desktop/수학최종논문/ 및 ~/Desktop/gdl_unified/paper/ 배포
+  - TeX 소스 → ~/Desktop/gdl_unified/paper/source/ 동기화
+  - team_board.md 저술가 섹션 업데이트
+
+**현재 논문 상태**: EN ~46p, KO ~42p, 반영 대기 없음
+**누적 반영**: kuramoto(양성), s1_full_integration(양성), high_height(양성), s1_geodesic_readout(양성), precision_filter(중립), complex_vector(중립)
+
 ## 2026-04-13 02:25 사이클
 **상황**: s1_full_integration.py 실행 중 (PID 62487, ~10시간 경과).
   - seed=42 완료: Baseline 검출=7/463 (F₂=0.894), S¹ Geo 검출=5/463 (F₂=1.059)
@@ -302,3 +383,9 @@
 **판단**: 휴식. CPU 포화, 새 결과 없음, 코드 리뷰 완료. 대기가 최적.
 **예상 완료**: complex_vector ~2-3h > precision_filter ~3-5h > high_height ~6-10h
 **다음**: complex_vector_readout.txt 도착 시 즉시 Phase 1 수행.
+
+## 2026-04-12 18:12 에러
+**에러**: exit code 1. 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/run_20260412_175921.log
+
+## 2026-04-12 20:09 에러
+**에러**: exit code 1. 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/run_20260412_184259.log

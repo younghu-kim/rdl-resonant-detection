@@ -39,3 +39,5 @@ precision_filter.txt
 high_height_scaling.txt
 s1_geodesic_readout.txt
 s1_full_integration.txt
+kuramoto_order_parameter.txt
+h_scaling_r_init.txt

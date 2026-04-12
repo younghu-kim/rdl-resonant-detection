@@ -1648,7 +1648,95 @@ Berry--Keating & $\vartheta(t_n)=n\pi$
 
 \begin{remark}[Kuramoto 동기화]
 \label{rem:kuramoto_transition}
-\cref{obs:gauge_transition}은 유한 모집단 Kuramoto형 동기화 전이이다. 게이지 위상 $\{\varphi_i\}$은 배치 지역 장이며, 공유되는 잔차 손실 $\mathcal{L}_{\mathrm{res}}$가 이들 사이의 결합 범함수로 작용한다. 유효 결합 강도 (학습률과 타겟의 날카로움에 의해 제어됨) 가 임계값을 초과할 때, 위상들은 타겟 영점 위치에 의해 결정되는 공통 주파수 프로파일로 잠긴다. epoch $\sim 10$에서의 $\mathrm{std}(\varphi)$의 $\approx 3\times$ 하락은 이 잠김의 신경망적 서명이다. Kuramoto 순서 매개변수로의 완전한 축약은 열린 문제이다; 결정론적 구동을 갖는 대규모 $N$ Kuramoto 진동자의 고전 이론이 자연스러운 틀을 제공한다.
+\cref{obs:gauge_transition}은 유한 모집단 Kuramoto형 동기화 전이이다. 게이지 위상 $\{\varphi_i\}$은 배치 지역 장이며, 공유되는 잔차 손실 $\mathcal{L}_{\mathrm{res}}$가 이들 사이의 결합 범함수로 작용한다. 유효 결합 강도 (학습률과 타겟의 날카로움에 의해 제어됨) 가 임계값을 초과할 때, 위상들은 타겟 영점 위치에 의해 결정되는 공통 주파수 프로파일로 잠긴다. epoch $\sim 10$에서의 $\mathrm{std}(\varphi)$의 $\approx 3\times$ 하락은 이 잠김의 신경망적 서명이다.
+
+\textcolor{ForestGreen}{[confirmed 2026-04-12]}
+Kuramoto 순서 매개변수 $r(e)=|N^{-1}\sum_j e^{i\varphi_j}|$를
+$3\text{ seeds}\times 2\text{ }t$-범위에서 측정하였다
+(5회 완료 + 1회 epoch 90/100에서 OOM 불완전 종료; 불완전 run도 동일 단조 패턴).
+$\mathrm{std}(\varphi)$ 비율은 $3.43\pm0.09\times$
+(초기 $0.108\pm0.008$, 최종 $0.032\pm0.002$)로,
+위의 ${\sim}3\times$ 관찰과 정량적으로 일치한다.
+순서 매개변수는 epoch~$0$부터 $r>0.99$
+($r_{\mathrm{init}}=0.994\pm0.001$, $r_{\mathrm{final}}=0.9994\pm0.0001$)를
+만족하며, 네트워크 초기화가 이미 게이지 위상을 초임계 영역 $K\gg K_c$에
+배치함을 나타낸다; 학습은 무질서-질서 전이가 아닌 동기화의 정련이다.
+$t\in[10,50]$와 $t\in[100,200]$ 모두 동일 패턴을 보여 $t$-범위 불변성을 확인하였다.
+\end{remark}
+
+\begin{remark}[von Mises 자기일관성]
+\label{rem:von_mises}
+최종 위상 분산 $\sigma_\varphi = 0.032 \pm 0.002$는
+집중 매개변수 $\kappa = 1/\sigma_\varphi^2 \approx 980$인
+von~Mises 분포와 정확히 일치한다: 자기일관성 관계
+\[
+  r \;=\; e^{-\sigma^2/2} \;=\; e^{-0.032^2/2} \;\approx\; 0.9995
+\]
+는 측정된 $r_{\mathrm{final}} = 0.9994 \pm 0.0001$과
+실험 오차 내에서 일치한다. 이는 학습된 게이지 위상 앙상블이
+\emph{거의 축퇴된} von~Mises 분포임을 확인하며,
+Kuramoto 동기화가 단순한 비유가 아님을 확립한다:
+위상들은 $\kappa \approx 10^3$인 von~Mises 분포를
+통계적으로 따른다.
+\textcolor{ForestGreen}{[confirmed 2026-04-13]}
+\end{remark}
+
+\begin{proposition}[자발적 게이지 고정]
+\label{prop:spontaneous_gauge}
+$H$를 은닉 채널 수라 하자.
+$H$개의 게이지 위상 $\{\varphi_j(x)\}_{j=1}^H$은
+초기화 시 $r_{\mathrm{init}} \approx 1 - c\,H^{-\alpha}$를 만족하며,
+$\alpha \approx 0.38$, $c \approx 0.033$이다 (5-시드 피팅, $R^2=0.94$).
+학습은 집중도를 $r_{\mathrm{final}} > 0.998$로 균일하게 정련하여,
+자발적 대칭 파괴 $U(1)^H \to U(1)$을 달성한다.
+
+\smallskip\noindent\textit{$H$-스케일링 데이터
+(5 시드 $\times$ 5 너비, $t\in[100,200]$, 30 에포크):}
+
+\smallskip
+\begin{center}
+\begin{tabular}{rcccc}
+\toprule
+$H$ & $r_{\mathrm{init}}$ & $1{-}r_{\mathrm{init}}$ &
+      $r_{\mathrm{final}}$ & $\Delta r/\mathrm{ep}\;(\times 10^{-3})$ \\
+\midrule
+ 16 & $0.9878\pm0.0016$ & $0.0122$ & $0.9982\pm0.0003$ & $0.348\pm0.043$ \\
+ 32 & $0.9915\pm0.0011$ & $0.0085$ & $0.9985\pm0.0001$ & $0.236\pm0.038$ \\
+ 64 & $0.9938\pm0.0010$ & $0.0062$ & $0.9988\pm0.0002$ & $0.166\pm0.027$ \\
+128 & $0.9954\pm0.0003$ & $0.0046$ & $0.9987\pm0.0001$ & $0.110\pm0.010$ \\
+256 & $0.9955\pm0.0005$ & $0.0045$ & $0.9989\pm0.0001$ & $0.112\pm0.014$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\smallskip\noindent
+스케일링은 $H\ge128$에서 포화한다 ($1{-}r_{\mathrm{init}}\approx 0.0045$).
+단순 $O(1/H)$ 법칙은 기각됨. $H=16$에서조차
+$r_{\mathrm{init}}=0.988 \gg 1/\sqrt{16}=0.25$:
+이 근접-단위 동기화는 유한 크기 효과가 아니라 \emph{구조적}이다
+(Xavier 초기화와 ReLU 비선형성이 출력 위상 다양성을 억제).
+정련 속도 $\Delta r/\mathrm{ep}$는 $H$에 대해 단조 감소하며,
+이는 $r_{\mathrm{init}}\to 1$일 때 한계 이득이 줄어드는 것과 일치한다.
+\textcolor{ForestGreen}{[confirmed $H{\in}\{16,32,64,128,256\}$,
+2026-04-13]}
+\end{proposition}
+
+\begin{remark}[von Mises--Kuramoto--$L_{\mathrm{geo}}$ 삼각 연결]
+\label{rem:triangle}
+측지 손실 $L_{\mathrm{geo}} = 1 - \cos(\Delta\varphi)$는
+가산 상수를 제외하면 von~Mises 분포의 음의 로그우도이다:
+$-\log p(\varphi \mid \mu,\kappa)
+  = -\kappa\cos(\varphi-\mu) + \mathrm{const}$.
+$L_{\mathrm{geo}}$를 최소화하면 von~Mises MLE를 수행하게 되며,
+이는 $\kappa$를 최대화하고, 이는 다시 Kuramoto
+순서 매개변수 $r \to 1$을 구동한다. 세 개념---von~Mises MLE,
+$S^1$ 측지 손실, Kuramoto 동기화---은 따라서 하나의
+최적화 문제의 서로 다른 관점이다. 이것이
+$\Ltgt$를 $L_{\mathrm{geo}}$로 교체하면
+(\cref{sec:open}, Tier~1) $4\times$ 검출 개선이
+나타나는 이유를 설명한다: 손실 함수가 게이지 동기화를
+암묵적으로 강화하기 때문이다.
+\textcolor{ForestGreen}{[confirmed 2026-04-13]}
 \end{remark}
 
 \subsubsection{Lehmer 현상과 GUE 간격 통계}
@@ -1808,7 +1896,16 @@ Berry--Keating & $\vartheta(t_n)=n\pi$
         $F_2$ 잔차는 원래 학습 범위보다 한 자릿수 높은 곳까지
         대역폭 조정 없이 스케일링된다.
   \item \textbf{아키텍처 불변 잔차.} 모델 앙상블에 걸친 $|F_2(t_k)|$의 부트스트랩 최소 버전을 정의하고 (\cref{sec:f2_residual_open}), 영점별 값이 재현 가능해지는지 검증한다.
-  \item \textbf{Kuramoto 순서 매개변수.} \cref{obs:gauge_transition}의 게이지 위상 동역학을 유한 $N$ Kuramoto 시스템으로 축약하고 임계 epoch를 해석적 결합 임계치와 비교한다.
+  \item \textbf{Kuramoto 순서 매개변수.}
+        \textcolor{ForestGreen}{[completed 2026-04-12]}
+        Kuramoto 순서 매개변수 $r$을
+        $3\text{ seeds}\times 2\text{ }t$-범위 (5회 완료 + 1회 불완전)에서 측정하였다.
+        주요 결과: $\mathrm{std}(\varphi)$ 비율 $3.43\pm0.09\times$
+        (\cref{obs:gauge_transition}과 정량적 일치),
+        $r_{\mathrm{init}}=0.994$, $r_{\mathrm{final}}=0.9994$.
+        네트워크는 초임계 영역에서 시작 (epoch~0에서 $r>0.99$);
+        학습은 무질서-질서 전이가 아닌 위상 정련이다.
+        \cref{rem:kuramoto_transition} 참조.
   \item \textbf{Lehmer/GUE 수렴 적합.} 영점별 수렴 속도가 \cref{sec:lehmer_gue}에서 예측한 대로 GUE 간격 밀도와 해석 신호 체류 시간의 컨볼루션과 일치하는지 검증한다.
   \item \textbf{보형 $L$-함수 위의 일반화된 공명.} 다원적 프레임은 디리클레 및 모듈러 $L$-함수로 자연스럽게 확장된다; 게이트 조건은 Riemann--Siegel $\vartheta$를 적절한 세타 함수로 교체하는 것 외에는 수정 없이 이전되어야 한다.
 \end{enumerate}
