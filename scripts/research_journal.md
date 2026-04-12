@@ -1,5 +1,67 @@
 # RDL 자율 연구 일지
 
+## 2026-04-12 07:30 사이클
+**상황**: high_height v2 프로세스가 ep60까지 진행 후 종료됨 (에러 로그 없음 — 외부 kill 추정). 캐시(t100-200, t100-150, dps130)는 남아있음.
+**실행**: v2 재시작 (PID 58296, 777% CPU). 캐시 재사용으로 즉시 학습 시작. 예상 총 6-7시간.
+**다음**: v2 완료 대기. 완료 시 즉시 Phase 1 + S¹ geodesic 시작.
+
+## 2026-04-12 05:30 사이클
+**상황**: high_height_scaling.py (v1) 22시간 실행 중 — **두 가지 치명적 버그 발견**:
+
+1. **F₂ 평가 방법 오류**: `Z_out.abs()` (단순 출력 진폭) 사용.
+   올바른 F₂ 잔차는 `(e^{-iφ}·(L_G - ψ)).imag` (blind_zero_prediction.py 방식).
+   이로 인해 t∈[100,200]에서도 det=0/463, ratio≈1.0 (모든 검출 실패).
+
+2. **xi 정밀도 언더플로**: t∈[500,600]에서 |xi| ~ 10^{-166}.
+   `sqrt(real² + imag²)` 계산 시 real² ~ 10^{-332} → float64 subnormal 한계(5e-324) 초과 → amplitude 전부 0.
+   결과: is_near_zero 마스크 전부 False → ratio=0.000, det=0/0.
+   근본 원인: xi(1/2+it) ~ exp(-πt/4) 지수적 감쇠.
+   참고: 학습 자체는 xi 타겟을 사용하지 않으므로(TotalResonanceLoss는 자기지도적) 정상 진행되었으나, 평가가 완전히 무효.
+
+**판단**: v1 실험 중단, 수정된 v2 작성.
+
+**실행**:
+  - PID 54990 (v1) 종료, 잘못된 t500-600 캐시 삭제
+  - high_height_scaling_v2.py 작성:
+    - 올바른 F₂ 잔차 사용 (blind_zero_prediction.py 방식)
+    - 극소값 탐색 + 매칭 방식으로 영점 검출 (is_near_zero 의존 제거)
+    - 전반부 학습 → 후반부 블라인드 예측 (실제 외삽 능력 검증)
+    - dps 스케일링: max(50, int(t_max*0.5)+30) — 고높이 캐시 정밀도 보장
+    - early stopping + best model 저장
+  - v2 실행 시작 (PID 57251, 706% CPU)
+  - s1_geodesic_readout.py의 eval_F2도 동일 버그 수정 (다음 실험 대비)
+
+**진행 중**: high_height_scaling_v2 — t∈[100,200] K=128 seed=42 학습 중 (ep 30/150, 210s)
+**예상 총 소요**: 7-8시간 (3 range × 2 K × 3 seed = 18 runs + 3 캐시 계산)
+
+**핵심 교훈**:
+  - eval_F2는 반드시 phi/psi/L_G 기반 잔차를 사용해야 함 (Z_out.abs()는 무의미)
+  - t > 300에서는 xi 값의 지수적 감쇠로 인해 float64 제곱 연산도 언더플로 가능
+  - 고높이 영점 검출은 is_near_zero 마스크 대신 극소값 탐색이 강건함
+
+**다음**: v2 완료 시 결과 분석 → 논문 반영 → S¹ geodesic 실험 시작
+
+## 2026-04-12 03:15 사이클
+**상황**: precision_filter 실험 완료 — **중립 판정**.
+  - 5시드, t∈[100,150]→[150,200], K=128, 200ep, 2000점 밀집격자
+  - 원시 정밀도 28.4%, 최고 F1=0.430 (앙상블 ≥2: P=32.7%, R=63.0%)
+  - 깊이 필터 너무 공격적 (전부 제거), 간격 필터 재현율만 저하
+  - 결론: 낮은 정밀도는 |F₂| 풍경 내재적 한계, 사후 휴리스틱으로 교정 불가
+
+**실행**:
+  - 논문 EN/KO Tier 1 블라인드 외삽 항목에 필터 결과 추가 [neutral 2026-04-12]
+  - PDF 컴파일·배포, git commit+push 완료
+  - high_height_scaling.py (최적화판) 단독 실행 시작 (PID 54990, 817% CPU)
+  - S¹ geodesic 스크립트 준비 완료 (scripts/s1_geodesic_readout.py)
+
+**진행 중**: high_height_scaling — t[100,200] K=128 첫 run 학습 중. 예상 총 5-7시간 (18 runs + 영점계산 2회)
+
+**판단**: high_height가 장시간 소요되므로 대기. 완료 시:
+  - 양성 (고높이에서 성능 유지): Tier 2 항목 1 + sec:f2_residual_open 업데이트
+  - 음성 (성능 저하): K 스케일링 법칙 도출 필요
+
+**다음**: high_height 완료 후 → 결과 반영 → S¹ geodesic 실험 시작 (±π 해결 다음 후보)
+
 ## 2026-04-12 02:15 사이클
 **상황**: complex_vector_readout 실험 완료 — **중립 판정**.
   - 3시드 (42,7,123), t∈[100,200], K=128, 150ep

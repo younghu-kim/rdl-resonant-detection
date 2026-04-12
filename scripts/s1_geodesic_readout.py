@@ -35,7 +35,9 @@ BATCH = 32
 
 
 def eval_F2(model, dataset, batch_size=64):
-    """F₂ 기반 영점 탐지 평가 (배치 처리)"""
+    """올바른 F₂ 잔차 기반 영점 탐지 평가 (배치 처리)
+    F₂ = (e^{-iφ} · (L_G - ψ)).imag — blind_zero_prediction.py 와 동일
+    """
     model.eval()
     loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False)
     f2_vals = []
@@ -44,18 +46,25 @@ def eval_F2(model, dataset, batch_size=64):
             X_in = X_batch.to(dtype=PrecisionManager.REAL_DTYPE)
             X_in.requires_grad_(True)
             out = model(X_in)
-            Z = out['Z_out']
-            f2_batch = Z.abs().mean(dim=-1).detach().numpy()
+            phi = out["phi"].detach()
+            psi = out["psi"].detach()
+            L_G = out["L_G"].detach()
+            phi_real = phi.to(dtype=PrecisionManager.REAL_DTYPE)
+            rot = torch.complex(torch.cos(phi_real), -torch.sin(phi_real))
+            psi_c = psi.to(dtype=PrecisionManager.COMPLEX_DTYPE)
+            f2_batch = (rot * (L_G - psi_c)).imag.mean(dim=-1).cpu().numpy()
             f2_vals.append(f2_batch)
 
-    f2_arr = np.concatenate(f2_vals)
+    f2_arr = np.abs(np.concatenate(f2_vals))
     is_zero = dataset.is_near_zero.numpy()
 
     f2_zero = f2_arr[is_zero].mean() if is_zero.any() else 0
     f2_nonzero = f2_arr[~is_zero].mean() if (~is_zero).any() else 1
     ratio = f2_zero / (f2_nonzero + 1e-12)
 
-    detected = int(np.sum(f2_arr[is_zero] < 0.01)) if is_zero.any() else 0
+    # 영점 검출: F₂ 잔차가 중앙값의 10% 미만
+    threshold = np.median(f2_arr) * 0.1 if len(f2_arr) > 0 else 0.01
+    detected = int(np.sum(f2_arr[is_zero] < threshold)) if is_zero.any() else 0
     total_zeros = int(is_zero.sum())
 
     return f2_zero, f2_nonzero, ratio, detected, total_zeros
@@ -370,7 +379,7 @@ def main():
     log(f"    비영점:    {np.mean(err_nz):.4f}±{np.std(err_nz):.4f}")
     log(f"    비율:     {np.mean(err_z)/(np.mean(err_nz)+1e-12):.2f}x")
 
-    log(f"\n  ��� 실행 시간: {elapsed:.0f}s")
+    log(f"\n  총 실행 시간: {elapsed:.0f}s")
 
     if np.mean(sr) < np.mean(br) * 0.8 or np.mean(sd) > np.mean(bd) * 1.2:
         verdict = "양성: S¹ geodesic이 유의미하게 개선"
