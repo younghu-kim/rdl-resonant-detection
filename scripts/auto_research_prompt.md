@@ -234,6 +234,9 @@ CPU 12코어 환경에서 병렬 실행 시 경합으로 오히려 전체가 느
 - [ ] ξ 영점 근방 판정: 절대값 `1e-40` 사용 금지 → 상대 판정 `abs(val) < mpmath.mpf(10)**(-mpmath.mp.dps + 10)`
 - [ ] κ FWHM 측정 시 half_width > nearest neighbor Δt 이어야 inter-zero 효과 포착. 그렇지 않으면 avoid_delta의 기기 해상도만 측정 (FWHM ≈ 2√2 × avoid_delta).
 - [ ] δ-강건성: κ 상관을 주장하려면 최소 3개 δ에서 ρ 일관성 확인 필수 (아티팩트 배제).
+- [ ] d_zero 등 κ-독립 측정은 κ cap 필터와 분리할 것. `valid_results` (cap 제외)가 아닌 `all_results`에서 추출. 사이클 #24 Gram 점에서 bad d_zero 누락 버그.
+- [ ] Bad Gram 점 빈도: n=0..200에서 3개, n=0..500에서 ~15개. 통계 검정력 확보를 위해 최소 n=0..500 필요.
+- [ ] Bad Gram 점 κ 측정: d_zero≈0.01이므로 δ=0.03은 cap 필연. δ≥0.1 필요.
 
 ##### 방법론 검증
 - [ ] baseline과 실험군의 조건이 동일한가?
