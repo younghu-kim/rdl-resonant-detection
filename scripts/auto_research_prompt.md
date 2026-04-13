@@ -237,6 +237,8 @@ CPU 12코어 환경에서 병렬 실행 시 경합으로 오히려 전체가 느
 - [ ] d_zero 등 κ-독립 측정은 κ cap 필터와 분리할 것. `valid_results` (cap 제외)가 아닌 `all_results`에서 추출. 사이클 #24 Gram 점에서 bad d_zero 누락 버그.
 - [ ] Bad Gram 점 빈도: n=0..200에서 3개, n=0..500에서 ~15개. 통계 검정력 확보를 위해 최소 n=0..500 필요.
 - [ ] Bad Gram 점 κ 측정: d_zero≈0.01이므로 δ=0.03은 cap 필연. δ≥0.1 필요.
+- [ ] Dirichlet κ 계산: bare L'/L 사용 금지. Λ'/Λ = (1/2)log(q/π) + (1/2)ψ((s+a)/2) + L'/L 해석적 공식 사용. bare L'/L에 ψ~log(t) 혼입 → ρ(κ,density)=0.97.
+- [ ] 디리클레 영점 탐색: Re(Λ) 부호 변화 + 적응형 tol (func_scale × 1e-10). abs(Λ)<임계값 불가 (대형 t에서 Λ underflow).
 
 ##### 방법론 검증
 - [ ] baseline과 실험군의 조건이 동일한가?
