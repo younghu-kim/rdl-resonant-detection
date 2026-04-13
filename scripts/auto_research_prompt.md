@@ -232,6 +232,8 @@ CPU 12코어 환경에서 병렬 실행 시 경합으로 오히려 전체가 느
 - [ ] np.array(peaks) → np.array(peaks, dtype=int) (인덱싱용)
 - [ ] mpmath.mp.dps: t>100이면 dps≥80 필수 (ξ 언더플로). t<50이면 dps=30 OK.
 - [ ] ξ 영점 근방 판정: 절대값 `1e-40` 사용 금지 → 상대 판정 `abs(val) < mpmath.mpf(10)**(-mpmath.mp.dps + 10)`
+- [ ] κ FWHM 측정 시 half_width > nearest neighbor Δt 이어야 inter-zero 효과 포착. 그렇지 않으면 avoid_delta의 기기 해상도만 측정 (FWHM ≈ 2√2 × avoid_delta).
+- [ ] δ-강건성: κ 상관을 주장하려면 최소 3개 δ에서 ρ 일관성 확인 필수 (아티팩트 배제).
 
 ##### 방법론 검증
 - [ ] baseline과 실험군의 조건이 동일한가?
