@@ -69,6 +69,11 @@ ps aux | grep qrop_env | grep -v grep # 실행 중 실험
 - [ ] `python -u` 플래그 필수 (버퍼링 방지)
 - [ ] t>300: `is_near_zero` 마스크 절대 사용 금지
 
+#### 에러 처리 규칙
+- [ ] `except: pass` 절대 금지 — 최소 `except Exception as e: print(f"WARNING: {e}")`
+- [ ] 영점 0개 반환 시 즉시 경고 출력 (`if len(zeros) == 0: print("⚠️ 영점 0개 — 탐색 로직 점검 필요")`)
+- [ ] `findroot` 실패 횟수 카운트 → 절반 이상 실패 시 중단
+
 #### 방법론 검증
 - [ ] baseline과 실험군 조건 동일한가?
 - [ ] train/test 분리 올바른가?
