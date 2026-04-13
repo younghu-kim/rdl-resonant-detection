@@ -76,6 +76,35 @@ TeX 컴파일 실패 → Stage 3 재시도
 3회 모두 실패 → 반성문 작성 + 사이클 중단
 ```
 
+## 수학적 우선순위 시스템 (v3.1)
+
+### 문제
+overnight 탐사가 33시간+ CPU를 점유하면서, 수학적으로 더 중요한 과제
+(FP 해부, 초기 동기화 기원 등)가 진행되지 못하는 문제 발생.
+
+### 해결
+수학자(Stage 1)에게 **CPU 자원 배분의 최종 결정권** 부여.
+
+### 구조
+```
+board/priority.md          — 수학자만 쓰는 우선순위 명령 파일
+  ↓ (매 사이클 시작 시 읽음)
+run_cycle.sh
+  ├─ check_and_enforce_priority()   — KILL_PID 명령 실행
+  ├─ process_priority_commands()    — PAUSE/RESUME 명령 실행
+  └─ check_exploration_convergence()— 자동 수렴 감지 → 수학자에 보고
+```
+
+### 수학자 판단 기준
+1. **즉시 kill**: 탐사 3구간+ 안정 (변동 <15%) → 데이터 충분
+2. **일시 중지**: 긴급 과제 있으나 탐사 미완
+3. **방치**: CPU 유휴 + 수학 과제 없음
+4. **원칙**: 넓은 brute-force < 깊은 수학적 분석
+
+### 자동 감지
+- 6시간+ 장기 프로세스 → 수학자 보드에 경고 자동 기록
+- exploration_summary.json의 최근 3구간 CV < 0.15 → 수렴 경고
+
 ## 실행 방식
 
 ### 방식 A: 순차 CLI (현재)

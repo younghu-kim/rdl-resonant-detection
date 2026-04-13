@@ -90,6 +90,125 @@ check_user_lock() {
 lock()   { touch "$LOCK_FILE"; ok "사용자 잠금 설정"; }
 unlock() { rm -f "$LOCK_FILE"; ok "사용자 잠금 해제"; }
 
+# ─── 백그라운드 프로세스 감시 ───
+
+# 수학자가 board에 우선순위 명령을 남기면 실행
+PRIORITY_FILE="$BOARD_DIR/priority.md"
+
+check_and_enforce_priority() {
+    # 1) 수학자 우선순위 파일에 kill 지시가 있으면 실행
+    if [ -f "$PRIORITY_FILE" ]; then
+        local kill_pids
+        kill_pids=$(grep -oP '(?<=KILL_PID:)\d+' "$PRIORITY_FILE" 2>/dev/null)
+        if [ -n "$kill_pids" ]; then
+            for pid in $kill_pids; do
+                if ps -p "$pid" > /dev/null 2>&1; then
+                    warn "수학자 우선순위 명령: PID $pid kill"
+                    kill "$pid" 2>/dev/null && ok "PID $pid 종료" || warn "PID $pid kill 실패"
+                fi
+            done
+        fi
+    fi
+
+    # 2) 장시간 brute-force 탐사 자동 감지
+    local long_running
+    long_running=$(ps aux | grep -E "python.*overnight|python.*exploration|python.*continuous" \
+        | grep -v grep | awk '{
+        split($10, t, ":");
+        # elapsed time > 6시간 (360분)
+        if (t[1] >= 6) print $2
+    }')
+
+    if [ -n "$long_running" ]; then
+        warn "6시간+ 장기 탐사 프로세스 감지:"
+        for pid in $long_running; do
+            local cmd
+            cmd=$(ps -p "$pid" -o args= 2>/dev/null | head -c 80)
+            warn "  PID $pid: $cmd"
+        done
+        # 자동 kill하지 않고 수학자에게 보고 (수학자가 판단)
+        echo "⚠️ 장기 탐사 감지 ($(date '+%Y-%m-%d %H:%M')): PIDs=$long_running" \
+            >> "$BOARD_DIR/mathematician.md"
+    fi
+}
+
+# 수학자가 우선순위 파일에 작성할 수 있는 명령 형식:
+# KILL_PID:12345          — 특정 PID 즉시 종료
+# PRIORITY:high           — 다음 실험 긴급 (daemon 간격 단축)
+# PAUSE_EXPLORATION:true  — 모든 탐사 프로세스 일시 중지
+
+process_priority_commands() {
+    [ ! -f "$PRIORITY_FILE" ] && return 0
+
+    # 우선순위 레벨 확인
+    local priority_level
+    priority_level=$(grep -oP '(?<=PRIORITY:)\w+' "$PRIORITY_FILE" 2>/dev/null | tail -1)
+
+    # 탐사 일시 중지 명령
+    if grep -q 'PAUSE_EXPLORATION:true' "$PRIORITY_FILE" 2>/dev/null; then
+        log "수학자 명령: 모든 탐사 프로세스 일시 중지"
+        local exploration_pids
+        exploration_pids=$(ps aux | grep -E "python.*(overnight|exploration|continuous|sweep)" \
+            | grep -v grep | awk '{print $2}')
+        for pid in $exploration_pids; do
+            kill -STOP "$pid" 2>/dev/null && ok "PID $pid 일시 중지 (SIGSTOP)" || true
+        done
+    fi
+
+    # 탐사 재개 명령
+    if grep -q 'PAUSE_EXPLORATION:false' "$PRIORITY_FILE" 2>/dev/null; then
+        log "수학자 명령: 탐사 프로세스 재개"
+        local stopped_pids
+        stopped_pids=$(ps aux | grep -E "python.*(overnight|exploration|continuous|sweep)" \
+            | grep -v grep | awk '$8 ~ /T/ {print $2}')
+        for pid in $stopped_pids; do
+            kill -CONT "$pid" 2>/dev/null && ok "PID $pid 재개 (SIGCONT)" || true
+        done
+    fi
+
+    # 처리 완료 표시
+    if [ -f "$PRIORITY_FILE" ]; then
+        local processed_time
+        processed_time=$(date '+%Y-%m-%d %H:%M')
+        sed -i "1i# 처리됨: $processed_time" "$PRIORITY_FILE"
+    fi
+}
+
+# 수렴 판단: 결과가 안정적이면 탐사 중지 권고
+check_exploration_convergence() {
+    local summary_file="$PROJECT_DIR/outputs/overnight/exploration_summary.json"
+    [ ! -f "$summary_file" ] && return 0
+
+    # JSON에서 최근 3구간의 |F₂| 추출
+    local recent_f2
+    recent_f2=$(python3 -c "
+import json, sys
+try:
+    with open('$summary_file') as f:
+        data = json.load(f)
+    if isinstance(data, list) and len(data) >= 3:
+        last3 = [d.get('f2_mean', 999) for d in data[-3:]]
+        # 변동 계수 (CV) 계산
+        import statistics
+        mean_v = statistics.mean(last3)
+        std_v = statistics.stdev(last3) if len(last3) > 1 else 0
+        cv = std_v / mean_v if mean_v > 0 else 999
+        if cv < 0.15:  # 15% 미만 변동 = 수렴
+            print(f'CONVERGED:cv={cv:.3f},f2={mean_v:.4f}')
+        else:
+            print(f'VARYING:cv={cv:.3f}')
+except Exception as e:
+    print(f'ERROR:{e}')
+" 2>/dev/null)
+
+    if echo "$recent_f2" | grep -q "CONVERGED"; then
+        warn "탐사 수렴 감지: $recent_f2"
+        warn "→ 수학적 과제에 CPU 재할당 권고"
+        echo "⚠️ 탐사 수렴 ($recent_f2) — kill 권고 ($(date '+%H:%M'))" \
+            >> "$BOARD_DIR/mathematician.md"
+    fi
+}
+
 # ─── 메모리 관리 ───
 
 cleanup_working_memory() {
@@ -239,6 +358,11 @@ run_full_cycle() {
 
     # 메모리 정리
     cleanup_working_memory
+
+    # ── 수학적 우선순위 시스템 ──
+    check_and_enforce_priority
+    process_priority_commands
+    check_exploration_convergence
 
     # 실행 중인 실험 확인
     local running
