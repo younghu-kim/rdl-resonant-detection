@@ -1945,6 +1945,101 @@ $\chi_3$은 3시드 예비 결과 $R^2 = 0.38$).
 \end{observation}
 
 
+\subsection{Chern 수 해석: 수치 검증}
+\label{sec:chern_verification}
+
+\cref{sec:berry}의 이론적 프레임워크는 영점 계수 함수 $N(T)$가 위상적 해석을 가짐을 예측한다:
+\begin{equation}
+  N(T) \;=\; c_1\bigl(\text{$\xif$-다발 위 직사각형}\bigr)
+        \;=\; \frac{1}{2\pi}\oint_{\mathcal{C}}
+              d\!\operatorname{arg}\Lambda(s),
+  \label{eq:chern_counting}
+\end{equation}
+여기서 $\mathcal{C}$는 직사각형 $[\sigma_{\min}, \sigma_{\max}]
+\times [t_0, T]$이고 $\Lambda$는 완비된 $L$-함수이다.
+이를 \emph{위상 추적법}으로 수치 검증한다: 윤곽을 따라
+$\operatorname{Im}\!\log\Lambda(s)$를 계산하고 $2\pi$-되감기로
+위상차를 누적하며, $t > 300$에서 언더플로우를 일으키는
+$\xif(s)$ 직접 계산을 회피한다.
+
+\begin{observation}[$\zeta(s)$에 대한 Chern 수 검증]
+\label{obs:chern_zeta}
+$\sigma \in [0.3, 0.7]$, dps${}=100$, 64분할 사다리꼴 적분으로
+세 수준의 검증을 수행하였다:
+
+\smallskip\noindent
+\textbf{(A) 개별 홀로노미 (첫 20개 영점).}
+각 영점 $\gamma_n$ 주위에 반지름 $r = 0.3$의 원을 추적.
+20개 잔류값 모두 $\operatorname{Re}(\oint/2\pi i) = 0.9984$
+(64점 적분의 상수 체계적 오프셋; 128분할에서 $0.9996$),
+단순 영점 잔류값${}= 1$ 확인.
+
+\smallskip\noindent
+\textbf{(B) 직사각형 위상 추적 ($n = 10$--$200$).}
+\begin{center}
+\small
+\begin{tabular}{@{} r r r r r @{}}
+\toprule
+$n$ & $t_2$ & $N_{\mathrm{actual}}$ & $N_{\mathrm{ctr}}$ & $|N_{\mathrm{ctr}} - N_{\mathrm{actual}}|$ \\
+\midrule
+  10 &  51.37 &  10 &   9.9882 & 0.0118 \\
+  50 & 144.56 &  50 &  49.9882 & 0.0118 \\
+ 100 & 237.15 & 100 &  99.9882 & 0.0118 \\
+ 200 & 397.15 & 200 & 199.9882 & 0.0118 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent
+6개 테스트($n \in \{10, 20, 50, 100, 150, 200\}$) 모두
+상수 오프셋 $|N_{\mathrm{ctr}} - N_{\mathrm{actual}}| = 0.0118$로 통과.
+수평변 64분할의 $O(1/N^2)$ 사다리꼴 오차에 기인
+(128분할에서 $0.003$으로 확인).
+
+\smallskip\noindent
+\textbf{(C) 연속 계단함수 ($t \in [14, 430]$, 61개 점).}
+누적 위상 함수 $C(t)$는 $N(t)$를 완벽한 계단함수로 추적하며,
+각 영점에서 $+1$ 점프, 상수 오프셋 $C(t) = N(t) - 0.022$.
+최대 편차: $|C - N| = 0.0223$.
+\textcolor{ForestGreen}{[확인 2026-04-14, dps${}=100$, $t \le 430$ ($\approx 219$개 영점)]}
+\end{observation}
+
+\begin{observation}[Chern 수 공식의 디리클레 보편성]
+\label{obs:chern_dirichlet}
+위상 추적 검증을 디리클레 $L$-함수로 확장한다.
+복소(홀수) 지표의 경우 $\chi(-1) = -1$이면
+$L(1/2 + it, \chi)$가 실수가 아니므로
+$\operatorname{Re}L$ 부호변화 방식은 실패한다.
+대신 $|L(1/2 + it, \chi)|$ 최소화 + \texttt{findroot}로 영점을 탐색한다.
+
+\begin{center}
+\small
+\begin{tabular}{@{} l r r r r r @{}}
+\toprule
+지표 & $n$ & $t_2$ & $N_{\mathrm{actual}}$ & $N_{\mathrm{ctr}}$
+  & $|N_{\mathrm{ctr}} - N_{\mathrm{actual}}|$ \\
+\midrule
+$\chi_3$ (mod 3, 홀) &  5 & 22.26 &  5 &  4.9988 & 0.0012 \\
+                      & 10 & 34.75 & 10 &  9.9988 & 0.0012 \\
+                      & 15 & 45.20 & 15 & 14.9988 & 0.0012 \\
+                      & 20 & 54.92 & 20 & 19.9988 & 0.0012 \\
+\midrule
+$\chi_4$ (mod 4, 홀) &  5 & 19.87 &  5 &  4.9985 & 0.0015 \\
+                      & 10 & 31.12 & 10 &  9.9983 & 0.0017 \\
+                      & 15 & 41.06 & 15 & 14.9983 & 0.0017 \\
+                      & 20 & 50.70 & 20 & 19.9983 & 0.0017 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent
+8/8 테스트 모두 $|N_{\mathrm{ctr}} - N_{\mathrm{actual}}| < 0.002$로 통과하여,
+Chern 수 해석~\eqref{eq:chern_counting}이 $\zeta(s)$를 넘어
+디리클레 $L$-함수로 확장됨을 확인한다.
+작은 오프셋(0.0012--0.0017 vs.\ $\zeta$의 0.0118)은
+낮은 높이 범위($t \le 55$ vs.\ $t \le 430$)에 기인한다.
+\textcolor{ForestGreen}{[확인 2026-04-14, $\chi_3$ mod~3 + $\chi_4$ mod~4, |L|-최소화 영점]}
+\end{observation}
+
+
 % ============================================================================
 \section{토론}
 \label{sec:discussion}

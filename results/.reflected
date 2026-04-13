@@ -97,6 +97,9 @@ phase_supervised_experiment.txt
 pqo_model_independence.txt
 precision_filter.txt
 residual_spectrum.txt
+results/holonomy_chern_dirichlet.txt
+results/holonomy_chern_number_figdata.csv
+results/holonomy_chern_number.txt
 s1_full_integration.txt
 s1_geodesic_readout.txt
 s1_geo_high_height.txt
