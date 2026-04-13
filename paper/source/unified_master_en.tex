@@ -2798,9 +2798,33 @@ $S^1$ geodesic loss, and Kuramoto synchronisation---are thus
 different views of a single optimisation problem.  This explains
 why replacing $\Ltgt$ with $L_{\mathrm{geo}}$
 (\cref{sec:open}, Tier~1) yields a $4\times$ detection
-improvement: the loss function implicitly reinforces gauge
-synchronisation.
-\textcolor{ForestGreen}{[confirmed 2026-04-13]}
+improvement under the original threshold-based metric: the loss
+function implicitly reinforces gauge synchronisation.
+A follow-up minima-based evaluation (5~seeds each, two height
+ranges) reveals a \emph{density-dependent} effect:
+\begin{itemize}
+  \item \textbf{$t\in[500,600]$} (density $0.72$/unit):
+    $F_1$ comparable (BL $0.373\pm0.020$ vs $L_{\mathrm{geo}}$
+    $0.361\pm0.012$, $p{=}0.45$);
+    recall-variance reduction significant
+    ($F{=}16.2$, $p{=}0.010$).
+  \item \textbf{$t\in[1000,1100]$} (density $0.81$/unit):
+    $F_1$ improves (BL $0.395\pm0.009$ vs $L_{\mathrm{geo}}$
+    $0.411\pm0.005$, paired $t{=}2.84$, $p{=}0.047$,
+    5/5~seeds directionally consistent);
+    recall-variance also significant ($F{=}6.5$, $p{=}0.049$).
+\end{itemize}
+Across both ranges, $L_{\mathrm{geo}}$ stabilises the recall
+floor ($R\ge 0.972$ at $t\in[500,600]$; $R\ge 0.975$ at
+$t\in[1000,1100]$; all 10~seed--range combinations).
+At higher zero density the geodesic loss additionally lifts
+mean $F_1$, suggesting that the $\pm\pi$-discontinuity burden
+of $\Ltgt$ grows with density.  The effect sizes are small
+($\Delta F_1 \approx 0.016$) and the $p$-values borderline;
+we report these as confirmed but modest improvements.
+Catastrophic divergence occurred in 1/5~seeds (seed-specific,
+mitigated by best-checkpoint selection).
+\textcolor{ForestGreen}{[confirmed 2026-04-13, 5-seed, 2~ranges]}
 \end{remark}
 
 \subsubsection{Lehmer phenomenon and GUE spacing statistics}
@@ -2928,7 +2952,7 @@ Tier 1 follow-ups (immediate).}
         $\xif(\tfrac{1}{2}+it)$ as a complex vector and compute
         $\arg$ post-hoc, rather than predict the phase directly.
         \emph{Tested 2026-04-12:} a linear readout head mapping
-        pre-projection hidden states $Z\in\CC^{64}$ to
+        pre-projection hidden states $Z\in\mathbb{C}^{64}$ to
         $(\mathrm{Re}\,\xif,\mathrm{Im}\,\xif)$ was trained
         jointly with auxiliary resonance losses
         ($\Lres+\Lcurv+\Lpqo$, $\Ltgt=0$), using MSE on the
@@ -2990,6 +3014,23 @@ Tier 1 follow-ups (immediate).}
         precision.  The low precision appears intrinsic to the
         $|F_2|$ landscape rather than correctable by post-hoc
         heuristics.
+        \emph{FP anatomy
+        \textcolor{ForestGreen}{[confirmed 2026-04-13]}:}
+        Over 5 seeds ($t\in[14,50]$), $85.1\%$ of false positives
+        (57/67) are genuine local minima of the $|F_2|$ landscape
+        ($|F_2|''(t)>0$, $p<10^{-6}$), confirming that pseudo-zeros
+        are structural features of the learned residual, not noise.
+        FP positions are seed-inconsistent (Jaccard~$=0.046$,
+        $\ge\!5$-seed consensus~$=0$), indicating that the fine
+        structure of $|F_2|$ depends on model initialisation.
+        The analytic curvature $\kappa=|\xif'/\xif|^2$ separates
+        TP from FP by a factor of ${\sim}300\times$
+        (TP median~$270$, FP median~$0.9$; gap: FP~max${}=31$
+        $<$ TP~min${}=76$), establishing a theoretical precision
+        ceiling of $100\%$ if $\kappa$ were available.
+        Since $\xif$ is real on $\sigma=1/2$, the monodromy at
+        zeros is trivially $\pm\pi$ (sign change), contributing no
+        new information beyond the curvature separation.
   \item \textbf{$S^1$ geodesic phase prediction
         \textcolor{ForestGreen}{[confirmed 2026-04-12]}.}
         Instead of predicting $\arg\xif$ as a scalar (which
@@ -3021,7 +3062,75 @@ Tier 1 follow-ups (immediate).}
         variance is high (5, 40, 23 detections), suggesting that
         the geodesic loss landscape has multiple basins with
         differing phase-alignment quality.
-        \textcolor{ForestGreen}{[confirmed 2026-04-12]}
+        \textcolor{ForestGreen}{[confirmed 2026-04-12, threshold metric]}
+        %
+        \emph{Follow-up (completed, 5 seeds):}
+        A minima-based evaluation at $t\in[500,600]$ with 5~seeds
+        ($42, 7, 123, 314, 2024$) shows that the $4\times$
+        improvement is metric-conditional.  Under local-minimum
+        detection, $F_1$ is comparable
+        (BL $0.373\pm0.020$ vs $L_{\mathrm{geo}}$
+        $0.361\pm0.012$; difference non-significant).
+        The only consistent effect of $L_{\mathrm{geo}}$ is
+        \textbf{recall-floor stabilisation}: BL recall
+        $0.956\pm0.045$ (range $[0.889,1.000]$) while
+        $L_{\mathrm{geo}}$ maintains $0.978\pm0.011$
+        (range $[0.972,1.000]$), a $4.1\times$ variance reduction.
+        An $F$-test on the variance ratio yields
+        $F=16.7$ ($\mathrm{df}=(4,4)$, $p<0.05$), confirming
+        statistical significance.
+        The worst-case seed~2024 shows
+        $R_{\mathrm{BL}}=0.889\to R_{L_{\mathrm{geo}}}=0.972$
+        ($+3$ zeros out of~36), demonstrating that
+        $L_{\mathrm{geo}}$ provides a \emph{recall floor}
+        rather than a mean improvement.
+        The $|F_2|$ ratio improvement ($0.913$ vs $1.026$) persists,
+        but does not translate into $F_1$ gains under minima-based
+        evaluation.
+        \textcolor{ForestGreen}{[confirmed 2026-04-13, 5-seed
+        $F$-test significant]}
+        %
+        \emph{Extension to $t\in[1000{,}1100]$
+        \textcolor{ForestGreen}{[confirmed 2026-04-13, 5-seed,
+        recall $F$-test + $F_1$ paired $t$-test significant]}:}
+        The interval contains 81~zeros (density $0.81$/unit vs
+        $0.72$/unit at $t\in[500,600]$), split into
+        $[1000,1050]$ (training, 41~zeros) and $[1050,1100]$
+        (blind prediction, 40~zeros).
+
+        \smallskip\noindent
+        \emph{Baseline (5~seeds):}
+        $R{=}0.965\pm0.029$, $F_1{=}0.395\pm0.009$.
+        Val-loss instability is systematic: 3/5~seeds exhibit
+        ep125 spikes $>1.0$.
+        Notably, seed~2024 achieves $R{=}1.000$---showing that
+        BL can also reach perfect recall, refuting the claim
+        that $R{=}1.000$ is unique to $L_{\mathrm{geo}}$.
+
+        \smallskip\noindent
+        \emph{$L_{\mathrm{geo}}$ (5~seeds):}
+        $R{=}0.995\pm0.011$, $F_1{=}0.411\pm0.005$.
+        Catastrophic divergence in 1/5~seeds (seed~42,
+        val$=306.93$; mitigated by best-checkpoint selection,
+        which preserves the same $R{=}1.000$ and $F_1{=}0.412$).
+        Remaining 4 seeds stable or mildly divergent.
+
+        \smallskip\noindent
+        \emph{Statistical tests:}
+        \textbf{$F_1$}: paired $t{=}2.84$, $p{=}0.047$; all 5~seeds
+        directionally consistent ($\Delta F_1 \in [+0.006, +0.036]$,
+        sign test $p{=}0.031$).
+        \textbf{Recall variance}: $F{=}6.5$, $p{=}0.049$
+        (one-tailed), consistent with the $F{=}16.2$ ($p{=}0.010$)
+        at $t\in[500,600]$.
+        \textbf{$R{\ge}0.975$ floor}: maintained across all 5~seeds.
+        The density-dependent pattern---recall-variance reduction at
+        both densities, but $F_1$ improvement only at the higher
+        density ($0.81$/unit)---suggests that the $\pm\pi$
+        discontinuity burden of $\Ltgt$ grows with zero density.
+        Effect sizes are small ($\Delta F_1 \approx 0.016$) and
+        $p$-values borderline; we report these as confirmed but
+        modest improvements.
 \end{itemize}
 
 \smallskip\noindent\textbf{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\
@@ -3069,6 +3178,39 @@ Tier 2 programmes (conjectural but well-posed).}
         modular $L$-functions; the gate conditions should carry over
         with no modification beyond replacing the Riemann--Siegel
         $\vartheta$ by the appropriate theta function.
+        \textcolor{ForestGreen}{[confirmed 2026-04-13: bundle properties
+        verified for $\chi\bmod 3,4,5$; see \cref{app:dirichlet:verify}.]}
+        \emph{Blind zero prediction
+        \textcolor{ForestGreen}{[confirmed 2026-04-13]}:}
+        Curvature-peak and monodromy-based detection on the unseen
+        interval $t\in[25,40]$ achieves $\mathrm{F1}=1.000$ for all
+        three characters ($\chi\bmod 3$, $\chi\bmod 4$, $\chi\bmod 5$):
+        21/21 zeros detected with tolerance $\delta t<0.5$, every
+        predicted point satisfying $|\mathrm{mono}|/\pi=1.0000$.
+        See \cref{app:dirichlet:blind}.
+        \emph{Cross-comparison (partial):} $\sigma=0.5$ uniqueness
+        (phase jumps and energy concentration) confirmed for all four
+        functions ($\zeta$ and three Dirichlet $L$-functions);
+        curvature/monodromy comparison pending zero-finding fix.
+  \item \textbf{FP monodromy anatomy.}
+        The FP anatomy experiment (\cref{sec:open}, Tier~1) established
+        that $\kappa$ separates TP from FP by ${\sim}300\times$.
+        A pending rerun with contour-integral monodromy (replacing the
+        earlier eps-differentiation method) will test whether
+        $|\mathrm{mono}|/\pi \approx 0$ at all FP locations, which
+        would establish a clean binary classifier:
+        monodromy $= \pm\pi \Rightarrow$ true zero,
+        monodromy $\approx 0 \Rightarrow$ false positive.
+        \textcolor{orange}{[pending 2026-04-13]}
+  \item \textbf{Higher-conductor Dirichlet extension.}
+        Current verification covers $q\in\{3,4,5\}$ (one real, two
+        complex characters).  Extension to $q\in\{7,8,11,13\}$ would
+        test universality beyond small conductors, particularly
+        whether the energy anomaly observed for the real character
+        $\chi\bmod 4$ ($E$-ratio $454.6\times$ vs $14{-}22\times$ for
+        complex characters) is a general property of self-dual
+        characters or specific to conductor~4.
+        \textcolor{orange}{[planned 2026-04-13]}
 \end{enumerate}
 
 \smallskip\noindent\textbf{\textcolor{red}{\rule{0.9ex}{0.9ex}}\
@@ -3450,6 +3592,98 @@ LeClair~\cite{leclair2024} has confirmed that the Bethe-ansatz/phase-quantisatio
 approach extends to ``all $L$-functions based on non-principal Dirichlet
 characters [and] those based on cusp modular forms,'' with the only
 difference being the handling of the pole for the principal character.
+
+\subsection{Numerical Verification of Bundle Properties}
+\label{app:dirichlet:verify}
+
+\textcolor{ForestGreen}{[completed 2026-04-13]}
+We verify that the four $\xi$-bundle properties established for
+$\zeta(s)$ carry over to Dirichlet $L$-functions, using
+$\chi\bmod 3$ (simplest non-trivial),
+$\chi\bmod 4$ (real, Kronecker symbol), and
+$\chi\bmod 5$ (complex primitive character).
+All computations use \texttt{mpmath} at 80 decimal digits;
+zeros are located by sign-change bisection of
+$\Re\Lambda$ and $\Im\Lambda$ on the critical line,
+refined by \texttt{findroot}.
+
+\begin{center}
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Character} & \textbf{Zeros} & \textbf{Phase-jump isolation}
+  & \textbf{$\kappa$ ratio} & \textbf{Mono.\,dev.}
+  & \textbf{$E(0.5)/E(0.3)$} \\
+\midrule
+$\chi\bmod 3$ (real)    & 12 & $\sigma{=}0.5$ only & $16{,}457\times$ & 0.0000 & $21.6\times$ \\
+$\chi\bmod 4$ (real)    & 13 & $\sigma{=}0.5$ only & $22{,}436\times$ & 0.0000 & $454.6\times$ \\
+$\chi\bmod 5$ (complex) & 13 & $\sigma{=}0.5$ only & $15{,}732\times$ & 0.0000 & $14.5\times$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+All 38 zeros across three characters exhibit exact monodromy
+$\Delta\arg\Lambda = \pm\pi$ (deviation $< 10^{-4}$).
+Phase jumps occur exclusively at $\sigma = 1/2$ ($t\in[10,40]$,
+11 values of $\sigma$ tested).
+Curvature concentration ratios are computed as median $\kappa$
+at zero-proximal points ($\pm 0.01$) vs.\ generic points
+($>1.0$ from any zero).
+
+\medskip\noindent\textbf{Remarks.}
+\begin{enumerate}
+\item The $\pm\pi$ monodromy for the \emph{complex} character
+  $\chi\bmod 5$ is not a consequence of $\Lambda$ being
+  real-valued on the critical line (it is not).
+  Rather, it follows from the topology of simple zeros:
+  near a simple zero $s_0$,
+  $\Lambda(s_0+i\varepsilon)/\Lambda(s_0-i\varepsilon)
+  \to \Lambda'(s_0)\cdot i\varepsilon / [\Lambda'(s_0)\cdot(-i\varepsilon)]
+  = -1$, so $\Delta\arg = \pm\pi$.
+  This is universal for all analytic functions with simple zeros.
+\item The energy ratio $E(0.5)/E(0.3)$ varies by a factor of
+  $\sim 30$ across characters (14.5 to 454.6).
+  The cause is not yet understood and is left as an open observation.
+\item These results confirm that the $\xi$-bundle framework
+  is not specific to $\zeta(s)$ but applies uniformly to the
+  family of Dirichlet $L$-functions.
+  Each individual property is a consequence of standard analytic
+  number theory (argument principle, GRH); the contribution is
+  the \emph{unified geometric language} that organises them
+  into a single fibre-bundle picture.
+\end{enumerate}
+
+\subsection{Blind Zero Prediction}
+\label{app:dirichlet:blind}
+
+\textcolor{ForestGreen}{[completed 2026-04-13]}
+Using the curvature profile $\kappa(1/2+it)$, monodromy jumps
+$|\Delta\arg\Lambda|>\pi/2$, and their conjunction, we predict
+zeros in the test interval $t\in[25,40]$ for each character.
+
+\begin{center}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Character} & \textbf{True} & \textbf{Method} & $N_{\mathrm{pred}}$ & \textbf{P} & \textbf{R} & \textbf{F1} \\
+\midrule
+$\chi\bmod 3$ & 7 & curvature / dual / mono & 7 / 7 / 7 & 1.000 & 1.000 & 1.000 \\
+$\chi\bmod 4$ & 7 & curvature / dual / mono & 7 / 7 / 7 & 1.000 & 1.000 & 1.000 \\
+$\chi\bmod 5$ & 7 & curvature / dual / mono & 7 / 7 / 7 & 1.000 & 1.000 & 1.000 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+All three methods achieve $\mathrm{F1}=1.000$ on all three characters
+(21/21 zeros, tolerance $\delta t < 0.5$).
+At 80-digit \texttt{mpmath} precision, curvature peaks alone suffice
+to locate every zero without false positives; the dual and
+monodromy-only criteria offer no additional benefit in this regime.
+The practical value of the dual criterion emerges only at the
+neural-network level, where approximate $\kappa$ estimation introduces
+false positives (cf.\ Conjecture~3).
 
 
 \section{Notation Index}

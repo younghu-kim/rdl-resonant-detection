@@ -18,3 +18,15 @@ outputs/
 *.swo
 *~
 .DS_Store
+
+# LaTeX build artifacts
+paper/source/*.aux
+paper/source/*.log
+paper/source/*.out
+paper/source/*.toc
+paper/source/*.synctex.gz
+paper/source/*.fls
+paper/source/*.fdb_latexmk
+
+# .research working memory (ephemeral)
+.research/memory/working/

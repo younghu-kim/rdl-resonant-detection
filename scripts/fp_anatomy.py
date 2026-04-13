@@ -249,6 +249,8 @@ def main():
     all_fp_distances = []
     all_fp_counts = []
     all_tp_counts = []
+    per_seed_fp_curvature = []  # [{idx: curv}, ...]  구조적 FP 분리용
+    per_seed_fp_distance = []   # [{idx: dist}, ...]
 
     for seed in SEEDS:
         log(f"\n  --- seed={seed} ---")
@@ -280,6 +282,8 @@ def main():
 
         if n_fp == 0:
             log(f"    FP=0, 분석 생략")
+            per_seed_fp_curvature.append({})
+            per_seed_fp_distance.append({})
             continue
 
         # ─── 가설 A: 곡률 분석 ───
@@ -289,6 +293,12 @@ def main():
         n_negative = int(np.sum(curvatures < 0))  # V자/변곡점
         n_nan = int(np.sum(np.isnan(curvatures)))
         all_fp_curvatures.extend(curvatures[~np.isnan(curvatures)].tolist())
+        # 인덱스별 곡률 저장 (구조적 FP 분리용)
+        curv_dict = {}
+        for k, idx in enumerate(fp_indices):
+            if not np.isnan(curvatures[k]):
+                curv_dict[idx] = curvatures[k]
+        per_seed_fp_curvature.append(curv_dict)
         log(f"    |F₂|'' > 0 (U자/극소): {n_positive}/{n_fp} ({100*n_positive/n_fp:.1f}%)")
         log(f"    |F₂|'' < 0 (V자/변곡): {n_negative}/{n_fp} ({100*n_negative/n_fp:.1f}%)")
 
@@ -300,6 +310,9 @@ def main():
             distances.append(dists.min())
         distances = np.array(distances)
         all_fp_distances.extend(distances.tolist())
+        # 인덱스별 거리 저장 (구조적 FP 분리용)
+        dist_dict = {idx: distances[k] for k, idx in enumerate(fp_indices)}
+        per_seed_fp_distance.append(dist_dict)
 
         near_res = np.sum(distances < resolution)
         near_2res = np.sum(distances < 2 * resolution)
@@ -359,6 +372,39 @@ def main():
         log(f"  ≥3시드 합의 FP 위치: {consensus_3}")
         log(f"  ≥4시드 합의 FP 위치: {consensus_4}")
         log(f"  ≥5시드 합의 FP 위치 (전원): {consensus_5}")
+
+        # ─── 구조적 FP 분리 분석 (수학자 권장) ───
+        structural_fp_idx = [idx for idx, c in consensus_unique if c >= 3]
+        if structural_fp_idx:
+            log(f"\n  [구조적 FP 분리] ≥3시드 합의 위치의 곡률/거리:")
+            struct_curvs = []
+            struct_dists = []
+            for idx in structural_fp_idx:
+                for sd in range(len(per_seed_fp_curvature)):
+                    # ±4 tolerance 내에서 해당 시드의 FP 매칭
+                    for fp_idx in per_seed_fp_curvature[sd]:
+                        if abs(fp_idx - idx) <= 4:
+                            struct_curvs.append(per_seed_fp_curvature[sd][fp_idx])
+                            if fp_idx in per_seed_fp_distance[sd]:
+                                struct_dists.append(per_seed_fp_distance[sd][fp_idx])
+                            break
+            if struct_curvs:
+                sc = np.array(struct_curvs)
+                frac_u = np.mean(sc > 0)
+                log(f"    곡률 U자(극소) 비율: {frac_u:.3f} ({len(sc)}개)")
+            if struct_dists:
+                sd_arr = np.array(struct_dists)
+                log(f"    →zero 거리: mean={sd_arr.mean():.4f}, median={np.median(sd_arr):.4f}")
+                log(f"    < resolution: {np.mean(sd_arr < resolution):.3f}")
+                if struct_curvs:
+                    if frac_u > 0.7 and np.mean(sd_arr < 2*resolution) > 0.5:
+                        log(f"    → 구조적 FP = 영점 근처 유사-영점 (가설 A+B 결합)")
+                    elif frac_u > 0.7:
+                        log(f"    → 구조적 FP = 유사-영점 (가설 A 지배)")
+                    elif np.mean(sd_arr < 2*resolution) > 0.5:
+                        log(f"    → 구조적 FP = 해상도 한계 (가설 B 지배)")
+                    else:
+                        log(f"    → 구조적 FP 정체 불명확")
 
     # ─── 종합 분석 ───
     log(f"\n{'='*72}")

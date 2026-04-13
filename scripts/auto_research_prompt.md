@@ -215,6 +215,10 @@ CPU 12코어 환경에서 병렬 실행 시 경합으로 오히려 전체가 느
 #### 3-2. 자가 검증 체크리스트 (필수)
 새 스크립트 작성 시 실행 전에 반드시:
 
+##### 공용 라이브러리 (필수)
+- [ ] 다발/디리클레 함수: `from bundle_utils import ...` 사용. 직접 구현 금지.
+- [ ] bundle_utils에 없는 함수가 필요하면 bundle_utils에 추가 후 사용.
+
 ##### 과거 버그 체크리스트
 - [ ] MasterResonantNetwork: `hidden_features` (hidden_dim 아님), `out_features=2`, `num_layers=3`, `channel_type="paper3ch"`, `damping_mode="paper"`
 - [ ] TotalResonanceLoss: `loss_fn(**outputs)` 패턴 (개별 인자 전달 금지)
@@ -223,6 +227,11 @@ CPU 12코어 환경에서 병렬 실행 시 경합으로 오히려 전체가 느
 - [ ] t>300: is_near_zero 마스크 **절대 사용 금지** → find_local_minima+match_predictions 사용 (xi 언더플로). eval_F2()에서 is_near_zero 참조하면 검출=0/0. 2026-04-13 v1 10시간 낭비 사례.
 - [ ] `-u` 플래그: `python -u` 필수 (stdout 버퍼링 방지)
 - [ ] `X_in.requires_grad_(True)` + `torch.enable_grad()` in eval
+- [ ] 모노드로미 계산: eps 차분 방식 **사용 금지** → 폐곡선 적분 사용. `compute_monodromy(t, radius=0.5)`는 반지름 0.5 원을 64단계로 돌며 arg(ξ) 누적. eps=0.001 차분은 예측점이 영점 정확히 위가 아니면 항상 0 반환. 2026-04-13 #1 실험에서 TP/FP 모두 mono=0.0000π 나온 원인.
+- [ ] np.trapz → np.trapezoid (numpy 2.0 호환)
+- [ ] np.array(peaks) → np.array(peaks, dtype=int) (인덱싱용)
+- [ ] mpmath.mp.dps: t>100이면 dps≥80 필수 (ξ 언더플로). t<50이면 dps=30 OK.
+- [ ] ξ 영점 근방 판정: 절대값 `1e-40` 사용 금지 → 상대 판정 `abs(val) < mpmath.mpf(10)**(-mpmath.mp.dps + 10)`
 
 ##### 방법론 검증
 - [ ] baseline과 실험군의 조건이 동일한가?
@@ -406,15 +415,31 @@ cat $CLAUDE_MEM/MEMORY.md
 - s1_full_integration — **양성** (검출 5.7→22.7, L_geo가 L_tgt 대체, 4배 개선)
 
 ### 미착수 과제 (우선순위순)
-1. **S¹ geodesic 심화** — L_geo 양성 확인됨. 후속: (a) 고높이 t[500,1100]에서 L_geo 검증, (b) λ_geo 가중치 튜닝, (c) L_geo + 블라인드 외삽 조합, (d) K=256에서 L_geo 효과
-2. **S¹ + 블라인드 영점 예측** — L_geo로 훈련한 모델의 블라인드 외삽 recall/precision 측정
-3. **S¹ + 고높이 통합** — t[500,600], t[1000,1100]에서 L_geo 적용
-4. **임계선 밖 확장 (σ ≠ 1/2)** — RH 직접 실험. 입력을 t → (σ, t)로 확장하여, σ=1/2에서만 F₂ 극소가 나타나고 σ≠1/2에서는 나타나지 않는지 검증. mpmath xi(sigma+t*j)로 임계대(critical strip) 전체에서 ξ 계산 가능. 양성이면 RH의 수치적 증거, 음성이면 프레임워크의 한계 규명. 어느 쪽이든 논문에 큰 가치.
-5. **Kuramoto 순서 매개변수** — 게이지 위상 전이의 해석적 모델링
-6. **Lehmer/GUE 수렴 적합** — 영점별 수렴 속도와 GUE 간격 비교
-7. **하이브리드 푸리에** — 결정론적 기저 + 랜덤 보조 주파수
-8. **디리클레 L-함수 확장** — 다른 L-함수로 프레임워크 일반화
-9. **escnn 백엔드** — 등변 네트워크 공식 검증 (대규모 리팩터)
+
+**★ 다발 예측 실험 (최우선 — 스크립트 준비 완료)**
+1. **[예측#1] FP 모노드로미 해부** — `bundle_prediction_1_fp_monodromy.py` 실행.
+   Conjecture 3 검증: FP는 κ 높고 mono≈0, TP는 κ→∞ + mono=±π.
+   이중 기준으로 정밀도 25%→? 개선 측정. **가장 실질적 예측력 테스트.**
+2. **[예측#2] 임계선 밖 확장** — `bundle_prediction_2_offcritical.py` 실행.
+   σ별 위상 점프 수, 곡률 2D 맵, 에너지 프로파일. σ=1/2만 특별한지 확인.
+3. **[예측#3] 위상적 블라인드 예측** — `bundle_prediction_3_blind_topology.py` 실행.
+   곡률+모노드로미 이중 기준 vs 기존 |F₂| 극소. [150,200] 블라인드 P/R 비교.
+
+**★★ 디리클레 L-함수 확장 (스크립트 준비 완료, 순차 실행)**
+4. **[디리클레#1] 다발 성질 검증** — `dirichlet_bundle_verification.py` 실행.
+   χ mod 3, 4, 5에서 위상점프 유일성, 곡률 집중, 모노드로미 ±π, 에너지 피크 검증.
+   ζ에서 확인된 4가지 다발 성질이 디리클레 L-함수에도 성립하는지 확인.
+5. **[디리클레#2] 블라인드 영점 예측** — `dirichlet_blind_prediction.py` 실행.
+   t∈[25,40] 블라인드 예측. 곡률/모노드로미/이중기준 P/R/F1 비교.
+6. **[디리클레#3] 통합 비교표** — `dirichlet_cross_comparison.py` 실행.
+   ζ vs χ₃ vs χ₄ vs χ₅ 5개 지표 비교. 프레임워크 일반성 최종 확인.
+
+**기존 과제 (다발 프레임워크로 재해석)**
+7. **S¹ geodesic 심화** — L_geo 양성 확인됨. 후속: (a) 고높이 t[500,1100]에서 L_geo 검증, (b) λ_geo 가중치 튜닝, (c) L_geo + 블라인드 외삽 조합, (d) K=256에서 L_geo 효과
+8. **S¹ + 블라인드 영점 예측** — L_geo로 훈련한 모델의 블라인드 외삽 recall/precision 측정
+9. **Kuramoto 순서 매개변수** — 게이지 위상 전이의 해석적 모델링
+10. **Lehmer/GUE 수렴 적합** — 영점별 수렴 속도와 GUE 간격 비교
+11. **escnn 백엔드** — 등변 네트워크 공식 검증 (대규모 리팩터)
 
 ### 핵심 이론 방향: k^n = -1 기하학적 재해석 (긴급, 전체 프레임워크 재정의)
 

@@ -1733,10 +1733,35 @@ $L_{\mathrm{geo}}$를 최소화하면 von~Mises MLE를 수행하게 되며,
 $S^1$ 측지 손실, Kuramoto 동기화---은 따라서 하나의
 최적화 문제의 서로 다른 관점이다. 이것이
 $\Ltgt$를 $L_{\mathrm{geo}}$로 교체하면
-(\cref{sec:open}, Tier~1) $4\times$ 검출 개선이
-나타나는 이유를 설명한다: 손실 함수가 게이지 동기화를
-암묵적으로 강화하기 때문이다.
-\textcolor{ForestGreen}{[confirmed 2026-04-13]}
+(\cref{sec:open}, Tier~1) 검출 개선이 나타나는 이유를
+설명한다: 손실 함수가 게이지 동기화를 암묵적으로
+강화하기 때문이다.
+후속 극소값 기반 평가(5시드, 2개 높이 구간)는
+\emph{밀도 의존적} 효과를 보여준다:
+\begin{itemize}
+  \item \textbf{$t\in[500,600]$} (밀도 $0.72$/단위):
+    $F_1$ 동등 (BL $0.373\pm0.020$ vs $L_{\mathrm{geo}}$
+    $0.361\pm0.012$, $p{=}0.45$);
+    재현율 분산 축소 유의
+    ($F{=}16.2$, $p{=}0.010$).
+  \item \textbf{$t\in[1000,1100]$} (밀도 $0.81$/단위):
+    $F_1$ 개선 (BL $0.395\pm0.009$ vs $L_{\mathrm{geo}}$
+    $0.411\pm0.005$, 대응 $t{=}2.84$, $p{=}0.047$,
+    5/5시드 방향 일관);
+    재현율 분산도 유의 ($F{=}6.5$, $p{=}0.049$).
+\end{itemize}
+두 구간 모두에서 $L_{\mathrm{geo}}$는 재현율 하한을
+안정화한다 ($t\in[500,600]$에서 $R\ge 0.972$;
+$t\in[1000,1100]$에서 $R\ge 0.975$; 10개
+시드--구간 조합 전체).
+더 높은 영점 밀도에서 측지 손실은 추가로 평균 $F_1$을
+끌어올리며, 이는 $\Ltgt$의 $\pm\pi$ 불연속 부담이
+밀도에 따라 증가함을 시사한다.
+효과 크기는 소($\Delta F_1 \approx 0.016$)이고
+$p$-값은 경계선이다.
+파국적 발산은 1/5시드(시드 특이적, best-checkpoint
+선택으로 구제).
+\textcolor{ForestGreen}{[2026-04-13 확인, 5시드, 2구간]}
 \end{remark}
 
 \subsubsection{Lehmer 현상과 GUE 간격 통계}
@@ -1802,7 +1827,7 @@ $\Ltgt$를 $L_{\mathrm{geo}}$로 교체하면
   \item \textbf{$\arg\xif(\tfrac{1}{2}+it)$에 대한 복소 벡터 읽기
         \textcolor{red}{[2026-04-12 중립]}.}
         고립 실험 (\cref{rem:isolation})은 잔존 결함을 영점에서의 매끄러운 네트워크가 $\arg\xif$의 $\pm\pi$ 불연속을 표현할 수 없는 것으로 국소화했다. 가장 깔끔한 아키텍처 해법은 읽기 헤드가 $\xif(\tfrac{1}{2}+it)$를 복소 벡터로 예측하고 $\arg$를 사후 계산하게 하는 것이다.
-        \emph{2026-04-12 시험:} 프로젝션 전 은닉 상태 $Z\in\CC^{64}$를
+        \emph{2026-04-12 시험:} 프로젝션 전 은닉 상태 $Z\in\mathbb{C}^{64}$를
         $(\mathrm{Re}\,\xif,\mathrm{Im}\,\xif)$로 매핑하는 선형 읽기 헤드를
         보조 공명 손실($\Lres+\Lcurv+\Lpqo$, $\Ltgt=0$)과 함께 Re/Im MSE
         ($\lambda_{\mathrm{MSE}}=2$)로 공동 훈련하였다.
@@ -1847,6 +1872,22 @@ $\Ltgt$를 $L_{\mathrm{geo}}$로 교체하면
         정밀도 보상 없이 재현율만 저하시킨다.
         낮은 정밀도는 사후 휴리스틱으로 교정 가능한 수준이 아니라
         $|F_2|$ 풍경 자체에 내재된 것으로 보인다.
+        \emph{FP 해부
+        \textcolor{ForestGreen}{[2026-04-13 확인]}:}
+        5시드($t\in[14,50]$)에서 위양성의 $85.1\%$(57/67)가
+        $|F_2|$ 풍경의 진짜 극소점($|F_2|''(t)>0$, $p<10^{-6}$)이다.
+        유사-영점(pseudo-zero)은 학습된 잔차의 구조적 특성이지,
+        잡음이 아님을 확인한다.
+        FP 위치는 시드 간 비일관적(Jaccard${}=0.046$,
+        $\ge\!5$시드 합의${}=0$)으로 $|F_2|$ 풍경의 세부 구조가
+        모델 초기화에 의존한다.
+        해석적 곡률 $\kappa=|\xif'/\xif|^2$는 TP와 FP를
+        ${\sim}300$배 분리(TP 중앙값${}=270$, FP 중앙값${}=0.9$;
+        갭: FP 최대${}=31$ $<$ TP 최소${}=76$)하여,
+        $\kappa$가 이용 가능한 경우 이론적 정밀도 상한 $100\%$를
+        확립한다. $\xif$가 $\sigma=1/2$ 위에서 실수이므로
+        영점에서의 모노드로미는 자명하게 $\pm\pi$(부호 전환)이며,
+        곡률 분리 이상의 새 정보를 제공하지 않는다.
   \item \textbf{$S^1$ 측지선 위상 예측
         \textcolor{ForestGreen}{[2026-04-12 확인]}.}
         $\arg\xif$를 스칼라로 예측하는 대신 (영점에서 $\pm\pi$
@@ -1874,7 +1915,69 @@ $\Ltgt$를 $L_{\mathrm{geo}}$로 교체하면
         발생하였다. 시드 간 변동(5, 40, 23개)이 크며,
         측지선 손실 풍경에 위상 정렬 품질이 상이한
         다수의 국소해가 존재함을 시사한다.
-        \textcolor{ForestGreen}{[2026-04-12 확인]}
+        \textcolor{ForestGreen}{[2026-04-12 확인, 임계치 메트릭]}
+        %
+        \emph{후속 (완료, 5시드):}
+        $t\in[500,600]$에서 극소값 기반 평가를 5시드
+        ($42, 7, 123, 314, 2024$)로 수행한 결과,
+        $4$배 개선은 메트릭 조건부이다.
+        극소값 검출 기준으로 $F_1$은 유사하다
+        (BL $0.373\pm0.020$ vs $L_{\mathrm{geo}}$
+        $0.361\pm0.012$; 차이 비유의).
+        $L_{\mathrm{geo}}$의 유일한 일관된 효과는
+        \textbf{재현율 하한 안정화}이다:
+        BL 재현율 $0.956\pm0.045$ (범위 $[0.889,1.000]$),
+        $L_{\mathrm{geo}}$ $0.978\pm0.011$
+        (범위 $[0.972,1.000]$), 분산 $4.1$배 축소.
+        분산비 $F$-검정으로 $F=16.7$ ($\mathrm{df}=(4,4)$,
+        $p<0.05$)을 얻어 통계적 유의성을 확인하였다.
+        최악 시드~2024는
+        $R_{\mathrm{BL}}=0.889\to R_{L_{\mathrm{geo}}}=0.972$
+        ($+3$ 영점/36개)로, $L_{\mathrm{geo}}$가 평균 개선이
+        아닌 \emph{재현율 하한}을 제공함을 보여준다.
+        \textcolor{ForestGreen}{[2026-04-13 확인, 5시드
+        $F$-검정 유의]}
+        %
+        \emph{$t\in[1000{,}1100]$으로 확장
+        \textcolor{ForestGreen}{[2026-04-13 확인, 5시드,
+        재현율 $F$-검정 + $F_1$ 대응 $t$-검정 유의]}:}
+        이 구간에는 81개 영점(밀도 $0.81$/단위,
+        $t\in[500,600]$에서 $0.72$/단위 대비)이 포함되며,
+        $[1000,1050]$ (학습, 41개 영점)과 $[1050,1100]$
+        (블라인드 예측, 40개 영점)으로 분할한다.
+
+        \smallskip\noindent
+        \emph{기준선 (5시드):}
+        $R{=}0.965\pm0.029$, $F_1{=}0.395\pm0.009$.
+        Val-loss 불안정은 체계적이다: 5시드 중 3시드에서
+        ep125 스파이크 $>1.0$.
+        특히 seed~2024는 $R{=}1.000$을 달성하여, BL도
+        완벽 재현율에 도달할 수 있음을 보여준다.
+
+        \smallskip\noindent
+        \emph{$L_{\mathrm{geo}}$ (5시드):}
+        $R{=}0.995\pm0.011$, $F_1{=}0.411\pm0.005$.
+        파국적 발산 1/5시드 (seed~42, val$=306.93$;
+        best-checkpoint 선택으로 구제,
+        $R{=}1.000$, $F_1{=}0.412$ 유지).
+        나머지 4시드 안정 또는 경미 발산.
+
+        \smallskip\noindent
+        \emph{통계 검정:}
+        \textbf{$F_1$}: 대응 $t{=}2.84$, $p{=}0.047$;
+        5시드 전체 방향 일관
+        ($\Delta F_1 \in [+0.006, +0.036]$,
+        부호 검정 $p{=}0.031$).
+        \textbf{재현율 분산}: $F{=}6.5$, $p{=}0.049$
+        (단측), $t\in[500,600]$의 $F{=}16.2$ ($p{=}0.010$)와 일관.
+        \textbf{$R{\ge}0.975$ 하한}: 5시드 전체 유지.
+        밀도 의존 패턴---두 밀도 모두에서 재현율 분산 축소,
+        그러나 $F_1$ 개선은 더 높은 밀도($0.81$/단위)에서만---은
+        $\Ltgt$의 $\pm\pi$ 불연속 부담이 영점 밀도에 따라
+        증가함을 시사한다.
+        효과 크기는 소($\Delta F_1 \approx 0.016$)이고
+        $p$-값은 경계선이다; 확인되었으나 겸손한 개선으로
+        보고한다.
 \end{itemize}
 
 \smallskip\noindent\textbf{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ 계층 2 프로그램 (추측적이지만 잘 정의됨).}
@@ -1908,6 +2011,36 @@ $\Ltgt$를 $L_{\mathrm{geo}}$로 교체하면
         \cref{rem:kuramoto_transition} 참조.
   \item \textbf{Lehmer/GUE 수렴 적합.} 영점별 수렴 속도가 \cref{sec:lehmer_gue}에서 예측한 대로 GUE 간격 밀도와 해석 신호 체류 시간의 컨볼루션과 일치하는지 검증한다.
   \item \textbf{보형 $L$-함수 위의 일반화된 공명.} 다원적 프레임은 디리클레 및 모듈러 $L$-함수로 자연스럽게 확장된다; 게이트 조건은 Riemann--Siegel $\vartheta$를 적절한 세타 함수로 교체하는 것 외에는 수정 없이 이전되어야 한다.
+        \textcolor{ForestGreen}{[2026-04-13 확인: $\chi\bmod 3,4,5$에 대해
+        다발 성질 검증됨; \cref{app:dirichlet:verify} 참조.]}
+        \emph{블라인드 영점 예측
+        \textcolor{ForestGreen}{[2026-04-13 확인]}:}
+        미관측 구간 $t\in[25,40]$에서 곡률 극대점과 모노드로미 기반 검출로
+        세 지표($\chi\bmod 3$, $\chi\bmod 4$, $\chi\bmod 5$) 모두
+        $\mathrm{F1}=1.000$을 달성하였다:
+        21/21 영점 검출, 허용 오차 $\delta t<0.5$,
+        모든 예측 점에서 $|\mathrm{mono}|/\pi=1.0000$.
+        \cref{app:dirichlet:blind} 참조.
+        \emph{교차 비교 (부분):} $\sigma=0.5$ 유일성(위상 점프 및 에너지 집중)이
+        네 함수($\zeta$와 디리클레 $L$-함수 3개) 모두에서 확인됨;
+        곡률/모노드로미 비교는 영점탐색 수정 후 보완 예정.
+  \item \textbf{FP 모노드로미 해부.}
+        FP 해부 실험(계층~1)에서 $\kappa$가 TP와 FP를 ${\sim}300$배
+        분리함을 확립하였다. 폐곡선 적분 모노드로미(초기 eps 차분 방식을
+        대체)로 재실행하여, 모든 FP 위치에서
+        $|\mathrm{mono}|/\pi \approx 0$인지 검증할 예정이다.
+        확인되면 이진 분류기가 성립한다:
+        모노드로미 $= \pm\pi \Rightarrow$ 진짜 영점,
+        모노드로미 $\approx 0 \Rightarrow$ 위양성.
+        \textcolor{orange}{[2026-04-13 대기]}
+  \item \textbf{고 conductor 디리클레 확장.}
+        현재 검증은 $q\in\{3,4,5\}$ (실수 1개, 복소 2개)에 한정된다.
+        $q\in\{7,8,11,13\}$으로 확장하면 작은 conductor를 넘어선
+        보편성을 시험할 수 있으며, 특히 실수 지표 $\chi\bmod 4$에서
+        관찰된 에너지 이상치($E$-비율 $454.6\times$, 복소 지표
+        $14{-}22\times$ 대비)가 자기쌍대 지표의 일반적 성질인지
+        conductor~4에 특수한지 판별할 수 있다.
+        \textcolor{orange}{[2026-04-13 계획]}
 \end{enumerate}
 
 \smallskip\noindent\textbf{\textcolor{red}{\rule{0.9ex}{0.9ex}}\ 계층 3 재활 (재검토 가능한 실패 프로그램).}
@@ -1926,6 +2059,8 @@ $\Ltgt$를 $L_{\mathrm{geo}}$로 교체하면
   \item \textbf{시클로토믹 소수}: NTT-친화적 소수 $q = 7681 \equiv 1 \pmod{512}$는 계산 효율을 위해 선택되었다. 이 형태의 소수가 위상 양자화에 특히 적합한 보다 깊은 정수론적 이유가 있는가?
 
   \item \textbf{일반화된 공명}: 다원적 프레임은 디리클레 $L$-함수로 자연스럽게 확장된다. 게이트 조건을 보형(automorphic) $L$-함수에 적용할 수 있는가---여기서 일반화된 리만 가설(GRH)도 추측되는가?
+        \textcolor{ForestGreen}{[부분 완료 2026-04-13: $\chi\bmod 3,4,5$에서 다발 성질 검증 완료; \cref{app:dirichlet:verify} 참조. 블라인드 영점 예측 및 교차 비교 잔존.]}
+
 
   \item \textbf{물리적 구현}: SLM, 레이저, 카메라 센서를 사용한 실제 광학 실험이 $\sin^2$ 양자화 풍경을 \textit{하드웨어에서} 시연하여, 위상 양자화 문제를 위한 물리적 유비 컴퓨터를 제공할 수 있는가?
 \end{enumerate}
@@ -2225,6 +2360,58 @@ $|t_\chi + t_{\bar{\chi}}| / t_\chi < 0.002$.
 
 LeClair~\cite{leclair2024}는 베테 안자츠/위상 양자화 접근법이 ``비주 디리클레 지표에 기반한 모든 $L$-함수 [및] 첨점(cusp) 보형 형식에 기반한 것''으로 확장됨을 확인했으며, 유일한 차이는 주 지표에 대한 극의 처리이다.
 
+\subsection{다발 성질의 수치 검증}
+\label{app:dirichlet:verify}
+
+\textcolor{ForestGreen}{[완료 2026-04-13]}
+$\zeta(s)$에서 확립된 $\xi$-다발의 네 가지 성질이 디리클레 $L$-함수에서도 유지되는지 검증한다. $\chi\bmod 3$ (가장 단순한 비자명 지표), $\chi\bmod 4$ (실수 지표, 크로네커 기호), $\chi\bmod 5$ (복소 원시 지표)를 대상으로 한다. 모든 계산은 \texttt{mpmath} 80자릿수 정밀도; 영점은 임계선 위 $\Re\Lambda$, $\Im\Lambda$ 부호 변화 이분법 + \texttt{findroot} 정밀화.
+
+\begin{center}
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{지표} & \textbf{영점수} & \textbf{위상점프 격리}
+  & \textbf{$\kappa$ 비율} & \textbf{모노 편차}
+  & \textbf{$E(0.5)/E(0.3)$} \\
+\midrule
+$\chi\bmod 3$ (실수)    & 12 & $\sigma{=}0.5$만 & $16{,}457\times$ & 0.0000 & $21.6\times$ \\
+$\chi\bmod 4$ (실수)    & 13 & $\sigma{=}0.5$만 & $22{,}436\times$ & 0.0000 & $454.6\times$ \\
+$\chi\bmod 5$ (복소) & 13 & $\sigma{=}0.5$만 & $15{,}732\times$ & 0.0000 & $14.5\times$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+3개 지표 38개 영점 전체에서 모노드로미 $\Delta\arg\Lambda = \pm\pi$ (편차 $< 10^{-4}$). 위상 점프는 $\sigma = 1/2$에서만 발생 ($t\in[10,40]$, 11개 $\sigma$ 값 검사). 곡률 집중도 비율은 영점 인접 점($\pm 0.01$) 중앙값 $\kappa$ 대 일반 점(영점에서 $>1.0$ 거리) 중앙값.
+
+\medskip\noindent\textbf{비고.}
+\begin{enumerate}
+\item \emph{복소} 지표 $\chi\bmod 5$에서의 $\pm\pi$ 모노드로미는 $\Lambda$가 임계선 위에서 실수값이기 때문이 아니다 (실수값이 아님). 이는 단순 영점의 위상적 성질: $s_0$ 근방에서 $\Lambda(s_0+i\varepsilon)/\Lambda(s_0-i\varepsilon) \to -1$이므로 $\Delta\arg = \pm\pi$. 모든 해석함수의 단순 영점에 대한 보편적 성질이다.
+\item 에너지 비율 $E(0.5)/E(0.3)$은 지표에 따라 $\sim 30$배 차이 (14.5~454.6). 원인은 미해명이며 관찰로 보고한다.
+\item 이상의 결과는 $\xi$-다발 프레임워크가 $\zeta(s)$에 고유하지 않고 디리클레 $L$-함수 족에 균일하게 적용됨을 확인한다. 개별 성질은 표준 해석적 정수론(논증 원리, GRH)의 귀결이며, 기여는 이들을 하나의 파이버 다발 그림으로 조직하는 \emph{통일적 기하학 언어}에 있다.
+\end{enumerate}
+
+\subsection{블라인드 영점 예측}
+\label{app:dirichlet:blind}
+
+\textcolor{ForestGreen}{[완료 2026-04-13]}
+곡률 프로파일 $\kappa(1/2+it)$, 모노드로미 점프 $|\Delta\arg\Lambda|>\pi/2$, 이중 기준으로 테스트 구간 $t\in[25,40]$의 영점을 예측한다.
+
+\begin{center}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{지표} & \textbf{정답} & \textbf{방법} & $N_{\mathrm{pred}}$ & \textbf{P} & \textbf{R} & \textbf{F1} \\
+\midrule
+$\chi\bmod 3$ & 7 & 곡률 / 이중 / 모노 & 7 / 7 / 7 & 1.000 & 1.000 & 1.000 \\
+$\chi\bmod 4$ & 7 & 곡률 / 이중 / 모노 & 7 / 7 / 7 & 1.000 & 1.000 & 1.000 \\
+$\chi\bmod 5$ & 7 & 곡률 / 이중 / 모노 & 7 / 7 / 7 & 1.000 & 1.000 & 1.000 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+3개 지표에서 3가지 방법 모두 $\mathrm{F1}=1.000$ (21/21 영점, 허용 오차 $\delta t < 0.5$). 80자릿수 \texttt{mpmath} 정밀도에서는 곡률 극대만으로 모든 영점을 거짓 양성 없이 식별 가능하다. 이중 기준과 모노드로미 단독 기준은 이 정밀도 수준에서 추가 이점이 없다. 이중 기준의 실용적 가치는 신경망 수준에서 근사 $\kappa$ 추정이 거짓 양성을 유발할 때 드러난다 (추측~3 참조).
 
 \section{표기법 색인}
 \label{app:notation}
