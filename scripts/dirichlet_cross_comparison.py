@@ -131,40 +131,43 @@ class LFunctionWrapper:
         """부호 변화 + findroot로 디리클레 영점 탐색"""
         ts = np.linspace(t_min, t_max, n_scan)
         zeros = []
+        completed_fn = self.completed  # 클로저 캡처용
 
         prev_re, prev_t = None, None
         for t in ts:
             s = mpmath.mpf('0.5') + 1j * mpmath.mpf(str(t))
-            curr_re = mpmath.re(self.completed(s))
+            curr_re = mpmath.re(completed_fn(s))
             if prev_re is not None and prev_re * curr_re < 0:
                 try:
-                    def f_real(t_var, _self=self):
+                    def f_real(t_var):
                         sv = mpmath.mpf('0.5') + 1j * mpmath.mpf(t_var)
-                        return mpmath.re(_self.completed(sv))
-                    tz = float(mpmath.findroot(f_real, (prev_t, t)))
+                        return mpmath.re(completed_fn(sv))
+                    mid = mpmath.mpf(str((prev_t + float(t)) / 2))
+                    tz = float(mpmath.findroot(f_real, mid))
                     if not zeros or abs(tz - zeros[-1]) > 0.1:
                         zeros.append(tz)
                 except Exception:
                     pass
-            prev_re, prev_t = curr_re, t
+            prev_re, prev_t = curr_re, float(t)
 
         prev_im, prev_t = None, None
         for t in ts:
             s = mpmath.mpf('0.5') + 1j * mpmath.mpf(str(t))
-            curr_im = mpmath.im(self.completed(s))
+            curr_im = mpmath.im(completed_fn(s))
             if prev_im is not None and prev_im * curr_im < 0:
                 try:
-                    def f_imag(t_var, _self=self):
+                    def f_imag(t_var):
                         sv = mpmath.mpf('0.5') + 1j * mpmath.mpf(t_var)
-                        return mpmath.im(_self.completed(sv))
-                    tz = float(mpmath.findroot(f_imag, (prev_t, t)))
+                        return mpmath.im(completed_fn(sv))
+                    mid = mpmath.mpf(str((prev_t + float(t)) / 2))
+                    tz = float(mpmath.findroot(f_imag, mid))
                     sv = mpmath.mpf('0.5') + 1j * mpmath.mpf(str(tz))
-                    if abs(self.completed(sv)) < mpmath.mpf('1e-10'):
+                    if abs(completed_fn(sv)) < mpmath.mpf('1e-10'):
                         if not any(abs(tz - z) < 0.1 for z in zeros):
                             zeros.append(tz)
                 except Exception:
                     pass
-            prev_im, prev_t = curr_im, t
+            prev_im, prev_t = curr_im, float(t)
 
         zeros.sort()
         return np.array(zeros)
