@@ -1880,6 +1880,70 @@ GUE 레벨 반발이나 Poisson 독립성으로는 재현되지 않는다.
 \textcolor{ForestGreen}{[확인 2026-04-14, 20회 앙상블]}
 \end{observation}
 
+\begin{observation}[비국소 도달 범위 감쇠 및 전방--후방 부호 반전]
+\label{obs:nonlocal_reach}
+중간점 곡률이 ``얼마나 멀리 보는지'' 정량화하기 위해,
+관측~\ref{obs:midpoint_nonlocal}을 확장하여
+$\rho(\kappa_{\mathrm{mid}},\, \mathrm{gap}_{n+k})$ ($k = 0, 1, \dots, 10$, 전방) 및
+$\rho(\kappa_{\mathrm{mid}},\, \mathrm{gap}_{n-k})$ ($k = 1, \dots, 10$, 후방)을
+4개 $L$-함수 전체에 대해 측정하였다.
+
+\smallskip\noindent
+\textbf{전방 감쇠 ($\zeta$, $n=234$):}
+\begin{center}
+\small
+\begin{tabular}{@{} r r@{\;}c@{\;}l r r @{}}
+\toprule
+$k$ & \multicolumn{3}{c}{$\rho_{\mathrm{fwd}}$}
+  & $p$-값 & 편상관 $\rho$ \\
+\midrule
+0 & $-$&$0.031$& & $6.3\times 10^{-1}$ & --- \\
+\textbf{1} & $\mathbf{-}$&$\mathbf{0.658}$& & $\mathbf{3.7\times 10^{-30}}$ & $\mathbf{-0.668}$ \\
+2 & $+$&$0.068$& & $3.0\times 10^{-1}$ & $+0.071$ \\
+3 & $+$&$0.114$& & $8.6\times 10^{-2}$ & $+0.121$ \\
+4 & $+$&$0.057$& & $3.9\times 10^{-1}$ & $+0.065$ \\
+5 & $+$&$0.003$& & $9.7\times 10^{-1}$ & $+0.009$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+신호는 $k{=}1$ ($|\rho|=0.658$)에서 $k{=}2$ ($|\rho|=0.068$)로 한 자릿수 감소하여,
+비국소 결합이 가장 가까운 비인접 간격에 집중됨을 확인한다.
+
+\smallskip\noindent
+\textbf{$k{=}1$에서의 전방--후방 부호 반전 (4개 $L$-함수 전부):}
+\begin{center}
+\small
+\begin{tabular}{@{} l c c c @{}}
+\toprule
+$L$-함수 & $\rho_{\mathrm{fwd}}(k{=}1)$ & $\rho_{\mathrm{bwd}}(k{=}1)$
+  & 부호 반전? \\
+\midrule
+$\zeta(s)$     & $-0.658$ & $+0.576$ & \checkmark \\
+$L(s,\chi_3)$  & $-0.555$ & $+0.504$ & \checkmark \\
+$L(s,\chi_4)$  & $-0.608$ & $+0.588$ & \checkmark \\
+$L(s,\chi_5)$  & $-0.606$ & $+0.602$ & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent
+모든 테스트된 $L$-함수에서 전방 $k{=}1$ 상관은 \emph{음}이고
+후방 상관은 \emph{양}이며, 크기는 유사하다
+($||\rho_{\mathrm{fwd}}| - |\rho_{\mathrm{bwd}}|| < 0.08$).
+이 부호 반전은 Hadamard 구조의 직접적 귀결이다:
+중간점 $m = (\gamma_n + \gamma_{n+1})/2$에서 오른쪽 지배 비-NN 기여($\gamma_{n+2}$)와
+왼쪽 기여($\gamma_{n-1}$)는 $\Lambda'/\Lambda$에 반대 부호로 진입한다.
+
+\smallskip\noindent
+\textbf{감쇠 모델.}
+$|\rho_{\mathrm{fwd}}|$ 수열 ($k=1,\dots,10$)에 대해
+멱법칙 피팅 $|\rho| \sim A\,k^{-\alpha}$이 일관되게 지수 피팅보다 우수하다
+($R^2$: $\zeta$\,0.71, $\chi_4$\,0.76, $\chi_5$\,0.76;
+$\chi_3$은 3시드 예비 결과 $R^2 = 0.38$).
+급격한 감쇠로 단일 특성 길이 $\xi$ 정의는 어렵고,
+비국소 신호는 $k{=}1$에 거의 전적으로 집중된다.
+\textcolor{ForestGreen}{[확인 2026-04-14, 4개 $L$-함수, 3시드 예비]}
+\end{observation}
+
 
 % ============================================================================
 \section{토론}

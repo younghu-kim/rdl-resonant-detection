@@ -2990,6 +2990,74 @@ The mechanism remains unidentified; we record this as an open problem.
 \textcolor{ForestGreen}{[confirmed 2026-04-14, 20-run ensemble]}
 \end{observation}
 
+\begin{observation}[Nonlocal reach decay and forward--backward sign reversal]
+\label{obs:nonlocal_reach}
+To quantify how far the midpoint curvature ``sees,'' we extend
+Observation~\ref{obs:midpoint_nonlocal} by measuring
+$\rho(\kappa_{\mathrm{mid}},\, \mathrm{gap}_{n+k})$ for
+$k = 0, 1, \dots, 10$ (forward) and
+$\rho(\kappa_{\mathrm{mid}},\, \mathrm{gap}_{n-k})$ for
+$k = 1, \dots, 10$ (backward), across all four $L$-functions.
+
+\smallskip\noindent
+\textbf{Forward decay ($\zeta$, $n=234$):}
+\begin{center}
+\small
+\begin{tabular}{@{} r r@{\;}c@{\;}l r r @{}}
+\toprule
+$k$ & \multicolumn{3}{c}{$\rho_{\mathrm{fwd}}$}
+  & $p$-value & partial $\rho$ \\
+\midrule
+0 & $-$&$0.031$& & $6.3\times 10^{-1}$ & --- \\
+\textbf{1} & $\mathbf{-}$&$\mathbf{0.658}$& & $\mathbf{3.7\times 10^{-30}}$ & $\mathbf{-0.668}$ \\
+2 & $+$&$0.068$& & $3.0\times 10^{-1}$ & $+0.071$ \\
+3 & $+$&$0.114$& & $8.6\times 10^{-2}$ & $+0.121$ \\
+4 & $+$&$0.057$& & $3.9\times 10^{-1}$ & $+0.065$ \\
+5 & $+$&$0.003$& & $9.7\times 10^{-1}$ & $+0.009$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+The signal drops by an order of magnitude from $k{=}1$ ($|\rho|=0.658$)
+to $k{=}2$ ($|\rho|=0.068$), confirming that the nonlocal coupling is
+sharply concentrated at the nearest non-adjacent gap.
+
+\smallskip\noindent
+\textbf{Forward--backward sign reversal at $k{=}1$ (all four $L$-functions):}
+\begin{center}
+\small
+\begin{tabular}{@{} l c c c @{}}
+\toprule
+$L$-function & $\rho_{\mathrm{fwd}}(k{=}1)$ & $\rho_{\mathrm{bwd}}(k{=}1)$
+  & sign flip? \\
+\midrule
+$\zeta(s)$     & $-0.658$ & $+0.576$ & \checkmark \\
+$L(s,\chi_3)$  & $-0.555$ & $+0.504$ & \checkmark \\
+$L(s,\chi_4)$  & $-0.608$ & $+0.588$ & \checkmark \\
+$L(s,\chi_5)$  & $-0.606$ & $+0.602$ & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent
+For every tested $L$-function, the forward correlation at $k{=}1$ is
+\emph{negative} while the backward correlation is \emph{positive},
+with comparable magnitudes ($||\rho_{\mathrm{fwd}}| - |\rho_{\mathrm{bwd}}|| < 0.08$).
+This sign reversal is a direct consequence of the Hadamard structure:
+from the midpoint $m = (\gamma_n + \gamma_{n+1})/2$, the dominant
+non-NN contribution on the right ($\gamma_{n+2}$) and on the left
+($\gamma_{n-1}$) enter $\Lambda'/\Lambda$ with opposite signs.
+
+\smallskip\noindent
+\textbf{Decay model.}
+For the $|\rho_{\mathrm{fwd}}|$ sequence ($k=1,\dots,10$),
+power-law fits $|\rho| \sim A\,k^{-\alpha}$ consistently outperform
+exponential fits ($R^2$: $\zeta$\,0.71, $\chi_4$\,0.76, $\chi_5$\,0.76;
+$\chi_3$ is a 3-seed preliminary with $R^2 = 0.38$).
+The rapid decay means that a single characteristic length $\xi$
+is difficult to define; the nonlocal signal is concentrated almost
+entirely at $k{=}1$.
+\textcolor{ForestGreen}{[confirmed 2026-04-14, 4 $L$-functions, 3-seed preliminary]}
+\end{observation}
+
 
 % ============================================================================
 \section{Discussion}
