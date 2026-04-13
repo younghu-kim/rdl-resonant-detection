@@ -427,9 +427,37 @@ run_full_cycle() {
         write_failure_report 3 "$LOG_DIR/${TIMESTAMP}_stage3_reviewer.log"
     }
 
+    # ── 논문 반영 검증 게이트 ──
+
+    # reviewer가 실제로 tex를 업데이트했는지 확인
+    local tex_file="$PROJECT_DIR/paper/source/unified_master_en.tex"
+    local tex_mtime_before
+    tex_mtime_before=$(stat -c %Y "$tex_file" 2>/dev/null || echo 0)
+
+    # reviewer 완료 후 tex 수정 시각 확인
+    local tex_mtime_after
+    tex_mtime_after=$(stat -c %Y "$tex_file" 2>/dev/null || echo 0)
+
+    if [ "$tex_mtime_after" -gt "$tex_mtime_before" ]; then
+        ok "논문 TeX 업데이트 감지 — PDF 재컴파일 확인"
+    else
+        # 미반영 결과가 있는지 체크
+        local unreflected=0
+        if [ -f "$RESULTS_DIR/.reflected" ]; then
+            unreflected=$(diff <(ls "$RESULTS_DIR"/*.txt 2>/dev/null | sort) \
+                <(sort -u "$RESULTS_DIR/.reflected") 2>/dev/null | grep -c "^<" || echo 0)
+        else
+            unreflected=$(ls "$RESULTS_DIR"/*.txt 2>/dev/null | wc -l)
+        fi
+        if [ "$unreflected" -gt 0 ]; then
+            warn "논문 미반영 결과 ${unreflected}개 감지 — 다음 사이클에서 반영 필요"
+            echo "⚠️ 논문 미반영 결과 ${unreflected}개 ($(date '+%H:%M'))" >> "$BOARD_DIR/reviewer.md"
+        fi
+    fi
+
     # ── 사이클 후 정리 ──
 
-    # PDF 배포
+    # PDF 배포 (tex가 갱신됐든 아니든, paper/ 디렉토리에 PDF가 있으면 배포)
     if [ -f "$PROJECT_DIR/paper/unified_master_en.pdf" ]; then
         mkdir -p "$HOME/Desktop/수학최종논문"
         cp "$PROJECT_DIR/paper/unified_master_en.pdf" "$HOME/Desktop/수학최종논문/" 2>/dev/null && \

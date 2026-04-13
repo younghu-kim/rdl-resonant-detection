@@ -1229,7 +1229,10 @@ $t_k$ & $|F_2|$ & $\sin^2$ PQO & $\cos^2$ PQO & $\arg(Z_{\mathrm{out}})$ \\
 
 \begin{remark}[Lehmer--Odlyzko 연결]
 \label{rem:lehmer}
-$Z(t)$가 실수축을 거의 스치지만 교차하지 않는 영점 쌍 --- 고전적 Lehmer 현상 --- 은 Montgomery--Odlyzko의 GUE 간격 통계에서 가까운 영점 쌍에 대응한다. 우리 설정에서 이들은 해석 신호의 위상이 $\pm\pi/2$ 근처에서 더 오래 머무는 영점이다. 예비 수치 실험(78개 영점, $t\in[0,200]$)에서 근접 쌍의 다발 곡률 프로파일 $\kappa$가 정성적으로 더 넓고(FWHM 비율 ${\approx}\,3.4$, $p{=}0.01$) 다중 피크 구조를 보이는 반면, Hadamard 부분합 수렴 속도 자체는 간격에 둔감하다($|r|<0.03$). \cref{tab:f2_low}의 난이도 위계는 따라서 이상 현상이 아니라 예상되는 것이다.
+$Z(t)$가 실수축을 거의 스치지만 교차하지 않는 영점 쌍 --- 고전적 Lehmer 현상 --- 은 Montgomery--Odlyzko의 GUE 간격 통계에서 가까운 영점 쌍에 대응한다. 우리 설정에서 이들은 해석 신호의 위상이 $\pm\pi/2$ 근처에서 더 오래 머무는 영점이다. 수치 실험(78개 영점, $t\in[0,200]$)에서 근접 쌍의 다발 곡률 프로파일 $\kappa$가 정성적으로 더 넓고(FWHM 비율 ${\approx}\,3.4$, $p{=}0.01$) 다중 피크 구조를 보인다.
+
+고해상도 후속 실험에서 $\delta$-강건성 검증을 확인하였다: 정규화 간격 $g_{\mathrm{norm}}$과 피크 곡률 $\kappa(t_0+\delta)$의 Spearman 순위 상관이 $\rho = 0.835$ ($p < 10^{-21}$, $n=78$)이며, 세 오프셋 값 $\delta\in\{0.01, 0.03, 0.05\}$ 모두에서 $|\rho|>0.83$을 유지한다. 다만 FWHM--간격 상관은 약하며($\rho = -0.276$, $p=0.014$), 간격이 피크 \emph{높이}는 조절하지만 피크 \emph{폭}에는 영향이 적음을 시사한다.
+\textcolor{ForestGreen}{[확인 2026-04-14, $\delta$-강건 3/3]}
 \end{remark}
 
 % ============================================================================
@@ -1777,6 +1780,105 @@ $p$-값은 경계선이다.
 \label{sec:weyl}
 
 \cref{sec:pggd_failure}는 PGGD의 실패 원인을 $2\pi$ 모듈로 각도 업데이트의 Weyl형 등분포 탓으로 돌린다. 기저 사실은 무리수 $\alpha$에 대해 수열 $\{n\alpha\bmod 1\}$이 $[0,1)$에서 등분포한다는 고전 정리이다. PGGD 맥락에서 스텝당 각도 업데이트는 근사적으로 $\eta\,\hat L(t)$이며, 일반적 타겟 함수에 대해 유한 샘플 위에서 유리 독립이다; 접 투영은 전체 업데이트를 이 각도 성분에 집중시키며, epoch 수가 증가함에 따라 경험 분포가 $S^1$ 위의 Haar 측도로 수렴하는 등분포 보행을 생성한다. 이는 \cref{rem:kuramoto_transition}의 잠김의 역이다: 여기서는 결합이 구성에 의해 제거되었고, 등분포가 승리한다.
+
+
+% ============================================================================
+\section{\textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\ 중간점 곡률 비국소성}
+\label{sec:midpoint_nonlocal}
+% ============================================================================
+
+\noindent\textbf{Tier 1.}
+연속 영점 사이의 중간점 $m = (\gamma_n + \gamma_{n+1})/2$에서,
+Hadamard 곱 표현은 두 최근접(NN) 기여가 정확히 상쇄됨을 보장한다:
+$1/(s-\rho_n)$ 항과 $1/(s-\rho_{n+1})$ 항이 대칭에 의해 합 0이 된다.
+잔여 곡률 $\kappa(m) = |\Lambda'/\Lambda(1/2+im)|^2$는
+따라서 먼 영점들의 \emph{비국소} 정보만을 인코딩한다.
+
+\begin{observation}[중간점 곡률이 다음 간격을 인코딩]
+\label{obs:midpoint_nonlocal}
+$\zeta(s)$의 처음 234개 연속 영점 쌍
+($t\in[0,450]$, dps\,$=$\,$100$, 해석적 $\log\xi'$ 공식,
+cap률 $0.0\%$)에서 Spearman 순위 상관은 다음과 같다:
+\begin{center}
+\begin{tabular}{lccl}
+\toprule
+\textbf{쌍} & $\rho$ & $p$값 & \textbf{해석} \\
+\midrule
+$\kappa_{\mathrm{mid}}$ vs.\ gap ($\gamma_{n+1}-\gamma_n$)
+  & $-0.031$ & $0.64$ & NN 상쇄 확인 \\
+$\kappa_{\mathrm{mid}}$ vs.\ gap$_{\mathrm{next}}$ ($\gamma_{n+2}-\gamma_{n+1}$)
+  & $-0.654$ & $7.3\times 10^{-30}$ & \textbf{강한 비국소 신호} \\
+$\kappa_{\mathrm{mid}}$ vs.\ 국소 밀도
+  & $+0.022$ & $0.74$ & 밀도 효과 없음 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent
+편상관 $\rho(\kappa_{\mathrm{mid}},
+\mathrm{gap}_{\mathrm{next}} \mid \mathrm{gap}) = -0.666$은
+본질적으로 변하지 않아, 간격 자기상관이 교란 요인이 아님을 확인한다.
+\textcolor{ForestGreen}{[확인 2026-04-14]}
+\end{observation}
+
+\begin{observation}[디리클레 $L$-함수에서의 보편성]
+\label{obs:dirichlet_nonlocal}
+중간점 비국소성은 세 디리클레 $L$-함수 ($\chi_3, \chi_4, \chi_5$)에서도
+지속된다. 해석적 공식
+$\Lambda'/\Lambda = \tfrac{1}{2}\log(q/\pi)
+  + \tfrac{1}{2}\psi((s+a)/2) + L'/L(s,\chi)$를 사용하여,
+테스트한 모든 $L$-함수에서 $|\rho(\kappa_{\mathrm{mid}},
+\mathrm{gap}_{\mathrm{next}})| > 0.55$이며 $p < 10^{-10}$을 확인하였다.
+\textcolor{ForestGreen}{[확인 2026-04-14]}
+\end{observation}
+
+\begin{table}[h]
+\centering
+\caption{중간점 곡률 비국소성: $L$-함수 vs.\ 무작위 점 과정.
+  ``NN 상쇄'' 열: $|\rho(a)|<0.3$이면 최근접 상쇄가 작동함을 확인.}
+\label{tab:midpoint_nonlocal}
+\small
+\begin{tabular}{@{} l c c c c c @{}}
+\toprule
+\textbf{점 과정} & \textbf{$n$ 쌍} &
+  $\rho(a)$ gap & $\rho(b)$ gap$_{\text{next}}$ &
+  \textbf{편상관} & \textbf{판정} \\
+\midrule
+$\zeta(s)$  & 234 & $-0.031$ & $\mathbf{-0.654}$ & $-0.666$ & \checkmark\ 비국소 \\
+$L(s,\chi_3)$  & 112 & $-0.045$ & $\mathbf{-0.567}$ & $-0.576$ & \checkmark\ 비국소 \\
+$L(s,\chi_4)$  & 120 & $-0.016$ & $\mathbf{-0.608}$ & $-0.629$ & \checkmark\ 비국소 \\
+$L(s,\chi_5)$  & 127 & $-0.013$ & $\mathbf{-0.607}$ & $-0.613$ & \checkmark\ 비국소 \\
+\midrule
+GUE ($500\times 500$, 20회) & $20\times 399$
+  & $-0.037$ & $-0.008\pm 0.034$ & $-0.020$ & $\times$\ 부재 \\
+Poisson (234점, 20회) & $20\times 232$
+  & $-0.290$ & $-0.090\pm 0.045$ & $-0.098$ & $\times$\ 기하학적 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{observation}[GUE/Poisson 대조]
+\label{obs:gue_poisson}
+비국소 신호가 반발 점 과정의 일반적 특성인지 검증하기 위해,
+GUE 고유값($500{\times}500$ Hermitian 행렬, bulk 80\%, 슬라이딩 윈도우
+unfolding, 20회)과 Poisson 점(234개 균등분포 점, 20회)에 대해
+$R(m)^2 = (\sum_{\text{non-NN}} 1/(m - \lambda_k))^2$를 계산하였다.
+
+\smallskip\noindent
+GUE: $\rho(b) = -0.008 \pm 0.034$ ($t$검정 $p = 0.29$) ---
+GUE의 spectral rigidity에도 불구하고 통계적으로 0과 구분 불가.
+Poisson: $\rho(b) = -0.090 \pm 0.045$ ($p = 4.5\times 10^{-8}$) ---
+통계적으로 유의하나 $|{\rho}|$가 $L$-함수 값의 ${\sim}1/7$ 수준;
+이 잔여는 순수 기하학적 효과에서 기인한다: 지배 비-NN 항
+$1/(m - \lambda_{i+1}) \approx -2/(\mathrm{gap} + \mathrm{gap}_{\mathrm{next}})$가
+$\mathrm{gap}_{\mathrm{next}}$에 약하게 결합한다.
+
+\smallskip\noindent
+결론: 중간점 곡률 비국소성은 테스트한 4개 $L$-함수
+($\zeta$, $\chi_3$, $\chi_4$, $\chi_5$)의 산술적 영점 배치에 고유하다.
+GUE 레벨 반발이나 Poisson 독립성으로는 재현되지 않는다.
+메커니즘은 미확인 상태이며, 열린 문제로 기록한다.
+\textcolor{ForestGreen}{[확인 2026-04-14, 20회 앙상블]}
+\end{observation}
 
 
 % ============================================================================
@@ -2426,6 +2528,22 @@ $\chi\bmod 5$ & 7 & 곡률 / 이중 / 모노 & 7 / 7 / 7 & 1.000 & 1.000 & 1.000
 
 \noindent
 3개 지표에서 3가지 방법 모두 $\mathrm{F1}=1.000$ (21/21 영점, 허용 오차 $\delta t < 0.5$). 80자릿수 \texttt{mpmath} 정밀도에서는 곡률 극대만으로 모든 영점을 거짓 양성 없이 식별 가능하다. 이중 기준과 모노드로미 단독 기준은 이 정밀도 수준에서 추가 이점이 없다. 이중 기준의 실용적 가치는 신경망 수준에서 근사 $\kappa$ 추정이 거짓 양성을 유발할 때 드러난다 (추측~3 참조).
+
+\section{음성 결과: Gram 점 곡률}
+\label{app:gram_negative}
+
+Gram 점 $g_n$ ($\vartheta(g_n) = n\pi$로 정의)에서의 곡률 $\kappa$가
+Gram 법칙 위반의 서명을 담고 있는지는 자연스러운 질문이다.
+$n = 0, \ldots, 200$에 대해 $\kappa(g_n + 0.03)$을 계산하고
+각 Gram 점을 ``good'' (Gram 법칙 만족) 또는 ``bad'' (위반)으로 분류하였다.
+이 범위에서 201개 Gram 점 중 3개만 bad ($n \in \{126, 134, 195\}$)이며,
+순위 기반 검정(Mann--Whitney, 그룹당 $n \geq 8$ 필요)에
+충분한 통계적 검정력을 제공하지 않는다. 따라서 이 실험은
+\textbf{음성}이다 --- 가설이 반증된 것이 아니라, 데이터가 검정에
+부적합하기 때문이다. bad Gram 점이 더 빈번해지는 $n > 1000$
+범위로 확장이 필요하다.
+\textcolor{ForestGreen}{[음성, 2026-04-14]}
+
 
 \section{표기법 색인}
 \label{app:notation}

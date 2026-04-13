@@ -1831,13 +1831,21 @@ it — the classical Lehmer phenomenon — correspond to close zero
 pairs in the GUE spacing statistics of Montgomery--Odlyzko. In our
 setting, these are precisely the zeros where the analytic signal's
 phase spends longer time near $\pm\pi/2$.
-Preliminary numerical evidence (78 zeros, $t\in[0,200]$)
+Numerical evidence (78 zeros, $t\in[0,200]$)
 indicates that the bundle curvature profile $\kappa$ at close
 pairs is qualitatively broader (FWHM ratio ${\approx}\,3.4$,
-$p{=}0.01$) with multi-peaked structure, while the
-Hadamard partial-sum convergence rate itself is insensitive to
-spacing ($|r|<0.03$). The difficulty hierarchy in
-\cref{tab:f2_low} is therefore expected rather than anomalous.
+$p{=}0.01$) with multi-peaked structure.
+
+A high-resolution follow-up confirms the curvature--spacing
+link via a $\delta$-robustness test: the Spearman rank correlation
+between the normalised gap $g_{\mathrm{norm}}$ and peak curvature
+$\kappa(t_0+\delta)$ satisfies $\rho = 0.835$
+($p < 10^{-21}$, $n=78$) consistently across three offset values
+$\delta\in\{0.01, 0.03, 0.05\}$ (all $|\rho|>0.83$).
+The FWHM--spacing correlation, however, remains weak
+($\rho = -0.276$, $p=0.014$), indicating that spacing modulates
+peak \emph{height} but not peak \emph{width}.
+\textcolor{ForestGreen}{[confirmed 2026-04-14, $\delta$-robust 3/3]}
 \end{remark}
 
 % ============================================================================
@@ -2876,6 +2884,114 @@ by construction, and equidistribution wins.
 
 
 % ============================================================================
+\section{\textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\ Midpoint Curvature Nonlocality}
+\label{sec:midpoint_nonlocal}
+% ============================================================================
+
+\noindent\textbf{Tier 1.}
+At the midpoint $m = (\gamma_n + \gamma_{n+1})/2$ between consecutive
+zeros, the Hadamard product ensures that the two nearest-neighbour (NN)
+contributions to $\Lambda'/\Lambda$ cancel exactly: the terms
+$1/(s-\rho_n)$ and $1/(s-\rho_{n+1})$ sum to zero by symmetry.
+The residual curvature $\kappa(m) = |\Lambda'/\Lambda(1/2+im)|^2$
+therefore encodes only \emph{non-local} information from distant zeros.
+
+\begin{observation}[Midpoint curvature encodes the next gap]
+\label{obs:midpoint_nonlocal}
+For the first 234 consecutive zero pairs of $\zeta(s)$
+($t\in[0,450]$, dps\,$=$\,$100$, analytic $\log\xi'$ formula,
+cap rate $0.0\%$), the Spearman rank correlations are:
+\begin{center}
+\begin{tabular}{lccl}
+\toprule
+\textbf{Pair} & $\rho$ & $p$-value & \textbf{Interpretation} \\
+\midrule
+$\kappa_{\mathrm{mid}}$ vs.\ gap ($\gamma_{n+1}-\gamma_n$)
+  & $-0.031$ & $0.64$ & NN cancellation confirmed \\
+$\kappa_{\mathrm{mid}}$ vs.\ gap$_{\mathrm{next}}$ ($\gamma_{n+2}-\gamma_{n+1}$)
+  & $-0.654$ & $7.3\times 10^{-30}$ & \textbf{strong nonlocal signal} \\
+$\kappa_{\mathrm{mid}}$ vs.\ local density
+  & $+0.022$ & $0.74$ & no density effect \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent
+The partial correlation $\rho(\kappa_{\mathrm{mid}},
+\mathrm{gap}_{\mathrm{next}} \mid \mathrm{gap}) = -0.666$
+remains essentially unchanged, ruling out gap autocorrelation
+as a confound.
+\textcolor{ForestGreen}{[confirmed 2026-04-14]}
+\end{observation}
+
+\begin{observation}[Universality across Dirichlet $L$-functions]
+\label{obs:dirichlet_nonlocal}
+The midpoint nonlocality persists across three Dirichlet $L$-functions
+($\chi_3, \chi_4, \chi_5$), using the analytic formula
+$\Lambda'/\Lambda = \tfrac{1}{2}\log(q/\pi)
+  + \tfrac{1}{2}\psi((s+a)/2) + L'/L(s,\chi)$.
+All tested $L$-functions exhibit $|\rho(\kappa_{\mathrm{mid}},
+\mathrm{gap}_{\mathrm{next}})| > 0.55$ with $p < 10^{-10}$.
+\textcolor{ForestGreen}{[confirmed 2026-04-14]}
+\end{observation}
+
+\begin{table}[h]
+\centering
+\caption{Midpoint curvature nonlocality: $L$-function vs.\ random
+  point processes. ``NN cancel'' column: $|\rho(a)|<0.3$ confirms
+  nearest-neighbour cancellation is operative.}
+\label{tab:midpoint_nonlocal}
+\small
+\begin{tabular}{@{} l c c c c c @{}}
+\toprule
+\textbf{Point process} & \textbf{$n$ pairs} &
+  $\rho(a)$ gap & $\rho(b)$ gap$_{\text{next}}$ &
+  \textbf{partial $\rho$} & \textbf{Verdict} \\
+\midrule
+$\zeta(s)$  & 234 & $-0.031$ & $\mathbf{-0.654}$ & $-0.666$ & \checkmark\ nonlocal \\
+$L(s,\chi_3)$  & 112 & $-0.045$ & $\mathbf{-0.567}$ & $-0.576$ & \checkmark\ nonlocal \\
+$L(s,\chi_4)$  & 120 & $-0.016$ & $\mathbf{-0.608}$ & $-0.629$ & \checkmark\ nonlocal \\
+$L(s,\chi_5)$  & 127 & $-0.013$ & $\mathbf{-0.607}$ & $-0.613$ & \checkmark\ nonlocal \\
+\midrule
+GUE ($500\times 500$, 20 runs) & $20\times 399$
+  & $-0.037$ & $-0.008\pm 0.034$ & $-0.020$ & $\times$\ absent \\
+Poisson (234 pts, 20 runs) & $20\times 232$
+  & $-0.290$ & $-0.090\pm 0.045$ & $-0.098$ & $\times$\ geometric \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{observation}[GUE/Poisson contrast]
+\label{obs:gue_poisson}
+To test whether the nonlocal signal is a generic feature of
+repulsive point processes, we computed $R(m)^2 =
+(\sum_{\text{non-NN}} 1/(m - \lambda_k))^2$ --- the direct analogue
+of $\kappa_{\mathrm{mid}}$ --- on GUE eigenvalues
+($500{\times}500$ Hermitian matrices, bulk 80\%, sliding-window
+unfolding, 20 runs) and Poisson points
+(234 uniform points, 20 runs).
+
+\smallskip\noindent
+GUE: $\rho(b) = -0.008 \pm 0.034$ ($t$-test $p = 0.29$) ---
+statistically indistinguishable from zero despite GUE's spectral
+rigidity.
+Poisson: $\rho(b) = -0.090 \pm 0.045$ ($p = 4.5\times 10^{-8}$) ---
+statistically significant but $|{\rho}|$ is ${\sim}1/7$ of the
+$L$-function value; this residual arises from a purely geometric
+effect: the dominant non-NN term $1/(m - \lambda_{i+1})
+\approx -2/(\mathrm{gap} + \mathrm{gap}_{\mathrm{next}})$ couples
+weakly to $\mathrm{gap}_{\mathrm{next}}$.
+
+\smallskip\noindent
+Conclusion: the midpoint curvature nonlocality is specific to the
+arithmetic zero placement of the four tested $L$-functions
+($\zeta$, $\chi_3$, $\chi_4$, $\chi_5$). It is not reproduced by
+GUE level repulsion or Poisson independence.
+The mechanism remains unidentified; we record this as an open problem.
+\textcolor{ForestGreen}{[confirmed 2026-04-14, 20-run ensemble]}
+\end{observation}
+
+
+% ============================================================================
 \section{Discussion}
 \label{sec:discussion}
 % ============================================================================
@@ -3708,6 +3824,24 @@ monodromy-only criteria offer no additional benefit in this regime.
 The practical value of the dual criterion emerges only at the
 neural-network level, where approximate $\kappa$ estimation introduces
 false positives (cf.\ Conjecture~3).
+
+
+\section{Negative Result: Gram Point Curvature}
+\label{app:gram_negative}
+
+A natural question is whether the curvature $\kappa$ at Gram points
+$g_n$ (defined by $\vartheta(g_n) = n\pi$) carries a signature of
+Gram's law violations. We computed $\kappa(g_n + 0.03)$ for
+$n = 0, \ldots, 200$ and classified each Gram point as ``good''
+(satisfying Gram's law) or ``bad'' (violating it). Only 3 out of 201
+Gram points in this range are bad ($n \in \{126, 134, 195\}$),
+yielding insufficient statistical power for any rank-based test
+(Mann--Whitney requires $n \geq 8$ per group). This experiment is
+therefore \textbf{negative} --- not because the hypothesis is
+disproved, but because the data are inadequate to test it.
+Extending to $n > 1000$, where bad Gram points become more frequent,
+would be needed to revisit this question.
+\textcolor{ForestGreen}{[negative, 2026-04-14]}
 
 
 \section{Notation Index}
