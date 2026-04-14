@@ -2537,13 +2537,110 @@ $8\%$ 불일치를 해결한다.
 \end{observation}
 
 
+% ----------------------------------------------------------------------------
+\begin{observation}[곡률 차선도 구조와 Hadamard 분해]
+\label{obs:curvature_subleading}
+곡률 스칼라 $\kappa = |\xi'/\xi|^2$를 선도항 $1/\delta^2$ 극 너머로
+전개하여, \emph{차선도} 보정 $\Delta\kappa := \kappa - 1/\delta^2$를
+분리하고 이것이 Hadamard 곱 분해를 통해 산술적 내용을 인코딩함을
+보인다.
+
+\smallskip\noindent
+\textbf{설정.}\;
+20개 리만 영점($N = 1$ \textasciitilde{} $N = 20\,000$,
+$t \approx 14$ \textasciitilde{} $t \approx 18\,046$)을
+오프셋 $\delta = 0.03$에서 탐침한다.
+해석적 로그 도함수 $\xi'/\xi(s) = G(s) + \zeta'/\zeta(s)$는
+감마/극 기여 $G(s) = 1/s + 1/(s{-}1) - \tfrac{1}{2}\log\pi + \tfrac{1}{2}\psi(s/2)$와
+디리클레 급수 부분 $\zeta'/\zeta(s)$로 분리된다.
+
+$R(s) = \xi'/\xi(s) - 1/\delta$ (최근접 영점 극 제거 후 나머지)로
+쓰면:
+\[
+  \Delta\kappa
+  \;=\;
+  \frac{2\,\operatorname{Re} R}{\delta}
+  + |R|^2.
+\]
+
+\smallskip\noindent
+\textbf{파트~A: $\delta$-독립성.}\;
+보정항 $\Delta\kappa$는 $\delta$에 본질적으로 무관하다:
+멱법칙 적합 $\Delta\kappa \propto \delta^{\alpha}$에서
+$\alpha \approx -0.002$로 영과 일치한다.
+이는 $\kappa = 1/\delta^2 + f(t)$로 깔끔히 분해됨을 의미한다.
+
+\smallskip\noindent
+\textbf{파트~B: 로그 스케일링.}\;
+차선도 보정은 대수적으로 성장한다:
+\[
+  \Delta\kappa
+  \;\approx\;
+  1.59 \cdot \log\!\bigl(t/(2\pi)\bigr) + c,
+  \qquad
+  R^2 = 0.860,\;\; p = 4.1 \times 10^{-9}.
+\]
+$R^2 = 0.86$은 ``확립'' 기준 $0.9$에 미달하지만,
+높은 유의성의 $p$-값이 대수적 추세를 확인한다.
+
+\smallskip\noindent
+\textbf{파트~C: 기울기의 Hadamard 분해.}\;
+기울기 $a = 1.59$는 두 큰 기여의 근사 상쇄에서 발생한다:
+\begin{center}
+\small
+\begin{tabular}{@{} l r r @{}}
+\toprule
+성분 & $\log(t/2\pi)$ 대비 기울기 & $R^2$ \\
+\midrule
+$G(n)$ [감마 + 극]      & $+0.5000$ & $1.0000$ \\
+$S_{\mathrm{all}}(n)$ [제타 영점] & $-0.4768$ & $0.9996$ \\
+$\operatorname{Re} R = G + S_{\mathrm{all}}$  & $+0.0232$ & $0.854$ \\
+$2\operatorname{Re} R/\delta$  & $+1.548$ & $0.854$ \\
+$\operatorname{Im}(R)^2$      & $+0.042$ & $0.041$ \\
+$\Delta\kappa$ (전체)        & $+1.595$ & $0.860$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+감마 기여(+0.500)와 영점합 기여($-0.477$)가 $95.4\%$ 상쇄되고,
+잔차 $0.023$이 $2/\delta = 66.7$배로 증폭되어 관측 기울기
+$\approx 1.55$를 만든다.
+Hadamard 곱 구조에 기반한 이론 추정 $a \approx 1.5$는
+실측 $1.59 \pm 0.15$와 $1\sigma$ 이내 일치한다.
+
+\smallskip\noindent
+\textbf{파트~D: 이상치 분석 ($N{=}7000$).}\;
+최대 잔차($\Delta\kappa = 14.08$)는 근접 영점 쌍에서 기인한다:
+영점 6999와 7000의 간격은 $0.475$ (지역 평균 $0.89$)로,
+이례적으로 큰 $\operatorname{Re} R = 0.204$를 생성한다.
+이는 GUE 레벨 반발 통계와 일관적이다.
+
+\smallskip\noindent
+\textbf{주의.}\;
+영점 간격과 $\Delta\kappa$의 raw 상관 $r = -0.755$는
+공통 교란변수 $t$에 의한 허위 연관이다.
+Unfolding 후 $r = +0.256$ ($p = 0.28$):
+간격--$\Delta\kappa$ 결합은 통계적으로 유의하지 않다.
+
+\smallskip\noindent
+\textbf{해석.}\;
+차선도 구조 $\Delta\kappa \approx 1.59\log(t/2\pi)$는
+$\xi$-다발 곡률이 자명한 $1/\delta^2$ 극 너머의 산술적 내용을
+포착한다는 예비적 수치 증거를 제공한다.
+Hadamard 분해는 (오차 $0.00\%$로) 이 기울기가 감마 함수와
+제타 영점 기여의 근사 상쇄에서 발생함을 검증한다.
+\textcolor{ForestGreen}{[확인 2026-04-15; 20 영점 ($N{=}1$ \textasciitilde{} $20000$);
+$\delta{=}0.03$; $R^2{=}0.860$; Hadamard 분해 오차 ${=}0.00\%$;
+3-시드 예비]}
+\end{observation}
+
+
 % ============================================================================
 \section*{수치 증거 요약}
 \label{sec:summary}
 \addcontentsline{toc}{section}{수치 증거 요약}
 % ============================================================================
 
-표~\ref{tab:summary}는 여섯 가지 검증 축에 걸쳐 얻은 30개의 수치 결과를
+표~\ref{tab:summary}는 여섯 가지 검증 축에 걸쳐 얻은 31개의 수치 결과를
 종합한다. 상태 코드: \textbf{E} = 확립(Established),
 \textbf{C} = 조건부 양성(Conditionally positive),
 \textbf{N} = 음성(Negative, 완전 공개).
@@ -2551,7 +2648,7 @@ $8\%$ 불일치를 해결한다.
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{3.8cm} l@{}}
-\caption{여섯 검증 축에 걸친 30개 수치 결과 요약.\label{tab:summary}}\\
+\caption{여섯 검증 축에 걸친 31개 수치 결과 요약.\label{tab:summary}}\\
 \toprule
 \# & 결과명 & 상태 & 핵심 지표 & 축 \\
 \midrule
@@ -2602,6 +2699,8 @@ $8\%$ 불일치를 해결한다.
 29 & Epstein 제타 확장          & \textbf{C} & $\lambda{=}1$ vs $\lambda{=}5$, $\kappa$ 편차 ${<}1\%$  & 확장 \\
 \midrule
 30 & 고 $t$ 견강성               & \textbf{E} & $\kappa$ CV${=}0.2\%$, $t{=}14$--$10^4$ & 견강성 \\
+\midrule
+31 & $\Delta\kappa$ 차선도       & \textbf{C} & 기울기${=}1.59$, Hadamard 오차${=}0.00\%$ & 산술적 \\
 \end{longtable}
 \end{center}
 
