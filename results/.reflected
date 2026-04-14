@@ -110,6 +110,8 @@ results/lehmer_mpmath_scan.txt
 results/multiseed_if128.txt
 results/nonlocal_reach_decay_figdata.csv
 results/nonlocal_reach_decay.txt
+results/number_variance_rmt.txt
+results/number_variance_rmt_v1.txt
 results/offcritical_gauss_bonnet_profile.csv
 results/offcritical_gauss_bonnet.txt
 results/optim_budget_scaling.txt
