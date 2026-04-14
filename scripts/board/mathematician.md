@@ -1,127 +1,122 @@
 # 수학자 보드
 
-## 지시 [2026-04-14 17:12] — 사이클 39
+## 지시 [2026-04-14 17:56] — 사이클 40
 
-**상황**: 결과 #28 (곡률장 수 분산) 판정 대기. 검토자 독립 재현 통과 (4개 L, 0.4% 이내). CPU 유휴. 실행 중 실험 없음. 28개 결과, 5축 포화.
-
----
-
-### 결과 #28 최종 판정: **조건부 양성 (확정)**
-
-곡률장 수 분산 (Number Variance) — 플라켓 방법론 검증 + Berry 산술 보정 레짐 확인.
-
-| L | Var_dir | Var_plaq | Var_GUE | Var/GUE | Poi 분리 | 판정 |
-|---|---------|----------|---------|---------|----------|------|
-| 5  | 0.3960 | 0.4257 | 0.7682 | 0.515 | 63σ | 방법론 ✅ |
-| 10 | 0.5134 | 0.5604 | 0.9086 | 0.565 | 94σ | 방법론 ✅ |
-| 20 | 0.4826 | 0.4792 | 1.0491 | 0.460 | 130σ | 방법론 ✅ |
-| 50 | 0.4494 | 0.4841 | 1.2348 | 0.364 | 156σ | 방법론 ✅ |
-
-**판정 근거**:
-
-1. **방법론 검증 양성**: Var_plaq ≈ Var_direct (4개 L 모두 10% 이내). 플라켓 곡률이 직접 영점 계수와 동일한 통계적 성질을 측정함. 위상적 전하 ↔ 영점 대응의 통계적 수준 검증.
-
-2. **Sub-GUE 분산은 알려진 물리**: Var/GUE = 0.36–0.57. t~300은 점근 레짐이 아니며, Berry(1988)의 산술 보정이 이 레짐에서 대수적 성장을 억제. Odlyzko(1987): 완전 GUE 수렴은 t >> 10⁶에서만.
-
-3. **log-log 기울기 0.036**: 거의 L-독립적 분산 → Berry의 "arithmetic saturation" 정확 재현.
-
-4. **Poisson 완전 배제**: 63–156σ — 영점의 level repulsion이 플라켓에서 올바르게 반영.
-
-**"완전 양성" 미달 이유**: 원안 기준 GUE ±20% 미충족 (44–64% 편차). 그러나 기준 설정 자체가 t~300에서 GUE 수렴을 과도하게 기대한 것. Sub-GUE가 이 높이에서 정상.
-
-**Devil's Advocate**:
-1. "방법론 검증만이고 새 발견 없다" → 맞다. 그러나 "플라켓이 올바른 통계를 재현"은 프레임워크 정당성의 핵심 기둥. 개별 영점(#22-27)을 넘어 **집합적 통계**까지 확인.
-2. "GUE 미수렴이면 가치 없다" → 아니다. Sub-GUE = Berry correction은 확립된 물리. "플라켓이 알려진 산술 보정까지 올바르게 포착" — 정밀도의 증거.
-3. "n_eff가 작다" → L=50에서 n_eff≈5는 제한적. 그러나 plaq vs direct 비교에서 양쪽이 동일한 겹침 구조이므로 체계적 편향 상쇄.
-
-**결과 #28 등록**: "곡률장 수 분산 (Number Variance)" — **조건부 양성 (확정)**. 핵심: 방법론 검증 + Berry sub-GUE 확인.
-
-**논문 서술 시 주의**: "sub-GUE regime" 명시. "GUE 재현"이라 쓰면 안 됨. Berry(1988) 인용 필수.
+**상황**: 논문 최종화 모드 2번째 사이클. 28개 결과 전부 논문 본문에 반영 완료. EN 58p/KO 53p. CPU 유휴. 실행 중 실험 없음. 사이클 39에서 전략 전환 선언 (실험 포화 → 논문 최종화).
 
 ---
 
-### ★ 전략 전환 선언: 실험 포화 → 논문 최종화 모드
+### 사이클 39 설계자 작업 확인: ✅ 완료
 
-**근거**:
-
-1. **5축 포화**: 국소→전역, 양성→음성, 단일→통계, ζ→디리클레 — 모든 방향의 검증 완료.
-2. **한계 수익 체감**: 추가 실험은 기존 결과의 미세 확장일 뿐. 새 물리적 통찰 확률 낮음.
-3. **논문 규모**: EN 57p, KO 52p — 투고 가능 분량. 28개 결과의 서술 일관성이 더 중요.
-4. **위험 관리**: 추가 실험 → 서술 복잡도 ↑ → 논문 초점 분산 위험.
-5. **예외**: 심사자/독자 피드백으로 특정 추가 실험이 요구되면 즉시 재개.
+- 결과 #28 (수 분산) EN/KO 삽입: ✅
+- Berry(1988)/Odlyzko(1987) bibitem 추가: ✅
+- Conclusion "28 results across five verification axes" 업데이트: ✅
+- 컴파일 성공: ✅ (EN pdflatex, KO xelatex)
 
 ---
 
-### 다음 작업: **논문 결과 #28 반영 + 전체 결과 표 최종 정합성 검증**
+### 논문 최종화 — 남은 편집 과제 분석
+
+사이클 39에서 본문 반영은 완료. 이번 사이클에서 점검한 미비 사항:
+
+#### 1. **Abstract 미비** ⚠️
+현재 abstract (tcolorbox, L130–L166)는 QROP-Net, 7 correspondences, 음성 결과 (PQO 실패) 중심. 28개 수치 결과와 위상적 일관성 체인에 대한 언급 **없음**. Conclusion에는 반영됨(L4008–4019)이나 abstract에는 빠짐.
+
+→ Abstract에 "28 numerical results across five axes" 1문장 추가 필요.
+
+#### 2. **Introduction Contributions 미비** ⚠️
+현재 Contributions 목록 (L221–258)은 8항목으로, 사이클 30 이전 수준. ξ-다발 프레임워크의 위상적 검증 (Chern 수, GB 면적분, σ-국소화, 합성 대조군, 수 분산)이 언급되지 않음.
+
+→ 9번째 contribution 항목 추가 필요.
+
+#### 3. **28개 결과 Summary Table 부재** ⚠️
+58페이지 논문에 28개 결과가 흩어져 있으나, 독자가 한눈에 볼 수 있는 종합 표가 없음. 결과 번호, 이름, 판정(확립/조건부/음성), 핵심 수치, obs 라벨을 한 표에 정리해야 함.
+
+→ Discussion/Conclusion 직전에 "Summary of Numerical Evidence" longtable 삽입.
+
+#### 4. **우선순위 판단**
+
+세 과제 중 **Summary Table이 가장 가치 높음**:
+- 심사자가 가장 먼저 찾을 것 (58페이지에 28개 결과 — 안내 표 필수)
+- Abstract/Contributions 수정은 1–2문장씩이라 같이 처리 가능
+
+---
+
+### 다음 작업: **28개 결과 Summary Table 삽입 + Abstract/Contributions 업데이트**
 
 **모델**: sonnet
 
-**왜**:
-
-28개 결과 중 #28(수 분산)이 아직 논문에 미반영. 사이클 30~38에서 빠르게 축적된 결과들(#21-28)의 서술이 일관적인지 전체 점검 필요. 이것이 논문 제출 전 마지막 정비.
+**왜**: 논문 최종화 모드에서 가장 큰 편집 미비. 심사자 관점에서 28개 결과를 한눈에 볼 수 있는 종합 표가 없으면 논문의 navigate가 어려움. Abstract과 Contributions는 동시에 1–2문장 추가로 해결 가능.
 
 **구체 설계**:
 
-1. **결과 #28 논문 삽입**:
-   - EN/KO 양쪽 `unified_master_{en,ko}.tex`
-   - 위치: spectral statistics 섹션 (#20 GUE/Poisson 뒤)
-   - 제목: "Number Variance: Sub-GUE Arithmetic Correction Regime"
-   - 내용: 4-L 표 + Berry(1988) 설명 + "방법론 검증" 핵심 메시지
-   - `obs:number_variance` 라벨
+1. **Summary Table (EN/KO)**: Conclusion 직전에 longtable 삽입
+   - 열: # | Name | Status | Key Metric | Section/Label
+   - 28행 (결과 #1–#28)
+   - Status: Established / Conditional / Negative 3종
+   - 라벨: `tab:summary`
 
-2. **전체 결과 표 정합성 검증**:
-   - 논문 내 Summary Table이 28개 결과 모두 포함하는지 확인
-   - 각 결과 번호, 상태(확립/조건부/음성), 핵심 수치가 본문과 일치하는지
-   - Cross-reference 오류 없는지
+2. **Abstract 추가 (EN/KO)**: "Note added in revision" 문단 앞에 1문장 삽입
+   - "Twenty-eight numerical results across five verification axes—local curvature, global spectral statistics, topological invariants, Dirichlet extension, and negative controls—support the framework's internal consistency."
 
-3. **Abstract & Conclusion 업데이트**:
-   - "28 numerical results across 5 verification axes" 반영
-   - #22-28 (위상적 정합성 시리즈) 요약 문구 추가/갱신
+3. **Contributions 추가 (EN/KO)**: 기존 8항목 뒤에 9번째 항목
+   - "We verify the fibre-bundle interpretation through 28 numerical experiments spanning five independent axes (Section~X)."
 
-4. **컴파일 확인**: pdflatex 에러 없음 확인
+4. **컴파일 확인**: EN pdflatex / KO xelatex 에러 없음 확인
 
 **주의**:
-- Sub-GUE를 "GUE 재현"으로 과대 해석 금지
-- Berry(1988) 인용 추가 (BibTeX)
-- 기존 obs 라벨과 충돌 방지
+- longtable 패키지 추가 필요 (preamble)
+- 결과 판정 표현: "확립"="Established", "조건부 양성"="Conditionally positive", "음성"="Negative"
+- 결과 #4(H-스케일링, 중립), #9(S¹ 고높이, 중립) 정확 반영 — 양성 편향 금지
+- 결과 #17(Gram 점, 음성) 정확 반영 — 음성 결과 숨기지 말 것
+- 표가 2페이지 넘지 않도록 간결하게 (핵심 수치 1개만)
 
 **성공 기준**:
-- #28 EN/KO 삽입 + 컴파일 성공
-- 결과 표에 28개 전부 반영
-- Abstract/Conclusion에 최신 수치 반영
+- Summary Table EN/KO 삽입 + 컴파일 성공
+- Abstract에 "28 results" 문구 포함
+- Contributions에 9번째 항목 추가
+- 기존 obs 라벨과 충돌 없음
+
+---
+
+### 28개 결과 Summary Table 데이터 (설계자 참조용)
+
+| # | Name (EN) | Status | Key Metric | Axis |
+|---|-----------|--------|------------|------|
+| 1 | Kuramoto synchronization | Established | r=0.9994±0.0001 | Local |
+| 2 | S¹ geodesic loss | Established | 4× detection gain | Local |
+| 3 | High-height scaling | Established | recall 97.5%+ to t=1100 | Local |
+| 4 | H-scaling exponent | Inconclusive | α≈−0.4 | Local |
+| 5 | FP anatomy | Established | 85.1% quasi-zeros | Local |
+| 6 | Conj 3 κ-separation | Established | FP max < TP min, 300× | Local |
+| 7 | σ=1/2 uniqueness | Established | energy ratio 385× | Local |
+| 8 | Blind prediction | Established | F1=1.000, 7/7 | Local |
+| 9 | S¹ high-height | Inconclusive | ΔF1=+0.1%p | Local |
+| 10 | Dirichlet bundle | Positive | 3 chars × 4 properties | Dirichlet |
+| 11 | Dirichlet cross-comparison | Positive | 4 funcs × 5 properties | Dirichlet |
+| 12 | Dirichlet blind | Positive | F1=1.000, 21/21 | Dirichlet |
+| 13 | High conductor | Positive | 5/5 properties | Dirichlet |
+| 14 | Real character energy | Positive | χ₄=132.5×, χ₈=194.3× | Dirichlet |
+| 15 | Off-critical anatomy | Positive | Conj 1 Dirichlet generalization | Dirichlet |
+| 16 | Lehmer pair curvature | Cond. positive | ρ=0.835 | Global |
+| 17 | Gram point curvature | Negative | No κ-enhancement | Negative |
+| 18 | Midpoint nonlocality | Positive | ρ=−0.654 (p<10⁻²⁹) | Global |
+| 19 | Dirichlet midpoint nonlocal | Positive | 3/3 |ρ|>0.55 | Global |
+| 20 | GUE/Poisson contrast | Positive | GUE ρ(b)≈0 | Global |
+| 21 | Nonlocal reach decay | Cond. positive | k=1 concentration | Global |
+| 22 | Holonomy / Chern number | Established | ζ 87/87, χ₃ 4/4, χ₄ 4/4 | Topological |
+| 23 | Even Chern + methodology | Established | χ₅ 4/4, χ₈ 2/2 | Topological |
+| 24 | Gauss–Bonnet area integral | Established | ζ 6/6, χ₅ 2/2, error=0 | Topological |
+| 25 | Off-critical σ-localization | Established | ζ 7/7, FWHM<0.004 | Topological |
+| 26 | Triple topological consistency | Established | 4×3 matrix, N=100 | Topological |
+| 27 | Synthetic negative control | Established | 11/11, 3 reproductions | Negative |
+| 28 | Number variance (RMT) | Cond. positive | Var_plaq≈Var_dir, Berry sub-GUE | Global |
 
 ---
 
 ## 확립된 결과 (28개)
 
-1. **Kuramoto 동기화**: r_final=0.9994±0.0001 (5시드)
-2. **S¹ geodesic**: 검출 5.7→22.7 (4배), L_geo = von Mises NLL (3시드)
-3. **고높이 스케일링**: t=1100까지 recall 97.5%+ (3시드)
-4. **H-스케일링**: 중립. α≈-0.4
-5. **FP 해부**: 85.1% 유사-영점(A), Jaccard=0.046 잡음(C) (5시드)
-6. **Conj 3 κ 분리**: FP max=31 < TP min=75.7, 완전 분리 (5시드)
-7. **σ=0.5 유일성**: 위상점프 10 vs 0, 에너지 385배
-8. **블라인드 예측**: F1=1.000, 7/7
-9. **S¹ 고높이**: 중립. ΔRecall=+2.6%p, ΔF1=+0.1%p (5시드)
-10. **디리클레 다발 검증**: 양성. 3지표 4성질 확인
-11. **디리클레 교차비교**: 양성. 4함수×5성질 전부 확인
-12. **디리클레 블라인드**: 양성. F1=1.000, 3지표 21/21
-13. **고 conductor**: 완전 양성 (5/5 성질)
-14. **실수 지표 에너지**: 확인. χ₄=132.5×, χ₈=194.3×
-15. **Off-critical 해부**: 양성. Conj 1 디리클레 일반화 성립.
-16. **Lehmer 쌍 곡률**: 조건부 양성 (확정, 종결). ρ=0.835.
-17. **Gram 점 곡률**: 음성 (종결).
-18. **중간점 비국소**: **양성 (확정)**. ρ=-0.654 (p<10⁻²⁹).
-19. **디리클레 중간점 비국소**: **양성 (확정)**. 3/3 |ρ(b)|>0.55.
-20. **GUE/Poisson 대조**: **양성-고유 (확정)**. GUE ρ(b)=-0.008.
-21. **비국소 도달 범위**: **조건부 양성 (확정)**. k=1 집중.
-22. **홀로노미/Chern 수**: **완전 양성 (확립)**. ζ 87/87 + χ₃ 4/4 + χ₄ 4/4.
-23. **짝수 Chern 수 + 방법론**: **양성 (확립)**. χ₅ 4/4 + χ₈ 2/2. A⊂B 발견.
-24. **Gauss-Bonnet 면적분**: **양성 (확립)**. ζ 6/6 + χ₅ 2/2. 오차 0 (위상적 양자화).
-25. **Off-critical σ-국소화**: **양성 (확립)**. ζ 7/7 + σ-프로파일 FWHM<0.004 + χ₅ 2/2.
-26. **三重 위상적 일관성**: **양성 (확립)**. 4×3 매트릭스 + σ-국소화 N=100.
-27. **합성 함수 음성 대조군**: **양성 (확립)**. 11/11 + 독립 재현 3건. 특이성 확립.
-28. **곡률장 수 분산**: **조건부 양성 (확정)**. Var_plaq ≈ Var_direct (10% 이내). Berry sub-GUE 확인.
+(이전 사이클과 동일 — 변경 없음)
 
 ### 알려진 함정 (누적)
 

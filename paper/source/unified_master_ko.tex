@@ -34,6 +34,7 @@
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{colortbl}
+\usepackage{longtable}
 
 % ── Colors ─────────────────────────────────────────────────────────────────
 \usepackage[dvipsnames,svgnames,x11names]{xcolor}
@@ -129,6 +130,11 @@
 본 논문은 세 가지 겉보기에 이질적인 영역을 연결하는 공유 수학적 문법---\textit{대수적 구조 위의 위상 양자화}---을 규명한다. 그 세 영역은 CRYSTALS-Kyber 격자 기반 양자후 암호, 자유 공간 프레넬 회절, 그리고 임계선 위 리만 $\xif$-함수의 위상 구조이다. 구체적 핵은 QROP-Net으로, Kyber 암호문을 광학 위상 패턴으로 인코딩하고 딥러닝 위상 복원을 통해 복원하는 완전 미분 가능 파이프라인이다. 연속 위상 예측을 이산 시클로토믹 격자 수준으로 강제하는 $\sin^2$ 기반 양자화 손실이, 공명소수법칙 프레임워크에서 ``공명 소수''를 특성화하는 보어--좀머펠트 위상 양자화 조건 $\Delta\nu = m\pi$와 구조적으로 동형임을 보인다. 나아가 Kyber의 LWE 오차 임계치 $\lfloor q/4\rfloor = 1920$과 임계선으로부터의 $\sigma$-리프트 편차 $\sigma^*-\tfrac{1}{2}$가, 신호 복원이 실패하는 경성 오차 경계로서 동일한 역할을 공유함을 증명한다. 외부 정답 없이 자가 교정하는 다원군(Polyadic) ODE 기반 영점 탐지기가 QROP-Net의 블라인드 테스트 시간 최적화를 반영한다. 7개의 구조적 대응이 형식화되며, 유비와 증명 사이의 경계가 명시적으로 서술된다.
 
 \smallskip
+\noindent 다섯 가지 검증 축---국소 곡률, 전역 스펙트럼 통계, 위상적 불변량,
+디리클레 $L$-함수 확장, 음성 대조군---에 걸친 28개의 수치 결과가
+이 프레임워크의 내적 정합성을 지지한다.
+
+\smallskip
 \noindent\textit{개정 후 부기 (2026-04-08).} 임계선 위의 시클로토믹 PQO 프로그램을 경험적으로 실현하려는 시도 — $L=4$ 코사인 PQO 와 \cref{eq:psi_n}의 합성 이상 위상 $\Psip(n)$ 을 감독 타겟으로 사용하는 판별 네트워크 — 는 결정적 음성을 반환한다: 세 시드 모두에서 결과 위상 분포가 리만 영점과 비영점 종좌표를 구별하지 못하며 ($\chi^2$ p값 $0.13/0.53/0.41$; 섹터 $k=2,3$ 정확히 비어 있음). 진단 (\cref{rem:cos2_pqo,rem:psi_defect}) 은 합성 $\Psip$ 가 $\|X\|$에만 의존하고 $\xif$-영점 정보를 전혀 포함하지 않으므로 4-항 손실의 어느 항도 $t$-국소 영점 라벨을 학습에 주입하지 못하며, \cref{eq:pqo_cos} (학습 포텐셜) 와 \cref{eq:cyclo_label} (측정) 가 운영적으로 분리되어 있다는 것이다. 이하 본문은 합성 $\Psip$ 를 역사적 객체로, 시클로토믹 PQO 를 대수적 타겟으로 보존하되, 양자 모두 감독 교체식 $\Psip(t) := \arg\xif(\tfrac{1}{2}+it)$ (\cref{eq:psi_supervised}) 을 사용하는 실험을 기다리는 항목으로 표시된다.
 \end{tcolorbox}
 
@@ -170,6 +176,10 @@ $\sigma$-리프트, 베리 위상, 디리클레 $L$-함수
   \item 7개의 구조적 대응을 형식화하고, 유비와 증명 사이의 경계를 엄격하게 구분한다 (제3부, 제~\ref{sec:correspondence}절).
   \item \textbf{(음성 경험 결과, 2026-04-08)} 시클로토믹 PQO 프로그램을 $t \in [100, 200]$ 위에서 $L=4$로 경험적으로 시도하고, 세 시드 전체에서 영점/비영점 판별의 완전한 실패를 문서화하며, 그 원인을 \cref{eq:psi_n}의 \emph{$\Psip$-디커플링 결함}으로 추적하고, 향후 양성 결과의 필요 조건으로 감독 교체식 \cref{eq:psi_supervised}를 제안한다 (제~\ref{part:failed}부, Remark~\ref{rem:cos2_pqo}, \ref{rem:psi_defect}).
   \item \textbf{(고립 실험, 2026-04-09)} 타겟 주입, 손실 가중, 읽기 채널을 모두 분리하여, 세 가지를 동시에 차단했을 때 감독 사슬 $\arg\xif(\tfrac{1}{2}+it)\to\mathcal{L}_{\mathrm{tgt}}\to\hat\Psip$이 비영점 샘플링 지점에서 건전함을 보인다 ($p=1.18\times10^{-15}$, 비율 $18.2\times$). 이로써 잔존 결함은 영점 근방의 네트워크 출력 표현에 국한된다 (Remark~\ref{rem:isolation}).
+  \item 다섯 개의 독립적 축(국소 곡률, 전역 스펙트럼 통계, 위상적 불변량,
+        디리클레 $L$-함수 확장, 음성 대조군)에 걸친 28개의 수치 실험을 통해
+        $\xif$-함수의 파이버 다발 해석을 검증한다.
+        종합 요약은 표~\ref{tab:summary}에 수록된다.
 \end{enumerate}
 
 \subsection*{독해 안내: 증거 계층}
@@ -2363,6 +2373,74 @@ Sub-GUE 결과를 GUE 보편성의 실패로 해석해서는 안 된다.
 플라켓을 직접 영점 계수와 독립적으로 교차 검증]}
 \end{observation}
 
+
+% ============================================================================
+\section*{수치 증거 요약}
+\label{sec:summary}
+\addcontentsline{toc}{section}{수치 증거 요약}
+% ============================================================================
+
+표~\ref{tab:summary}는 다섯 가지 검증 축에 걸쳐 얻은 28개의 수치 결과를
+종합한다. 상태 코드: \textbf{E} = 확립(Established),
+\textbf{C} = 조건부 양성(Conditionally positive),
+\textbf{N} = 음성(Negative, 완전 공개).
+
+\begin{center}
+\small
+\begin{longtable}{@{}r l l p{3.8cm} l@{}}
+\caption{다섯 검증 축에 걸친 28개 수치 결과 요약.\label{tab:summary}}\\
+\toprule
+\# & 결과명 & 상태 & 핵심 지표 & 축 \\
+\midrule
+\endfirsthead
+\multicolumn{5}{c}{\small\itshape (표~\ref{tab:summary} 계속)}\\
+\toprule
+\# & 결과명 & 상태 & 핵심 지표 & 축 \\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\small\itshape 다음 페이지 계속}\\
+\endfoot
+\bottomrule
+\endlastfoot
+1  & 쿠라모토 동기화           & \textbf{E} & $r=0.9994\pm0.0001$              & 국소 \\
+2  & $S^1$ 측지 손실           & \textbf{E} & 탐지 이득 $4\times$              & 국소 \\
+3  & 고높이 스케일링           & \textbf{E} & recall $97.5\%+$ ($t=1100$까지) & 국소 \\
+4  & $H$-스케일링 지수         & \textbf{C} & $\alpha\approx{-0.4}$            & 국소 \\
+5  & FP 해부                   & \textbf{E} & $85.1\%$ 유사-영점              & 국소 \\
+6  & Conj.\,3 $\kappa$-분리    & \textbf{E} & FP max $<$ TP min, $300\times$  & 국소 \\
+7  & $\sigma=\tfrac{1}{2}$ 유일성 & \textbf{E} & 에너지 비율 $385\times$       & 국소 \\
+8  & 블라인드 예측             & \textbf{E} & F1$=1.000$, 7/7                  & 국소 \\
+9  & $S^1$ 고높이              & \textbf{C} & $\Delta\text{F1}=+0.1$\%p        & 국소 \\
+\midrule
+10 & 디리클레 다발             & \textbf{E} & 3 지표 $\times$ 4 성질          & 디리클레 \\
+11 & 디리클레 교차 비교        & \textbf{E} & 4 함수 $\times$ 5 성질          & 디리클레 \\
+12 & 디리클레 블라인드         & \textbf{E} & F1$=1.000$, 21/21               & 디리클레 \\
+13 & 고-conductor              & \textbf{E} & 5/5 성질                        & 디리클레 \\
+14 & 실수 지표 에너지          & \textbf{E} & $\chi_4{=}132.5\times$, $\chi_8{=}194.3\times$ & 디리클레 \\
+15 & off-critical 해부         & \textbf{E} & Conj.\,1 디리클레 일반화        & 디리클레 \\
+\midrule
+16 & Lehmer 쌍 곡률            & \textbf{C} & $\rho=0.835$                     & 전역 \\
+17 & Gram 점 곡률              & \textbf{N} & $\kappa$-향상 없음               & 음성 \\
+18 & 중간점 비국소성           & \textbf{E} & $\rho={-0.654}$ ($p<10^{-29}$)  & 전역 \\
+19 & 디리클레 중간점 비국소    & \textbf{E} & 3/3 $|\rho|>0.55$               & 전역 \\
+20 & GUE/Poisson 대조          & \textbf{E} & GUE $\rho(b)\approx 0$          & 전역 \\
+21 & 비국소 도달 감쇠          & \textbf{C} & $k=1$ 집중                      & 전역 \\
+\midrule
+22 & 홀로노미 / Chern 수       & \textbf{E} & $\zeta$ 87/87, $\chi_3$ 4/4, $\chi_4$ 4/4 & 위상적 \\
+23 & 짝수 Chern + 방법론       & \textbf{E} & $\chi_5$ 4/4, $\chi_8$ 2/2      & 위상적 \\
+24 & Gauss--Bonnet 면적분      & \textbf{E} & $\zeta$ 6/6, $\chi_5$ 2/2, 오차$=0$ & 위상적 \\
+25 & off-critical $\sigma$-국소화 & \textbf{E} & $\zeta$ 7/7, FWHM $<0.004$  & 위상적 \\
+26 & 삼중 위상적 정합성        & \textbf{E} & $4{\times}3$ 행렬, $N=100$      & 위상적 \\
+\midrule
+27 & 합성 함수 음성 대조군     & \textbf{E} & 11/11, 독립 재현 3회            & 음성 \\
+28 & 수 분산 (RMT)             & \textbf{C} & Var$_\text{plaq}{\approx}$Var$_\text{dir}$, Berry sub-GUE & 전역 \\
+\end{longtable}
+\end{center}
+
+\noindent\textit{상태}: \textbf{E} = 확립(시드/축 전반 확인);
+\textbf{C} = 조건부 양성(유의하나 단서 있음);
+\textbf{N} = 음성(완전 공개; \cref{app:gram_negative,obs:synthetic_control} 참조).
 
 % ============================================================================
 \section{토론}

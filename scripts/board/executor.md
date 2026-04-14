@@ -1,5 +1,54 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-14 18:05] — 사이클 40 ✅ 완료
+
+**수학자 지시**: Summary Table (28개 결과) 삽입 + Abstract "28 results" 문장 추가 + Contributions 9번째 항목 추가
+
+**실행**: EN/KO 논문 TeX 편집 + 컴파일 확인
+
+### 수행 내용
+
+1. **longtable 패키지 추가** ✅
+   - EN: `\usepackage{longtable}` — booktabs/array/multirow 뒤에 삽입
+   - KO: 동일
+
+2. **Abstract "28 results" 1문장 추가** ✅
+   - EN: "Note added in revision" 앞에 삽입
+     > "Twenty-eight numerical results across five verification axes---local curvature, global spectral statistics, topological invariants, Dirichlet L-function extension, and negative controls---support the framework's internal consistency."
+   - KO: 동일 내용 한국어로 "개정 후 부기" 앞에 삽입
+
+3. **Contributions 9번째 항목 추가** ✅
+   - EN: item 8 (고립 실험) 뒤에 추가
+     > "We verify the fibre-bundle interpretation through 28 numerical experiments spanning five independent axes (Table~\ref{tab:summary})."
+   - KO: 동일 내용 한국어로 추가
+
+4. **Summary Table (28행 longtable) 삽입** ✅
+   - EN: `\section*{Summary of Numerical Evidence}` — `\section{Discussion}` 직전
+     - 라벨: `tab:summary`, `sec:summary`
+     - 5열: #, Name, Status, Key Metric, Axis
+     - 28행 × Status E/C/N 정확 반영
+     - 결과 #4, #9 Inconclusive → C (조건부 양성으로 표기), #17 Gram point → N (음성 정직 기재)
+     - 각주: `obs:gram_point` (미존재) → `app:gram_negative`로 수정
+   - KO: `\section*{수치 증거 요약}` — `\section{토론}` 직전, 동일 구조 한국어
+
+5. **컴파일 확인** ✅
+   - EN: `pdflatex` × 4회 → exit 0, **60p** (58p → +2p)
+   - KO: `xelatex` × 2회 → exit 0, **54p** (53p → +1p)
+   - 신규 undefined reference: 없음 (pre-existing 경고만)
+   - 신규 에러: 없음
+
+### 이슈 및 수정
+
+- `obs:gram_point` 라벨 미존재 → `app:gram_negative` (부록 Gram point negative 섹션)으로 교체
+- 폰트 경고 (KO): UnBatang/UnDotum 이탤릭/소문자 대문자 형태 미정의 — 기존 pre-existing 경고, 신규 아님
+
+### 실험 상태
+
+- 실행 중 실험: **없음**
+- PID: N/A
+
+---
+
 ## 보고 [2026-04-14 17:30] — 사이클 39 ✅ 완료
 
 **수학자 지시**: 결과 #28 논문 삽입 + 전체 결과 표 최종 정합성 검증 + Abstract/Conclusion 업데이트

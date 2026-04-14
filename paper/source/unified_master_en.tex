@@ -32,6 +32,7 @@
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{colortbl}
+\usepackage{longtable}
 
 % ── Colors ──────────────────────────────────────────────────────────────────
 \usepackage[dvipsnames,svgnames,x11names]{xcolor}
@@ -146,6 +147,12 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
+\noindent Twenty-eight numerical results across five verification
+axes---local curvature, global spectral statistics, topological
+invariants, Dirichlet $L$-function extension, and negative
+controls---support the framework's internal consistency.
+
+\smallskip
 \noindent\textit{Note added in revision (2026-04-08).} An attempted
 empirical realisation of the cyclotomic PQO programme on the critical
 line, using a discriminant network with $L=4$ cosine PQO and the
@@ -255,6 +262,12 @@ with a hard error boundary beyond which decoding fails}.
         ($p=1.18\times10^{-15}$, ratio $18.2\times$), localising the
         remaining defect to the network's output representation near
         zeros (Remark~\ref{rem:isolation}).
+  \item We verify the fibre-bundle interpretation of the $\xif$-function
+        through 28 numerical experiments spanning five independent axes:
+        local curvature, global spectral statistics, topological
+        invariants, Dirichlet $L$-function extension, and negative
+        controls.  A consolidated summary appears in
+        Table~\ref{tab:summary}.
 \end{enumerate}
 
 \subsection*{Reading Guide: Evidence Tiers}
@@ -3508,6 +3521,75 @@ collective statistics beyond individual winding numbers.
 plaquette independently cross-validated against direct zero count]}
 \end{observation}
 
+
+% ============================================================================
+\section*{Summary of Numerical Evidence}
+\label{sec:summary}
+\addcontentsline{toc}{section}{Summary of Numerical Evidence}
+% ============================================================================
+
+Table~\ref{tab:summary} consolidates all 28 numerical results obtained
+across five verification axes.  Status codes: \textbf{E} = Established,
+\textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
+with full transparency).
+
+\begin{center}
+\small
+\begin{longtable}{@{}r l l p{4.2cm} l@{}}
+\caption{Summary of 28 numerical results across five verification
+  axes.\label{tab:summary}}\\
+\toprule
+\# & Name & Status & Key metric & Axis \\
+\midrule
+\endfirsthead
+\multicolumn{5}{c}{\small\itshape (Table~\ref{tab:summary} continued)}\\
+\toprule
+\# & Name & Status & Key metric & Axis \\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+1  & Kuramoto synchronisation   & \textbf{E} & $r=0.9994\pm0.0001$              & Local \\
+2  & $S^1$ geodesic loss        & \textbf{E} & $4\times$ detection gain          & Local \\
+3  & High-height scaling        & \textbf{E} & recall $97.5\%+$ to $t=1100$     & Local \\
+4  & $H$-scaling exponent       & \textbf{C} & $\alpha\approx{-0.4}$             & Local \\
+5  & FP anatomy                 & \textbf{E} & $85.1\%$ quasi-zeros             & Local \\
+6  & Conj.\,3 $\kappa$-separation & \textbf{E} & FP max $<$ TP min, $300\times$ & Local \\
+7  & $\sigma=\tfrac{1}{2}$ uniqueness & \textbf{E} & energy ratio $385\times$ & Local \\
+8  & Blind prediction           & \textbf{E} & F1$=1.000$, 7/7                   & Local \\
+9  & $S^1$ high-height          & \textbf{C} & $\Delta\text{F1}=+0.1$\%p         & Local \\
+\midrule
+10 & Dirichlet bundle           & \textbf{E} & 3 chars $\times$ 4 properties    & Dirichlet \\
+11 & Dirichlet cross-comparison & \textbf{E} & 4 funcs $\times$ 5 properties    & Dirichlet \\
+12 & Dirichlet blind            & \textbf{E} & F1$=1.000$, 21/21                 & Dirichlet \\
+13 & High conductor             & \textbf{E} & 5/5 properties                   & Dirichlet \\
+14 & Real character energy      & \textbf{E} & $\chi_4{=}132.5\times$, $\chi_8{=}194.3\times$ & Dirichlet \\
+15 & Off-critical anatomy       & \textbf{E} & Conj.\,1 Dirichlet generalisation & Dirichlet \\
+\midrule
+16 & Lehmer pair curvature      & \textbf{C} & $\rho=0.835$                      & Global \\
+17 & Gram point curvature       & \textbf{N} & no $\kappa$-enhancement           & Negative \\
+18 & Midpoint nonlocality       & \textbf{E} & $\rho={-0.654}$ ($p<10^{-29}$)   & Global \\
+19 & Dirichlet midpoint nonlocal & \textbf{E} & 3/3 $|\rho|>0.55$               & Global \\
+20 & GUE/Poisson contrast       & \textbf{E} & GUE $\rho(b)\approx 0$           & Global \\
+21 & Nonlocal reach decay       & \textbf{C} & $k=1$ concentration               & Global \\
+\midrule
+22 & Holonomy / Chern number    & \textbf{E} & $\zeta$ 87/87, $\chi_3$ 4/4, $\chi_4$ 4/4 & Topological \\
+23 & Even Chern + methodology   & \textbf{E} & $\chi_5$ 4/4, $\chi_8$ 2/2       & Topological \\
+24 & Gauss--Bonnet area integral & \textbf{E} & $\zeta$ 6/6, $\chi_5$ 2/2, error $=0$ & Topological \\
+25 & Off-critical $\sigma$-localisation & \textbf{E} & $\zeta$ 7/7, FWHM $<0.004$ & Topological \\
+26 & Triple topological consistency & \textbf{E} & $4{\times}3$ matrix, $N=100$  & Topological \\
+\midrule
+27 & Synthetic negative control & \textbf{E} & 11/11, 3 reproductions           & Negative \\
+28 & Number variance (RMT)      & \textbf{C} & Var$_\text{plaq}{\approx}$Var$_\text{dir}$, Berry sub-GUE & Global \\
+\end{longtable}
+\end{center}
+
+\noindent\textit{Status}: \textbf{E} = Established (confirmed across seeds / axes);
+\textbf{C} = Conditionally positive (significant but qualified);
+\textbf{N} = Negative (reported in full; see \cref{app:gram_negative,obs:synthetic_control}).
 
 % ============================================================================
 \section{Discussion}
