@@ -3121,39 +3121,63 @@ Maximum deviation: $|C - N| = 0.0223$.
 
 \begin{observation}[Dirichlet universality of the Chern-number formula]
 \label{obs:chern_dirichlet}
-The phase-tracking verification extends to Dirichlet $L$-functions.
-For complex (odd) characters, the standard approach of tracking
-sign changes of $\operatorname{Re}L(1/2 + it)$ fails because
-$L(1/2 + it, \chi)$ is not real when $\chi(-1) = -1$.
-Instead, zeros are located by minimising $|L(1/2 + it, \chi)|$ and
-refining with \texttt{findroot}.
+The phase-tracking verification extends to Dirichlet $L$-functions
+with both odd ($\chi(-1) = -1$, $a = 1$) and even ($\chi(-1) = +1$,
+$a = 0$) primitive characters, confirming that
+formula~\eqref{eq:chern_counting} is universal.
+
+For odd characters, zeros are located by minimising
+$|L(\tfrac{1}{2} + it, \chi)|$ and refining with \texttt{findroot},
+since $L(\tfrac{1}{2} + it, \chi)$ is complex.
+For even real characters, the completed function
+$\Lambda(\tfrac{1}{2} + it, \chi)$ is real, but $L$ itself retains
+a complex phase from the $\Gamma(s/2)$ factor; the $|L|$-minimisation
+method therefore remains the correct universal approach.
 
 \begin{center}
 \small
-\begin{tabular}{@{} l r r r r r @{}}
+\begin{tabular}{@{} l l r r r r r @{}}
 \toprule
-Character & $n$ & $t_2$ & $N_{\mathrm{actual}}$ & $N_{\mathrm{ctr}}$
+Character & Parity & $n$ & $t_2$ & $N_{\mathrm{actual}}$ & $N_{\mathrm{ctr}}$
   & $|N_{\mathrm{ctr}} - N_{\mathrm{actual}}|$ \\
 \midrule
-$\chi_3$ (mod 3, odd) &  5 & 22.26 &  5 &  4.9988 & 0.0012 \\
-                       & 10 & 34.75 & 10 &  9.9988 & 0.0012 \\
-                       & 15 & 45.20 & 15 & 14.9988 & 0.0012 \\
-                       & 20 & 54.92 & 20 & 19.9988 & 0.0012 \\
+$\chi_3$ (mod 3) & odd &  5 & 22.26 &  5 &  4.9988 & 0.0012 \\
+                  &     & 10 & 34.75 & 10 &  9.9988 & 0.0012 \\
+                  &     & 15 & 45.20 & 15 & 14.9988 & 0.0012 \\
+                  &     & 20 & 54.92 & 20 & 19.9988 & 0.0012 \\
 \midrule
-$\chi_4$ (mod 4, odd) &  5 & 19.87 &  5 &  4.9985 & 0.0015 \\
-                       & 10 & 31.12 & 10 &  9.9983 & 0.0017 \\
-                       & 15 & 41.06 & 15 & 14.9983 & 0.0017 \\
-                       & 20 & 50.70 & 20 & 19.9983 & 0.0017 \\
+$\chi_4$ (mod 4) & odd &  5 & 19.87 &  5 &  4.9985 & 0.0015 \\
+                  &     & 10 & 31.12 & 10 &  9.9983 & 0.0017 \\
+                  &     & 15 & 41.06 & 15 & 14.9983 & 0.0017 \\
+                  &     & 20 & 50.70 & 20 & 19.9983 & 0.0017 \\
+\midrule
+$\bigl(\frac{\cdot}{5}\bigr)$ (mod 5) & even &  5 & 18.55 &  5 &  4.9986 & 0.0014 \\
+                  &      & 10 & 29.08 & 10 &  9.9983 & 0.0017 \\
+                  &      & 15 & 38.84 & 15 & 14.9983 & 0.0017 \\
+                  &      & 20 & 47.42 & 20 & 19.9983 & 0.0017 \\
+\midrule
+$\chi_8$ (mod 8) & even &  5 & 16.11 &  5 &  4.9981 & 0.0019 \\
+                  &      & 10 & 25.58 & 10 &  9.9974 & 0.0026 \\
 \bottomrule
 \end{tabular}
 \end{center}
 \noindent
-All 8/8 tests pass with $|N_{\mathrm{ctr}} - N_{\mathrm{actual}}| < 0.002$,
+All 14/14 tests (8~odd + 6~even) pass with
+$|N_{\mathrm{ctr}} - N_{\mathrm{actual}}| < 0.003$,
 extending the Chern-number interpretation~\eqref{eq:chern_counting}
-beyond $\zeta(s)$ to Dirichlet $L$-functions.
-The smaller offsets (0.0012--0.0017 vs.\ 0.0118 for $\zeta$) reflect
+beyond $\zeta(s)$ to Dirichlet $L$-functions of both parities.
+The offsets (0.0012--0.0026 vs.\ 0.0118 for $\zeta$) reflect
 the lower height range ($t \le 55$ vs.\ $t \le 430$).
-\textcolor{ForestGreen}{[confirmed 2026-04-14, $\chi_3$ mod~3 + $\chi_4$ mod~4, |L|-minimisation zeros]}
+
+\smallskip\noindent
+\textit{Methodological note.}
+Cross-validating two zero-finding methods---sign changes of
+$\operatorname{Re}L$ vs.\ $|L|$-minimisation---on the even character
+$(\frac{\cdot}{5})$ revealed that the former misses 2 out of 27 zeros
+(tangential zeros where $\operatorname{Re}L$ does not change sign),
+confirming that $|L|$-minimisation is strictly more reliable.
+\textcolor{ForestGreen}{[confirmed 2026-04-14; odd: $\chi_3$~mod~3 + $\chi_4$~mod~4;
+even: $(\frac{\cdot}{5})$~mod~5 + $\chi_8$~mod~8]}
 \end{observation}
 
 
