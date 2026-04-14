@@ -3800,8 +3800,58 @@ pole.  The Hadamard decomposition verifies (to 0.0\% error) that this
 slope originates from a near-cancellation between the gamma function
 and zeta-zero contributions---a non-trivial structural feature of the
 Hadamard product representation.
-\textcolor{ForestGreen}{[confirmed 2026-04-15; 20 zeros ($N{=}1$ to $20000$);
-$\delta{=}0.03$; $R^2{=}0.860$; Hadamard decomposition error ${=}0.00\%$;
+\smallskip\noindent
+\textbf{Part~E: NNS-dependent Lorentzian$^2$ correction (99 zeros).}\;
+Scaling to 99~zeros ($N = 203$ to $20\,000$, $t \approx 402$--$18\,046$),
+we test whether the nearest-neighbour spacing (NNS) explains the residual
+$\operatorname{res}_n := \Delta\kappa_n - (a\log(t_n/2\pi) + b)$ left by
+the 1-variable log-fit.
+
+The 1-variable OLS gives $R^2 = 0.015$ ($p = 0.22$): at this scale, two
+extreme outliers ($\Delta\kappa = 568, 259$; both with NNS${}_\mathrm{unf}
+< 0.15$) dominate the residual.
+
+\emph{Correlation with NNS.}\;
+Pearson $r(\mathrm{res},\mathrm{NNS}_\mathrm{unf}) = -0.474$
+($p = 7.4 \times 10^{-7}$); Spearman $\rho = -0.739$
+($p = 2.6 \times 10^{-18}$).  A theoretically motivated
+Lorentzian$^2$ ansatz $f_1 = \delta^2/(\delta^2 + g_{\min}^2)^2$,
+where $g_{\min}$ is the nearest raw gap, achieves
+Pearson $r(\mathrm{res}, f_1) = 0.953$ ($p \approx 10^{-52}$).
+
+\emph{2-variable regression.}\;
+\begin{center}
+\small
+\begin{tabular}{@{} l c c @{}}
+\toprule
+NNS function $f$ & $R^2_{\text{2-var}}$ & $F$-statistic \\
+\midrule
+$f_1 = \delta^2/(\delta^2 + g_{\min}^2)^2$ (Lorentzian$^2$)
+  & $\mathbf{0.9185}$ & 1064 \\
+$f_2 = 1/\text{NNS}_\mathrm{unf}$ & 0.8806 & 696 \\
+$f_3 = \log(\text{NNS}_\mathrm{unf})$ & 0.5182 & 100 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The Lorentzian$^2$ model lifts $R^2$ from 0.015 to 0.919, explaining
+$90.3\%$ of the previously unaccounted variance.  The theoretical
+correlation $|\operatorname{Im} R| \sim 1/g_{\min}$ is confirmed
+with $r = 0.892$ ($p < 10^{-34}$).
+
+\emph{Outlier anatomy.}\; Both $|{\mathrm{res}}| > 2\sigma$
+outliers ($N = 11919, 16767$) have
+$\text{NNS}_\mathrm{unf} < 0.15$---GUE level-attraction events
+captured at 100\%.
+
+\emph{Caveat.}\; The KS test rejects the Wigner surmise for
+the sampled NNS distribution ($D = 0.41$, $p < 10^{-15}$),
+attributable to the equally-spaced index selection
+(not random sampling).  This does not invalidate the
+correlation analysis but limits distribution-level claims.
+
+\textcolor{ForestGreen}{[confirmed 2026-04-15; 99 zeros ($N{=}203$ to $20000$);
+$\delta{=}0.03$; $R^2_\text{1-var}{=}0.015$, $R^2_\text{2-var}{=}0.919$;
+Hadamard decomposition error ${=}0.00\%$;
 3-seed preliminary]}
 \end{observation}
 
@@ -3812,7 +3862,7 @@ $\delta{=}0.03$; $R^2{=}0.860$; Hadamard decomposition error ${=}0.00\%$;
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 31 numerical results obtained
+Table~\ref{tab:summary} consolidates all 32 numerical results obtained
 across six verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -3820,7 +3870,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 31 numerical results across six verification
+\caption{Summary of 32 numerical results across six verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -3874,6 +3924,7 @@ with full transparency).
 30 & High-$t$ robustness        & \textbf{E} & $\kappa$ CV${=}0.2\%$, $t{=}14$--$10^4$ & Robustness \\
 \midrule
 31 & $\Delta\kappa$ subleading   & \textbf{C} & slope${=}1.59$, Hadamard err${=}0.00\%$ & Arithmetic \\
+32 & NNS--$\Delta\kappa$ Lorentzian$^2$ & \textbf{C} & $R^2_\text{2-var}{=}0.919$, $r{=}0.953$ & Arithmetic \\
 \end{longtable}
 \end{center}
 

@@ -2628,8 +2628,58 @@ $\xi$-다발 곡률이 자명한 $1/\delta^2$ 극 너머의 산술적 내용을
 포착한다는 예비적 수치 증거를 제공한다.
 Hadamard 분해는 (오차 $0.00\%$로) 이 기울기가 감마 함수와
 제타 영점 기여의 근사 상쇄에서 발생함을 검증한다.
-\textcolor{ForestGreen}{[확인 2026-04-15; 20 영점 ($N{=}1$ \textasciitilde{} $20000$);
-$\delta{=}0.03$; $R^2{=}0.860$; Hadamard 분해 오차 ${=}0.00\%$;
+\smallskip\noindent
+\textbf{파트~E: NNS 의존 Lorentzian$^2$ 보정 (99 영점).}\;
+99개 영점($N = 203$ \textasciitilde{} $20\,000$,
+$t \approx 402$--$18\,046$)으로 확장하여,
+최근접 이웃 간격(NNS)이 1변수 log-적합의 잔차
+$\operatorname{res}_n := \Delta\kappa_n - (a\log(t_n/2\pi) + b)$를
+설명하는지 검증한다.
+
+1변수 OLS는 $R^2 = 0.015$ ($p = 0.22$): 이 규모에서 두 극단 이상치
+($\Delta\kappa = 568, 259$; 모두 NNS${}_\mathrm{unf} < 0.15$)가
+잔차를 지배한다.
+
+\emph{NNS 상관.}\;
+Pearson $r(\mathrm{res},\mathrm{NNS}_\mathrm{unf}) = -0.474$
+($p = 7.4 \times 10^{-7}$); Spearman $\rho = -0.739$
+($p = 2.6 \times 10^{-18}$). 이론적으로 동기 부여된
+Lorentzian$^2$ 가설 $f_1 = \delta^2/(\delta^2 + g_{\min}^2)^2$
+($g_{\min}$은 최근접 raw 간격)에서
+Pearson $r(\mathrm{res}, f_1) = 0.953$ ($p \approx 10^{-52}$).
+
+\emph{2변수 회귀.}\;
+\begin{center}
+\small
+\begin{tabular}{@{} l c c @{}}
+\toprule
+NNS 함수 $f$ & $R^2_{\text{2-var}}$ & $F$-통계량 \\
+\midrule
+$f_1 = \delta^2/(\delta^2 + g_{\min}^2)^2$ (Lorentzian$^2$)
+  & $\mathbf{0.9185}$ & 1064 \\
+$f_2 = 1/\text{NNS}_\mathrm{unf}$ & 0.8806 & 696 \\
+$f_3 = \log(\text{NNS}_\mathrm{unf})$ & 0.5182 & 100 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Lorentzian$^2$ 모델은 $R^2$를 0.015에서 0.919로 끌어올려,
+이전에 설명되지 않은 분산의 $90.3\%$를 설명한다.
+이론 상관 $|\operatorname{Im} R| \sim 1/g_{\min}$은
+$r = 0.892$ ($p < 10^{-34}$)로 확인된다.
+
+\emph{이상치 해부.}\; $|{\mathrm{res}}| > 2\sigma$인
+2개 이상치($N = 11919, 16767$)는 모두
+$\text{NNS}_\mathrm{unf} < 0.15$---GUE 레벨 인력 사건을
+100\% 포착한다.
+
+\emph{주의.}\; KS 검정은 표본 NNS 분포와 Wigner surmise의 불일치를
+기각한다($D = 0.41$, $p < 10^{-15}$). 등간격 인덱스 선택(무작위
+표본추출 아님)에 기인하며, 상관 분석의 유효성에는 영향을 미치지
+않으나 분포 수준 주장은 제한된다.
+
+\textcolor{ForestGreen}{[확인 2026-04-15; 99 영점 ($N{=}203$ \textasciitilde{} $20000$);
+$\delta{=}0.03$; $R^2_\text{1-var}{=}0.015$, $R^2_\text{2-var}{=}0.919$;
+Hadamard 분해 오차 ${=}0.00\%$;
 3-시드 예비]}
 \end{observation}
 
@@ -2640,7 +2690,7 @@ $\delta{=}0.03$; $R^2{=}0.860$; Hadamard 분해 오차 ${=}0.00\%$;
 \addcontentsline{toc}{section}{수치 증거 요약}
 % ============================================================================
 
-표~\ref{tab:summary}는 여섯 가지 검증 축에 걸쳐 얻은 31개의 수치 결과를
+표~\ref{tab:summary}는 여섯 가지 검증 축에 걸쳐 얻은 32개의 수치 결과를
 종합한다. 상태 코드: \textbf{E} = 확립(Established),
 \textbf{C} = 조건부 양성(Conditionally positive),
 \textbf{N} = 음성(Negative, 완전 공개).
@@ -2648,7 +2698,7 @@ $\delta{=}0.03$; $R^2{=}0.860$; Hadamard 분해 오차 ${=}0.00\%$;
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{3.8cm} l@{}}
-\caption{여섯 검증 축에 걸친 31개 수치 결과 요약.\label{tab:summary}}\\
+\caption{여섯 검증 축에 걸친 32개 수치 결과 요약.\label{tab:summary}}\\
 \toprule
 \# & 결과명 & 상태 & 핵심 지표 & 축 \\
 \midrule
@@ -2701,6 +2751,7 @@ $\delta{=}0.03$; $R^2{=}0.860$; Hadamard 분해 오차 ${=}0.00\%$;
 30 & 고 $t$ 견강성               & \textbf{E} & $\kappa$ CV${=}0.2\%$, $t{=}14$--$10^4$ & 견강성 \\
 \midrule
 31 & $\Delta\kappa$ 차선도       & \textbf{C} & 기울기${=}1.59$, Hadamard 오차${=}0.00\%$ & 산술적 \\
+32 & NNS--$\Delta\kappa$ Lorentzian$^2$ & \textbf{C} & $R^2_\text{2-var}{=}0.919$, $r{=}0.953$ & 산술적 \\
 \end{longtable}
 \end{center}
 
