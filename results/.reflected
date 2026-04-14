@@ -74,6 +74,8 @@ results/complex_vector_readout.txt
 results/curvature_midpoint_nonlocal_v2.txt
 results/curvature_residual_nonlocal.txt
 results/data_density_scaling.txt
+results/davenport_heilbronn_adversarial.txt
+results/dh_small_radius_diagnosis.txt
 results/difficulty_regression.txt
 results/dirichlet_blind_prediction.txt
 results/dirichlet_bundle_verification.txt
@@ -98,6 +100,7 @@ results/gauss_bonnet_area_integral.txt
 results/gram_point_curvature.txt
 results/gue_poisson_midpoint_comparison.txt
 results/high_height_scaling.txt
+results/high_t_scaling.txt
 results/holonomy_chern_dirichlet.txt
 results/holonomy_chern_even_character.txt
 results/holonomy_chern_number_figdata.csv
