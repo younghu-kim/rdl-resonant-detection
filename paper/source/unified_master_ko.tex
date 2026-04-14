@@ -2222,6 +2222,69 @@ $16\!\times\!128$, $\mathrm{dps}=50$에서 독립 재현]}
 \end{observation}
 
 
+\begin{observation}[합성 off-critical 음성 대조군 (특이성)]
+\label{obs:synthetic_control}
+플라켓 방법이 $\sigma=1/2$를 \emph{내재적으로} 선호하는지 배제하기 위해,
+영점이 알려진 위치에 놓인 세 합성 다항식 함수에 적용한다:
+\begin{itemize}
+\item $f_1(s)=\prod_{k}(s-z_k)$: 모든 영점이 $\sigma=1/2$ 위
+      (``RH-유사'': $z_k=\tfrac12+14i,\;\tfrac12+21i,\;\tfrac12+25i$);
+\item $f_2(s)$: 혼합 영점
+      ($\sigma=0.3,\;0.7,\;0.5$);
+\item $f_3(s)$: $\sigma=1/2$ 위 영점이 \emph{없음}
+      ($\sigma=0.3,\;0.7,\;0.6,\;0.4$).
+\end{itemize}
+
+\smallskip\noindent
+\textbf{결과} ($\mathrm{dps}=30$, $N_\sigma=64$, $N_t=200$;
+3개 함수에 걸쳐 11종 테스트):
+
+\begin{center}
+\begin{tabular}{llcccl}
+\toprule
+테스트 & 함수 & $\sigma$-범위 & $N_{\mathrm{plaq}}$ & 기대값 & 통과 \\
+\midrule
+\S A-1 & $f_1$ & $[0.3,0.7]$    & 3.0000 & 3 & \checkmark \\
+\S A-2 & $f_1$ & 프로파일        & 1피크@0.500 & 1피크 & \checkmark \\
+\S A-3 & $f_1$ & $[0.6,0.9]$    & 0.0000 & 0 & \checkmark \\
+\S B-1 & $f_2$ & $[0.2,0.8]$    & 3.0000 & 3 & \checkmark \\
+\S B-2 & $f_2$ & 프로파일        & 3피크 & 3피크 & \checkmark \\
+\S B-3 & $f_2$ & $[0.49,0.51]$  & 1.0000 & 1 & \checkmark \\
+\S B-4 & $f_2$ & $[0.6,0.8]$    & 1.0000 & 1 & \checkmark \\
+\S B-5 & $f_2$ & $[0.2,0.4]$    & 1.0000 & 1 & \checkmark \\
+\S C-1 & $f_3$ & $[0.2,0.8]$    & 4.0000 & 4 & \checkmark \\
+\S C-2 & $f_3$ & 프로파일        & 4피크, $\rho(\tfrac12)=0$ & 4피크 & \checkmark \\
+$\star$\,\S C-3 & $f_3$ & $[0.49,0.51]$ & \textbf{0.0000} & \textbf{0} & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{핵심 결과 (\S C-3).}\;
+임계선 위에 영점이 \emph{없는} $f_3$에서,
+$\sigma\in[0.49,0.51]$ strip의 플라켓 자속은 정확히 0이다.
+프레임워크가 인위적으로 $\sigma=1/2$에 전하를 집중시킨다면,
+영점 위치와 무관하게 이 strip에서 비영 자속이 관측될 것이다.
+이 영 결과는 \textbf{특이성}을 확립한다:
+$\xif$에서 관측된 $\delta$-집중(관찰~\ref{obs:sigma_localisation}--\ref{obs:triple_consistency})은
+$\xif$-영점 자체의 성질이지, 방법론적 인공물이 아니다.
+
+\smallskip\noindent
+\textbf{\S B 개별 $\sigma$-분리.}\;
+$f_2$의 세 영점 $\sigma=0.3,\,0.5,\,0.7$이 각각
+자신의 좁은 strip에만 $N=1$로 기여(\S B-3/B-4/B-5)하여,
+플라켓이 각 영점의 실수부를 해상함을 확인한다.
+
+\smallskip\noindent
+11종 테스트 모두 정확한 정수 양자화(오차 $=0$)를 보이는데,
+다항식이므로 당연하다; 의의는 정밀도가 아니라
+\emph{$\sigma=1/2$ 편향의 부재}에 있다.
+\textcolor{ForestGreen}{[확인 2026-04-14; 11/11;
+$32\!\times\!100$ 및 $48\!\times\!100$ 격자에서
+(\S C-3, \S B-3, \S C-1) 독립 재현]}
+\end{observation}
+
+
 % ============================================================================
 \section{토론}
 \label{sec:discussion}

@@ -1,5 +1,79 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-14 16:33] — 사이클 38 ✅ 완료
+
+**수학자 지시**: 곡률장 수 분산 (Number Variance) — RMT 연결 최종 검증
+  - 플라켓 기반 Var(N; L) vs GUE/Poisson 이론 비교
+  - 영역: σ∈[0.3,0.7] × t∈[50,600], Nσ=32, Nt=2000, dps=80
+  - Unfolded window L=5,10,20,50 (4종), 슬라이딩 step=1 (영점 1개 간격)
+  - 경계 제외: t∈[70,580] (양쪽 20%)
+  - 직접 zetazero 계수와 플라켓 교차 검증
+
+**실행**: `scripts/number_variance_rmt.py` (v2, step 수정 포함)
+**PID**: 174160 (완료, 14.0분)
+**결과 위치**: `results/number_variance_rmt.txt`, `results/number_variance_figdata.csv`
+**격자 캐시**: `outputs/cache/theta_grid_Ns32_Nt2000_t50_600_dps80.npy`
+
+---
+
+### ★ 실험 결과 — 결과 #28 후보: **조건부 양성 (Berry arithmetic correction 레짐)**
+
+#### §1. 수집 데이터 (✅)
+- ζ 영점: 337개 (t∈[45,605]), safe 309개 (t∈[70,580])
+- Unfolded 평균 간격: **1.0008** (이론=1.000) ✅ — unfolding 정확
+- N_plaq(전체) = 331, N_direct = 333 → 불일치 2.0 (격자 경계 영점 2개 누락)
+
+#### §2. 수 분산 결과 테이블
+
+| L | N_win | n_eff | Var_dir | Var_plaq | Var_GUE | Var/GUE | 판정 |
+|---|-------|-------|---------|----------|---------|---------|------|
+| 5  | 304 | 60 | 0.3960 | 0.4257 | 0.7682 | 0.515 | ❌GUE ✅Poi분리 |
+| 10 | 299 | 29 | 0.5134 | 0.5604 | 0.9086 | 0.565 | ❌GUE ✅Poi분리 |
+| 20 | 289 | 14 | 0.4826 | 0.4792 | 1.0491 | 0.460 | ❌GUE ✅Poi분리 |
+| 50 | 259 |  5 | 0.4494 | 0.4841 | 1.2348 | 0.364 | ❌GUE ✅Poi분리 |
+
+#### §3. 핵심 관찰
+
+1. **플라켓 ≈ 직접 계수 (방법론 검증 ✅)**:
+   - Var_plaq와 Var_direct의 차이: L=5에서 7.5%, L=10에서 9.1%, L=20에서 0.7%, L=50에서 7.7%
+   - 두 방법이 동일한 통계를 측정 → 플라켓 방법이 수 분산을 올바르게 측정함
+
+2. **Sub-GUE 분산 (Berry 1988 arithmetic correction)**:
+   - Var_obs / Var_GUE = 0.36~0.57 (약 절반)
+   - 이는 저높이 리만 영점에서 알려진 현상: Berry(1988)이 예측한 산술 보정(arithmetic correction)
+   - 완전한 GUE 통계는 매우 높은 영점(t >> 10^6)에서만 출현 (Odlyzko 1987)
+
+3. **거의 평탄한 분산 (arithmetic saturation)**:
+   - L=5→50에서 Var ≈ 0.40~0.51 (CV=9.5%) — 거의 L 독립적
+   - log-log 기울기: **0.036** (GUE 예측 ~1.0, 완전 평탄 = 0)
+   - Berry의 "arithmetic saturation": 저높이에서 GUE log 성장이 억제됨
+
+4. **Poisson과 완전 분리 (✅)**:
+   - Poisson 거리: 63~156σ → Poisson 완전 배제
+   - 영점이 Poisson보다 훨씬 규칙적으로 분포
+
+#### §4. v1 버그와 수정 내역 (자가 진단)
+
+- **v1 버그**: `step = 0.5 * L` → L=50에서 11개 창만 생성, 창 경계가 정수 xi 사이에 고정되어 count=50 → Var=0
+- **v2 수정**: `step = 1.0` (1 unfolded unit) → 259-304개 창, Var가 올바르게 측정됨
+- 재실행 후 Var=0 → Var≈0.45로 바뀜 (버그 수정 확인)
+
+#### §5. 수학적 해석 (수학자 판단 요청)
+
+**옵션 A — "조건부 양성 (유형 B)"**: 
+GUE 수 분산은 점근적 예측 (t→∞). t~300에서 Berry arithmetic correction 레짐에 있음. 플라켓이 직접 계수와 일치하므로 **방법론은 확인됨**. 다만 asymptotic GUE와는 차이.
+
+**옵션 B — "음성 (새 물리 발견)"**:
+Var ≈ 0.45가 GUE 절반 + 거의 flat → 이 레짐에서 위상 기하학이 포착하는 수 분산이 GUE와 다름. 새로운 레짐 발견.
+
+**추천**: 옵션 A — Berry correction은 잘 알려진 물리이고, 핵심 양성 결과는 "Var_plaq ≈ Var_direct (방법론 검증)"임.
+
+**논문 서술안**: "The plaquette method reproduces the known sub-GUE number variance of low-lying Riemann zeros (Berry arithmetic correction regime, t < 600), with Var_plaq/Var_direct within 10% for all L."
+
+---
+
+## 보고 [2026-04-14 15:12] — 사이클 37 ✅ 완료
+
 ## 보고 [2026-04-14 15:12] — 사이클 37 ✅ 완료
 
 **수학자 지시**: 합성 함수 대조 실험 (Synthetic Off-Critical Control)

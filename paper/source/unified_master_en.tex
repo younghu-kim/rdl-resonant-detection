@@ -3364,6 +3364,70 @@ independently reproduced at $16\!\times\!128$, $\mathrm{dps}=50$]}
 \end{observation}
 
 
+\begin{observation}[Synthetic off-critical negative control (specificity)]
+\label{obs:synthetic_control}
+To rule out the possibility that the plaquette method \emph{inherently}
+favours $\sigma=1/2$, we apply it to three synthetic polynomial functions
+whose zeros are placed at known, prescribed locations:
+\begin{itemize}
+\item $f_1(s)=\prod_{k}(s-z_k)$ with all zeros on $\sigma=1/2$
+      (``RH-like'': $z_k=\tfrac12+14i,\;\tfrac12+21i,\;\tfrac12+25i$);
+\item $f_2(s)$ with mixed zeros
+      ($\sigma=0.3,\;0.7,\;0.5$);
+\item $f_3(s)$ with \emph{no} zeros on $\sigma=1/2$
+      ($\sigma=0.3,\;0.7,\;0.6,\;0.4$).
+\end{itemize}
+
+\smallskip\noindent
+\textbf{Results} ($\mathrm{dps}=30$, $N_\sigma=64$, $N_t=200$;
+11 tests across three functions):
+
+\begin{center}
+\begin{tabular}{llcccl}
+\toprule
+Test & Fn & $\sigma$-range & $N_{\mathrm{plaq}}$ & Expected & Pass \\
+\midrule
+\S A-1 & $f_1$ & $[0.3,0.7]$    & 3.0000 & 3 & \checkmark \\
+\S A-2 & $f_1$ & profile        & 1 peak@0.500 & 1 peak & \checkmark \\
+\S A-3 & $f_1$ & $[0.6,0.9]$    & 0.0000 & 0 & \checkmark \\
+\S B-1 & $f_2$ & $[0.2,0.8]$    & 3.0000 & 3 & \checkmark \\
+\S B-2 & $f_2$ & profile        & 3 peaks & 3 peaks & \checkmark \\
+\S B-3 & $f_2$ & $[0.49,0.51]$  & 1.0000 & 1 & \checkmark \\
+\S B-4 & $f_2$ & $[0.6,0.8]$    & 1.0000 & 1 & \checkmark \\
+\S B-5 & $f_2$ & $[0.2,0.4]$    & 1.0000 & 1 & \checkmark \\
+\S C-1 & $f_3$ & $[0.2,0.8]$    & 4.0000 & 4 & \checkmark \\
+\S C-2 & $f_3$ & profile        & 4 peaks, $\rho(\tfrac12)=0$ & 4 peaks & \checkmark \\
+$\star$\,\S C-3 & $f_3$ & $[0.49,0.51]$ & \textbf{0.0000} & \textbf{0} & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{Key result (\S C-3).}\;
+For $f_3$, which has \emph{no} zeros on the critical line,
+the plaquette flux in $\sigma\in[0.49,0.51]$ is exactly zero.
+If the framework artificially concentrated charge at $\sigma=1/2$,
+this strip would register nonzero flux regardless of zero placement.
+The null result establishes \textbf{specificity}: the $\delta$-concentration
+observed for $\xif$ (Obs.~\ref{obs:sigma_localisation}--\ref{obs:triple_consistency})
+is a property of the $\xif$-zeros themselves, not a methodological artefact.
+
+\smallskip\noindent
+\textbf{\S B individual $\sigma$-separation.}\;
+The three zeros of $f_2$ at $\sigma=0.3,\,0.5,\,0.7$ each contribute
+$N=1$ exclusively to their own narrow strip (\S B-3/B-4/B-5),
+confirming that the plaquette resolves the real part of each zero.
+
+\smallskip\noindent
+All 11 tests yield exact integer quantisation (error $=0$),
+as expected for polynomials; the significance lies not in the
+precision but in the \emph{absence of $\sigma=1/2$ bias}.
+\textcolor{ForestGreen}{[confirmed 2026-04-14; 11/11;
+independently reproduced (\S C-3, \S B-3, \S C-1)
+at $32\!\times\!100$ and $48\!\times\!100$ grids]}
+\end{observation}
+
+
 % ============================================================================
 \section{Discussion}
 \label{sec:discussion}
