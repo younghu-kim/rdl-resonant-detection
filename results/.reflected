@@ -81,6 +81,7 @@ results/dirichlet_high_conductor.txt
 results/dirichlet_midpoint_nonlocal.txt
 results/dirichlet_offcritical_anatomy.txt
 results/ensemble_hard_zeros.txt
+results/epstein_adversarial.txt
 results/f2_collective.txt
 results/f2_correlation_length.txt
 results/f2_deep_correlation.txt

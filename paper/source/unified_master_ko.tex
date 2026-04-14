@@ -131,7 +131,7 @@
 
 \smallskip
 \noindent 다섯 가지 검증 축---국소 곡률, 전역 스펙트럼 통계, 위상적 불변량,
-디리클레 $L$-함수 확장, 음성 대조군---에 걸친 28개의 수치 결과가
+디리클레 $L$-함수 확장, 음성 대조군---에 걸친 29개의 수치 결과가
 이 프레임워크의 내적 정합성을 지지한다.
 
 \smallskip
@@ -177,7 +177,7 @@ $\sigma$-리프트, 베리 위상, 디리클레 $L$-함수
   \item \textbf{(음성 경험 결과, 2026-04-08)} 시클로토믹 PQO 프로그램을 $t \in [100, 200]$ 위에서 $L=4$로 경험적으로 시도하고, 세 시드 전체에서 영점/비영점 판별의 완전한 실패를 문서화하며, 그 원인을 \cref{eq:psi_n}의 \emph{$\Psip$-디커플링 결함}으로 추적하고, 향후 양성 결과의 필요 조건으로 감독 교체식 \cref{eq:psi_supervised}를 제안한다 (제~\ref{part:failed}부, Remark~\ref{rem:cos2_pqo}, \ref{rem:psi_defect}).
   \item \textbf{(고립 실험, 2026-04-09)} 타겟 주입, 손실 가중, 읽기 채널을 모두 분리하여, 세 가지를 동시에 차단했을 때 감독 사슬 $\arg\xif(\tfrac{1}{2}+it)\to\mathcal{L}_{\mathrm{tgt}}\to\hat\Psip$이 비영점 샘플링 지점에서 건전함을 보인다 ($p=1.18\times10^{-15}$, 비율 $18.2\times$). 이로써 잔존 결함은 영점 근방의 네트워크 출력 표현에 국한된다 (Remark~\ref{rem:isolation}).
   \item 다섯 개의 독립적 축(국소 곡률, 전역 스펙트럼 통계, 위상적 불변량,
-        디리클레 $L$-함수 확장, 음성 대조군)에 걸친 28개의 수치 실험을 통해
+        디리클레 $L$-함수 확장, 음성 대조군)에 걸친 29개의 수치 실험을 통해
         $\xif$-함수의 파이버 다발 해석을 검증한다.
         종합 요약은 표~\ref{tab:summary}에 수록된다.
 \end{enumerate}
@@ -2374,13 +2374,71 @@ Sub-GUE 결과를 GUE 보편성의 실패로 해석해서는 안 된다.
 \end{observation}
 
 
+% ----------------------------------------------------------------------------
+\begin{observation}[Epstein 제타 확장]
+\label{obs:epstein_extension}
+다발 프레임워크가 리만 $\zeta$ 및 디리클레 $L$-함수를 넘어 확장되는지 검증하기 위해
+이차형식 $Q(m,n) = m^2 + \lambda n^2$의 Epstein 제타 함수
+$Z_Q(s) = \sum_{(m,n)\neq(0,0)} Q(m,n)^{-s}$를 검사한다.
+
+\smallskip\noindent
+\textbf{설정.} 두 격자 매개변수: $\lambda=1$ (대조군;
+$Z_Q = 4\,\zeta(s)\,L(s,\chi_{-4})$, RH 만족) 및 $\lambda=5$
+(실험군; 류수 $h(-20)=2$, 개별 Epstein 제타에서 RH 위반 가능).
+$\theta$-Mellin 적분으로 해석적 접속; $Z_{Q,\lambda=1}$과
+$4\,\zeta(s)\,L(s,\chi_{-4})$의 상대오차 $\sim 10^{-70}$으로 검증.
+다발 진단: $\delta=0.03$ 오프셋에서 $\kappa$, 폐곡선 적분 모노드로미
+(반경 $=0.5$, 64단계), $\sigma$-국소화 FWHM.
+임계선 스캔: $t\in[2,35]$; off-critical 격자:
+$\sigma\in[0.25,0.75]$, $t\in[2,35]$, $12\times 100$ 격자.
+
+\smallskip\noindent
+\textbf{결과.}
+
+\begin{center}
+\small
+\begin{tabular}{@{} l c c c c @{}}
+\toprule
+& $\kappa$ & mono$/\pi$ & FWHM & off-crit.\ 영점 \\
+\midrule
+$\lambda=1$ ($N=8$) & $1007.9 \pm 72.6$ & $2.00 \pm 0.00$ & $0.044$ & 0 \\
+$\lambda=5$ ($N=8$) & $1006.2 \pm 47.8$ & $2.00 \pm 0.00$ & $0.044$ & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\smallskip\noindent
+\textbf{발견.}
+\begin{enumerate}
+  \item \textbf{On-critical 서명 보편성.}
+        세 다발 지표($\kappa$, 모노드로미, FWHM) 모두 $\lambda=1$과 $\lambda=5$에서
+        구별 불가(편차 ${}<1\%$). 프레임워크의 진단 서명이
+        이차형식에 무관함을 시사한다.
+
+  \item \textbf{Off-critical 영점 미발견.}
+        탐색 범위 내 $\sigma\neq\tfrac{1}{2}$ 영점 없음.
+        이는 부재 증거가 아닌 \emph{범위 한계}: $\lambda=5$의
+        off-critical 영점은 $t \gg 35$에 존재할 수 있다.
+\end{enumerate}
+
+\noindent
+\textbf{해석.}\;
+Epstein 제타 결과는 다발 프레임워크가 세 번째 $L$-함수 계열($\zeta$ 및
+디리클레 $L$ 이후)로 확장 가능함을 확인하지만,
+반증 가능성 테스트는 완성하지 \emph{못한다}.
+off-critical 영점의 서명 차이를 측정하려면 off-critical 영점이
+\emph{보장된} 함수가 필요하다 (예: Davenport--Heilbronn 함수; \S\ref{sec:open} 참조).
+\textcolor{ForestGreen}{[확인 2026-04-14; $\lambda\in\{1,5\}$;
+dps${}=80$; 78.7분 실행]}
+\end{observation}
+
 % ============================================================================
 \section*{수치 증거 요약}
 \label{sec:summary}
 \addcontentsline{toc}{section}{수치 증거 요약}
 % ============================================================================
 
-표~\ref{tab:summary}는 다섯 가지 검증 축에 걸쳐 얻은 28개의 수치 결과를
+표~\ref{tab:summary}는 다섯 가지 검증 축에 걸쳐 얻은 29개의 수치 결과를
 종합한다. 상태 코드: \textbf{E} = 확립(Established),
 \textbf{C} = 조건부 양성(Conditionally positive),
 \textbf{N} = 음성(Negative, 완전 공개).
@@ -2388,7 +2446,7 @@ Sub-GUE 결과를 GUE 보편성의 실패로 해석해서는 안 된다.
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{3.8cm} l@{}}
-\caption{다섯 검증 축에 걸친 28개 수치 결과 요약.\label{tab:summary}}\\
+\caption{다섯 검증 축에 걸친 29개 수치 결과 요약.\label{tab:summary}}\\
 \toprule
 \# & 결과명 & 상태 & 핵심 지표 & 축 \\
 \midrule
@@ -2435,6 +2493,8 @@ Sub-GUE 결과를 GUE 보편성의 실패로 해석해서는 안 된다.
 \midrule
 27 & 합성 함수 음성 대조군     & \textbf{E} & 11/11, 독립 재현 3회            & 음성 \\
 28 & 수 분산 (RMT)             & \textbf{C} & Var$_\text{plaq}{\approx}$Var$_\text{dir}$, Berry sub-GUE & 전역 \\
+\midrule
+29 & Epstein 제타 확장          & \textbf{C} & $\lambda{=}1$ vs $\lambda{=}5$, $\kappa$ 편차 ${<}1\%$  & 확장 \\
 \end{longtable}
 \end{center}
 
@@ -2802,7 +2862,7 @@ Lample과 Charton~\cite{Lample2020SymbolicMath}은 시퀀스-투-시퀀스
 
 7개의 구조적 대응이 형식화되었으며, 그 경계가 명확히 구분되었다: 이들은 공유 수학 구조에 근거한 유비이지 증명이 아니다. 그러나 이 정도의 정밀도와 폭을 가진 유비는 드물며, 위상 양자화 원리가 암호학, 광학, 또는 정수론에서의 개별적 발현보다 더 근본적인 조직 개념일 수 있음을 시사한다.
 
-수치적 증거는 \textbf{다섯 검증 축에 걸쳐 28개 결과}를 포괄한다: (i)~개별 영점의 국소 위상·곡률 성질, (ii)~전역 스펙트럼 통계 (비국소성, GUE/Poisson 대조, 수 분산), (iii)~위상적 불변량 (홀로노미, 천 수, 가우스--보네 면적분), (iv)~디리클레 $L$-함수 확장 ($\chi \bmod 3,4,5,8$), (v)~특이성을 확립하는 음성 대조군. 결과 \#22--\#28은 자기 일관적인 \emph{위상적 일관성 체인}을 형성한다: 플라켓 곡률장이 개별 권선수, 천 류 영점 계수, 가우스--보네 면적분, $\sigma$-국소화, 집합적 수 분산을 동시에 인코딩하며, 이는 직접 산술적 방법과 일치하고 7개의 독립 실험에 걸쳐 상호 일관적이다.
+수치적 증거는 \textbf{다섯 검증 축에 걸쳐 29개 결과}를 포괄한다: (i)~개별 영점의 국소 위상·곡률 성질, (ii)~전역 스펙트럼 통계 (비국소성, GUE/Poisson 대조, 수 분산), (iii)~위상적 불변량 (홀로노미, 천 수, 가우스--보네 면적분), (iv)~디리클레 $L$-함수 확장 ($\chi \bmod 3,4,5,8$), (v)~특이성을 확립하는 음성 대조군. 결과 \#22--\#28은 자기 일관적인 \emph{위상적 일관성 체인}을 형성한다: 플라켓 곡률장이 개별 권선수, 천 류 영점 계수, 가우스--보네 면적분, $\sigma$-국소화, 집합적 수 분산을 동시에 인코딩하며, 이는 직접 산술적 방법과 일치하고 7개의 독립 실험에 걸쳐 상호 일관적이다.
 
 
 % ============================================================================

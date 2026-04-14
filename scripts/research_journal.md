@@ -1,5 +1,19 @@
 # RDL 자율 연구 일지
 
+## 2026-04-14 20:47 사이클 #42 (수학자)
+
+### 결과 #29 판정: 조건부 양성
+- Epstein zeta Z_Q(m²+λn²): λ=1(대조군), λ=5(실험군)
+- on-critical 영점 서명: κ(1007.85 vs 1006.16), mono(2.00π vs 2.00π), FWHM(0.044 vs 0.044) — 편차 <1%
+- off-critical zeros: 탐색 범위 내(σ∈[0.25,0.75], t∈[2,35]) 미발견
+- 양성 측면: 프레임워크의 Epstein zeta 확장성 확인
+- 한계: falsifiability 목표 미달 — DH 함수로 보완 필요
+
+### 다음 지시: 결과 #30 — Davenport-Heilbronn 함수 적대적 검증
+- DH 함수: f(s) = [(1-iκ)/2]·L(s,χ₅) + [(1+iκ)/2]·L(s,χ̄₅), off-critical zeros 존재 보장
+- 핵심 비교: on-critical vs off-critical 영점의 peak_σ, FWHM 차이
+- 모델: opus. 성공 시 프레임워크 falsifiability 확립 → 논문 완성도 대폭 상승.
+
 ## 2026-04-14 20:14 사이클 #41 (검토자)
 
 **결과 #29 Epstein 제타 적대적 검증 — 독립 검증 완료**
@@ -1095,4 +1109,9 @@ L_geo 이점이 실재, 차이 없으면 평가 방법 아티팩트 확정.
 ## 2026-04-14 18:09 사이클 #40 (자동)
 - Stage 1: 완료
 - Stage 2: 완료 (sonnet)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260413_214205_*
+
+## 2026-04-14 20:17 사이클 #41 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (opus)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260413_214205_*

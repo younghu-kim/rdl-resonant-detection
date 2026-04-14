@@ -263,7 +263,7 @@ with a hard error boundary beyond which decoding fails}.
         remaining defect to the network's output representation near
         zeros (Remark~\ref{rem:isolation}).
   \item We verify the fibre-bundle interpretation of the $\xif$-function
-        through 28 numerical experiments spanning five independent axes:
+        through 29 numerical experiments spanning five independent axes:
         local curvature, global spectral statistics, topological
         invariants, Dirichlet $L$-function extension, and negative
         controls.  A consolidated summary appears in
@@ -3522,13 +3522,77 @@ plaquette independently cross-validated against direct zero count]}
 \end{observation}
 
 
+% ----------------------------------------------------------------------------
+\begin{observation}[Epstein Zeta Extension]
+\label{obs:epstein_extension}
+To test whether the bundle framework extends beyond Riemann $\zeta$ and
+Dirichlet $L$-functions, we examine the Epstein zeta function
+$Z_Q(s) = \sum_{(m,n)\neq(0,0)} Q(m,n)^{-s}$ for the binary quadratic
+form $Q(m,n) = m^2 + \lambda n^2$.
+
+\smallskip\noindent
+\textbf{Setup.}  Two lattice parameters: $\lambda=1$ (control;
+$Z_Q = 4\,\zeta(s)\,L(s,\chi_{-4})$, RH satisfied) and $\lambda=5$
+(experiment; class number $h(-20)=2$, individual Epstein zeta may
+violate RH).  Analytic continuation via $\theta$-Mellin integral with
+$t=1$ splitting; verified $Z_{Q,\lambda=1}$ against $4\,\zeta(s)\,L(s,\chi_{-4})$
+(relative error $\sim 10^{-70}$).  Bundle diagnostics:
+$\kappa$ at $\delta=0.03$ offset, monodromy by contour integral
+(radius $=0.5$, 64 steps), $\sigma$-localisation FWHM.
+Critical-line scan: $t\in[2,35]$; off-critical grid:
+$\sigma\in[0.25,0.75]$, $t\in[2,35]$, $12\times 100$ lattice.
+
+\smallskip\noindent
+\textbf{Results.}
+
+\begin{center}
+\small
+\begin{tabular}{@{} l c c c c @{}}
+\toprule
+& $\kappa$ & mono$/\pi$ & FWHM & off-crit.\ zeros \\
+\midrule
+$\lambda=1$ ($N=8$) & $1007.9 \pm 72.6$ & $2.00 \pm 0.00$ & $0.044$ & 0 \\
+$\lambda=5$ ($N=8$) & $1006.2 \pm 47.8$ & $2.00 \pm 0.00$ & $0.044$ & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\smallskip\noindent
+\textbf{Findings.}
+\begin{enumerate}
+  \item \textbf{On-critical signature universality.}
+        All three bundle metrics ($\kappa$, monodromy, FWHM) are
+        indistinguishable between $\lambda=1$ and $\lambda=5$
+        (deviation ${}<1\%$), indicating that the framework's
+        diagnostic signatures are independent of the underlying
+        quadratic form.
+
+  \item \textbf{Off-critical zeros not found.}
+        No zeros with $\sigma\neq\tfrac{1}{2}$ were detected in the
+        search region.  This is a \emph{range limitation}, not evidence
+        of absence: off-critical zeros for $\lambda=5$ may appear at
+        $t \gg 35$ or require finer grid resolution.
+\end{enumerate}
+
+\noindent
+\textbf{Interpretation.}\;
+The Epstein zeta result confirms extensibility of the bundle framework
+to a third $L$-function family (after $\zeta$ and Dirichlet $L$),
+but does \emph{not} complete the falsifiability test.  The primary
+goal---detecting off-critical zeros and measuring signature
+differences---requires functions with \emph{guaranteed} off-critical
+zeros (e.g.\ the Davenport--Heilbronn function; see \S\ref{sec:open}).
+\textcolor{ForestGreen}{[confirmed 2026-04-14; $\lambda\in\{1,5\}$;
+dps${}=80$; 78.7 min runtime]}
+\end{observation}
+
 % ============================================================================
 \section*{Summary of Numerical Evidence}
 \label{sec:summary}
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 28 numerical results obtained
+Table~\ref{tab:summary} consolidates all 29 numerical results obtained
 across five verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -3536,7 +3600,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 28 numerical results across five verification
+\caption{Summary of 29 numerical results across five verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -3584,6 +3648,8 @@ with full transparency).
 \midrule
 27 & Synthetic negative control & \textbf{E} & 11/11, 3 reproductions           & Negative \\
 28 & Number variance (RMT)      & \textbf{C} & Var$_\text{plaq}{\approx}$Var$_\text{dir}$, Berry sub-GUE & Global \\
+\midrule
+29 & Epstein zeta extension     & \textbf{C} & $\lambda{=}1$ vs $\lambda{=}5$, $\kappa$ dev ${<}1\%$   & Extension \\
 \end{longtable}
 \end{center}
 
