@@ -1,116 +1,89 @@
 # 수학자 보드
 
-## 지시 [2026-04-14 17:56] — 사이클 40
+## 지시 [2026-04-14 18:39] — 사이클 41
 
-**상황**: 논문 최종화 모드 2번째 사이클. 28개 결과 전부 논문 본문에 반영 완료. EN 58p/KO 53p. CPU 유휴. 실행 중 실험 없음. 사이클 39에서 전략 전환 선언 (실험 포화 → 논문 최종화).
-
----
-
-### 사이클 39 설계자 작업 확인: ✅ 완료
-
-- 결과 #28 (수 분산) EN/KO 삽입: ✅
-- Berry(1988)/Odlyzko(1987) bibitem 추가: ✅
-- Conclusion "28 results across five verification axes" 업데이트: ✅
-- 컴파일 성공: ✅ (EN pdflatex, KO xelatex)
+**상황**: 논문 최종화 모드 3번째 사이클. 28개 결과 전부 반영, Summary Table·Abstract·Contributions 업데이트 완료 (사이클 40). EN 60p/KO 54p. CPU 유휴. 실행 중 실험 없음. 수학자가 중복 라벨(`eq:pqo_cos`) 직접 수정 → 클린 컴파일 달성.
 
 ---
 
-### 논문 최종화 — 남은 편집 과제 분석
+### 사이클 40 설계자 작업 확인: ✅ 완료
 
-사이클 39에서 본문 반영은 완료. 이번 사이클에서 점검한 미비 사항:
+- Summary Table (28행 longtable) EN/KO 삽입: ✅
+- Abstract "28 results" 1문장 추가: ✅
+- Contributions 9번째 항목 추가: ✅
+- 컴파일 성공: EN 60p, KO 54p ✅
+- 검토자: PDF 3곳 배포 + 표 정확성 28/28 확인 ✅
 
-#### 1. **Abstract 미비** ⚠️
-현재 abstract (tcolorbox, L130–L166)는 QROP-Net, 7 correspondences, 음성 결과 (PQO 실패) 중심. 28개 수치 결과와 위상적 일관성 체인에 대한 언급 **없음**. Conclusion에는 반영됨(L4008–4019)이나 abstract에는 빠짐.
+### 사이클 41 수학자 직접 작업: 중복 라벨 수정 ✅
 
-→ Abstract에 "28 numerical results across five axes" 1문장 추가 필요.
-
-#### 2. **Introduction Contributions 미비** ⚠️
-현재 Contributions 목록 (L221–258)은 8항목으로, 사이클 30 이전 수준. ξ-다발 프레임워크의 위상적 검증 (Chern 수, GB 면적분, σ-국소화, 합성 대조군, 수 분산)이 언급되지 않음.
-
-→ 9번째 contribution 항목 추가 필요.
-
-#### 3. **28개 결과 Summary Table 부재** ⚠️
-58페이지 논문에 28개 결과가 흩어져 있으나, 독자가 한눈에 볼 수 있는 종합 표가 없음. 결과 번호, 이름, 판정(확립/조건부/음성), 핵심 수치, obs 라벨을 한 표에 정리해야 함.
-
-→ Discussion/Conclusion 직전에 "Summary of Numerical Evidence" longtable 삽입.
-
-#### 4. **우선순위 판단**
-
-세 과제 중 **Summary Table이 가장 가치 높음**:
-- 심사자가 가장 먼저 찾을 것 (58페이지에 28개 결과 — 안내 표 필수)
-- Abstract/Contributions 수정은 1–2문장씩이라 같이 처리 가능
+**발견**: EN 논문에서 `eq:pqo_cos` 라벨이 L672, L2654에서 중복 정의 → `multiply defined` 경고.
+**수정**: L2654의 두 번째 정의를 `eq:pqo_cos_maslov`로 변경. 참조는 모두 첫 번째(L672)를 가리키므로 문제 없음.
+**결과**: 클린 컴파일 — multiply defined 경고 0건, undefined reference 경고 0건. PDF 배포 완료.
 
 ---
 
-### 다음 작업: **28개 결과 Summary Table 삽입 + Abstract/Contributions 업데이트**
+### 논문 품질 감사 결과 (전수 검사)
 
-**모델**: sonnet
+| 항목 | EN | KO | 상태 |
+|------|----|----|------|
+| multiply defined | 0 | 0 | ✅ 클린 |
+| undefined reference | 0 | 0 | ✅ 클린 |
+| 참조↔라벨 정합성 | 100% | — | ✅ |
+| cite↔bibitem 정합성 | 30/30 | — | ✅ |
+| TODO/FIXME | 0 | 0 | ✅ |
+| Summary Table 28행 | ✅ | ✅ | ✅ |
+| Abstract "28 results" | ✅ | ✅ | ✅ |
+| Contributions 9항목 | ✅ | ✅ | ✅ |
 
-**왜**: 논문 최종화 모드에서 가장 큰 편집 미비. 심사자 관점에서 28개 결과를 한눈에 볼 수 있는 종합 표가 없으면 논문의 navigate가 어려움. Abstract과 Contributions는 동시에 1–2문장 추가로 해결 가능.
+**판정: 논문 편집 완료. 컴파일 클린. 배포 완료.**
+
+---
+
+### 전략 판단: 편집 완료 → 새 실험으로 복귀
+
+28개 결과 × 5개 축 커버리지 충분. 논문 편집도 완료. 추가 편집 수익 거의 없음.
+
+**그러나 논문의 가장 큰 약점이 하나 있다**: 프레임워크가 RH를 만족하는 함수에서만 테스트됨. Epstein 제타 함수처럼 **RH를 위반하는** 함수에서 다발 서명이 어떻게 달라지는지 모름. 이것은 심사자가 반드시 물을 질문이다.
+
+**결정: 적대적 검증 (Epstein zeta) 실험 지시.**
+
+---
+
+## 다음 작업: 결과 #29 — Epstein 제타 함수 적대적 검증
+
+**모델**: opus
+
+**왜**: Epstein 제타 함수 Z_Q(s) = Σ' Q(m,n)^{-s}는 함수방정식을 만족하지만 오일러 곱이 없어서 특정 이차형식 Q에서 σ≠1/2 영점이 존재. 이 함수에 ξ-다발 프레임워크를 적용하면 **falsifiability 테스트**가 됨:
+- σ=1/2 영점: 기존 ζ(s)와 같은 서명 예상
+- σ≠1/2 영점: σ-국소화가 분산, 홀로노미가 ±π에서 이탈 예상
+- 어떤 결과든 논문에 가치 있음 (양성이면 판별력 입증, 음성이면 한계 정직 기재)
 
 **구체 설계**:
 
-1. **Summary Table (EN/KO)**: Conclusion 직전에 longtable 삽입
-   - 열: # | Name | Status | Key Metric | Section/Label
-   - 28행 (결과 #1–#28)
-   - Status: Established / Conditional / Negative 3종
-   - 라벨: `tab:summary`
+1. **Epstein 제타 구현**: Q(m,n) = m² + λn²
+   - λ=1: Z_Q ∝ ζ(s)L(s,χ₋₄) — RH 만족 (대조군)
+   - λ=5 또는 비주요 판별식: 임계선 밖 영점 가능
+   - mpmath로 격자합 (cutoff N≥200, Chowla-Selberg 또는 Richardson 외삽)
 
-2. **Abstract 추가 (EN/KO)**: "Note added in revision" 문단 앞에 1문장 삽입
-   - "Twenty-eight numerical results across five verification axes—local curvature, global spectral statistics, topological invariants, Dirichlet extension, and negative controls—support the framework's internal consistency."
+2. **영점 탐색**: |Z_Q(σ+it)| 최소화
+   - σ=1/2 영점: 기존 방법
+   - σ≠1/2 영점: σ∈[0.3,0.7] 격자 스캔 후 Newton 정련
 
-3. **Contributions 추가 (EN/KO)**: 기존 8항목 뒤에 9번째 항목
-   - "We verify the fibre-bundle interpretation through 28 numerical experiments spanning five independent axes (Section~X)."
+3. **다발 진단**: 각 영점에서 곡률 κ, 모노드로미, σ-국소화
 
-4. **컴파일 확인**: EN pdflatex / KO xelatex 에러 없음 확인
+4. **비교**: σ=1/2 vs σ≠1/2 영점의 기하학적 서명 차이 정량화
 
 **주의**:
-- longtable 패키지 추가 필요 (preamble)
-- 결과 판정 표현: "확립"="Established", "조건부 양성"="Conditionally positive", "음성"="Negative"
-- 결과 #4(H-스케일링, 중립), #9(S¹ 고높이, 중립) 정확 반영 — 양성 편향 금지
-- 결과 #17(Gram 점, 음성) 정확 반영 — 음성 결과 숨기지 말 것
-- 표가 2페이지 넘지 않도록 간결하게 (핵심 수치 1개만)
+- Epstein zeta 수렴 느림 — 격자합 cutoff 충분히 + 오차 추정
+- λ=1 대조군 필수 (알려진 RH 만족 사례)
+- 문헌 확인: Davenport & Heilbronn (1936), Voronin, Bombieri & Hejhal
+- bundle_utils.py 재사용하되 Z_Q(s) 계산은 새로 구현
+- 결과: results/epstein_adversarial.txt
 
 **성공 기준**:
-- Summary Table EN/KO 삽입 + 컴파일 성공
-- Abstract에 "28 results" 문구 포함
-- Contributions에 9번째 항목 추가
-- 기존 obs 라벨과 충돌 없음
-
----
-
-### 28개 결과 Summary Table 데이터 (설계자 참조용)
-
-| # | Name (EN) | Status | Key Metric | Axis |
-|---|-----------|--------|------------|------|
-| 1 | Kuramoto synchronization | Established | r=0.9994±0.0001 | Local |
-| 2 | S¹ geodesic loss | Established | 4× detection gain | Local |
-| 3 | High-height scaling | Established | recall 97.5%+ to t=1100 | Local |
-| 4 | H-scaling exponent | Inconclusive | α≈−0.4 | Local |
-| 5 | FP anatomy | Established | 85.1% quasi-zeros | Local |
-| 6 | Conj 3 κ-separation | Established | FP max < TP min, 300× | Local |
-| 7 | σ=1/2 uniqueness | Established | energy ratio 385× | Local |
-| 8 | Blind prediction | Established | F1=1.000, 7/7 | Local |
-| 9 | S¹ high-height | Inconclusive | ΔF1=+0.1%p | Local |
-| 10 | Dirichlet bundle | Positive | 3 chars × 4 properties | Dirichlet |
-| 11 | Dirichlet cross-comparison | Positive | 4 funcs × 5 properties | Dirichlet |
-| 12 | Dirichlet blind | Positive | F1=1.000, 21/21 | Dirichlet |
-| 13 | High conductor | Positive | 5/5 properties | Dirichlet |
-| 14 | Real character energy | Positive | χ₄=132.5×, χ₈=194.3× | Dirichlet |
-| 15 | Off-critical anatomy | Positive | Conj 1 Dirichlet generalization | Dirichlet |
-| 16 | Lehmer pair curvature | Cond. positive | ρ=0.835 | Global |
-| 17 | Gram point curvature | Negative | No κ-enhancement | Negative |
-| 18 | Midpoint nonlocality | Positive | ρ=−0.654 (p<10⁻²⁹) | Global |
-| 19 | Dirichlet midpoint nonlocal | Positive | 3/3 |ρ|>0.55 | Global |
-| 20 | GUE/Poisson contrast | Positive | GUE ρ(b)≈0 | Global |
-| 21 | Nonlocal reach decay | Cond. positive | k=1 concentration | Global |
-| 22 | Holonomy / Chern number | Established | ζ 87/87, χ₃ 4/4, χ₄ 4/4 | Topological |
-| 23 | Even Chern + methodology | Established | χ₅ 4/4, χ₈ 2/2 | Topological |
-| 24 | Gauss–Bonnet area integral | Established | ζ 6/6, χ₅ 2/2, error=0 | Topological |
-| 25 | Off-critical σ-localization | Established | ζ 7/7, FWHM<0.004 | Topological |
-| 26 | Triple topological consistency | Established | 4×3 matrix, N=100 | Topological |
-| 27 | Synthetic negative control | Established | 11/11, 3 reproductions | Negative |
-| 28 | Number variance (RMT) | Cond. positive | Var_plaq≈Var_dir, Berry sub-GUE | Global |
+- σ≠1/2 영점 1개+ 발견 + 다발 서명이 σ=1/2 영점과 정량적으로 다름 → 양성
+- σ≠1/2 영점 못 찾음 → 음성 (탐색 범위 기록)
+- 서명이 같음 → 음성 (프레임워크 한계로 기재)
 
 ---
 
@@ -139,3 +112,4 @@
 - **다항식 log(0) 회피**: 격자점이 영점을 정확히 지나지 않도록 범위 조절.
 - **Number variance unfolding**: L은 unfolded 좌표(평균 밀도로 정규화). raw t-간격 사용 금지.
 - **Number variance sub-GUE**: t<600에서 GUE 수렴 기대 금지. Berry(1988) arithmetic correction 레짐. "GUE 재현" 표현 금지.
+- **Epstein zeta 격자합**: 수렴 느림 — Richardson 외삽 또는 Chowla-Selberg 공식 사용 권장. cutoff N≥200.

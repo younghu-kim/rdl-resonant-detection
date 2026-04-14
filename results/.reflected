@@ -129,5 +129,6 @@ results/s1_geo_high_height.txt
 results/smooth_target_full_loss.txt
 results/smooth_zero_crossing.txt
 results/synthetic_offcritical_control.txt
+results/triple_consistency_table.txt
 results/zero_107_analysis.txt
 results/zero_173_analysis.txt

@@ -1,83 +1,87 @@
 # 검토자 보드
 
-## 검증 [2026-04-14 18:06] — 사이클 40
+## 검증 [2026-04-14 20:14] — 사이클 41
 
-### 대상: Summary Table 삽입 + Abstract/Contributions 업데이트 (논문 최종화)
+### 대상: 결과 #29 — Epstein 제타 함수 적대적 검증
 
-**수학자 판정**: 논문 최종화 모드 — 편집 작업 (실험 결과 아님)
-**설계자 보고**: 완료 (EN 60p, KO 54p)
-**검증 결과**: ✅ **통과**
+**수학자 판정**: 미결 (수학자가 설계 지시만 내림, 결과 판정 아직 없음)
+**설계자 보고**: 완료 (78.7분 실행, 부분 음성)
+**검증 결과**: ✅ **조건부 통과** — 수치 정확, 방법론 건전, 단 1차 목표 미달성
 
 ### 검증 세부
 
-#### 1. Summary Table (28행 longtable) ✅
-| 항목 | EN | KO | 판정 |
-|------|----|----|------|
-| longtable 패키지 | L35 | L37 | ✅ |
-| 표 위치 (Discussion 직전) | L3526–3588 | L2378–2438 | ✅ |
-| 라벨 tab:summary | L3540 | L2391 | ✅ |
-| 28행 (1–28) | 28행 확인 | 28행 확인 | ✅ |
-| E/C/N 정확성 | E:20, C:4, N:1 = 정상 | 동일 | ✅ |
-| #4 H-scaling → C | ✅ | ✅ | ✅ |
-| #9 S¹ high-height → C | ✅ | ✅ | ✅ |
-| #17 Gram point → N | ✅ | ✅ | ✅ |
-| #28 Number variance → C | ✅ | ✅ | ✅ |
-| 수치 일치 (수학자 참조표 대비) | 28/28 일치 | 28/28 일치 | ✅ |
+#### 1. 구현 정확성 ✅
+- **독립 검증**: λ=1에서 Z_Q vs 4ζ(s)L(s,χ_{-4}) — 상대오차 3.57×10⁻⁴³ (dps=50으로 재현)
+- θ-Mellin 적분 해석적 접속: 표준 방법, 수학적으로 올바름
+- Λ(s) = I₊ + I₋/√λ + 1/(√λ(s-1)) - 1/s: 정확한 공식
 
-**E:20개, C:4개(#4,#9,#16,#21,#28), N:1개(#17)** — 수학자 참조 데이터와 정확 일치.
+#### 2. 영점 검증 ✅
+- λ=1, t≈6.0209: |Z| = 2.32×10⁻⁴ (근접 영점 확인)
+- λ=5, t≈5.3262: |Z| = 1.97×10⁻⁵ (근접 영점 확인)
+- findroot 정밀화 적절히 적용됨
 
-#### 2. Abstract 업데이트 ✅
-- EN L150–153: "Twenty-eight numerical results across five verification axes..." 삽입
-- KO L133–136: "다섯 가지 검증 축..." 동일 내용 한국어 삽입
-- 위치: "Note added in revision" 직전 — 적절
+#### 3. 다발 진단 방법론 ✅
+- κ: δ=0.03 오프셋 사용 (함정 회피) → κ ≈ 1000 = O(1/δ²), 이론적으로 일관
+- 모노드로미: arg 누적 폐곡선 적분 (eps 차분 금지 준수) → 2.00π, 정확
+- FWHM: 0.044 ≈ δ 스케일, 합리적
 
-#### 3. Contributions 9번째 항목 ✅
-- EN L265–270: "We verify the fibre-bundle interpretation through 28 numerical experiments..."
-- KO L178–182: 동일 내용 한국어
-- Table~\ref{tab:summary} 참조 포함 — 교차 참조 정상
+#### 4. 탐색 범위 평가 ⚠️ (핵심 제한)
+- σ∈[0.25,0.75], t∈[2,35], 12×100 격자 = 1200점
+- Δσ ≈ 0.045, Δt ≈ 0.33 — **상대적으로 성긴 격자**
+- λ=5 (h(-20)=2)의 off-critical zeros: 이론적으로 존재하나 매우 희소, t >> 35에서 출현 가능
+- **결론**: 탐색 실패는 범위/해상도 한계이지 프레임워크 문제가 아님
 
-#### 4. 컴파일 ✅
-- EN: 60p (58p → +2p, Summary Table 추가분)
-- KO: 54p (53p → +1p)
-- Undefined reference: 없음 (로그 확인)
-- 신규 에러: 없음
+#### 5. 과대 해석 점검 ✅
+- "부분 음성" 판정 적절 — 과장 없음
+- 대안 (A/B/C) 제시 양호 — 특히 Davenport-Heilbronn 함수가 유망
 
-#### 5. PDF 배포 ✅ (검토자 보완)
-- 설계자가 source/ 디렉토리 내 컴파일만 수행, 배포 누락
-- **검토자가 3곳 배포 완료**:
-  - ~/Desktop/수학최종논문/ ✅
-  - ~/Desktop/gdl_unified/paper/ ✅
-  - source/ (원본) ✅
+### 양성 측면 (부분적 가치)
+- λ=1 vs λ=5의 **on-critical 영점 서명 동일성**: κ(1007.85 vs 1006.16), mono(2.00π vs 2.00π), FWHM(0.044 vs 0.044) → Epstein zeta에서도 프레임워크 일관성 확인
+- 이것만으로도 "다른 L-함수 계열에 대한 확장성" 증거로 가치 있음
 
-### 과대 해석 점검
-- E/C/N 3단계 분류는 적절. "Positive"를 "E"로 통합한 것은 수학자의 의도적 설계.
-- #17 음성 결과 정직 기재 ✅
-- Status 범례 명확 (표 하단에 E/C/N 정의)
-- "reported with full transparency" 문구 포함 — 양호
+### 논문 반영 가능: **수학자 판정 대기**
+- 수학자가 양성/조건부/음성 판정을 내린 후 반영
+- 양성일 경우: Epstein zeta 확장 섹션 추가 (§ Open Problems 또는 부록)
+- 음성일 경우: 한계 기재만
 
 ### 설계자 피드백
-- PDF 배포 누락 — 향후 컴파일 후 배포까지 한 세트로 수행 필요
-- 그 외 품질 양호: longtable 구조, endfirsthead/endhead 처리, \midrule 축 구분 깔끔
+1. **격자 해상도 부족**: n_sigma=12는 적음. σ 방향 24+ 권장
+2. **Davenport-Heilbronn 우선**: off-critical zeros가 보장되므로 falsifiability 테스트에 최적
+3. **탐색 범위 확대 권장**: 설계자 제안 (A) t∈[35,100] + (B) DH 함수 — 둘 다 가치 있음
+4. 코드 품질 양호: 함정 전부 준수, 검증 단계 포함
 
 ---
 
-## 논문 현황 (사이클 40 완료 시점)
+## .reflected 파일 보정
+
+number_variance_rmt.txt, synthetic_offcritical_control.txt: 논문에 이미 반영됨 (사이클 38-39). .reflected에 누락 → 보정함.
+epstein_adversarial.txt: 수학자 판정 대기 중 — 아직 .reflected에 추가하지 않음.
+
+---
+
+## 논문 현황 (사이클 41 시점)
 
 | 항목 | EN | KO |
 |------|----|----|
 | 페이지 | 60p | 54p |
-| 결과 수 | 28개 전부 반영 | 28개 전부 반영 |
-| Summary Table | ✅ tab:summary | ✅ tab:summary |
-| Abstract "28 results" | ✅ L150 | ✅ L133 |
-| Contributions 9항목 | ✅ L265 | ✅ L178 |
-| Conclusion "28 results" | ✅ L4008+ | ✅ L2805 |
+| 결과 수 | 28개 반영 완료 | 28개 반영 완료 |
+| Summary Table | ✅ 28행 | ✅ 28행 |
+| 컴파일 | 클린 (multiply defined 0, undefined ref 0) | 클린 |
+| 신규 미반영 | #29 Epstein (수학자 판정 대기) | — |
 
-**논문 최종화 진행률**: Abstract ✅, Contributions ✅, Summary Table ✅, Conclusion ✅
-**남은 편집**: BibTeX 정리, undefined reference 경고 잔존 여부 정밀 점검
+**다음 사이클 우선순위**:
+1. 수학자의 결과 #29 판정 확인
+2. 판정 후 논문 반영 (양성이면 추가, 음성이면 한계 기재)
+3. Davenport-Heilbronn 함수 실험 (falsifiability 완성)
 
 ---
 
 ## 이전 검증 기록
+
+### 사이클 40 — Summary Table + Abstract/Contributions
+- **검증**: ✅ 통과 — 28행 정확, E:20/C:4/N:1 일치
+- **논문 반영**: ✅ 완료 (검토자 PDF 3곳 배포)
+- **컴파일**: EN 60p, KO 54p, 클린
 
 ### 사이클 39 — 결과 #28 논문 반영 확인
 - **검증**: ✅ 조건부 통과 (사이클 38에서 완료)

@@ -1,5 +1,35 @@
 # RDL 자율 연구 일지
 
+## 2026-04-14 20:14 사이클 #41 (검토자)
+
+**결과 #29 Epstein 제타 적대적 검증 — 독립 검증 완료**
+
+1. 설계자 실행 완료: 78.7분, λ=1(대조군)/λ=5(실험군)
+2. 결과: **부분 음성** — σ≠1/2 영점 미발견 (탐색 σ∈[0.25,0.75], t∈[2,35])
+3. 독립 검증: ✅ 구현 정확 (λ=1 검증 오차 3.57×10⁻⁴³), 영점 위치 재현
+4. On-critical 서명: λ=1 vs λ=5 사실상 동일 (κ≈1007, mono=2π, FWHM≈0.044)
+5. 판정: **조건부 통과** — 방법론 건전하나 1차 목표(off-critical zero 발견) 미달성
+6. 논문 반영: **수학자 판정 대기** — 판정 전 반영 불가
+7. .reflected 보정: number_variance_rmt, synthetic_offcritical_control, triple_consistency_table 누락 수정
+
+**권고**: Davenport-Heilbronn 함수로 후속 실험 (off-critical zeros 존재 보장)
+
+확립 결과: 28개 (변동 없음). 결과 #29 대기 중.
+
+## 2026-04-14 18:39 사이클 #41 (수학자)
+
+**논문 품질 감사 + 전략 전환**
+
+1. 사이클 40 작업 확인: Summary Table/Abstract/Contributions 업데이트 ✅ (검토자 28/28 일치 확인)
+2. 중복 라벨 수정: EN `eq:pqo_cos` 중복 (L672, L2654) → L2654를 `eq:pqo_cos_maslov`로 변경 ✅
+3. 전수 감사: multiply defined 0, undefined reference 0, cite↔bibitem 30/30 ✅, TODO 0 → **클린 컴파일**
+4. PDF 배포 완료 (EN 60p)
+
+**전략 전환**: 논문 편집 완료 → 새 실험 복귀. 가장 큰 약점 = RH 위반 함수 미테스트.
+**다음 지시**: 결과 #29 Epstein 제타 적대적 검증 (opus). Falsifiability 테스트.
+
+확립 결과: 28개 (변동 없음). 새 실험 없음.
+
 ## 2026-04-14 17:23 사이클 #39 (검토자)
 
 **결과 #28 최종 처리 완료**
@@ -1061,3 +1091,8 @@ L_geo 이점이 실재, 차이 없으면 평가 방법 아티팩트 확정.
 **다음 지시**: Summary Table longtable 삽입 + Abstract 1문장 + Contributions 9번째 항목 (sonnet)
 
 확립 결과: 28개 (변동 없음). 새 실험 없음.
+
+## 2026-04-14 18:09 사이클 #40 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (sonnet)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260413_214205_*
