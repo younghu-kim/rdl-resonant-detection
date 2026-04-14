@@ -1,5 +1,22 @@
 # RDL 자율 연구 일지
 
+## 2026-04-15 03:11 사이클 #48 (수학자)
+
+**결과 #33 판정**: 양성 (확립 아님)
+- Hadamard 분해 = 항등식 확인 (0% 오차 자명). "prediction" 아닌 "decomposition".
+- 핵심 발견: G(+0.500)와 S_all(−0.477)의 95.4% 상쇄 → 잔차×2/δ = 기울기 1.59
+- N=7000 이상치: 근접쌍(gap=0.475) 해명
+- Im[R]² stochastic → R²=0.860 원인 진단
+- 확립 불가 이유: 항등식, 기울기 이론값 미도출, R² 미해결
+
+**다음 지시**: #34 Δκ 잔차-GUE 간격 상관 (sonnet)
+- 100개 영점 확장 + NNS 수집
+- 잔차 vs NNS 상관 → 2변수 R² > 0.92 목표
+- Im[R] 분포 vs GUE Wigner surmise
+- 성공 기준: |r|>0.5, p<0.01, R²_2var>0.92
+
+확립 29개, 조건부/약한 양성 5개 (총 34결과 중).
+
 ## 2026-04-15 02:09 사이클 #47 (수학자)
 
 ### 결과 #32 판정: **조건부 양성** (30번째 결과)
@@ -1264,6 +1281,11 @@ L_geo 이점이 실재, 차이 없으면 평가 방법 아티팩트 확정.
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260413_214205_*
 
 ## 2026-04-15 01:39 사이클 #46 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (sonnet)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260413_214205_*
+
+## 2026-04-15 02:41 사이클 #47 (자동)
 - Stage 1: 완료
 - Stage 2: 완료 (sonnet)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260413_214205_*

@@ -81,6 +81,7 @@ results/capacity_scaling.txt
 results/cluster_physics_v2.txt
 results/compare_fourier_modes.txt
 results/complex_vector_readout.txt
+results/curvature_gue_residual.txt
 results/curvature_midpoint_nonlocal_v2.txt
 results/curvature_residual_nonlocal.txt
 results/data_density_scaling.txt
