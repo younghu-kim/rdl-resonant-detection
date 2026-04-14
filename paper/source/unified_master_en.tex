@@ -3586,21 +3586,135 @@ zeros (e.g.\ the Davenport--Heilbronn function; see \S\ref{sec:open}).
 dps${}=80$; 78.7 min runtime]}
 \end{observation}
 
+
+% ----------------------------------------------------------------------------
+\begin{observation}[High-$t$ Robustness and $\kappa$ Calibration]
+\label{obs:high_t_robustness}
+To verify that the bundle framework's core diagnostics remain
+stable at large imaginary part, we measure $\kappa$, monodromy,
+and $\sigma$-localisation across six Riemann zeros spanning
+$t \approx 14$ to $t \approx 10\,000$ (zero indices $N=1$ to $N=10\,142$).
+
+\smallskip\noindent
+\textbf{Setup.}\;
+All measurements use the analytic log-derivative formula
+\[
+  \frac{\xi'(s)}{\xi(s)}
+  \;=\;
+  \frac{1}{s} + \frac{1}{s-1}
+  - \frac{\log\pi}{2}
+  + \frac{\psi(s/2)}{2}
+  + \frac{\zeta'(s)}{\zeta(s)},
+\]
+which avoids the numerical instability of finite-difference
+$\xi'$ at large $t$.
+$\kappa = |\xi'/\xi|^2$ is evaluated at offset $\delta=0.03$
+(i.e.\ $\sigma=0.53$).
+$\sigma$-profiles use a \emph{fixed} 201-point grid
+($\sigma\in[0.2,0.8]$, spacing $0.003$) at every $t$,
+eliminating the resolution artefact identified in preliminary runs.
+Monodromy: contour integral, radius $0.2$, 64 steps.
+Precision: $\mathrm{dps}=60$ for $t<2000$, $\mathrm{dps}=80$ for
+$t\ge 2000$.
+
+\smallskip\noindent
+\textbf{Part~A: $\kappa$ calibration.}\;
+We first recalibrate the baseline $\kappa$ at low $t$
+using the same analytic formula (previously, the
+\texttt{bundle\_utils} routine with $h=10^{-20}$ finite
+differences gave $\kappa\approx 1030$).
+
+\begin{center}
+\small
+\begin{tabular}{@{} r r r r @{}}
+\toprule
+$N$ & $t$ & $\kappa$ (analytic) & $\kappa/(1/\delta^2)$ \\
+\midrule
+1   & 14.135  & 1111.58 & 1.0004 \\
+2   & 21.022  & 1111.96 & 1.0008 \\
+3   & 25.011  & 1111.78 & 1.0006 \\
+4   & 30.425  & 1112.58 & 1.0013 \\
+5   & 32.935  & 1111.92 & 1.0007 \\
+\midrule
+\multicolumn{2}{l}{Mean ($t<100$)} & $1111.96 \pm 0.33$ & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The analytic-formula $\kappa$ at low $t$ is $1112.0$, matching the
+high-$t$ value $1118.6$ within $0.6\%$; the previous baseline
+$\kappa\approx 1030$ is an $8\%$ underestimate caused by
+over-cancellation in the $h=10^{-20}$ finite-difference scheme.
+Corrected baseline: $\kappa \approx 1112$--$1120$ (analytic).
+
+\smallskip\noindent
+\textbf{Part~B: $t$-scaling comparison (identical 201-point grid).}
+
+\begin{center}
+\small
+\begin{tabular}{@{} l c c c @{}}
+\toprule
+Metric & $t<100$ (3 zeros) & $t>1000$ (3 zeros) & Difference \\
+\midrule
+$\kappa$ (analytic) & $1112.0 \pm 0.3$ & $1118.6 \pm 1.9$ & $0.6\%$ \\
+$\mathrm{peak}_\sigma$ & $0.4970$ & $0.4970$ & $0.0000$ \\
+FWHM & $0.0060$ & $0.0060$ & $1.000\times$ \\
+mono$/\pi$ & $2.0000$ & $2.0000$ & exact \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\smallskip\noindent
+\textbf{Findings.}
+\begin{enumerate}
+  \item \textbf{$\kappa$ $t$-stability.}\;
+        The curvature scalar $\kappa$ varies by only $0.6\%$ across
+        a $700\times$ range in $t$.  The leading-order value
+        $\kappa \approx 1/\delta^2 = 1111.1$ is analytically expected
+        from the pole structure of $\xi'/\xi$; the sub-leading
+        $\zeta'/\zeta$ correction contributes ${}<0.5\%$ and remains
+        $t$-independent.
+
+  \item \textbf{Monodromy stability.}\;
+        All six zeros yield mono $= 2.0000\pi$, confirming single-zero
+        encirclement at radius $0.2$ even at $t \approx 10\,000$
+        (mean zero spacing $\approx 0.68$ at this height).
+
+  \item \textbf{$\sigma$-localisation invariance.}\;
+        With identical grid resolution, $\mathrm{peak}_\sigma$ and FWHM
+        are indistinguishable between low and high $t$.  Preliminary
+        runs with variable grid sizes showed apparent $t$-dependence
+        that was entirely a resolution artefact.
+\end{enumerate}
+
+\noindent
+\textbf{Interpretation.}\;
+This result is a \emph{robustness confirmation}, not a new mathematical
+discovery: it verifies that the analytic $\xi'/\xi$ infrastructure
+and the three bundle diagnostics ($\kappa$, monodromy, $\sigma$-FWHM)
+remain numerically stable up to $t = 10^4$.  The $\kappa$ calibration
+also resolves a long-standing $8\%$ discrepancy between the finite-difference
+and analytic baselines.
+\textcolor{ForestGreen}{[confirmed 2026-04-15; 6 zeros ($N\in\{1,2,3,649,4520,10142\}$);
+analytic $\xi'/\xi$ formula; 201-point grid; 105\,s runtime]}
+\end{observation}
+
+
 % ============================================================================
 \section*{Summary of Numerical Evidence}
 \label{sec:summary}
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 29 numerical results obtained
-across five verification axes.  Status codes: \textbf{E} = Established,
+Table~\ref{tab:summary} consolidates all 30 numerical results obtained
+across six verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
 
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 29 numerical results across five verification
+\caption{Summary of 30 numerical results across six verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -3650,6 +3764,8 @@ with full transparency).
 28 & Number variance (RMT)      & \textbf{C} & Var$_\text{plaq}{\approx}$Var$_\text{dir}$, Berry sub-GUE & Global \\
 \midrule
 29 & Epstein zeta extension     & \textbf{C} & $\lambda{=}1$ vs $\lambda{=}5$, $\kappa$ dev ${<}1\%$   & Extension \\
+\midrule
+30 & High-$t$ robustness        & \textbf{E} & $\kappa$ CV${=}0.2\%$, $t{=}14$--$10^4$ & Robustness \\
 \end{longtable}
 \end{center}
 

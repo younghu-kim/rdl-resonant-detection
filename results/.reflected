@@ -10,6 +10,8 @@
 /home/k0who029/Desktop/gdl_unified/results/curvature_midpoint_nonlocal_v2.txt
 /home/k0who029/Desktop/gdl_unified/results/curvature_residual_nonlocal.txt
 /home/k0who029/Desktop/gdl_unified/results/data_density_scaling.txt
+/home/k0who029/Desktop/gdl_unified/results/davenport_heilbronn_adversarial.txt
+/home/k0who029/Desktop/gdl_unified/results/dh_small_radius_diagnosis.txt
 /home/k0who029/Desktop/gdl_unified/results/difficulty_regression.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_blind_prediction.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_bundle_verification.txt
@@ -17,6 +19,7 @@
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_midpoint_nonlocal.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_offcritical_anatomy.txt
 /home/k0who029/Desktop/gdl_unified/results/ensemble_hard_zeros.txt
+/home/k0who029/Desktop/gdl_unified/results/epstein_adversarial.txt
 /home/k0who029/Desktop/gdl_unified/results/f2_collective.txt
 /home/k0who029/Desktop/gdl_unified/results/f2_correlation_length.txt
 /home/k0who029/Desktop/gdl_unified/results/f2_deep_correlation.txt
@@ -33,6 +36,8 @@
 /home/k0who029/Desktop/gdl_unified/results/gram_point_curvature.txt
 /home/k0who029/Desktop/gdl_unified/results/gue_poisson_midpoint_comparison.txt
 /home/k0who029/Desktop/gdl_unified/results/high_height_scaling.txt
+/home/k0who029/Desktop/gdl_unified/results/high_t_calibration.txt
+/home/k0who029/Desktop/gdl_unified/results/high_t_scaling.txt
 /home/k0who029/Desktop/gdl_unified/results/holonomy_chern_dirichlet.txt
 /home/k0who029/Desktop/gdl_unified/results/holonomy_chern_even_character.txt
 /home/k0who029/Desktop/gdl_unified/results/holonomy_chern_number.txt
@@ -44,6 +49,8 @@
 /home/k0who029/Desktop/gdl_unified/results/lehmer_mpmath_scan.txt
 /home/k0who029/Desktop/gdl_unified/results/multiseed_if128.txt
 /home/k0who029/Desktop/gdl_unified/results/nonlocal_reach_decay.txt
+/home/k0who029/Desktop/gdl_unified/results/number_variance_rmt.txt
+/home/k0who029/Desktop/gdl_unified/results/number_variance_rmt_v1.txt
 /home/k0who029/Desktop/gdl_unified/results/offcritical_gauss_bonnet.txt
 /home/k0who029/Desktop/gdl_unified/results/optim_budget_scaling.txt
 /home/k0who029/Desktop/gdl_unified/results/phase_isolation_experiment.txt
@@ -59,6 +66,7 @@
 /home/k0who029/Desktop/gdl_unified/results/s1_geo_high_height.txt
 /home/k0who029/Desktop/gdl_unified/results/smooth_target_full_loss.txt
 /home/k0who029/Desktop/gdl_unified/results/smooth_zero_crossing.txt
+/home/k0who029/Desktop/gdl_unified/results/synthetic_offcritical_control.txt
 /home/k0who029/Desktop/gdl_unified/results/triple_consistency_table.txt
 /home/k0who029/Desktop/gdl_unified/results/zero_107_analysis.txt
 /home/k0who029/Desktop/gdl_unified/results/zero_173_analysis.txt
