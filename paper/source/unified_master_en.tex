@@ -2,6 +2,30 @@
 %  Phase Quantisation from Optical Lattices to the Zeta Landscape:
 %  A Unified Framework
 % ============================================================================
+%
+% ── PAPER ORGANISATION MAP ─────────────────────────────────────────────────
+%
+% Category system (see scripts/agents/paper_categories.md):
+%   Paper A (ξ-bundle geometry) — main paper, this file
+%   Paper B (spectral statistics) — integrated as §13 Structural Correspondence
+%   Paper C (GL(2) extension) — Appendix E, future split to xi-bundle-gl2
+%   Paper D (quantum simulation) — separate repo xi-bundle-quantum
+%
+% Structure:
+%   Part I   (§2-§3)   QROP-Net concrete system          [Paper A foundation]
+%   Part II  (§4-§9)   Resonance theory + core results    [Paper A]
+%   Part III (§10-§11) Failed directions                   [Paper A negative]
+%   Part IV  (§12-§15) ξ-Bundle numerical evidence         [Paper A + B]
+%   Appendix C         Dirichlet extension                 [Paper A universality]
+%   Appendix D         GL(2) extension                     [Paper C — split candidate]
+%   Appendix E         Negative results                    [Paper A + B]
+%
+% Repository routing:
+%   Paper A/B results → younghu-kim/rdl-resonant-detection (master)
+%   Paper C results   → younghu-kim/xi-bundle-gl2 (when created)
+%   Paper D results   → younghu-kim/xi-bundle-quantum (when created)
+%
+% ────────────────────────────────────────────────────────────────────────────
 \documentclass[11pt, a4paper]{article}
 
 % ── Typography & Layout ─────────────────────────────────────────────────────
@@ -814,6 +838,7 @@ Critical line    & Phase of $\xif(s)$
 % PART II — THE ANALYTIC EXTENSION
 % ############################################################################
 
+% [Paper A: ξ-bundle geometry]
 \part{The Analytic Extension: Resonance Theory}
 \label{part:resonance}
 
@@ -1932,467 +1957,11 @@ discussion of \cref{sec:open}.
 \end{remark}
 
 % ============================================================================
-\section{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ The $|\Ftwo|$
-  residual: a tentative mesoscopic observable}
-\label{sec:f2_residual}
-% ============================================================================
-
-\noindent\textbf{Tier 2 (with 2026-04-08 partial reinterpretation).}
-While running the high-zero extension of \cref{sec:high_zeros} we
-noticed that the post-convergence magnitudes
-$|F_2(t_k)|$ of the discriminant at individual zeros are not a
-featureless random scatter but display systematic height and
-spatial patterns. This section records the original observations
-(April 2026, $14{,}441$ zeros) and then the 2026-04-08 partial
-reinterpretation that weakened the per-zero claim while leaving the
-aggregate scale claim intact. We keep both so that the reader can
-see how the claim was narrowed.
-
-\subsection{Original observations (April 2026)}
-\label{sec:f2_residual_original}
-
-The $|F_2|$ residual was computed on $14{,}441$ zeros across seven
-wide intervals $[10,50]$ through $[5000,10000]$ and $23$ fine
-intervals covering $[10000,13000]$. The cumulative detection rate
-(zeros for which $|F_2|$ is below a uniform threshold) was
-$99.99\%$.
-
-\begin{table}[ht]
-\centering
-\caption{$|F_2|$ mean residual by height interval,
-  from the original $14{,}441$-zero sweep.}
-\label{tab:f2_scale}
-\small
-\begin{tabular}{lrrr}
-\toprule
-\textbf{Range} & \textbf{Zeros} & \textbf{Detection rate}
-  & $\overline{|F_2|}$ \\
-\midrule
-$[10, 50]$       & 10     & 10/10     & 0.0209 \\
-$[100, 200]$     & 50     & 49/50     & 0.0208 \\
-$[200, 500]$     & 190    & 190/190   & 0.0119 \\
-$[500, 1000]$    & 380    & 380/380   & 0.0083 \\
-$[1000, 2000]$   & 868    & 868/868   & 0.0058 \\
-$[2000, 5000]$   & 3{,}003  & 3{,}003/3{,}003 & 0.0020 \\
-$[5000, 10000]$  & 5{,}622  & 5{,}622/5{,}622 & 0.0014 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Three per-zero claims were originally made from this dataset:
-\begin{enumerate}
-  \item[(O1)] \textbf{Independence from classical statistics.} The
-        per-zero residual $|F_2(t_k)|$ showed Pearson
-        $|r|<0.09$ and Spearman $|\rho|<0.09$ against all of
-        $|Z'(t_k)|$, $|Z''(t_k)|$, normalised spacing $s_k$, the
-        argument function $S(t_k)$, the Riemann--Siegel derivative
-        $\vartheta'(t_k)$, local density, spacing variance,
-        spacing autocorrelation, and the local $Z$-area
-        $\int_{t_k-0.3}^{t_k+0.3}|Z|$.
-  \item[(O2)] \textbf{Spatial clustering.} $|F_2(t_k)|$ was
-        Spearman-correlated with the mean of $|F_2|$ at its six
-        nearest zero neighbours, $\rho=+0.895$
-        ($p\approx 10^{-141}$), interpreted as evidence for
-        ``mesoscopic domains'' of different character along the
-        critical line.
-  \item[(O3)] \textbf{Long-range autocorrelation.} The lag-$\Delta$
-        autocorrelation $C(\Delta)$ dropped rapidly to $\approx 0.4$
-        within $\Delta\sim 3$ and then remained nearly flat at
-        $\approx 0.33$ out to $\Delta=200$, suggesting a
-        two-component (short-range exponential + long-range
-        plateau) structure.
-\end{enumerate}
-
-Taken together these were read as evidence that the gauge ODE acts
-as ``a new lens on the critical line'' revealing structure
-invisible to random matrix theory and to the classical
-$S(t)$-based tools.
-
-\subsection{2026-04-08 partial reinterpretation}
-\label{sec:f2_residual_reinterp}
-
-\begin{remark}[Partial reinterpretation of
-the $|F_2|$ per-zero claim]
-\label{rem:f2_reinterp}
-A model-independence audit performed on 2026-04-08 substantially
-weakens (O1)--(O3) at the \emph{per-zero} level while leaving the
-aggregate scale structure of \cref{tab:f2_scale} intact.
-
-Specifically, retraining the same architecture with different
-seeds, different random initialisations of the gauge buffer
-$(\varphi_0,\psi_0)$, and different shuffles of the training zero
-list produces $|F_2(t_k)|$ values whose rank order at individual
-zeros is \emph{not} reproducible across runs. The per-zero
-Spearman correlation between two independent runs on the same
-interval drops below $+0.2$ for most intervals, inconsistent with
-the interpretation of $|F_2(t_k)|$ as an intrinsic property of the
-zero $t_k$. In particular, the spatial clustering statistic
-$\rho_{\mathrm{cluster}}=+0.895$ is partially inflated by a
-training-time smoothness prior that couples neighbouring zero
-residuals; the long-range plateau of $C(\Delta)$ at $\approx 0.33$
-appears in every run but with a training-dependent level.
-
-What \emph{does} survive reinterpretation is the height-dependent
-\textbf{mean scale} of $\overline{|F_2|}$ across the intervals of
-\cref{tab:f2_scale}: the monotone decay from
-$\overline{|F_2|}\approx 0.021$ at $t\sim 50$ to
-$\overline{|F_2|}\approx 0.0014$ at $t\sim 10{,}000$ is reproduced
-across all seeds up to ${\sim}10\%$ relative variation, and its
-shape is consistent with a power law
-$\overline{|F_2|}\sim t^{-\alpha}$ with $\alpha\in[0.4,0.5]$.
-
-We therefore \emph{retain} \cref{tab:f2_scale} and the mean-scale
-claim as Tier 2 evidence of a genuine height dependence in the
-detector's residual, and we \emph{downgrade} the per-zero claims
-(O1)--(O3) to ``suggestive but model-contaminated'': the patterns
-are real features of the trained model, but the inference from
-model to underlying arithmetic of the critical line is blocked by
-the observed non-reproducibility at the per-zero level. The
-section is retained in this paper precisely because the narrowing
-is itself an informative diagnostic; see also
-\cref{sec:open} on the role of such retraction records.
-\end{remark}
-
-\subsection{2026-04-10 follow-up: the ``hard cluster'' was a
-basis-bandwidth artifact}
-\label{sec:f2_residual_cluster_artifact}
-
-Between 2026-04-09 and 2026-04-10 a ten-experiment cascade
-(Lehmer regression, five-seed ensemble, hidden-width scaling,
-sample-density scaling, residual spectrum, cluster physics,
-input-basis scaling, and a convergence extension) was run
-against a residual difficulty cluster inside the $|F_2|$
-dataset. Specifically, in the trained model
-(\texttt{in\_features}$=64$, \texttt{hidden}$=64$, seed$=42$)
-over the band $t\in[100,200]$, five zeros in
-$t\in[165,173.5]$ carried mean $|F_2|\approx 0.036$, roughly
-$1.8\times$ the band mean $0.020$. The cascade eliminated four
-candidate explanations and identified a fifth.
-
-\smallskip
-\noindent\textbf{Eliminated hypotheses.}
-\begin{enumerate}
-  \item[(E1)] \emph{Lehmer-type near pairs.} A multivariate
-        regression of $|F_2(t_k)|$ on Riemann--von Mangoldt
-        normalised gaps $g_{\min}^{\mathrm{norm}}(t_k)$ across
-        all $15{,}422$ zeros in the $51$ training bands, and a
-        separate \texttt{mpmath}-based high-$t$ scan, both gave
-        $|r|<0.03$. The zero with the tightest normalised gap in
-        the cluster band, $t=121.37$ with
-        $g_{\min}^{\mathrm{norm}}=0.027$, is in fact the
-        \emph{easiest} zero in its band.
-  \item[(E2)] \emph{Multi-basin seed dependence.} Five-seed
-        ensemble training with identical hyperparameters
-        gave $\mathrm{corr}(\mathrm{mean},\mathrm{std})=+0.70$
-        across zeros, but zero ensemble gain at the hard zeros
-        ($|F_2|^{\mathrm{ensemble}}/|F_2|^{\mathrm{seed-mean}}
-        \approx 1.00$), ruling out a
-        many-local-minima reading of the cluster.
-  \item[(E3)] \emph{Hidden-layer capacity.} Scaling
-        $\texttt{hidden}\in\{32,64,128\}$ at fixed
-        \texttt{in\_features}$=64$ produced a \emph{monotone
-        opposite} trend: global $\overline{|F_2|}$ went
-        $0.019\to 0.022\to 0.030$, so larger hidden width did
-        not help the cluster.
-  \item[(E4)] \emph{Training-sample density.} Increasing
-        \texttt{num\_points} from $500$ to $1500$ improved
-        global $\overline{|F_2|}$ by $32\%$ and cluster-max
-        $|F_2|$ by $57\%$; at $t=173.41$ the improvement was
-        $65\%$. This was initially read as a ``sampling
-        resolution'' cure but turned out to be a proxy for the
-        basis-bandwidth bottleneck identified below.
-\end{enumerate}
-
-\smallskip
-\noindent\textbf{Identified cause: input-basis bandwidth.} The
-input embedding lifts the scalar $t$ to a Fourier feature
-vector
-\[
-  t\;\longmapsto\;\Bigl(\tfrac{t-\mu}{\sigma},\;
-  \sin(\omega_1 t),\cos(\omega_1 t),\dots,
-  \sin(\omega_K t),\cos(\omega_K t)\Bigr),
-\]
-with
-$\omega_k = 2\pi k/(t_{\max}-t_{\min})$ and
-$K=(\texttt{in\_features}-1)/2$. For the band $[100,200]$ at
-\texttt{in\_features}$=64$ this gives $K=31$ and a hard
-representational ceiling
-\[
-  \omega_{\max}^{(64)}
-  \;=\; \frac{2\pi\cdot 31}{100}\;\approx\; 1.948\;
-  \mathrm{rad}/\mathrm{unit}\,t,
-  \qquad \text{minimum period }\approx 3.23\text{ in }t.
-\]
-Inside the cluster, the zeros at $t\approx 169.095$ and
-$t\approx 169.912$ form a pair of separation
-$\Delta t\approx 0.82$. Representing two sign changes across
-this separation requires basis content at
-\begin{equation}
-  \omega\;\gtrsim\; \frac{\pi}{\Delta t}\;\approx\; 3.83\;
-  \mathrm{rad}/\mathrm{unit}\,t,
-  \label{eq:required_omega}
-\end{equation}
-which is $\approx 1.97\times$ the
-\texttt{in\_features}$=64$ ceiling. We now state this
-observation as a falsifiable proposition.
-
-\begin{proposition}[Input-basis bandwidth necessary condition]
-\label{prop:basis_bandwidth}
-Let $\mathcal{F}_K^{\mathrm{lin}}$ denote the class of
-functions on a band $[t_{\min},t_{\max}]$ of width
-$W=t_{\max}-t_{\min}$ that are \emph{linear} in the Fourier
-feature map
-$t\mapsto(\sin\omega_k t,\cos\omega_k t)_{k=1}^{K}$ with
-$\omega_k=2\pi k/W$. For any pair of ordinates
-$t_a,t_b\in[t_{\min},t_{\max}]$ with $0<\Delta t:=|t_a-t_b|$,
-the following sampling-theoretic bound holds: if
-\begin{equation}
-  K \;<\; \frac{W}{2\,\Delta t},
-  \label{eq:basis_bandwidth_condition}
-\end{equation}
-then no $f\in\mathcal{F}_K^{\mathrm{lin}}$ with
-$f(t_a)=f(t_b)=0$ can have $f'(t_a)\cdot f'(t_b)<0$ while
-being orthogonal (in $L^2[t_{\min},t_{\max}]$) to the null
-function. In particular, two sign-changing zeros of
-$f\in\mathcal{F}_K^{\mathrm{lin}}$ at separation $\Delta t$
-force $K\geq W/(2\Delta t)$.
-\end{proposition}
-
-\begin{proof}[Sketch]
-A function in $\mathcal{F}_K^{\mathrm{lin}}$ is a real
-trigonometric polynomial of degree $\leq K$ on $[0,W]$ (after
-recentring). By the Nyquist--Shannon sampling theorem applied
-to its $2K$-dimensional Fourier basis, its minimum period
-between consecutive sign changes is bounded below by
-$W/(2K)$. Two sign changes at separation $\Delta t<W/(2K)$
-therefore cannot be realised in $\mathcal{F}_K^{\mathrm{lin}}$,
-which is \eqref{eq:basis_bandwidth_condition}.
-\end{proof}
-
-\begin{remark}[Nonlinear extension and the intermodulation
-gap]\label{rem:intermodulation_gap}
-The network in question is \emph{not} in
-$\mathcal{F}_K^{\mathrm{lin}}$: the three ResonantBlock layers
-compose multiplications, ridge nonlinearities, and gauge ODE
-integration with the Fourier features. In principle, products
-of the form $\sin(\omega_j t)\cdot\sin(\omega_k t)=
-\tfrac{1}{2}[\cos((\omega_j-\omega_k)t)-
-\cos((\omega_j+\omega_k)t)]$ and higher-order intermodulation
-cascades produce components up to
-$\omega^{\mathrm{eff}}_{\max}=L\cdot\omega_{\max}$ where $L$
-is the network depth, formally lifting the bandwidth ceiling.
-Our empirical data (\cref{tab:basis_scaling}) show a sharp
-failure at exactly the linear-basis ceiling
-\eqref{eq:basis_bandwidth_condition}, \emph{not} at the
-nonlinearly-lifted ceiling $L\cdot\omega_{\max}$.
-
-This gap is consistent with the \emph{spectral bias} literature
-for neural networks: under finite training budgets, MLPs
-preferentially learn the lowest-frequency components first and
-only activate intermodulation cascades at training times that
-diverge with frequency \cite{Rahaman2019SpectralBias,
-BasriGeifman2020FrequencyBias}, a phenomenon derivable from
-Neural Tangent Kernel eigenvalue decay
-\cite{Jacot2018NTK}. Within such a finite-budget regime, the
-\emph{effective} bandwidth of the trained network remains
-bounded above by a multiple of the linear-basis ceiling, not
-by the formal multiplicative lift $L\cdot\omega_{\max}$.
-A rigorous statement of the form
-``$\omega^{\mathrm{eff}}_{\max}(E)\leq c(E)\cdot
-\omega^{\mathrm{basis}}_{\max}$ with $c(E)=O(1)$ as
-$E\to E_{\max}$ (finite training budget)'' for the
-ResonantBlock architecture is not derived here and is left as
-an open problem; what the experiment shows is that
-\emph{empirically} the ceiling behaves as in
-Proposition~\ref{prop:basis_bandwidth} rather than as
-$L\cdot\omega_{\max}$.
-\end{remark}
-
-For the band $[100,200]$ and the $t\approx 169$ pair,
-\eqref{eq:basis_bandwidth_condition} gives $K\geq 61$,
-equivalently $\texttt{in\_features}\geq 123$.
-
-\smallskip
-\noindent\textbf{Riemann--von Mangoldt substitution.} The
-condition \eqref{eq:basis_bandwidth_condition} acquires
-analytic-number-theoretic content when combined with the
-Riemann--von Mangoldt local zero density
-$N'(t)\sim (2\pi)^{-1}\log(t/2\pi)$, which gives mean zero gap
-\begin{equation}
-  \langle\Delta t\rangle(t)\;\sim\;\frac{2\pi}{\log(t/2\pi)}.
-\end{equation}
-Assuming a Lehmer-compression factor $c_{\mathrm{L}}\in(0,1]$
-so that the smallest gap in a typical band of width $W$ at
-height $t$ satisfies
-$\Delta t_{\min}\gtrsim c_{\mathrm{L}}\cdot\langle\Delta
-  t\rangle(t)$,
-substitution into \eqref{eq:basis_bandwidth_condition} yields
-the \emph{height-dependent bandwidth requirement}
-\begin{equation}
-  K(t,W)\;\geq\;
-  \frac{W\,\log(t/2\pi)}{4\pi\,c_{\mathrm{L}}},
-  \label{eq:basis_bandwidth_rvm}
-\end{equation}
-or equivalently
-$\texttt{in\_features}\geq (W\log(t/2\pi))/(2\pi\,c_{\mathrm{L}})+1$.
-For $W=100$, $t\approx 150$, and $c_{\mathrm{L}}\approx 1/3$
-(a Lehmer-type cluster), this gives $K\gtrsim 82$,
-$\texttt{in\_features}\gtrsim 165$, bracketing the empirical
-transition at $\texttt{in\_features}\in[64,128]$. Equation
-\eqref{eq:basis_bandwidth_rvm} is an architectural--analytic
-bridge: the Fourier-feature capacity required to detect
-$\xi$-zeros in a band scales \emph{logarithmically} with
-height, matching the $N'(t)$ law. In particular, the apparent
-improvement of $\overline{|F_2|}$ with height in
-\cref{tab:f2_scale} is \emph{compatible} with a fixed
-\texttt{in\_features} satisfying
-\eqref{eq:basis_bandwidth_rvm} only because the high-$t$ bands
-in the original sweep were run with
-$\texttt{num\_points}=\max(200,10\,n_{\mathrm{zeros}})$
-auto-scaling, which preserved the dimensionless ratio
-$K/(W\log t)$ and therefore kept
-\eqref{eq:basis_bandwidth_rvm} implicitly satisfied; this
-connects the height-scaling table to the architectural
-condition rather than to any analytic property of $\xi$
-itself.
-
-\smallskip
-\noindent\textbf{Confirmation via basis-scaling.} Scaling
-\texttt{in\_features}$\in\{32,64,128,256\}$ at fixed
-\texttt{hidden}$=64$, seed$=42$, \texttt{num\_points}$=500$,
-training budget $100$ epochs gave:
-
-\begin{table}[ht]
-\centering
-\caption{Cluster vs.\ non-cluster $\overline{|F_2|}$ at fixed
-training budget. The 5-seed ensemble row (seeds $42,7,123,2026,314$)
-replaces the single-run claim; cluster improvement is $25\%$ on
-average but with high seed variance.}
-\label{tab:basis_scaling}
-\small
-\begin{tabular}{rrrrrr}
-\toprule
-\texttt{in\_feat} & $\omega_{\max}$ & global &
-  cluster & other & ratio \\
-\midrule
-32   & 0.942 & 0.0140 & 0.0140 & 0.0140 & $1.00\times$ \\
-64   & 1.948 & 0.0218 & 0.0361 & 0.0202 & $1.79\times$ \\
-128 (seed 42)  & 3.958 & 0.0164 &
-  0.0150 & 0.0166 & $0.90\times$ \\
-\textbf{128 (5-seed)} & \textbf{3.958} & \textbf{0.0207} &
-  \textbf{0.0269}$\pm$\textbf{0.012} & \textbf{0.0200} & $\mathbf{1.42\pm0.73\times}$ \\
-256  & 7.980 & 0.0214 & 0.0581 & 0.0173 & $3.36\times$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\noindent Two features stand out. First, the cluster excess
-at \texttt{in\_features}$=64$ \emph{disappears} at
-\texttt{in\_features}$=128$ in the best seed, but a
-five-seed ensemble (seeds $42, 7, 123, 2026, 314$) reveals
-substantial variability: the cluster-to-non-cluster ratio
-averages $1.42\pm0.73$ (range $0.61$--$2.44\times$), with
-$3/5$ seeds achieving ratio${}<1.2$ and $2/5$ showing a
-\emph{persisting} or worsened cluster. Per-zero coefficient
-of variation in the cluster ranges from $46\%$ to $106\%$
-across seeds. Thus the bandwidth condition
-\eqref{eq:basis_bandwidth_condition} is a \emph{necessary}
-condition for cluster resolution but not a \emph{sufficient}
-one: training dynamics (seed-dependent initialisation) retain
-significant influence even after the Nyquist ceiling is
-cleared. Averaging over the ensemble, cluster
-$\overline{|F_2|}$ improves by $25\%$ relative to the
-\texttt{in\_features}$=64$ baseline ($0.0269$ vs.\ $0.0361$),
-confirming the bandwidth mechanism at the population level
-while excluding any single-run claim of complete resolution.
-Second,
-\texttt{in\_features}$=256$ fails to converge in $100$ epochs
-and presents a \emph{new}, unrelated difficulty cluster.
-
-\smallskip
-\noindent\textbf{Isolation of the over-parameterisation
-artefact.} Extending training to $300$ epochs with $50$-epoch
-best-validation checkpoints separates the bandwidth effect
-from the optimisation effect. For
-\texttt{in\_features}$=128$, the best validation loss settles
-at $0.0550$ by epoch $143$ and stays flat; the cluster ratio
-improves to $0.75\times$ and $\overline{|F_2|}^{\mathrm{cluster}}$
-drops to $0.0106$ versus $\overline{|F_2|}^{\mathrm{other}}
-=0.0142$. For \texttt{in\_features}$=256$, the best validation
-loss stays at $0.224$ throughout $300$ epochs, roughly $4\times$
-worse than the \texttt{in\_features}$=128$ minimum; global
-$\overline{|F_2|}$ improves from $0.0214$ to $0.0099$, but the
-cluster ratio stays at $3.87\times$. The
-\texttt{in\_features}$=256$ failure is therefore an independent
-over-parameterisation pathology (the Adam-with-gradient-clip
-training budget is insufficient for the enlarged parameter
-space), not a bandwidth problem; it does not undermine the
-bandwidth interpretation at $\texttt{in\_features}\in\{32,64,128\}$.
-
-\smallskip
-\noindent\textbf{Consequence for the 2026-04-08 reinterpretation.}
-This experiment closes the second open question of
-\cref{sec:f2_residual_open}: it exhibits a concrete,
-\emph{model-dependent} per-zero difficulty (the cluster in
-$[165,173.5]$) that is not an intrinsic property of the zeros
-but a property of the embedding $\{\omega_k\}_{k=1}^{K}$. Any
-attempt to read per-zero $|F_2|$ values as observables on the
-critical line must therefore first verify that the input-basis
-bandwidth condition \eqref{eq:basis_bandwidth_condition} is
-satisfied for the smallest zero pair in the band under study.
-The mean-scale claim of \cref{tab:f2_scale} is unaffected,
-since it averages over bands in which the condition is
-(implicitly, via the auto-scaling rule
-\texttt{num\_points}$=\max(200,10\cdot n_{\mathrm{zeros}})$)
-met or approximately met.
-
-\subsection{What remains open}
-\label{sec:f2_residual_open}
-
-After the 2026-04-10 follow-up the following questions remain
-open:
-\begin{enumerate}
-  \item \textbf{Height scaling law
-        \textcolor{ForestGreen}{[partially resolved 2026-04-12]}.}
-        Blind extrapolation recall remains stable at
-        $97.5{-}98.8\%$ from $t{\sim}200$ to $t{\sim}1100$
-        (3 seeds, $K\in\{128,256\}$), with precision
-        \emph{improving} at higher $t$.  This rules out gross
-        degradation.  The fine-grained question---whether
-        $\overline{|F_2|}$ follows a genuine power law whose
-        exponent matches $\log\log t$ corrections to
-        $N(t)$---still requires a continuous sweep with error
-        bars over disjoint seed families.
-  \item \textbf{Bandwidth-clean per-zero observable.} A
-        five-seed ensemble at \texttt{in\_features}$=128$ confirms
-        that per-zero $|F_2|$ values have coefficient of variation
-        $46$--$106\%$ across seeds even after
-        \eqref{eq:basis_bandwidth_condition} is satisfied.
-        Individual per-zero values are therefore \emph{not}
-        reproducible in any naive sense. The \emph{ensemble mean}
-        cluster $\overline{|F_2|}$ improves by $25\%$ relative to
-        the bandwidth-deficient baseline, confirming the
-        population-level mechanism. Whether a tighter invariant
-        can be extracted (e.g.\ the \emph{minimum} of $|F_2(t_k)|$
-        over a bootstrap ensemble, interpreted as the ``achievable
-        residual'') remains open.
-  \item \textbf{Over-parameterisation failure mode.} The
-        \texttt{in\_features}$=256$ failure to converge within
-        $300$ epochs (best validation $0.224$ versus $0.055$ at
-        \texttt{in\_features}$=128$) exhibits a ``new'' cluster
-        at the same $t\in[165,173.5]$ that cannot be bandwidth
-        in origin. Whether this is (a) an Adam-plus-gradient-clip
-        training-schedule artefact, (b) a genuine
-        over-parameterisation pathology that revives the same
-        cluster through a different mechanism, or (c) a seed
-        accident remains unresolved.
-\end{enumerate}
-
-
 % ############################################################################
 % PART III — FAILED DIRECTIONS AND DIAGNOSES
 % ############################################################################
 
+% [Paper A: ξ-bundle geometry]
 \part{Failed Directions and Their Diagnoses}
 \label{part:failed}
 
@@ -2532,377 +2101,16 @@ should not be used in place of Adam on the $F_2$ detector.
 
 
 % ############################################################################
-% PART IV — SYNTHESIS
+% PART IV — ξ-BUNDLE NUMERICAL EVIDENCE [Paper A + B]
 % ############################################################################
 
-\part{Synthesis}
-\label{part:synthesis}
+% [Paper A: ξ-bundle geometry]
+\part{$\xi$-Bundle Numerical Evidence}
+\label{part:evidence}
 
 
 % ============================================================================
-\section{Structural Correspondence Table}
-\label{sec:correspondence}
-% ============================================================================
-
-We formalise the seven structural correspondences identified throughout
-this work:
-
-\begin{table}[ht]
-\centering
-\caption{Seven structural correspondences between QROP-Net and the
-resonance framework.}
-\label{tab:correspondence}
-\rowcolors{2}{lightbg}{white}
-\small
-\begin{tabular}{@{} c p{3.5cm} p{3.5cm} p{4.5cm} @{}}
-\toprule
-\textbf{\#} & \textbf{QROP-Net (Concrete)} & \textbf{Resonance (Analytic)}
-& \textbf{Shared Mathematical Structure} \\
-\midrule
-1 & $\sin^2(2^{d-1}\phi)$ quantisation loss
-  & $\Delta v = m\pi$ phase quantisation (Gate~A)
-  & Periodic phase penalty: $\mathcal{P}(\phi;L) = \sin^2(L\phi/2) = 0$
-    at lattice positions \\
-
-2 & NTT (discrete) $+$ FrFT (continuous fractional)
-  & Fourier analysis of $\xif(s)$ on the critical line
-  & Spectral decomposition: algebraic structure $\leftrightarrow$
-    frequency domain \\
-
-3 & $X^n + 1 = 0$ roots: $n$ equally-spaced phases on unit circle
-  & Phase winding $\oint\nabla v \cdot ds = 2\pi N$
-  & Cyclotomic/circular quantisation: discrete phases on $S^1$ \\
-
-4 & LWE error threshold: $|e|_{\Zq} < q/4 = 1920$
-  & $\sigma$-lift: $|\sigma^* - 1/2| = 0$ (RH)
-  & Hard error boundary beyond which signal recovery fails \\
-
-5 & $U_0 = e^{i\phi}$, $|U_0| \equiv 1$; intensity $I = |U_d|^2$
-  & $\Ampl(t) = |\xif|$ vs $\Phiz(t) = \arg\xif$
-  & Amplitude--phase separation: information encoded in phase,
-    measured via amplitude \\
-
-6 & Blind TTO: self-calibration without ground truth
-  & Gauge ODE: $F_2 = 0$ without knowing zero locations
-  & Ground-truth-free convergence via internal consistency \\
-
-7 & $\Delta d = 0.1\,$mm $\to$ DFR $= 1$
-  & $\sigma$-lift $\neq 0$ $\to$ non-unitarity (absorption)
-  & Sensitivity threshold: small parameter shift $\to$ catastrophic
-    failure \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Mathematical Formalisation of the Correspondences}
-
-We express each correspondence as a structural mapping.
-
-\begin{definition}[Phase Quantisation Functor]
-\label{def:functor}
-Let $(\mathcal{A}, \Phi_{\mathcal{A}}, L_{\mathcal{A}})$ be a
-\textit{phase quantisation triple} consisting of an algebraic structure
-$\mathcal{A}$, a phase function $\Phi_{\mathcal{A}}: \mathcal{A} \to
-[0, 2\pi)$, and a lattice level count $L_{\mathcal{A}} \in \mathbb{N}$.
-The phase quantisation operator $\mathcal{P}(\cdot; L)$ acts identically
-on all such triples:
-
-\medskip
-\begin{center}
-\begin{tabular}{lccc}
-\toprule
-& $\mathcal{A}$ & $\Phi_{\mathcal{A}}$ & $L_{\mathcal{A}}$ \\
-\midrule
-QROP-Net  & $\Zq^{1024}$ & $\phi_i = 2\pi c_i/2^{d_u}$
-          & $2^{d_u} = 2048$ \\
-Cyclotomic& $R_q$ & $\arg(\omega_j) = \pi(2j+1)/n$
-          & $2n = 512$ \\
-Critical line & $\{t \in \mathbb{R}^+\}$
-          & $\vartheta(t) \bmod \pi$
-          & $2$ (per Gram interval) \\
-\bottomrule
-\end{tabular}
-\end{center}
-\medskip
-
-In each case, the condition $\mathcal{P}(\Phi_{\mathcal{A}}; L_{\mathcal{A}}) = 0$
-selects the ``aligned'' elements, and $\nabla\mathcal{P}$ drives
-misaligned elements toward the nearest lattice position.
-\end{definition}
-
-\subsection{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ Dynamical and
-  spectral correspondences}
-\label{sec:extended_corr}
-
-\noindent\textbf{Tier 2.} The correspondence table above is
-structural. This subsection records four additional correspondences
-that connect the empirical phenomena of
-Sections~\ref{sec:f2_hardy}--\ref{sec:high_zeros} to classical
-mathematical frameworks. Each is established at the level of
-analogy and partial numerical agreement; we do not claim rigorous
-equivalences.
-
-\subsubsection{Maslov correction as the metaplectic sheet shift}
-\label{sec:maslov_corr}
-
-The replacement of $\sin^2(L\phi/2)$ by $\cos^2(L\phi/2)$ as the
-quantisation penalty — the ``$\cos^2$ Maslov correction'' invoked
-throughout \cref{sec:f2_hardy} — is the neural shadow of a
-classical metaplectic phenomenon.
-
-\begin{theorem}[Metaplectic correction of Gate~A]
-\label{thm:maslov}
-For the phase quantisation operator $\PQO(\varphi; L)$ applied at
-zeros of a real-valued function where $\varphi\to\pi/2$
-(\cref{cor:neural_reg}), the $\sin^2$ form gives
-$\PQO(\pi/2; 2) = 1$ (maximal penalty), while the $\cos^2$ form
-gives
-\begin{equation}\label{eq:pqo_cos_maslov}
-  \PQO_{\cos}(\varphi; L) := \cos^2\!\bigl(L\varphi/2\bigr),
-  \quad \PQO_{\cos}(\pi/2; 2) = 0.
-\end{equation}
-The replacement $\sin^2\to\cos^2$ is the \emph{Maslov correction}
-with index $\mu=2$, corresponding to a phase shift of
-$\mu\pi/4=\pi/2$.
-\end{theorem}
-
-\begin{table}[ht]
-\centering
-\caption{The $\sin^2\leftrightarrow\cos^2$ duality across mathematics.}
-\label{tab:maslov_duality}
-\small
-\begin{tabular}{@{}p{3cm}|p{3.8cm}|p{3.8cm}|p{3cm}@{}}
-\toprule
-\textbf{Domain} & \textbf{$\sin^2$ regime} &
-\textbf{$\cos^2$ regime} & \textbf{Name of shift} \\
-\midrule
-WKB/semiclassical       & Away from turning points
-                        & At turning points
-                        & Maslov index $\mu$ \\
-Symplectic geometry     & Standard Lagrangian chart
-                        & Crossed Maslov cycle
-                        & $\pi_1(\Lambda(n))$ \\
-Harmonic analysis       & In-phase (I)
-                        & Quadrature (Q)
-                        & Hilbert transform \\
-Lattice cryptography    & Lattice decoding
-                        & Coset decoding
-                        & $\Lambda\to\Lambda+v$ \\
-Berry--Keating          & $\vartheta(t_n)=n\pi$
-                        & $\vartheta(t_n)=(n-\tfrac12)\pi$
-                        & half-integer shift \\
-Representation theory   & Compact Cartan
-                        & Split Cartan
-                        & Cayley transform \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The unifying object is the metaplectic group
-$\mathrm{Mp}(2n,\mathbb{R})$, the double cover of
-$\mathrm{Sp}(2n,\mathbb{R})$, whose two sheets correspond exactly to
-the two quantisation phases. The functional equation
-$\xif(s)=\xif(1-s)$ arises from the action of this group on theta
-functions via $\tau\to-1/\tau$, and the Berry--Keating quantisation
-condition
-\begin{equation}\label{eq:berry_keating}
-  \vartheta(t_n)=\bigl(n-\tfrac12\bigr)\pi + O(1/t_n)
-\end{equation}
-encodes the same $-1/2$ shift on the analytic side.
-
-\subsubsection{Gauge ODE critical transition as Kuramoto
-  synchronisation}
-\label{sec:kuramoto}
-
-\begin{observation}[Gauge critical transition]
-\label{obs:gauge_transition}
-In the $F_2$-detector of \cref{sec:f2_hardy}, the gauge buffer
-states $(\varphi,\psi)$ exhibit a sharp transition at
-${\sim}10$ epochs: the standard deviation
-$\mathrm{std}(\varphi)$ drops from $\approx 0.10$ to $\approx 0.03$,
-coinciding with the epoch at which $F_2$ reaches convergence on all
-training zeros. The transition is invariant across seeds and has
-been reproduced on both $t\in[10,50]$ and $t\in[100,200]$.
-\end{observation}
-
-\begin{remark}[Kuramoto synchronisation]
-\label{rem:kuramoto_transition}
-\cref{obs:gauge_transition} is a finite-population
-Kuramoto-type synchronisation transition. The gauge phases
-$\{\varphi_i\}$ are batch-local fields; the shared residual loss
-$\mathcal{L}_{\mathrm{res}}$ acts as a coupling functional between
-them. When the effective coupling strength (controlled by the
-learning rate and the sharpness of the target) exceeds a critical
-value, the phases lock onto a common frequency profile determined
-by the target zero locations. The $\mathrm{std}(\varphi)$ drop of
-$\approx 3\times$ at epoch $\sim 10$ is the neural-network
-signature of this locking.
-
-\textcolor{ForestGreen}{[confirmed 2026-04-12]}
-The Kuramoto order parameter $r(e)=|N^{-1}\sum_j e^{i\varphi_j}|$
-was measured across 3 seeds $\times$ 2 $t$-ranges
-(5 complete runs + 1 partial at epoch 90/100 due to OOM; the
-partial run shows the same monotonic pattern).
-The $\mathrm{std}(\varphi)$ ratio is $3.43\pm0.09\times$
-(initial $0.108\pm0.008$, final $0.032\pm0.002$), quantitatively
-matching the ${\sim}3\times$ observation above.
-The order parameter satisfies $r>0.99$ from epoch~$0$
-($r_{\mathrm{init}}=0.994\pm0.001$, $r_{\mathrm{final}}=0.9994\pm0.0001$),
-indicating that the network initialisation already places the gauge
-phases in the supercritical regime $K\gg K_c$; training refines
-the synchronisation rather than triggering a disorder-to-order transition.
-Both $t\in[10,50]$ and $t\in[100,200]$ yield identical patterns,
-confirming $t$-range invariance.
-\end{remark}
-
-\begin{remark}[von Mises self-consistency]
-\label{rem:von_mises}
-The final phase dispersion $\sigma_\varphi = 0.032 \pm 0.002$
-is exactly consistent with a von~Mises distribution of concentration
-parameter $\kappa = 1/\sigma_\varphi^2 \approx 980$: the
-self-consistency relation
-\[
-  r \;=\; e^{-\sigma^2/2} \;=\; e^{-0.032^2/2} \;\approx\; 0.9995
-\]
-matches the measured
-$r_{\mathrm{final}} = 0.9994 \pm 0.0001$ within experimental
-uncertainty.  This identifies the trained gauge-phase ensemble as a
-\emph{near-degenerate} von~Mises distribution and establishes that
-the Kuramoto synchronisation is not merely an analogy: the phases
-are statistically von~Mises--distributed with
-$\kappa \approx 10^3$.
-\textcolor{ForestGreen}{[confirmed 2026-04-13]}
-\end{remark}
-
-\begin{proposition}[Spontaneous gauge fixing]
-\label{prop:spontaneous_gauge}
-Let $H$ denote the number of hidden channels.
-The $H$ gauge phases $\{\varphi_j(x)\}_{j=1}^H$ satisfy
-$r_{\mathrm{init}} \approx 1 - c\,H^{-\alpha}$ at initialisation,
-with $\alpha \approx 0.38$ and $c \approx 0.033$ (5-seed fit,
-$R^2=0.94$).  Training refines the concentration to
-$r_{\mathrm{final}} > 0.998$ uniformly, effecting a spontaneous
-symmetry breaking $U(1)^H \to U(1)$.
-
-\smallskip\noindent\textit{$H$-scaling data
-(5 seeds $\times$ 5 widths, $t\in[100,200]$, 30 epochs):}
-
-\smallskip
-\begin{center}
-\begin{tabular}{rcccc}
-\toprule
-$H$ & $r_{\mathrm{init}}$ & $1{-}r_{\mathrm{init}}$ &
-      $r_{\mathrm{final}}$ & $\Delta r/\mathrm{ep}\;(\times 10^{-3})$ \\
-\midrule
- 16 & $0.9878\pm0.0016$ & $0.0122$ & $0.9982\pm0.0003$ & $0.348\pm0.043$ \\
- 32 & $0.9915\pm0.0011$ & $0.0085$ & $0.9985\pm0.0001$ & $0.236\pm0.038$ \\
- 64 & $0.9938\pm0.0010$ & $0.0062$ & $0.9988\pm0.0002$ & $0.166\pm0.027$ \\
-128 & $0.9954\pm0.0003$ & $0.0046$ & $0.9987\pm0.0001$ & $0.110\pm0.010$ \\
-256 & $0.9955\pm0.0005$ & $0.0045$ & $0.9989\pm0.0001$ & $0.112\pm0.014$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\smallskip\noindent
-The scaling saturates at $H\ge128$ ($1{-}r_{\mathrm{init}}\approx 0.0045$),
-ruling out a simple $O(1/H)$ law.  Even at $H=16$,
-$r_{\mathrm{init}}=0.988 \gg 1/\sqrt{16}=0.25$: the near-unity
-synchronisation is \emph{structural} (driven by Xavier initialisation
-and ReLU non-linearity suppressing output-phase diversity) rather than
-a finite-size artifact.  The refinement rate $\Delta r/\mathrm{ep}$
-decreases monotonically with $H$, consistent with diminishing
-marginal gain as $r_{\mathrm{init}}\to 1$.
-\textcolor{ForestGreen}{[confirmed $H{\in}\{16,32,64,128,256\}$,
-2026-04-13]}
-\end{proposition}
-
-\begin{remark}[von Mises--Kuramoto--$L_{\mathrm{geo}}$ triangle]
-\label{rem:triangle}
-The geodesic loss $L_{\mathrm{geo}} = 1 - \cos(\Delta\varphi)$
-is, up to an additive constant, the negative log-likelihood of
-the von~Mises distribution:
-$-\log p(\varphi \mid \mu,\kappa)
-  = -\kappa\cos(\varphi-\mu) + \mathrm{const}$.
-Minimising $L_{\mathrm{geo}}$ therefore performs von~Mises MLE,
-which maximises $\kappa$, which in turn drives the Kuramoto
-order parameter $r \to 1$.  The three concepts---von~Mises MLE,
-$S^1$ geodesic loss, and Kuramoto synchronisation---are thus
-different views of a single optimisation problem.  This explains
-why replacing $\Ltgt$ with $L_{\mathrm{geo}}$
-(\cref{sec:open}, Tier~1) yields a $4\times$ detection
-improvement under the original threshold-based metric: the loss
-function implicitly reinforces gauge synchronisation.
-A follow-up minima-based evaluation (5~seeds each, two height
-ranges) reveals a \emph{density-dependent} effect:
-\begin{itemize}
-  \item \textbf{$t\in[500,600]$} (density $0.72$/unit):
-    $F_1$ comparable (BL $0.373\pm0.020$ vs $L_{\mathrm{geo}}$
-    $0.361\pm0.012$, $p{=}0.45$);
-    recall-variance reduction significant
-    ($F{=}16.2$, $p{=}0.010$).
-  \item \textbf{$t\in[1000,1100]$} (density $0.81$/unit):
-    $F_1$ improves (BL $0.395\pm0.009$ vs $L_{\mathrm{geo}}$
-    $0.411\pm0.005$, paired $t{=}2.84$, $p{=}0.047$,
-    5/5~seeds directionally consistent);
-    recall-variance also significant ($F{=}6.5$, $p{=}0.049$).
-\end{itemize}
-Across both ranges, $L_{\mathrm{geo}}$ stabilises the recall
-floor ($R\ge 0.972$ at $t\in[500,600]$; $R\ge 0.975$ at
-$t\in[1000,1100]$; all 10~seed--range combinations).
-At higher zero density the geodesic loss additionally lifts
-mean $F_1$, suggesting that the $\pm\pi$-discontinuity burden
-of $\Ltgt$ grows with density.  The effect sizes are small
-($\Delta F_1 \approx 0.016$) and the $p$-values borderline;
-we report these as confirmed but modest improvements.
-Catastrophic divergence occurred in 1/5~seeds (seed-specific,
-mitigated by best-checkpoint selection).
-\textcolor{ForestGreen}{[confirmed 2026-04-13, 5-seed, 2~ranges]}
-\end{remark}
-
-\subsubsection{Lehmer phenomenon and GUE spacing statistics}
-\label{sec:lehmer_gue}
-
-The difficulty hierarchy of \cref{tab:f2_low}, where some zeros
-converge one to two orders of magnitude slower than their
-neighbours, matches the empirical distribution of Lehmer pairs.
-Montgomery's pair-correlation conjecture and the numerical work of
-Odlyzko establish that the normalised spacings of high Riemann
-zeros follow the GUE distribution
-\begin{equation}\label{eq:gue}
-  p_{\mathrm{GUE}}(s) = \frac{32}{\pi^2}s^2 e^{-4s^2/\pi},
-\end{equation}
-with close zero pairs — Lehmer pairs — occurring with predictable
-frequency. In our detector, these are the zeros at which
-$Z(t)$ nearly grazes the real axis without crossing; the analytic
-signal spends longer near $\pm\pi/2$, and the bundle curvature
-profile becomes qualitatively more complex (broader FWHM,
-multi-peaked).  However, the Hadamard partial-sum convergence rate
-is insensitive to zero spacing ($|r|<0.03$).  This gives a testable
-prediction: the distribution of per-zero convergence times at fixed
-epoch budget should match the convolution of the GUE density with
-the analytic-signal residence time, a quantity that can be computed
-in closed form. We have not yet performed this fit; it is recorded
-as an open problem in \cref{sec:open}.
-
-\subsubsection{Weyl equidistribution and the PGGD angular walk}
-\label{sec:weyl}
-
-\cref{sec:pggd_failure} attributes the PGGD failure to a Weyl-type
-equidistribution of the angular updates modulo $2\pi$. The
-underlying fact is the classical theorem that for any irrational
-$\alpha$ the sequence $\{n\alpha\bmod 1\}$ is equidistributed in
-$[0,1)$. In the PGGD context, the angular update per step is
-approximately $\eta\,\hat L(t)$, which for a generic target
-function is rationally independent over any finite sample; the
-tangent projection then concentrates the full update into this
-angular component, producing an equidistributed walk whose
-empirical distribution converges to the Haar measure on $S^1$ as
-the epoch count grows. This is the converse of the locking in
-\cref{rem:kuramoto_transition}: here the coupling has been removed
-by construction, and equidistribution wins.
-
-
-% ============================================================================
+% [Paper A: ξ-bundle geometry]
 \section{\textcolor{ForestGreen}{\rule{0.9ex}{0.9ex}}\ Midpoint Curvature Nonlocality}
 \label{sec:midpoint_nonlocal}
 % ============================================================================
@@ -4020,6 +3228,828 @@ arithmetic background terms.
 \#36: zero-crossing $\tau_\text{unf} = 0.448 \neq 1.0$, $R^2 = 0.48$;
 independent verification: 10/10 items reproduced]}
 \end{observation}
+
+
+% [Paper B: spectral statistics]
+\section{Structural Correspondence Table}
+\label{sec:correspondence}
+% ============================================================================
+
+We formalise the seven structural correspondences identified throughout
+this work:
+
+\begin{table}[ht]
+\centering
+\caption{Seven structural correspondences between QROP-Net and the
+resonance framework.}
+\label{tab:correspondence}
+\rowcolors{2}{lightbg}{white}
+\small
+\begin{tabular}{@{} c p{3.5cm} p{3.5cm} p{4.5cm} @{}}
+\toprule
+\textbf{\#} & \textbf{QROP-Net (Concrete)} & \textbf{Resonance (Analytic)}
+& \textbf{Shared Mathematical Structure} \\
+\midrule
+1 & $\sin^2(2^{d-1}\phi)$ quantisation loss
+  & $\Delta v = m\pi$ phase quantisation (Gate~A)
+  & Periodic phase penalty: $\mathcal{P}(\phi;L) = \sin^2(L\phi/2) = 0$
+    at lattice positions \\
+
+2 & NTT (discrete) $+$ FrFT (continuous fractional)
+  & Fourier analysis of $\xif(s)$ on the critical line
+  & Spectral decomposition: algebraic structure $\leftrightarrow$
+    frequency domain \\
+
+3 & $X^n + 1 = 0$ roots: $n$ equally-spaced phases on unit circle
+  & Phase winding $\oint\nabla v \cdot ds = 2\pi N$
+  & Cyclotomic/circular quantisation: discrete phases on $S^1$ \\
+
+4 & LWE error threshold: $|e|_{\Zq} < q/4 = 1920$
+  & $\sigma$-lift: $|\sigma^* - 1/2| = 0$ (RH)
+  & Hard error boundary beyond which signal recovery fails \\
+
+5 & $U_0 = e^{i\phi}$, $|U_0| \equiv 1$; intensity $I = |U_d|^2$
+  & $\Ampl(t) = |\xif|$ vs $\Phiz(t) = \arg\xif$
+  & Amplitude--phase separation: information encoded in phase,
+    measured via amplitude \\
+
+6 & Blind TTO: self-calibration without ground truth
+  & Gauge ODE: $F_2 = 0$ without knowing zero locations
+  & Ground-truth-free convergence via internal consistency \\
+
+7 & $\Delta d = 0.1\,$mm $\to$ DFR $= 1$
+  & $\sigma$-lift $\neq 0$ $\to$ non-unitarity (absorption)
+  & Sensitivity threshold: small parameter shift $\to$ catastrophic
+    failure \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Mathematical Formalisation of the Correspondences}
+
+We express each correspondence as a structural mapping.
+
+\begin{definition}[Phase Quantisation Functor]
+\label{def:functor}
+Let $(\mathcal{A}, \Phi_{\mathcal{A}}, L_{\mathcal{A}})$ be a
+\textit{phase quantisation triple} consisting of an algebraic structure
+$\mathcal{A}$, a phase function $\Phi_{\mathcal{A}}: \mathcal{A} \to
+[0, 2\pi)$, and a lattice level count $L_{\mathcal{A}} \in \mathbb{N}$.
+The phase quantisation operator $\mathcal{P}(\cdot; L)$ acts identically
+on all such triples:
+
+\medskip
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+& $\mathcal{A}$ & $\Phi_{\mathcal{A}}$ & $L_{\mathcal{A}}$ \\
+\midrule
+QROP-Net  & $\Zq^{1024}$ & $\phi_i = 2\pi c_i/2^{d_u}$
+          & $2^{d_u} = 2048$ \\
+Cyclotomic& $R_q$ & $\arg(\omega_j) = \pi(2j+1)/n$
+          & $2n = 512$ \\
+Critical line & $\{t \in \mathbb{R}^+\}$
+          & $\vartheta(t) \bmod \pi$
+          & $2$ (per Gram interval) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\medskip
+
+In each case, the condition $\mathcal{P}(\Phi_{\mathcal{A}}; L_{\mathcal{A}}) = 0$
+selects the ``aligned'' elements, and $\nabla\mathcal{P}$ drives
+misaligned elements toward the nearest lattice position.
+\end{definition}
+
+\subsection{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ Dynamical and
+  spectral correspondences}
+\label{sec:extended_corr}
+
+\noindent\textbf{Tier 2.} The correspondence table above is
+structural. This subsection records four additional correspondences
+that connect the empirical phenomena of
+Sections~\ref{sec:f2_hardy}--\ref{sec:high_zeros} to classical
+mathematical frameworks. Each is established at the level of
+analogy and partial numerical agreement; we do not claim rigorous
+equivalences.
+
+\subsubsection{Maslov correction as the metaplectic sheet shift}
+\label{sec:maslov_corr}
+
+The replacement of $\sin^2(L\phi/2)$ by $\cos^2(L\phi/2)$ as the
+quantisation penalty — the ``$\cos^2$ Maslov correction'' invoked
+throughout \cref{sec:f2_hardy} — is the neural shadow of a
+classical metaplectic phenomenon.
+
+\begin{theorem}[Metaplectic correction of Gate~A]
+\label{thm:maslov}
+For the phase quantisation operator $\PQO(\varphi; L)$ applied at
+zeros of a real-valued function where $\varphi\to\pi/2$
+(\cref{cor:neural_reg}), the $\sin^2$ form gives
+$\PQO(\pi/2; 2) = 1$ (maximal penalty), while the $\cos^2$ form
+gives
+\begin{equation}\label{eq:pqo_cos_maslov}
+  \PQO_{\cos}(\varphi; L) := \cos^2\!\bigl(L\varphi/2\bigr),
+  \quad \PQO_{\cos}(\pi/2; 2) = 0.
+\end{equation}
+The replacement $\sin^2\to\cos^2$ is the \emph{Maslov correction}
+with index $\mu=2$, corresponding to a phase shift of
+$\mu\pi/4=\pi/2$.
+\end{theorem}
+
+\begin{table}[ht]
+\centering
+\caption{The $\sin^2\leftrightarrow\cos^2$ duality across mathematics.}
+\label{tab:maslov_duality}
+\small
+\begin{tabular}{@{}p{3cm}|p{3.8cm}|p{3.8cm}|p{3cm}@{}}
+\toprule
+\textbf{Domain} & \textbf{$\sin^2$ regime} &
+\textbf{$\cos^2$ regime} & \textbf{Name of shift} \\
+\midrule
+WKB/semiclassical       & Away from turning points
+                        & At turning points
+                        & Maslov index $\mu$ \\
+Symplectic geometry     & Standard Lagrangian chart
+                        & Crossed Maslov cycle
+                        & $\pi_1(\Lambda(n))$ \\
+Harmonic analysis       & In-phase (I)
+                        & Quadrature (Q)
+                        & Hilbert transform \\
+Lattice cryptography    & Lattice decoding
+                        & Coset decoding
+                        & $\Lambda\to\Lambda+v$ \\
+Berry--Keating          & $\vartheta(t_n)=n\pi$
+                        & $\vartheta(t_n)=(n-\tfrac12)\pi$
+                        & half-integer shift \\
+Representation theory   & Compact Cartan
+                        & Split Cartan
+                        & Cayley transform \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The unifying object is the metaplectic group
+$\mathrm{Mp}(2n,\mathbb{R})$, the double cover of
+$\mathrm{Sp}(2n,\mathbb{R})$, whose two sheets correspond exactly to
+the two quantisation phases. The functional equation
+$\xif(s)=\xif(1-s)$ arises from the action of this group on theta
+functions via $\tau\to-1/\tau$, and the Berry--Keating quantisation
+condition
+\begin{equation}\label{eq:berry_keating}
+  \vartheta(t_n)=\bigl(n-\tfrac12\bigr)\pi + O(1/t_n)
+\end{equation}
+encodes the same $-1/2$ shift on the analytic side.
+
+\subsubsection{Gauge ODE critical transition as Kuramoto
+  synchronisation}
+\label{sec:kuramoto}
+
+\begin{observation}[Gauge critical transition]
+\label{obs:gauge_transition}
+In the $F_2$-detector of \cref{sec:f2_hardy}, the gauge buffer
+states $(\varphi,\psi)$ exhibit a sharp transition at
+${\sim}10$ epochs: the standard deviation
+$\mathrm{std}(\varphi)$ drops from $\approx 0.10$ to $\approx 0.03$,
+coinciding with the epoch at which $F_2$ reaches convergence on all
+training zeros. The transition is invariant across seeds and has
+been reproduced on both $t\in[10,50]$ and $t\in[100,200]$.
+\end{observation}
+
+\begin{remark}[Kuramoto synchronisation]
+\label{rem:kuramoto_transition}
+\cref{obs:gauge_transition} is a finite-population
+Kuramoto-type synchronisation transition. The gauge phases
+$\{\varphi_i\}$ are batch-local fields; the shared residual loss
+$\mathcal{L}_{\mathrm{res}}$ acts as a coupling functional between
+them. When the effective coupling strength (controlled by the
+learning rate and the sharpness of the target) exceeds a critical
+value, the phases lock onto a common frequency profile determined
+by the target zero locations. The $\mathrm{std}(\varphi)$ drop of
+$\approx 3\times$ at epoch $\sim 10$ is the neural-network
+signature of this locking.
+
+\textcolor{ForestGreen}{[confirmed 2026-04-12]}
+The Kuramoto order parameter $r(e)=|N^{-1}\sum_j e^{i\varphi_j}|$
+was measured across 3 seeds $\times$ 2 $t$-ranges
+(5 complete runs + 1 partial at epoch 90/100 due to OOM; the
+partial run shows the same monotonic pattern).
+The $\mathrm{std}(\varphi)$ ratio is $3.43\pm0.09\times$
+(initial $0.108\pm0.008$, final $0.032\pm0.002$), quantitatively
+matching the ${\sim}3\times$ observation above.
+The order parameter satisfies $r>0.99$ from epoch~$0$
+($r_{\mathrm{init}}=0.994\pm0.001$, $r_{\mathrm{final}}=0.9994\pm0.0001$),
+indicating that the network initialisation already places the gauge
+phases in the supercritical regime $K\gg K_c$; training refines
+the synchronisation rather than triggering a disorder-to-order transition.
+Both $t\in[10,50]$ and $t\in[100,200]$ yield identical patterns,
+confirming $t$-range invariance.
+\end{remark}
+
+\begin{remark}[von Mises self-consistency]
+\label{rem:von_mises}
+The final phase dispersion $\sigma_\varphi = 0.032 \pm 0.002$
+is exactly consistent with a von~Mises distribution of concentration
+parameter $\kappa = 1/\sigma_\varphi^2 \approx 980$: the
+self-consistency relation
+\[
+  r \;=\; e^{-\sigma^2/2} \;=\; e^{-0.032^2/2} \;\approx\; 0.9995
+\]
+matches the measured
+$r_{\mathrm{final}} = 0.9994 \pm 0.0001$ within experimental
+uncertainty.  This identifies the trained gauge-phase ensemble as a
+\emph{near-degenerate} von~Mises distribution and establishes that
+the Kuramoto synchronisation is not merely an analogy: the phases
+are statistically von~Mises--distributed with
+$\kappa \approx 10^3$.
+\textcolor{ForestGreen}{[confirmed 2026-04-13]}
+\end{remark}
+
+\begin{proposition}[Spontaneous gauge fixing]
+\label{prop:spontaneous_gauge}
+Let $H$ denote the number of hidden channels.
+The $H$ gauge phases $\{\varphi_j(x)\}_{j=1}^H$ satisfy
+$r_{\mathrm{init}} \approx 1 - c\,H^{-\alpha}$ at initialisation,
+with $\alpha \approx 0.38$ and $c \approx 0.033$ (5-seed fit,
+$R^2=0.94$).  Training refines the concentration to
+$r_{\mathrm{final}} > 0.998$ uniformly, effecting a spontaneous
+symmetry breaking $U(1)^H \to U(1)$.
+
+\smallskip\noindent\textit{$H$-scaling data
+(5 seeds $\times$ 5 widths, $t\in[100,200]$, 30 epochs):}
+
+\smallskip
+\begin{center}
+\begin{tabular}{rcccc}
+\toprule
+$H$ & $r_{\mathrm{init}}$ & $1{-}r_{\mathrm{init}}$ &
+      $r_{\mathrm{final}}$ & $\Delta r/\mathrm{ep}\;(\times 10^{-3})$ \\
+\midrule
+ 16 & $0.9878\pm0.0016$ & $0.0122$ & $0.9982\pm0.0003$ & $0.348\pm0.043$ \\
+ 32 & $0.9915\pm0.0011$ & $0.0085$ & $0.9985\pm0.0001$ & $0.236\pm0.038$ \\
+ 64 & $0.9938\pm0.0010$ & $0.0062$ & $0.9988\pm0.0002$ & $0.166\pm0.027$ \\
+128 & $0.9954\pm0.0003$ & $0.0046$ & $0.9987\pm0.0001$ & $0.110\pm0.010$ \\
+256 & $0.9955\pm0.0005$ & $0.0045$ & $0.9989\pm0.0001$ & $0.112\pm0.014$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\smallskip\noindent
+The scaling saturates at $H\ge128$ ($1{-}r_{\mathrm{init}}\approx 0.0045$),
+ruling out a simple $O(1/H)$ law.  Even at $H=16$,
+$r_{\mathrm{init}}=0.988 \gg 1/\sqrt{16}=0.25$: the near-unity
+synchronisation is \emph{structural} (driven by Xavier initialisation
+and ReLU non-linearity suppressing output-phase diversity) rather than
+a finite-size artifact.  The refinement rate $\Delta r/\mathrm{ep}$
+decreases monotonically with $H$, consistent with diminishing
+marginal gain as $r_{\mathrm{init}}\to 1$.
+\textcolor{ForestGreen}{[confirmed $H{\in}\{16,32,64,128,256\}$,
+2026-04-13]}
+\end{proposition}
+
+\begin{remark}[von Mises--Kuramoto--$L_{\mathrm{geo}}$ triangle]
+\label{rem:triangle}
+The geodesic loss $L_{\mathrm{geo}} = 1 - \cos(\Delta\varphi)$
+is, up to an additive constant, the negative log-likelihood of
+the von~Mises distribution:
+$-\log p(\varphi \mid \mu,\kappa)
+  = -\kappa\cos(\varphi-\mu) + \mathrm{const}$.
+Minimising $L_{\mathrm{geo}}$ therefore performs von~Mises MLE,
+which maximises $\kappa$, which in turn drives the Kuramoto
+order parameter $r \to 1$.  The three concepts---von~Mises MLE,
+$S^1$ geodesic loss, and Kuramoto synchronisation---are thus
+different views of a single optimisation problem.  This explains
+why replacing $\Ltgt$ with $L_{\mathrm{geo}}$
+(\cref{sec:open}, Tier~1) yields a $4\times$ detection
+improvement under the original threshold-based metric: the loss
+function implicitly reinforces gauge synchronisation.
+A follow-up minima-based evaluation (5~seeds each, two height
+ranges) reveals a \emph{density-dependent} effect:
+\begin{itemize}
+  \item \textbf{$t\in[500,600]$} (density $0.72$/unit):
+    $F_1$ comparable (BL $0.373\pm0.020$ vs $L_{\mathrm{geo}}$
+    $0.361\pm0.012$, $p{=}0.45$);
+    recall-variance reduction significant
+    ($F{=}16.2$, $p{=}0.010$).
+  \item \textbf{$t\in[1000,1100]$} (density $0.81$/unit):
+    $F_1$ improves (BL $0.395\pm0.009$ vs $L_{\mathrm{geo}}$
+    $0.411\pm0.005$, paired $t{=}2.84$, $p{=}0.047$,
+    5/5~seeds directionally consistent);
+    recall-variance also significant ($F{=}6.5$, $p{=}0.049$).
+\end{itemize}
+Across both ranges, $L_{\mathrm{geo}}$ stabilises the recall
+floor ($R\ge 0.972$ at $t\in[500,600]$; $R\ge 0.975$ at
+$t\in[1000,1100]$; all 10~seed--range combinations).
+At higher zero density the geodesic loss additionally lifts
+mean $F_1$, suggesting that the $\pm\pi$-discontinuity burden
+of $\Ltgt$ grows with density.  The effect sizes are small
+($\Delta F_1 \approx 0.016$) and the $p$-values borderline;
+we report these as confirmed but modest improvements.
+Catastrophic divergence occurred in 1/5~seeds (seed-specific,
+mitigated by best-checkpoint selection).
+\textcolor{ForestGreen}{[confirmed 2026-04-13, 5-seed, 2~ranges]}
+\end{remark}
+
+\subsubsection{Lehmer phenomenon and GUE spacing statistics}
+\label{sec:lehmer_gue}
+
+The difficulty hierarchy of \cref{tab:f2_low}, where some zeros
+converge one to two orders of magnitude slower than their
+neighbours, matches the empirical distribution of Lehmer pairs.
+Montgomery's pair-correlation conjecture and the numerical work of
+Odlyzko establish that the normalised spacings of high Riemann
+zeros follow the GUE distribution
+\begin{equation}\label{eq:gue}
+  p_{\mathrm{GUE}}(s) = \frac{32}{\pi^2}s^2 e^{-4s^2/\pi},
+\end{equation}
+with close zero pairs — Lehmer pairs — occurring with predictable
+frequency. In our detector, these are the zeros at which
+$Z(t)$ nearly grazes the real axis without crossing; the analytic
+signal spends longer near $\pm\pi/2$, and the bundle curvature
+profile becomes qualitatively more complex (broader FWHM,
+multi-peaked).  However, the Hadamard partial-sum convergence rate
+is insensitive to zero spacing ($|r|<0.03$).  This gives a testable
+prediction: the distribution of per-zero convergence times at fixed
+epoch budget should match the convolution of the GUE density with
+the analytic-signal residence time, a quantity that can be computed
+in closed form. We have not yet performed this fit; it is recorded
+as an open problem in \cref{sec:open}.
+
+\subsubsection{Weyl equidistribution and the PGGD angular walk}
+\label{sec:weyl}
+
+\cref{sec:pggd_failure} attributes the PGGD failure to a Weyl-type
+equidistribution of the angular updates modulo $2\pi$. The
+underlying fact is the classical theorem that for any irrational
+$\alpha$ the sequence $\{n\alpha\bmod 1\}$ is equidistributed in
+$[0,1)$. In the PGGD context, the angular update per step is
+approximately $\eta\,\hat L(t)$, which for a generic target
+function is rationally independent over any finite sample; the
+tangent projection then concentrates the full update into this
+angular component, producing an equidistributed walk whose
+empirical distribution converges to the Haar measure on $S^1$ as
+the epoch count grows. This is the converse of the locking in
+\cref{rem:kuramoto_transition}: here the coupling has been removed
+by construction, and equidistribution wins.
+
+
+% ============================================================================
+% [Paper A: ξ-bundle geometry]
+\section{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ The $|\Ftwo|$
+  residual: a tentative mesoscopic observable}
+\label{sec:f2_residual}
+% ============================================================================
+
+\noindent\textbf{Tier 2 (with 2026-04-08 partial reinterpretation).}
+While running the high-zero extension of \cref{sec:high_zeros} we
+noticed that the post-convergence magnitudes
+$|F_2(t_k)|$ of the discriminant at individual zeros are not a
+featureless random scatter but display systematic height and
+spatial patterns. This section records the original observations
+(April 2026, $14{,}441$ zeros) and then the 2026-04-08 partial
+reinterpretation that weakened the per-zero claim while leaving the
+aggregate scale claim intact. We keep both so that the reader can
+see how the claim was narrowed.
+
+\subsection{Original observations (April 2026)}
+\label{sec:f2_residual_original}
+
+The $|F_2|$ residual was computed on $14{,}441$ zeros across seven
+wide intervals $[10,50]$ through $[5000,10000]$ and $23$ fine
+intervals covering $[10000,13000]$. The cumulative detection rate
+(zeros for which $|F_2|$ is below a uniform threshold) was
+$99.99\%$.
+
+\begin{table}[ht]
+\centering
+\caption{$|F_2|$ mean residual by height interval,
+  from the original $14{,}441$-zero sweep.}
+\label{tab:f2_scale}
+\small
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Range} & \textbf{Zeros} & \textbf{Detection rate}
+  & $\overline{|F_2|}$ \\
+\midrule
+$[10, 50]$       & 10     & 10/10     & 0.0209 \\
+$[100, 200]$     & 50     & 49/50     & 0.0208 \\
+$[200, 500]$     & 190    & 190/190   & 0.0119 \\
+$[500, 1000]$    & 380    & 380/380   & 0.0083 \\
+$[1000, 2000]$   & 868    & 868/868   & 0.0058 \\
+$[2000, 5000]$   & 3{,}003  & 3{,}003/3{,}003 & 0.0020 \\
+$[5000, 10000]$  & 5{,}622  & 5{,}622/5{,}622 & 0.0014 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three per-zero claims were originally made from this dataset:
+\begin{enumerate}
+  \item[(O1)] \textbf{Independence from classical statistics.} The
+        per-zero residual $|F_2(t_k)|$ showed Pearson
+        $|r|<0.09$ and Spearman $|\rho|<0.09$ against all of
+        $|Z'(t_k)|$, $|Z''(t_k)|$, normalised spacing $s_k$, the
+        argument function $S(t_k)$, the Riemann--Siegel derivative
+        $\vartheta'(t_k)$, local density, spacing variance,
+        spacing autocorrelation, and the local $Z$-area
+        $\int_{t_k-0.3}^{t_k+0.3}|Z|$.
+  \item[(O2)] \textbf{Spatial clustering.} $|F_2(t_k)|$ was
+        Spearman-correlated with the mean of $|F_2|$ at its six
+        nearest zero neighbours, $\rho=+0.895$
+        ($p\approx 10^{-141}$), interpreted as evidence for
+        ``mesoscopic domains'' of different character along the
+        critical line.
+  \item[(O3)] \textbf{Long-range autocorrelation.} The lag-$\Delta$
+        autocorrelation $C(\Delta)$ dropped rapidly to $\approx 0.4$
+        within $\Delta\sim 3$ and then remained nearly flat at
+        $\approx 0.33$ out to $\Delta=200$, suggesting a
+        two-component (short-range exponential + long-range
+        plateau) structure.
+\end{enumerate}
+
+Taken together these were read as evidence that the gauge ODE acts
+as ``a new lens on the critical line'' revealing structure
+invisible to random matrix theory and to the classical
+$S(t)$-based tools.
+
+\subsection{2026-04-08 partial reinterpretation}
+\label{sec:f2_residual_reinterp}
+
+\begin{remark}[Partial reinterpretation of
+the $|F_2|$ per-zero claim]
+\label{rem:f2_reinterp}
+A model-independence audit performed on 2026-04-08 substantially
+weakens (O1)--(O3) at the \emph{per-zero} level while leaving the
+aggregate scale structure of \cref{tab:f2_scale} intact.
+
+Specifically, retraining the same architecture with different
+seeds, different random initialisations of the gauge buffer
+$(\varphi_0,\psi_0)$, and different shuffles of the training zero
+list produces $|F_2(t_k)|$ values whose rank order at individual
+zeros is \emph{not} reproducible across runs. The per-zero
+Spearman correlation between two independent runs on the same
+interval drops below $+0.2$ for most intervals, inconsistent with
+the interpretation of $|F_2(t_k)|$ as an intrinsic property of the
+zero $t_k$. In particular, the spatial clustering statistic
+$\rho_{\mathrm{cluster}}=+0.895$ is partially inflated by a
+training-time smoothness prior that couples neighbouring zero
+residuals; the long-range plateau of $C(\Delta)$ at $\approx 0.33$
+appears in every run but with a training-dependent level.
+
+What \emph{does} survive reinterpretation is the height-dependent
+\textbf{mean scale} of $\overline{|F_2|}$ across the intervals of
+\cref{tab:f2_scale}: the monotone decay from
+$\overline{|F_2|}\approx 0.021$ at $t\sim 50$ to
+$\overline{|F_2|}\approx 0.0014$ at $t\sim 10{,}000$ is reproduced
+across all seeds up to ${\sim}10\%$ relative variation, and its
+shape is consistent with a power law
+$\overline{|F_2|}\sim t^{-\alpha}$ with $\alpha\in[0.4,0.5]$.
+
+We therefore \emph{retain} \cref{tab:f2_scale} and the mean-scale
+claim as Tier 2 evidence of a genuine height dependence in the
+detector's residual, and we \emph{downgrade} the per-zero claims
+(O1)--(O3) to ``suggestive but model-contaminated'': the patterns
+are real features of the trained model, but the inference from
+model to underlying arithmetic of the critical line is blocked by
+the observed non-reproducibility at the per-zero level. The
+section is retained in this paper precisely because the narrowing
+is itself an informative diagnostic; see also
+\cref{sec:open} on the role of such retraction records.
+\end{remark}
+
+\subsection{2026-04-10 follow-up: the ``hard cluster'' was a
+basis-bandwidth artifact}
+\label{sec:f2_residual_cluster_artifact}
+
+Between 2026-04-09 and 2026-04-10 a ten-experiment cascade
+(Lehmer regression, five-seed ensemble, hidden-width scaling,
+sample-density scaling, residual spectrum, cluster physics,
+input-basis scaling, and a convergence extension) was run
+against a residual difficulty cluster inside the $|F_2|$
+dataset. Specifically, in the trained model
+(\texttt{in\_features}$=64$, \texttt{hidden}$=64$, seed$=42$)
+over the band $t\in[100,200]$, five zeros in
+$t\in[165,173.5]$ carried mean $|F_2|\approx 0.036$, roughly
+$1.8\times$ the band mean $0.020$. The cascade eliminated four
+candidate explanations and identified a fifth.
+
+\smallskip
+\noindent\textbf{Eliminated hypotheses.}
+\begin{enumerate}
+  \item[(E1)] \emph{Lehmer-type near pairs.} A multivariate
+        regression of $|F_2(t_k)|$ on Riemann--von Mangoldt
+        normalised gaps $g_{\min}^{\mathrm{norm}}(t_k)$ across
+        all $15{,}422$ zeros in the $51$ training bands, and a
+        separate \texttt{mpmath}-based high-$t$ scan, both gave
+        $|r|<0.03$. The zero with the tightest normalised gap in
+        the cluster band, $t=121.37$ with
+        $g_{\min}^{\mathrm{norm}}=0.027$, is in fact the
+        \emph{easiest} zero in its band.
+  \item[(E2)] \emph{Multi-basin seed dependence.} Five-seed
+        ensemble training with identical hyperparameters
+        gave $\mathrm{corr}(\mathrm{mean},\mathrm{std})=+0.70$
+        across zeros, but zero ensemble gain at the hard zeros
+        ($|F_2|^{\mathrm{ensemble}}/|F_2|^{\mathrm{seed-mean}}
+        \approx 1.00$), ruling out a
+        many-local-minima reading of the cluster.
+  \item[(E3)] \emph{Hidden-layer capacity.} Scaling
+        $\texttt{hidden}\in\{32,64,128\}$ at fixed
+        \texttt{in\_features}$=64$ produced a \emph{monotone
+        opposite} trend: global $\overline{|F_2|}$ went
+        $0.019\to 0.022\to 0.030$, so larger hidden width did
+        not help the cluster.
+  \item[(E4)] \emph{Training-sample density.} Increasing
+        \texttt{num\_points} from $500$ to $1500$ improved
+        global $\overline{|F_2|}$ by $32\%$ and cluster-max
+        $|F_2|$ by $57\%$; at $t=173.41$ the improvement was
+        $65\%$. This was initially read as a ``sampling
+        resolution'' cure but turned out to be a proxy for the
+        basis-bandwidth bottleneck identified below.
+\end{enumerate}
+
+\smallskip
+\noindent\textbf{Identified cause: input-basis bandwidth.} The
+input embedding lifts the scalar $t$ to a Fourier feature
+vector
+\[
+  t\;\longmapsto\;\Bigl(\tfrac{t-\mu}{\sigma},\;
+  \sin(\omega_1 t),\cos(\omega_1 t),\dots,
+  \sin(\omega_K t),\cos(\omega_K t)\Bigr),
+\]
+with
+$\omega_k = 2\pi k/(t_{\max}-t_{\min})$ and
+$K=(\texttt{in\_features}-1)/2$. For the band $[100,200]$ at
+\texttt{in\_features}$=64$ this gives $K=31$ and a hard
+representational ceiling
+\[
+  \omega_{\max}^{(64)}
+  \;=\; \frac{2\pi\cdot 31}{100}\;\approx\; 1.948\;
+  \mathrm{rad}/\mathrm{unit}\,t,
+  \qquad \text{minimum period }\approx 3.23\text{ in }t.
+\]
+Inside the cluster, the zeros at $t\approx 169.095$ and
+$t\approx 169.912$ form a pair of separation
+$\Delta t\approx 0.82$. Representing two sign changes across
+this separation requires basis content at
+\begin{equation}
+  \omega\;\gtrsim\; \frac{\pi}{\Delta t}\;\approx\; 3.83\;
+  \mathrm{rad}/\mathrm{unit}\,t,
+  \label{eq:required_omega}
+\end{equation}
+which is $\approx 1.97\times$ the
+\texttt{in\_features}$=64$ ceiling. We now state this
+observation as a falsifiable proposition.
+
+\begin{proposition}[Input-basis bandwidth necessary condition]
+\label{prop:basis_bandwidth}
+Let $\mathcal{F}_K^{\mathrm{lin}}$ denote the class of
+functions on a band $[t_{\min},t_{\max}]$ of width
+$W=t_{\max}-t_{\min}$ that are \emph{linear} in the Fourier
+feature map
+$t\mapsto(\sin\omega_k t,\cos\omega_k t)_{k=1}^{K}$ with
+$\omega_k=2\pi k/W$. For any pair of ordinates
+$t_a,t_b\in[t_{\min},t_{\max}]$ with $0<\Delta t:=|t_a-t_b|$,
+the following sampling-theoretic bound holds: if
+\begin{equation}
+  K \;<\; \frac{W}{2\,\Delta t},
+  \label{eq:basis_bandwidth_condition}
+\end{equation}
+then no $f\in\mathcal{F}_K^{\mathrm{lin}}$ with
+$f(t_a)=f(t_b)=0$ can have $f'(t_a)\cdot f'(t_b)<0$ while
+being orthogonal (in $L^2[t_{\min},t_{\max}]$) to the null
+function. In particular, two sign-changing zeros of
+$f\in\mathcal{F}_K^{\mathrm{lin}}$ at separation $\Delta t$
+force $K\geq W/(2\Delta t)$.
+\end{proposition}
+
+\begin{proof}[Sketch]
+A function in $\mathcal{F}_K^{\mathrm{lin}}$ is a real
+trigonometric polynomial of degree $\leq K$ on $[0,W]$ (after
+recentring). By the Nyquist--Shannon sampling theorem applied
+to its $2K$-dimensional Fourier basis, its minimum period
+between consecutive sign changes is bounded below by
+$W/(2K)$. Two sign changes at separation $\Delta t<W/(2K)$
+therefore cannot be realised in $\mathcal{F}_K^{\mathrm{lin}}$,
+which is \eqref{eq:basis_bandwidth_condition}.
+\end{proof}
+
+\begin{remark}[Nonlinear extension and the intermodulation
+gap]\label{rem:intermodulation_gap}
+The network in question is \emph{not} in
+$\mathcal{F}_K^{\mathrm{lin}}$: the three ResonantBlock layers
+compose multiplications, ridge nonlinearities, and gauge ODE
+integration with the Fourier features. In principle, products
+of the form $\sin(\omega_j t)\cdot\sin(\omega_k t)=
+\tfrac{1}{2}[\cos((\omega_j-\omega_k)t)-
+\cos((\omega_j+\omega_k)t)]$ and higher-order intermodulation
+cascades produce components up to
+$\omega^{\mathrm{eff}}_{\max}=L\cdot\omega_{\max}$ where $L$
+is the network depth, formally lifting the bandwidth ceiling.
+Our empirical data (\cref{tab:basis_scaling}) show a sharp
+failure at exactly the linear-basis ceiling
+\eqref{eq:basis_bandwidth_condition}, \emph{not} at the
+nonlinearly-lifted ceiling $L\cdot\omega_{\max}$.
+
+This gap is consistent with the \emph{spectral bias} literature
+for neural networks: under finite training budgets, MLPs
+preferentially learn the lowest-frequency components first and
+only activate intermodulation cascades at training times that
+diverge with frequency \cite{Rahaman2019SpectralBias,
+BasriGeifman2020FrequencyBias}, a phenomenon derivable from
+Neural Tangent Kernel eigenvalue decay
+\cite{Jacot2018NTK}. Within such a finite-budget regime, the
+\emph{effective} bandwidth of the trained network remains
+bounded above by a multiple of the linear-basis ceiling, not
+by the formal multiplicative lift $L\cdot\omega_{\max}$.
+A rigorous statement of the form
+``$\omega^{\mathrm{eff}}_{\max}(E)\leq c(E)\cdot
+\omega^{\mathrm{basis}}_{\max}$ with $c(E)=O(1)$ as
+$E\to E_{\max}$ (finite training budget)'' for the
+ResonantBlock architecture is not derived here and is left as
+an open problem; what the experiment shows is that
+\emph{empirically} the ceiling behaves as in
+Proposition~\ref{prop:basis_bandwidth} rather than as
+$L\cdot\omega_{\max}$.
+\end{remark}
+
+For the band $[100,200]$ and the $t\approx 169$ pair,
+\eqref{eq:basis_bandwidth_condition} gives $K\geq 61$,
+equivalently $\texttt{in\_features}\geq 123$.
+
+\smallskip
+\noindent\textbf{Riemann--von Mangoldt substitution.} The
+condition \eqref{eq:basis_bandwidth_condition} acquires
+analytic-number-theoretic content when combined with the
+Riemann--von Mangoldt local zero density
+$N'(t)\sim (2\pi)^{-1}\log(t/2\pi)$, which gives mean zero gap
+\begin{equation}
+  \langle\Delta t\rangle(t)\;\sim\;\frac{2\pi}{\log(t/2\pi)}.
+\end{equation}
+Assuming a Lehmer-compression factor $c_{\mathrm{L}}\in(0,1]$
+so that the smallest gap in a typical band of width $W$ at
+height $t$ satisfies
+$\Delta t_{\min}\gtrsim c_{\mathrm{L}}\cdot\langle\Delta
+  t\rangle(t)$,
+substitution into \eqref{eq:basis_bandwidth_condition} yields
+the \emph{height-dependent bandwidth requirement}
+\begin{equation}
+  K(t,W)\;\geq\;
+  \frac{W\,\log(t/2\pi)}{4\pi\,c_{\mathrm{L}}},
+  \label{eq:basis_bandwidth_rvm}
+\end{equation}
+or equivalently
+$\texttt{in\_features}\geq (W\log(t/2\pi))/(2\pi\,c_{\mathrm{L}})+1$.
+For $W=100$, $t\approx 150$, and $c_{\mathrm{L}}\approx 1/3$
+(a Lehmer-type cluster), this gives $K\gtrsim 82$,
+$\texttt{in\_features}\gtrsim 165$, bracketing the empirical
+transition at $\texttt{in\_features}\in[64,128]$. Equation
+\eqref{eq:basis_bandwidth_rvm} is an architectural--analytic
+bridge: the Fourier-feature capacity required to detect
+$\xi$-zeros in a band scales \emph{logarithmically} with
+height, matching the $N'(t)$ law. In particular, the apparent
+improvement of $\overline{|F_2|}$ with height in
+\cref{tab:f2_scale} is \emph{compatible} with a fixed
+\texttt{in\_features} satisfying
+\eqref{eq:basis_bandwidth_rvm} only because the high-$t$ bands
+in the original sweep were run with
+$\texttt{num\_points}=\max(200,10\,n_{\mathrm{zeros}})$
+auto-scaling, which preserved the dimensionless ratio
+$K/(W\log t)$ and therefore kept
+\eqref{eq:basis_bandwidth_rvm} implicitly satisfied; this
+connects the height-scaling table to the architectural
+condition rather than to any analytic property of $\xi$
+itself.
+
+\smallskip
+\noindent\textbf{Confirmation via basis-scaling.} Scaling
+\texttt{in\_features}$\in\{32,64,128,256\}$ at fixed
+\texttt{hidden}$=64$, seed$=42$, \texttt{num\_points}$=500$,
+training budget $100$ epochs gave:
+
+\begin{table}[ht]
+\centering
+\caption{Cluster vs.\ non-cluster $\overline{|F_2|}$ at fixed
+training budget. The 5-seed ensemble row (seeds $42,7,123,2026,314$)
+replaces the single-run claim; cluster improvement is $25\%$ on
+average but with high seed variance.}
+\label{tab:basis_scaling}
+\small
+\begin{tabular}{rrrrrr}
+\toprule
+\texttt{in\_feat} & $\omega_{\max}$ & global &
+  cluster & other & ratio \\
+\midrule
+32   & 0.942 & 0.0140 & 0.0140 & 0.0140 & $1.00\times$ \\
+64   & 1.948 & 0.0218 & 0.0361 & 0.0202 & $1.79\times$ \\
+128 (seed 42)  & 3.958 & 0.0164 &
+  0.0150 & 0.0166 & $0.90\times$ \\
+\textbf{128 (5-seed)} & \textbf{3.958} & \textbf{0.0207} &
+  \textbf{0.0269}$\pm$\textbf{0.012} & \textbf{0.0200} & $\mathbf{1.42\pm0.73\times}$ \\
+256  & 7.980 & 0.0214 & 0.0581 & 0.0173 & $3.36\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent Two features stand out. First, the cluster excess
+at \texttt{in\_features}$=64$ \emph{disappears} at
+\texttt{in\_features}$=128$ in the best seed, but a
+five-seed ensemble (seeds $42, 7, 123, 2026, 314$) reveals
+substantial variability: the cluster-to-non-cluster ratio
+averages $1.42\pm0.73$ (range $0.61$--$2.44\times$), with
+$3/5$ seeds achieving ratio${}<1.2$ and $2/5$ showing a
+\emph{persisting} or worsened cluster. Per-zero coefficient
+of variation in the cluster ranges from $46\%$ to $106\%$
+across seeds. Thus the bandwidth condition
+\eqref{eq:basis_bandwidth_condition} is a \emph{necessary}
+condition for cluster resolution but not a \emph{sufficient}
+one: training dynamics (seed-dependent initialisation) retain
+significant influence even after the Nyquist ceiling is
+cleared. Averaging over the ensemble, cluster
+$\overline{|F_2|}$ improves by $25\%$ relative to the
+\texttt{in\_features}$=64$ baseline ($0.0269$ vs.\ $0.0361$),
+confirming the bandwidth mechanism at the population level
+while excluding any single-run claim of complete resolution.
+Second,
+\texttt{in\_features}$=256$ fails to converge in $100$ epochs
+and presents a \emph{new}, unrelated difficulty cluster.
+
+\smallskip
+\noindent\textbf{Isolation of the over-parameterisation
+artefact.} Extending training to $300$ epochs with $50$-epoch
+best-validation checkpoints separates the bandwidth effect
+from the optimisation effect. For
+\texttt{in\_features}$=128$, the best validation loss settles
+at $0.0550$ by epoch $143$ and stays flat; the cluster ratio
+improves to $0.75\times$ and $\overline{|F_2|}^{\mathrm{cluster}}$
+drops to $0.0106$ versus $\overline{|F_2|}^{\mathrm{other}}
+=0.0142$. For \texttt{in\_features}$=256$, the best validation
+loss stays at $0.224$ throughout $300$ epochs, roughly $4\times$
+worse than the \texttt{in\_features}$=128$ minimum; global
+$\overline{|F_2|}$ improves from $0.0214$ to $0.0099$, but the
+cluster ratio stays at $3.87\times$. The
+\texttt{in\_features}$=256$ failure is therefore an independent
+over-parameterisation pathology (the Adam-with-gradient-clip
+training budget is insufficient for the enlarged parameter
+space), not a bandwidth problem; it does not undermine the
+bandwidth interpretation at $\texttt{in\_features}\in\{32,64,128\}$.
+
+\smallskip
+\noindent\textbf{Consequence for the 2026-04-08 reinterpretation.}
+This experiment closes the second open question of
+\cref{sec:f2_residual_open}: it exhibits a concrete,
+\emph{model-dependent} per-zero difficulty (the cluster in
+$[165,173.5]$) that is not an intrinsic property of the zeros
+but a property of the embedding $\{\omega_k\}_{k=1}^{K}$. Any
+attempt to read per-zero $|F_2|$ values as observables on the
+critical line must therefore first verify that the input-basis
+bandwidth condition \eqref{eq:basis_bandwidth_condition} is
+satisfied for the smallest zero pair in the band under study.
+The mean-scale claim of \cref{tab:f2_scale} is unaffected,
+since it averages over bands in which the condition is
+(implicitly, via the auto-scaling rule
+\texttt{num\_points}$=\max(200,10\cdot n_{\mathrm{zeros}})$)
+met or approximately met.
+
+\subsection{What remains open}
+\label{sec:f2_residual_open}
+
+After the 2026-04-10 follow-up the following questions remain
+open:
+\begin{enumerate}
+  \item \textbf{Height scaling law
+        \textcolor{ForestGreen}{[partially resolved 2026-04-12]}.}
+        Blind extrapolation recall remains stable at
+        $97.5{-}98.8\%$ from $t{\sim}200$ to $t{\sim}1100$
+        (3 seeds, $K\in\{128,256\}$), with precision
+        \emph{improving} at higher $t$.  This rules out gross
+        degradation.  The fine-grained question---whether
+        $\overline{|F_2|}$ follows a genuine power law whose
+        exponent matches $\log\log t$ corrections to
+        $N(t)$---still requires a continuous sweep with error
+        bars over disjoint seed families.
+  \item \textbf{Bandwidth-clean per-zero observable.} A
+        five-seed ensemble at \texttt{in\_features}$=128$ confirms
+        that per-zero $|F_2|$ values have coefficient of variation
+        $46$--$106\%$ across seeds even after
+        \eqref{eq:basis_bandwidth_condition} is satisfied.
+        Individual per-zero values are therefore \emph{not}
+        reproducible in any naive sense. The \emph{ensemble mean}
+        cluster $\overline{|F_2|}$ improves by $25\%$ relative to
+        the bandwidth-deficient baseline, confirming the
+        population-level mechanism. Whether a tighter invariant
+        can be extracted (e.g.\ the \emph{minimum} of $|F_2(t_k)|$
+        over a bootstrap ensemble, interpreted as the ``achievable
+        residual'') remains open.
+  \item \textbf{Over-parameterisation failure mode.} The
+        \texttt{in\_features}$=256$ failure to converge within
+        $300$ epochs (best validation $0.224$ versus $0.055$ at
+        \texttt{in\_features}$=128$) exhibits a ``new'' cluster
+        at the same $t\in[165,173.5]$ that cannot be bandwidth
+        in origin. Whether this is (a) an Adam-plus-gradient-clip
+        training-schedule artefact, (b) a genuine
+        over-parameterisation pathology that revives the same
+        cluster through a different mechanism, or (c) a seed
+        accident remains unresolved.
+\end{enumerate}
 
 
 % ============================================================================
