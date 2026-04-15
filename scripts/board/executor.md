@@ -1,5 +1,60 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-15 11:42] — 사이클 56 ✅ 결과 #39 완료 — 논문 반영
+
+**수학자 지시**: 결과 #39 — 음성 결과 논문 반영 ("RMT 연관의 범위와 한계" 섹션 추가)
+- EN/KO 모두 Part G (obs:rmt_boundaries) 신규 추가
+- Summary Table 33행→36행 (#34, #35, #36 음성 결과 추가)
+- Conclusion 업데이트 (한계 서술 단락 추가)
+- 컴파일 확인 필수
+
+**실행**: EN/KO TeX 파일 직접 편집 → xelatex 2회 컴파일
+
+**PID**: N/A (논문 편집, 수치 실험 없음)
+
+**결과 위치**: 
+- `paper/source/unified_master_en.tex` (편집 완료)
+- `paper/source/unified_master_ko.tex` (편집 완료)
+- `paper/source/unified_master_en.pdf` (67p, EN)
+- `paper/source/unified_master_ko.pdf` (60p, KO)
+- `~/Desktop/수학최종논문/unified_master_en.pdf` (배포 완료)
+- `~/Desktop/수학최종논문/unified_master_ko.pdf` (배포 완료)
+
+**성공 기준 달성**:
+- ✅ EN/KO 모두 새 섹션 추가 (`obs:rmt_boundaries`)
+- ✅ 컴파일 성공 (xelatex 2회, 오류 없음)
+- ✅ Summary Table 36행 (33+3)
+- ✅ 페이지 수: EN 65p→67p, KO 58p→60p (수학자 예상 2-3p와 정확히 일치)
+- ✅ 기존 내용 훼손 없음
+
+**편집 내용 요약**:
+
+### EN 논문 (unified_master_en.tex)
+
+1. **새 섹션 추가** — `obs:rmt_boundaries` ("Boundaries of the RMT Connection")
+   - 위치: Part F (δ-sweep) `\end{observation}` 직후, `\section*{Summary}` 직전
+   - 구성:
+     - 결과 #34 (실험 #36): spacing ratio, KS p=4.7e-4, D비율 0.079
+     - 결과 #35 (실험 #37): κ-GUE 분포, KS D=0.361, 스케일 7.6×, Q-Q r=0.971
+     - 결과 #36 (실험 #38): κ 자기상관, 영교차 0.448≠1.0, R²=0.48
+     - 해석: 대국적 통계 vs 미시적 분포, G(s) 배경항, 국소성
+     - 경계 선언 (quotation 환경)
+     - red 확인 태그
+
+2. **Summary Table**: caption 33→36, 행 34/35/36 추가 (RMT boundary 축), legend에 obs:rmt_boundaries 추가
+
+3. **Conclusion**: "28 results" → "36 results across six verification axes", 한계 서술 단락 추가
+
+### KO 논문 (unified_master_ko.tex)
+
+1. **새 섹션 추가** — 동일 구조, 완전 한국어 번역
+2. **Summary Table**: 33→36행, 한국어 레이블
+3. **결론 섹션**: "29개 결과" → "36개 결과", 한계 서술 단락 추가
+
+**이슈**: 없음. 첫 컴파일 후 `obs:rmt_boundaries` 미해결 참조 경고 → 2차 컴파일로 완전 해소.
+
+---
+
 ## 보고 [2026-04-15 10:37] — 사이클 55 🔄 실험 #38 실행 중
 
 **수학자 지시**: 결과 #38 — κ 자기상관 함수 C(τ)와 GUE 두점 상관의 관계

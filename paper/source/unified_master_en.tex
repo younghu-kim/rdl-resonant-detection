@@ -3853,6 +3853,166 @@ correlation analysis but limits distribution-level claims.
 $\delta{=}0.03$; $R^2_\text{1-var}{=}0.015$, $R^2_\text{2-var}{=}0.919$;
 Hadamard decomposition error ${=}0.00\%$;
 3-seed preliminary]}
+
+\smallskip\noindent
+\textbf{Part~F: $\delta$-sweep universality ($\delta \in \{0.01, 0.02, 0.03, 0.05, 0.10\}$).}\;
+To test whether the Lorentzian$^2$ correction is universal across probe
+distances, we extend to five offsets (99 zeros each, $N = 203$--$20\,000$).
+
+\emph{Per-$\delta$ 2-variable regression.}\;
+\begin{center}
+\small
+\begin{tabular}{@{} c c c c @{}}
+\toprule
+$\delta$ & $R^2_\text{1-var}$ & $R^2_\text{2-var}$ & $c(\delta)$ \\
+\midrule
+0.01 & 0.014 & \textbf{0.925} & 147.8 \\
+0.02 & 0.015 & \textbf{0.923} & \ 39.4 \\
+0.03 & 0.015 & \textbf{0.919} & \ 19.4 \\
+0.05 & 0.017 & \textbf{0.909} & \  9.1 \\
+0.10 & 0.024 & \textbf{0.890} & \  4.9 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The Lorentzian$^2$ \emph{form} achieves $R^2 > 0.88$ for all five offsets,
+establishing universality of the correction \emph{shape} across a
+10-fold range of $\delta$.
+
+\emph{Negative result: coefficient non-universality.}\;
+The coefficient $c(\delta)$ varies from 147.8 ($\delta = 0.01$) to 4.9
+($\delta = 0.10$)---a 30-fold variation implying
+$c(\delta) \sim \delta^{-\alpha}$ for non-trivial $\alpha$.
+The product $a(\delta)\cdot\delta$ has CV $= 47.8\%$
+(theory predicts $\lesssim 20\%$).  A unified 3-parameter model
+$\Delta\kappa = (a/\delta)\log(t/2\pi) + b/\delta^2 + c\cdot f_1$
+yields $R^2 = 0.449$, well below the 0.90 threshold.
+This failure indicates that the $\delta$-scaling of the coefficient is
+not a simple power law and warrants further analytic investigation.
+
+\emph{Numerical stability at $\delta = 0.01$.}\;
+With $1/\delta^2 = 10\,000$, the subtraction $\Delta\kappa = \kappa - 10\,000$
+risks digit cancellation.  Elevating to $\text{dps} = 80$ gives
+$R^2_{2\text{-var}} = 0.925$ with all $\Delta\kappa > 0$: no numerical artefact.
+
+\textcolor{ForestGreen}{[confirmed 2026-04-15; 5 offsets $\delta\in\{0.01,0.02,0.03,0.05,0.10\}$;
+99 zeros each ($N{=}203$--$20000$);
+Lorentzian$^2$ universal ($5/5$, $R^2{>}0.88$);
+unified 3-param model $R^2{=}0.449$ (negative)]}
+\end{observation}
+
+
+% ----------------------------------------------------------------------------
+\begin{observation}[Boundaries of the RMT Connection]
+\label{obs:rmt_boundaries}
+Having established positive RMT connections in three results
+(\#20 pair correlation, \#28 number variance, \#32 NNS--$\Delta\kappa$
+Lorentzian$^2$), we conducted four further experiments testing whether
+the curvature field $\kappa(t)$ obeys finer RMT predictions at the level
+of individual distributions and correlation functions.
+We establish that these finer predictions \emph{do not hold}, thereby
+precisely delineating the scope of the RMT analogy.
+
+\smallskip\noindent
+\textbf{Result~\#34 (Experiment~\#36): Spacing ratio distribution.}\;
+The ratio $\tilde{r}_n = \min(s_n,s_{n+1})/\max(s_n,s_{n+1})$ is formed
+from $N = 4657$ consecutive Riemann zero gaps at $t > 600$.
+After correcting the theoretical mean to
+$\mathbb{E}[\tilde{r}]_\text{GUE} = 0.6027$ (Atas \textit{et al.}\ 2013),
+the empirical mean is $\bar{r} = 0.6161$, a systematic excess of $+2.2\%$
+($4.15\sigma$).  KS test against the GUE Wigner surmise:
+$D = 0.030$, $p = 4.7 \times 10^{-4}$.
+The ratio $D_\text{GUE}/D_\text{Poisson} = 0.079$ confirms that the spacing
+ratio distribution \emph{is closest to GUE} among the three ensembles
+tested, but the systematic bias persists across all $t$-cutoffs
+($t > 400, 600, 800, 1000$) and does not converge toward GUE as $N$
+increases.
+\textbf{Verdict: Negative} ($p < 5 \times 10^{-4}$ for all cutoffs;
+convergence toward GUE absent).
+
+\smallskip\noindent
+\textbf{Result~\#35 (Experiment~\#37): Curvature value distribution.}\;
+Under the variable substitution $\kappa = 1/(\delta^2 + s_\text{unf}^2)^2$,
+if $s_\text{unf}$ followed the GUE level-spacing distribution, then
+$\kappa$ would follow a predictable distribution $P_\text{pred}(\kappa)$.
+We test this with $N = 1870$ valid samples from $t \in [1000, 5000]$,
+$\delta = 0.03$.
+KS test: $D = 0.361$, $p = 6.3 \times 10^{-213}$.
+The Q--Q correlation in log-scale is $r = 0.971$, indicating that the
+\emph{shape} of the distribution is preserved, but the \emph{scale} is
+mismatched by a factor of $7.6\times$ at the median.
+The root cause is twofold: (i)~uniform-$t$ sampling yields
+$\bar{s}_\text{unf} = 0.306$ instead of the GUE theoretical expectation
+$1.000$; and (ii)~the background term $G(s)$ in
+$\kappa = |G(s) + \zeta'/\zeta(s)|^2$ partially cancels the dominant pole
+at distances $|s - \gamma_n| \gg \delta$, introducing a systematic scale
+offset not captured by the simple model $1/(\delta^2 + s^2)^2$.
+\textbf{Verdict: Negative} (KS $p < 10^{-200}$; distribution shape
+preserved in log-scale but scale mismatched by $7.6\times$).
+
+\smallskip\noindent
+\textbf{Result~\#36 (Experiment~\#38): $\kappa$ autocorrelation.}\;
+We compute the empirical autocorrelation function
+$C(\tau) = \operatorname{Corr}(\kappa(t), \kappa(t+\tau))$ at $N = 8001$
+equally-spaced points ($\Delta t = 0.5$, $t \in [1000, 5000]$),
+converting to unfolded lag via $\tau_\text{unf} = \tau \cdot \bar{d}$
+with $\bar{d} = 0.982$ (midpoint mean zero density).
+The GUE two-point cluster function $b_2^c(r) = 1 - (\sin\pi r/\pi r)^2$
+predicts a first zero-crossing at $\tau_\text{unf} = 1.0$.
+Empirically, the first zero-crossing occurs at $\tau_\text{unf} = 0.448$
+(deviation $0.552$, exceeding the $\pm 0.20$ acceptance criterion).
+The amplitude fit yields $A = 0.190$, meaning $C_\text{emp}$ oscillates
+at only $19\%$ of the GUE-predicted amplitude.
+Over the full lag range ($\tau_\text{unf} \leq 20$): $R^2 = 0.48$.
+Crucially, $C(1) = -0.081$: the autocorrelation drops to near-zero
+already at lag~1 ($\tau_\text{unf} \approx 0.48$), establishing that
+\emph{$\kappa(t)$ is effectively uncorrelated at the grid spacing
+$\Delta t = 0.5$}.
+\textbf{Verdict: Negative} (zero-crossing $\tau_\text{unf} = 0.45 \neq 1.0$;
+$R^2 = 0.48$; $\kappa$ effectively uncorrelated for lag $\geq 1$).
+
+\smallskip\noindent
+\textbf{Interpretation: Macro-statistics vs.\ micro-distributions.}\;
+The established positive RMT results (\#20 pair correlation,
+\#28 number variance) are two-point statistics of the zero
+\emph{locations} themselves---they capture the average density structure
+of the spectrum, for which GUE universality is robust and well-understood
+(Berry--Tabor, Bohigas--Giannoni--Schmit).
+The negative results (\#34--\#36) instead probe the \emph{full distribution}
+or \emph{temporal autocorrelation} of the curvature $\kappa$, a
+non-linear functional of the zero locations that involves additional
+ingredients absent from the GUE model:
+\begin{itemize}
+  \item The background term $G(s)$ from gamma and pole contributions
+        ($|G(s)|^2 \approx 6$--$9$) partially cancels the dominant
+        pole~$1/\delta^2$ at distances $|s - \gamma_n| \gg \delta$,
+        introducing a systematic scale offset invisible to simple
+        GUE substitution.
+  \item The curvature $\kappa(t)$ is \emph{locally determined} by the
+        nearest zero position.  Its spatial correlation length is on the
+        order of the grid spacing ($\Delta t = 0.5$,
+        $\tau_\text{unf} \approx 0.48$), far shorter than the GUE
+        correlation length ($\tau_\text{unf} \approx 1$).
+\end{itemize}
+
+We therefore establish the following boundary:
+\begin{quotation}\noindent
+  \emph{The RMT connection operates at the level of spectral two-point
+  statistics (pair correlation, number variance) and at the level of the
+  NNS--curvature functional correlation (Lorentzian$^2$ ansatz), but
+  does not extend to the full spacing-ratio distribution, the curvature
+  value distribution, or the temporal autocorrelation of the curvature
+  functional.}
+\end{quotation}
+This boundary is a precise and informative scientific finding, not a
+failure: it identifies exactly which aspects of the $\xi$-bundle geometry
+are governed by random-matrix universality and which are sensitive to
+arithmetic background terms.
+
+\textcolor{red}{[negative, confirmed 2026-04-15;
+\#34: KS $p = 4.7\times10^{-4}$, systematic excess $+2.2\%$ (all cutoffs);
+\#35: KS $D = 0.361$, scale $7.6\times$, log Q--Q shape $r = 0.971$;
+\#36: zero-crossing $\tau_\text{unf} = 0.448 \neq 1.0$, $R^2 = 0.48$;
+independent verification: 10/10 items reproduced]}
 \end{observation}
 
 
@@ -3862,7 +4022,7 @@ Hadamard decomposition error ${=}0.00\%$;
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 32 numerical results obtained
+Table~\ref{tab:summary} consolidates all 36 numerical results obtained
 across six verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -3870,7 +4030,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 32 numerical results across six verification
+\caption{Summary of 36 numerical results across six verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -3925,12 +4085,18 @@ with full transparency).
 \midrule
 31 & $\Delta\kappa$ subleading   & \textbf{C} & slope${=}1.59$, Hadamard err${=}0.00\%$ & Arithmetic \\
 32 & NNS--$\Delta\kappa$ Lorentzian$^2$ & \textbf{C} & $R^2_\text{2-var}{=}0.919$, $r{=}0.953$ & Arithmetic \\
+33 & $\delta$-sweep Lorentzian$^2$ universality & \textbf{C} & $5/5$ $R^2{>}0.88$; unified $R^2{=}0.449$ (neg.) & Arithmetic \\
+\midrule
+34 & Spacing ratio vs.\ GUE (Wigner surmise)  & \textbf{N} & KS $p{=}4.7{\times}10^{-4}$; $D_\text{GUE}/D_\text{Poisson}{=}0.079$ & RMT boundary \\
+35 & $\kappa$ distribution vs.\ GUE prediction & \textbf{N} & KS $D{=}0.361$; scale $7.6{\times}$; Q--Q $r{=}0.97$ & RMT boundary \\
+36 & $\kappa$ autocorrelation vs.\ GUE two-point & \textbf{N} & $\tau_\text{unf}{=}0.45{\neq}1.0$; $R^2{=}0.48$; lag-1 $C{=}{-}0.08$ & RMT boundary \\
 \end{longtable}
 \end{center}
 
 \noindent\textit{Status}: \textbf{E} = Established (confirmed across seeds / axes);
 \textbf{C} = Conditionally positive (significant but qualified);
-\textbf{N} = Negative (reported in full; see \cref{app:gram_negative,obs:synthetic_control}).
+\textbf{N} = Negative (reported in full; see
+\cref{app:gram_negative,obs:synthetic_control,obs:rmt_boundaries}).
 
 % ============================================================================
 \section{Discussion}
@@ -4428,18 +4594,40 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{28 results across five verification
+The numerical evidence spans \textbf{36 results across six verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
-($\chi \bmod 3,4,5,8$), and (v)~negative controls establishing
+($\chi \bmod 3,4,5,8$), (v)~arithmetic subleading structure and
+NNS--curvature correlations, and (vi)~negative controls establishing
 specificity.  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
 simultaneously encodes individual winding numbers, Chern-class
 zero counts, Gauss--Bonnet area integrals, $\sigma$-localisation, and
 collective number variance---all in agreement with direct arithmetic
 methods and mutually consistent across seven independent experiments.
+
+\medskip\noindent
+\textbf{Established boundaries of the RMT connection.}\;
+A systematic investigation of four finer RMT predictions (results
+\#34--\#36 and the spacing-ratio sub-analysis) establishes that the
+random-matrix universality of the $\xi$-bundle curvature has a precise
+scope.  The pair correlation (\#20) and number variance (\#28) are
+confirmed at the level of spectral two-point statistics.  However,
+the spacing ratio distribution (\#34, KS $p = 4.7 \times 10^{-4}$,
+systematic $+2.2\%$ excess), the curvature value distribution
+(\#35, KS $D = 0.361$, scale mismatch $7.6\times$), and the
+$\kappa$ autocorrelation (\#36, first zero-crossing at
+$\tau_\text{unf} = 0.45$ vs.\ GUE prediction $1.0$) each fail the
+respective GUE criterion.  We identify two structural causes:
+(i)~the $G(s)$ background term in $\kappa = |G(s) + \zeta'/\zeta(s)|^2$
+introduces a scale offset invisible to simple GUE substitution, and
+(ii)~the curvature is locally determined, with correlation length
+$\tau_\text{unf} \approx 0.48$ shorter than the GUE scale $\approx 1$.
+Reporting these boundaries is not a concession but a scientific
+contribution: it specifies exactly where the analogy holds and where
+it does not, a necessary step toward any rigorous formulation.
 
 
 % ============================================================================
