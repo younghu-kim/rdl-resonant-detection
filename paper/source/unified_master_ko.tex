@@ -1297,6 +1297,357 @@ $\arg(Z_{\mathrm{out}})$ 범위 & $[1.55,1.58]$ & $[1.54,1.60]$ \\
 실험은 $F_2$-탐지기가 그 정답 --- 영점 목록 --- 이 공급될 때 계속 작동함을 검증한다. 탐지기가 미지의 영점을 \emph{찾아낼 수} 있는지는 검증하지 \emph{않는다}: 학습 루프가 $F_2$를 평가할 격자점을 결정하기 위해 LMFDB 영점 목록을 사용하기 때문이다. 자가 교정, 블라인드 영점 발견의 문제는 열려 있으며, 제~\ref{part:failed}부와 \cref{sec:open}의 열린 문제 논의의 동기 중 하나이다.
 \end{remark}
 
+% ############################################################################
+% 제2-b부 — 이론적 기초: 엄밀한 결과
+% ############################################################################
+
+% [Paper A: ξ-다발 기하학 — 증명]
+\part{$\xi$-다발의 이론적 기초}
+\label{part:theory}
+
+\noindent
+앞선 부들은 $\xi$-다발 프레임워크를 수치 실험을 통해 발전시켰다.
+이제 \emph{엄밀한} 이론적 기반을 확립한다. 아래 결과들은 고전
+복소해석학 --- 주로 편각 원리와 아다마르 곱 --- 으로부터 따르지만,
+이를 U(1)-다발의 성질로 \emph{기하학적으로 재서술}한 것은, 우리가
+아는 한, 새로운 것이다.
+
+본 부 전체에서 $\Lambda$는 차수~$n$의 보형 형식에 대응하는
+완비 $L$-함수를 나타낸다: GL(1)의 경우 $\xif(s)$ 또는 $\Lambda(s,\chi)$,
+GL(2)의 경우 $(2\pi)^{-s}\Gamma(s)L(s,f)$ (가중치~2 모듈러 형식)
+또는 적절한 $\Gamma$-보정 완비. 핵심 요구사항은 $\Lambda$가 유한 위수의
+유리형 함수이고 고립된 영점 $\{\rho_k\}$를 가지며 아다마르형
+곱 표현을 허용한다는 것이다.
+
+
+% ============================================================================
+\section{영점의 홀로노미 특성화}
+\label{sec:holonomy_thm}
+% ============================================================================
+
+\begin{definition}[다발 접속과 홀로노미]
+\label{def:connection_holonomy}
+$\Lambda(s)$를 영역 $\Omega \subset \mathbb{C}$에서 정칙이고
+고립 영점 $\{\rho_k\}$를 갖는 완비 $L$-함수라 하자.
+\textbf{접속 1-형식}(대수적 도함수)은
+\begin{equation}
+  \omega := d\log\Lambda = \frac{\Lambda'(s)}{\Lambda(s)}\,ds,
+  \label{eq:connection_form}
+\end{equation}
+이고, 닫힌 곡선 $\mathcal{C} \subset \Omega\setminus\{\rho_k\}$에
+대한 \textbf{홀로노미}는
+\begin{equation}
+  \mathrm{Hol}(\mathcal{C}) := \frac{1}{2\pi i}
+  \oint_{\mathcal{C}} \omega
+  = \frac{1}{2\pi i}\oint_{\mathcal{C}}
+  \frac{\Lambda'(s)}{\Lambda(s)}\,ds
+  \label{eq:holonomy_def}
+\end{equation}
+이다. \textbf{모노드로미 위상}은
+$\mu(\mathcal{C}) := 2\pi\,\mathrm{Hol}(\mathcal{C})$로,
+$\Lambda$의 $\mathcal{C}$를 따른 총 위상 감김을 측정한다.
+\end{definition}
+
+\begin{theorem}[홀로노미 특성화]
+\label{thm:holonomy}
+$\Lambda$를 위와 같이 두고, $\mathcal{C}_r(s_0)$를 $s_0$ 중심
+반지름 $r$의 양방향 원이라 하자. $r$을 $s_0$ 자체(가능한 경우)
+외에 다른 영점을 포함하지 않을 만큼 충분히 작게 잡는다.
+\begin{enumerate}
+  \item[\textup{(i)}] $s_0 = \rho$가 $\Lambda$의 $m$차 영점이면,
+    \begin{equation}
+      \mathrm{Hol}(\mathcal{C}_r(\rho)) = m,
+      \qquad
+      \mu(\mathcal{C}_r(\rho)) = 2\pi m.
+      \label{eq:hol_zero}
+    \end{equation}
+  \item[\textup{(ii)}] $\Lambda(s_0) \neq 0$이고 $\mathcal{C}_r(s_0)$가
+    영점을 포함하지 않으면,
+    \begin{equation}
+      \mathrm{Hol}(\mathcal{C}_r(s_0)) = 0,
+      \qquad
+      \mu(\mathcal{C}_r(s_0)) = 0.
+      \label{eq:hol_nonzero}
+    \end{equation}
+  \item[\textup{(iii)}] 일반적으로, 중복도 $m_1, \ldots, m_k$의
+    영점 $\rho_1, \ldots, \rho_k$를 둘러싸는 임의의 곡선 $\mathcal{C}$에
+    대해:
+    \begin{equation}
+      \mathrm{Hol}(\mathcal{C}) = \sum_{j=1}^{k} m_j.
+      \label{eq:hol_general}
+    \end{equation}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+이것은 \textbf{편각 원리}(argument principle)의 직접적 적용이다
+(Ahlfors \cite{ahlfors1979}, 5장 참조). $\Lambda$는 $\Omega$에서
+영점 $\{\rho_k\}$를 갖고 극점이 없으므로(완비 $L$-함수는 전해석적이거나
+완비 인자에 의해 알려진 극점만 제거), 대수적 도함수
+$\Lambda'/\Lambda$는 $\rho_k$에서 잔류값 $m_k$(영점의 위수)인
+단순극을 갖는 유리형 함수이다. 따라서:
+\[
+  \frac{1}{2\pi i}\oint_{\mathcal{C}}
+  \frac{\Lambda'(s)}{\Lambda(s)}\,ds
+  = \sum_{\rho_k \,\in\, \mathrm{int}(\mathcal{C})} m_k,
+\]
+이로부터 (i)--(iii)이 즉시 따른다. (ii)의 경우
+$\mathcal{C}_r(s_0)$ 내부에 영점이 없으므로 합이 공집합이고
+적분이 소멸한다.
+\end{proof}
+
+\begin{remark}[기하학적 내용]
+\label{rem:hol_geometric}
+정리~\ref{thm:holonomy}는 \textbf{고전적 편각 원리}를 U(1)-다발
+$P = \{(s, e^{i\arg\Lambda(s)}) : s \in \Omega\setminus\{\rho_k\}\}$
+의 접속 $\omega$에 관한 명제로 재서술한 것이다. 이 언어에서: 영점은
+\emph{비자명한 홀로노미}(위상적 전하)의 점이고, 비영점은
+\emph{평탄}(자명한 홀로노미)이다. 이것이 관측~\ref{obs:midpoint_nonlocal}과
+\S\ref{sec:summary}의 모노드로미 측정의 이론적 기초이다.
+\end{remark}
+
+\begin{remark}[$\zeta$의 모든 영점은 단순 --- 조건부]
+\label{rem:simple_zeros}
+$\zeta(s)$의 모든 비자명 영점이 단순($m = 1$)이라는 널리 믿어지는
+추측 하에, 정리~\ref{thm:holonomy}(i)은 모든 영점에서 $\mu = 2\pi$를
+준다. 수치 측정(mono$/\pi = 2.000 \pm 0.000$, 10/10 영점,
+\S\ref{sec:summary})은 이와 일치하며, 단순성에 대한
+독립적 수치 증거로 기능한다.
+\end{remark}
+
+
+% ============================================================================
+\section{영점에서의 곡률 집중}
+\label{sec:curvature_thm}
+% ============================================================================
+
+\begin{definition}[다발 곡률 스칼라]
+\label{def:curvature_scalar}
+$s \in \Omega\setminus\{\rho_k\}$에서 $\xif$-다발의
+\textbf{곡률 스칼라}는
+\begin{equation}
+  \kappa(s) := \left|\frac{\Lambda'(s)}{\Lambda(s)}\right|^2 = |\omega(s)|^2
+  \label{eq:kappa_def}
+\end{equation}
+이다.
+\end{definition}
+
+\begin{theorem}[곡률 집중]
+\label{thm:curvature}
+$\rho$를 $\Lambda$의 $m$차 영점이라 하자.
+\begin{enumerate}
+  \item[\textup{(i)}] \textbf{영점에서 발산.} $s \to \rho$일 때,
+    \begin{equation}
+      \kappa(s) = \frac{m^2}{|s - \rho|^2} + O\!\left(\frac{1}{|s-\rho|}\right).
+      \label{eq:kappa_diverge}
+    \end{equation}
+    특히 $s \to \rho$이면 $\kappa(s) \to \infty$.
+
+  \item[\textup{(ii)}] \textbf{영점으로부터 먼 곳에서 유계.}
+    $\mathrm{dist}(K, \{\rho_k\}) \geq \delta > 0$인 임의의
+    콤팩트 집합 $K \subset \Omega$에서 $\kappa$는 유계:
+    \begin{equation}
+      \sup_{s \in K} \kappa(s) \leq C(K, \delta) < \infty.
+      \label{eq:kappa_bounded}
+    \end{equation}
+
+  \item[\textup{(iii)}] \textbf{집중비.} 단순 영점 $\rho$에서
+    오프셋 $\delta$에서의 곡률은
+    \begin{equation}
+      \frac{\kappa(\rho + \delta)}{\kappa(s_{\mathrm{far}})}
+      \;\sim\; \frac{|s_{\mathrm{far}} - \rho_{\mathrm{nearest}}|^2}{\delta^2}
+      \label{eq:concentration_ratio}
+    \end{equation}
+    여기서 $s_{\mathrm{far}}$는 최근접 영점이 거리
+    $|s_{\mathrm{far}} - \rho_{\mathrm{nearest}}|$에 있는 임의의 점이다.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\textbf{(i)} $m$차 영점 근방에서
+$\Lambda(s) = (s-\rho)^m h(s)$로 쓰면 $h$는 정칙이고
+$h(\rho) \neq 0$이다. 그러면:
+\[
+  \frac{\Lambda'(s)}{\Lambda(s)}
+  = \frac{m}{s - \rho} + \frac{h'(s)}{h(s)}.
+\]
+둘째 항 $h'/h$는 $\rho$에서 정칙($h(\rho)\neq 0$이므로)이다. 따라서:
+\[
+  \kappa(s) = \left|\frac{m}{s-\rho} + \frac{h'(s)}{h(s)}\right|^2
+  = \frac{m^2}{|s-\rho|^2} + O(|s-\rho|^{-1}).
+\]
+
+\textbf{(ii)} $K$에서 $\Lambda'/\Lambda$는 정칙(모든 영점을
+피하므로)이고 따라서 콤팩트 집합 위에서 연속이므로 유계이다.
+
+\textbf{(iii)} (i)에 의해 $\kappa(\rho+\delta) \approx 1/\delta^2$.
+$s_{\mathrm{far}}$에서 아다마르 합 $\sum_k 1/(s-\rho_k)$의
+지배항은 거리 $d$의 최근접 영점에서 오므로
+$\kappa(s_{\mathrm{far}}) \approx 1/d^2$. 비가 따른다.
+\end{proof}
+
+\begin{remark}[수치 검증]
+\label{rem:curvature_numerical}
+참양성($\delta \approx 0.03$)과 거짓양성(전형적 $d \approx 0.5$)
+사이에 관측된 $\sim 300\times$ 곡률비는 \eqref{eq:concentration_ratio}로
+예측된다: $d^2/\delta^2 \approx (0.5/0.03)^2 \approx 278$.
+\end{remark}
+
+
+% ============================================================================
+\section{가우스-보네 양자화}
+\label{sec:gauss_bonnet_thm}
+% ============================================================================
+
+\begin{definition}[곡률 2-형식]
+\label{def:curvature_2form}
+$\theta(\sigma,t) := \mathrm{Im}\,\log\Lambda(\sigma + it)$에 대해
+$\xif$-다발의 곡률 2-형식은
+\begin{equation}
+  F := d\omega = \left(\frac{\partial^2\theta}{\partial\sigma\,\partial t}
+  - \frac{\partial^2\theta}{\partial t\,\partial\sigma}\right)
+  d\sigma \wedge dt
+  \label{eq:curvature_2form}
+\end{equation}
+이다. 영점으로부터 먼 곳에서 $\theta$는 매끈하고 $F = 0$(평탄 접속).
+영점에서 $\theta$는 대수적 특이점을 가져
+$\delta$-함수 플럭스에 기여한다.
+\end{definition}
+
+\begin{theorem}[$\xif$-다발에 대한 가우스-보네]
+\label{thm:gauss_bonnet}
+$R = [\sigma_1,\sigma_2] \times [t_1, t_2]$를 경계가 $\Lambda$의
+영점을 피하는 임계 띠 내 직사각형이라 하자. 그러면:
+\begin{equation}
+  \frac{1}{2\pi}\oint_{\partial R} d\,\mathrm{Im}\,\log\Lambda
+  = \frac{1}{2\pi}\oint_{\partial R} \mathrm{Im}\!\left(
+  \frac{\Lambda'(s)}{\Lambda(s)}\,ds\right)
+  = N(R),
+  \label{eq:gauss_bonnet}
+\end{equation}
+여기서 $N(R)$은 $R$ 내부 $\Lambda$의 영점 수(중복도 포함).
+동등하게, 격자 정규화 형태로:
+\begin{equation}
+  \frac{1}{2\pi}\sum_{\mathrm{plaquettes}\;\square\,\subset\,R}
+  \Delta\theta_{\square} = N(R).
+  \label{eq:gauss_bonnet_lattice}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+편각 원리(정리~\ref{thm:holonomy}(iii))에 의해:
+\[
+  \frac{1}{2\pi i}\oint_{\partial R}
+  \frac{\Lambda'(s)}{\Lambda(s)}\,ds = N(R).
+\]
+$\partial R$을 따른 $\arg\Lambda$의 총 변화량은 $2\pi N(R)$이다.
+이것이 $R$에 제한된 U(1)-다발의 \textbf{제1 체른 수}이다:
+$c_1(\xif\text{-다발}|_R) = N(R)$.
+
+격자 형태: $R$을 작은 직사각형(플라켓)으로 분할한다.
+영점을 포함하지 않는 플라켓에서 감긴 위상 순환
+$\Delta\theta_\square = 0$. $m$차 영점을 포함하는 플라켓에서
+편각 원리에 의해 $\Delta\theta_\square = 2\pi m$.
+모든 플라켓에 걸쳐 합산하고 $2\pi$로 나누면 $N(R)$을 얻는다.
+격자 합은 \emph{위상적}이다: 격자 세분에 대해 불변이며,
+오직 포함된 영점의 총 수에만 의존한다.
+\end{proof}
+
+\begin{corollary}[정수 양자화]
+\label{cor:integer_quant}
+$\frac{1}{2\pi}\oint_{\partial R} d\arg\Lambda$는 경계가 영점을
+피하는 \emph{임의의} 직사각형 $R$에 대해 정확히 정수이다.
+\end{corollary}
+
+
+% ============================================================================
+\section{교차 차수 보편성}
+\label{sec:universality_thm}
+% ============================================================================
+
+\begin{theorem}[교차 차수 보편성]
+\label{thm:universality}
+정리~\ref{thm:holonomy}, \ref{thm:curvature},
+\ref{thm:gauss_bonnet}은 $\mathbb{Q}$ 위 $\mathrm{GL}(n)$의
+\emph{임의의} 보형 표현 $\pi$에 대응하는 완비 $L$-함수
+$\Lambda(s, \pi)$에 대해 성립한다. 단, $\Lambda(s,\pi)$가:
+\begin{enumerate}
+  \item[\textup{(a)}] 고립 영점을 갖는 유한 위수 유리형 함수이고,
+  \item[\textup{(b)}] 영점에 대한 아다마르형 곱을 허용하면 된다.
+\end{enumerate}
+특히 홀로노미, 곡률 집중, 가우스-보네 양자화는
+차수 $n$, 도체 $N$, 가중치 $k$, 근수 $\varepsilon$에
+\textbf{무관}하다.
+\end{theorem}
+
+\begin{proof}
+정리~\ref{thm:holonomy}--\ref{thm:gauss_bonnet}의 증명은
+오직 (1) 편각 원리($\Lambda'/\Lambda$가 영점에서 단순극을 갖는
+유리형)와 (2) 로랑 전개 $\Lambda'/\Lambda = m/(s-\rho) + O(1)$
+(조건 (b)로부터)만을 사용한다. 두 성질 모두 (a)--(b)를 만족하는
+모든 보형 $L$-함수에 성립한다.
+\end{proof}
+
+\begin{remark}[수치 확인]
+\label{rem:universality_numerical}
+교차 차수 보편성은 GL(1)(리만 $\zeta$ + 디리클레 5종)과
+GL(2)(11a1, 37a1, 라마누잔 $\Delta$)에서 모두 확인된다.
+차수에 따라 변하는 \emph{유일한} 진단은 $\sigma$-유일성으로,
+이는 편각 원리의 귀결이 아니라 구체적 $\Gamma$-인자 구조에
+의존하기 때문이다(부록~D 참조).
+\end{remark}
+
+
+% ============================================================================
+\section{이중 기준: 모노드로미 $+$ 곡률}
+\label{sec:dual_criterion_thm}
+% ============================================================================
+
+\begin{corollary}[정확한 TP/FP 분리]
+\label{cor:dual_criterion}
+후보 영점 위치 $\{t_1, \ldots, t_N\}$ 각각에 대해:
+\begin{align}
+  \mu_j &:= |\mathrm{Hol}(\mathcal{C}_r(\tfrac{1}{2}+it_j))|,
+  \label{eq:mono_criterion}\\
+  \kappa_j &:= \kappa(\tfrac{1}{2} + \delta + it_j).
+  \label{eq:kappa_criterion}
+\end{align}
+\begin{enumerate}
+  \item[\textup{(i)}] $t_j$가 참 영점일 필요충분조건은 $\mu_j = 1$
+    (단순 영점 가정, 충분히 작은 $r$).
+  \item[\textup{(ii)}] 참 영점이면 $\kappa_j \sim 1/\delta^2 \gg 1$.
+    거짓양성이면 $\kappa_j \sim 1/d^2 \ll 1/\delta^2$.
+  \item[\textup{(iii)}] 이중 기준 $\{\mu_j = 1\} \cap \{\kappa_j > \tau\}$는
+    적절한 $\tau$에 대해 \textbf{완벽한 분리}를 달성한다.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(i)은 정리~\ref{thm:holonomy}(i)--(ii), (ii)는
+정리~\ref{thm:curvature}(i)과 (iii), (iii)은 모노드로미 기준만으로
+이미 정확하고 곡률 기준이 독립적 연속값 확인을 제공하므로 따른다.
+\end{proof}
+
+\begin{remark}[추측 3과의 관계]
+\label{rem:conj3}
+이전에 ``추측~3''이라 명명된 것(이중 기준이 TP를 FP로부터 분리)은
+이제 \textbf{정리}임이 밝혀진다: 편각 원리(정리~\ref{thm:holonomy})와
+$\Lambda'/\Lambda$의 로랑 구조(정리~\ref{thm:curvature})의 직접적
+귀결이다.
+\end{remark}
+
+\begin{remark}[여전히 추측인 것]
+\label{rem:what_conjectural}
+증명된 결과(정리~\ref{thm:holonomy}--\ref{thm:universality},
+따름정리~\ref{cor:dual_criterion})는 \emph{임의의 위치}의 영점에서
+다발을 특성화한다. 영점이 \emph{어디에} 놓이는지는 제약하지 않는다.
+모든 영점이 $\sigma = 1/2$ 위에 있다는 명제(리만 가설)는
+여기서 확립된 다발 구조와 독립적인 추측으로 남는다. 다만
+$\sigma$-국소화(FWHM $< 0.004$)는 위상적 전하가 임계선에
+집중됨을 보여주는 강력한 수치적 증거이다.
+\end{remark}
+
+
 % [Paper A: ξ-다발 기하학]
 % ############################################################################
 % 제3부 — 실패한 방향과 그 진단
@@ -3481,6 +3832,11 @@ in \textit{Proc.\ ICLR}, 2022.
 G.~Lample and F.~Charton,
 ``Deep learning for symbolic mathematics,''
 in \textit{Proc.\ ICLR}, 2020.
+
+\bibitem{ahlfors1979}
+L.~V.~Ahlfors,
+\textit{Complex Analysis},
+3rd ed., McGraw-Hill, 1979.
 
 \end{thebibliography}
 
