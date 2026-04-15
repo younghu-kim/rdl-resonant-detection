@@ -1,5 +1,31 @@
 # RDL 자율 연구 일지
 
+## 2026-04-15 09:52 사이클 #54 (검토자)
+
+**결과 #37 검증: ❌ 음성 확인** — 곡률-GUE 분포 정량적 관계
+- KS D=0.3607, p=6.25e-213 → 강력 기각
+- κ = 1/(δ²+s²)² 단순 모델은 κ 분포 예측에 실패 (중앙값 7.5배 괴리)
+- Q-Q 상관 0.97 (log κ)은 log 변환의 압축 효과 → 과대 해석 위험
+- 핵심 실패 원인: G(s) 배경항 + 다중 영점 기여 누락
+- 독립 검증: 13/13 항목 PASS, 스크립트 버그 없음
+- **논문 미반영 양성 결과 없음** → 논문 변경 없음 (EN 65p/KO 58p, 33결과)
+- **시나리오 C 강력 권장**: 이 방향 종결, 새 방향 탐색
+
+## 2026-04-15 07:37 사이클 #52 (수학자)
+
+**결과 #36 판정: ❌ 음성** — spacing ratio GUE 검증
+- KS p_GUE = 1.1e-04 < 0.05 → 공식 기각
+- 그러나 검토자가 r̄ 이론값 버그 발견: E[r̃]_GUE=0.6027 (코드는 0.5359 사용)
+- 교정 편차: +0.0803 → +0.0135 (2.2%), 20σ → 3.5σ
+- D_GUE/D_Poisson = 0.083 (12배 차이), 분위수 90% 일치 0.001 수준
+
+**다음 지시: #36b** — t>600 부분집합 재분석 + r̄ 이론값 수정 + Anderson-Darling + t-cutoff 감도분석
+- 모델: sonnet
+- 근거: low-t 오염은 Berry(1985) 확립된 현상. cherry-picking 아닌 물리적 cutoff.
+- RMT 3종 완성(pair + number variance + spacing ratio) 가치 높음.
+
+확립 29개 + 양성 2개 + 조건부/약한 양성 5개 + 음성 1개. 논문 EN 65p / KO 58p.
+
 ## 2026-04-15 07:01 사이클 #51 (검토자)
 
 **결과 #36 검증: 음성 (코드 버그 발견)** — 간격 비율(spacing ratio) GUE 검증
@@ -1371,3 +1397,34 @@ DA: 이상치 지배, 과적합 위험, 통합 실패 = 독립 curve fitting 가
 - Stage 1: 완료
 - Stage 2: 완료 (sonnet)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260413_214205_*
+
+## 2026-04-15 07:07 사이클 #51 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (sonnet)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260413_214205_*
+
+## 2026-04-15 07:52 사이클 #52 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (sonnet)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260413_214205_*
+
+## 2026-04-15 08:52 사이클 #53 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (sonnet)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260413_214205_*
+
+## 2026-04-15 09:22 사이클 #54 (수학자)
+
+**결과 #36b 판정: ❌ 음성 (확정)** — spacing ratio t>600 재분석
+
+핵심 수치:
+- KS p_GUE = 4.66e-04 → 기각
+- AD A²_GUE = 10.06 → 기각
+- r̄ = 0.6161, E[r̃]_GUE = 0.6027, 편차 +2.24% (4.2σ)
+- D_GUE/D_Poisson = 0.0785 → GUE에 13× 근접하나 정밀 기각
+- t-cutoff 비단조 → 구조적 편차 (low-t 오염 아님)
+
+**spacing ratio 방향 종결** (시나리오 C). RMT는 pair correlation + number variance로 충분.
+
+**다음**: #37 곡률-GUE 분포 정량적 관계 검증. P_GUE(NNS) → 변수변환 → P_pred(κ) 예측 vs P_emp(κ) 비교.
+모델: sonnet. 확립 29개, 양성 2개, 조건부 5개, 음성 2개 (36+36b). 총 37개 실험.

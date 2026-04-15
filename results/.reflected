@@ -83,9 +83,13 @@ results/capacity_scaling.txt
 results/cluster_physics_v2.txt
 results/compare_fourier_modes.txt
 results/complex_vector_readout.txt
+results/curvature_delta_sweep.txt
+results/curvature_gue_distribution_37.txt
 results/curvature_gue_residual.txt
+results/curvature_hadamard_prediction.txt
 results/curvature_midpoint_nonlocal_v2.txt
 results/curvature_residual_nonlocal.txt
+results/curvature_subleading.txt
 results/data_density_scaling.txt
 results/davenport_heilbronn_adversarial.txt
 results/dh_small_radius_diagnosis.txt
@@ -113,6 +117,7 @@ results/gauss_bonnet_area_integral.txt
 results/gram_point_curvature.txt
 results/gue_poisson_midpoint_comparison.txt
 results/high_height_scaling.txt
+results/high_t_calibration.txt
 results/high_t_scaling.txt
 results/holonomy_chern_dirichlet.txt
 results/holonomy_chern_even_character.txt
@@ -145,6 +150,8 @@ results/s1_geodesic_readout.txt
 results/s1_geo_high_height.txt
 results/smooth_target_full_loss.txt
 results/smooth_zero_crossing.txt
+results/spacing_ratio_36b.txt
+results/spacing_ratio_gue.txt
 results/synthetic_offcritical_control.txt
 results/triple_consistency_table.txt
 results/zero_107_analysis.txt
