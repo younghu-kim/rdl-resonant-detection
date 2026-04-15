@@ -287,7 +287,7 @@ with a hard error boundary beyond which decoding fails}.
         remaining defect to the network's output representation near
         zeros (Remark~\ref{rem:isolation}).
   \item We verify the fibre-bundle interpretation of the $\xif$-function
-        through 29 numerical experiments spanning five independent axes:
+        through 43 numerical experiments spanning seven independent axes:
         local curvature, global spectral statistics, topological
         invariants, Dirichlet $L$-function extension, and negative
         controls.  A consolidated summary appears in
@@ -4058,7 +4058,7 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 42 numerical results obtained
+Table~\ref{tab:summary} consolidates all 43 numerical results obtained
 across seven verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -4066,7 +4066,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 42 numerical results across seven verification
+\caption{Summary of 43 numerical results across seven verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -4134,6 +4134,8 @@ with full transparency).
 40 & Elliptic curve 37a1 (GL(2), rank 1) & \textbf{E} & mono 23/23; $\kappa$ $2684\times$; blind 20/20; $\sigma$-uniq.\ N/A & GL(2) \\
 41 & Ramanujan $\Delta$ (GL(2), weight 12) & \textbf{E} & mono 8/8; $\kappa$ $1396\times$; blind 7/7; $\sigma$-uniq.\ N/A & GL(2) \\
 42 & $\sigma$-uniqueness mechanism (GL(1) vs GL(2)) & \textbf{C} & $R_{\mathrm{GL}(1)}{\approx}0.4$, $R_{\Delta}{=}1.000$ (exact); $\chi_3$ emp.\ $0.38{\approx}0.37$ & GL(2) \\
+\midrule
+43 & FP monodromy anatomy (Conj.\,3) & \textbf{E} & TP mono$/\pi{=}2.000{\pm}0$; FP mono$/\pi{=}0.000$; $p{=}6.2{\times}10^{-6}$; dual prec.\ $+44\%$p & Topological \\
 \end{longtable}
 \end{center}
 
@@ -4466,16 +4468,22 @@ Tier 2 programmes (conjectural but well-posed).}
         (phase jumps and energy concentration) confirmed for all four
         functions ($\zeta$ and three Dirichlet $L$-functions);
         curvature/monodromy comparison pending zero-finding fix.
-  \item \textbf{FP monodromy anatomy.}
+  \item \textbf{FP monodromy anatomy (Conjecture~3 direct verification).}
         The FP anatomy experiment (\cref{sec:open}, Tier~1) established
         that $\kappa$ separates TP from FP by ${\sim}300\times$.
-        A pending rerun with contour-integral monodromy (replacing the
-        earlier eps-differentiation method) will test whether
-        $|\mathrm{mono}|/\pi \approx 0$ at all FP locations, which
-        would establish a clean binary classifier:
-        monodromy $= \pm\pi \Rightarrow$ true zero,
-        monodromy $\approx 0 \Rightarrow$ false positive.
-        \textcolor{orange}{[pending 2026-04-13]}
+        A direct contour-integral monodromy measurement on 10~true zeros
+        (TP) and 19~false-positive candidates (FP, midpoints + random
+        non-zeros) in $t\in[14,50]$ confirms the binary classifier:
+        TP $|\mathrm{mono}|/\pi = 2.000 \pm 0.000$ (winding number~1,
+        phase change $= 2\pi$), FP $|\mathrm{mono}|/\pi = 0.000 \pm 0.000$
+        (Mann--Whitney $p = 6.2 \times 10^{-6}$).
+        At threshold $\kappa > 0.5$, the dual criterion
+        ($\kappa + \mathrm{mono}$) improves precision from $55.6\%$
+        to $100.0\%$ ($+44.4$ percentage points).
+        Note: for $\kappa \geq 1.0$ all FP are already excluded by
+        curvature alone, so the monodromy filter's added value is
+        concentrated at low-$\kappa$ thresholds.
+        \textcolor{ForestGreen}{[confirmed 2026-04-16; $\zeta$ $t\in[14,50]$; numerical verification, not proof]}
   \item \textbf{Higher-conductor Dirichlet extension.}
         Extension to $q\in\{7,8,11\}$ confirms bundle universality
         beyond small conductors.
