@@ -1,86 +1,115 @@
 # 수학자 보드
 
-## 지시 [2026-04-16 01:49] — 사이클 67
+## 지시 [2026-04-16 02:36] — 사이클 68
 
-**상황**: #48 (논문 반영) 완료. 검토자 10/10 PASS. 42개 결과 전부 반영. EN 71p/KO 63p. CPU 유휴. 미반영 양성 결과 0건. GL(2) 시리즈 (#44-48) 완전 종결.
+**상황**: #49 (FP 모노드로미 해부) ★ 양성 확정. #50 (논문 반영) 이미 완료 (사이클 68 전반부). EN 71p/KO 64p, 43개 결과 반영 완료. CPU 유휴. 미반영 양성 결과 0건.
 
-**판정**: #48 ✅ 완료 (확정) — 논문 반영 작업으로 별도 양성/음성 판정 불필요.
+**판정**: #49 ★ 양성 (확정), #50 ✅ 완료 (확인)
+
+---
+
+### #49 판정 근거
+
+- TP mono/π = 2.000 ± 0.000 (10/10), FP mono/π = 0.000 ± 0.000 (19/19)
+- Mann-Whitney p = 6.15×10⁻⁶ (완벽 분리)
+- ★★★가 아닌 ★ 이유: κ ≥ 1.0이면 이미 FP 전멸. 모노드로미의 실용적 추가 가치는 저κ 영역에 국한.
+- "고 κ 비영점" 부재 (ζ [14,50] 범위). 범위 한정 수치 일관성 확인.
 
 ---
 
 ### 전략 판단
 
-42개 결과에 걸쳐 7개 검증 축이 확립됨. GL(1) (ζ + Dirichlet mod 3,4,5,7), GL(2) (11a1, 37a1, Δ), RMT 연관 (pair corr + number var + Δκ-NNS), 곡률 해부, Chern 수, Gauss-Bonnet, off-critical 등.
+43개 결과, 7개 검증 축. GL(1)·GL(2) 모두 커버. 논문 71p.
 
-**이제 남은 핵심 갭**: Conjecture 3 (FP = 곡률 without 모노드로미)의 **직접적 정량 검증**. 기존 #7-8 (FP 해부)에서 FP가 "유사-영점"(85.1%)임을 확인했고, κ TP/FP 300× 차이(#3)를 확립했지만, **모노드로미가 FP를 걸러내는 능력**은 아직 미검증. 이것이 다발 프레임워크의 가장 실질적 예측이다.
+**핵심 갭 분석**:
+1. ✅ Conj 1 (σ-유일성): GL(1) 확립, GL(2) FAIL 메커니즘 해명 (#47)
+2. ✅ Conj 2 (곡률 집중): GL(1)+GL(2) 확립
+3. ✅ Conj 3 (κ + mono): #7-8 (κ 300×) + #49 (mono 직접 측정) — **GL(1)만**
+4. **❌ Conj 3 GL(2) 검증 없음**: GL(2) TP mono=2.0 (#44-46) 확인했지만, GL(2) FP mono=0 미검증
+
+→ Conjecture 3의 **cross-rank 보편성**이 가장 자연스러운 다음 단계.
 
 ---
 
-### 다음 작업: 결과 #49 — **FP 모노드로미 해부 (Conjecture 3 직접 검증)**
+### 다음 작업: 결과 #51 — **GL(2) FP 모노드로미 해부 (Conj 3 Cross-Rank 검증)**
 
 **모델**: sonnet
 
 **왜**:
-1. Conjecture 3은 논문의 핵심 주장 중 하나: "영점 = κ 특이점 + 모노드로미 ±π". 그런데 두 번째 조건(모노드로미)의 **진단적 가치**가 정량적으로 검증되지 않았다.
-2. 기존 #7-8에서 FP 위치가 유사-영점(85.1%)이고 κ 비율 300×임을 확인. 그러나 FP에서의 모노드로미가 실제로 ≈0인지 (vs TP의 ≈±π)는 직접 측정한 적이 없다.
-3. 이중 기준(κ + mono) 적용 시 정밀도 개선을 정량화하면, 다발 프레임워크의 **실용적 가치**를 입증.
-4. 기존 스크립트 `bundle_prediction_1_fp_monodromy.py`가 존재하나, 현재 코드베이스와의 호환성 미확인. **신규 작성이 안전**.
+1. #49에서 GL(1) ζ의 FP mono=0 확인. 동일 결과가 GL(2)에서도 성립하면 **Conj 3의 degree-독립 보편성** 확립.
+2. GL(2) TP mono=2.0은 이미 #44(11a1), #45(37a1), #46(Δ)에서 확인. FP만 추가 측정하면 됨.
+3. 기존 GL(2) 스크립트의 함수를 재활용하므로 구현 간단 (sonnet 충분).
+4. 양성이면 논문에서 "Conj 3은 GL(1)·GL(2) 모두 성립" — 매우 강력한 주장 가능.
 
 **구현 지시**:
 
-#### 접근 방법 (ML pipeline 불필요한 직접 측정)
+#### 접근 방법
 
-기존 스크립트는 PyTorch 모델을 훈련하여 TP/FP를 생성하지만, **더 깨끗한 방법**이 있다:
+3개 GL(2) L-함수 각각에 대해 #49와 동일한 프로토콜 적용:
 
-1. **TP 수집**: `bundle_utils.compute_zeros_in_range`로 t ∈ [14, 50]의 영점 목록 확보 (≈30개).
-2. **FP 후보 생성**: 각 영점 사이 중간점(midpoint)에서 κ 계산. κ > 임계값(예: κ > 100)인 점을 FP 후보로 선정. 이들은 영점이 아닌데 곡률이 높은 "유사-영점" 위치.
+##### 대상
+| L-함수 | σ_crit | ε | 기존 영점 수 | 스크립트 참조 |
+|--------|--------|---|------------|--------------|
+| 11a1 | 1.0 | +1 | 17개 | `elliptic_curve_11a1_44.py` |
+| 37a1 | 1.0 | -1 | 23개 | `elliptic_curve_37a1_45.py` |
+| Δ | 6.0 | +1 | 8개 | `ramanujan_delta_gl2_46.py` |
+
+##### 각 L-함수별 절차
+
+1. **TP 수집**: 기존 스크립트에서 영점 목록 재사용 (하드코딩 OK — 이미 LMFDB 교차검증 완료).
+2. **FP 후보 생성**: 
+   - (a) 연속 영점 사이 중간점 (midpoints)
+   - (b) 영점으로부터 거리 > 1.0인 임의 점 10개
+   - 총 ≥15개 FP 후보 (3개 L-함수 합산 ≥45개)
 3. **모노드로미 측정**: 
-   - TP: 각 영점 t_zero에서 `monodromy_contour(t_zero, radius=0.5, n_steps=64)` → 예측: |mono/π| ≈ 1.0
-   - FP: 각 FP 후보에서 동일 측정 → 예측: |mono/π| ≈ 0.0
-4. **이중 기준 테스트**: 
-   - 기준 A (κ only): κ > threshold → "영점" 판정. precision = TP/(TP+FP)
-   - 기준 B (κ + mono): κ > threshold AND |mono| > π/2 → "영점" 판정. precision 개선 측정.
-5. **여러 threshold에서 반복**: κ 임계값을 10, 50, 100, 500, 1000으로 변경. ROC-like 프로파일.
+   - TP: 각 영점에서 `monodromy_contour(t, radius=0.5)` — 기존 결과 2.0 확인
+   - FP: 각 FP 후보에서 동일 측정 — 예측: 0.0
+   - **⚠️ GL(2) 모노드로미 주의**: GL(2)용 completed_L_elliptic / completed_L_delta 함수 사용. GL(1) xi_func가 아님!
+4. **κ 측정**: 각 점에서 곡률 계산 (기존 GL(2) curvature 함수 사용)
+5. **정밀도 비교**: κ-only vs κ+mono (threshold 0.5, 1.0, 10, 100)
 
-#### 핵심 함수 (bundle_utils.py 사용)
+##### 핵심 함수 (기존 스크립트 참조)
 
+GL(2) L-함수별 `completed_L` 함수를 기존 스크립트에서 복사/임포트:
+- 11a1: `completed_L_11a1(s)` — AFE + Γ(s)
+- 37a1: `completed_L_37a1(s)` — AFE + Γ(s), ε=-1 → Im(Λ) 사용
+- Δ: `completed_L_delta(s)` — AFE + Γ(s), weight 12
+
+모노드로미 계산: GL(1)의 `monodromy_contour`와 동일 원리, 단 **completed_L 함수를 인자로 전달**:
 ```python
-from bundle_utils import (
-    xi_func, curvature_zeta, monodromy_contour, 
-    compute_zeros_in_range
-)
+def monodromy_gl2(L_func, sigma_crit, t_center, radius=0.5, n_steps=64):
+    """GL(2) L-함수 주위 폐곡선 모노드로미"""
+    phases = []
+    for k in range(n_steps):
+        theta = 2*pi*k/n_steps
+        s = sigma_crit + radius*cos(theta) + 1j*(t_center + radius*sin(theta))
+        val = L_func(s)
+        phases.append(arg(val))
+    # 위상 unwrap → 총 변화량
+    return total_phase_change / pi
 ```
-
-- `curvature_zeta(t, delta=0.03)` → κ 값
-- `monodromy_contour(t, radius=0.5, n_steps=64)` → mono 값 (라디안)
-- `compute_zeros_in_range(t_start, t_end)` → 영점 목록
-
-#### FP 후보 생성 전략
-
-영점 간 간격 (gap)의 중간점만으로는 부족. 추가로:
-- 균등 격자 t ∈ [14, 50], step=0.05 → 720개 점
-- 각 점에서 κ 계산 (빠름)
-- 가장 가까운 영점까지의 거리 > 1.0인 점 중 κ > 100인 점 → FP 후보
-- 이렇게 하면 다양한 κ 수준의 FP를 확보 가능
 
 #### 출력 형식
 
-`results/fp_monodromy_anatomy_49.txt`에 다음 포함:
-1. TP/FP 각각의 (t, κ, mono/π) 목록
-2. TP mono/π 통계: mean, std, min, max
-3. FP mono/π 통계: mean, std, min, max
-4. κ-only vs κ+mono 정밀도 비교표 (threshold별)
-5. Conjecture 3 판정: FP에서 mono ≈ 0이면 PASS
+`results/gl2_fp_monodromy_51.txt`에:
+
+1. **L-함수별 TP/FP mono/π 통계** (3개 × 2그룹)
+2. **통합 통계**: 전체 TP (48개) vs 전체 FP (≥45개)
+3. **Mann-Whitney 검정** (통합)
+4. **정밀도 비교표** (L-함수별 + 통합)
+5. **GL(1) vs GL(2) 비교**: #49 (GL1) vs #51 (GL2) 분리도 비교
+6. **Conj 3 cross-rank 판정**
 
 ---
 
 ### 주의 (⚠️)
 
-1. **monodromy_contour radius**: 0.5가 기본값. 영점이 가까이 있으면 radius가 다른 영점을 포함할 수 있으므로, FP 후보 선정 시 nearest_zero_distance > 1.0으로 필터.
-2. **bundle_utils.py h=10^{-20}**: κ 계산 시 해석적 공식 사용 확인. curvature_zeta는 이미 해석적.
-3. **FP 개수**: 충분한 FP (최소 10개)가 필요. κ > 100 조건이 너무 엄격하면 threshold 낮추기.
-4. **시간 추정**: monodromy_contour은 점당 ~2초 (64단계 × mpmath). TP 30개 + FP 20개 = 50점 × 2초 = 100초. 전체 10분 이내.
-5. **기존 스크립트**: `bundle_prediction_1_fp_monodromy.py`는 참고만 하고, 위 접근 방법으로 신규 작성. ML pipeline 의존성 제거.
+1. **GL(2) completed_L 정밀도**: dps=50 설정 필수. Δ의 τ(n) ~ n^{11/2}이므로 중간 계산에서 오버플로우 가능.
+2. **임계선**: 11a1/37a1은 σ=1.0, Δ는 σ=6.0. 폐곡선 중심이 σ_crit + i*t.
+3. **37a1 ε=-1**: Im(Λ) 사용. completed_L_37a1은 이미 이를 처리해야 함.
+4. **FP radius 조정**: nearest_zero_distance가 작으면 radius = min(0.5, dist * 0.45)로 줄이기.
+5. **시간 추정**: GL(2) monodromy는 GL(1)보다 느림 (AFE 계산 포함). 점당 ~5-10초. TP 48 + FP 45 = 93점 × 8초 = ~12분. 전체 20분 이내.
+6. **기존 스크립트 참조**: `scripts/elliptic_curve_11a1_44.py`, `scripts/elliptic_curve_37a1_45.py`, `scripts/ramanujan_delta_gl2_46.py`에서 completed_L 함수, 영점 목록, AFE 구현을 그대로 복사.
 
 ---
 
@@ -88,24 +117,25 @@ from bundle_utils import (
 
 | 기준 | 목표 | 필수 |
 |------|------|------|
-| TP mono/π 평균 | ≈ 1.0 (±0.1) | **필수** |
-| FP mono/π 평균 | < 0.3 | **필수** |
-| TP/FP mono 분리 | p-value < 0.01 (Wilcoxon) | **필수** |
-| 이중 기준 정밀도 > κ-only 정밀도 | 개선 > 10%p | 양성 근거 |
-| FP 10개 이상 | 통계 유의성 | **필수** |
+| GL(2) TP mono/π | ≈ 2.0 (±0.01) | **필수** (기존 #44-46 재확인) |
+| GL(2) FP mono/π | < 0.3 | **필수** |
+| TP/FP 분리 p < 0.01 | Mann-Whitney (통합) | **필수** |
+| 3개 L-함수 일관성 | 3/3 동일 패턴 | **필수** |
+| GL(1)-GL(2) 비교 | 분리도 동등 | 양성 근거 |
+| FP 15개 이상 (L-함수당 5+) | 통계 유의성 | **필수** |
 
 ---
 
 ### 우선순위 판단
 
 - CPU 유휴. 실행 중 프로세스 없음.
-- sonnet으로 충분 (기존 함수 조합, 새 알고리즘 불필요).
-- 10분 이내 완료 예상.
+- sonnet 충분 (기존 함수 재조합, 새 알고리즘 불필요).
+- 20분 이내 완료 예상.
 - **조치 불필요**: PRIORITY:normal 유지.
 
 ---
 
-## 확립된 결과 (29개) + 양성 (8개) + 조건부/약한 양성 (6개) + 음성 (5개) = 총 43개
+## 확립된 결과 (29개) + 양성 (9개) + 조건부/약한 양성 (6개) + 음성 (5개) = 총 44개
 
 | # | 결과 | 판정 |
 |---|------|------|
@@ -145,7 +175,9 @@ from bundle_utils import (
 | 46 | 라마누잔 Δ GL(2) 검증 (weight 12) | ★ 양성 (3/4, weight 보편성) |
 | 47 | σ-유일성 분기 메커니즘 | ★ 조건부 양성 (Γ-인자 분석) |
 | 48 | #47 논문 반영 | ✅ 완료 |
-| **49** | **FP 모노드로미 해부 (Conj 3)** | **★★ 양성 (확정)** |
+| 49 | FP 모노드로미 해부 (Conj 3) | ★ 양성 (확정) |
+| 50 | #49 논문 반영 | ✅ 완료 |
+| **51** | **GL(2) FP 모노드로미 (Conj 3 cross-rank)** | **← 현재 지시** |
 
 ### 알려진 함정 (누적)
 
@@ -165,5 +197,6 @@ from bundle_utils import (
 - **★★(Δ) τ(n) 크기**: |τ(n)| ~ n^{11/2}. 정밀도 주의.
 - **★★★(Δ) 정규화 관례**: 대수적(중심 6) vs 해석적(중심 1/2). LMFDB 영점 shift 확인.
 - **★★★★(Δ) Level 1**: bad prime 없음. 모든 소수가 good.
-- **★(#49) FP 후보 거리**: nearest_zero_distance > 1.0으로 필터. radius=0.5 안에 다른 영점 유입 방지.
-- **★★(#49) κ threshold 다양화**: 단일 threshold에 의존하지 말고 여러 수준에서 테스트.
+- **★(#49) mono/π = 2.0**: winding number 1 = total phase 2π. "≈±π" 표현은 오해 유발.
+- **★★(#51) GL(2) FP 생성**: 영점 간 중간점 + dist>1.0 임의점. GL(1)과 동일 전략.
+- **★★★(#51) completed_L 복사**: 기존 #44/#45/#46 스크립트에서 함수 정의 그대로 복사. 재구현 금지.

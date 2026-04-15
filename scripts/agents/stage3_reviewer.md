@@ -51,49 +51,55 @@ grep -c 'Result.*#18\|Result.*#19\|midpoint.*nonlocal\|GUE.*Poisson' paper/sourc
 | Paper C | `paper/source/gl2_master_{en,ko}.tex` | `younghu-kim/xi-bundle-gl2` | 분리 준비 |
 | Paper D | `paper/source/quantum_master_{en,ko}.tex` | `younghu-kim/xi-bundle-quantum` | 분리 준비 |
 
-### ★ 저장소 역할 분담 원칙
+### ★ 저장소 구조: 모노레포 + 특화 레포
 
-- **기존 레포 (rdl-resonant-detection)**: 수학적 내용의 본거지. ξ-다발, 스펙트럼 통계, 디리클레 확장 등 **순수 수학 결과는 여기에만** 기입. 기존 레포에는 더 이상 양자/GL(2) 전용 내용을 추가하지 않는다.
-- **새 레포 (xi-bundle-gl2)**: GL(2) 타원곡선 전용. 독립적 연구 질문.
-- **새 레포 (xi-bundle-quantum)**: 양자 시뮬레이션 전용. 독립적 연구 질문.
+#### 원칙
+- **모노레포 (rdl-resonant-detection)** = **원본(source of truth)**
+  - 모든 코드, 모든 논문, 모든 결과가 여기에 있다
+  - 데몬이 작업하는 곳은 항상 여기
+  - 모든 수정은 여기서 먼저 한다
+- **특화 레포** = **내보내기(export)**, 해당 분야 전용 경량 뷰
+  - `xi-bundle-gl2`: GL(2) 논문 + GL(2) 전용 스크립트만
+  - `xi-bundle-quantum`: 양자 모듈 + 문서만
+  - 공통 코드는 복사하지 않음 — README에 "전체 코드는 rdl-resonant-detection 참조" 명시
 
-### 병렬 기입 (Bridge Result)
+#### 모노레포 내 구조
+```
+rdl-resonant-detection/
+├── scripts/           ← 공통 + 전체 수학 코드
+├── quantum/           ← 양자 코드 (특화 레포로도 내보내기)
+├── paper/source/
+│   ├── unified_master_{en,ko}.tex    ← Paper A+B (메인)
+│   ├── gl2_master_{en,ko}.tex        ← Paper C (분리 후)
+│   └── quantum_master_{en,ko}.tex    ← Paper D (분리 후)
+├── results/           ← 모든 결과
+└── scripts/agents/sync_repos.sh      ← 특화 레포 자동 동기화
+```
 
-일부 결과는 **양쪽 저장소에 동시 기입**해야 한다:
-- 주 저장소: 상세 내용 (전체 증명/실험/데이터)
-- 부 저장소: 요약 1-2문단 + "see [companion paper] for details"
+#### 동기화 흐름 (자동화)
+```
+모노레포에서 작업 → git push (모노레포)
+                  → sync_repos.sh 자동 실행 (24시간 데몬)
+                  → 특화 레포에 해당 파일만 단방향 동기화
+```
 
-**병렬 기입이 필요한 경우**:
-- 결과가 두 카테고리의 교차점에 있을 때 (예: ξ-다발 곡률이 GL(2)에서도 작동)
-- 한쪽 논문의 서론에서 다른 쪽 결과를 인용해야 할 때
-- 공통 프레임워크(ξ-다발 정의, 접속, 곡률) 업데이트 시 → 모든 논문에 동기화
-
-**병렬 기입 절차**:
-1. 주 카테고리 논문에 상세 반영
-2. 부 카테고리 논문에 요약 반영
-3. 양쪽 모두 컴파일 확인
-4. 양쪽 저장소에 각각 git push
+**검토자가 할 일**: 모노레포에만 반영. 동기화는 `sync_repos.sh`가 자동 처리.
 
 ### 저장소 라우팅 로직
 
-결과 반영 시 다음 순서로 판단:
+결과 반영은 **항상 모노레포에서만** 수행:
 
 ```
 1. 카테고리 판정 (위 키워드 매칭)
-2. 병렬 기입 필요 여부 판단:
-   - 교차점 결과? → 주/부 카테고리 결정 → 양쪽 기입
-   - 단일 카테고리? → 해당 논문에만 기입
-3. 해당 카테고리의 논문 TeX 파일이 존재하는가?
-   - YES → 해당 TeX에 반영
-   - NO → 분리 트리거 확인 (아래)
-     - 트리거 충족 → 새 TeX 파일 생성 + 새 저장소 생성
-     - 트리거 미충족 → Paper A (unified_master)에 임시 배치, 향후 분리
-4. Git push 대상:
-   - Paper A/B → younghu-kim/rdl-resonant-detection (master)
-   - Paper C → younghu-kim/xi-bundle-gl2 (main) [존재 시]
-   - Paper D → younghu-kim/xi-bundle-quantum (main) [존재 시]
-   - 저장소 미생성 시 → 메인 저장소에 push, board/reviewer.md에 "분리 대기" 기록
-   - 병렬 기입 시 → 해당되는 모든 저장소에 push
+2. 모노레포 내 대상 TeX 결정:
+   - Paper A/B → paper/source/unified_master_{en,ko}.tex
+   - Paper C → paper/source/gl2_master_{en,ko}.tex (존재 시)
+   - Paper D → paper/source/quantum_master_{en,ko}.tex (존재 시)
+   - 대상 TeX 미존재 → unified_master에 임시 배치
+3. 병렬 기입 판단:
+   - 교차점 결과? → 주 TeX에 상세, 부 TeX에 요약 + 상호참조
+4. Git push: younghu-kim/rdl-resonant-detection (master) — 항상 여기만
+5. 특화 레포 동기화: sync_repos.sh가 24시간 데몬에서 자동 처리
 ```
 
 ### 논문 분리 트리거
@@ -105,17 +111,13 @@ grep -c 'Result.*#18\|Result.*#19\|midpoint.*nonlocal\|GUE.*Poisson' paper/sourc
 
 ### 분리 실행 절차
 
-1. 새 TeX 파일 생성: `paper/source/{category}_master_{en,ko}.tex`
+1. **모노레포 내** 새 TeX 파일 생성: `paper/source/{category}_master_{en,ko}.tex`
    - 공통 프레임워크(§2 ξ-다발 요약)를 자족적으로 포함
    - "This is Paper II in a series. Paper I [ref] established..."
-2. 기존 논문에서 해당 결과 섹션 이동
+2. 기존 unified_master에서 해당 결과 섹션 이동
    - 원본에 "see companion paper [ref]" 1줄 남김
-3. 새 Git 저장소 생성:
-   ```bash
-   gh repo create younghu-kim/{repo-name} --public --license mit
-   ```
-4. 해당 논문 + 관련 코드 복사 → 새 저장소에 push
-5. 메인 저장소 README에 시리즈 논문 링크 추가
+3. 모노레포에 커밋 + push
+4. sync_repos.sh가 다음 실행 시 특화 레포에 자동 반영
 
 ### 분리 시 주의사항
 - 모든 저장소 라이센스 동일: MIT

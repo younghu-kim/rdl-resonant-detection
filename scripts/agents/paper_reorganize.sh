@@ -211,7 +211,11 @@ run_reorganize() {
         warn "GL(2) 확립 결과 ${GL2_RESULTS}개 — 저장소 분리 시점" | tee -a "$LOGFILE"
     fi
 
-    ok "논문 재배치 점검 완료. 로그: $LOGFILE"
+    # 5. 특화 레포 동기화
+    log "특화 레포 동기화 실행..." | tee -a "$LOGFILE"
+    "$AGENTS_DIR/sync_repos.sh" 2>&1 | tee -a "$LOGFILE"
+
+    ok "논문 재배치 + 동기화 점검 완료. 로그: $LOGFILE"
     rm -f "$LOCK_FILE"
 }
 
