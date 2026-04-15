@@ -4022,7 +4022,7 @@ independent verification: 10/10 items reproduced]}
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 40 numerical results obtained
+Table~\ref{tab:summary} consolidates all 41 numerical results obtained
 across seven verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -4030,7 +4030,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 40 numerical results across seven verification
+\caption{Summary of 41 numerical results across seven verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -4096,6 +4096,7 @@ with full transparency).
 \midrule
 39 & Elliptic curve 11a1 (GL(2)) & \textbf{E} & mono 17/17; $\kappa$ $972\times$; blind 15/15; $\sigma$-uniq.\ N/A & GL(2) \\
 40 & Elliptic curve 37a1 (GL(2), rank 1) & \textbf{E} & mono 23/23; $\kappa$ $2684\times$; blind 20/20; $\sigma$-uniq.\ N/A & GL(2) \\
+41 & Ramanujan $\Delta$ (GL(2), weight 12) & \textbf{E} & mono 8/8; $\kappa$ $1396\times$; blind 7/7; $\sigma$-uniq.\ N/A & GL(2) \\
 \end{longtable}
 \end{center}
 
@@ -4600,14 +4601,14 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{40 results across seven verification
+The numerical evidence spans \textbf{41 results across seven verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
 ($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
 NNS--curvature correlations, (vi)~negative controls establishing
-specificity, and (vii)~extension to GL(2) (elliptic curve $L$-function).  Collectively, results \#22--\#28 form a self-consistent
+specificity, and (vii)~extension to GL(2) (elliptic curves and Ramanujan~$\Delta$).  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
 simultaneously encodes individual winding numbers, Chern-class
 zero counts, Gauss--Bonnet area integrals, $\sigma$-localisation, and
@@ -5073,32 +5074,37 @@ earlier $q=7$ analysis).
 
 
 % ============================================================================
-\section{Beyond GL(1): Elliptic Curve $L$-function (GL(2))}
+\section{Beyond GL(1): GL(2) $L$-functions (Elliptic Curves and Ramanujan $\Delta$)}
 \label{app:gl2}
 % ============================================================================
 
 All preceding results concern GL(1) $L$-functions: the Riemann
 $\zeta$-function and Dirichlet $L(s,\chi)$ for various characters $\chi$.
 A natural question is whether the $\xi$-bundle framework extends to
-\emph{higher-degree} $L$-functions.  We test this on two GL(2)
+\emph{higher-degree} $L$-functions.  We test this on three GL(2)
 cases: (i)~the elliptic curve $11\text{a}1$
 ($y^2 + y = x^3 - x^2 - 10x - 20$, conductor $N = 11$, rank 0,
-root number $\varepsilon = +1$), and (ii)~the curve $37\text{a}1$
+root number $\varepsilon = +1$), (ii)~the curve $37\text{a}1$
 ($y^2 + y = x^3 - x$, conductor $N = 37$, rank 1,
-$\varepsilon = -1$).  These two curves differ in every relevant
-arithmetic parameter: conductor, rank, and root number.
+$\varepsilon = -1$), and (iii)~the Ramanujan $\Delta$ function
+($\Delta(z) = q\prod_{n\geq 1}(1-q^n)^{24}$, level $N = 1$,
+weight $k = 12$, $\varepsilon = +1$).  The first two are weight-2
+modular forms (elliptic curves); the third is weight~12, with
+critical line $\sigma = k/2 = 6$ (versus $\sigma = 1$ for
+elliptic curves).  These three cases span conductors $1, 11, 37$;
+weights $2, 12$; ranks $0, 1$; and root numbers $\pm 1$.
 
 \medskip\noindent
 \textbf{Key differences from GL(1).}
 \begin{itemize}
-  \item \emph{Critical line}: $\operatorname{Re}(s) = 1$ (not $\tfrac{1}{2}$).
-  \item \emph{Completed $L$-function}: $\Lambda(E,s) = (\sqrt{N}/2\pi)^s\,\Gamma(s)\,L(E,s)$,
-        with functional equation $\Lambda(E,2-s) = \varepsilon\,\Lambda(E,s)$.
-  \item \emph{Coefficients}: $a_p = p + 1 - \#E(\mathbb{F}_p)$ for good primes;
-        $a_{11} = 1$ (split multiplicative reduction).
+  \item \emph{Critical line}: $\operatorname{Re}(s) = k/2$ ($= 1$ for weight 2; $= 6$ for weight 12).
+  \item \emph{Completed $L$-function}: $\Lambda(f,s) = (\sqrt{N}/2\pi)^s\,\Gamma(s)\,L(f,s)$,
+        with functional equation $\Lambda(f,k-s) = \varepsilon\,\Lambda(f,s)$.
+  \item \emph{Coefficients}: $a_p = p + 1 - \#E(\mathbb{F}_p)$ for elliptic curves;
+        $\tau(n)$ (Ramanujan tau) for~$\Delta$, with $|\tau(p)| \leq 2p^{11/2}$ (Deligne).
   \item \emph{Evaluation}: Approximate Functional Equation (AFE) with
         upper incomplete gamma functions --- direct Dirichlet series
-        diverges on $\sigma = 1$.
+        converges only conditionally on the critical line.
 \end{itemize}
 
 \medskip\noindent
@@ -5108,21 +5114,29 @@ For 11a1: $L(E,1) = 0.2538418609\ldots$ matches LMFDB to 10 digits;
 For 37a1: $L(E,1) = 0$ (forced zero from $\varepsilon = -1$, confirming rank 1);
 $\Lambda(E,2{-}s) = -\Lambda(E,s)$ verified at four test points;
 24 zeros in $t \in [0, 30]$ including the forced zero at $t = 0$.
-Both functional equations hold to machine precision.
+For the Ramanujan~$\Delta$: $\tau(n)$ coefficients match LMFDB for all
+$n = 1, \ldots, 20$; Hecke recursion $\tau(p^2) = \tau(p)^2 - p^{11}$
+verified at four primes; $\Lambda(\Delta, 12{-}s) = \Lambda(\Delta, s)$
+holds to machine precision at four test points;
+$\gamma_1 = 9.2224\ldots$ matches LMFDB; $L(\Delta, 6) = 0.7921\ldots$;
+8 zeros in $t \in [0.5, 30]$.
+All three functional equations hold to full numerical precision.
 
 \medskip\noindent
 \textbf{Four-property verification.}
 
 \begin{center}
 \small
-\begin{tabular}{lllll}
+\begin{tabular}{llllll}
 \toprule
-Property & 11a1 result & 37a1 result & Key metric & Verdict \\
+Property & 11a1 (wt~2) & 37a1 (wt~2) & $\Delta$ (wt~12) & Key metric & Verdict \\
 \midrule
-$\sigma$-uniqueness & 17 jumps $\forall\sigma$ & 23 jumps $\forall\sigma$ & No discrimination & N/A$^\ddagger$ \\
-Monodromy & 17/17 exact & 23/23 exact & $|\text{mono}|/\pi \in \{2,4\}$ & PASS \\
-$\kappa$ concentration & $972\times$ & $2684\times$ & med.\ 1022/1.1 resp.\ 1002/0.4 & PASS \\
-Blind prediction & 15/15 (100\%) & 20/20 (100\%) & tol $= 0.5$ & PASS \\
+$\sigma$-uniqueness & 17 j.\ $\forall\sigma$ & 23 j.\ $\forall\sigma$ & 8 j.\ $\forall\sigma$ & No discrim. & N/A$^\ddagger$ \\
+Monodromy & 17/17 & 23/23 & 8/8 & $|\text{mono}|/\pi = 2.0$ & PASS \\
+$\kappa$ conc. & $972\times$ & $2684\times$ & $1396\times$ & median near/far & PASS \\
+Blind pred. & 15/15 & 20/20 & 7/7 & tol $= 0.5$ & PASS \\
+\midrule
+\textbf{Score} & \textbf{3/4} & \textbf{3/4} & \textbf{3/4} & & \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -5137,23 +5151,29 @@ framework.  An alternative $\sigma$-discriminant (e.g., based on
 $|\Lambda(\sigma + it)|$ minima) remains open.
 
 \medskip\noindent
-\textbf{Results (\#39--\#40).}
+\textbf{Results (\#39--\#41).}
 Three of the four $\xi$-bundle properties --- monodromy quantisation,
 $\kappa$ concentration, and blind zero prediction --- extend to
-GL(2) elliptic-curve $L$-functions with quantitative strength comparable
-to GL(1).  The pattern is \emph{identical} for both curves despite
-their differing rank (0 vs.\ 1), root number ($+1$ vs.\ $-1$),
-and conductor (11 vs.\ 37): 3/4 PASS in each case, with $\kappa$
-ratios $972\times$ and $2684\times$ respectively.
+GL(2) $L$-functions with quantitative strength comparable
+to GL(1).  The pattern is \emph{identical} across all three cases despite
+their differing weight (2 vs.\ 12), rank (0 vs.\ 1), root number ($+1$ vs.\ $-1$),
+conductor ($1, 11, 37$), and critical line ($\sigma = 1$ vs.\ $\sigma = 6$):
+3/4 PASS in each case, with $\kappa$ ratios $972\times$, $2684\times$,
+and $1396\times$ respectively.
 The forced zero at $s = 1$ for the rank-1 curve 37a1 (arising from
 $\varepsilon = -1$) exhibits perfect monodromy quantisation,
 confirming that the framework handles structural zeros correctly.
+The Ramanujan~$\Delta$ result is particularly significant: weight~12
+entails a completely different $\Gamma$-factor regime
+($\Gamma(s)$ evaluated near $s = 6$ rather than $s = 1$) and
+coefficient growth $|\tau(p)| \sim p^{11/2}$, yet the 3/4 pattern
+persists unchanged.
 This constitutes numerical evidence that the $\xi$-bundle
 framework is \emph{not limited to degree-1 $L$-functions},
-and that GL(2) universality holds independently of the curve's
-arithmetic invariants.
-\textcolor{ForestGreen}{[established, 2026-04-15; 3/4 properties PASS on two curves;
-$\sigma$-uniqueness structurally inapplicable to GL(2)]}
+and that GL(2) universality holds independently of weight,
+conductor, rank, and root number.
+\textcolor{ForestGreen}{[established, 2026-04-15; 3/4 properties PASS on three GL(2) cases
+(weight 2 \& 12); $\sigma$-uniqueness structurally inapplicable to GL(2)]}
 
 
 \section{Negative Result: Gram Point Curvature}

@@ -92,6 +92,7 @@ results/capacity_scaling.txt
 results/cluster_physics_v2.txt
 results/compare_fourier_modes.txt
 results/complex_vector_readout.txt
+results/curvature_autocorr_38.txt
 results/curvature_delta_sweep.txt
 results/curvature_gue_distribution_37.txt
 results/curvature_gue_residual.txt
@@ -105,11 +106,14 @@ results/dh_small_radius_diagnosis.txt
 results/difficulty_regression.txt
 results/dirichlet_blind_prediction.txt
 results/dirichlet_bundle_verification.txt
+results/dirichlet_cross_comparison.txt
 results/dirichlet_high_conductor.txt
 results/dirichlet_midpoint_nonlocal.txt
 results/dirichlet_mod7_40b.txt
 results/dirichlet_mod7_verification.txt
 results/dirichlet_offcritical_anatomy.txt
+results/elliptic_curve_11a1.txt
+results/elliptic_curve_37a1.txt
 results/ensemble_hard_zeros.txt
 results/epstein_adversarial.txt
 results/f2_collective.txt
@@ -155,6 +159,7 @@ results/phase_pi_half_verify.txt
 results/phase_supervised_experiment.txt
 results/pqo_model_independence.txt
 results/precision_filter.txt
+results/ramanujan_delta_46.txt
 results/residual_spectrum.txt
 results/s1_full_integration.txt
 results/s1_geodesic_readout.txt
