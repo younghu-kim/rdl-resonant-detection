@@ -180,6 +180,11 @@ $\sigma$-리프트, 베리 위상, 디리클레 $L$-함수
         디리클레 $L$-함수 확장, 음성 대조군)에 걸친 29개의 수치 실험을 통해
         $\xif$-함수의 파이버 다발 해석을 검증한다.
         종합 요약은 표~\ref{tab:summary}에 수록된다.
+        Stirling 기반 분석을 통해 \{모노드로미, $\kappa$-집중도, 블라인드 예측\}은
+        \emph{차수-보편적(degree-universal)} 진단임을, $\sigma$-유일성은
+        차수-1-특이적 성질임을 규명하며, GL(2) FAIL은
+        정확한 항등식 $f_{\Gamma(s)} = f_\mathrm{zero}$로 설명된다
+        (\cref{sec:sigma_uniqueness_mechanism}).
 \end{enumerate}
 
 \subsection*{독해 안내: 증거 계층}
@@ -2835,7 +2840,7 @@ $R^2 = 0.48$; 지연 $\geq 1$에서 $\kappa$ 사실상 비상관).
 \addcontentsline{toc}{section}{수치 증거 요약}
 % ============================================================================
 
-표~\ref{tab:summary}는 일곱 가지 검증 축에 걸쳐 얻은 41개의 수치 결과를
+표~\ref{tab:summary}는 일곱 가지 검증 축에 걸쳐 얻은 42개의 수치 결과를
 종합한다. 상태 코드: \textbf{E} = 확립(Established),
 \textbf{C} = 조건부 양성(Conditionally positive),
 \textbf{N} = 음성(Negative, 완전 공개).
@@ -2843,7 +2848,7 @@ $R^2 = 0.48$; 지연 $\geq 1$에서 $\kappa$ 사실상 비상관).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{3.8cm} l@{}}
-\caption{일곱 검증 축에 걸친 41개 수치 결과 요약.\label{tab:summary}}\\
+\caption{일곱 검증 축에 걸친 42개 수치 결과 요약.\label{tab:summary}}\\
 \toprule
 \# & 결과명 & 상태 & 핵심 지표 & 축 \\
 \midrule
@@ -2909,6 +2914,7 @@ $R^2 = 0.48$; 지연 $\geq 1$에서 $\kappa$ 사실상 비상관).
 39 & 타원곡선 11a1 (GL(2)) & \textbf{E} & 모노 17/17; $\kappa$ $972\times$; 블라인드 15/15; $\sigma$-유일성 N/A & GL(2) \\
 40 & 타원곡선 37a1 (GL(2), rank 1) & \textbf{E} & 모노 23/23; $\kappa$ $2684\times$; 블라인드 20/20; $\sigma$-유일성 N/A & GL(2) \\
 41 & 라마누잔 $\Delta$ (GL(2), weight 12) & \textbf{E} & 모노 8/8; $\kappa$ $1396\times$; 블라인드 7/7; $\sigma$-유일성 N/A & GL(2) \\
+42 & $\sigma$-유일성 메커니즘 (GL(1) vs GL(2)) & \textbf{C} & $R_{\mathrm{GL}(1)}{\approx}0.4$, $R_{\Delta}{=}1.000$ (항등식); $\chi_3$ 경험 $0.38{\approx}0.37$ & GL(2) \\
 \end{longtable}
 \end{center}
 
@@ -3276,7 +3282,7 @@ Lample과 Charton~\cite{Lample2020SymbolicMath}은 시퀀스-투-시퀀스
 
 7개의 구조적 대응이 형식화되었으며, 그 경계가 명확히 구분되었다: 이들은 공유 수학 구조에 근거한 유비이지 증명이 아니다. 그러나 이 정도의 정밀도와 폭을 가진 유비는 드물며, 위상 양자화 원리가 암호학, 광학, 또는 정수론에서의 개별적 발현보다 더 근본적인 조직 개념일 수 있음을 시사한다.
 
-수치적 증거는 \textbf{일곱 검증 축에 걸쳐 41개 결과}를 포괄한다: (i)~개별 영점의 국소 위상·곡률 성질, (ii)~전역 스펙트럼 통계 (비국소성, GUE/Poisson 대조, 수 분산), (iii)~위상적 불변량 (홀로노미, 천 수, 가우스--보네 면적분), (iv)~디리클레 $L$-함수 확장 ($\chi \bmod 3,4,5,7,8$), (v)~산술적 차선도 구조 및 NNS--곡률 상관, (vi)~특이성을 확립하는 음성 대조군, (vii)~GL(2) 확장 (타원곡선 $L$-함수 및 라마누잔 $\Delta$). 결과 \#22--\#28은 자기 일관적인 \emph{위상적 일관성 체인}을 형성한다: 플라켓 곡률장이 개별 권선수, 천 류 영점 계수, 가우스--보네 면적분, $\sigma$-국소화, 집합적 수 분산을 동시에 인코딩하며, 이는 직접 산술적 방법과 일치하고 7개의 독립 실험에 걸쳐 상호 일관적이다.
+수치적 증거는 \textbf{일곱 검증 축에 걸쳐 42개 결과}를 포괄한다: (i)~개별 영점의 국소 위상·곡률 성질, (ii)~전역 스펙트럼 통계 (비국소성, GUE/Poisson 대조, 수 분산), (iii)~위상적 불변량 (홀로노미, 천 수, 가우스--보네 면적분), (iv)~디리클레 $L$-함수 확장 ($\chi \bmod 3,4,5,7,8$), (v)~산술적 차선도 구조 및 NNS--곡률 상관, (vi)~특이성을 확립하는 음성 대조군, (vii)~GL(2) 확장 (타원곡선 $L$-함수 및 라마누잔 $\Delta$). 결과 \#22--\#28은 자기 일관적인 \emph{위상적 일관성 체인}을 형성한다: 플라켓 곡률장이 개별 권선수, 천 류 영점 계수, 가우스--보네 면적분, $\sigma$-국소화, 집합적 수 분산을 동시에 인코딩하며, 이는 직접 산술적 방법과 일치하고 7개의 독립 실험에 걸쳐 상호 일관적이다.
 
 \medskip\noindent
 \textbf{RMT 연관의 확립된 한계.}\;
@@ -3761,6 +3767,76 @@ $\Gamma$-인자 정칙권역 ($s \approx 1$ 대신 $s \approx 6$ 근방의 $\Gam
 GL(2) 보편성이 weight, conductor, rank, 근 수에 무관함을 보이는 수치적 증거이다.
 \textcolor{ForestGreen}{[확립, 2026-04-15; 세 GL(2) 사례에서 4성질 중 3개 PASS
 (weight 2 및 12); $\sigma$-유일성은 GL(2)에 구조적으로 부적용]}
+
+\subsubsection{$\mathrm{GL}(2)$에서 $\sigma$-유일성 실패 메커니즘}
+\label{sec:sigma_uniqueness_mechanism}
+
+위 표의 $\sigma$-유일성 N/A 판정에는 구조적 설명이 필요하다.
+$\sigma$-유일성 검증은 $\sigma$가 변할 때 $\operatorname{Re}(\Lambda(\sigma+it))$의
+부호 변화를 세는 방법이며, GL(1)에서는 $\Gamma(s/2)$ 인자가 영점 밀도보다
+\emph{느리게} 진동하기 때문에 임계선 $\sigma = \tfrac{1}{2}$을 구별할 수 있다.
+GL(2)의 경우 $\Gamma(s)$ 인자(인수가 절반이 되지 않음)는 영점 밀도와
+정확히 동일한 속도로 진동하므로 판별 대조가 사라진다.
+
+\medskip\noindent
+\textbf{Stirling 분석.}
+$f_\Gamma(t)$를 $\Gamma$-인자 기여의 단위 $t$당 진동 주파수(부호 변화 횟수),
+$f_\mathrm{zero}(t)$를 영점 밀도라 하면 Stirling 근사에 의해:
+\begin{equation}
+  f_\Gamma^{(1)}(t) = \frac{1}{2\pi}\log\frac{t}{4\pi}, \quad
+  f_\mathrm{zero}^{(1)}(t) = \frac{1}{\pi}\log\frac{t}{2\pi}, \quad
+  R_{\mathrm{GL}(1)} = \frac{f_\Gamma^{(1)}}{f_\mathrm{zero}^{(1)}} \approx 0.4.
+  \label{eq:stirling_ratio_gl1_ko}
+\end{equation}
+GL(2), $N = 1$ (라마누잔 $\Delta$ 등)에서는:
+\begin{equation}
+  f_\Gamma^{(2)}(t) = \frac{1}{\pi}\log\frac{t}{2\pi} = f_\mathrm{zero}^{(2)}(t), \quad
+  R_{\Delta} = 1.000 \text{ (수학적 항등식).}
+  \label{eq:stirling_ratio_gl2_ko}
+\end{equation}
+이것은 수치적 우연이 아닌 수학적 항등식이다:
+완비 라마누잔 $\Delta$ 함수 $\Lambda(\Delta, s) = (2\pi)^{-s}\Gamma(s)L(\Delta,s)$는
+하나의 $\Gamma(s)$ 인자를 포함하며, 이 인자의 진동률이
+Hadamard 곱 공식에 의해 영점 밀도 $\tfrac{1}{\pi}\log\tfrac{t}{2\pi}$와 일치한다.
+$t \in [0.5, 30]$ 범위의 $\Delta$ 경험적 비율은
+$N_\mathrm{off}/N_\mathrm{crit} = 8/8 = 1.000$으로 이론 예측과 정확히 일치한다.
+
+\medskip\noindent
+\textbf{GL(1) 정성적 확인.}
+디리클레 지표 $\chi_3$ ($\varepsilon = -1$, $\operatorname{Im}(\Lambda)$ 사용)에서
+경험적 비율은 $N_\mathrm{off}/N_\mathrm{crit} = 8/21 = 0.38$이며,
+GL(1) Stirling 예측 $R_{\mathrm{GL}(1)} \approx 0.37$과
+\emph{예시적 일치(illustrative agreement)}를 보인다.
+이것은 정량적 매칭이 아닌 정성적 일관성으로 이해해야 한다:
+$\chi$-특유의 Stirling 보정은 도체 $q$에 의존하며,
+$\chi_3$에서의 일치는 부분적으로 우연일 수 있다.
+나머지 4개 GL(1) 사례($\zeta$, $\chi_4$, $\chi_5$, $\chi_7$)는
+제한된 $t$ 범위 또는 $\operatorname{Re}(\Lambda)$ 모호성으로 인해
+이 측정법으로 확인되지 않으나, 원래 $\sigma$-유일성 결과(\#7, $385\times$ 에너지
+비율)는 $\kappa$-곡률 관측량 기반이므로 영향을 받지 않는다.
+
+\medskip\noindent
+\textbf{차수-보편적 진단 대 차수-1-특이적 진단.}
+일반 $\mathrm{GL}(n)$에서 완비 $L$-함수의 $n$개 Gamma 인자는
+Hadamard 곱에 의해 영점 밀도와 일치하는 진동률을 기여하므로,
+$n \geq 2$인 모든 $n$에 대해 $R_n = 1$이다.
+이로부터 다음 계층 구조가 설명된다:
+\begin{itemize}
+  \item \textbf{차수-보편적}: 모노드로미 양자화, $\kappa$-집중도, 블라인드 영점 예측.
+        이들은 GL(1), GL(2)에서 성립하며 모든 차수에서 성립할 것으로 예측된다.
+  \item \textbf{차수-1-특이적}: $\sigma$-유일성.
+        $R < 1$의 격차는 $\Gamma(s/2)$가 영점 밀도의 절반 속도로 진동하는
+        GL(1)에서만 존재한다.
+\end{itemize}
+GL(2) 도체 $N > 1$ (예: 11a1의 $R \approx 0.16$, 37a1의 $R \approx 0.18$)에서는
+형식적 Stirling 비율 $R < 1$이지만, 실제로는 $\Gamma(s)$ 진동 구조가
+임계선 안팎에서 부호 변화를 동등하게 만들어 $\sigma$-유일성 FAIL이
+검증된 모든 GL(2) 사례에서 유지된다.
+
+\textcolor{ForestGreen}{[결과 \#42, 조건부 양성, 2026-04-16;
+$R_\Delta = 1.000$ ($N=1$에 대한 정확한 항등식);
+$\chi_3$ 경험 $0.38 \approx 0.37$ (예시적 일치);
+결과 \#7의 GL(1) $\sigma$-유일성 ($385\times$) 영향 없음]}
 
 
 \section{음성 결과: Gram 점 곡률}

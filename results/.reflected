@@ -164,6 +164,7 @@ results/residual_spectrum.txt
 results/s1_full_integration.txt
 results/s1_geodesic_readout.txt
 results/s1_geo_high_height.txt
+results/sigma_uniqueness_mechanism_47.txt
 results/smooth_target_full_loss.txt
 results/smooth_zero_crossing.txt
 results/spacing_ratio_36b.txt
