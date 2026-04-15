@@ -7,7 +7,9 @@
 /home/k0who029/Desktop/gdl_unified/results/cluster_physics_v2.txt
 /home/k0who029/Desktop/gdl_unified/results/compare_fourier_modes.txt
 /home/k0who029/Desktop/gdl_unified/results/complex_vector_readout.txt
+/home/k0who029/Desktop/gdl_unified/results/curvature_autocorr_38.txt
 /home/k0who029/Desktop/gdl_unified/results/curvature_delta_sweep.txt
+/home/k0who029/Desktop/gdl_unified/results/curvature_gue_distribution_37.txt
 /home/k0who029/Desktop/gdl_unified/results/curvature_gue_residual.txt
 /home/k0who029/Desktop/gdl_unified/results/curvature_hadamard_prediction.txt
 /home/k0who029/Desktop/gdl_unified/results/curvature_midpoint_nonlocal_v2.txt
@@ -19,9 +21,13 @@
 /home/k0who029/Desktop/gdl_unified/results/difficulty_regression.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_blind_prediction.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_bundle_verification.txt
+/home/k0who029/Desktop/gdl_unified/results/dirichlet_cross_comparison.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_high_conductor.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_midpoint_nonlocal.txt
+/home/k0who029/Desktop/gdl_unified/results/dirichlet_mod7_40b.txt
+/home/k0who029/Desktop/gdl_unified/results/dirichlet_mod7_verification.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_offcritical_anatomy.txt
+/home/k0who029/Desktop/gdl_unified/results/elliptic_curve_11a1.txt
 /home/k0who029/Desktop/gdl_unified/results/ensemble_hard_zeros.txt
 /home/k0who029/Desktop/gdl_unified/results/epstein_adversarial.txt
 /home/k0who029/Desktop/gdl_unified/results/f2_collective.txt
@@ -70,6 +76,8 @@
 /home/k0who029/Desktop/gdl_unified/results/s1_geo_high_height.txt
 /home/k0who029/Desktop/gdl_unified/results/smooth_target_full_loss.txt
 /home/k0who029/Desktop/gdl_unified/results/smooth_zero_crossing.txt
+/home/k0who029/Desktop/gdl_unified/results/spacing_ratio_36b.txt
+/home/k0who029/Desktop/gdl_unified/results/spacing_ratio_gue.txt
 /home/k0who029/Desktop/gdl_unified/results/synthetic_offcritical_control.txt
 /home/k0who029/Desktop/gdl_unified/results/triple_consistency_table.txt
 /home/k0who029/Desktop/gdl_unified/results/zero_107_analysis.txt
