@@ -130,6 +130,8 @@ results/f2_z3_deep.txt
 results/fp_anatomy.txt
 results/fp_monodromy_anatomy_49.txt
 results/gauss_bonnet_area_integral.txt
+results/gl2_blind_prediction_37a1_54.txt
+results/gl2_blind_prediction_52.txt
 results/gl2_fp_monodromy_51.txt
 results/gram_point_curvature.txt
 results/gue_poisson_midpoint_comparison.txt
@@ -162,6 +164,7 @@ results/phase_supervised_experiment.txt
 results/pqo_model_independence.txt
 results/precision_filter.txt
 results/ramanujan_delta_46.txt
+results/ramanujan_delta_blind_56.txt
 results/residual_spectrum.txt
 results/s1_full_integration.txt
 results/s1_geodesic_readout.txt
