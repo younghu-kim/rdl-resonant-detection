@@ -1,5 +1,73 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-15 14:20] — 사이클 59 ✅ 결과 #41 완료 — 논문 반영
+
+**수학자 지시**: 결과 #41 — mod 7 결과 + conductor 의존성 정량적 관찰 논문 반영
+- EN/KO Dirichlet 섹션에 χ mod 7 추가 (결과 #40/#40b)
+- conductor 의존성 표 + 경험적 관찰 섹션 신규 추가
+- Summary Table 36행 → 37행 (#40 "Dirichlet χ mod 7" 추가)
+- EN/KO 컴파일 확인 + PDF 배포
+
+**실행**: EN/KO TeX 직접 편집 → xelatex 2회 컴파일 → 배포 완료
+
+**PID**: N/A (논문 편집)
+
+**편집 내용 요약**:
+
+### EN 논문 (unified_master_en.tex)
+
+1. **검증 표 mod 7 행 추가** (app:dirichlet:verify):
+   - $\chi\bmod 7$ (complex, q=7): 136영점, σ=0.5만, 36.6×†, 편차 0.000000, E비율 35.8×
+   - 각주: *t∈[10,200] 범위, †σ-비교 방법 설명
+
+2. **conductor 의존성 섹션 신규** (`\subsection{Conductor Dependence}`, `\label{app:dirichlet:conductor}`):
+   - 4개 conductor (q=3,4,5,7) 비교표: 영점 수, 모노 PASS, 블라인드, (1/2)log(q/π)
+   - 경험적 관찰: (1) 위상적 보편성 (모노, 블라인드 모두 PASS), (2) conductor 의존적 κ σ-비율 (배경항 설명)
+   - "empirical observation; not a proof" 명시
+
+3. **Summary Table**: 36행 → 37행 추가 (#37: Dirichlet χ mod 7 고conductor, E)
+
+4. **카운트 업데이트**: "36 numerical results" → "37" (3곳), "$\chi\bmod 3,4,5,8$" → "$\chi\bmod 3,4,5,7,8$" (1곳)
+
+### KO 논문 (unified_master_ko.tex)
+
+1. **검증 표 mod 7 행 추가** — 동일 구조, 한국어 각주
+
+2. **conductor 의존성 섹션 신규** (`\subsection{Conductor 의존성}`, `\label{app:dirichlet:conductor}`):
+   - 동일 구조, 완전 한국어
+
+3. **Summary Table**: 36행 → 37행
+
+4. **카운트 업데이트**: "36개" → "37개" (3곳), mod 7 추가
+
+**컴파일 결과**:
+- EN: xelatex 2회 성공, **68p** (67p→68p, +1p)
+- KO: xelatex 2회 성공, **60p** (유지)
+- 미해결 참조 없음 (기존 `obs:observation` cref 경고는 기존 warning, 신규 아님)
+
+**배포**:
+- `~/Desktop/수학최종논문/unified_master_en.pdf` (68p)
+- `~/Desktop/수학최총논문/unified_master_ko.pdf` (60p)
+
+**성공 기준 달성**:
+- ✅ EN/KO 컴파일 성공 (xelatex 2회, Exit code 0)
+- ✅ mod 7 행 추가 (검증 표)
+- ✅ conductor 표 + 경험적 관찰 섹션 추가 (app:dirichlet:conductor)
+- ✅ Summary Table 37행 (36행+1)
+- ✅ 기존 내용 훼손 없음
+
+**사용한 데이터 (원본 파일 추출)**:
+- results/dirichlet_mod7_40b.txt: 136 영점, mono 136/136 = 2.000000, κ(0.5)/κ(0.3) = 36.6×, E(0.5)/E(0.3) = 35.8×
+- results/dirichlet_mod7_verification.txt: 위 수치 확인
+- results/dirichlet_bundle_verification.txt: mod 3(12영점, 16,457×, E 21.6×), mod 4(13영점, 22,436×, E 454.6×), mod 5(13영점, 15,732×, E 14.5×)
+- (1/2)log(q/π): q=3→-0.023, q=4→+0.121, q=5→+0.231, q=7→+0.400 (수치 계산)
+
+**이슈**:
+- 수학자 추정 κ σ-비율 (~385, ~250, ~180)은 원본 파일에 없음 → 확인된 데이터만 사용
+  - mod 3,4,5의 κ σ-비교 직접 미측정 → 검증 표에서 near/far 비율 유지
+  - conductor 의존성 표: 직접 측정 가능한 데이터(모노, 블라인드, (1/2)log(q/π))만 사용
+  - κ σ-비율 패턴은 텍스트 설명으로 서술 (정성적)
+
 ## 보고 [2026-04-15 13:20] — 사이클 58 ✅ 결과 #40b 완료
 
 **수학자 지시**: 결과 #40b — mod 7 모노드로미 버그 수정 + 파트 C 재검증

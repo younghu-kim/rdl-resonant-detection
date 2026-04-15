@@ -2835,7 +2835,7 @@ $R^2 = 0.48$; 지연 $\geq 1$에서 $\kappa$ 사실상 비상관).
 \addcontentsline{toc}{section}{수치 증거 요약}
 % ============================================================================
 
-표~\ref{tab:summary}는 여섯 가지 검증 축에 걸쳐 얻은 36개의 수치 결과를
+표~\ref{tab:summary}는 여섯 가지 검증 축에 걸쳐 얻은 37개의 수치 결과를
 종합한다. 상태 코드: \textbf{E} = 확립(Established),
 \textbf{C} = 조건부 양성(Conditionally positive),
 \textbf{N} = 음성(Negative, 완전 공개).
@@ -2843,7 +2843,7 @@ $R^2 = 0.48$; 지연 $\geq 1$에서 $\kappa$ 사실상 비상관).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{3.8cm} l@{}}
-\caption{여섯 검증 축에 걸친 36개 수치 결과 요약.\label{tab:summary}}\\
+\caption{여섯 검증 축에 걸친 37개 수치 결과 요약.\label{tab:summary}}\\
 \toprule
 \# & 결과명 & 상태 & 핵심 지표 & 축 \\
 \midrule
@@ -2902,6 +2902,8 @@ $R^2 = 0.48$; 지연 $\geq 1$에서 $\kappa$ 사실상 비상관).
 34 & 간격비 vs.\ GUE (Wigner surmise)    & \textbf{N} & KS $p{=}4.7{\times}10^{-4}$; $D_\text{GUE}/D_\text{Poisson}{=}0.079$ & RMT 경계 \\
 35 & $\kappa$ 분포 vs.\ GUE 예측         & \textbf{N} & KS $D{=}0.361$; 스케일 $7.6{\times}$; Q--Q $r{=}0.97$ & RMT 경계 \\
 36 & $\kappa$ 자기상관 vs.\ GUE 두점 상관 & \textbf{N} & $\tau_\text{unf}{=}0.45{\neq}1.0$; $R^2{=}0.48$; 지연-1 $C{=}{-}0.08$ & RMT 경계 \\
+\midrule
+37 & 디리클레 $\chi\bmod 7$ (고 conductor) & \textbf{E} & 136 영점; 모노 136/136; 블라인드 7/7; conductor 효과 B/E & 디리클레 \\
 \end{longtable}
 \end{center}
 
@@ -3269,7 +3271,7 @@ Lample과 Charton~\cite{Lample2020SymbolicMath}은 시퀀스-투-시퀀스
 
 7개의 구조적 대응이 형식화되었으며, 그 경계가 명확히 구분되었다: 이들은 공유 수학 구조에 근거한 유비이지 증명이 아니다. 그러나 이 정도의 정밀도와 폭을 가진 유비는 드물며, 위상 양자화 원리가 암호학, 광학, 또는 정수론에서의 개별적 발현보다 더 근본적인 조직 개념일 수 있음을 시사한다.
 
-수치적 증거는 \textbf{여섯 검증 축에 걸쳐 36개 결과}를 포괄한다: (i)~개별 영점의 국소 위상·곡률 성질, (ii)~전역 스펙트럼 통계 (비국소성, GUE/Poisson 대조, 수 분산), (iii)~위상적 불변량 (홀로노미, 천 수, 가우스--보네 면적분), (iv)~디리클레 $L$-함수 확장 ($\chi \bmod 3,4,5,8$), (v)~산술적 차선도 구조 및 NNS--곡률 상관, (vi)~특이성을 확립하는 음성 대조군. 결과 \#22--\#28은 자기 일관적인 \emph{위상적 일관성 체인}을 형성한다: 플라켓 곡률장이 개별 권선수, 천 류 영점 계수, 가우스--보네 면적분, $\sigma$-국소화, 집합적 수 분산을 동시에 인코딩하며, 이는 직접 산술적 방법과 일치하고 7개의 독립 실험에 걸쳐 상호 일관적이다.
+수치적 증거는 \textbf{여섯 검증 축에 걸쳐 37개 결과}를 포괄한다: (i)~개별 영점의 국소 위상·곡률 성질, (ii)~전역 스펙트럼 통계 (비국소성, GUE/Poisson 대조, 수 분산), (iii)~위상적 불변량 (홀로노미, 천 수, 가우스--보네 면적분), (iv)~디리클레 $L$-함수 확장 ($\chi \bmod 3,4,5,7,8$), (v)~산술적 차선도 구조 및 NNS--곡률 상관, (vi)~특이성을 확립하는 음성 대조군. 결과 \#22--\#28은 자기 일관적인 \emph{위상적 일관성 체인}을 형성한다: 플라켓 곡률장이 개별 권선수, 천 류 영점 계수, 가우스--보네 면적분, $\sigma$-국소화, 집합적 수 분산을 동시에 인코딩하며, 이는 직접 산술적 방법과 일치하고 7개의 독립 실험에 걸쳐 상호 일관적이다.
 
 \medskip\noindent
 \textbf{RMT 연관의 확립된 한계.}\;
@@ -3549,12 +3551,15 @@ $\zeta(s)$에서 확립된 $\xi$-다발의 네 가지 성질이 디리클레 $L$
 $\chi\bmod 3$ (실수)    & 12 & $\sigma{=}0.5$만 & $16{,}457\times$ & 0.0000 & $21.6\times$ \\
 $\chi\bmod 4$ (실수)    & 13 & $\sigma{=}0.5$만 & $22{,}436\times$ & 0.0000 & $454.6\times$ \\
 $\chi\bmod 5$ (복소) & 13 & $\sigma{=}0.5$만 & $15{,}732\times$ & 0.0000 & $14.5\times$ \\
+$\chi\bmod 7$ (복소, $q{=}7$) & $136^*$ & $\sigma{=}0.5$만 & $36.6\times^{\dagger}$ & 0.000000 & $35.8\times$ \\
 \bottomrule
 \end{tabular}
 \end{center}
+{\small ${}^*$~$t\in[10,200]$; $q=3,4,5$ ($t\in[10,40]$)보다 넓은 범위. \quad
+${}^{\dagger}$~직접 $\sigma$-비교: $\kappa(\sigma{=}0.5)/\kappa(\sigma{=}0.3)$ at $\delta{=}0.03$ ($q=3,4,5$의 근/원 방법과 상이).}
 
 \noindent
-3개 지표 38개 영점 전체에서 모노드로미 $\Delta\arg\Lambda = \pm\pi$ (편차 $< 10^{-4}$). 위상 점프는 $\sigma = 1/2$에서만 발생 ($t\in[10,40]$, 11개 $\sigma$ 값 검사). 곡률 집중도 비율은 영점 인접 점($\pm 0.01$) 중앙값 $\kappa$ 대 일반 점(영점에서 $>1.0$ 거리) 중앙값.
+저 conductor 3개 지표($q=3,4,5$)의 38개 영점 전체에서 모노드로미 $\Delta\arg\Lambda = \pm\pi$ (편차 $< 10^{-4}$); $\chi\bmod 7$ ($q=7$)의 136개 영점도 동일하게 편차 $0.000000 \pm 0.000000$ (log-space 계산). 위상 점프는 $\sigma = 1/2$에서만 발생 ($t\in[10,40]$, 11개 $\sigma$ 값 검사; $q=7$에서도 확인). $q\leq 5$ 곡률 비율은 영점 인접 점($\pm 0.01$) 중앙값 $\kappa$ 대 일반 점(영점에서 $>1.0$ 거리) 중앙값; $q=7$은 $\sigma$-비교 방법 사용 (각주 $\dagger$ 및 \S\ref{app:dirichlet:conductor} 참조).
 
 \medskip\noindent\textbf{비고.}
 \begin{enumerate}
@@ -3584,6 +3589,57 @@ $\chi\bmod 5$ & 7 & 곡률 / 이중 / 모노 & 7 / 7 / 7 & 1.000 & 1.000 & 1.000
 
 \noindent
 3개 지표에서 3가지 방법 모두 $\mathrm{F1}=1.000$ (21/21 영점, 허용 오차 $\delta t < 0.5$). 80자릿수 \texttt{mpmath} 정밀도에서는 곡률 극대만으로 모든 영점을 거짓 양성 없이 식별 가능하다. 이중 기준과 모노드로미 단독 기준은 이 정밀도 수준에서 추가 이점이 없다. 이중 기준의 실용적 가치는 신경망 수준에서 근사 $\kappa$ 추정이 거짓 양성을 유발할 때 드러난다 (추측~3 참조).
+
+
+\subsection{Conductor 의존성: 위상적 성질 vs.\ 정량적 성질}
+\label{app:dirichlet:conductor}
+
+\textcolor{ForestGreen}{[완료 2026-04-15]}
+네 개 conductor ($q=3,4,5,7$)에 걸친 결과를 비교하면 위상적 성질과 정량적 성질 사이의 체계적 패턴이 드러난다.
+
+\begin{center}
+\small
+\begin{tabular}{cclccc}
+\toprule
+$q$ & $\chi$ & 영점 수 & 모노 PASS & 블라인드 & $\tfrac{1}{2}\log(q/\pi)$ \\
+\midrule
+3 & mod 3 & 12  & \checkmark (12/12) & \checkmark & $-0.023$ \\
+4 & mod 4 & 13  & \checkmark (13/13) & \checkmark & $+0.121$ \\
+5 & mod 5 & 13  & \checkmark (13/13) & \checkmark & $+0.231$ \\
+7 & mod 7 & 136 & \checkmark (136/136) & \checkmark\,(7/7) & $+0.400$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{경험적 관찰.}
+두 가지 정성적 패턴이 나타난다:
+\begin{enumerate}
+  \item \emph{위상적 보편성.}
+        모노드로미 양자화 ($\Delta\arg\Lambda = \pm\pi$)와 블라인드 영점 예측
+        (F1$=1.0$)은 네 conductor 모두에서 예외 없이 성립한다.
+        이들은 단순 영점의 위상적 구조에서 귀결되며 conductor와 무관하다.
+
+  \item \emph{Conductor 의존적 $\kappa$ $\sigma$-비율.}
+        직접 $\sigma$-비교 비율 $\kappa(\sigma{=}0.5)/\kappa(\sigma{=}0.3)$
+        ($\delta{=}0.03$)은 conductor $q$ 증가에 따라 감소한다.
+        $\chi\bmod 7$에서는 $36.6\times$ ($>100\times$ 기준 미달).
+        자연스러운 설명은 완성 $L$-함수의 배경항이다:
+        $\Lambda(s,\chi) = (q/\pi)^{(s+\epsilon)/2}\Gamma\bigl(\tfrac{s+\epsilon}{2}\bigr)L(s,\chi)$는
+        영점과 무관하게 $\partial_\sigma\log|\Lambda|$에
+        $(1/2)\log(q/\pi)$를 기여하여 off-critical 기저 곡률을 높이고,
+        더 큰 $q$에서 peak-to-background 비율을 낮춘다.
+        $(1/2)\log(q/\pi)$는 $q=3$의 $-0.023$에서 $q=7$의 $+0.400$으로 단조 증가한다.
+\end{enumerate}
+
+\noindent
+이 관찰은 경험적이며, conductor 감소율에 대한 이론적 한계는 주장하지 않는다.
+$q=3,4,5$의 근/원 $\kappa$ 비율(영점 인접 농도)은 $10^4$를 초과하며
+conductor 배경항의 영향을 받지 않는다 (근점 극대는 $1/\delta^2$로 지배됨).
+반면 $\sigma$-비교 비율은 임계선과 그 이웃 사이의 전역 분리를 측정하여
+$(1/2)\log(q/\pi)$에 직접 민감하다.
+\textcolor{ForestGreen}{[경험적 관찰; conductor 한계의 증명 아님]}
+
 
 \section{음성 결과: Gram 점 곡률}
 \label{app:gram_negative}

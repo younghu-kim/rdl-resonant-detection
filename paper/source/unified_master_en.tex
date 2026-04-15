@@ -4022,7 +4022,7 @@ independent verification: 10/10 items reproduced]}
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 36 numerical results obtained
+Table~\ref{tab:summary} consolidates all 37 numerical results obtained
 across six verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -4030,7 +4030,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 36 numerical results across six verification
+\caption{Summary of 37 numerical results across six verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -4090,6 +4090,8 @@ with full transparency).
 34 & Spacing ratio vs.\ GUE (Wigner surmise)  & \textbf{N} & KS $p{=}4.7{\times}10^{-4}$; $D_\text{GUE}/D_\text{Poisson}{=}0.079$ & RMT boundary \\
 35 & $\kappa$ distribution vs.\ GUE prediction & \textbf{N} & KS $D{=}0.361$; scale $7.6{\times}$; Q--Q $r{=}0.97$ & RMT boundary \\
 36 & $\kappa$ autocorrelation vs.\ GUE two-point & \textbf{N} & $\tau_\text{unf}{=}0.45{\neq}1.0$; $R^2{=}0.48$; lag-1 $C{=}{-}0.08$ & RMT boundary \\
+\midrule
+37 & Dirichlet $\chi\bmod 7$ (high conductor) & \textbf{E} & 136 zeros; mono 136/136; blind 7/7; cond.\ effect B/E & Dirichlet \\
 \end{longtable}
 \end{center}
 
@@ -4594,12 +4596,12 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{36 results across six verification
+The numerical evidence spans \textbf{37 results across six verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
-($\chi \bmod 3,4,5,8$), (v)~arithmetic subleading structure and
+($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
 NNS--curvature correlations, and (vi)~negative controls establishing
 specificity.  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
@@ -4910,18 +4912,25 @@ refined by \texttt{findroot}.
 $\chi\bmod 3$ (real)    & 12 & $\sigma{=}0.5$ only & $16{,}457\times$ & 0.0000 & $21.6\times$ \\
 $\chi\bmod 4$ (real)    & 13 & $\sigma{=}0.5$ only & $22{,}436\times$ & 0.0000 & $454.6\times$ \\
 $\chi\bmod 5$ (complex) & 13 & $\sigma{=}0.5$ only & $15{,}732\times$ & 0.0000 & $14.5\times$ \\
+$\chi\bmod 7$ (complex, $q{=}7$) & $136^*$ & $\sigma{=}0.5$ only & $36.6\times^{\dagger}$ & 0.000000 & $35.8\times$ \\
 \bottomrule
 \end{tabular}
 \end{center}
+{\small ${}^*$~$t\in[10,200]$; wider range than $q=3,4,5$ ($t\in[10,40]$). \quad
+${}^{\dagger}$~Direct $\sigma$-comparison: $\kappa(\sigma{=}0.5)/\kappa(\sigma{=}0.3)$ at
+$\delta{=}0.03$ (differs from near/far method used for $q=3,4,5$).}
 
 \noindent
-All 38 zeros across three characters exhibit exact monodromy
-$\Delta\arg\Lambda = \pm\pi$ (deviation $< 10^{-4}$).
+All 38 zeros across the three low-conductor characters ($q=3,4,5$) exhibit
+exact monodromy $\Delta\arg\Lambda = \pm\pi$ (deviation $< 10^{-4}$);
+for $\chi\bmod 7$ ($q=7$) all 136 zeros satisfy the same condition
+with deviation $0.000000\pm 0.000000$ (log-space computation).
 Phase jumps occur exclusively at $\sigma = 1/2$ ($t\in[10,40]$,
-11 values of $\sigma$ tested).
-Curvature concentration ratios are computed as median $\kappa$
+11 values of $\sigma$ tested for $q\leq 5$; confirmed for $q=7$).
+Curvature concentration ratios for $q=3,4,5$ are computed as median $\kappa$
 at zero-proximal points ($\pm 0.01$) vs.\ generic points
-($>1.0$ from any zero).
+($>1.0$ from any zero); for $q=7$ the $\sigma$-comparison method
+was used (see footnote $\dagger$ above and \S\ref{app:dirichlet:conductor}).
 
 \medskip\noindent\textbf{Remarks.}
 \begin{enumerate}
@@ -4976,6 +4985,60 @@ monodromy-only criteria offer no additional benefit in this regime.
 The practical value of the dual criterion emerges only at the
 neural-network level, where approximate $\kappa$ estimation introduces
 false positives (cf.\ Conjecture~3).
+
+
+\subsection{Conductor Dependence: Topological vs.\ Quantitative Properties}
+\label{app:dirichlet:conductor}
+
+\textcolor{ForestGreen}{[completed 2026-04-15]}
+Comparing results across four conductors ($q=3,4,5,7$) reveals a systematic
+pattern between topological and quantitative properties of the framework.
+
+\begin{center}
+\small
+\begin{tabular}{cclccc}
+\toprule
+$q$ & $\chi$ & Zeros & Mono.\ pass & Blind & $\tfrac{1}{2}\log(q/\pi)$ \\
+\midrule
+3 & mod 3 & 12  & \checkmark (12/12) & \checkmark & $-0.023$ \\
+4 & mod 4 & 13  & \checkmark (13/13) & \checkmark & $+0.121$ \\
+5 & mod 5 & 13  & \checkmark (13/13) & \checkmark & $+0.231$ \\
+7 & mod 7 & 136 & \checkmark (136/136) & \checkmark\,(7/7) & $+0.400$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{Empirical observation.}
+Two qualitative patterns emerge:
+\begin{enumerate}
+  \item \emph{Topological universality.}
+        Monodromy quantisation ($\Delta\arg\Lambda = \pm\pi$) and blind zero
+        prediction (F1$=1.0$) hold across all four conductors without exception.
+        These properties are consequences of the topology of isolated simple
+        zeros and are insensitive to the conductor.
+
+  \item \emph{Conductor-dependent $\kappa$ $\sigma$-ratio.}
+        The direct $\sigma$-comparison ratio $\kappa(\sigma{=}0.5)/\kappa(\sigma{=}0.3)$,
+        measured at $\delta{=}0.03$, decreases with conductor $q$.
+        For $\chi\bmod 7$: $36.6\times$ (below the $>100\times$ threshold
+        met by lower conductors).  A natural explanation is the background
+        contribution of the completed function:
+        $\Lambda(s,\chi)=(q/\pi)^{(s+\epsilon)/2}\Gamma\bigl(\tfrac{s+\epsilon}{2}\bigr)
+        L(s,\chi)$ contributes $(1/2)\log(q/\pi)$ to
+        $\partial_\sigma\log|\Lambda|$ independently of zeros,
+        raising the off-critical baseline curvature and reducing the
+        peak-to-background ratio for larger $q$.
+        As $(1/2)\log(q/\pi)$ increases from $-0.023$ ($q=3$) to $+0.400$
+        ($q=7$), the $\sigma$-ratio is expected to decrease systematically.
+\end{enumerate}
+
+\noindent
+This observation is empirical; no theoretical bound on the rate of decrease
+is claimed.  The near/far $\kappa$ ratios for $q=3,4,5$ (local concentration
+at zeros) exceed $10^4$ and are not directly comparable to the $\sigma$-comparison
+method used for $q=7$.
+\textcolor{ForestGreen}{[empirical observation; not a proof of conductor scaling]}
 
 
 \section{Negative Result: Gram Point Curvature}

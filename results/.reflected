@@ -98,6 +98,8 @@ results/dirichlet_blind_prediction.txt
 results/dirichlet_bundle_verification.txt
 results/dirichlet_high_conductor.txt
 results/dirichlet_midpoint_nonlocal.txt
+results/dirichlet_mod7_40b.txt
+results/dirichlet_mod7_verification.txt
 results/dirichlet_offcritical_anatomy.txt
 results/ensemble_hard_zeros.txt
 results/epstein_adversarial.txt
