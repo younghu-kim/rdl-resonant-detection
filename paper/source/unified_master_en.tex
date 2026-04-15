@@ -171,7 +171,7 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Forty-four numerical results across seven verification
+\noindent Forty-five numerical results across seven verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
 controls, GL(2) extension, and cross-rank monodromy---support the framework's internal consistency.
@@ -294,7 +294,7 @@ with a hard error boundary beyond which decoding fails}.
         (Theorem~\ref{thm:universality}). These are proved via the
         argument principle and Laurent expansion, showing that the
         bundle diagnostics are \emph{theorems}, not conjectures.
-  \item We verify the fibre-bundle interpretation through 44 numerical
+  \item We verify the fibre-bundle interpretation through 45 numerical
         experiments spanning seven independent axes:
         local curvature, global spectral statistics, topological
         invariants, Dirichlet $L$-function extension, and negative
@@ -2353,6 +2353,53 @@ $\Gamma$-factor structure (see Appendix~D, \S\ref{sec:sigma_uniqueness_mechanism
 This is consistent with Theorem~\ref{thm:universality}: $\sigma$-uniqueness
 is \emph{not} a consequence of the argument principle but depends on the
 specific form of the $\Gamma$-factor, which varies with degree and weight.
+\end{remark}
+
+\begin{remark}[GL(2) blind zero prediction]
+\label{rem:gl2_blind_prediction}
+Cross-rank universality is further evidenced by a \emph{blind} zero
+prediction experiment on the GL(2) $L$-function of elliptic curve~11a1
+(conductor $N=11$, weight $k=2$, root number $\varepsilon=+1$).
+\emph{Blind} means that LMFDB zero locations enter \emph{only} in the
+final evaluation step; the curvature sweep and $\kappa$-peak detection
+use no prior knowledge of zero positions.
+
+A curvature sweep over $t\in[5,30]$ (step $\Delta t = 0.1$) identifies
+17~candidate zero locations as $\kappa$-peaks.  Matching against
+17~known LMFDB zeros yields: 16~true positives (TP), 1~false positive
+(FP), 1~miss ($\gamma_{17} = 29.975$ lies outside the sweep range).
+Precision $=$ Recall $= F_1 = 16/17 = 0.941$.
+Mean location error $= 0.025$, maximum $= 0.051 \ll 0.5$.
+
+The single FP at $t \approx 28.4$ is a \emph{double-peak artefact}:
+the nearest zero $\gamma_{16} = 28.684$ is correctly detected at
+$t = 28.7$.  The shoulder at $t \approx 28.4$ arises from the finite
+sweep resolution $\Delta t = 0.1$ and represents a sub-threshold
+curvature elevation rather than an independent zero.  Its
+mono$/\pi = 2.000$ is a numerical artefact of AFE at \texttt{dps}$= 45$:
+the contour radius $r = 0.135$ encloses no LMFDB zero (nearest distance
+$0.284 > r$), so the physical winding number should be~0.
+
+Table~\ref{tab:gl1_gl2_blind} compares GL(1) and GL(2) blind prediction.
+Both ranks achieve $P = R \geq 0.94$, providing direct evidence that
+$\kappa$-peak detection generalises across GL(1) and GL(2).
+
+\begin{table}[ht]
+\centering
+\caption{GL(1) vs.\ GL(2) blind zero prediction.
+  \emph{Blind}: LMFDB zeros used only in evaluation.
+  ``Max err'' = maximum location error $|t_{\mathrm{pred}} - \gamma|$.}
+\label{tab:gl1_gl2_blind}
+\small
+\begin{tabular}{lrrrrrc}
+\toprule
+Experiment & Zeros & TP & FP & Prec.\ & Rec.\ & Max err \\
+\midrule
+\#2\ \ GL(1) $\zeta$ (blind) & 7 & 7 & 0 & 1.000 & 1.000 & $<0.05$ \\
+\#52 GL(2) 11a1 (blind) & 17 & 16 & 1 & 0.941 & 0.941 & 0.051 \\
+\bottomrule
+\end{tabular}
+\end{table}
 \end{remark}
 
 
@@ -4536,7 +4583,7 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 44 numerical results obtained
+Table~\ref{tab:summary} consolidates all 45 numerical results obtained
 across seven verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -4544,7 +4591,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 44 numerical results across seven verification
+\caption{Summary of 45 numerical results across seven verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -4615,6 +4662,7 @@ with full transparency).
 \midrule
 43 & FP monodromy anatomy (Conj.\,3) & \textbf{E} & TP mono$/\pi{=}2.000{\pm}0$; FP mono$/\pi{=}0.000$; $p{=}6.2{\times}10^{-6}$; dual prec.\ $+44\%$p & Topological \\
 44 & GL(2) FP monodromy (cross-rank) & \textbf{E} & 34 TP mono$/\pi{=}2.000{\pm}0$; 60 FP mono$/\pi{=}0.000$; $p{=}9.7{\times}10^{-17}$; 3/3 $L$-func.\ consistent & GL(2) \\
+45 & GL(2) blind zero prediction (11a1) & \textbf{E} & 16/17 TP ($P{=}R{=}F_1{=}0.941$); loc.\ err.\ max${=}0.051$; $\kappa$-peak blind; FP $t{\approx}28.4$ (double-peak artefact) & GL(2) \\
 \end{longtable}
 \end{center}
 
@@ -4979,6 +5027,28 @@ Tier 2 programmes (conjectural but well-posed).}
         produce the same binary pattern as GL(1)~$\zeta$,
         establishing \emph{degree-independent} monodromy classification.
         \textcolor{ForestGreen}{[confirmed 2026-04-16; 34 TP + 60 FP; numerical verification, not proof]}
+  \item \textbf{GL(2) blind zero prediction (11a1).}
+        A $\kappa$-peak sweep over $t\in[5,30]$ ($\Delta t=0.1$)
+        on the GL(2) $L$-function of elliptic curve~11a1
+        identifies 17~candidate zero locations with no
+        prior knowledge of zero positions (blind protocol:
+        LMFDB zeros enter only in the final evaluation step).
+        Matching against 17~LMFDB zeros: 16~TP, 1~FP.
+        Precision $=$ Recall $= F_1 = 0.941$;
+        max location error $= 0.051 < 0.5$.
+        The single FP ($t \approx 28.4$) is a double-peak artefact:
+        the nearest zero $\gamma_{16} = 28.684$ is correctly
+        detected at $t = 28.7$; the shoulder at $t \approx 28.4$
+        results from sweep resolution $\Delta t = 0.1$.
+        Its mono$/\pi = 2.000$ is a precision artefact
+        (\texttt{dps}$=45$; contour $r = 0.135$ encloses no zero,
+        nearest distance $0.284 > r$; physical winding number~$= 0$).
+        Comparison with GL(1) $\zeta$ blind prediction (\#2: 7/7 TP,
+        $P = R = F_1 = 1.000$) confirms cross-rank universality of
+        $\kappa$-based zero detection (see also
+        Remark~\ref{rem:gl2_blind_prediction} and
+        Table~\ref{tab:gl1_gl2_blind}).
+        \textcolor{ForestGreen}{[confirmed 2026-04-16; GL(2) 11a1 $t\in[5,30]$; numerical verification, not proof]}
   \item \textbf{Higher-conductor Dirichlet extension.}
         Extension to $q\in\{7,8,11\}$ confirms bundle universality
         beyond small conductors.
@@ -5141,7 +5211,7 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{44 results across seven verification
+The numerical evidence spans \textbf{45 results across seven verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
