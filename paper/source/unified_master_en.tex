@@ -171,10 +171,10 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Twenty-eight numerical results across five verification
+\noindent Forty-four numerical results across seven verification
 axes---local curvature, global spectral statistics, topological
-invariants, Dirichlet $L$-function extension, and negative
-controls---support the framework's internal consistency.
+invariants, Dirichlet $L$-function extension, negative
+controls, GL(2) extension, and cross-rank monodromy---support the framework's internal consistency.
 
 \smallskip
 \noindent\textit{Note added in revision (2026-04-08).} An attempted
@@ -294,7 +294,7 @@ with a hard error boundary beyond which decoding fails}.
         (Theorem~\ref{thm:universality}). These are proved via the
         argument principle and Laurent expansion, showing that the
         bundle diagnostics are \emph{theorems}, not conjectures.
-  \item We verify the fibre-bundle interpretation through 43 numerical
+  \item We verify the fibre-bundle interpretation through 44 numerical
         experiments spanning seven independent axes:
         local curvature, global spectral statistics, topological
         invariants, Dirichlet $L$-function extension, and negative
@@ -2334,11 +2334,18 @@ verbatim.
 Cross-rank universality is confirmed by our numerical experiments:
 \begin{itemize}
   \item \textbf{GL(1)}: Riemann $\zeta$ (mono$/\pi = 2.000$,
-    10/10 zeros) and 5 Dirichlet $L$-functions
+    10/10 zeros; FP anatomy: 19 FP all mono$/\pi = 0.000$)
+    and 5 Dirichlet $L$-functions
     (\S\ref{sec:summary}, Observations~14--18);
   \item \textbf{GL(2)}: elliptic curves 11a1 and 37a1
     (mono$/\pi = 2.000$, 17/17 and 23/23 zeros) and the Ramanujan
     $\Delta$ function of weight~12 (Appendix~D).
+    \emph{FP monodromy cross-rank test:} 34~TP across all three
+    GL(2) $L$-functions yield mono$/\pi = 2.000 \pm 0.000$;
+    60~FP candidates yield mono$/\pi = 0.000 \pm 0.000$
+    (Mann--Whitney $p = 9.7 \times 10^{-17}$). The TP/FP
+    separation is identical to GL(1), confirming degree-independent
+    monodromy classification.
 \end{itemize}
 The \emph{only} diagnostic that varies across rank is
 $\sigma$-uniqueness, which fails for GL(2) due to the different
@@ -2402,9 +2409,14 @@ separates TP from FP) is now seen to be a \textbf{theorem}: it is
 a direct consequence of the argument principle
 (Theorem~\ref{thm:holonomy}) and the Laurent structure of
 $\Lambda'/\Lambda$ (Theorem~\ref{thm:curvature}). The numerical
-measurements (mono$/\pi = 2.000 \pm 0.000$ for TP, $0.000 \pm 0.000$
-for FP, $p = 6.2 \times 10^{-6}$) are confirmations of the theorem,
-not evidence for an open conjecture.
+measurements confirm the theorem across ranks:
+GL(1) $\zeta$: mono$/\pi = 2.000 \pm 0.000$ for 10~TP,
+$0.000 \pm 0.000$ for 19~FP ($p = 6.2 \times 10^{-6}$);
+GL(2) (11a1, 37a1, $\Delta$): mono$/\pi = 2.000 \pm 0.000$
+for 34~TP, $0.000 \pm 0.000$ for 60~FP
+($p = 9.7 \times 10^{-17}$). The dual criterion improves
+precision by $+63$ percentage points at $\kappa > 0.5$ for GL(2),
+confirming degree-independent perfect separation.
 \end{remark}
 
 \begin{remark}[What remains conjectural]
@@ -4524,7 +4536,7 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 43 numerical results obtained
+Table~\ref{tab:summary} consolidates all 44 numerical results obtained
 across seven verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -4532,7 +4544,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 43 numerical results across seven verification
+\caption{Summary of 44 numerical results across seven verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -4602,6 +4614,7 @@ with full transparency).
 42 & $\sigma$-uniqueness mechanism (GL(1) vs GL(2)) & \textbf{C} & $R_{\mathrm{GL}(1)}{\approx}0.4$, $R_{\Delta}{=}1.000$ (exact); $\chi_3$ emp.\ $0.38{\approx}0.37$ & GL(2) \\
 \midrule
 43 & FP monodromy anatomy (Conj.\,3) & \textbf{E} & TP mono$/\pi{=}2.000{\pm}0$; FP mono$/\pi{=}0.000$; $p{=}6.2{\times}10^{-6}$; dual prec.\ $+44\%$p & Topological \\
+44 & GL(2) FP monodromy (cross-rank) & \textbf{E} & 34 TP mono$/\pi{=}2.000{\pm}0$; 60 FP mono$/\pi{=}0.000$; $p{=}9.7{\times}10^{-17}$; 3/3 $L$-func.\ consistent & GL(2) \\
 \end{longtable}
 \end{center}
 
@@ -4950,6 +4963,22 @@ Tier 2 programmes (conjectural but well-posed).}
         curvature alone, so the monodromy filter's added value is
         concentrated at low-$\kappa$ thresholds.
         \textcolor{ForestGreen}{[confirmed 2026-04-16; $\zeta$ $t\in[14,50]$; numerical verification, not proof]}
+  \item \textbf{GL(2) FP monodromy cross-rank verification.}
+        The GL(1) FP monodromy anatomy is extended to three GL(2)
+        $L$-functions (11a1, 37a1, Ramanujan~$\Delta$) using the
+        identical protocol: contour-integral monodromy on true zeros
+        (TP) and non-zero candidates (FP = midpoints + random points).
+        Across 34~computable TP (of 48 total; 14 excluded due to AFE
+        precision loss at $t \geq 24$), mono$/\pi = 2.000 \pm 0.000$.
+        Across 60~FP, mono$/\pi = 0.000 \pm 0.000$
+        (Mann--Whitney $p = 9.7 \times 10^{-17}$).
+        The dual criterion ($\kappa + \mathrm{mono}$) at $\kappa > 0.5$
+        improves precision from $37.0\%$ to $100.0\%$ ($+63.0$ p.p.).
+        All three GL(2) $L$-functions (conductor $N = 11, 37, 1$;
+        weight $k = 2, 2, 12$; root number $\varepsilon = +1, -1, +1$)
+        produce the same binary pattern as GL(1)~$\zeta$,
+        establishing \emph{degree-independent} monodromy classification.
+        \textcolor{ForestGreen}{[confirmed 2026-04-16; 34 TP + 60 FP; numerical verification, not proof]}
   \item \textbf{Higher-conductor Dirichlet extension.}
         Extension to $q\in\{7,8,11\}$ confirms bundle universality
         beyond small conductors.
@@ -5112,7 +5141,7 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{42 results across seven verification
+The numerical evidence spans \textbf{44 results across seven verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
