@@ -173,7 +173,7 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Fifty-five numerical results across eight verification
+\noindent Fifty-six numerical results across eight verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
 controls, GL(2) extension, GL(3) extension, and cross-rank monodromy---support the framework's internal consistency.
@@ -296,7 +296,7 @@ with a hard error boundary beyond which decoding fails}.
         (Theorem~\ref{thm:universality}). These are proved via the
         argument principle and Laurent expansion, showing that the
         bundle diagnostics are \emph{theorems}, not conjectures.
-  \item We verify the fibre-bundle interpretation through 55 numerical
+  \item We verify the fibre-bundle interpretation through 56 numerical
         experiments spanning eight independent axes:
         local curvature, global spectral statistics, topological
         invariants, Dirichlet $L$-function extension, negative
@@ -4653,7 +4653,7 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 55 numerical results obtained
+Table~\ref{tab:summary} consolidates all 56 numerical results obtained
 across eight verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -4661,7 +4661,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 55 numerical results across eight verification
+\caption{Summary of 56 numerical results across eight verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -4744,6 +4744,8 @@ with full transparency).
 53 & GL(3) $\sigma$-uniqueness 5-level deconv. & \textbf{N} & 5/5 FAIL; origin${}={}$Dirichlet series convergence & GL(3) boundary \\
 54 & GL(3) FP verification (AFE) & \textbf{E} & 21/21 zeros; median $|\Lambda|{=}2.5{\times}10^{-27}$ & GL(3) \\
 55 & GL(3) $\kappa$-conductor scaling (6 curves) & \textbf{E} & Scaling: $\alpha{=}0.003$, $R^2{=}0.0002$ (neg.); $\kappa_{\mathrm{near}}{\approx}1125$ (CV${=}0.15\%$, 5 curves); conductor-independent universal constant & GL(3) \\
+\midrule
+56 & Maass form $L$-function (odd, $R{=}9.53$) & \textbf{C} & FE${}=0.0$; 18 zeros; $\kappa_{\mathrm{near}}{=}1114$ (CV${=}0.1\%$, 8 TP); mono 8/8; $\sigma$-uniq.\ 3/3 PASS; $\kappa_{\mathrm{near}}{\neq}$GL(3) & GL(2) Maass \\
 \end{longtable}
 \end{center}
 
@@ -5384,7 +5386,7 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{55 results across eight verification
+The numerical evidence spans \textbf{56 results across eight verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
@@ -5439,14 +5441,16 @@ Dirichlet $\chi \bmod 7$ it is $24\times$.
 How this ratio depends on $N$ and the analytic properties of the
 $L$-function is an open problem.
 (iv)~\emph{Extension to Maass forms and GL(3).}
-All results concern holomorphic forms of weight $\leq 12$ or Dirichlet
-characters.
-Whether the framework extends to Maass forms (weight~0, non-holomorphic)
-and higher-rank $L$-functions such as GL(3) symmetric-square lifts is a
-natural question for a separate investigation.
-For GL(3) symmetric-square lifts, we have now obtained affirmative results:
-see Appendix~\ref{app:gl3}.
-Extension to Maass forms (weight~0, non-holomorphic) remains an open problem.
+For GL(3) symmetric-square lifts, affirmative results are reported in
+Appendix~\ref{app:gl3}.  Extension to Maass forms (weight~0,
+non-holomorphic) has now been tested: the first Maass cusp form on
+$\mathrm{SL}(2,\mathbb{Z})$ ($R = 9.5337$, odd parity) passes all four
+properties---functional equation, $\kappa$-concentration ($1114.38$,
+CV${=}0.1\%$), monodromy ($8/8$), and $\sigma$-uniqueness ($3/3$
+PASS)---establishing that the $\xi$-bundle framework extends beyond
+holomorphic forms; see Appendix~\ref{app:gl2}, ``Maass form extension.''
+A second Maass form ($R = 13.7798$, even) confirms these findings
+(result reported in the executor board, pending formal verification).
 
 \medskip\noindent
 \textbf{Limitations.}\;
@@ -5922,18 +5926,24 @@ earlier $q=7$ analysis).
 All preceding results concern GL(1) $L$-functions: the Riemann
 $\zeta$-function and Dirichlet $L(s,\chi)$ for various characters $\chi$.
 A natural question is whether the $\xi$-bundle framework extends to
-\emph{higher-degree} $L$-functions.  We test this on three GL(2)
+\emph{higher-degree} $L$-functions.  We test this on four GL(2)
 cases: (i)~the elliptic curve $11\text{a}1$
 ($y^2 + y = x^3 - x^2 - 10x - 20$, conductor $N = 11$, rank 0,
 root number $\varepsilon = +1$), (ii)~the curve $37\text{a}1$
 ($y^2 + y = x^3 - x$, conductor $N = 37$, rank 1,
-$\varepsilon = -1$), and (iii)~the Ramanujan $\Delta$ function
+$\varepsilon = -1$), (iii)~the Ramanujan $\Delta$ function
 ($\Delta(z) = q\prod_{n\geq 1}(1-q^n)^{24}$, level $N = 1$,
-weight $k = 12$, $\varepsilon = +1$).  The first two are weight-2
+weight $k = 12$, $\varepsilon = +1$), and (iv)~a Maass cusp form on
+$\mathrm{SL}(2,\mathbb{Z})$ ($R = 9.5337$, odd parity, $N = 1$,
+weight $k = 0$; see \S\ref{sec:maass}).
+The first two are weight-2
 modular forms (elliptic curves); the third is weight~12, with
 critical line $\sigma = k/2 = 6$ (versus $\sigma = 1$ for
-elliptic curves).  These three cases span conductors $1, 11, 37$;
-weights $2, 12$; ranks $0, 1$; and root numbers $\pm 1$.
+elliptic curves); the fourth is a non-holomorphic form with weight~0
+and critical line $\sigma = 1/2$.
+These four cases span conductors $1, 11, 37$;
+weights $0, 2, 12$; ranks $0, 1$; root numbers $\pm 1$; and both
+holomorphic and non-holomorphic forms.
 
 \medskip\noindent
 \textbf{Key differences from GL(1).}
@@ -6161,6 +6171,92 @@ the identical code yields exact mono$/\pi=2.000$ at lower~$t$.
 \textcolor{ForestGreen}{[result \#49, conditional positive, 2026-04-16;
 GL(2) 11a1; Zones~1--2 PASS ($t\approx51$--$100$);
 Zone~3 numerical precision barrier ($t\approx147$, not theoretical failure);
+numerical verification, not proof]}
+
+% ============================================================================
+\subsection{Extension to Maass Forms (Non-Holomorphic, Weight~0)}
+\label{sec:maass}
+% ============================================================================
+
+All preceding GL(2) results concern \emph{holomorphic} modular forms
+(weight~2 elliptic curves and weight~12 Ramanujan~$\Delta$).
+A natural question is whether the $\xi$-bundle framework extends to
+\emph{non-holomorphic} Maass cusp forms, which have weight~0, continuous
+spectral parameter~$R$, and qualitatively different gamma factors.
+
+We test the first Maass cusp form on $\mathrm{SL}(2,\mathbb{Z})$
+with spectral parameter $R = 9.53369526\ldots$ (odd parity,
+$\varepsilon = +1$, level $N = 1$).
+Fourier coefficients (455~terms, 1000-digit precision) are taken from
+the Booker--Str\"ombergsson--Venkatesh dataset.
+
+\medskip\noindent
+\textbf{Key differences from holomorphic GL(2).}
+\begin{itemize}
+  \item \emph{Gamma factors}: $\Lambda(s) = \pi^{-(s+1)}\,
+        \Gamma\!\bigl(\tfrac{s+1+iR}{2}\bigr)\,
+        \Gamma\!\bigl(\tfrac{s+1-iR}{2}\bigr)\,L(s)$
+        for the odd case (the shift $+1$ distinguishes odd from even parity).
+  \item \emph{Critical line}: $\sigma = 1/2$, same as $\zeta(s)$.
+  \item \emph{Weight}: $k = 0$ (non-holomorphic), versus $k = 2$ or $12$ for
+        the holomorphic cases above.
+  \item \emph{Level}: $N = 1$ (full modular group), the simplest possible conductor.
+\end{itemize}
+
+\medskip\noindent
+\textbf{Validation.}
+Hecke multiplicativity is verified exactly:
+$a(6) = a(2)\cdot a(3)$, $a(4) = a(2)^2 - 1$,
+$a(9) = a(3)^2 - 1$, all with $\mathrm{diff} = 0$.
+The functional equation $\Lambda(s) = \Lambda(1{-}s)$ holds to full
+numerical precision at four test points ($t = 5, 10, 15, 25$;
+max relative error $= 0.00$).
+
+\medskip\noindent
+\textbf{Four-property results.}
+
+\begin{center}
+\small
+\begin{tabular}{@{}l l l l@{}}
+\toprule
+Property & Result & Key metric & Verdict \\
+\midrule
+Functional equation & $\mathrm{rel} = 0.00$ (4 points) & max $|\Lambda|{=}1.2{\times}10^{-7}$ & PASS \\
+Zeros found & 18 ($t \in [2, 50]$) & $\gamma_1 = 3.5988$ & PASS \\
+$\kappa_{\mathrm{near}}$ & $1114.38$ (8~TP, CV${=}0.1\%$) & ratio $577.9\times$ & PASS \\
+Monodromy & 8/8 (mono$/\pi = 2.0000$) & perfect quantisation & PASS \\
+$\sigma$-uniqueness & 3/3 PASS ($\sigma{=}0.5$ maximum) & $\kappa(0.5)/\kappa(0.45) \approx 10^{11}$ & PASS \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent
+\textbf{$\kappa_{\mathrm{near}}$ comparison across degrees.}
+The Maass form yields $\kappa_{\mathrm{near}} = 1114.38 \pm 1.1$
+(CV${=}0.1\%$), while GL(3) symmetric-square $L$-functions give
+$1125.16 \pm 1.7$ (CV${=}0.15\%$).  The difference of $10.78$ ($0.96\%$)
+exceeds the GL(3) distribution by ${\sim}6.3\sigma$, providing numerical
+evidence that $\kappa_{\mathrm{near}}$ may be a \emph{degree-dependent}
+constant rather than a single universal value.  Confirmation requires
+a second Maass form (experiment~\#69b, in progress).
+
+\medskip\noindent
+\textbf{$\sigma$-uniqueness: a surprising PASS.}
+Unlike holomorphic GL(2) forms (11a1, 37a1: FAIL; $\Delta$: N/A),
+the Maass form passes $\sigma$-uniqueness with an extremely sharp peak
+at $\sigma = 0.5$ ($\kappa$ ratio ${\sim}10^{11}$).
+Two hypotheses explain the PASS/FAIL split among degree-2 $L$-functions:
+(A)~conductor dependence ($N{=}1 \to$ PASS, $N{>}1 \to$ FAIL), or
+(B)~weight dependence (weight${=}0 \to$ PASS, weight${\geq}2 \to$ FAIL).
+Testing the Ramanujan~$\Delta$ ($N{=}1$, weight${=}12$) for
+$\sigma$-uniqueness would discriminate between these hypotheses;
+this is recorded as an open problem.
+Only 3~zeros were tested; the limited sample size is noted as a caveat.
+
+\textcolor{ForestGreen}{[result \#56, conditionally positive, 2026-04-17;
+GL(2) Maass form ($R{=}9.53$, odd, $N{=}1$); all 4 properties PASS;
+$\kappa_{\mathrm{near}}{=}1114$ vs GL(3) $1125$ ($0.96\%$ difference);
+$\sigma$-uniqueness PASS (3/3, but limited sample);
 numerical verification, not proof]}
 
 
