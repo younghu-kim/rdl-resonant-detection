@@ -71,15 +71,36 @@ find results/ -name "*.txt" -newer board/paper_editor.md 2>/dev/null | sort
 | Paper C (GL(2)) | gl2_master_{en,ko}.tex (분리 후) | elliptic, GL(2), BSD, 11a1, AFE |
 | Paper D (양자) | quantum_master_{en,ko}.tex (분리 후) | Hamiltonian, DQPT, VQE, qubit |
 
-**GL(3) 결과**: Paper A의 "GL(3) Extension" 소절에 배치 (Paper 2 분리 전까지).
+### 논문 라우팅 규칙
+
+**주제가 다르면 다른 논문에 씁니다.** 하나의 통합본에 모든 것을 넣지 마세요.
+
+| 카테고리 | 논문 파일 | 상태 |
+|---------|----------|------|
+| Paper A (ξ-다발 GL(1)) | `paper/source/unified_master_{en,ko}.tex` | ✅ 활성 |
+| Paper A-ext (GL(3)) | `paper/paper2-gl3/main_{en,ko}.tex` | 신규 생성 가능 |
+| Paper C (GL(2)) | `paper/paper1-gl1/gl2_master_{en,ko}.tex` | 분리 대기 |
+| Paper D (양자) | (미생성) | 대기 |
+
+**라우팅 판단 기준**:
+1. 결과가 기존 논문의 자연스러운 연장이면 → 해당 논문에 추가
+2. 결과가 **새로운 L-함수 계열** (GL(3), GL(4), Maass 등)이면 → 새 논문 생성 지시
+3. 결과가 **양자/물리** 방향이면 → Paper D로 라우팅
+
+**새 논문 생성 시 집필자에게 지시할 내용**:
+- `paper/shared/rdl-macros.sty`를 `\usepackage`로 포함
+- Paper 1의 핵심 정의/정리를 "Background from Part I" 섹션에 재진술
+- 교차참조는 `\cite[Theorem~X.Y]{Kim2026-Part1}` 텍스트 방식 (arXiv에서 `xr` 불가)
+- 자체 Summary Table 포함 (해당 논문 결과만)
 
 ### 4단계: 구조 점검
 
 다음을 점검합니다:
-1. **분리 트리거**: GL(3) 결과가 독립 논문으로 분리할 만큼 충분한가? (기준: ≥5개 확립 결과 또는 ≥15p 분량)
-2. **Part 순서**: Part IV 내 섹션 순서가 올바른가?
-3. **EN/KO 구조 동기화**: 섹션 수가 일치하는가?
-4. **Summary Table 정합성**: 본문에 있는 결과가 Table에 누락되지 않았는가?
+1. **논문 라우팅**: 새 결과가 어느 논문에 속하는가? 주제가 다르면 다른 논문에 배치
+2. **분리 트리거**: 부록이 ≥10p이면 독립 논문으로 분리 지시
+3. **Part 순서**: Part IV 내 섹션 순서가 올바른가?
+4. **EN/KO 구조 동기화**: 섹션 수가 일치하는가?
+5. **Summary Table 정합성**: 본문에 있는 결과가 Table에 누락되지 않았는가?
 
 ### 5단계: 편집장 보드 작성
 

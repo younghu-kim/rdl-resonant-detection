@@ -37,9 +37,51 @@ grep -n '\\part{\|\\section{\|\\subsection{' paper/source/unified_master_ko.tex 
 wc -l paper/source/unified_master_en.tex paper/source/unified_master_ko.tex
 ```
 
+### 2-b단계: 새 논문 생성 (편집장이 NEW_PAPER 지시한 경우)
+
+편집장이 새 논문 파일 생성을 지시하면:
+
+1. 대상 디렉토리 확인/생성 (예: `paper/paper2-gl3/`)
+2. 공유 매크로 경로 확인: `paper/shared/rdl-macros.sty`
+3. 새 TeX 파일 생성 (EN/KO 쌍):
+
+```latex
+\documentclass[11pt,a4paper]{article}
+% ── 공유 매크로 ──
+\usepackage{amsmath,amssymb,amsthm,graphicx,booktabs,longtable}
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{../shared/rdl-macros}  % 공유 매크로
+
+\title{[편집장이 지정한 제목]}
+\author{Young-Hu Kim}
+\date{\today}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+[편집장이 지정한 초록]
+\end{abstract}
+
+\section{Background from Part~I}
+% Paper 1의 핵심 정의를 재진술 (cite로 참조)
+We recall the key definitions from~\cite{Kim2026-Part1}.
+
+\section{[첫 번째 섹션]}
+[내용]
+
+\bibliography{../shared/references}
+\bibliographystyle{alpha}
+\end{document}
+```
+
+4. KO 버전도 동일 구조로 생성 (xelatex + 한글 산문)
+5. 이후 3단계로 진행하여 내용 채우기
+
 ### 3단계: TeX 수정
 
 편집장 지시에 따라 **EN과 KO를 모두** 수정합니다.
+대상 파일이 여러 논문에 걸칠 수 있습니다 — 편집장 지시의 "반영 위치"를 정확히 따르세요.
 
 #### 수정 규칙
 

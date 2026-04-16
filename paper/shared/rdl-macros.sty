@@ -1,0 +1,60 @@
+% rdl-macros.sty — RDL 프로젝트 공유 매크로
+% 모든 논문(Paper 1, 2, ...)이 이 파일을 공유합니다.
+% 수정 시 모든 논문에 영향이 가므로 주의.
+
+\ProvidesPackage{rdl-macros}[2026/04/17 RDL shared macros]
+
+% ── Colors ────────────────────────────────────────────────────────────────
+\definecolor{txblue}{HTML}{2563EB}
+\definecolor{chgreen}{HTML}{059669}
+\definecolor{rxorange}{HTML}{D97706}
+\definecolor{lossred}{HTML}{DC2626}
+\definecolor{decodepurple}{HTML}{7C3AED}
+\definecolor{secgray}{HTML}{374151}
+\definecolor{lightbg}{HTML}{F8FAFC}
+\definecolor{accentblue}{HTML}{3B82F6}
+\definecolor{zetaviolet}{HTML}{6D28D9}
+\definecolor{primegold}{HTML}{B45309}
+
+% ── Theorem Environments ──────────────────────────────────────────────────
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{property}{Property}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{example}{Example}[section]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{observation}[theorem]{Observation}
+
+% ── General Commands ──────────────────────────────────────────────────────
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rfloor}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\eg}{\textit{e.g.}}
+\newcommand{\sectionline}{\noindent\rule{\textwidth}{0.4pt}\vspace{0.3em}}
+
+% ── Resonance-specific Commands ──────────────────────────────────────────
+\newcommand{\xif}{\xi}                      % Riemann xi
+\newcommand{\Phiz}{\Phi_\xi}               % Phase of xi on critical line
+\newcommand{\Ampl}{A}                       % Amplitude of xi
+\newcommand{\Psip}{\Psi}                    % Ideal phase function
+\newcommand{\pis}{\pi_{\mathrm{s}}}        % Selection operator
+\newcommand{\slift}{\sigma^*\!-\!\tfrac{1}{2}} % sigma-lift
+\newcommand{\Lhat}{\hat{L}}                % Central difference log-derivative
+\newcommand{\GateA}{\mathsf{G}_{\mathrm{A}}}
+\newcommand{\GateB}{\mathsf{G}_{\mathrm{B}}}
+\newcommand{\Lpqo}{\mathcal{L}_{\mathrm{pqo}}}
+\newcommand{\Ltgt}{\mathcal{L}_{\mathrm{tgt}}}
+\newcommand{\Lcurv}{\mathcal{L}_{\mathrm{curv}}}
+\newcommand{\Lres}{\mathcal{L}_{\mathrm{res}}}
+\newcommand{\PQO}{\mathsf{PQO}}
+\newcommand{\Ftwo}{F_{2}}
+\newcommand{\Zq}{\mathbb{Z}_q}
+\newcommand{\FrFT}{\mathrm{FrFT}}
+\newcommand{\STE}{\mathrm{STE}}
