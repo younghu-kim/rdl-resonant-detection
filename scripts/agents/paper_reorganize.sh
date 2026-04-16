@@ -4,7 +4,7 @@
 # =============================================================================
 # 사용법:
 #   ./paper_reorganize.sh          # 1회 실행
-#   ./paper_reorganize.sh daemon   # 24시간마다 자동 실행 (systemd timer)
+#   ./paper_reorganize.sh daemon   # 3일마다 자동 실행 (월/목 03:00, systemd timer)
 #   ./paper_reorganize.sh status   # 현재 상태 확인
 #
 # 기능:
@@ -206,8 +206,10 @@ run_reorganize() {
     check_sync 2>&1 | tee -a "$LOGFILE"
 
     # 4. 분리 트리거 감지 시 알림
-    GL2_RESULTS=$(grep -c '\\\\textbf{E}.*GL(2)' "$PAPER_DIR/unified_master_en.tex" 2>/dev/null || echo 0)
-    if [ "$GL2_RESULTS" -ge 5 ]; then
+    GL2_RESULTS=$(grep -c '\\textbf{E}.*GL(2)' "$PAPER_DIR/unified_master_en.tex" 2>/dev/null || echo 0)
+    GL2_RESULTS=$(echo "$GL2_RESULTS" | tr -d '[:space:]' | head -c 10)
+    GL2_RESULTS=${GL2_RESULTS:-0}
+    if [ "$GL2_RESULTS" -ge 5 ] 2>/dev/null; then
         warn "GL(2) 확립 결과 ${GL2_RESULTS}개 — 저장소 분리 시점" | tee -a "$LOGFILE"
     fi
 
@@ -245,13 +247,13 @@ StandardOutput=append:$LOG_DIR/daemon.log
 StandardError=append:$LOG_DIR/daemon_err.log
 SEOF
 
-    # Timer 파일 (24시간마다)
+    # Timer 파일 (3일마다)
     cat > "$TIMER_FILE" << TEOF
 [Unit]
-Description=RDL Paper Reorganization Timer (24h)
+Description=RDL Paper Reorganization Timer (3d)
 
 [Timer]
-OnCalendar=*-*-* 03:00:00
+OnCalendar=Mon,Thu 03:00:00
 Persistent=true
 
 [Install]
@@ -261,7 +263,7 @@ TEOF
     systemctl --user daemon-reload
     systemctl --user enable --now "${SERVICE_NAME}.timer"
 
-    ok "타이머 설정 완료: 매일 03:00에 실행"
+    ok "타이머 설정 완료: 월/목 03:00에 실행 (3일 주기)"
     systemctl --user list-timers | grep "$SERVICE_NAME"
 }
 

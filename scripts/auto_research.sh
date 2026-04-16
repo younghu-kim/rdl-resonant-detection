@@ -67,7 +67,7 @@ run_once() {
         ~/qrop_env/bin/python "$PROJ_DIR/scripts/literature_monitor.py" >> "$logfile" 2>&1
     fi
 
-    cd "$PROJ_DIR" && claude -p "$(cat "$PROMPT_FILE")" \
+    cd "$PROJ_DIR" && /home/k0who029/.npm-global/bin/claude -p "$(cat "$PROMPT_FILE")" \
         --model opus \
         --permission-mode bypassPermissions \
         --max-turns 50 \

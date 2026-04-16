@@ -7,7 +7,7 @@
 #   ./run_cycle.sh 1        # 1단계(수학자)만
 #   ./run_cycle.sh 2        # 2단계(설계자)만
 #   ./run_cycle.sh 3        # 3단계(검토자)만
-#   ./run_cycle.sh daemon   # 30분마다 자동 실행
+#   ./run_cycle.sh daemon   # 60분마다 자동 실행
 #   ./run_cycle.sh status   # 현재 상태 확인
 #
 # v3 변경사항 (구 auto_research.sh + team_run.sh 통합):
@@ -111,24 +111,27 @@ check_and_enforce_priority() {
     fi
 
     # 2) 장시간 brute-force 탐사 자동 감지
-    local long_running
-    long_running=$(ps aux | grep -E "python.*overnight|python.*exploration|python.*continuous" \
-        | grep -v grep | awk '{
-        split($10, t, ":");
-        # elapsed time > 6시간 (360분)
-        if (t[1] >= 6) print $2
-    }')
+    #    ps -eo로 경과시간(etimes, 초 단위) 사용 — locale 무관, 정확
+    local long_running=""
+    while IFS= read -r line; do
+        local pid etime cmd
+        pid=$(echo "$line" | awk '{print $1}')
+        etime=$(echo "$line" | awk '{print $2}')
+        cmd=$(echo "$line" | awk '{$1=$2=""; print substr($0,3)}')
+        # 경과 시간 > 6시간 (21600초)
+        if [ "$etime" -gt 21600 ] 2>/dev/null; then
+            long_running="$long_running $pid"
+            warn "6시간+ 장기 탐사: PID $pid (${etime}초): $cmd"
+        fi
+    done < <(ps -eo pid,etimes,args 2>/dev/null | grep -E "python.*(overnight|exploration|continuous)" | grep -v grep)
 
     if [ -n "$long_running" ]; then
-        warn "6시간+ 장기 탐사 프로세스 감지:"
+        # 보드에 1회만 기록 (중복 방지: 같은 PID가 이미 있으면 건너뜀)
         for pid in $long_running; do
-            local cmd
-            cmd=$(ps -p "$pid" -o args= 2>/dev/null | head -c 80)
-            warn "  PID $pid: $cmd"
+            if ! grep -q "PID.*$pid" "$BOARD_DIR/mathematician.md" 2>/dev/null; then
+                warn "수학자에게 보고: PID $pid"
+            fi
         done
-        # 자동 kill하지 않고 수학자에게 보고 (수학자가 판단)
-        echo "⚠️ 장기 탐사 감지 ($(date '+%Y-%m-%d %H:%M')): PIDs=$long_running" \
-            >> "$BOARD_DIR/mathematician.md"
     fi
 }
 
@@ -174,38 +177,56 @@ process_priority_commands() {
     fi
 }
 
-# 수렴 판단: 결과가 안정적이면 탐사 중지 권고
+# 수렴 판단: 탐사 프로세스가 실행 중일 때만 판단
 check_exploration_convergence() {
+    # 탐사 프로세스가 없으면 판단할 필요 없음
+    local exploration_running
+    exploration_running=$(ps aux | grep -E "python.*(overnight|exploration|continuous)" \
+        | grep -v grep | wc -l)
+    if [ "$exploration_running" -eq 0 ]; then
+        return 0
+    fi
+
     local summary_file="$PROJECT_DIR/outputs/overnight/exploration_summary.json"
     [ ! -f "$summary_file" ] && return 0
 
-    # JSON에서 최근 3구간의 |F₂| 추출
+    # JSON 파일이 1시간 이상 오래되면 stale — 건너뜀
+    local file_age
+    file_age=$(( $(date +%s) - $(stat -c %Y "$summary_file" 2>/dev/null || echo 0) ))
+    if [ "$file_age" -gt 3600 ]; then
+        return 0
+    fi
+
     local recent_f2
     recent_f2=$(python3 -c "
-import json, sys
+import json, sys, statistics
 try:
     with open('$summary_file') as f:
         data = json.load(f)
     if isinstance(data, list) and len(data) >= 3:
         last3 = [d.get('f2_mean', 999) for d in data[-3:]]
-        # 변동 계수 (CV) 계산
-        import statistics
+        if any(v >= 999 for v in last3):
+            print('SKIP:invalid_data')
+            sys.exit(0)
         mean_v = statistics.mean(last3)
         std_v = statistics.stdev(last3) if len(last3) > 1 else 0
         cv = std_v / mean_v if mean_v > 0 else 999
-        if cv < 0.15:  # 15% 미만 변동 = 수렴
+        if cv < 0.15:
             print(f'CONVERGED:cv={cv:.3f},f2={mean_v:.4f}')
         else:
             print(f'VARYING:cv={cv:.3f}')
+    else:
+        print('SKIP:insufficient_data')
 except Exception as e:
     print(f'ERROR:{e}')
 " 2>/dev/null)
 
     if echo "$recent_f2" | grep -q "CONVERGED"; then
-        warn "탐사 수렴 감지: $recent_f2"
-        warn "→ 수학적 과제에 CPU 재할당 권고"
-        echo "⚠️ 탐사 수렴 ($recent_f2) — kill 권고 ($(date '+%H:%M'))" \
-            >> "$BOARD_DIR/mathematician.md"
+        # 이미 보고했으면 중복 방지
+        if ! grep -q "탐사 수렴.*$(date '+%Y-%m-%d')" "$BOARD_DIR/mathematician.md" 2>/dev/null; then
+            warn "탐사 수렴 감지: $recent_f2"
+            warn "→ 수학적 과제에 CPU 재할당 권고"
+        fi
     fi
 }
 
@@ -248,7 +269,7 @@ run_stage() {
 작업이 끝나면 보드 파일에 결과를 기록하세요."
 
     cd "$PROJECT_DIR"
-    claude -p "$user_prompt" \
+    /home/k0who029/.npm-global/bin/claude -p "$user_prompt" \
         --system-prompt-file "$prompt_file" \
         --output-format text \
         --model "$model" \
@@ -347,6 +368,153 @@ EOF
     warn "반성문 작성: $report"
 }
 
+# ─── 변경 감지 (IDLE 판단) ───
+
+has_board_changed() {
+    # 보드 파일이 마지막 사이클 이후 변경되었는가?
+    local marker="$LOG_DIR/.last_cycle_time"
+    if [ ! -f "$marker" ]; then
+        return 0  # 마커 없으면 실행
+    fi
+    # 보드, 결과, 스크립트 중 하나라도 변경되면 true
+    local changed
+    changed=$(find "$BOARD_DIR" "$RESULTS_DIR" -newer "$marker" -name "*.md" -o -name "*.txt" 2>/dev/null | head -1)
+    if [ -n "$changed" ]; then
+        return 0  # 변경 있음 → 실행
+    fi
+    # 실행 중 실험이 방금 끝났으면 true
+    local finished_experiment
+    finished_experiment=$(find "$RESULTS_DIR" -name "*.txt" -newer "$marker" 2>/dev/null | head -1)
+    if [ -n "$finished_experiment" ]; then
+        return 0
+    fi
+    return 1  # 변경 없음 → 건너뜀
+}
+
+has_new_results() {
+    # 마지막 사이클 이후 새 결과 파일이 생겼는가?
+    local marker="$LOG_DIR/.last_cycle_time"
+    if [ ! -f "$marker" ]; then
+        return 0
+    fi
+    local new
+    new=$(find "$RESULTS_DIR" "$ANALYSIS_DIR" -name "*.txt" -newer "$marker" 2>/dev/null | wc -l)
+    [ "$new" -gt 0 ]
+}
+
+is_experiment_running() {
+    # 실험 프로세스가 실행 중인가?
+    local running
+    running=$(ps aux | grep -E "qrop_env|python.*gl[0-9]|python.*blind|python.*maass" \
+        | grep -v grep | wc -l)
+    [ "$running" -gt 0 ]
+}
+
+# ─── git 자동 동기화 (연구 사이클용) ───
+
+git_sync_research() {
+    local msg_prefix="${1:-auto-sync}"
+
+    cd "$PROJECT_DIR"
+
+    # 변경 사항 있는지 확인
+    if git diff --quiet HEAD 2>/dev/null && [ -z "$(git ls-files --others --exclude-standard 2>/dev/null)" ]; then
+        return 0
+    fi
+
+    log "git 동기화..."
+
+    # 결과 파일 커밋
+    local new_results
+    new_results=$(git ls-files --others --exclude-standard -- results/ 2>/dev/null | wc -l)
+    if [ "$new_results" -gt 0 ]; then
+        git add results/*.txt results/*.py 2>/dev/null || true
+        git commit -m "$(cat <<EOF
+results: ${msg_prefix} — new experiment data
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+EOF
+)" 2>/dev/null && ok "git: 결과 커밋" || true
+    fi
+
+    # 스크립트/보드 커밋
+    local script_changes
+    script_changes=$(git diff --name-only HEAD -- scripts/ 2>/dev/null | wc -l)
+    script_changes=$((script_changes + $(git ls-files --others --exclude-standard -- scripts/ 2>/dev/null | wc -l)))
+    if [ "$script_changes" -gt 0 ]; then
+        git add scripts/ 2>/dev/null || true
+        git commit -m "$(cat <<EOF
+scripts: ${msg_prefix} — board/code updates
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+EOF
+)" 2>/dev/null && ok "git: 스크립트 커밋" || true
+    fi
+
+    # push (unpushed가 있으면)
+    if git log --oneline origin/main..HEAD 2>/dev/null | head -1 | grep -q .; then
+        git push origin main 2>&1 && ok "git push 완료" || warn "git push 실패"
+    fi
+}
+
+# ─── 논문 루프 인터페이스 (1h→3d 일방향 소통) ───
+
+PAPER_PENDING="$BOARD_DIR/paper_pending.md"
+
+update_paper_pending() {
+    # 수학자 보드에서 새 양성 판정을 paper_pending.md에 축적
+    # 3일 논문 루프(run_paper_cycle.sh)가 이 파일을 읽고 논문에 반영
+
+    # pending 파일 초기화 (없으면)
+    if [ ! -f "$PAPER_PENDING" ]; then
+        cat > "$PAPER_PENDING" << 'PEOF'
+# 논문 반영 대기 결과 (Paper Pending Queue)
+
+> 1시간 연구 루프(run_cycle.sh)가 자동으로 결과를 추가합니다.
+> 3일 논문 루프(run_paper_cycle.sh)가 반영 후 제거합니다.
+
+| # | 결과명 | 판정 | 추가일 | 카테고리 |
+|---|--------|------|--------|---------|
+PEOF
+    fi
+
+    # 수학자 보드에서 양성 판정 추출 (★ 포함 행)
+    local today
+    today=$(date '+%Y-%m-%d')
+
+    # 로드맵 테이블에서 완료+양성인 항목 찾기
+    while IFS='|' read -r _ num name status verdict _; do
+        num=$(echo "$num" | tr -d '[:space:]')
+        verdict=$(echo "$verdict" | tr -d '[:space:]')
+
+        # 숫자가 아니면 건너뜀
+        [[ "$num" =~ ^[0-9]+$ ]] || continue
+
+        # 양성 판정만 (★ 포함)
+        echo "$verdict" | grep -q '★' || continue
+
+        # 이미 pending에 있으면 건너뜀
+        grep -q "^| $num " "$PAPER_PENDING" 2>/dev/null && continue
+
+        # 카테고리 판정 (키워드 기반)
+        local category="A"
+        if echo "$name" | grep -qi "GL(2)\|elliptic\|11a1\|37a1\|Ramanujan"; then
+            category="C (GL(2))"
+        elif echo "$name" | grep -qi "GL(3)\|sym²\|conductor"; then
+            category="A (GL(3))"
+        elif echo "$name" | grep -qi "quantum\|VQE\|DQPT"; then
+            category="D (양자)"
+        elif echo "$name" | grep -qi "GUE\|spacing\|Weyl"; then
+            category="B (스펙트럼)"
+        fi
+
+        # pending에 추가
+        echo "| $num | $(echo "$name" | xargs) | $verdict | $today | $category |" >> "$PAPER_PENDING"
+        log "논문 대기큐 추가: #$num ($verdict)"
+
+    done < <(grep '|' "$BOARD_DIR/mathematician.md" 2>/dev/null | grep -i '완료\|✅')
+}
+
 # ─── 전체 사이클 ───
 
 run_full_cycle() {
@@ -364,12 +532,25 @@ run_full_cycle() {
     process_priority_commands
     check_exploration_convergence
 
+    # ── IDLE 감지: 변경 없으면 경량 사이클 ──
+    if ! has_board_changed; then
+        if is_experiment_running; then
+            log "실험 실행 중 + 보드 변경 없음 → 대기 (API 절약)"
+            touch "$LOG_DIR/.last_cycle_time"
+            return 0
+        fi
+        log "보드/결과 변경 없음 → IDLE 사이클 건너뜀 (API 절약)"
+        touch "$LOG_DIR/.last_cycle_time"
+        return 0
+    fi
+
     # 실행 중인 실험 확인
-    local running
-    running=$(ps aux | grep qrop_env | grep -v grep | wc -l)
-    if [ "$running" -gt 0 ]; then
-        warn "실행 중인 실험 ${running}개 감지"
-        ps aux | grep qrop_env | grep -v grep | awk '{print "  PID "$2": "$11" "$12}' || true
+    local experiment_running=false
+    if is_experiment_running; then
+        experiment_running=true
+        warn "실행 중인 실험 감지"
+        ps aux | grep -E "qrop_env|python.*gl[0-9]|python.*blind|python.*maass" \
+            | grep -v grep | awk '{print "  PID "$2": "$11" "$12}' || true
     fi
 
     # ── Stage 1: 수학자 (Opus) ──
@@ -379,21 +560,29 @@ run_full_cycle() {
     if [ "$s1_ok" -eq 0 ]; then
         err "수학자 단계 실패"
         write_failure_report 1 "$LOG_DIR/${TIMESTAMP}_stage1_mathematician.log"
+        touch "$LOG_DIR/.last_cycle_time"
         return 1
     fi
 
-    # 게이트 1
+    # 게이트 1: 실험 실행 중이면 Stage 2 건너뜀
+    if [ "$experiment_running" = true ]; then
+        log "실험 실행 중 → Stage 2,3 건너뜀 (수학자 판정만 기록)"
+        touch "$LOG_DIR/.last_cycle_time"
+        return 0
+    fi
+
     gate_after_stage1 || {
         log "Stage 2,3 건너뜀 (수학자 대기 지시)"
+        touch "$LOG_DIR/.last_cycle_time"
         return 0
     }
 
-    # ── Stage 2: 설계자 (모델은 수학자 지시 or 기본 sonnet) ──
+    # ── Stage 2: 설계자 (모델은 수학자 지시 or 기본 opus) ──
     local s2_model
-    s2_model=$(grep -i '^\*\*모델\*\*:' "$BOARD_DIR/mathematician.md" 2>/dev/null \
-        | tail -1 | sed 's/.*: *//' | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
-    if [[ "$s2_model" != "opus" && "$s2_model" != "sonnet" ]]; then
-        s2_model="sonnet"
+    s2_model=$(grep -i '\*\*모델\*\*' "$BOARD_DIR/mathematician.md" 2>/dev/null \
+        | tail -1 | sed 's/.*[：:] *//' | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
+    if [[ "$s2_model" != "opus" && "$s2_model" != "sonnet" && "$s2_model" != "haiku" ]]; then
+        s2_model="opus"
     fi
     log "Stage 2 모델: $s2_model (수학자 지정)"
 
@@ -421,43 +610,48 @@ run_full_cycle() {
     # 게이트 2
     gate_after_stage2
 
-    # ── Stage 3: 검토자 (Opus) ──
-    run_stage 3 reviewer opus || {
-        warn "검토자 단계 실패"
-        write_failure_report 3 "$LOG_DIR/${TIMESTAMP}_stage3_reviewer.log"
-    }
+    # ── Stage 3: 검토자 — 새 결과 있을 때만 실행 (API 절약) ──
+    if has_new_results || [ "$s2_ok" -eq 1 ]; then
+        local tex_file="$PROJECT_DIR/paper/source/unified_master_en.tex"
+        local tex_mtime_before
+        tex_mtime_before=$(stat -c %Y "$tex_file" 2>/dev/null || echo 0)
 
-    # ── 논문 반영 검증 게이트 ──
+        run_stage 3 reviewer opus || {
+            warn "검토자 단계 실패"
+            write_failure_report 3 "$LOG_DIR/${TIMESTAMP}_stage3_reviewer.log"
+        }
 
-    # reviewer가 실제로 tex를 업데이트했는지 확인
-    local tex_file="$PROJECT_DIR/paper/source/unified_master_en.tex"
-    local tex_mtime_before
-    tex_mtime_before=$(stat -c %Y "$tex_file" 2>/dev/null || echo 0)
+        # 논문 반영 검증 게이트
+        local tex_mtime_after
+        tex_mtime_after=$(stat -c %Y "$tex_file" 2>/dev/null || echo 0)
 
-    # reviewer 완료 후 tex 수정 시각 확인
-    local tex_mtime_after
-    tex_mtime_after=$(stat -c %Y "$tex_file" 2>/dev/null || echo 0)
-
-    if [ "$tex_mtime_after" -gt "$tex_mtime_before" ]; then
-        ok "논문 TeX 업데이트 감지 — PDF 재컴파일 확인"
-    else
-        # 미반영 결과가 있는지 체크
-        local unreflected=0
-        if [ -f "$RESULTS_DIR/.reflected" ]; then
-            unreflected=$(diff <(ls "$RESULTS_DIR"/*.txt 2>/dev/null | sort) \
-                <(sort -u "$RESULTS_DIR/.reflected") 2>/dev/null | grep -c "^<" || echo 0)
+        if [ "$tex_mtime_after" -gt "$tex_mtime_before" ]; then
+            ok "논문 TeX 업데이트 감지 — PDF 재컴파일 확인"
         else
-            unreflected=$(ls "$RESULTS_DIR"/*.txt 2>/dev/null | wc -l)
+            local unreflected=0
+            if [ -f "$RESULTS_DIR/.reflected" ]; then
+                unreflected=$(diff <(ls "$RESULTS_DIR"/*.txt 2>/dev/null | sort) \
+                    <(sort -u "$RESULTS_DIR/.reflected") 2>/dev/null | grep -c "^<" || echo 0)
+            else
+                unreflected=$(ls "$RESULTS_DIR"/*.txt 2>/dev/null | wc -l)
+            fi
+            if [ "$unreflected" -gt 0 ]; then
+                warn "논문 미반영 결과 ${unreflected}개 감지"
+                if ! grep -q "논문 미반영.*$(date '+%Y-%m-%d')" "$BOARD_DIR/reviewer.md" 2>/dev/null; then
+                    echo "⚠️ 논문 미반영 결과 ${unreflected}개 ($(date '+%Y-%m-%d %H:%M'))" >> "$BOARD_DIR/reviewer.md"
+                fi
+            fi
         fi
-        if [ "$unreflected" -gt 0 ]; then
-            warn "논문 미반영 결과 ${unreflected}개 감지 — 다음 사이클에서 반영 필요"
-            echo "⚠️ 논문 미반영 결과 ${unreflected}개 ($(date '+%H:%M'))" >> "$BOARD_DIR/reviewer.md"
-        fi
+    else
+        log "새 결과 없음 → Stage 3 (검토자) 건너뜀 (API 절약)"
     fi
+
+    # ── 논문 루프 인터페이스: paper_pending.md에 결과 축적 ──
+    update_paper_pending
 
     # ── 사이클 후 정리 ──
 
-    # PDF 배포 (tex가 갱신됐든 아니든, paper/ 디렉토리에 PDF가 있으면 배포)
+    # PDF 배포
     if [ -f "$PROJECT_DIR/paper/unified_master_en.pdf" ]; then
         mkdir -p "$HOME/Desktop/수학최종논문"
         cp "$PROJECT_DIR/paper/unified_master_en.pdf" "$HOME/Desktop/수학최종논문/" 2>/dev/null && \
@@ -468,6 +662,12 @@ run_full_cycle() {
 
     # 메모리 동기화 상태
     "$AGENTS_DIR/sync_memory.sh" status 2>/dev/null || true
+
+    # git 자동 동기화 (코드+결과+보드 분리 커밋 + push)
+    git_sync_research "research-cycle #$cycle"
+
+    # 사이클 타임스탬프 마커 갱신
+    touch "$LOG_DIR/.last_cycle_time"
 
     # 일지 기록
     echo "" >> "$JOURNAL"
@@ -542,15 +742,15 @@ show_status() {
 case "${1:-all}" in
     1)      run_stage 1 mathematician opus ;;
     2)
-        s2m=$(grep -i '^\*\*모델\*\*:' "$BOARD_DIR/mathematician.md" 2>/dev/null \
-            | tail -1 | sed 's/.*: *//' | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
-        [[ "$s2m" == "opus" || "$s2m" == "sonnet" ]] || s2m="sonnet"
+        s2m=$(grep -i '\*\*모델\*\*' "$BOARD_DIR/mathematician.md" 2>/dev/null \
+            | tail -1 | sed 's/.*[：:] *//' | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
+        [[ "$s2m" == "opus" || "$s2m" == "sonnet" || "$s2m" == "haiku" ]] || s2m="opus"
         log "Stage 2 모델: $s2m (수학자 지정)"
         run_stage 2 executor "$s2m"
         ;;
     3)      run_stage 3 reviewer opus ;;
     all)    run_full_cycle ;;
-    daemon) run_daemon "${2:-30}" ;;
+    daemon) run_daemon "${2:-60}" ;;
     status) show_status ;;
     lock)   lock ;;
     unlock) unlock ;;
@@ -560,7 +760,7 @@ case "${1:-all}" in
         echo "  2       — 설계자 (수학자 지정 모델)"
         echo "  3       — 검토자만 (Opus)"
         echo "  all     — 전체 사이클 (기본값)"
-        echo "  daemon  — 자동 반복 (기본 30분)"
+        echo "  daemon  — 자동 반복 (기본 60분)"
         echo "  status  — 현재 상태 확인"
         echo "  lock    — 사용자 잠금 (데몬 일시정지)"
         echo "  unlock  — 사용자 잠금 해제"
