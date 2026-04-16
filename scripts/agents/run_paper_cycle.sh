@@ -7,7 +7,7 @@
 #   ./run_paper_cycle.sh 1        # Stage 1 (편집장)만
 #   ./run_paper_cycle.sh 2        # Stage 2 (집필자)만
 #   ./run_paper_cycle.sh 3        # Stage 3 (교정자)만
-#   ./run_paper_cycle.sh daemon   # 3시간마다 자동 실행 (IDLE 시 API 0)
+#   ./run_paper_cycle.sh daemon   # 3일마다 자동 실행 (IDLE 시 API 0)
 #   ./run_paper_cycle.sh status   # 현재 상태 확인
 #
 # 설계:
@@ -396,11 +396,96 @@ EOF
     fi
 }
 
+# ─── 스마트 모델 선택 평가기 ───
+# 편집장 지시의 복잡도를 분석하여 opus/sonnet을 자동 결정
+# 규칙:
+#   opus  → 새 논문 생성, 구조 변경, 대량 반영(≥3건), 증명/정리 작성, 교차참조 복잡
+#   sonnet → 단순 테이블 추가, 소량 텍스트 추가(1-2건), 서식 수정, 교정자 피드백 반영
+
+evaluate_model_for_writer() {
+    local editor_board="$BOARD_DIR/paper_editor.md"
+    local model="sonnet"  # 기본값: sonnet (경량)
+    local reason=""
+
+    if [ ! -f "$editor_board" ]; then
+        echo "opus"  # 보드 없으면 안전하게 opus
+        return
+    fi
+
+    local content
+    content=$(cat "$editor_board")
+
+    # ── opus 트리거 조건 (하나라도 해당하면 opus) ──
+
+    # 1. 새 논문 생성
+    if echo "$content" | grep -qi "NEW_PAPER\|새 논문 생성\|새 논문 파일\|new paper\|논문 분리"; then
+        model="opus"; reason="새 논문 생성"
+    fi
+
+    # 2. 구조 변경 (Part/Section 재배치)
+    if echo "$content" | grep -qi "구조 변경\|Part 재배치\|Section 재배치\|섹션 순서\|구조 재편"; then
+        model="opus"; reason="${reason:+$reason + }구조 변경"
+    fi
+
+    # 3. 대량 반영 (결과 3건 이상)
+    local result_count
+    result_count=$(echo "$content" | grep -c '^| [0-9]' 2>/dev/null || echo 0)
+    if [ "$result_count" -ge 3 ]; then
+        model="opus"; reason="${reason:+$reason + }대량 반영(${result_count}건)"
+    fi
+
+    # 4. 새 소절/정리 생성
+    if echo "$content" | grep -qi "새 소절\|새 정리\|새 증명\|new subsection\|new theorem\|증명 작성"; then
+        model="opus"; reason="${reason:+$reason + }새 정리/소절"
+    fi
+
+    # 5. 교차참조 복잡 (다른 논문 참조)
+    if echo "$content" | grep -qi "Paper [B-Z]\|교차참조\|cross.reference\|다른 논문"; then
+        model="opus"; reason="${reason:+$reason + }교차참조"
+    fi
+
+    # 6. 분량 '필수'가 2건 이상
+    local must_count
+    must_count=$(echo "$content" | grep -c '필수' 2>/dev/null || echo 0)
+    if [ "$must_count" -ge 2 ]; then
+        model="opus"; reason="${reason:+$reason + }필수 항목 다수"
+    fi
+
+    if [ "$model" = "opus" ]; then
+        log "모델 평가: OPUS ← $reason"
+    else
+        log "모델 평가: SONNET ← 단순 작업 (결과 ${result_count}건, 구조변경 없음)"
+    fi
+
+    echo "$model"
+}
+
+evaluate_model_for_proofreader() {
+    # 교정자는 대부분 sonnet으로 충분
+    # 단, 집필자가 opus 수준 작업을 했으면 교정도 opus
+    local writer_model="$1"
+
+    if [ "$writer_model" = "opus" ]; then
+        # 복잡한 변경 검증에는 opus 필요
+        log "모델 평가(교정): OPUS ← 집필자 opus 작업 검증"
+        echo "opus"
+    else
+        log "모델 평가(교정): SONNET ← 단순 검증"
+        echo "sonnet"
+    fi
+}
+
 # ─── 문답 루프 (집필자 ↔ 교정자) ───
 
 run_dialogue_loop() {
     local max_rounds=3
     local round=0
+
+    # ── 스마트 모델 선택 ──
+    local writer_model
+    writer_model=$(evaluate_model_for_writer)
+    local proofreader_model
+    proofreader_model=$(evaluate_model_for_proofreader "$writer_model")
 
     while [ "$round" -lt "$max_rounds" ]; do
         ((round++))
@@ -413,10 +498,14 @@ run_dialogue_loop() {
             writer_context=$(grep -A 50 "수정 필요 사항" "$BOARD_DIR/paper_proofreader.md" 2>/dev/null \
                 | head -30 || echo "")
             log "교정자 피드백을 집필자에게 전달 (라운드 $round)"
+            # 재시도는 피드백 반영이므로 sonnet으로 충분
+            writer_model="sonnet"
+            proofreader_model="sonnet"
+            log "라운드 $round: 피드백 반영 → sonnet"
         fi
 
         local s2_ok=0
-        run_paper_stage 2 writer sonnet "$writer_context" && s2_ok=1
+        run_paper_stage 2 writer "$writer_model" "$writer_context" && s2_ok=1
 
         if [ "$s2_ok" -eq 0 ]; then
             err "집필자 실패 (라운드 $round)"
@@ -431,7 +520,7 @@ run_dialogue_loop() {
         fi
 
         # ── 교정자 실행 ──
-        run_paper_stage 3 proofreader sonnet || {
+        run_paper_stage 3 proofreader "$proofreader_model" || {
             warn "교정자 실패 (라운드 $round)"
             write_paper_failure 3 "$LOG_DIR/${TIMESTAMP}_paper_stage3_proofreader.log"
             # 교정자 실패해도 집필자 결과는 유지 — 루프 종료
@@ -517,7 +606,7 @@ run_full_paper_cycle() {
     fi
 
     # ── Stage 2+3: 문답 루프 (집필자 ↔ 교정자, 최대 3회) ──
-    log "── Stage 2+3: 문답 루프 ──"
+    log "── Stage 2+3: 문답 루프 (스마트 모델 선택) ──"
 
     # 변경 전 줄 수 기록 (안전장치)
     local en_lines_before ko_lines_before
@@ -575,7 +664,7 @@ run_full_paper_cycle() {
 # ─── 데몬 모드 ───
 
 run_daemon() {
-    local interval_min=${1:-180}
+    local interval_min=${1:-4320}
     local interval_sec=$((interval_min * 60))
 
     log "══════════════════════════════════════════"
@@ -654,18 +743,18 @@ show_paper_status() {
 
 case "${1:-all}" in
     1)      run_paper_stage 1 editor opus ;;
-    2)      run_paper_stage 2 writer sonnet ;;
-    3)      run_paper_stage 3 proofreader sonnet ;;
+    2)      run_paper_stage 2 writer "$(evaluate_model_for_writer)" ;;
+    3)      run_paper_stage 3 proofreader "$(evaluate_model_for_proofreader "$(evaluate_model_for_writer)")" ;;
     all)    run_full_paper_cycle ;;
-    daemon) run_daemon "${2:-180}" ;;
+    daemon) run_daemon "${2:-4320}" ;;
     status) show_paper_status ;;
     *)
         echo "사용법: $0 [1|2|3|all|daemon|status]"
         echo "  1       — 편집장만 (Opus)"
-        echo "  2       — 집필자만 (Opus)"
-        echo "  3       — 교정자만 (Opus)"
+        echo "  2       — 집필자만 (자동: opus/sonnet)"
+        echo "  3       — 교정자만 (자동: opus/sonnet)"
         echo "  all     — 전체 사이클 (기본값)"
-        echo "  daemon  — 자동 반복 (기본 180분)"
+        echo "  daemon  — 자동 반복 (기본 4320분=3일)"
         echo "  status  — 현재 상태 확인"
         exit 1
         ;;

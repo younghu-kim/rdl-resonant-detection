@@ -452,8 +452,8 @@ EOF
     fi
 
     # push (unpushed가 있으면)
-    if git log --oneline origin/main..HEAD 2>/dev/null | head -1 | grep -q .; then
-        git push origin main 2>&1 && ok "git push 완료" || warn "git push 실패"
+    if git log --oneline origin/master..HEAD 2>/dev/null | head -1 | grep -q .; then
+        git push origin master 2>&1 && ok "git push 완료" || warn "git push 실패"
     fi
 }
 
