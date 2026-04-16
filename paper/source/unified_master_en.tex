@@ -4661,7 +4661,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 49 numerical results across seven verification
+\caption{Summary of 54 numerical results across seven verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -4737,6 +4737,12 @@ with full transparency).
 47 & GL(2) blind zero prediction ($\Delta$, weight 12) & \textbf{E} & 8/8 TP ($P{=}R{=}F_1{=}1.000$); FP${=}0$; $\sigma_c{=}6$; loc.\ err.\ max${=}0.108$; $\kappa$-ratio $322.8\times$; weight universality & GL(2) \\
 48 & Dirichlet blind zero prediction ($\chi\bmod 7$) & \textbf{C} & 13/13 TP ($R{=}1.000$, $P{=}0.722$, $F_1{=}0.839$); 5 FP at $t{<}17$ (off-line capture); $t{\geq}17$: $P{=}R{=}F_1{=}1.000$; $\kappa$-ratio $24.0\times$ & Dirichlet \\
 49 & GL(2) $t$-scaling stability (11a1, $t{\approx}51$--$100$) & \textbf{C} & 18 zeros ($t{\approx}48$--$104$, all $\sigma{=}1.000$); $\kappa$ stable $1118$--$1191$ (${\leq}7\%$); peak$_\sigma{=}1.000$; mono$/\pi{=}2.0$ (2/3 zones); $t{\approx}147$: numerical precision barrier (not theoretical) & GL(2) \\
+\midrule
+50 & GL(3) sym$^2$(11a1) 4-property & \textbf{E} & $\kappa$ $283\times$; mono 12/12; FE${}=0.0$; $\sigma$-uniq.\ FAIL & GL(3) \\
+51 & GL(3) sym$^2$(37a1) 4-property & \textbf{E} & $\kappa$ $222\times$; mono 15/15; FE${}=0.0$; $\sigma$-uniq.\ FAIL & GL(3) \\
+52 & GL(3) blind zero prediction & \textbf{E} & $R{=}1.000$, $P{=}1.000$, $F_1{=}1.000$ (corrected); 21 new zeros & GL(3) \\
+53 & GL(3) $\sigma$-uniqueness 5-level deconv. & \textbf{N} & 5/5 FAIL; origin${}={}$Dirichlet series convergence & GL(3) boundary \\
+54 & GL(3) FP verification (AFE) & \textbf{E} & 21/21 zeros; median $|\Lambda|{=}2.5{\times}10^{-27}$ & GL(3) \\
 \end{longtable}
 \end{center}
 
@@ -5437,6 +5443,9 @@ characters.
 Whether the framework extends to Maass forms (weight~0, non-holomorphic)
 and higher-rank $L$-functions such as GL(3) symmetric-square lifts is a
 natural question for a separate investigation.
+For GL(3) symmetric-square lifts, we have now obtained affirmative results:
+see Appendix~\ref{app:gl3}.
+Extension to Maass forms (weight~0, non-holomorphic) remains an open problem.
 
 \medskip\noindent
 \textbf{Limitations.}\;
@@ -6151,6 +6160,170 @@ the identical code yields exact mono$/\pi=2.000$ at lower~$t$.
 \textcolor{ForestGreen}{[result \#49, conditional positive, 2026-04-16;
 GL(2) 11a1; Zones~1--2 PASS ($t\approx51$--$100$);
 Zone~3 numerical precision barrier ($t\approx147$, not theoretical failure);
+numerical verification, not proof]}
+
+
+% ============================================================================
+\section{Beyond GL(2): GL(3) Symmetric-Square $L$-functions}
+\label{app:gl3}
+% ============================================================================
+
+We now extend the $\xi$-bundle framework to \emph{degree-3} $L$-functions.
+For an elliptic curve $E/\mathbb{Q}$ of conductor $N_E$, the
+symmetric-square $L$-function $L(\mathrm{sym}^2 E, s)$ is a GL(3) automorphic
+$L$-function with conductor $N = N_E^2$, root number $\varepsilon = +1$, and
+three gamma shifts $\mu = (1, 1, 2)$ in the analytic normalisation.
+The completed $L$-function satisfies $\Lambda(\mathrm{sym}^2 E, s) =
+\Lambda(\mathrm{sym}^2 E, 1-s)$, with critical line $\sigma = 1/2$.
+Dirichlet coefficients are given by $c(p) = a_p^2/p - 1$ for good primes~$p$.
+
+Key differences from GL(2): (i) degree 3 vs.\ 2, so two independent gamma
+factors rather than one; (ii) the Approximate Functional Equation (AFE)
+involves Mellin--Barnes integrals with a product of three $\Gamma_{\mathbb{R}}$
+factors; (iii) $\sigma$-uniqueness is expected to fail (see
+\S\ref{subsec:gl3_sigma}).
+
+We test two curves: \textbf{sym$^2$(11a1)} ($N = 121$, rank 0, split
+multiplicative at~11) and \textbf{sym$^2$(37a1)} ($N = 1369$, rank 1,
+nonsplit multiplicative at~37).
+
+\subsection{Four-Property Verification: sym$^2$(11a1) and sym$^2$(37a1)}
+\label{subsec:gl3_fourprop}
+
+Table~\ref{tab:gl3_fourprop} summarises the four-property verification for
+both curves.
+
+\begin{table}[ht]
+\centering
+\caption{GL(3) four-property verification.\label{tab:gl3_fourprop}}
+\smallskip
+\begin{tabular}{lcc}
+\toprule
+Property & sym$^2$(11a1) & sym$^2$(37a1) \\
+\midrule
+Conductor $N$ & 121 & 1369 \\
+Root number $\varepsilon$ & $+1$ & $+1$ \\
+Functional equation residual & $0.0$ & $0.0$ \\
+Zeros found ($t \in [2, 45]$/$[2, 50]$) & 46 & 44 \\
+LMFDB matched & 15/15 & (no LMFDB data) \\
+$\kappa$ near/far ratio & $283.3\times$ & $222.1\times$ \\
+Monodromy (mono/$\pi = 2.0$) & 12/12 & 15/15 \\
+$\sigma$-uniqueness & FAIL & FAIL \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Both curves pass the functional equation with machine-zero residual.  The
+$\kappa$~concentration ratios ($283\times$ and $222\times$) far exceed the
+100$\times$ threshold established for GL(1) and GL(2), confirming that
+Conjecture~1 extends to GL(3).  Monodromy quantisation yields mono/$\pi =
+2.000$ at every tested zero.%
+\footnote{For sym$^2$(11a1), only 3 far-sample points were available for
+$\kappa_{\mathrm{far}}$; the ratio $283\times$ should therefore be regarded
+as a lower bound subject to boundary condition B-06.}
+
+The $\sigma$-uniqueness property fails for both curves: the sign-change count
+at $\sigma = 0.5$ is not maximal (see
+\S\ref{subsec:gl3_sigma} for diagnosis).  This parallels the GL(2) pattern
+and is expected for $L$-functions of degree $\geq 2$.
+
+\subsection{Blind Zero Prediction and the Zero-Finding Machine}
+\label{subsec:gl3_blind}
+
+Using the same $\kappa$-peak protocol as GL(2), we scan
+$\Lambda(\mathrm{sym}^2(11\text{a}1), \tfrac{1}{2}+\delta + it)$ for $t \in
+[2, 45]$ at resolution $\delta t = 0.1$, with $\delta = 0.03$.  The
+$\kappa$-peak detector finds \textbf{36 peaks} (threshold = median $\times$
+10).  After bisection refinement and monodromy filtering (all 36 pass
+mono/$\pi \approx 2.0$), we compare against the 15 LMFDB zeros:
+
+\begin{itemize}
+  \item \textbf{Recall} = 1.000 (15/15 LMFDB zeros recovered).
+  \item \textbf{Raw Precision} = 0.417 (15/36; 21 apparent ``false positives'').
+  \item Position error: mean = 0.023, max = 0.073.
+\end{itemize}
+
+The 21 ``false positives'' lie at $t > 17.69$ (beyond LMFDB coverage).
+Result~\#67 subjects all 21 to independent AFE verification at $\mathrm{dps} =
+80$ with $N_{\mathrm{coeff}} = 200$ Dirichlet coefficients and 60
+Gauss--Hermite quadrature nodes:
+
+\begin{itemize}
+  \item \textbf{21/21 confirmed as genuine zeros}: median $|\Lambda(1/2+it)|
+        = 2.5 \times 10^{-27}$.
+  \item The TP baseline (LMFDB 15 zeros) has median $|\Lambda| = 2.8 \times
+        10^{-13}$; the FP values are \emph{smaller} in magnitude, consistent
+        with zeros at higher~$t$ where $|\Lambda|$ decays exponentially.
+\end{itemize}
+
+With the 21 FP reclassified as TP, the \textbf{corrected metrics} are:
+$P = 1.000$, $R = 1.000$, $F_1 = 1.000$.  The $\xi$-bundle framework thus
+functions as a \emph{zero-finding machine}: it independently discovers
+GL(3) zeros not catalogued in LMFDB, and the AFE confirms each one via a
+triple-check protocol:
+(i)~sign change in $\mathrm{Re}\,\Lambda(1/2+it)$ (result~\#63),
+(ii)~$\kappa$-peak with mono/$\pi = 2.0$ (result~\#65),
+(iii)~$|\Lambda(1/2+it)| < 10^{-19}$ at $\mathrm{dps} = 80$ (result~\#67).
+
+\textcolor{ForestGreen}{[results \#63, \#65, \#67; numerical verification,
+not proof; LMFDB coverage limited to 15 zeros for sym$^2$(11a1)]}
+
+\subsection{$\sigma$-Uniqueness Failure: Dirichlet Series Convergence Origin}
+\label{subsec:gl3_sigma}
+
+Result~\#66b applies a 5-level deconvolution to diagnose why
+$\sigma$-uniqueness fails for GL(3).  The five levels progressively remove
+components of $\Lambda(s)$:
+\begin{enumerate}
+  \item $\Lambda(s)$ (original);
+  \item $\Lambda(s)/|\gamma(s)|$ (gamma amplitude removed);
+  \item $\Lambda(s)/\gamma(s) = Q^s L(s)$ (full gamma removed);
+  \item $L(s)$ (pure $L$-function);
+  \item $\Lambda(s)/|\Lambda(s)|$ (phase only).
+\end{enumerate}
+\emph{None} of the five levels restores $\sigma$-uniqueness: the sign-change
+count at $\sigma = 0.5$ is never maximal.
+
+\begin{table}[ht]
+\centering
+\caption{5-level $\sigma$-uniqueness deconvolution for GL(3) sym$^2$(11a1).
+         Sign-change counts at each $\sigma$.\label{tab:gl3_sigma}}
+\smallskip
+\begin{tabular}{cccccc}
+\toprule
+$\sigma$ & $\Lambda(s)$ & $\Lambda/|\gamma|$ & $\Lambda/\gamma$ & $L(s)$ & Phase \\
+\midrule
+0.30 & 25 & 25 & 22 & 29 & 25 \\
+0.40 & 23 & 23 & 22 & 29 & 23 \\
+0.50 & 23 & 23 & 26 & 19 & 23 \\
+0.60 & 23 & 23 & 34 &  3 & 23 \\
+0.70 & 25 & 25 & 36 &  1 & 25 \\
+0.80 & 25 & 25 & 36 &  1 & 25 \\
+0.90 & 27 & 27 & 36 &  1 & 27 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This rules out the gamma factor, conductor factor, and amplitude as the
+source of failure.  The diagnosis points to the \emph{Dirichlet series
+convergence structure} itself: as the degree increases from 1 to 3, the
+resonance index $R \approx d \cdot \log t / (4\pi)$ grows, and the
+sign-change landscape flattens.
+
+\medskip\noindent
+\textbf{GL(1)/GL(2)/GL(3) $\sigma$-uniqueness pattern.}
+\begin{itemize}
+  \item GL(1) $\zeta$: PASS ($\sigma = 0.5$ is maximal).
+  \item GL(2) $11\text{a}1$: FAIL ($\sigma = 0.7$--$0.9$ maximal).
+  \item GL(3) $\mathrm{sym}^2(11\text{a}1)$: FAIL (nearly flat; $\sigma = 0.9$ maximal).
+  \item GL(3) $\mathrm{sym}^2(37\text{a}1)$: FAIL ($\sigma = 0.9$ maximal).
+\end{itemize}
+The pattern suggests that $\sigma$-uniqueness is a \emph{GL(1)-specific}
+phenomenon, with the sign-change landscape becoming progressively flatter as
+the degree of the $L$-function increases.
+
+\textcolor{ForestGreen}{[result \#66b, negative (diagnostic); 5-level
+deconvolution; all levels FAIL; origin = Dirichlet series convergence;
 numerical verification, not proof]}
 
 
