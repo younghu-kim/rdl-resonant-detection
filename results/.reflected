@@ -104,6 +104,7 @@ results/data_density_scaling.txt
 results/davenport_heilbronn_adversarial.txt
 results/dh_small_radius_diagnosis.txt
 results/difficulty_regression.txt
+results/dirichlet_blind_mod7_57.txt
 results/dirichlet_blind_prediction.txt
 results/dirichlet_bundle_verification.txt
 results/dirichlet_cross_comparison.txt
