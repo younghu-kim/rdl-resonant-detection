@@ -1,5 +1,69 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-16 14:10] — 사이클 90 ✅ 결과 #61 완료 (논문 최종 일관성 감사 + 열린 문제)
+
+**수학자 지시**: 결과 #61 — 논문 최종 일관성 감사 + Abstract 수정 + 열린 문제 정리
+**실행**: EN + KO 양쪽 논문 수정 → 컴파일 성공 → PDF 3곳 배포
+
+**PID**: 없음 (논문 편집 작업)
+
+**결과 위치**:
+- `paper/source/unified_master_en.pdf` (83p)
+- `paper/source/unified_master_ko.pdf` (73p)
+- `paper/unified_master_en.pdf` (배포)
+- `paper/unified_master_ko.pdf` (배포)
+- `~/Desktop/수학최종논문/unified_master_en.pdf` (배포)
+- `~/Desktop/수학최종논문/unified_master_ko.pdf` (배포)
+
+### 수정 내용
+
+| 항목 | EN | KO |
+|------|----|----|
+| **Abstract 수치 수정** | L174: "Forty-seven" → "Forty-nine" ✅ | 이미 "49개" 정확 (L144) ✅ |
+| **Introduction 수치 수정** | 이미 "49 numerical" 정확 (L297) ✅ | L190: "43개의 수치 실험" → "49개의 수치 결과" + "GL(2) 확장" 추가 ✅ |
+| **전체 일관성** | 47/48/49 불일치 없음 ✅ | 43/49 불일치 1건 수정 완료 ✅ |
+| **Conclusion 열린 문제** | L5414: Open problems 4항목 추가 | L3921: 열린 문제 4항목 추가 |
+| **Conclusion 한계** | L5440: Limitations 4항목 추가 | L3941: 한계 4항목 추가 |
+
+### 추가 내용 요약
+
+**Open problems (4항목)**:
+1. κ 집중도 유효 상수 C(K,δ) 최적 바운드
+2. mono/π=4.0 (단일 디스크 내 다중 영점) 정량적 이론
+3. κ 비율의 conductor 의존성 (GL(2) 972× vs χ mod 7 24×)
+4. Maass 형식 / GL(3) 확장 가능성
+
+**Limitations (4항목)**:
+1. 수치 검증, 증명 아님
+2. 블라인드 예측 F1=0.943 (χ mod 7 P=0.722)
+3. GL(2) 고 t 수치 장벽 (t≈147)
+4. 59개 중 10개 음성/조건부 — 선택적 보고 아님 명시
+
+### 성공 기준 판정
+
+| 기준 | 결과 | 판정 |
+|------|------|------|
+| [필수] EN Abstract "Forty-nine" 수정 | L174 수정 완료 | ✅ PASS |
+| [필수] 전체 수치 일관성 | 모든 위치 "49" | ✅ PASS |
+| [필수] Conclusion Open Problems 추가 | 4항목 EN+KO | ✅ PASS |
+| [필수] Conclusion Limitations 추가 | 4항목 EN+KO | ✅ PASS |
+| [필수] KO 동일 반영 | 43→49 수정 + 열린 문제/한계 추가 | ✅ PASS |
+| [필수] 컴파일 에러 0 | pdflatex 2회, xelatex 2회 에러 없음 | ✅ PASS |
+| [양성] 페이지 수 83-85p 범위 | EN 83p (82+1), KO 73p (72+1) | ✅ PASS |
+
+**페이지 수**: EN 83p (기존 82p+1), KO 73p (기존 72p+1)
+
+### 주의사항 준수
+
+- ✅ 기존 구조 파괴 없음 — Conclusion 끝에 추가만
+- ✅ 새 \cite 없음 — bibliography 변경 없음
+- ✅ "proof"/"prove"/"theorem" 새로 추가 없음
+- ✅ 수치 검증 논문 성격 유지 ("not a mathematical proof")
+
+**이슈**: 없음. KO xelatex의 multiply-defined labels 경고는 기존 pre-existing 경고.
+
+---
+
 ## 보고 [2026-04-16 13:11] — 사이클 87 ✅ 결과 #60 완료 (논문 반영 + 결론 보강)
 
 **수학자 지시**: 결과 #60 — #59 (GL(2) 11a1 고 t 스케일링) 논문 반영 + 결론 보강

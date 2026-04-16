@@ -171,7 +171,7 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Forty-seven numerical results across seven verification
+\noindent Forty-nine numerical results across seven verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
 controls, GL(2) extension, and cross-rank monodromy---support the framework's internal consistency.
@@ -5409,6 +5409,56 @@ $\tau_\text{unf} \approx 0.48$ shorter than the GUE scale $\approx 1$.
 Reporting these boundaries is not a concession but a scientific
 contribution: it specifies exactly where the analogy holds and where
 it does not, a necessary step toward any rigorous formulation.
+
+\medskip\noindent
+\textbf{Open problems.}\;
+Several mathematical questions raised by this work remain open.
+(i)~\emph{Effective constant for $\kappa$ concentration.}
+Conjecture~1 asserts that $\kappa$ is large near zeros and small away from
+them, but the effective constant $C(K,\delta)$ bounding the concentration
+ratio has not been determined analytically.
+A rigorous derivation from the analytic properties of $\xi$ would sharpen
+the result significantly.
+(ii)~\emph{Multiple zeros in a single monodromy disk.}
+Results \#54 and \#59 exhibit mono/$\pi = 4.0$, corresponding to winding
+number~2 when two zeros fall within the contour.
+A quantitative theory relating the winding number to zero separation and
+contour radius---beyond the present heuristic---would complete the picture.
+(iii)~\emph{Conductor dependence of $\kappa$ ratios.}
+The near/far ratio for GL(2) with conductor $N = 11$ is $972\times$; for
+Dirichlet $\chi \bmod 7$ it is $24\times$.
+How this ratio depends on $N$ and the analytic properties of the
+$L$-function is an open problem.
+(iv)~\emph{Extension to Maass forms and GL(3).}
+All results concern holomorphic forms of weight $\leq 12$ or Dirichlet
+characters.
+Whether the framework extends to Maass forms (weight~0, non-holomorphic)
+and higher-rank $L$-functions such as GL(3) symmetric-square lifts is a
+natural question for a separate investigation.
+
+\medskip\noindent
+\textbf{Limitations.}\;
+We record four honest limitations of the present work.
+(i)~\emph{Numerical, not analytic.}
+Every result is a numerical verification, not a mathematical proof.
+The conjectures are empirically supported but remain unproven.
+(ii)~\emph{Imperfect blind prediction.}
+The five-curve aggregate achieves F1\,=\,0.943, but the Dirichlet
+$\chi \bmod 7$ experiment (result \#57) attains only $P = 0.722$, driven by
+five false positives at $t < 17$; their origin is understood
+(off-critical-line zeros captured within the monodromy disk at low $t$) but
+not fully resolved.
+(iii)~\emph{High-$t$ numerical barrier for GL(2).}
+The GL(2) high-$t$ scaling experiment (result \#59) reaches only
+$t \approx 100$ reliably; the zone $t \approx 147$ fails due to
+catastrophic cancellation at $|\Lambda| \approx 10^{-130}$, requiring
+$\mathrm{dps} \approx 200$ beyond what was attempted.
+This is a practical implementation limit, not a theoretical failure of the
+framework.
+(iv)~\emph{Negative results not omitted.}
+Of 59 experiments conducted, 10 returned negative or conditional results,
+listed explicitly in Table~\ref{tab:summary}.
+The present report is not selectively positive.
 
 
 % ============================================================================
