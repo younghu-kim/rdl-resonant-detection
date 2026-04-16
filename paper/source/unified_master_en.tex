@@ -92,6 +92,8 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{observation}[theorem]{Observation}
+\crefname{observation}{Observation}{Observations}
+\Crefname{observation}{Observation}{Observations}
 
 % ── Custom Commands ────────────────────────────────────────────────────────
 \newcommand{\Zq}{\mathbb{Z}_q}
@@ -3012,7 +3014,7 @@ Each lattice cell's wrapped phase circulation gives the
 local vortex charge; the total equals $2\pi N$ by the discrete
 Stokes theorem, yielding the Gauss--Bonnet identity
 \begin{equation}
-\label{eq:gauss_bonnet}
+\label{eq:gauss_bonnet_vortex}
 \iint_R F_2\,d\sigma\,dt
   \;=\; \sum_{\text{plaquettes}} \Delta\theta_{\square}
   \;=\; 2\pi\,N(R),

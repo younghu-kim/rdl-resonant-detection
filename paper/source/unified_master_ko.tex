@@ -80,6 +80,8 @@
 \newtheorem{corollary}[theorem]{따름정리}
 \newtheorem{conjecture}[theorem]{추측}
 \newtheorem{observation}[theorem]{관찰}
+\crefname{observation}{관찰}{관찰}
+\Crefname{observation}{관찰}{관찰}
 
 % ── Custom Commands ───────────────────────────────────────────────────────
 \newcommand{\Zq}{\mathbb{Z}_q}
@@ -140,8 +142,8 @@
 본 논문은 세 가지 겉보기에 이질적인 영역을 연결하는 공유 수학적 문법---\textit{대수적 구조 위의 위상 양자화}---을 규명한다. 그 세 영역은 CRYSTALS-Kyber 격자 기반 양자후 암호, 자유 공간 프레넬 회절, 그리고 임계선 위 리만 $\xif$-함수의 위상 구조이다. 구체적 핵은 QROP-Net으로, Kyber 암호문을 광학 위상 패턴으로 인코딩하고 딥러닝 위상 복원을 통해 복원하는 완전 미분 가능 파이프라인이다. 연속 위상 예측을 이산 시클로토믹 격자 수준으로 강제하는 $\sin^2$ 기반 양자화 손실이, 공명소수법칙 프레임워크에서 ``공명 소수''를 특성화하는 보어--좀머펠트 위상 양자화 조건 $\Delta\nu = m\pi$와 구조적으로 동형임을 보인다. 나아가 Kyber의 LWE 오차 임계치 $\lfloor q/4\rfloor = 1920$과 임계선으로부터의 $\sigma$-리프트 편차 $\sigma^*-\tfrac{1}{2}$가, 신호 복원이 실패하는 경성 오차 경계로서 동일한 역할을 공유함을 증명한다. 외부 정답 없이 자가 교정하는 다원군(Polyadic) ODE 기반 영점 탐지기가 QROP-Net의 블라인드 테스트 시간 최적화를 반영한다. 7개의 구조적 대응이 형식화되며, 유비와 증명 사이의 경계가 명시적으로 서술된다.
 
 \smallskip
-\noindent 다섯 가지 검증 축---국소 곡률, 전역 스펙트럼 통계, 위상적 불변량,
-디리클레 $L$-함수 확장, 음성 대조군---에 걸친 49개의 수치 결과가
+\noindent 일곱 가지 검증 축---국소 곡률, 전역 스펙트럼 통계, 위상적 불변량,
+디리클레 $L$-함수 확장, 음성 대조군, GL(2) 확장, 교차-차수 모노드로미---에 걸친 49개의 수치 결과가
 이 프레임워크의 내적 정합성을 지지한다.
 
 \smallskip
@@ -2106,7 +2108,7 @@ $\theta(\sigma,t) = \operatorname{Im}\!\log\xif(\sigma+it)$ 위에서
 각 격자 셀의 감긴 위상 순환이 국소 와동 전하를 주며,
 전체 합은 이산 Stokes 정리에 의해 $2\pi N$을 준다:
 \begin{equation}
-\label{eq:gauss_bonnet}
+\label{eq:gauss_bonnet_vortex}
 \iint_R F_2\,d\sigma\,dt
   \;=\; \sum_{\text{플라켓}} \Delta\theta_{\square}
   \;=\; 2\pi\,N(R),
