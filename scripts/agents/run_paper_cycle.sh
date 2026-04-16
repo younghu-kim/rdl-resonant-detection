@@ -391,8 +391,8 @@ EOF
     fi
 
     # 5. push
-    if git log --oneline origin/main..HEAD 2>/dev/null | head -1 | grep -q .; then
-        git push origin main 2>&1 && ok "git push 완료" || warn "git push 실패"
+    if git log --oneline origin/master..HEAD 2>/dev/null | head -1 | grep -q .; then
+        git push origin master 2>&1 && ok "git push 완료" || warn "git push 실패"
     fi
 }
 
@@ -416,7 +416,7 @@ run_dialogue_loop() {
         fi
 
         local s2_ok=0
-        run_paper_stage 2 writer opus "$writer_context" && s2_ok=1
+        run_paper_stage 2 writer sonnet "$writer_context" && s2_ok=1
 
         if [ "$s2_ok" -eq 0 ]; then
             err "집필자 실패 (라운드 $round)"
@@ -431,7 +431,7 @@ run_dialogue_loop() {
         fi
 
         # ── 교정자 실행 ──
-        run_paper_stage 3 proofreader opus || {
+        run_paper_stage 3 proofreader sonnet || {
             warn "교정자 실패 (라운드 $round)"
             write_paper_failure 3 "$LOG_DIR/${TIMESTAMP}_paper_stage3_proofreader.log"
             # 교정자 실패해도 집필자 결과는 유지 — 루프 종료
@@ -654,8 +654,8 @@ show_paper_status() {
 
 case "${1:-all}" in
     1)      run_paper_stage 1 editor opus ;;
-    2)      run_paper_stage 2 writer opus ;;
-    3)      run_paper_stage 3 proofreader opus ;;
+    2)      run_paper_stage 2 writer sonnet ;;
+    3)      run_paper_stage 3 proofreader sonnet ;;
     all)    run_full_paper_cycle ;;
     daemon) run_daemon "${2:-180}" ;;
     status) show_paper_status ;;
