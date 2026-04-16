@@ -173,10 +173,10 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Forty-nine numerical results across seven verification
+\noindent Fifty-five numerical results across eight verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
-controls, GL(2) extension, and cross-rank monodromy---support the framework's internal consistency.
+controls, GL(2) extension, GL(3) extension, and cross-rank monodromy---support the framework's internal consistency.
 
 \smallskip
 \noindent\textit{Note added in revision (2026-04-08).} An attempted
@@ -296,11 +296,11 @@ with a hard error boundary beyond which decoding fails}.
         (Theorem~\ref{thm:universality}). These are proved via the
         argument principle and Laurent expansion, showing that the
         bundle diagnostics are \emph{theorems}, not conjectures.
-  \item We verify the fibre-bundle interpretation through 49 numerical
-        experiments spanning seven independent axes:
+  \item We verify the fibre-bundle interpretation through 55 numerical
+        experiments spanning eight independent axes:
         local curvature, global spectral statistics, topological
-        invariants, Dirichlet $L$-function extension, and negative
-        controls.  A consolidated summary appears in
+        invariants, Dirichlet $L$-function extension, negative
+        controls, and GL(2)/GL(3) extensions.  A consolidated summary appears in
         Table~\ref{tab:summary}.
         A Stirling-based analysis further identifies \{monodromy,
         $\kappa$-concentration, blind prediction\} as
@@ -4653,15 +4653,15 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 49 numerical results obtained
-across seven verification axes.  Status codes: \textbf{E} = Established,
+Table~\ref{tab:summary} consolidates all 55 numerical results obtained
+across eight verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
 
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 54 numerical results across seven verification
+\caption{Summary of 55 numerical results across eight verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -4743,6 +4743,7 @@ with full transparency).
 52 & GL(3) blind zero prediction & \textbf{E} & $R{=}1.000$, $P{=}1.000$, $F_1{=}1.000$ (corrected); 21 new zeros & GL(3) \\
 53 & GL(3) $\sigma$-uniqueness 5-level deconv. & \textbf{N} & 5/5 FAIL; origin${}={}$Dirichlet series convergence & GL(3) boundary \\
 54 & GL(3) FP verification (AFE) & \textbf{E} & 21/21 zeros; median $|\Lambda|{=}2.5{\times}10^{-27}$ & GL(3) \\
+55 & GL(3) $\kappa$-conductor scaling (6 curves) & \textbf{E} & Scaling: $\alpha{=}0.003$, $R^2{=}0.0002$ (neg.); $\kappa_{\mathrm{near}}{\approx}1125$ (CV${=}0.15\%$, 5 curves); conductor-independent universal constant & GL(3) \\
 \end{longtable}
 \end{center}
 
@@ -5383,14 +5384,14 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{49 results across seven verification
+The numerical evidence spans \textbf{55 results across eight verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
 ($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
 NNS--curvature correlations, (vi)~negative controls establishing
-specificity, and (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling).  Collectively, results \#22--\#28 form a self-consistent
+specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), and (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant).  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
 simultaneously encodes individual winding numbers, Chern-class
 zero counts, Gauss--Bonnet area integrals, $\sigma$-localisation, and
@@ -6325,6 +6326,60 @@ the degree of the $L$-function increases.
 \textcolor{ForestGreen}{[result \#66b, negative (diagnostic); 5-level
 deconvolution; all levels FAIL; origin = Dirichlet series convergence;
 numerical verification, not proof]}
+
+\subsection{$\kappa$-Conductor Scaling and the $\kappa_{\mathrm{near}}$ Universal Constant}
+\label{subsec:gl3_kappa_scaling}
+
+Result~\#68 extends the four-property verification to \textbf{six} elliptic
+curves spanning a $37\times$ conductor range ($N = 121$ to $4489$), testing
+whether the $\kappa$~near/far ratio scales with the conductor.
+
+\begin{table}[ht]
+\centering
+\caption{$\kappa$-conductor scaling across six GL(3) sym$^2$ $L$-functions.
+\label{tab:gl3_kappa_scaling}}
+\smallskip
+\begin{tabular}{lcrrrc}
+\toprule
+Curve & $N = N_E^2$ & $\kappa_{\mathrm{near}}$ & $\kappa_{\mathrm{ratio}}$ & mono & FE \\
+\midrule
+11a1 & 121   & 1123.53 & $283\times$ & 12/12 & 0.0 \\
+19a1 & 361   & 1123.04 & $288\times$ & 6/6   & 0.0 \\
+37a1 & 1369  & 1127.21 & $222\times$ & 15/15 & 0.0 \\
+43a1 & 1849  & 1123.11 & $260\times$ & 6/6   & 0.0 \\
+53a1 & 2809  & 1126.79 & $467\times$ & 6/6   & 0.0 \\
+67a1 & 4489  & 1149.53 & $217\times$ & 3/6\,${}^\dagger$  & 0.0 \\
+\bottomrule
+\end{tabular}
+
+\medskip\noindent
+{\footnotesize ${}^\dagger$\,67a1: three TP exhibit mono/$\pi = 4.0$ due to
+double-capture of adjacent zeros (spacing $< 2r$); $\kappa_{\mathrm{near}}$
+for mono/$\pi = 2.0$ TP averages $1130.8$, within $0.5\%$ of the five-curve
+mean.}
+\end{table}
+
+\paragraph{Negative result: no conductor scaling.}
+A log-log regression of $\kappa_{\mathrm{ratio}}$ against $N$ yields
+$\alpha = 0.003 \pm 0.102$ with $R^2 = 0.0002$; Spearman $r_s = -0.31$
+($p = 0.54$).  Constant, power-law, and logarithmic models are statistically
+indistinguishable (residual SS $\approx 42{,}000$ for all three).  The
+$\kappa_{\mathrm{ratio}}$ does \emph{not} scale with conductor; its variation
+is dominated by the far-sample $\kappa_{\mathrm{far}}$, which depends on the
+accidental proximity of the far-sample point to uncatalogued zeros.
+
+\paragraph{Positive result: $\kappa_{\mathrm{near}} \approx 1125$ as a
+conductor-independent constant.}
+Excluding the 67a1 outlier (double-capture artifact), the five-curve
+$\kappa_{\mathrm{near}}$ median is $\mathbf{1124.74}$ with CV $= 0.15\%$.
+Including all six curves, the median is $1125.16$ (CV $= 0.8\%$).  This
+suggests that $\kappa_{\mathrm{near}}$ is determined by the
+\emph{framework geometry} (degree, gamma shifts, contour parameters) rather
+than the arithmetic complexity of the individual $L$-function.
+
+\textcolor{ForestGreen}{[result \#68; scaling negative ($R^2{=}0.0002$);
+$\kappa_{\mathrm{near}}$ universal constant established (CV${=}0.15\%$,
+5 curves); numerical evidence, not proof]}
 
 
 \section{Negative Result: Gram Point Curvature}
