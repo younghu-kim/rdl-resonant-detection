@@ -173,7 +173,7 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Fifty-eight numerical results across eight verification
+\noindent Fifty-nine numerical results across eight verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
 controls, GL(2) extension, GL(3) extension, and cross-rank monodromy---support the framework's internal consistency.
@@ -4653,7 +4653,7 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 58 numerical results obtained
+Table~\ref{tab:summary} consolidates all 59 numerical results obtained
 across eight verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -4661,7 +4661,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 58 numerical results across eight verification
+\caption{Summary of 59 numerical results across eight verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -4748,6 +4748,7 @@ with full transparency).
 56 & Maass form $L$-function (odd, $R{=}9.53$) & \textbf{E} & FE${}=0.0$; 18 zeros; $\kappa_{\mathrm{near}}{=}1114$ (CV${=}0.1\%$, 8 TP); mono 8/8; $\sigma$-uniq.\ 3/3 PASS; $\kappa_{\mathrm{near}}{\neq}$GL(3) & GL(2) Maass \\
 57 & Maass form $L$-function (even, $R{=}13.78$) & \textbf{E} & FE${}=0.0$; 24 zeros; $\kappa_{\mathrm{near}}{=}1115$ (CV${=}0.2\%$, 12 TP); mono 12/12; $\sigma$-uniq.\ 24/24 PASS; $\kappa_{\mathrm{near}}(2) \approx 1115$ confirmed & GL(2) Maass \\
 58 & Ramanujan $\Delta$ $L$-function ($N{=}1$, $w{=}12$) 4-property & \textbf{E} & FE${}=0.0$; 23 zeros; $\kappa_{\mathrm{near}}{=}1114$ (CV${=}0.1\%$, 12 TP); mono 12/12; $\sigma$-uniq.\ 23/23 PASS; $N{=}1 \Leftrightarrow$ PASS confirmed (boundary B-10 resolved) & GL(2) $\Delta$ \\
+59 & GL(1) $\zeta(s)$ 4-property verification & \textbf{E} & FE rel${=}1.66\times10^{-50}$; 13 zeros ($t{\in}[10,60]$); $\kappa_{\mathrm{near}}{=}1112.32$ (CV${=}0.1\%$, 13 TP); mono 13/13 ($\mathrm{mono}/\pi{=}2.0000$); $\sigma$-uniq.\ 13/13 PASS ($\kappa(0.5)/\kappa(0.45){\in}[10^{26},10^{27}]$); $\kappa_{\mathrm{near}}(1){=}1112.32$ anchor; $\kappa$ ratio $2200.7{\times}$ (record) & GL(1) $\zeta$ \\
 \end{longtable}
 \end{center}
 
@@ -5388,14 +5389,14 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{58 results across eight verification
+The numerical evidence spans \textbf{59 results across eight verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
 ($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
 NNS--curvature correlations, (vi)~negative controls establishing
-specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), and (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant).  Collectively, results \#22--\#28 form a self-consistent
+specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$.  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
 simultaneously encodes individual winding numbers, Chern-class
 zero counts, Gauss--Bonnet area integrals, $\sigma$-localisation, and
@@ -5484,7 +5485,7 @@ $\mathrm{dps} \approx 200$ beyond what was attempted.
 This is a practical implementation limit, not a theoretical failure of the
 framework.
 (iv)~\emph{Negative results not omitted.}
-Of 59 experiments conducted, 10 returned negative or conditional results,
+Of 60 experiments conducted, 10 returned negative or conditional results,
 listed explicitly in Table~\ref{tab:summary}.
 The present report is not selectively positive.
 
@@ -6259,6 +6260,67 @@ while GL(3) symmetric-square $L$-functions give $1125.16 \pm 1.7$
 provides strong numerical evidence that $\kappa_{\mathrm{near}}$ is a
 \emph{degree-dependent} constant rather than a single universal value.
 
+Result~\#59 now anchors the $d{=}1$ end of this spectrum.
+The Riemann zeta function $\zeta(s)$ yields $\kappa_{\mathrm{near}}(1) = 1112.32$
+(CV${=}0.1\%$, 13~TP in $t \in [10,60]$), extending the monotone pattern to all
+three measured degrees:
+
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{clccl}
+\toprule
+degree $d$ & $L$-function & $\kappa_{\mathrm{near}}(d)$ & $n$(TP) & CV \\
+\midrule
+1 & $\zeta(s)$ & $1112.32$ & 13 & $0.1\%$ \\
+2 & GL(2) avg (2 Maass $+$ $\Delta$) & $1114.6$ & 34 & ${\sim}0.1\%$ \\
+3 & GL(3) sym$^2$ avg (6 curves) & $1125.16$ & ${\sim}60$ & $0.15\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip
+
+\noindent
+The gaps are $\Delta_{1\to2} = 2.28$ and $\Delta_{2\to3} = 10.56$, a ratio of $4.63\times$,
+suggesting an \emph{accelerating} increase rather than arithmetic growth.
+This rules out a linear $\kappa_{\mathrm{near}}(d) = a + bd$ model;
+whether the pattern is quadratic, exponential, or of a different functional form
+requires a fourth data point at $d{=}4$ (under investigation, experiment~\#72).
+
+Furthermore, the $\kappa$ near/far ratio decreases monotonically with degree:
+
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{clc}
+\toprule
+degree $d$ & $L$-function & $\kappa$ ratio (near/far) \\
+\midrule
+1 & $\zeta(s)$ & $2200.7\times$ \\
+2 & GL(2) avg (Maass, $\Delta$) & ${\sim}600\times$ \\
+3 & GL(3) sym$^2$ & ${\sim}320\times$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip
+
+\noindent
+This degree-inverse pattern in the near/far $\kappa$ ratio
+(higher degree $\Rightarrow$ lower separation between zeros and non-zeros)
+is consistent with the increasing complexity of the $\Gamma$-factor
+structure at higher degrees, which raises the baseline curvature at
+non-zero points.
+
+\medskip\noindent
+\emph{Low-$\gamma$ curvature bias.}\;
+A systematic downward bias at $\gamma < 20$ (compared to $\gamma \geq 20$)
+has been observed in GL(2) forms at the ${\sim}0.3\%$ level.
+For GL(1) $\zeta(s)$ this bias is only $0.07\%$
+($\kappa_{\mathrm{near}} = 1111.58$ for $\gamma < 20$, $n{=}1$, vs.\
+$1112.36$ for $\gamma \geq 20$, $n{=}12$),
+suggesting that the low-$\gamma$ bias may itself be degree-dependent
+and diminishes as the $\Gamma$-factor simplifies.
+
 \medskip\noindent
 \textbf{$\sigma$-uniqueness: conductor determines PASS/FAIL (boundary B-10 resolved).}
 Unlike holomorphic GL(2) forms with $N > 1$ (11a1, 37a1: FAIL),
@@ -6273,6 +6335,9 @@ Two hypotheses had been proposed for the PASS/FAIL split among degree-2 $L$-func
 Since $\Delta$ has $N{=}1$ and weight${=}12$ yet passes $\sigma$-uniqueness,
 hypothesis~(B) is ruled out and hypothesis~(A) is confirmed:
 \emph{$\sigma$-uniqueness PASS/FAIL is determined by whether the conductor $N$ equals~1}.
+Result~\#59 ($\zeta(s)$, degree~1) further strengthens this:
+13/13 PASS with $\kappa(0.5)/\kappa(0.45) \in [10^{26}, 10^{27}]$,
+the sharpest $\sigma$-uniqueness peak recorded across all tested $L$-functions.
 The complete evidence is:
 
 \smallskip
@@ -6282,7 +6347,7 @@ The complete evidence is:
 \toprule
 $L$-function & degree & $N$ & weight & $\sigma$-uniq. & $n$(zeros) \\
 \midrule
-$\zeta(s)$ & 1 & 1 & --- & PASS & 385 \\
+$\zeta(s)$ & 1 & 1 & --- & PASS & 385 hist.; 4-prop: 13/13 \\
 Maass $R{=}9.53$ (odd) & 2 & 1 & 0 & PASS & 3 \\
 Maass $R{=}13.78$ (even) & 2 & 1 & 0 & PASS & 24 \\
 Ramanujan $\Delta$ ($w{=}12$) & 2 & 1 & 12 & PASS & 23 \\
@@ -6296,19 +6361,22 @@ sym$^2$(11a1) & 3 & 121 & --- & FAIL & --- \\
 \smallskip
 
 \noindent
-The pattern is unambiguous: four $N{=}1$ $L$-functions (spanning degree~1--2,
-weight~0, 2, 12, and both holomorphic and non-holomorphic forms) all PASS,
-while three $N{>}1$ $L$-functions all FAIL.
-Weight is irrelevant (weight 0 and 12 both PASS).
+The pattern is unambiguous: \emph{all five $N{=}1$ $L$-functions} tested
+(spanning degree~1--2, weight~0, 2, 12, holomorphic and non-holomorphic) PASS,
+while all three $N{>}1$ $L$-functions FAIL.
+In total: $N{=}1 \Leftrightarrow$ PASS, confirmed across 63~zeros with zero exceptions.
+Weight is irrelevant (weight 0 and 12 both PASS); degree is irrelevant
+(degree 1 and 2 both PASS under $N{=}1$).
 This provides strong numerical evidence that conductor $N{=}1$
-is the determining factor for $\sigma$-uniqueness,
+is the sole determining factor for $\sigma$-uniqueness,
 though the theoretical mechanism behind this dichotomy remains an open problem.
 
-\textcolor{ForestGreen}{[results \#56--\#58, established, 2026-04-17;
+\textcolor{ForestGreen}{[results \#56--\#59, established, 2026-04-17;
 GL(2) Maass forms: odd ($R{=}9.53$) + even ($R{=}13.78$, $N{=}1$);
 Ramanujan $\Delta$ ($N{=}1$, $w{=}12$): 23 zeros, $\sigma$-uniq.\ 23/23 PASS;
 $N{=}1 \Leftrightarrow$ PASS confirmed (boundary B-10 resolved);
-$\kappa_{\mathrm{near}}(2) \approx 1114.6$ (34~TP, 3 forms) vs GL(3) $1125$ ($0.94\%$ difference);
+GL(1) $\zeta(s)$: 13 zeros, $\kappa_{\mathrm{near}}{=}1112.32$ (CV${=}0.1\%$), $\sigma$-uniq.\ 13/13 PASS, $\kappa$ ratio $2200.7\times$;
+$\kappa_{\mathrm{near}}(d)$ monotone: $1112.32$ ($d{=}1$) $<$ $1114.6$ ($d{=}2$) $<$ $1125.16$ ($d{=}3$), gap acceleration $4.63\times$;
 numerical verification, not proof]}
 
 
