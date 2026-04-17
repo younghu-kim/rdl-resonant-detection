@@ -1,6 +1,9 @@
+# 사이클 134: #72 ★ 음성 기각 (비원시 L-함수). #72v2 sym³(Δ) 지시 (opus). B-12 핵심.
+PRIORITY:high
+# 처리됨: 2026-04-17 17:25
 # 처리됨: 2026-04-17 15:53
 # 사이클 133: #72 GL(4) Rankin-Selberg 4성질 지시 (opus). B-12 해결 핵심. CPU 유휴.
-PRIORITY:high
+# PRIORITY:high (superseded)
 # 처리됨: 2026-04-17 14:38
 # 사이클 132: #71 ★★★ 강양성 판정. κ_near(d) 3점 단조증가 확립. #71p 논문 반영 지시 (sonnet). CPU 유휴.
 PRIORITY:normal
