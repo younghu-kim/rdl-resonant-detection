@@ -103,7 +103,19 @@
 - **κ 폭발**: t>20에서 κ → 10⁶~10⁹. float64 정밀도 초과 + 급수 미수렴 복합 효과.
 - **σ-유일성 거짓 FAIL**: AFE 오류로 임계선 판별 불가 → B-10과의 모순은 기술적 아티팩트.
 - **해결책**: N_COEFF=3000 + mpmath dps=60 + FE 검증 Re(s)=3~5로 이동.
-- **상태**: #72v3에서 3차 시도 예정.
+- **#72v3 결과**: N=3000+mpmath에서도 FE 0/7 FAIL → **원인 재진단 (B-16 참조)**
+- **상태**: B-15 자체는 부분 해결 (N, 정밀도는 충분). 진짜 원인은 B-16.
+
+### B-16: AFE backward Dirichlet 수렴 조건 (신규, 2026-04-17 #72v3 진단)
+- **현상**: LAFE(s)의 backward term Ldir(1-s+wk)에서 Re(1-s+c_shift) > 1 필수.
+- **조건**: **Re(s) < c_shift** (정확히는 Re(s) < c_shift + 1, 실용적으로 Re(s) ≤ c_shift - 1)
+- **#72v3 오류**: c_shift=4에서 Re(s)=4,5를 테스트 → backward Re=1,0 → Dirichlet 발산/경계
+  - Re(s)=4: rel=328 (backward Re=1)
+  - Re(s)=5: rel=333,000 (backward Re=0, 발산)
+  - Re(s)=3: rel=5.11 (backward Re=2, 느린 수렴)
+- **수정**: Re(s)=2~2.5에서 테스트 → backward Re=3~2.5 → 충분한 수렴
+- **일반화**: 모든 degree의 AFE FE 검증에 적용. degree 1~3에서는 c_shift=4, Re(s)=1/2~2로 테스트했기 때문에 문제 없었음.
+- **상태**: #72v4에서 수정 예정. 통과 확률 80%.
 
 ## 제2논문 경계 (진행 중)
 
