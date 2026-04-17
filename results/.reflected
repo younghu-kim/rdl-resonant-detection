@@ -173,6 +173,7 @@ results/holonomy_chern_even_character.txt
 results/holonomy_chern_number_figdata.csv
 results/holonomy_chern_number.txt
 results/h_scaling_r_init.txt
+results/kappa_delta_scaling_73.txt
 results/kuramoto_order_parameter.txt
 results/lehmer_curvature_analysis.txt
 results/lehmer_global_scan.txt
