@@ -129,6 +129,8 @@ results/dirichlet_blind_prediction.txt
 results/dirichlet_bundle_verification.txt
 results/dirichlet_cross_comparison.txt
 results/dirichlet_high_conductor.txt
+results/dirichlet_kappa_75.txt
+results/dirichlet_kappa_76.txt
 results/dirichlet_midpoint_nonlocal.txt
 results/dirichlet_mod7_40b.txt
 results/dirichlet_mod7_verification.txt
@@ -163,6 +165,11 @@ results/gl3_gamma_deconv_66.txt
 results/gl3_sym2_11a1_63b.txt
 results/gl3_sym2_11a1_63.txt
 results/gl3_sym2_37a1_64.txt
+results/gl4_rankin_selberg_72.txt
+results/gl4_sym3_delta_72v2.txt
+results/gl4_sym3_delta_72v3.txt
+results/gl4_sym3_delta_72v4.txt
+results/gl4_sym3_delta_72v5.txt
 results/gram_point_curvature.txt
 results/gue_poisson_midpoint_comparison.txt
 results/high_height_scaling.txt
@@ -174,6 +181,7 @@ results/holonomy_chern_number_figdata.csv
 results/holonomy_chern_number.txt
 results/h_scaling_r_init.txt
 results/kappa_delta_scaling_73.txt
+results/kappa_delta_scaling_74.txt
 results/kuramoto_order_parameter.txt
 results/lehmer_curvature_analysis.txt
 results/lehmer_global_scan.txt

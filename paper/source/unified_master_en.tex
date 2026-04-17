@@ -173,7 +173,7 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Sixty-one numerical results across eight verification
+\noindent Sixty-two numerical results across eight verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
 controls, GL(2) extension, GL(3) extension, and cross-rank monodromy---support the framework's internal consistency.
@@ -2330,6 +2330,57 @@ GL(2): 12 zeros, 5 offsets, 60 pts, $\kappa{\cdot}\delta^2{\in}[1.00,1.04]$;
 GL(3): 12 zeros, 5 offsets, 60 pts, $\kappa{\cdot}\delta^2{\in}[1.00,1.12]$;
 mean$(A)$ monotone increasing GL(1--3): 1.30, 3.93, 12.79;
 functional form undetermined from 3 points; numerical verification, not proof]}
+\end{remark}
+
+\begin{remark}[Conductor dependence of $A(t_0)$ within degree~1: Dirichlet extension (result~\#62)]
+\label{rem:dirichlet_conductor_A}
+The scaling law $\kappa = 1/\delta^2 + A(t_0) + O(\delta^2)$ extends to
+Dirichlet $L$-functions $L(s,\chi)$ for $\chi\bmod 3$, $\chi\bmod 4$, and
+$\chi\bmod 5$ (all odd characters, $\mu = 1$).
+A total of 330 data points (66 zeros $\times$ 5 offsets
+$\delta \in \{0.001, 0.005, 0.01, 0.05, 0.1\}$) confirm:
+\begin{itemize}
+  \item $\kappa\cdot\delta^2 \in [1.00000, 1.028]$ for all characters and all $\delta$ (pass);
+  \item $A(t_0)$ is $\delta$-independent to within spread $< 0.1\%$ (all three~$\chi$).
+\end{itemize}
+The correction $A(t_0)$ exhibits clear conductor dependence within degree~1:
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{@{}llcrrl@{}}
+\toprule
+$L$-function & $\mu$ & conductor $q$ & mean$(A)$ & $n$ & spread \\
+\midrule
+$\zeta(s)$ & 0 & 1 & 1.27 & 12 & 0.00\% \\
+$L(s,\chi_3)$ & 1 & 3 & 2.25 & 20 & 0.08\% \\
+$L(s,\chi_4)$ & 1 & 4 & 2.77 & 22 & 0.02\% \\
+$L(s,\chi_5)$ & 1 & 5 & 3.14 & 24 & 0.06\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip\noindent
+At the same $\delta$, $\kappa_{\mathrm{near}}$ differs by $< 0.2\%$ across all
+degree-1 $L$-functions, confirming that $\kappa_{\mathrm{near}}$ is
+effectively degree-determined (boundary~B-09).
+The conductor-dependent variation resides entirely in the $O(1)$ correction $A(t_0)$,
+which grows monotonically with $q$:
+$A(\zeta) = 1.27 < A(\chi_3) = 2.25 < A(\chi_4) = 2.77 < A(\chi_5) = 3.14$.
+
+The simple estimate $\Delta A \approx \log(q/\pi)/2$ (from the $\log(q/\pi)$ term
+in $\Lambda'/\Lambda$) accounts for only $\sim\!13\%$ of the observed increase;
+the dominant contribution arises from the $L'/L$ term at the zeros,
+which reflects the conductor-dependent zero density.
+We caution that $\mu$ and $q$ co-vary in these three characters
+(all have $\mu = 1$, $q > 1$); separating the $\mu$-shift effect from the
+conductor effect requires even characters ($\mu = 0$, $q > 1$)
+and is addressed in experiment~\#76.
+
+\textcolor{ForestGreen}{[result \#62, established, 2026-04-18;
+66 zeros, 5 offsets, 330 data points;
+$\kappa{\cdot}\delta^2$ all PASS; $A$ $\delta$-independent (spread ${<}0.1\%$);
+$A$ conductor-monotone: 1.27, 2.25, 2.77, 3.14;
+same-$\delta$ $\kappa_{\mathrm{near}}$ diff.\ ${<}0.2\%$ (B-09 confirmed);
+numerical evidence, not proof]}
 \end{remark}
 
 
@@ -4805,7 +4856,7 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 60 numerical results obtained
+Table~\ref{tab:summary} consolidates all 62 numerical results obtained
 across eight verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -4813,7 +4864,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 60 numerical results across eight verification
+\caption{Summary of 62 numerical results across eight verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -4912,6 +4963,15 @@ with full transparency).
    (see Remark~\ref{rem:kappa_degree_comparison});
    functional form of $A(d)$ undetermined from 3 points; open: B-18
    & GL(1--3) \\
+\midrule
+62 & Dirichlet $\chi$ $\kappa$-$\delta$ scaling $+$ $A(t_0)$ conductor dependence & \textbf{E} &
+   $\chi\bmod 3,4,5$ (all odd, $\mu{=}1$): 66 zeros $\times$ 5$\delta$ $=$ 330 pts;
+   $\kappa{\cdot}\delta^2$ all PASS (max 1.028);
+   $A(t_0)$ $\delta$-independent (spread ${<}0.1\%$);
+   $A$: $\zeta{=}1.27$, $\chi_3{=}2.25$, $\chi_4{=}2.77$, $\chi_5{=}3.14$ (conductor monotone $\uparrow$);
+   same-$\delta$ $\kappa_{\mathrm{near}}$ diff.\ ${<}0.2\%$ $\Rightarrow$ degree-only confirmed (B-09);
+   see Remark~\ref{rem:dirichlet_conductor_A}
+   & GL(1) Dirichlet \\
 \end{longtable}
 \end{center}
 
@@ -5419,18 +5479,19 @@ Tier 2 programmes (conjectural but well-posed).}
   \item \textbf{Analytic decomposition of $A(t_0)$ (boundary B-18).}
         Result~\#61 (Remark~\ref{rem:kappa_degree_comparison}) establishes
         that the correction term $A(t_0) = \kappa - 1/\delta^2$ grows monotonically
-        with degree ($1.30 \to 3.93 \to 12.79$ for GL(1--3)), but the functional
-        form $A(d)$ is undetermined from three data points.
+        with degree ($1.30 \to 3.93 \to 12.79$ for GL(1--3)), and
+        result~\#62 (Remark~\ref{rem:dirichlet_conductor_A}) shows conductor-monotone
+        growth within degree~1 ($1.27 \to 2.25 \to 2.77 \to 3.14$ for $q = 1,3,4,5$).
+        Preliminary experiment~\#76 suggests that ${\sim}97\%$ of the $A(t_0)$ variation
+        is conductor-driven and ${\sim}3\%$ is $\mu$-driven, but this awaits full verification.
         The natural decomposition
         $A(t_0) = A_\Gamma(t_0, \mu) + A_L(t_0)$
-        separating the Gamma-factor contribution (expressible analytically via
-        digamma functions and the spectral parameters $\mu_j$)
-        from the finite Euler product residual $A_L$ would (i)~yield an analytic
-        prediction for $A_\Gamma$ computable from the $\mu$-data alone,
-        and (ii)~identify $A_L$ as a direct measure of the ``arithmetic depth''
-        of the $L$-function, independent of its degree and conductor.
-        Testing whether $A_L$ is degree-independent (i.e., $A_L \approx A_L(\zeta)$
-        for all families) would clarify the origin of the degree-monotone growth.
+        separating the Gamma-factor contribution from the finite Euler product residual
+        would (i)~yield an analytic prediction for $A_\Gamma$,
+        and (ii)~identify $A_L$ as a measure of ``arithmetic depth.''
+        The simple estimate $\Delta A \approx \log(q/\pi)/2$ accounts for only
+        ${\sim}13\%$ of the conductor effect, indicating that $L'/L$ at the zeros
+        carries the dominant contribution.
         \textbf{Priority: medium.}
 \end{enumerate}
 
@@ -5568,14 +5629,14 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{61 results across eight verification
+The numerical evidence spans \textbf{62 results across eight verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
 ($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
 NNS--curvature correlations, (vi)~negative controls establishing
-specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), and extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61).  Collectively, results \#22--\#28 form a self-consistent
+specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), and Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62).  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
 simultaneously encodes individual winding numbers, Chern-class
 zero counts, Gauss--Bonnet area integrals, $\sigma$-localisation, and
@@ -6577,7 +6638,7 @@ This provides strong numerical evidence that conductor $N{=}1$
 is the sole determining factor for $\sigma$-uniqueness,
 though the theoretical mechanism behind this dichotomy remains an open problem.
 
-\textcolor{ForestGreen}{[results \#56--\#60, established, 2026-04-17/18;
+\textcolor{ForestGreen}{[results \#56--\#62, established, 2026-04-17/18;
 GL(2) Maass forms: odd ($R{=}9.53$) + even ($R{=}13.78$, $N{=}1$);
 Ramanujan $\Delta$ ($N{=}1$, $w{=}12$): 23 zeros, $\sigma$-uniq.\ 23/23 PASS;
 $N{=}1 \Leftrightarrow$ PASS confirmed (boundary B-10 resolved);
