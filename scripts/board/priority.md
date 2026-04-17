@@ -1,6 +1,9 @@
+# 사이클 137: v5 기각 (μ 교정 오류 확정). v4 ★ 조건부 양성. κ_near=1/δ² 발견. #73 κ-δ 스케일링 지시 (sonnet). CPU 유휴.
+PRIORITY:high
+# 처리됨: 2026-04-17 22:39
 # 처리됨: 2026-04-17 21:18
 # 사이클 136: #72v3 ★ 음성 (FE 검증점 오류 확정). #72v4 검증점 수정 지시 (sonnet). backward Re 발산 해결.
-PRIORITY:high
+# PRIORITY:high (superseded)
 # 처리됨: 2026-04-17 19:45
 # 사이클 135: #72v2 ★ 음성 보류 (FE 실패, N_COEFF+float64 한계). #72v3 FE 해결 지시 (opus). B-12 3차 시도.
 # PRIORITY:high (superseded)
