@@ -1,5 +1,70 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-18 03:32] — 사이클 #140, #74p 논문 반영 **완료** ✅
+
+**수학자 지시**: #74p — 결과 #61 (3-degree κ-δ 스케일링 + A(t₀) degree 비교) 논문 반영 (EN/KO)
+**모델**: sonnet
+**실행**: EN/KO TeX 직접 편집 (스크립트 실행 없음)
+**PID**: 해당 없음 (논문 반영 작업)
+**결과 위치**: `paper/source/unified_master_en.pdf`, `paper/source/unified_master_ko.pdf`
+**컴파일**: EN pdflatex ✅ (에러 0건, 2차), KO xelatex ✅ (에러 0건, 2차)
+**git commit**: fd80b27
+**PDF 배포**: paper/, paper/source/, ~/Desktop/수학최종논문/ 3곳 완료
+
+### 반영 내역
+
+#### 1. 결과 카운트 갱신 (60 → 61)
+| 위치 | EN | KO |
+|------|----|----|
+| Abstract | Sixty → Sixty-one | 60개 → 61개 (여러 곳) |
+| Summary table 소개 | 60 results → 61 results | 60개 → 61개 |
+| Summary table caption | — | 60개 → 61개 |
+| Discussion | 60 results → 61 results | 60개 결과 → 61개 결과 |
+
+#### 2. Summary Table 결과 #61 행 추가 (EN/KO)
+```
+61 | 3-degree κ-δ scaling + A(t₀) comparison | E |
+   GL(2) Maass R≈13.78: 12×5δ=60pts, κ·δ²∈[1.00,1.04];
+   GL(3) sym²(11a1): 12×5δ=60pts, κ·δ²∈[1.00,1.12];
+   mean(A): GL(1)=1.30, GL(2)=3.93, GL(3)=12.79 (↑단조);
+   A δ-독립: GL(2)<0.21%, GL(3)<0.70%;
+   스케일링 법칙 d=1~3 전반; A(d) 함수형 미결정(3점); B-18
+   | GL(1-3)
+```
+
+#### 3. rem:kappa_degree_comparison 신규 Remark (EN/KO)
+- 120점 추가 검증 (GL(2)/GL(3) 각 60점)
+- 3-degree A(t₀) 비교표 3행 (GL(1)/GL(2)/GL(3))
+- 비율: GL(2)/GL(1)≈3.0×, GL(3)/GL(2)≈3.3×
+- 수학적 해석: d개 Γ-인자 → |Im(H₀)|² 증가
+- 자명성 명시: κ·δ²≈1은 단순 극의 귀결
+- GL(3) δ=0.1 편차 12% = O(δ²) 보정 (이론 일관)
+- "functional form undetermined from 3 points" 정직 기술
+- B-18 참조
+
+#### 4. B-18 열린 문제 추가 (EN/KO, Tier 2 끝)
+- A = A_Γ + A_L 해석적 분해 (Γ-인자 기여 vs 산술 잔차)
+- 우선순위: 중간
+
+### 성공 기준 체크 ✅ (5/5)
+
+- ✅ EN/KO 컴파일 에러 0건
+- ✅ Summary table #61 행 존재 (EN/KO)
+- ✅ 본문에 3-degree A(t₀) 비교표 (3행) — rem:kappa_degree_comparison
+- ✅ Abstract/본문 결과 개수 61로 일관 (EN/KO)
+- ✅ Discussion에 A 분해 열린 문제 언급 (B-18)
+
+### 수학자 지시 준수 사항
+- ✅ κ·δ²≈1 자명성 명시 (검토자 경고 반영)
+- ✅ 참신성=A(t₀) 정량 degree-비교 강조
+- ✅ GL(3) δ=0.1 편차 12% = O(δ²) 보정이지 정리 위반 아님 명시
+- ✅ "functional form undetermined from 3 points" 정직 기술
+
+### 이슈
+없음.
+
+---
+
 ## 보고 [2026-04-18 02:10] — 사이클 #139, #74 κ-δ 스케일링 GL(2)+GL(3) **완료** ✅
 
 **수학자 지시**: #74 — GL(2) Maass + GL(3) sym²(11a1)에서 κ-δ 스케일링 법칙 검증, A(t₀) degree 비교표
