@@ -173,7 +173,7 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Sixty-two numerical results across eight verification
+\noindent Sixty-three numerical results across eight verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
 controls, GL(2) extension, GL(3) extension, and cross-rank monodromy---support the framework's internal consistency.
@@ -2372,14 +2372,87 @@ the dominant contribution arises from the $L'/L$ term at the zeros,
 which reflects the conductor-dependent zero density.
 We caution that $\mu$ and $q$ co-vary in these three characters
 (all have $\mu = 1$, $q > 1$); separating the $\mu$-shift effect from the
-conductor effect requires even characters ($\mu = 0$, $q > 1$)
-and is addressed in experiment~\#76.
+conductor effect requires even characters ($\mu = 0$, $q > 1$),
+which is established in result~\#63 (Remark~\ref{rem:dirichlet_mu_q_separation}).
 
 \textcolor{ForestGreen}{[result \#62, established, 2026-04-18;
 66 zeros, 5 offsets, 330 data points;
 $\kappa{\cdot}\delta^2$ all PASS; $A$ $\delta$-independent (spread ${<}0.1\%$);
 $A$ conductor-monotone: 1.27, 2.25, 2.77, 3.14;
 same-$\delta$ $\kappa_{\mathrm{near}}$ diff.\ ${<}0.2\%$ (B-09 confirmed);
+numerical evidence, not proof]}
+\end{remark}
+
+\begin{remark}[$\mu$-vs-$q$ separation of $A(t_0)$: even Dirichlet character (result~\#63)]
+\label{rem:dirichlet_mu_q_separation}
+Result~\#62 measures $A(t_0)$ only for odd characters ($\mu = 1$, $q > 1$),
+leaving $\mu$ and $q$ confounded.
+To isolate the two effects, we add the even character
+$\chi_5^{\mathrm{even}} \pmod{5}$ (Legendre symbol mod~5:
+$\chi(1){=}1$, $\chi(2){=}{-1}$, $\chi(3){=}{-1}$, $\chi(4){=}1$,
+$\chi({-1}){=}\chi(4){=}+1$, so $\mu = 0$, $q = 5$),
+together with a fresh measurement of $\zeta(s)$ (same method, $\mu = 0$, $q = 1$).
+A total of 180 data points (36 zeros $\times$ 5 offsets across
+$\zeta$ and $\chi_5^{\mathrm{even}}$) confirm $\kappa{\cdot}\delta^2 \in [1.00000, 1.031]$
+and $A(t_0)$ $\delta$-independent (spread ${<}0.1\%$) for both $L$-functions.
+
+The five-row comparison (same $\delta = 0.01$) is:
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{@{}llcrrl@{}}
+\toprule
+$L$-function & $\mu$ & $q$ & mean$(A)$ & $n$ & SE \\
+\midrule
+$\zeta(s)$ & 0 & 1 & 1.2727 & 12 & 0.14 \\
+$L(s,\chi_3)$ & 1 & 3 & 2.2451 & 20 & $-$ \\
+$L(s,\chi_4)$ & 1 & 4 & 2.7688 & 22 & $-$ \\
+$L(s,\chi_5^{\mathrm{even}})$ & 0 & 5 & 3.0914 & 24 & 0.21 \\
+$L(s,\chi_5^{\mathrm{odd}})$ & 1 & 5 & 3.1407 & 24 & 0.21 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip\noindent
+(SE: standard error $= \mathrm{std}(A)/\sqrt{n}$; entries marked ``$-$'' from result~\#62.)
+
+\noindent The $\mu$-vs-$q$ decomposition at $q = 5$ (fixing one variable at a time):
+\begin{itemize}
+  \item \textbf{$q$-effect} ($\mu = 0$ fixed):
+        $A(\chi_5^{\mathrm{even}}) - A(\zeta) = 3.0914 - 1.2727 = +1.8187$,
+        accounting for \textbf{97.4\%} of the total variation.
+  \item \textbf{$\mu$-effect} ($q = 5$ fixed):
+        $A(\chi_5^{\mathrm{odd}}) - A(\chi_5^{\mathrm{even}}) = 3.1407 - 3.0914 = +0.0493$,
+        accounting for \textbf{2.6\%}.  The difference $0.05$ corresponds to
+        $0.24$ standard errors, consistent with $\mu$-independence at the
+        resolution of our data.
+  \item \textbf{Additivity check}:
+        $1.8187 + 0.0493 = 1.8680 = A(\chi_5^{\mathrm{odd}}) - A(\zeta)$ (exact).
+\end{itemize}
+
+\noindent\textbf{Naive log-conductor model insufficient.}
+The simple estimate $\Delta A_q \approx \log(q/\pi)/2 = 0.23$ (from the
+$\log(q/\pi)$ term in $\Lambda'/\Lambda$) accounts for only
+$0.23/1.82 \approx 13\%$ of the observed $q$-effect.
+The dominant contribution arises from the $(L'/L)(\rho,\chi)$ term,
+which reflects conductor-dependent zero density.
+This indicates that $A(t_0)$ encodes arithmetic information beyond the
+gamma-factor structure; the decomposition $A = A_\Gamma + A_L$ remains open
+(boundary B-18, \S\ref{sec:discussion}).
+
+\noindent Corroboration: $\chi_3, \chi_4, \chi_5^{\mathrm{odd}}$ (all $\mu = 1$, result~\#62)
+show monotone increase in $A$ with $q$ at fixed $\mu = 1$,
+consistent with conductor-dominance.
+The possible confound of unequal $t_0$-distributions across $L$-functions
+(different numbers of zeros in $t \in [14, 59]$) is mitigated by
+this within-$\mu$ monotonicity across three independent conductors.
+
+\textcolor{ForestGreen}{[result \#63, established, 2026-04-18;
+$\zeta$ 12 zeros $+$ $\chi_5^{\mathrm{even}}$ 24 zeros, 5 offsets, 180 data points;
+$\kappa{\cdot}\delta^2{\in}[1.00000,1.031]$ all PASS;
+$A$ $\delta$-independent (spread ${<}0.1\%$);
+$q$-effect 97.4\%, $\mu$-effect 2.6\% (consistent with $\mu$-independence);
+naive $\log(q/\pi)/2 = 0.23 \ll$ measured 1.82 (only 13\%);
+$A(t_0)$ encodes arithmetic beyond gamma factors; B-18 open;
 numerical evidence, not proof]}
 \end{remark}
 
@@ -4856,7 +4929,7 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 62 numerical results obtained
+Table~\ref{tab:summary} consolidates all 63 numerical results obtained
 across eight verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -4864,7 +4937,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 62 numerical results across eight verification
+\caption{Summary of 63 numerical results across eight verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -4972,6 +5045,17 @@ with full transparency).
    same-$\delta$ $\kappa_{\mathrm{near}}$ diff.\ ${<}0.2\%$ $\Rightarrow$ degree-only confirmed (B-09);
    see Remark~\ref{rem:dirichlet_conductor_A}
    & GL(1) Dirichlet \\
+\midrule
+63 & Even Dirichlet $\chi$ $\mu$-vs-$q$ separation of $A(t_0)$ & \textbf{E} &
+   $\zeta(s)$ ($\mu{=}0$, $q{=}1$): $A{=}1.2727$ (12 zeros);
+   $\chi_5^{\mathrm{even}}$ ($\mu{=}0$, $q{=}5$): $A{=}3.0914$ (24 zeros);
+   $q$-effect ($\mu{=}0$ fixed): $+1.8187$ (97.4\%);
+   $\mu$-effect ($q{=}5$ fixed): $+0.0493$ (2.6\%);
+   additivity check: $1.8187+0.0493{=}1.8680{=}A(\chi_5^1){-}A(\zeta)$ (exact);
+   naive $\log(q/\pi)/2{=}0.23 \ll$ measured $q$-effect $1.82$;
+   $A(t_0)$ $\delta$-independent: spread ${<}0.1\%$;
+   see Remark~\ref{rem:dirichlet_mu_q_separation}
+   & GL(1) $\zeta$, $\chi$ \\
 \end{longtable}
 \end{center}
 
@@ -5482,16 +5566,21 @@ Tier 2 programmes (conjectural but well-posed).}
         with degree ($1.30 \to 3.93 \to 12.79$ for GL(1--3)), and
         result~\#62 (Remark~\ref{rem:dirichlet_conductor_A}) shows conductor-monotone
         growth within degree~1 ($1.27 \to 2.25 \to 2.77 \to 3.14$ for $q = 1,3,4,5$).
-        Preliminary experiment~\#76 suggests that ${\sim}97\%$ of the $A(t_0)$ variation
-        is conductor-driven and ${\sim}3\%$ is $\mu$-driven, but this awaits full verification.
+        Result~\#63 (Remark~\ref{rem:dirichlet_mu_q_separation}) separates the $\mu$-shift
+        and conductor contributions by measuring the even character $\chi_5^{\mathrm{even}}$
+        ($\mu = 0$, $q = 5$): the $q$-effect accounts for $97.4\%$ of $A(t_0)$ variation,
+        while the $\mu$-effect is $2.6\%$ (consistent with $\mu$-independence at the
+        resolution of the data).
+        The simple estimate $\Delta A_q \approx \log(q/\pi)/2 = 0.23$ accounts for only
+        ${\sim}13\%$ of the measured $q$-effect ($+1.82$), indicating that
+        $(L'/L)(\rho,\chi)$ carries the dominant arithmetic contribution.
         The natural decomposition
-        $A(t_0) = A_\Gamma(t_0, \mu) + A_L(t_0)$
+        $A(t_0) = A_\Gamma(t_0, \mu) + A_L(t_0, q)$
         separating the Gamma-factor contribution from the finite Euler product residual
         would (i)~yield an analytic prediction for $A_\Gamma$,
         and (ii)~identify $A_L$ as a measure of ``arithmetic depth.''
-        The simple estimate $\Delta A \approx \log(q/\pi)/2$ accounts for only
-        ${\sim}13\%$ of the conductor effect, indicating that $L'/L$ at the zeros
-        carries the dominant contribution.
+        The functional form $A(q)$ for fixed degree and $\mu$ remains undetermined
+        (3 conductor values are insufficient to fit a model).
         \textbf{Priority: medium.}
 \end{enumerate}
 
@@ -5629,14 +5718,14 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{62 results across eight verification
+The numerical evidence spans \textbf{63 results across eight verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
 ($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
 NNS--curvature correlations, (vi)~negative controls establishing
-specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), and Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62).  Collectively, results \#22--\#28 form a self-consistent
+specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62), and $\mu$-vs-$q$ separation establishing conductor as the dominant source of $A(t_0)$ variation (result~\#63).  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
 simultaneously encodes individual winding numbers, Chern-class
 zero counts, Gauss--Bonnet area integrals, $\sigma$-localisation, and
@@ -6638,13 +6727,14 @@ This provides strong numerical evidence that conductor $N{=}1$
 is the sole determining factor for $\sigma$-uniqueness,
 though the theoretical mechanism behind this dichotomy remains an open problem.
 
-\textcolor{ForestGreen}{[results \#56--\#62, established, 2026-04-17/18;
+\textcolor{ForestGreen}{[results \#56--\#63, established, 2026-04-17/18;
 GL(2) Maass forms: odd ($R{=}9.53$) + even ($R{=}13.78$, $N{=}1$);
 Ramanujan $\Delta$ ($N{=}1$, $w{=}12$): 23 zeros, $\sigma$-uniq.\ 23/23 PASS;
 $N{=}1 \Leftrightarrow$ PASS confirmed (boundary B-10 resolved);
 GL(1) $\zeta(s)$: 13 zeros, $\kappa_{\mathrm{near}}{=}1112.32$ (CV${=}0.1\%$), $\sigma$-uniq.\ 13/13 PASS, $\kappa$ ratio $2200.7\times$;
 $\kappa_{\mathrm{near}}(d)$ monotone: $1112.32$ ($d{=}1$) $<$ $1114.6$ ($d{=}2$) $<$ $1125.16$ ($d{=}3$), gap acceleration $4.63\times$;
 $\kappa$-$\delta$ scaling: 65 pts, $\kappa{\cdot}\delta^2{\in}[1.00012,1.01206]$, $O(1/\delta)$ coeff.\ ${=}0$, boundary B-12 resolved (Proposition~\ref{prop:kappa_exact_expansion});
+$\mu$-vs-$q$ separation: $q$-effect 97.4\%, $\mu$-effect 2.6\%, naive $\log(q/\pi)/2{=}0.23 \ll$ 1.82;
 numerical verification, not proof]}
 
 
