@@ -173,7 +173,7 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Sixty numerical results across eight verification
+\noindent Sixty-one numerical results across eight verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
 controls, GL(2) extension, GL(3) extension, and cross-rank monodromy---support the framework's internal consistency.
@@ -2270,6 +2270,66 @@ $\delta$ & $1/\delta^2$ & $\kappa_{\mathrm{near}}$ (median) & CV & $\kappa\cdot\
 \smallskip\noindent
 \textcolor{ForestGreen}{[result \#60, established, 2026-04-18; 13 zeros, 5 offsets, 65 data points;
 $\kappa\cdot\delta^2 \in [1.00012, 1.01206]$; $O(1/\delta)$ coefficient $= 0$ confirmed; numerical verification, not proof]}
+\end{remark}
+
+\begin{remark}[Degree comparison of $A(t_0)$: three-degree scaling (result~\#61)]
+\label{rem:kappa_degree_comparison}
+The scaling law $\kappa = 1/\delta^2 + A(t_0) + O(\delta^2)$
+(Proposition~\ref{prop:kappa_exact_expansion}) is verified across degrees 1--3
+using 120 additional data points:
+GL(2) Maass form ($R \approx 13.78$): 12 zeros $\times$ 5 offsets $= 60$ points,
+and GL(3) symmetric-square $L(s, \mathrm{sym}^2(11\mathrm{a}1))$:
+12 zeros $\times$ 5 offsets $= 60$ points.
+The correction $A(t_0) = \kappa - 1/\delta^2$ is $\delta$-independent
+(GL(2) spread $< 0.21\%$, GL(3) spread $< 0.70\%$),
+confirming the proposition beyond $\zeta(s)$.
+The $O(\delta^2)$ deviation grows with degree as expected from the larger $A(t_0)$ values.
+
+The quantitative comparison of mean$(A(t_0))$ across degrees is:
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{@{}llrrl@{}}
+\toprule
+Degree & $L$-function & mean$(A)$ & range$(A)$ & $n$ \\
+\midrule
+GL(1) & $\zeta(s)$ & 1.30 & $[0.47,\, 2.73]$ & 13 \\
+GL(2) & Maass $R{\approx}13.78$ & 3.93 & $[0.50,\, 6.67]$ & 12 \\
+GL(3) & $\mathrm{sym}^2(11\mathrm{a}1)$ & 12.79 & $[6.64,\, 23.35]$ & 12 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip\noindent
+Mean$(A)$ increases monotonically with degree: $1.30 \to 3.93 \to 12.79$
+(ratios: GL(2)/GL(1) $\approx 3.0\times$, GL(3)/GL(2) $\approx 3.3\times$).
+This growth reflects the cumulative contribution of $d$ Gamma-factor terms
+to $H_0 = (\Lambda'/\Lambda)$ at the zero:
+in GL($d$), the functional equation $\Lambda$ contains $d$ Gamma factors,
+each contributing a $\psi$-function (digamma) term to $H_0$,
+so $|{}\mathrm{Im}(H_0)|^2$ grows with $d$.
+Note that the ranges overlap slightly at the individual-zero level
+(GL(2) max $= 6.67 > $ GL(3) min $= 6.64$),
+and the functional form of $A$ as a function of $d$ remains undetermined from
+three data points.
+
+We caution that $\kappa \cdot \delta^2 \approx 1$ is a mathematically
+inevitable consequence of the simple-pole structure of $\xi'/\xi$ at zeros,
+not an independently surprising finding.
+The novel content lies in the \emph{quantitative degree-dependence of $A(t_0)$}:
+the $O(1)$ correction encodes degree- and zero-specific arithmetic information
+that $1/\delta^2$ does not.
+At $\delta = 0.1$ the GL(3) correction reaches $A \cdot \delta^2 \approx 0.12$
+(12\%), indicating that $\delta = 0.1$ is near the boundary of the asymptotic
+regime for degree-3; smaller $\delta$ is recommended for precise $A$ extraction
+at higher degree.
+The analytic decomposition $A(t_0) = A_\Gamma + A_L$ separating Gamma-factor
+and finite Euler product contributions remains open (boundary B-18; see \S\ref{sec:open}).
+
+\textcolor{ForestGreen}{[result \#61, established, 2026-04-18;
+GL(2): 12 zeros, 5 offsets, 60 pts, $\kappa{\cdot}\delta^2{\in}[1.00,1.04]$;
+GL(3): 12 zeros, 5 offsets, 60 pts, $\kappa{\cdot}\delta^2{\in}[1.00,1.12]$;
+mean$(A)$ monotone increasing GL(1--3): 1.30, 3.93, 12.79;
+functional form undetermined from 3 points; numerical verification, not proof]}
 \end{remark}
 
 
@@ -4842,6 +4902,16 @@ with full transparency).
 58 & Ramanujan $\Delta$ $L$-function ($N{=}1$, $w{=}12$) 4-property & \textbf{E} & FE${}=0.0$; 23 zeros; $\kappa_{\mathrm{near}}{=}1114$ (CV${=}0.1\%$, 12 TP); mono 12/12; $\sigma$-uniq.\ 23/23 PASS; $N{=}1 \Leftrightarrow$ PASS confirmed (boundary B-10 resolved) & GL(2) $\Delta$ \\
 59 & GL(1) $\zeta(s)$ 4-property verification & \textbf{E} & FE rel${=}1.66\times10^{-50}$; 13 zeros ($t{\in}[10,60]$); $\kappa_{\mathrm{near}}{=}1112.32$ (CV${=}0.1\%$, 13 TP); mono 13/13 ($\mathrm{mono}/\pi{=}2.0000$); $\sigma$-uniq.\ 13/13 PASS ($\kappa(0.5)/\kappa(0.45){\in}[10^{26},10^{27}]$); $\kappa_{\mathrm{near}}(1){=}1112.32$ anchor; $\kappa$ ratio $2200.7{\times}$ (record) & GL(1) $\zeta$ \\
 60 & $\kappa$-$\delta$ scaling law verification & \textbf{E} & 13 zeros, 5 offsets $\delta{\in}\{0.01,\ldots,0.10\}$, 65 pts; $\kappa{\cdot}\delta^2{\in}[1.00012,1.01206]$ (all CV${<}1\%$); $O(1/\delta)$ coeff.\ ${=}0$ confirmed; $A(t_0){=}\kappa{-}1/\delta^2$ $\delta$-independent; resolves B-12: $1/\delta^2$ universal, degree diff.\ in $A(t_0,\mu)$; Proposition~\ref{prop:kappa_exact_expansion} & GL(1) $\zeta$ \\
+\midrule
+61 & 3-degree $\kappa$-$\delta$ scaling $+$ $A(t_0)$ degree comparison & \textbf{E} &
+   GL(2) Maass ($R{\approx}13.78$): 12 zeros $\times$ 5$\delta$ $=$ 60 pts, $\kappa{\cdot}\delta^2{\in}[1.00,1.04]$;
+   GL(3) sym$^2$(11a1): 12 zeros $\times$ 5$\delta$ $=$ 60 pts, $\kappa{\cdot}\delta^2{\in}[1.00,1.12]$;
+   $\mathrm{mean}(A)$: GL(1)${=}1.30$, GL(2)${=}3.93$, GL(3)${=}12.79$ (monotone $\uparrow$);
+   $A$ $\delta$-independent: GL(2) spread ${<}0.21\%$, GL(3) ${<}0.70\%$;
+   scaling law $\kappa{=}1/\delta^2{+}A(t_0){+}O(\delta^2)$ holds across degrees 1--3
+   (see Remark~\ref{rem:kappa_degree_comparison});
+   functional form of $A(d)$ undetermined from 3 points; open: B-18
+   & GL(1--3) \\
 \end{longtable}
 \end{center}
 
@@ -5346,6 +5416,22 @@ Tier 2 programmes (conjectural but well-posed).}
         \textcolor{ForestGreen}{[conditional positive, 2026-04-16; GL(2) 11a1;
         $t\approx51$--$100$ PASS; $t{\approx}147$ numerical barrier;
         see \cref{sec:gl2_high_t}; numerical verification, not proof]}
+  \item \textbf{Analytic decomposition of $A(t_0)$ (boundary B-18).}
+        Result~\#61 (Remark~\ref{rem:kappa_degree_comparison}) establishes
+        that the correction term $A(t_0) = \kappa - 1/\delta^2$ grows monotonically
+        with degree ($1.30 \to 3.93 \to 12.79$ for GL(1--3)), but the functional
+        form $A(d)$ is undetermined from three data points.
+        The natural decomposition
+        $A(t_0) = A_\Gamma(t_0, \mu) + A_L(t_0)$
+        separating the Gamma-factor contribution (expressible analytically via
+        digamma functions and the spectral parameters $\mu_j$)
+        from the finite Euler product residual $A_L$ would (i)~yield an analytic
+        prediction for $A_\Gamma$ computable from the $\mu$-data alone,
+        and (ii)~identify $A_L$ as a direct measure of the ``arithmetic depth''
+        of the $L$-function, independent of its degree and conductor.
+        Testing whether $A_L$ is degree-independent (i.e., $A_L \approx A_L(\zeta)$
+        for all families) would clarify the origin of the degree-monotone growth.
+        \textbf{Priority: medium.}
 \end{enumerate}
 
 \smallskip\noindent\textbf{\textcolor{red}{\rule{0.9ex}{0.9ex}}\
@@ -5482,14 +5568,14 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{60 results across eight verification
+The numerical evidence spans \textbf{61 results across eight verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
 ($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
 NNS--curvature correlations, (vi)~negative controls establishing
-specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60).  Collectively, results \#22--\#28 form a self-consistent
+specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), and extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61).  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
 simultaneously encodes individual winding numbers, Chern-class
 zero counts, Gauss--Bonnet area integrals, $\sigma$-localisation, and
