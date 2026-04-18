@@ -173,7 +173,7 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Sixty-five numerical results across nine verification
+\noindent Sixty-six numerical results across nine verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
 controls, GL(2) extension, GL(3) extension, cross-rank monodromy, and GL(4) extension---support the framework's internal consistency.
@@ -2560,6 +2560,16 @@ PARI lfuncheckfeq: FE ${=}-141$ digits (motivic), $-380$ (analytic);
 $\kappa{\cdot}\delta^2{=}1.000286$ (31/31); monodromy 20/20;
 $A{=}286.26$ (CV${=}972\%$); weight vs degree: suggestive, not conclusive;
 GL(4) degree-4 verification; numerical verification, not proof]}
+
+\textcolor{ForestGreen}{[result \#66, established, 2026-04-18;
+PARI lfunsympow(11a1, 3): FE ${=}-366$ digits;
+$\gamma_V{=}[-1,0,0,1]$, $k{=}4$, $N{=}1331{=}11^3$, $\varepsilon{=}+1$;
+105 zeros ($t{\in}[0,55]$), $t_1{=}2.3200$;
+$\kappa{\cdot}\delta^2{=}1.000009$ (69/69); monodromy 20/20;
+$A{=}8.82$ (CV${=}110800\%$, weight-1 comparison);
+weight vs degree separation: $A(w{=}1){\approx}8.82$ vs $A(w{=}11){=}286.26$,
+suggestive but $95\%$ CI includes zero for both;
+GL(4) degree-4 weight-1 verification; numerical verification, not proof]}
 \end{remark}
 
 
@@ -5035,7 +5045,7 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 65 numerical results obtained
+Table~\ref{tab:summary} consolidates all 66 numerical results obtained
 across nine verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -5043,7 +5053,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 65 numerical results across nine verification
+\caption{Summary of 66 numerical results across nine verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -5183,6 +5193,19 @@ with full transparency).
    $c(2){=}84480{=}\tau(2)(\tau(2)^2{-}2\cdot 2^{11})$;
    see Remark~\ref{rem:gl4_sym3_delta}
    & GL(4) $\mathrm{sym}^3\Delta$ \\
+\midrule
+66 & GL(4) $\mathrm{sym}^3(11\mathrm{a}1)$ PARI 4-property verification & \textbf{E} &
+   PARI lfunsympow(11a1, 3): $\gamma_V{=}[-1,0,0,1]$, $k{=}4$,
+   $N{=}1331{=}11^3$, $\varepsilon{=}+1$;
+   FE: $-366$ digits;
+   105 zeros ($t{\in}[0,55]$), $t_1{=}2.3200$;
+   $\kappa{\cdot}\delta^2{=}1.000009$ (69/69 success);
+   monodromy 20/20 simple;
+   $A(t_0){=}8.82$ (CV${=}110800\%$, weight-1);
+   weight vs degree: $A(\mathrm{sym}^3(11\mathrm{a}1)){\approx}8.82$ vs
+   $A(\mathrm{sym}^3(\Delta)){=}286.26$---suggestive weight effect;
+   see Remark~\ref{rem:gl4_sym3_delta}
+   & GL(4) $\mathrm{sym}^3(11\mathrm{a}1)$ \\
 \end{longtable}
 \end{center}
 
@@ -5838,14 +5861,14 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{65 results across nine verification
+The numerical evidence spans \textbf{66 results across nine verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
 ($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
 NNS--curvature correlations, (vi)~negative controls establishing
-specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62), and $\mu$-vs-$q$ separation establishing conductor as the dominant source of $A(t_0)$ variation (result~\#63), (x)~$A(t_0)$ analytic decomposition $A_\Gamma + A_L$ establishing arithmetic dominance (result~\#64), and (xi)~GL(4) extension to $\mathrm{sym}^3(\Delta)$ with PARI-verified functional equation to $141$-digit precision (result~\#65).  Collectively, results \#22--\#28 form a self-consistent
+specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62), and $\mu$-vs-$q$ separation establishing conductor as the dominant source of $A(t_0)$ variation (result~\#63), (x)~$A(t_0)$ analytic decomposition $A_\Gamma + A_L$ establishing arithmetic dominance (result~\#64), (xi)~GL(4) extension to $\mathrm{sym}^3(\Delta)$ with PARI-verified functional equation to $141$-digit precision (result~\#65), and (xii)~GL(4) weight versus degree separation via $\mathrm{sym}^3(11\mathrm{a}1)$ ($w{=}1$, FE${=}-366$ digits, result~\#66).  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
 simultaneously encodes individual winding numbers, Chern-class
 zero counts, Gauss--Bonnet area integrals, $\sigma$-localisation, and
@@ -6847,7 +6870,7 @@ This provides strong numerical evidence that conductor $N{=}1$
 is the sole determining factor for $\sigma$-uniqueness,
 though the theoretical mechanism behind this dichotomy remains an open problem.
 
-\textcolor{ForestGreen}{[results \#56--\#65, established, 2026-04-17/18;
+\textcolor{ForestGreen}{[results \#56--\#66, established, 2026-04-17/18;
 GL(2) Maass forms: odd ($R{=}9.53$) + even ($R{=}13.78$, $N{=}1$);
 Ramanujan $\Delta$ ($N{=}1$, $w{=}12$): 23 zeros, $\sigma$-uniq.\ 23/23 PASS;
 $N{=}1 \Leftrightarrow$ PASS confirmed (boundary B-10 resolved);
@@ -6857,6 +6880,7 @@ $\kappa$-$\delta$ scaling: 65 pts, $\kappa{\cdot}\delta^2{\in}[1.00012,1.01206]$
 $\mu$-vs-$q$ separation: $q$-effect 97.4\%, $\mu$-effect 2.6\%, naive $\log(q/\pi)/2{=}0.23 \ll$ 1.82;
 $A = A_\Gamma + A_L$ decomposition: $\Delta A_L{=}94.8\%$ (arithmetic dominance);
 GL(4) $\mathrm{sym}^3(\Delta)$: FE${=}-141$ digits, 43 zeros, $\kappa{\cdot}\delta^2{=}1.000286$;
+GL(4) $\mathrm{sym}^3(11\mathrm{a}1)$: FE${=}-366$ digits, 105 zeros, $\kappa{\cdot}\delta^2{=}1.000009$, weight vs degree separation (suggestive);
 numerical verification, not proof]}
 
 
