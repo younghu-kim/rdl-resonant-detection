@@ -1,5 +1,77 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-18 20:57] — 사이클 #151
+
+**수학자 지시**: #86 — GL(5) sym⁴(11a1) 결과 논문 반영 (EN/KO 동시, #85 ★★ 양성)
+**실행**: EN + KO 논문 동시 반영 완료
+**PID**: N/A (논문 수정 작업)
+**결과 위치**: `paper/source/unified_master_en.tex`, `paper/source/unified_master_ko.tex`
+**git commit**: 39960f6
+
+### 반영 내용 상세
+
+#### EN 논문 (`unified_master_en.tex`) — 105페이지, 에러 0건
+
+1. **Abstract/Intro 갱신**:
+   - "Sixty-nine" → "Seventy-one" (71개 결과)
+   - "nine verification axes" → "ten verification axes"
+   - "GL(1)–GL(4)" → "GL(1)–GL(5)"
+   - GL(5) 확장 항목 추가
+
+2. **degree 비교표 갱신** (rem:kappa_degree_comparison):
+   - GL(5) & sym⁴(11a1) (wt 1) & 14.88 & [7.71, 24.56] & 3 행 추가
+   - 각주에 d=5 center=2.5 설명 추가
+
+3. **B-24 추가** (rem:xi_bundle_b23 내):
+   - Hardy Z κδ² 정밀도 d=5에서 저하 (per-zero 0.42%)
+   - d≥6에서 Hardy Z 4성질 불가 가능성 경고
+
+4. **새 remark** `rem:gl5_sym4`:
+   - GL(5) sym⁴(11a1) 4성질 표 (FE=-331자리, 61영점, κδ²=0.999126 mean, mono 25/25, σ-유일성 PASS)
+   - σ-유일성 motivic center 해석 (k/2=2.5)
+   - ξ-bundle A(t₀) 표 (t₀=1.4878: 7.71, t₀=2.8656: 24.56, t₀=3.3914: 12.37, mean=14.88, CV=49.1%)
+   - 결과 #70, #71 green tag
+
+5. **Summary Table 갱신**:
+   - #70: GL(5) sym⁴(11a1) 4성질 + σ-유일성 행 추가
+   - #71: GL(5) ξ-bundle A(t₀) 행 추가
+
+6. **긴 문장 갱신** (~line 5994):
+   - (xiv)~GL(5) 확장 추가
+
+7. **σ-유일성 패턴 갱신** (sec:sigma_uniqueness_mechanism):
+   - GL(5) PASS 항목 추가
+   - motivic center 해석 추가
+   - B-25 (개방 경계) 추가
+
+8. **새 섹션** `sec:gl5_extension`:
+   - GL(5) 4성질 표 (tab:gl5_fourprop)
+   - ξ-bundle A(t₀) 표 (tab:gl5_xi_bundle)
+
+9. **Open Questions 갱신**:
+   - GL(5) 결과 #71 추가 언급
+   - B-25 추가
+
+#### KO 논문 (`unified_master_ko.tex`) — 93페이지, 에러 0건
+- EN과 동일 내용 한국어로 반영
+- 검증 축: "여덟 가지" → "열 가지"
+- 모든 GL(5) remark, section, 표 한국어 번역
+
+### 수학자 성공 기준 체크
+
+| 기준 | 결과 | 판정 |
+|------|------|------|
+| EN/KO 컴파일 에러 0건 | EN 105p, KO 93p | ✅ |
+| GL(5) 서브섹션에 4성질 표 존재 | rem:gl5_sym4 + sec:gl5_extension | ✅ |
+| ξ-bundle A 표 존재 | tab:gl5_xi_bundle | ✅ |
+| degree 비교표에 d=5 행 존재 | GL(5) 14.88 행 추가 | ✅ |
+| Abstract 결과 수 + "GL(1)–GL(5)" | 71개, GL(1)–GL(5) 명시 | ✅ |
+| Hardy Z 한계 footnote/remark | B-24 추가 | ✅ |
+| Summary Table에 #85(=#70,#71) 행 존재 | #70, #71 행 추가 | ✅ |
+| PDF 배포 갱신 | ~/Desktop/수학최종논문/ 갱신 | ✅ |
+
+---
+
 ## 보고 [2026-04-18 19:37] — 사이클 #150
 
 **수학자 지시**: #85 — GL(5) sym⁴(11a1) PARI 4성질 검증 + ξ-bundle A(t₀) 측정
