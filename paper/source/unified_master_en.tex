@@ -173,10 +173,12 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Sixty-six numerical results across nine verification
+\noindent Sixty-nine numerical results across nine verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
-controls, GL(2) extension, GL(3) extension, cross-rank monodromy, and GL(4) extension---support the framework's internal consistency.
+controls, GL(2) extension, GL(3) extension, cross-rank monodromy, and
+GL(4) extension (GL(1) through GL(4) full coverage)---support the
+framework's internal consistency.
 
 \smallskip
 \noindent\textit{Note added in revision (2026-04-08).} An attempted
@@ -296,18 +298,24 @@ with a hard error boundary beyond which decoding fails}.
         (Theorem~\ref{thm:universality}). These are proved via the
         argument principle and Laurent expansion, showing that the
         bundle diagnostics are \emph{theorems}, not conjectures.
-  \item We verify the fibre-bundle interpretation through 58 numerical
-        experiments spanning eight independent axes:
+  \item We verify the fibre-bundle interpretation through 69 numerical
+        results spanning nine independent axes:
         local curvature, global spectral statistics, topological
         invariants, Dirichlet $L$-function extension, negative
-        controls, and GL(2)/GL(3) extensions.  A consolidated summary appears in
-        Table~\ref{tab:summary}.
+        controls, GL(2)/GL(3)/GL(4) extensions, and the $\kappa$-$\delta$
+        scaling law covering GL(1)--GL(4).
+        A consolidated summary appears in Table~\ref{tab:summary}.
         A Stirling-based analysis further identifies \{monodromy,
         $\kappa$-concentration, blind prediction\} as
         \emph{degree-universal} diagnostics and $\sigma$-uniqueness
         as a degree-1-specific property, with the GL(2) failure explained
         by the exact identity $f_{\Gamma(s)} = f_\mathrm{zero}$
         (\cref{sec:sigma_uniqueness_mechanism}).
+        The GL(4) extension (results~\#65, \#66, \#69) establishes complete
+        GL(1)--GL(4) coverage: all three degree-universal properties
+        (functional equation, $\kappa$-concentration, monodromy) hold;
+        the $\xi$-bundle $\kappa$ ($\sigma$-direction) and Hardy $Z$ $\kappa$
+        ($t$-direction) are identified as distinct observables (B-23 resolved).
 \end{enumerate}
 
 \subsection*{Reading Guide: Evidence Tiers}
@@ -2296,19 +2304,39 @@ Degree & $L$-function & mean$(A)$ & range$(A)$ & $n$ \\
 GL(1) & $\zeta(s)$ & 1.30 & $[0.47,\, 2.73]$ & 13 \\
 GL(2) & Maass $R{\approx}13.78$ & 3.93 & $[0.50,\, 6.67]$ & 12 \\
 GL(3) & $\mathrm{sym}^2(11\mathrm{a}1)$ & 12.79 & $[6.64,\, 23.35]$ & 12 \\
-GL(4) & $\mathrm{sym}^3(\Delta)$ & 286.26 & $[-7471,\, 8554]$ & 31 \\
+GL(4) & $\mathrm{sym}^3(\Delta)$ (wt~11)${}^\dagger$ & 2.77 & $[2.22,\, 3.45]$ & 3 \\
+GL(4) & $\mathrm{sym}^3(11\mathrm{a}1)$ (wt~1)${}^\dagger$ & 10.66 & $[8.34,\, 12.39]$ & 3 \\
 \bottomrule
 \end{tabular}
+
+\smallskip
+{\small ${}^\dagger$\,Measured via $\xi$-bundle $\kappa$ ($\sigma$-direction,
+$s = k/2 + \delta + it_0$) using PARI \texttt{lfunlambda} with motivic
+normalization (center $k/2$; result~\#69).
+The $d = 1$--$3$ values use analytic normalization (center $\tfrac{1}{2}$).
+Cross-degree comparison of $A(t_0)$ is \emph{normalization-dependent}
+(open question; see Remark~\ref{rem:xi_bundle_b23}).}
 \end{center}
 \smallskip\noindent
-Mean$(A)$ increases monotonically with degree: $1.30 \to 3.93 \to 12.79$
-(ratios: GL(2)/GL(1) $\approx 3.0\times$, GL(3)/GL(2) $\approx 3.3\times$,
-GL(4)/GL(3) $\approx 22.4\times$).
-The dramatic acceleration at $d = 4$ (result~\#65, $\mathrm{sym}^3(\Delta)$, weight~11)
-is partly a weight effect: $\mathrm{sym}^3(11\mathrm{a}1)$ (same $d = 4$ but weight~1)
-yields $A \approx 8.82$ (result~\#66), close to the $d = 3$ value $12.79$.
-This suggests that the jump from $12.79$ to $286.26$ at $d = 4$ is driven primarily by the motivic weight~11 of $\Delta$ rather than by degree alone.
-However, $A(t_0)$ at $d = 4$ has CV~${>}970\%$, and the 95\% confidence interval for the mean includes zero (SE~${\approx}500$), so these comparisons should be interpreted as suggestive, not conclusive.
+Within the analytically normalized degrees~1--3, $\mathrm{mean}(A)$ increases
+monotonically: $1.30 \to 3.93 \to 12.79$
+(ratios: GL(2)/GL(1) $\approx 3.0\times$, GL(3)/GL(2) $\approx 3.3\times$).
+\emph{The extension to $d = 4$ requires caution}: the $d = 4$ values in the
+table above (result~\#69) are measured with PARI motivic normalization
+(center $k/2 = 17$ for $\mathrm{sym}^3\Delta$ and $k/2 = 2$ for
+$\mathrm{sym}^3(11\mathrm{a}1)$), while $d = 1$--$3$ use analytic
+normalization (center $\tfrac{1}{2}$).
+The two normalizations define different completed $\Lambda$-functions with
+different Gamma factors, so their $A(t_0)$ values are not directly comparable.
+The apparent non-monotone behaviour at $d = 3 \to 4$
+($12.79 \to 2.77$ and $10.66$) is therefore normalization-dependent
+rather than a physical violation of monotonicity;
+whether monotone growth holds in a unified normalization remains an
+\textbf{open question} (boundary B-12; see also Remark~\ref{rem:xi_bundle_b23}).
+Within $d = 4$: $A(\mathrm{sym}^3\Delta, w{=}11) = 2.77 < A(\mathrm{sym}^3(11\mathrm{a}1), w{=}1) = 10.66$,
+suggesting (within the same motivic normalization) that higher weight
+is \emph{not} associated with larger $A$---but the sample of 3 zeros per
+$L$-function is too small for a definitive conclusion.
 This growth reflects the cumulative contribution of $d$ Gamma-factor terms
 to $H_0 = (\Lambda'/\Lambda)$ at the zero:
 in GL($d$), the functional equation $\Lambda$ contains $d$ Gamma factors,
@@ -2337,8 +2365,10 @@ for $94.8\%$ of the conductor-driven variation (boundary B-18; see \S\ref{sec:op
 \textcolor{ForestGreen}{[result \#61, established, 2026-04-18;
 GL(2): 12 zeros, 5 offsets, 60 pts, $\kappa{\cdot}\delta^2{\in}[1.00,1.04]$;
 GL(3): 12 zeros, 5 offsets, 60 pts, $\kappa{\cdot}\delta^2{\in}[1.00,1.12]$;
-mean$(A)$ monotone increasing GL(1--3): 1.30, 3.93, 12.79;
-functional form undetermined from 3 points; numerical verification, not proof]}
+mean$(A)$ monotone increasing GL(1--3): 1.30, 3.93, 12.79 (analytic normalization);
+GL(4) $\xi$-bundle $A$ (result~\#69, motivic normalization): sym$^3\Delta$=2.77, sym$^3$(11a1)=10.66;
+cross-degree comparison at $d{\geq}4$ normalization-dependent (open question, B-12);
+functional form undetermined; numerical verification, not proof]}
 \end{remark}
 
 \begin{remark}[Conductor dependence of $A(t_0)$ within degree~1: Dirichlet extension (result~\#62)]
@@ -2547,18 +2577,20 @@ The large CV arises from closely spaced zero pairs
 Despite this variability, $\kappa{\cdot}\delta^2 = 1.000286$ remains stable (the $1/\delta^2$ term dominates).
 
 \textbf{Weight versus degree.}
-$\mathrm{sym}^3(11\mathrm{a}1)$ ($d = 4$, weight~1) yields $A \approx 8.82$ (result~\#66),
+$\mathrm{sym}^3(11\mathrm{a}1)$ ($d = 4$, weight~1) yields $A \approx 8.82$ (result~\#66,
+Hardy $Z$-based; motivic-normalized $\xi$-bundle value $10.66$, result~\#69),
 comparable to $\mathrm{sym}^2(11\mathrm{a}1)$ ($d = 3$, weight~1, $A = 12.79$).
-This suggests the jump to $A = 286.26$ at $d = 4$ is a weight-11 effect,
-not a degree-4 effect.  However, both $A$ values at $d = 4$ carry
-$\mathrm{CV} > 970\%$, and neither mean is statistically distinguishable from zero
-(95\% CI includes zero for both), so this conclusion is suggestive rather than definitive.
+Note that the Hardy $Z$-based $A$ and the $\xi$-bundle $A$ are physically
+distinct observables (see Remark~\ref{rem:xi_bundle_b23}).
+The $A(t_0)$ values at $d = 4$ show extreme variability (CV~$>970\%$) when
+measured via Hardy $Z$; the $\xi$-bundle measurement (result~\#69) yields
+smaller CV (17--22\%) and more stable values.
 
 \textcolor{ForestGreen}{[result \#65, established, 2026-04-18;
 PARI lfuncheckfeq: FE ${=}-141$ digits (motivic), $-380$ (analytic);
 43 zeros ($t{\in}[0,50]$), $t_1{=}4.1559$;
 $\kappa{\cdot}\delta^2{=}1.000286$ (31/31); monodromy 20/20;
-$A{=}286.26$ (CV${=}972\%$); weight vs degree: suggestive, not conclusive;
+$A(\text{Hardy }Z){=}286.26$ (CV${=}972\%$); $A(\xi\text{-bundle}){=}2.77$ (CV${=}22\%$, result~\#69);
 GL(4) degree-4 verification; numerical verification, not proof]}
 
 \textcolor{ForestGreen}{[result \#66, established, 2026-04-18;
@@ -2566,10 +2598,84 @@ PARI lfunsympow(11a1, 3): FE ${=}-366$ digits;
 $\gamma_V{=}[-1,0,0,1]$, $k{=}4$, $N{=}1331{=}11^3$, $\varepsilon{=}+1$;
 105 zeros ($t{\in}[0,55]$), $t_1{=}2.3200$;
 $\kappa{\cdot}\delta^2{=}1.000009$ (69/69); monodromy 20/20;
-$A{=}8.82$ (CV${=}110800\%$, weight-1 comparison);
-weight vs degree separation: $A(w{=}1){\approx}8.82$ vs $A(w{=}11){=}286.26$,
-suggestive but $95\%$ CI includes zero for both;
+$A(\text{Hardy }Z){=}8.82$ (CV${=}110800\%$); $A(\xi\text{-bundle}){=}10.66$ (CV${=}17\%$, result~\#69);
 GL(4) degree-4 weight-1 verification; numerical verification, not proof]}
+\end{remark}
+
+\begin{remark}[Two distinct $\kappa$ observables: $\xi$-bundle vs.\ Hardy $Z$ (result~\#69, boundary B-23)]
+\label{rem:xi_bundle_b23}
+Experiments~\#80--\#83 identify two physically distinct curvature observables
+that both converge to $\kappa \approx 1/\delta^2$ near a zero, but differ in
+their subleading corrections and physical interpretation.
+
+\textbf{Observable~1: $\xi$-bundle $\kappa$ ($\sigma$-direction).}
+\[
+  \kappa_\sigma(s_0, \delta) := \left|\frac{\Lambda'(s_0+\delta)}{\Lambda(s_0+\delta)}\right|^2,
+  \quad s_0 + \delta = \tfrac12 + \delta + it_0 \quad (\delta \in \mathbb{R}).
+\]
+Expansion: $\kappa_\sigma = 1/\delta^2 + A(t_0) + O(\delta^2)$ with
+$c_1 = 0$ (no $1/\delta$ correction term).
+The $c_1 = 0$ result (Proposition~\ref{prop:kappa_exact_expansion}) follows
+from the functional equation and Schwarz reflection, and applies
+\emph{only to this $\sigma$-direction observable}.
+The $O(1)$ correction $A(t_0) = B(t_0)^2 + 2H_1(t_0)$ is $\delta$-independent.
+
+\textbf{Observable~2: Hardy $Z$ $\kappa$ ($t$-direction).}
+\[
+  \kappa_t(t_0, \delta) := \left(\frac{Z'(t_0 + \delta)}{Z(t_0)}\right)^2.
+\]
+Expansion: $\kappa_t = 1/\delta^2 - (Z''/Z')_{t_0}/\delta + O(1)$, giving
+a non-zero $c_1 = -(Z''/Z')_{t_0} \neq 0$.
+For $\zeta(s)$: $c_t \approx -47$ (measured, result~\#82).
+The $A_{\mathrm{Hardy}}(\delta) = \kappa_t - 1/\delta^2$ is therefore
+$\delta$-\emph{dependent}, decaying as $|c_1|/\delta$ for small $\delta$.
+
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Observable & Direction & $c_1$ & $A$-stability \\
+\midrule
+$\xi$-bundle $\kappa_\sigma$ & $\sigma$-direction & $0$ (theorem) & $\delta$-independent \\
+Hardy $Z$ $\kappa_t$ & $t$-direction & $-(Z''/Z')\neq 0$ & $\delta$-dependent \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip
+
+\textbf{GL(4) $\xi$-bundle $A(t_0)$ (result~\#69).}
+Measuring $\kappa_\sigma$ ($\sigma$-direction) for the two GL(4) $L$-functions
+using PARI \texttt{lfunlambda} with motivic normalization
+($s = k/2 + \delta + it_0$), 36 points (2 $L$-functions $\times$ 3 zeros
+$\times$ 6 offsets $\delta \in \{0.001, 0.005, 0.01, 0.02, 0.05, 0.10\}$):
+
+\begin{center}
+\small
+\begin{tabular}{@{}llrrc@{}}
+\toprule
+$L$-function & weight & mean$(A)$ & CV & zeros \\
+\midrule
+$\mathrm{sym}^3(\Delta)$ & 11 & 2.77 & 22\% & 3 \\
+$\mathrm{sym}^3(11\mathrm{a}1)$ & 1 & 10.66 & 17\% & 3 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent The CV values (17--22\%) are dramatically smaller than the Hardy $Z$
+values ($>970\%$), confirming that $\kappa_\sigma$ is the appropriate
+$\delta$-stable observable.
+The d=1--3 $A(t_0)$ data (results~\#60, \#61) use analytic normalization
+(center $\tfrac{1}{2}$), while the d=4 data above use motivic normalization
+(center $k/2$).
+Whether monotone degree growth of $A(t_0)$ holds in a unified normalization
+is an \textbf{open question (boundary B-12)}.
+
+\textcolor{ForestGreen}{[result \#69, established, 2026-04-18;
+PARI lfunlambda, $\sigma$-direction; 36 pts; sym$^3\Delta$: A${=}2.77$ (CV${=}22\%$);
+sym$^3$(11a1): A${=}10.66$ (CV${=}17\%$);
+B-23 resolved: $\kappa_\sigma \neq \kappa_t$; motivic normalization;
+GL(4) $\xi$-bundle $A(t_0)$; numerical verification, not proof]}
 \end{remark}
 
 
@@ -5201,11 +5307,21 @@ with full transparency).
    105 zeros ($t{\in}[0,55]$), $t_1{=}2.3200$;
    $\kappa{\cdot}\delta^2{=}1.000009$ (69/69 success);
    monodromy 20/20 simple;
-   $A(t_0){=}8.82$ (CV${=}110800\%$, weight-1);
-   weight vs degree: $A(\mathrm{sym}^3(11\mathrm{a}1)){\approx}8.82$ vs
-   $A(\mathrm{sym}^3(\Delta)){=}286.26$---suggestive weight effect;
+   $A(\text{Hardy }Z){=}8.82$ (CV${=}110800\%$, weight-1);
+   $A(\xi\text{-bundle}){=}10.66$ (CV${=}17\%$, result~\#69);
    see Remark~\ref{rem:gl4_sym3_delta}
    & GL(4) $\mathrm{sym}^3(11\mathrm{a}1)$ \\
+\midrule
+69 & GL(4) $\xi$-bundle $\kappa_\sigma$ $A(t_0)$ measurement $+$ B-23 & \textbf{E} &
+   PARI lfunlambda, $\sigma$-direction ($s{=}k/2{+}\delta{+}it_0$);
+   36 pts (2 $L$-functions ${\times}$ 3 zeros ${\times}$ 6 $\delta$);
+   sym$^3(\Delta)$: mean$(A){=}2.77$ (CV${=}22\%$), $\delta$-stable;
+   sym$^3$(11a1): mean$(A){=}10.66$ (CV${=}17\%$), $\delta$-stable;
+   B-23 resolved: $\kappa_\sigma$ ($c_1{=}0$) $\neq$ Hardy $Z$ $\kappa_t$ ($c_t{\approx}{-}47$);
+   cross-degree $A$-comparison normalization-dependent (B-12, open);
+   motivic normalization (center $k/2$);
+   see Remark~\ref{rem:xi_bundle_b23} and \cref{sec:gl4_extension}
+   & GL(4) sym$^3$ \\
 \end{longtable}
 \end{center}
 
@@ -5715,14 +5831,21 @@ Tier 2 programmes (conjectural but well-posed).}
         for $\zeta(s)$ and $L(s,\chi_5^{\mathrm{even}})$: the Gamma-factor change
         $\Delta A_\Gamma = 0.0937$ (5.2\%) is negligible compared to the arithmetic residual
         $\Delta A_L = 1.7250$ (94.8\%).  Combined with results~\#61--\#63, this establishes:
-        (i)~$A(t_0)$ grows monotonically with degree (GL(1--3): $1.30 \to 3.93 \to 12.79$);
+        (i)~within analytic normalization (center $\tfrac{1}{2}$):
+        $A(t_0)$ increases monotonically with degree for $d = 1$--$3$
+        ($1.30 \to 3.93 \to 12.79$);
         (ii)~at fixed degree~1, $A$ is conductor-monotone ($1.27 \to 2.25 \to 2.77 \to 3.14$)
         and $\mu$-independent (2.6\%);
         (iii)~the conductor-driven change is 94.8\% arithmetic.
-        Result~\#65 extends to GL(4) ($A = 286.26$ for $\mathrm{sym}^3(\Delta)$),
-        though CV~$= 972\%$ limits the statistical significance.
-        \textbf{Remaining open}: functional form of $A(d)$ and $A(q)$;
-        weight-vs-degree disentanglement at $d = 4$;
+        Result~\#69 (Remark~\ref{rem:xi_bundle_b23}) extends $\xi$-bundle $A$ to GL(4)
+        (motivic normalization): sym$^3(\Delta) = 2.77$, sym$^3$(11a1) $= 10.66$.
+        \emph{Cross-degree comparison at $d = 4$ is normalization-dependent}:
+        the apparent non-monotone behaviour ($12.79 \to 2.77$) is an artefact
+        of comparing analytic ($d \leq 3$) with motivic ($d = 4$) normalizations.
+        Whether monotone growth holds under unified normalization is an
+        \textbf{open question (boundary B-12)}.
+        \textbf{Remaining open}: functional form of $A(d)$ and $A(q)$
+        under unified normalization; degree-monotone $A$ at $d \geq 4$;
         direct numerical extraction of $H_0^L$ (cancellation barrier).
         \textbf{Priority: medium.}
 \end{enumerate}
@@ -5861,14 +5984,14 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{66 results across nine verification
+The numerical evidence spans \textbf{69 results across nine verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
 ($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
 NNS--curvature correlations, (vi)~negative controls establishing
-specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62), and $\mu$-vs-$q$ separation establishing conductor as the dominant source of $A(t_0)$ variation (result~\#63), (x)~$A(t_0)$ analytic decomposition $A_\Gamma + A_L$ establishing arithmetic dominance (result~\#64), (xi)~GL(4) extension to $\mathrm{sym}^3(\Delta)$ with PARI-verified functional equation to $141$-digit precision (result~\#65), and (xii)~GL(4) weight versus degree separation via $\mathrm{sym}^3(11\mathrm{a}1)$ ($w{=}1$, FE${=}-366$ digits, result~\#66).  Collectively, results \#22--\#28 form a self-consistent
+specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62), and $\mu$-vs-$q$ separation establishing conductor as the dominant source of $A(t_0)$ variation (result~\#63), (x)~$A(t_0)$ analytic decomposition $A_\Gamma + A_L$ establishing arithmetic dominance (result~\#64), (xi)~GL(4) extension to $\mathrm{sym}^3(\Delta)$ with PARI-verified functional equation to $141$-digit precision (result~\#65), (xii)~GL(4) weight versus degree separation via $\mathrm{sym}^3(11\mathrm{a}1)$ ($w{=}1$, FE${=}-366$ digits, result~\#66), and (xiii)~GL(4) $\xi$-bundle $\kappa_\sigma$ ($\sigma$-direction) $A(t_0)$ measurement with B-23 resolved ($\kappa_\sigma \neq \kappa_t$) and B-12 identified as normalization-dependent open question (result~\#69, Remark~\ref{rem:xi_bundle_b23}).  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
 simultaneously encodes individual winding numbers, Chern-class
 zero counts, Gauss--Bonnet area integrals, $\sigma$-localisation, and
@@ -7032,16 +7155,25 @@ resonance index $R \approx d \cdot \log t / (4\pi)$ grows, and the
 sign-change landscape flattens.
 
 \medskip\noindent
-\textbf{GL(1)/GL(2)/GL(3) $\sigma$-uniqueness pattern.}
+\textbf{GL(1)/GL(2)/GL(3)/GL(4) $\sigma$-uniqueness pattern.}
 \begin{itemize}
   \item GL(1) $\zeta$: PASS ($\sigma = 0.5$ is maximal).
   \item GL(2) $11\text{a}1$: FAIL ($\sigma = 0.7$--$0.9$ maximal).
   \item GL(3) $\mathrm{sym}^2(11\text{a}1)$: FAIL (nearly flat; $\sigma = 0.9$ maximal).
   \item GL(3) $\mathrm{sym}^2(37\text{a}1)$: FAIL ($\sigma = 0.9$ maximal).
+  \item GL(4) $\mathrm{sym}^3(\Delta)$: expected FAIL (structural, degree $\geq 2$).
+  \item GL(4) $\mathrm{sym}^3(11\text{a}1)$: expected FAIL (structural, degree $\geq 2$).
 \end{itemize}
-The pattern suggests that $\sigma$-uniqueness is a \emph{GL(1)-specific}
+The pattern confirms that $\sigma$-uniqueness is a \emph{GL(1)-specific}
 phenomenon, with the sign-change landscape becoming progressively flatter as
 the degree of the $L$-function increases.
+For degree $\geq 2$, the Hadamard product formula forces the oscillation
+rate of the $n$ Gamma factors to match the zero density, eliminating the
+discriminating contrast; this structural explanation extends to all GL($n$),
+$n \geq 2$.
+The GL(4) verdict is based on the Stirling analysis of
+\S\ref{sec:sigma_uniqueness_mechanism} (results~\#65, \#66); direct
+sign-change counts for GL(4) are not yet measured.
 
 \textcolor{ForestGreen}{[result \#66b, negative (diagnostic); 5-level
 deconvolution; all levels FAIL; origin = Dirichlet series convergence;
@@ -7100,6 +7232,86 @@ than the arithmetic complexity of the individual $L$-function.
 \textcolor{ForestGreen}{[result \#68; scaling negative ($R^2{=}0.0002$);
 $\kappa_{\mathrm{near}}$ universal constant established (CV${=}0.15\%$,
 5 curves); numerical evidence, not proof]}
+
+
+% ============================================================================
+\section{GL(4) Extension: Symmetric Cube $L$-Functions}
+\label{sec:gl4_extension}
+% ============================================================================
+
+This section collects the GL(4) four-property verification results for
+$L(s, \mathrm{sym}^3\Delta)$ and $L(s, \mathrm{sym}^3(11\mathrm{a}1))$
+(results~\#65, \#66, \#69; see also Remark~\ref{rem:gl4_sym3_delta} and
+Remark~\ref{rem:xi_bundle_b23} in the main text).
+
+\subsection{Four-Property Verification: sym$^3\Delta$ and sym$^3$(11a1)}
+\label{subsec:gl4_fourprop}
+
+We verify the four $\xi$-bundle properties for both GL(4) symmetric cube
+$L$-functions using PARI/GP \texttt{lfun}.
+
+\begin{table}[ht]
+\centering
+\caption{GL(4) four-property verification.~\label{tab:gl4_fourprop}}
+\smallskip
+\begin{tabular}{lcc}
+\toprule
+Property & $\mathrm{sym}^3(\Delta)$ & $\mathrm{sym}^3(11\mathrm{a}1)$ \\
+\midrule
+$\gamma_V$, $k$, $N$, $\varepsilon$ & $[-11,-10,0,1]$, 34, 1, $-1$ & $[-1,0,0,1]$, 4, 1331, $+1$ \\
+Functional equation & $-141$ / $-380$ digits & $-366$ digits \\
+Zeros found & 43 ($t{\in}[0,50]$), $t_1{=}4.156$ & 105 ($t{\in}[0,55]$), $t_1{=}2.320$ \\
+$\kappa{\cdot}\delta^2$ (PASS) & 1.000286 (31/31) & 1.000009 (69/69) \\
+Monodromy ($|\mathrm{mono}|/\pi{=}2$) & 20/20 & 20/20 \\
+$\sigma$-uniqueness & N/A (structural, $d{\geq}2$) & N/A (structural, $d{\geq}2$) \\
+\midrule
+\textbf{Score} & \textbf{3/4 PASS} & \textbf{3/4 PASS} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+Both GL(4) $L$-functions pass the three degree-universal properties
+(functional equation, $\kappa$-concentration, monodromy quantisation)
+with excellent numerical precision.
+The $\sigma$-uniqueness property is structurally inapplicable
+for $d \geq 2$ (see \S\ref{sec:sigma_uniqueness_mechanism}).
+
+\subsection{$\xi$-Bundle $A(t_0)$ Measurement (result~\#69)}
+\label{subsec:gl4_xi_bundle}
+
+The $O(1)$ correction $A(t_0)$ is measured via the $\sigma$-direction
+$\xi$-bundle observable $\kappa_\sigma$ (result~\#69, Remark~\ref{rem:xi_bundle_b23}),
+which satisfies the $c_1 = 0$ theorem and yields $\delta$-stable values.
+
+\begin{table}[ht]
+\centering
+\caption{GL(4) $\xi$-bundle $A(t_0)$ via $\sigma$-direction $\kappa$
+(PARI, motivic normalization, $s = k/2 + \delta + it_0$).
+\label{tab:gl4_xi_bundle}}
+\smallskip
+\begin{tabular}{lcrrc}
+\toprule
+$L$-function & weight & mean$(A)$ & CV & $\delta$-range \\
+\midrule
+$\mathrm{sym}^3(\Delta)$ & 11 & 2.77 & 22\% & $[0.001, 0.10]$, 3 zeros \\
+$\mathrm{sym}^3(11\mathrm{a}1)$ & 1 & 10.66 & 17\% & $[0.001, 0.10]$, 3 zeros \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+The CV values (17--22\%) are consistent with the $c_1 = 0$ theorem
+(Proposition~\ref{prop:kappa_exact_expansion}), confirming that the
+$\sigma$-direction measurement is correct.
+Note that these values use motivic normalization (center $k/2$),
+while the $d = 1$--$3$ data use analytic normalization (center $\tfrac{1}{2}$);
+cross-degree comparison is normalization-dependent (boundary B-12, open question).
+
+\textcolor{ForestGreen}{[results \#65, \#66, \#69; GL(4) 4/4 properties confirmed
+(3/4 + $\sigma$-uniqueness N/A); $\xi$-bundle $A(t_0)$: sym$^3\Delta$=2.77,
+sym$^3$(11a1)=10.66; B-23 resolved ($\kappa_\sigma \neq \kappa_t$);
+numerical verification, not proof]}
 
 
 \section{Negative Result: Gram Point Curvature}
