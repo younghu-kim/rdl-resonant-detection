@@ -1,5 +1,48 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-19 04:40] — 사이클 #156 (완료)
+
+**수학자 지시**: #91 — 논문 반영 (Hadamard A(t₀) Proposition + B-20 해석, 결과 74개로 갱신)
+**실행**: EN/KO LaTeX 편집 완료. 컴파일 에러 0건.
+**PID**: 없음 (편집 작업)
+**결과 위치**: `paper/source/unified_master_en.pdf` (110p) / `paper/source/unified_master_ko.pdf` (97p)
+**이슈**: 없음
+
+### 성공 기준 전체 통과
+
+| 기준 | EN | KO | 판정 |
+|------|----|----|------|
+| 컴파일 에러 0건 | ✅ 0건 | ✅ 0건 | ✅ |
+| `prop:hadamard_A_decomp` + Proof 존재 | ✅ (label 1, proof 11) | ✅ (label 1) | ✅ |
+| 수치 검증 표 13행, `err_corr%` 열 | ✅ L2360 | ✅ | ✅ |
+| B-20 해석 Remark (`rem:hadamard_B20`) | ✅ 4개 언급 | ✅ 4개 언급 | ✅ |
+| Abstract/Intro "74" 반영 | ✅ "Seventy-four" L176, "74 numerical" L301 | ✅ "74개" 5곳 | ✅ |
+| Summary Table #74 행 존재 | ✅ L5597 | ✅ L4175 | ✅ |
+
+### 주요 변경 내용
+
+**새로 추가된 구조:**
+1. `prop:hadamard_A_decomp` — Hadamard A(t₀) 분해 Proposition (D=0 증명 포함)
+2. `rem:hadamard_A_numerical` (#74) — 13행 수치 검증 표 (err_corr% < 0.003%)
+3. `rem:hadamard_B20` — B-20 해결: 근접 영점 H₁ 기여(33%) 설명
+4. `rem:hadamard_degree_univ` — 차수 보편성 Remark
+
+**갱신된 수치:**
+- Abstract: "Seventy-one" → "Seventy-four" (EN L176)
+- Intro: "73 numerical" → "74 numerical" (EN L301)
+- Summary Table: "66 numerical results" → "74 numerical results"
+- Conclusion: "69 results across nine" → "74 results across ten"
+- Long paragraph: (xv) 뒤에 (xvi) Hadamard 분해 항목 추가
+
+**B-20 수정:** 결과 파일 초안의 "66% of A(t₉)" → 정확히 "2H₁_near/A(t₉) ≈ 33%"로 수정
+
+**PDF 배포:**
+- `paper/source/` ✅
+- `paper/` ✅
+- `~/Desktop/수학최종논문/` ✅
+
+
+
 ## 보고 [2026-04-19 03:10] — 사이클 #155 (완료)
 
 **수학자 지시**: #90 — A(t₀) Hadamard 분해: 정리 도출 + 수치 검증 (Phase 2.5)

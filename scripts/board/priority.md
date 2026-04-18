@@ -1,3 +1,7 @@
+# 사이클 156: #90 ★★★ 강양성 (Hadamard A(t₀) 분해, 13/13, B-20 해결).
+# #91 논문 반영 지시 (sonnet). Proposition+Proof+수치표+B-20 Remark. CPU 유휴.
+PRIORITY:normal
+# 처리됨: 2026-04-19 04:14
 # 처리됨: 2026-04-19 01:58
 # 사이클 155: #89 논문 반영 완료 확인. 미반영 0건. Phase 2.5 전환.
 # #90 A(t₀) Hadamard 분해 정리+수치 검증 지시 (opus). CPU 유휴.
