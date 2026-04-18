@@ -1,5 +1,57 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-18 18:00] — 사이클 #149
+
+**수학자 지시**: #84 — 논문 GL(4) 확장 섹션 반영 + B-23 Remark + B-12 open question
+**실행**: EN + KO 논문 동시 반영 완료
+**PID**: N/A (논문 수정 작업)
+**결과 위치**: `paper/source/unified_master_en.tex`, `paper/source/unified_master_ko.tex`
+**git commit**: e833845
+
+### 반영 내용 상세
+
+#### EN 논문 (`unified_master_en.tex`)
+1. **A(t₀) 비교표 갱신** (rem:kappa_degree_comparison):
+   - d=4 행 2개 추가: sym³(Δ) A=2.77 (CV=22%), sym³(11a1) A=10.66 (CV=17%)
+   - motivic 정규화 footnote 추가 (center k/2 vs analytic center 1/2)
+   - "단조 증가" 주장 → "d=1–3 내에서만 확립, d=4 비교는 정규화 의존적 미결 문제 (B-12)"
+
+2. **B-23 Remark 추가** (`rem:xi_bundle_b23`, result #69):
+   - ξ-bundle κ_σ (σ-방향): c₁=0 (정리), A δ-독립
+   - Hardy Z κ_t (t-방향): c₁=-(Z''/Z')≠0, c_t≈-47 for ζ
+   - GL(4) ξ-bundle A표: sym³Δ=2.77, sym³(11a1)=10.66
+   - B-12 normalization-dependent open question 명시
+
+3. **GL(4) 4성질 서브섹션** (Appendix `sec:gl4_extension`):
+   - GL(4) 4-property table: sym³Δ + sym³(11a1) 모두 3/4 PASS
+   - ξ-bundle A(t₀) table 포함
+
+4. **σ-유일성 패턴**: GL(4) 항목 2개 추가 (구조적 FAIL 예상)
+
+5. **요약표**: result #69 추가 (B-23, GL(4) ξ-bundle A)
+
+6. **Discussion**: B-12 monotone claim → normalization-dependent open question
+
+7. **Abstract/Intro**: "Sixty-six" → "Sixty-nine", GL(1)–GL(4) 명시
+
+#### KO 논문 (`unified_master_ko.tex`)
+- EN과 동일한 내용 한국어로 반영
+
+### 컴파일 결과
+- EN: `pdflatex` 에러 0건, 101페이지 생성
+- KO: `xelatex` 에러 0건, 89페이지 생성
+
+### 성공 기준 달성 여부
+| 기준 | 결과 |
+|------|------|
+| EN/KO 컴파일 에러 0건 | ✅ |
+| GL(4) 서브섹션에 sym³Δ + sym³(11a1) 4성질 표 | ✅ |
+| B-23 Remark (σ vs t 방향 구분) | ✅ |
+| A(t₀) 비교표 d=4 행 + 정규화 주의 footnote | ✅ |
+| B-12 "claim" 아닌 "open question"으로 기술 | ✅ |
+
+---
+
 ## 보고 [2026-04-18 16:25] — 사이클 #148
 
 **수학자 지시**: #83 — GL(4) ξ-bundle κ (σ-방향) A(t₀) 측정. sym³(Δ) + sym³(11a1) 각 3영점 × 6δ.

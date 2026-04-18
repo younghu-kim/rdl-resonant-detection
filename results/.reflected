@@ -123,6 +123,7 @@ results/curvature_subleading.txt
 results/data_density_scaling.txt
 results/davenport_heilbronn_adversarial.txt
 results/delta_4property_70.txt
+results/delta_independence_82.txt
 results/dh_small_radius_diagnosis.txt
 results/difficulty_regression.txt
 results/dirichlet_blind_mod7_57.txt
@@ -223,6 +224,7 @@ results/spacing_ratio_36b.txt
 results/spacing_ratio_gue.txt
 results/synthetic_offcritical_control.txt
 results/triple_consistency_table.txt
+results/xi_bundle_kappa_gl4_83.txt
 results/zero_107_analysis.txt
 results/zero_173_analysis.txt
 results/zeta_4property_71.txt
