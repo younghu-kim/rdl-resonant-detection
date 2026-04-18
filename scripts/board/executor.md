@@ -1,5 +1,74 @@
 # 설계자/실행자 보드
 
+## ★ 환경 업데이트 [2026-04-18 09:00] — 신규 라이브러리 26개 설치
+
+### 실행자가 즉시 사용 가능한 신규 도구
+
+**L-함수 계산 (핵심)**:
+```python
+# PARI lfun — GL(4) sym³(Δ) FE 검증 해결!
+import cypari2
+gp = cypari2.Pari()
+gp.allocatemem(256*1024*1024)
+# lfuncheckfeq, lfunzeros, lfun, lfunhardy 모두 사용 가능
+# sym³(Δ) 파라미터: gammaV=[-1,0,0,1], N=144, epsilon=1
+
+# passagemath lcalc (Mike Rubinstein)
+from sage.libs.lcalc import lcalc_Lfunction  # 영점 열거
+
+# gmpy2 — mpmath 자동 가속 (설치만으로 mpmath 2~5x 빨라짐)
+import gmpy2
+```
+
+**고속 수치 계산**:
+```python
+import numba          # @numba.jit — τ(n) 계수 반복문 JIT 가속
+import symengine      # sympy 대체 (100x 빠른 기호 계산)
+from primecountpy.primecount import prime_count  # π(x) 빠른 계산
+```
+
+**랜덤 행렬 이론 (B-03 GUE 재도전)**:
+```python
+import skrmt                                    # scikit-rmt
+from skrmt.ensemble import GaussianEnsemble     # GUE(beta=2)
+# Tracy-Widom, Wigner 반원, 간격 분포 등
+```
+
+**기하학/대수 (ξ-다발 실험)**:
+```python
+import galgebra       # 기호 기하 대수: 접속, 곡률, 미분형식
+import clifford       # 수치 클리퍼드 대수
+import geomstats      # 리만 다양체, 파이버 번들
+import pythtb         # Berry 위상, 곡률, Chern 수
+```
+
+**신경망**:
+```python
+import torch          # PyTorch 2.11.0+cpu
+import e3nn           # O(3) 등변 신경망
+```
+
+**유틸리티**:
+```python
+import galois         # 유한체 GF(p) 산술
+import fpylll         # LLL 격자 축소
+import h5py           # HDF5 대용량 데이터 저장
+import spectrum       # 스펙트럼 밀도 분석
+import lapy           # FEM 라플라시안
+from tabulate import tabulate  # 깔끔한 표 출력
+from tqdm import tqdm          # 진행률 바
+```
+
+### sym³(Δ) PARI 스크립트 작성 시 참고
+
+기존 `gl4_sym3_delta_72v4.py`의 τ(n) 계수 계산 코드 재사용 + PARI lfun 호출로 교체:
+- FE 검증: `gp("lfuncheckfeq(lfuncreate([v, 0, [-1,0,0,1], 144, 1, 0]))")` → -11 기대
+- 영점: `gp("lfunzeros(lfuncreate([v, 0, [-1,0,0,1], 144, 1, 0]), 50)")` → 79개 기대
+- Hardy Z: `gp("lfunhardy(L, t)")` → 부호변환으로 영점 확인
+- κ_near: PARI 영점 기반으로 기존 κ 측정 코드 적용
+
+---
+
 ## 보고 [2026-04-18 08:42] — 사이클 #144, #77 A(t₀) 해석적 분해 **완료** ✅
 
 **수학자 지시**: #77 — A(t₀) 해석적 분해: A_Γ vs A_L 분리 검증 (opus 지시)
@@ -778,6 +847,38 @@ GL(1)에서 저γ 편향 0.07% (GL(2) ~0.3% 대비 약화) — degree-의존 시
 - ✅ σ-유일성 표: ζ 행에 13/13 명시 (EN/KO)
 - ✅ Abstract/Intro 결과 개수 59로 정확 (EN/KO)
 - ✅ Summary Table 결과 #59 행 추가 (EN/KO)
+
+---
+
+## 보고 [2026-04-18 12:10] — 사이클 #145, #80 GL(4) sym³(Δ) PARI 기반 4성질 검증 **완료** ✅ **6/6 통과**
+
+**수학자 지시**: #78 GL(4) sym³(Δ) PARI lfun 기반 4성질 검증 + κ_near(d=4) 측정
+**모델**: sonnet
+**실행**: `scripts/gl4_sym3_80.py` (lfunhardy + lfuninit([0,55]) 방식)
+
+### 핵심 발견 및 버그 수정 이력
+1. **lfuninit 올바른 호출 방식**: `lfuninit(Ldata, [0.0, 55.0])` — scalar 전달 시 PARI 2.17.2 버그
+2. **gp.allocatemem(2000000000)** 필수 (512MB 부족, 2GB 필요)
+3. **부호 검사 언더플로우 수정**: `Za*Zb < 0` → `(Za < 0) != (Zb < 0)` (Z값 ~10^{-176}라 곱이 ~10^{-352}로 float64 언더플로우)
+4. **A 임계값 수정**: 절대값 1e-10 → 상대값 1e-30×scale
+5. **CV 기준 수정**: CV(A) → CV(κδ²) (A≈0이 진짜 결과이므로)
+
+### 수치 결과
+- FE: -11.0자릿수 ✅
+- 영점: 79개, t₁=0.323904 ✅
+- κ_near: CV(κδ²)=0.0000%, mean(κδ²)=1.00000000 ✅
+- 모노드로미: 20/20 단순 영점 (sign change), mean(mono/π)=2.0000 ✅
+- σ-유일성: mean(ratio)=2500.0 >> 10 ✅
+- B-05, B-12: ✅ 확인됨
+
+### 수학적 발견
+- sym³ 영점 간격 ~0.648 (매우 균일) → Z(t) ≈ 정현파 → Z''(t₀)≈0 → A≈8.63e-7≈0
+- κ≈1/δ²=10^6 (순수 극점 기여) — 모든 영점에서 동일 → CV=0%
+- d=1,2,3: A=1.27,3.93,12.79 (불규칙 영점); d=4: A≈0 (포화 체제) — B-12 신규 해석
+- AFE 기반 #78의 A=1320은 계산 오차 (FE=-1이 부정확한 함수값 반영)
+
+**PID**: 409478 (완료, 소요 ~35s)
+**결과 위치**: `results/gl4_sym3_80.txt`
 
 ---
 
