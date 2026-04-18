@@ -102,6 +102,7 @@
 /home/k0who029/Desktop/gdl_unified/results/triple_consistency_table.txt
 /home/k0who029/Desktop/gdl_unified/results/zero_107_analysis.txt
 /home/k0who029/Desktop/gdl_unified/results/zero_173_analysis.txt
+results/A_decomposition_77.txt
 results/angle_at_zeros_inventory.txt
 results/basis_bandwidth_scaling.txt
 results/blind_zero_prediction.txt
@@ -166,10 +167,15 @@ results/gl3_sym2_11a1_63b.txt
 results/gl3_sym2_11a1_63.txt
 results/gl3_sym2_37a1_64.txt
 results/gl4_rankin_selberg_72.txt
+results/gl4_sym3_11a1_81.txt
+results/gl4_sym3_80.txt
 results/gl4_sym3_delta_72v2.txt
 results/gl4_sym3_delta_72v3.txt
 results/gl4_sym3_delta_72v4.txt
 results/gl4_sym3_delta_72v5.txt
+results/gl4_sym3_pari_78.txt
+results/gl4_sym3_pari_79.txt
+results/gl4_sym3_pari_80.txt
 results/gram_point_curvature.txt
 results/gue_poisson_midpoint_comparison.txt
 results/high_height_scaling.txt

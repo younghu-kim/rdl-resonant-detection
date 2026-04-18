@@ -173,10 +173,10 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Sixty-three numerical results across eight verification
+\noindent Sixty-five numerical results across nine verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
-controls, GL(2) extension, GL(3) extension, and cross-rank monodromy---support the framework's internal consistency.
+controls, GL(2) extension, GL(3) extension, cross-rank monodromy, and GL(4) extension---support the framework's internal consistency.
 
 \smallskip
 \noindent\textit{Note added in revision (2026-04-08).} An attempted
@@ -2296,12 +2296,19 @@ Degree & $L$-function & mean$(A)$ & range$(A)$ & $n$ \\
 GL(1) & $\zeta(s)$ & 1.30 & $[0.47,\, 2.73]$ & 13 \\
 GL(2) & Maass $R{\approx}13.78$ & 3.93 & $[0.50,\, 6.67]$ & 12 \\
 GL(3) & $\mathrm{sym}^2(11\mathrm{a}1)$ & 12.79 & $[6.64,\, 23.35]$ & 12 \\
+GL(4) & $\mathrm{sym}^3(\Delta)$ & 286.26 & $[-7471,\, 8554]$ & 31 \\
 \bottomrule
 \end{tabular}
 \end{center}
 \smallskip\noindent
 Mean$(A)$ increases monotonically with degree: $1.30 \to 3.93 \to 12.79$
-(ratios: GL(2)/GL(1) $\approx 3.0\times$, GL(3)/GL(2) $\approx 3.3\times$).
+(ratios: GL(2)/GL(1) $\approx 3.0\times$, GL(3)/GL(2) $\approx 3.3\times$,
+GL(4)/GL(3) $\approx 22.4\times$).
+The dramatic acceleration at $d = 4$ (result~\#65, $\mathrm{sym}^3(\Delta)$, weight~11)
+is partly a weight effect: $\mathrm{sym}^3(11\mathrm{a}1)$ (same $d = 4$ but weight~1)
+yields $A \approx 8.82$ (result~\#66), close to the $d = 3$ value $12.79$.
+This suggests that the jump from $12.79$ to $286.26$ at $d = 4$ is driven primarily by the motivic weight~11 of $\Delta$ rather than by degree alone.
+However, $A(t_0)$ at $d = 4$ has CV~${>}970\%$, and the 95\% confidence interval for the mean includes zero (SE~${\approx}500$), so these comparisons should be interpreted as suggestive, not conclusive.
 This growth reflects the cumulative contribution of $d$ Gamma-factor terms
 to $H_0 = (\Lambda'/\Lambda)$ at the zero:
 in GL($d$), the functional equation $\Lambda$ contains $d$ Gamma factors,
@@ -2323,7 +2330,9 @@ At $\delta = 0.1$ the GL(3) correction reaches $A \cdot \delta^2 \approx 0.12$
 regime for degree-3; smaller $\delta$ is recommended for precise $A$ extraction
 at higher degree.
 The analytic decomposition $A(t_0) = A_\Gamma + A_L$ separating Gamma-factor
-and finite Euler product contributions remains open (boundary B-18; see \S\ref{sec:open}).
+and finite Euler product contributions is addressed in result~\#64
+(Remark~\ref{rem:A_decomposition}), which establishes that $\Delta A_L$ accounts
+for $94.8\%$ of the conductor-driven variation (boundary B-18; see \S\ref{sec:open}).
 
 \textcolor{ForestGreen}{[result \#61, established, 2026-04-18;
 GL(2): 12 zeros, 5 offsets, 60 pts, $\kappa{\cdot}\delta^2{\in}[1.00,1.04]$;
@@ -2454,6 +2463,103 @@ $q$-effect 97.4\%, $\mu$-effect 2.6\% (consistent with $\mu$-independence);
 naive $\log(q/\pi)/2 = 0.23 \ll$ measured 1.82 (only 13\%);
 $A(t_0)$ encodes arithmetic beyond gamma factors; B-18 open;
 numerical evidence, not proof]}
+\end{remark}
+
+\begin{remark}[Analytic decomposition $A = A_\Gamma + A_L$ (result~\#64)]
+\label{rem:A_decomposition}
+The correction term $A(t_0)$ in Proposition~\ref{prop:kappa_exact_expansion}
+can be decomposed as $A(t_0) = \mathrm{Im}(H_0^\Gamma)^2 + \text{remainder}$,
+where $H_0^\Gamma$ is the Gamma-factor part of
+$H_0 = (\Lambda'/\Lambda)(\rho)$.
+Defining $A_\Gamma := \mathrm{Im}(H_0^\Gamma)^2$ (computable analytically from digamma functions)
+and $A_L := A - A_\Gamma$ (the arithmetic residual, containing $(L'/L)(\rho)$
+and higher-order Gamma corrections $H_1^\Gamma$), we measure the decomposition for
+$\zeta(s)$ (12 zeros) and $L(s, \chi_5^{\mathrm{even}})$ (24 zeros):
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+ & $\zeta(s)$ & $\chi_5^{\mathrm{even}}$ & $\Delta$ (change) \\
+\midrule
+mean$(A)$     & 1.2727 & 3.0914 & $+1.8187$ (100\%) \\
+mean$(A_\Gamma)$ & 0.5350 & 0.6287 & $+0.0937$ (5.2\%) \\
+mean$(A_L)$   & 0.7377 & 2.4627 & $+1.7250$ (94.8\%) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip\noindent
+The Gamma-factor contribution $\Delta A_\Gamma = 0.0937$ accounts for only \textbf{5.2\%}
+of the conductor-driven change $\Delta A = 1.8187$; the arithmetic residual
+$\Delta A_L = 1.7250$ carries \textbf{94.8\%}.  This confirms the finding of
+result~\#63 that the naive estimate $\log(q/\pi)/2 = 0.23$ underestimates
+the $q$-effect by an order of magnitude: the dominant source is $(L'/L)(\rho,\chi)$,
+not the Gamma-factor shift.
+
+Note that $A_\Gamma$ contributes 42\% of $A(\zeta)$ and 20\% of $A(\chi_5^{\mathrm{even}})$
+individually; it is only the \emph{change} $\Delta A$ for which $A_\Gamma$ is negligible.
+The direct numerical extraction of $H_0^L = (L'/L)(\rho)$ via Richardson extrapolation
+encounters severe cancellation ($\mathrm{Im}(H_0) \sim 10^8$) and remains an open
+challenge; the $A_L = A - A_\Gamma$ subtraction route bypasses this difficulty.
+
+\textcolor{ForestGreen}{[result \#64, established, 2026-04-18;
+$\zeta$: 12 zeros, $\chi_5^{\mathrm{even}}$: 24 zeros (DPS${=}60$);
+$\Delta A_\Gamma{=}0.0937$ (5.2\%), $\Delta A_L{=}1.7250$ (94.8\%);
+$A_L$ contains $(L'/L)(\rho)$ and higher-order $\Gamma$ corrections;
+B-18 partially resolved; numerical verification, not proof]}
+\end{remark}
+
+\begin{remark}[GL(4): four-property verification of $L(s, \mathrm{sym}^3\Delta)$ (result~\#65)]
+\label{rem:gl4_sym3_delta}
+Extending the framework to degree~4, we verify the symmetric cube $L$-function
+$L(s, \mathrm{sym}^3\Delta)$ associated to the Ramanujan $\Delta$-form
+(weight~12, level~1) using PARI/GP \texttt{lfun}.
+The Hodge-derived parameters are:
+$\gamma_V = [-11, -10, 0, 1]$, $k = 34$, $N = 1$, $\varepsilon = -1$,
+with the $n$-th Dirichlet coefficient
+$c(n) = \sum_{ad{=}n} \chi(a)\, a^{-33}\, b_d$ constructed via Euler product
+from $\tau(p)$ values (cf.\ $c(2) = \tau(2)(\tau(2)^2 - 2 \cdot 2^{11}) = 84480$).
+
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Property & Result & Verdict \\
+\midrule
+Functional equation & $-141$ digits (motivic), $-380$ digits (analytic) & \textbf{PASS} \\
+Zeros & 43 non-trivial ($t \in [0,50]$), $t_1 = 4.1559$ & \textbf{PASS} \\
+$\kappa\cdot\delta^2$ & mean $= 1.000286$, 31/31 success & \textbf{PASS} \\
+Monodromy & 20/20 simple (sign change confirmed) & \textbf{PASS} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip\noindent
+Cross-validation: PARI \texttt{lfunsympow(11a1, 3)} independently confirms
+$N = 1331 = 11^3$, $\gamma_V = [-1, 0, 0, 1]$, $k = 4$ for weight-1
+(matching the Hodge pattern $\gamma_V = [-(w), -(w{-}1), 0, 1]$, $k = 3w+1$).
+
+The $A(t_0)$ values at $d = 4$ show extreme variability:
+mean$(A) = 286.26$, std$(A) = 2782$, CV~$= 972\%$,
+with individual values spanning $[-7471, +8554]$.
+The large CV arises from closely spaced zero pairs
+(e.g., $t = 23.34$ and $t = 23.98$, gap $= 0.64$).
+Despite this variability, $\kappa{\cdot}\delta^2 = 1.000286$ remains stable (the $1/\delta^2$ term dominates).
+
+\textbf{Weight versus degree.}
+$\mathrm{sym}^3(11\mathrm{a}1)$ ($d = 4$, weight~1) yields $A \approx 8.82$ (result~\#66),
+comparable to $\mathrm{sym}^2(11\mathrm{a}1)$ ($d = 3$, weight~1, $A = 12.79$).
+This suggests the jump to $A = 286.26$ at $d = 4$ is a weight-11 effect,
+not a degree-4 effect.  However, both $A$ values at $d = 4$ carry
+$\mathrm{CV} > 970\%$, and neither mean is statistically distinguishable from zero
+(95\% CI includes zero for both), so this conclusion is suggestive rather than definitive.
+
+\textcolor{ForestGreen}{[result \#65, established, 2026-04-18;
+PARI lfuncheckfeq: FE ${=}-141$ digits (motivic), $-380$ (analytic);
+43 zeros ($t{\in}[0,50]$), $t_1{=}4.1559$;
+$\kappa{\cdot}\delta^2{=}1.000286$ (31/31); monodromy 20/20;
+$A{=}286.26$ (CV${=}972\%$); weight vs degree: suggestive, not conclusive;
+GL(4) degree-4 verification; numerical verification, not proof]}
 \end{remark}
 
 
@@ -4929,15 +5035,15 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 63 numerical results obtained
-across eight verification axes.  Status codes: \textbf{E} = Established,
+Table~\ref{tab:summary} consolidates all 65 numerical results obtained
+across nine verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
 
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 63 numerical results across eight verification
+\caption{Summary of 65 numerical results across nine verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -5056,6 +5162,27 @@ with full transparency).
    $A(t_0)$ $\delta$-independent: spread ${<}0.1\%$;
    see Remark~\ref{rem:dirichlet_mu_q_separation}
    & GL(1) $\zeta$, $\chi$ \\
+\midrule
+64 & Analytic decomposition $A(t_0) = A_\Gamma + A_L$ & \textbf{E} &
+   $\zeta$ 12 zeros $+$ $\chi_5^{\mathrm{even}}$ 24 zeros (DPS${=}60$);
+   $\Delta A_\Gamma{=}0.0937$ (5.2\%: Gamma-factor change);
+   $\Delta A_L{=}1.7250$ (94.8\%: arithmetic $+$ higher-order $\Gamma$);
+   $A_\Gamma/A$: 42\% ($\zeta$), 20\% ($\chi_5^{\mathrm{even}}$);
+   $H_0^L$ direct extraction: numerical cancellation ($\sim10^8$);
+   B-18 partially resolved;
+   see Remark~\ref{rem:A_decomposition}
+   & GL(1) $\zeta$, $\chi$ \\
+\midrule
+65 & GL(4) $\mathrm{sym}^3(\Delta)$ PARI 4-property verification & \textbf{E} &
+   PARI lfun: $\gamma_V{=}[-11,-10,0,1]$, $k{=}34$, $N{=}1$, $\varepsilon{=}-1$;
+   FE: $-141$ digits (motivic), $-380$ (analytic);
+   43 zeros ($t{\in}[0,50]$), $t_1{=}4.1559$;
+   $\kappa{\cdot}\delta^2{=}1.000286$ (31/31 success);
+   monodromy 20/20 simple;
+   $A(t_0){=}286.26$ (CV${=}972\%$, weight-11 effect);
+   $c(2){=}84480{=}\tau(2)(\tau(2)^2{-}2\cdot 2^{11})$;
+   see Remark~\ref{rem:gl4_sym3_delta}
+   & GL(4) $\mathrm{sym}^3\Delta$ \\
 \end{longtable}
 \end{center}
 
@@ -5560,27 +5687,20 @@ Tier 2 programmes (conjectural but well-posed).}
         \textcolor{ForestGreen}{[conditional positive, 2026-04-16; GL(2) 11a1;
         $t\approx51$--$100$ PASS; $t{\approx}147$ numerical barrier;
         see \cref{sec:gl2_high_t}; numerical verification, not proof]}
-  \item \textbf{Analytic decomposition of $A(t_0)$ (boundary B-18).}
-        Result~\#61 (Remark~\ref{rem:kappa_degree_comparison}) establishes
-        that the correction term $A(t_0) = \kappa - 1/\delta^2$ grows monotonically
-        with degree ($1.30 \to 3.93 \to 12.79$ for GL(1--3)), and
-        result~\#62 (Remark~\ref{rem:dirichlet_conductor_A}) shows conductor-monotone
-        growth within degree~1 ($1.27 \to 2.25 \to 2.77 \to 3.14$ for $q = 1,3,4,5$).
-        Result~\#63 (Remark~\ref{rem:dirichlet_mu_q_separation}) separates the $\mu$-shift
-        and conductor contributions by measuring the even character $\chi_5^{\mathrm{even}}$
-        ($\mu = 0$, $q = 5$): the $q$-effect accounts for $97.4\%$ of $A(t_0)$ variation,
-        while the $\mu$-effect is $2.6\%$ (consistent with $\mu$-independence at the
-        resolution of the data).
-        The simple estimate $\Delta A_q \approx \log(q/\pi)/2 = 0.23$ accounts for only
-        ${\sim}13\%$ of the measured $q$-effect ($+1.82$), indicating that
-        $(L'/L)(\rho,\chi)$ carries the dominant arithmetic contribution.
-        The natural decomposition
-        $A(t_0) = A_\Gamma(t_0, \mu) + A_L(t_0, q)$
-        separating the Gamma-factor contribution from the finite Euler product residual
-        would (i)~yield an analytic prediction for $A_\Gamma$,
-        and (ii)~identify $A_L$ as a measure of ``arithmetic depth.''
-        The functional form $A(q)$ for fixed degree and $\mu$ remains undetermined
-        (3 conductor values are insufficient to fit a model).
+  \item \textbf{Analytic decomposition of $A(t_0)$ (boundary B-18, partially resolved).}
+        Result~\#64 (Remark~\ref{rem:A_decomposition}) decomposes $A = A_\Gamma + A_L$
+        for $\zeta(s)$ and $L(s,\chi_5^{\mathrm{even}})$: the Gamma-factor change
+        $\Delta A_\Gamma = 0.0937$ (5.2\%) is negligible compared to the arithmetic residual
+        $\Delta A_L = 1.7250$ (94.8\%).  Combined with results~\#61--\#63, this establishes:
+        (i)~$A(t_0)$ grows monotonically with degree (GL(1--3): $1.30 \to 3.93 \to 12.79$);
+        (ii)~at fixed degree~1, $A$ is conductor-monotone ($1.27 \to 2.25 \to 2.77 \to 3.14$)
+        and $\mu$-independent (2.6\%);
+        (iii)~the conductor-driven change is 94.8\% arithmetic.
+        Result~\#65 extends to GL(4) ($A = 286.26$ for $\mathrm{sym}^3(\Delta)$),
+        though CV~$= 972\%$ limits the statistical significance.
+        \textbf{Remaining open}: functional form of $A(d)$ and $A(q)$;
+        weight-vs-degree disentanglement at $d = 4$;
+        direct numerical extraction of $H_0^L$ (cancellation barrier).
         \textbf{Priority: medium.}
 \end{enumerate}
 
@@ -5718,14 +5838,14 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{63 results across eight verification
+The numerical evidence spans \textbf{65 results across nine verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
 ($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
 NNS--curvature correlations, (vi)~negative controls establishing
-specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62), and $\mu$-vs-$q$ separation establishing conductor as the dominant source of $A(t_0)$ variation (result~\#63).  Collectively, results \#22--\#28 form a self-consistent
+specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62), and $\mu$-vs-$q$ separation establishing conductor as the dominant source of $A(t_0)$ variation (result~\#63), (x)~$A(t_0)$ analytic decomposition $A_\Gamma + A_L$ establishing arithmetic dominance (result~\#64), and (xi)~GL(4) extension to $\mathrm{sym}^3(\Delta)$ with PARI-verified functional equation to $141$-digit precision (result~\#65).  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
 simultaneously encodes individual winding numbers, Chern-class
 zero counts, Gauss--Bonnet area integrals, $\sigma$-localisation, and
@@ -6720,14 +6840,14 @@ sym$^2$(11a1) & 3 & 121 & --- & FAIL & --- \\
 The pattern is unambiguous: \emph{all five $N{=}1$ $L$-functions} tested
 (spanning degree~1--2, weight~0, 2, 12, holomorphic and non-holomorphic) PASS,
 while all three $N{>}1$ $L$-functions FAIL.
-In total: $N{=}1 \Leftrightarrow$ PASS, confirmed across 63~zeros with zero exceptions.
+In total: $N{=}1 \Leftrightarrow$ PASS, confirmed across 63~zeros with zero exceptions (degree 1--2).
 Weight is irrelevant (weight 0 and 12 both PASS); degree is irrelevant
 (degree 1 and 2 both PASS under $N{=}1$).
 This provides strong numerical evidence that conductor $N{=}1$
 is the sole determining factor for $\sigma$-uniqueness,
 though the theoretical mechanism behind this dichotomy remains an open problem.
 
-\textcolor{ForestGreen}{[results \#56--\#63, established, 2026-04-17/18;
+\textcolor{ForestGreen}{[results \#56--\#65, established, 2026-04-17/18;
 GL(2) Maass forms: odd ($R{=}9.53$) + even ($R{=}13.78$, $N{=}1$);
 Ramanujan $\Delta$ ($N{=}1$, $w{=}12$): 23 zeros, $\sigma$-uniq.\ 23/23 PASS;
 $N{=}1 \Leftrightarrow$ PASS confirmed (boundary B-10 resolved);
@@ -6735,6 +6855,8 @@ GL(1) $\zeta(s)$: 13 zeros, $\kappa_{\mathrm{near}}{=}1112.32$ (CV${=}0.1\%$), $
 $\kappa_{\mathrm{near}}(d)$ monotone: $1112.32$ ($d{=}1$) $<$ $1114.6$ ($d{=}2$) $<$ $1125.16$ ($d{=}3$), gap acceleration $4.63\times$;
 $\kappa$-$\delta$ scaling: 65 pts, $\kappa{\cdot}\delta^2{\in}[1.00012,1.01206]$, $O(1/\delta)$ coeff.\ ${=}0$, boundary B-12 resolved (Proposition~\ref{prop:kappa_exact_expansion});
 $\mu$-vs-$q$ separation: $q$-effect 97.4\%, $\mu$-effect 2.6\%, naive $\log(q/\pi)/2{=}0.23 \ll$ 1.82;
+$A = A_\Gamma + A_L$ decomposition: $\Delta A_L{=}94.8\%$ (arithmetic dominance);
+GL(4) $\mathrm{sym}^3(\Delta)$: FE${=}-141$ digits, 43 zeros, $\kappa{\cdot}\delta^2{=}1.000286$;
 numerical verification, not proof]}
 
 
