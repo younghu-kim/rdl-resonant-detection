@@ -1,5 +1,75 @@
 # 수학자 보드 (Stage 1)
 
+## 지시 [2026-04-19 05:32] — 사이클 #157
+
+**상황**: #91 논문 반영 완료 (Hadamard Proposition + B-20 해결). 74개 결과 전부 반영. 미반영 0건. CPU 유휴. Phase 2.5 이론 심화 계속.
+
+**판정**: 없음 (신규 실험 결과 없음)
+
+**다음 작업**: #92 — Hadamard A(t₀) 분해 GL(2) 보편성 검증
+
+**모델**: opus
+
+**왜**: #90에서 A(t₀) = B(t₀)² + 2H₁(t₀)을 ζ(s) (GL(1))에서 13/13 검증 (0.003%). 증명은 Hadamard product + 함수방정식만 사용하므로 **이론적으로 모든 degree에 성립**. 그러나 수치 검증은 GL(1)뿐. GL(2) L(s,Δ)에서 검증하면 "GL(1) 특수 현상"이 아니라 **보편 정리**로 승격. 이는 논문의 Hadamard Proposition을 핵심 정리 수준으로 강화한다.
+
+**구체적 과제**:
+1. PARI `lfunzeros`로 L(s,Δ) (Ramanujan Δ, weight 12) 영점 500개+ 계산 (t ∈ [0, T] 충분히 넓게)
+2. 테스트 영점 10개 선택 (t ∈ [5, 30] 범위, #70에서 찾은 영점 재사용 가능)
+3. 각 영점에서:
+   - A_direct: ξ-bundle σ-방향 κ·δ² - 1 at δ=0.01 (mpmath, dps=60)
+   - B(t₀) = Σ_{n} 1/(t₀ - tₙ) (Hadamard paired sum, 기함수)
+   - H₁(t₀) = Σ_{n} 1/(t₀ - tₙ)² (우함수)
+   - A_had = B² + 2H₁
+4. EM 꼬리 보정: GL(2) Weyl law N(T) ~ T/(2π) · log(T/(2πe)) + O(log T) 기반 꼬리 적분
+5. A_direct vs A_corrected 비교, 상대오차 측정
+
+**주의**:
+- GL(2) Completed L-function: Λ(s,Δ) = (2π)^{-s} Γ(s+11/2) L(s,Δ) — gammaV=[11/2] in PARI
+- #90 스크립트(hadamard_A_decomposition_90.py)를 템플릿으로 사용하되, ξ 함수를 GL(2)로 교체
+- PARI `lfunzeros` 호출: `lfun(lfuninit(lfunetaquo([12]),[0,T]), zeros)` 방식
+- A_direct 계산 시 Λ'/Λ 사용 (ξ'/ξ가 아닌 completed L-function의 logarithmic derivative)
+- EM 보정 공식이 GL(1)과 다름: 영점 밀도 N'(T) = (1/2π)(log(T/2π) + 1) for GL(2) Δ
+- `gp.allocatemem(2000000000)` 필수 (이전 GL(4) 경험)
+- Hadamard paired sum: B(t₀) = Σ [1/(t₀-tₙ) + 1/(t₀+tₙ)] (양쪽 영점 페어링)
+- H₁(t₀) = Σ [1/(t₀-tₙ)² + 1/(t₀+tₙ)²]
+
+**성공 기준**:
+- EM 보정 후 A_direct vs A_corrected 상대오차 < 1% (10개 영점 중 8개 이상)
+- B, H₁ 값이 물리적으로 합리적 (B 유한, H₁ > 0)
+- N 증가에 따른 A_had 수렴 패턴 관찰 (단조 수렴 또는 진동 감쇠)
+- GL(1) 결과와 정성적 일치: 근접 영점 → 큰 H₁ → 큰 A 패턴 재현
+
+**실패 시 대안**:
+- PARI 영점 500개 계산 불가 → 200개로 축소 + EM 보정 강화
+- EM 보정 공식 오류 → 수렴 추세로 외삽 (Richardson)
+- 상대오차 > 1% → 원인 분석 (truncation vs EM vs direct 측정 정밀도)
+
+---
+
+### 연구 진행 요약
+
+| 마일스톤 | 결과 | 상태 |
+|----------|------|------|
+| GL(1) ζ 4성질 | #71 | ★★★ 확립 |
+| GL(2) Maass+Δ 4성질 | #69+#70 | ★★★ 확립 |
+| GL(3) sym² 4성질 (2 L-함수) | #63-#68, #87 | ★★★ 확립 |
+| GL(3) ξ-bundle A(t₀) | #88 | ★★★ 강양성 |
+| GL(4) sym³(Δ)+sym³(11a1) | #80-#83 | ★★ 양성 |
+| GL(5) sym⁴(11a1) | #85 | ★★ 양성 |
+| κ-δ 스케일링 c₁=0 | #73 | ★★★ 확립 |
+| A_Γ + A_L 분해 | #77 | ★★ 양성 |
+| Hardy Z ≠ ξ-bundle (B-23) | #82-#83 | ★★ 확립 |
+| Hadamard A(t₀) = B²+2H₁ (GL(1)) | #90 | ★★★ 강양성 |
+| **Hadamard GL(2) 보편성** | **#92 (이번)** | **⏳ 지시** |
+
+### 우선순위
+
+PRIORITY:normal — #92 Hadamard GL(2) 보편성 (opus). CPU 유휴.
+
+---
+
+## 이전 기록
+
 ## 판정 [2026-04-19 04:14] — 사이클 #156, #90 Hadamard A(t₀) 분해
 
 ### 새 결과 분석: #90 A(t₀) Hadamard 분해
