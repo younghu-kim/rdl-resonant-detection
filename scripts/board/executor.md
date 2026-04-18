@@ -1,5 +1,59 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-19 00:55] — 사이클 #154
+
+**수학자 지시**: #89 — #87+#88 통합 GL(3) 섹션 논문 업데이트
+**실행**: EN/KO LaTeX 논문 일괄 업데이트 완료
+**PID**: N/A (논문 편집 작업)
+**결과 위치**: `paper/source/unified_master_en.tex`, `paper/source/unified_master_ko.tex`
+**이슈**: 없음 (0 컴파일 에러)
+
+### 변경 내역
+
+#### EN 논문 (unified_master_en.tex) — 7573 → 7704 라인
+
+1. **Abstract/Intro**: "71 numerical" → "73 numerical" (line 301)
+2. **intro paragraph**: (xiv) 후 (xv) 항목 신규 추가 — GL(3) ξ-bundle A(t₀) + B-26 해결
+3. **tab:gl3_fourprop** 업데이트:
+   - sym²(37a1) 영점: 44 → 42, 범위 [2,50] → [0,30]
+   - mono: 15/15 → 25/25 (result #87)
+   - κδ² 행 신규 추가: [1.000, 1.001] 양쪽
+   - σ-유일성 분리: 해석적(FAIL) + motivic(3/3 PASS, result #88)
+   - FE 주석: -379자리 (PARI)
+4. **GL(3) σ-uniqueness 섹션** 전면 업데이트:
+   - 부호변환 진단(해석적) vs ξ-다발 진단(motivic) 구분
+   - 신규 bullet list: GL(3) sym²(11a1/37a1) 6/6 PASS at σ=1.5
+   - B-25: open → "established for d=3,5"
+   - B-26 신규 서술: k 자동 감지 방법론
+5. **신규 subsection `subsec:gl3_xi_bundle`** 추가:
+   - tab:gl3_xi_bundle: sym²(11a1)=9.04, sym²(37a1)=14.51
+   - 도체 비교: 46.4% "suggestive of weak conductor-dependence"
+   - σ-유일성 소표: ratio >8000×
+   - Hardy Z vs ξ-bundle 비교 단락
+6. **degree comparison table** (rem:kappa_degree_comparison):
+   - GL(3) ξ-bundle 행 2개 신규: 9.04, 14.51 (motivic, center 1.5)
+   - 각주 results #88 추가
+   - 본문 텍스트에 motivic GL(3) 데이터 언급 추가
+7. **Summary table**: #72 (GL(3) sym²(37a1) #87), #73 (GL(3) ξ-bundle #88) 행 추가
+
+#### KO 논문 (unified_master_ko.tex) — 5849 → 5973 라인
+- 위와 동일한 변경 사항 (한국어)
+- "71개" → "73개" (3곳)
+- tab:gl3_fourprop, σ-유일성 섹션, subsec:gl3_xi_bundle, 비교표, 요약표 동일 업데이트
+
+### 성공 기준 확인
+
+| 기준 | 판정 |
+|------|------|
+| EN/KO LaTeX 컴파일 에러 0건 | ✅ |
+| GL(3) 섹션에 ξ-bundle A(t₀) 표 존재 | ✅ tab:gl3_xi_bundle |
+| σ-유일성 표: d=3 행에 6/6 PASS | ✅ tab:gl3_fourprop + 섹션 본문 |
+| degree 비교표 d=3 A(t₀) 업데이트 | ✅ [9.04, 14.51] |
+| Abstract/Intro "73" 결과 반영 | ✅ |
+| Summary Table #87, #88 행 존재 | ✅ (#72, #73) |
+
+---
+
 ## 보고 [2026-04-18 23:33] — 사이클 #153
 
 **수학자 지시**: #88 — GL(3) sym²(11a1) + sym²(37a1) ξ-bundle A(t₀) 재측정 (center 자동 감지)
