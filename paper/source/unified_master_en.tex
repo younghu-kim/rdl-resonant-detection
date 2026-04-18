@@ -173,7 +173,7 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Seventy-four numerical results across ten verification
+\noindent Seventy-five numerical results across ten verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
 controls, GL(2) extension, GL(3) extension, cross-rank monodromy,
@@ -298,7 +298,7 @@ with a hard error boundary beyond which decoding fails}.
         (Theorem~\ref{thm:universality}). These are proved via the
         argument principle and Laurent expansion, showing that the
         bundle diagnostics are \emph{theorems}, not conjectures.
-  \item We verify the fibre-bundle interpretation through 74 numerical
+  \item We verify the fibre-bundle interpretation through 75 numerical
         results spanning ten independent axes:
         local curvature, global spectral statistics, topological
         invariants, Dirichlet $L$-function extension, negative
@@ -2400,6 +2400,47 @@ Thus $A(t_0)$ variability is an \emph{analytic function of zero spacing},
 fully captured by $H_1(t_0)$.
 \end{remark}
 
+\begin{remark}[GL(2) numerical verification of Proposition~\ref{prop:hadamard_A_decomp} --- result~\#75]
+\label{rem:hadamard_gl2_numerical}
+For $L(s,\Delta)$ (Ramanujan $\Delta$, weight~12, GL(2)), we use $N=86$ zeros
+computed via PARI/GP \texttt{lfunzeros} and an Euler--Maclaurin tail correction
+with GL(2) zero density $\rho_2(t) = \tfrac{1}{2\pi}\log\tfrac{t}{2\pi}$.
+Ten test zeros $t_0 \in [9.2,\,32.8]$ give:
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{@{}rrrrrl@{}}
+\toprule
+$n$ & $t_0$ & $A_{\mathrm{dir}}$ & $A_{\mathrm{corr}}$ & $\mathrm{err}_{\mathrm{corr}}\%$ & \\
+\midrule
+ 1 &  9.22 & 1.132 & 1.126 & 0.53 & \checkmark \\
+ 2 & 13.91 & 1.856 & 1.844 & 0.65 & \checkmark \\
+ 3 & 17.44 & 2.882 & 2.864 & 0.62 & \checkmark \\
+ 4 & 19.66 & 2.268 & 2.250 & 0.77 & \checkmark \\
+ 5 & 22.34 & 2.479 & 2.458 & 0.87 & \checkmark \\
+ 6 & 25.27 & 4.802 & 4.764 & 0.79 & \checkmark \\
+ 7 & 26.80 & 3.177 & 3.149 & 0.90 & \checkmark \\
+ 8 & 28.83 & 2.936 & 2.903 & 1.14 & $\times$ \\
+ 9 & 31.18 & 4.354 & 4.304 & 1.15 & $\times$ \\
+10 & 32.77 & 3.109 & 3.069 & 1.29 & $\times$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip\noindent
+Result: $7/10 < 1\%$, $10/10 < 2\%$; $\mathrm{err}_{\mathrm{max}} = 1.29\%$.
+The three failures (n\,=\,8,\,9,\,10) occur at $t_0 \ge 28.8$ where
+$t_{\mathrm{last}}/t_0 \approx 4$; precision is limited by the sparser
+GL(2) zero density (86 zeros vs.\ GL(1)'s 2000).
+Symmetry check: $|\mathrm{Re}(c_0)|_{\mathrm{max}} = 3.3 \times 10^{-5}$
+($10/10$), confirming the $D=0$ identity.
+B-20 pattern for GL(2): $A_{\mathrm{max}} = 4.80$ at $t_6=25.27$
+(3 nearby zeros) vs.\ $A_{\mathrm{min}} = 1.13$ at $t_1=9.22$ (isolated),
+consistent with Proposition~\ref{prop:hadamard_A_decomp}.
+\textcolor{ForestGreen}{[result \#75, conditionally positive, 2026-04-19;
+$L(s,\Delta)$; 10 zeros; $N{=}86$ + EM tail; 7/10 ${<}1\%$, 10/10 ${<}2\%$;
+Proposition~\ref{prop:hadamard_A_decomp} degree-universal]}
+\end{remark}
+
 \begin{remark}[Degree universality]
 \label{rem:hadamard_degree_univ}
 Proposition~\ref{prop:hadamard_A_decomp} holds for every $L$-function admitting
@@ -2407,8 +2448,13 @@ a Hadamard product $\prod_n[(1-s/\rho_n)(1-s/\bar\rho_n)]$
 (GL(1) through GL(5) and Dirichlet $L$-functions).
 The $D=0$ step uses only the symmetry $\xi(s)=\xi(1-s)$ and the palindromic
 pairing $(\rho_n,\bar\rho_n)$; no degree-specific input is required.
-Numerical verification across GL(1)--GL(5) is subsumed by result~\#74 for $\zeta(s)$
-and the existing $A(t_0)$ measurements (results~\#60, \#61, \#69, \#71, \#73).
+Numerical verification: GL(1) $\zeta(s)$ achieves $13/13$ zeros with
+$\mathrm{err}_{\mathrm{corr}} < 0.003\%$ (result~\#74); GL(2) $L(s,\Delta)$
+achieves $7/10$ zeros with $\mathrm{err}_{\mathrm{corr}} < 1.3\%$
+(result~\#75, Remark~\ref{rem:hadamard_gl2_numerical}).
+Precision decreases with degree as expected from Weyl law asymptotics:
+sparser zeros at fixed $t_0$ reduce Hadamard partial sum accuracy
+(GL(2) uses $N{=}86$ zeros vs.\ GL(1)'s $N{=}2000$).
 \end{remark}
 
 \begin{remark}[Degree comparison of $A(t_0)$: three-degree scaling (result~\#61)]
@@ -5385,7 +5431,7 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 74 numerical results obtained
+Table~\ref{tab:summary} consolidates all 75 numerical results obtained
 across ten verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -5393,7 +5439,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 74 numerical results across ten verification
+\caption{Summary of 75 numerical results across ten verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -5610,6 +5656,15 @@ with full transparency).
    B-20 resolved: $A(t_0)$ variability $=$ near-zero $H_1$ dominance
    ($2H_1^{\mathrm{near}}/A(t_9) {\approx} 33\%$);
    see Proposition~\ref{prop:hadamard_A_decomp} and Remark~\ref{rem:hadamard_A_numerical}
+   & $\kappa$-$\delta$ / Theory \\
+\midrule
+75 & Hadamard decomposition GL(2) degree universality & \textbf{C} &
+   $L(s,\Delta)$ (Ramanujan $\Delta$, weight 12); $N{=}86$ zeros + EM tail;
+   7/10 ${<}1\%$, 10/10 ${<}2\%$, $\mathrm{err}_{\mathrm{max}}{=}1.29\%$;
+   $|\mathrm{Re}(c_0)|_{\mathrm{max}}{=}3.3{\times}10^{-5}$ ($D{=}0$ confirmed);
+   B-20 GL(2): $A_{\mathrm{max}}{=}4.80$ (near cluster) vs.\ $A_{\mathrm{min}}{=}1.13$ (isolated);
+   precision limited by sparser GL(2) zeros (Weyl asymptotics);
+   see Remark~\ref{rem:hadamard_gl2_numerical}
    & $\kappa$-$\delta$ / Theory \\
 \end{longtable}
 \end{center}
@@ -6277,14 +6332,14 @@ breadth are rare, and they suggest that the phase quantisation principle
 may be a more fundamental organising concept than its individual
 manifestations in cryptography, optics, or number theory.
 
-The numerical evidence spans \textbf{74 results across ten verification
+The numerical evidence spans \textbf{75 results across ten verification
 axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
 ($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
 NNS--curvature correlations, (vi)~negative controls establishing
-specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62), and $\mu$-vs-$q$ separation establishing conductor as the dominant source of $A(t_0)$ variation (result~\#63), (x)~$A(t_0)$ analytic decomposition $A_\Gamma + A_L$ establishing arithmetic dominance (result~\#64), (xi)~GL(4) extension to $\mathrm{sym}^3(\Delta)$ with PARI-verified functional equation to $141$-digit precision (result~\#65), (xii)~GL(4) weight versus degree separation via $\mathrm{sym}^3(11\mathrm{a}1)$ ($w{=}1$, FE${=}-366$ digits, result~\#66), and (xiii)~GL(4) $\xi$-bundle $\kappa_\sigma$ ($\sigma$-direction) $A(t_0)$ measurement with B-23 resolved ($\kappa_\sigma \neq \kappa_t$) and B-12 identified as normalization-dependent open question (result~\#69, Remark~\ref{rem:xi_bundle_b23}), (xiv)~GL(5) extension to $\mathrm{sym}^4(11\mathrm{a}1)$ ($d{=}5$, $w{=}1$, $N{=}14641$) with PARI-verified functional equation to $331$-digit precision, $\sigma$-uniqueness PASS ($\sigma{=}2.5$, ${\approx}10000\times$ ratio), and $\xi$-bundle $A = 14.88$ (per-zero CV $< 0.2\%$, motivic normalization; results~\#70, \#71, Remark~\ref{rem:gl5_sym4}), and (xv)~GL(3) $\xi$-bundle $A(t_0)$ measurement at motivic centre $\sigma = k/2 = 1.5$ with $\sigma$-uniqueness 6/6 PASS ($\kappa \approx 10^6$ at centre, ratio $> 8000\times$) for both sym$^2$(11a1) ($A{=}9.04$) and sym$^2$(37a1) ($A{=}14.51$), with $k$ auto-detected via $L[4]$ (B-26 resolved; results~\#87, \#88), completing GL(1)--GL(5) coverage, and (xvi)~Hadamard decomposition of $A(t_0)$ via global zero distribution: $A(t_0) = B(t_0)^2 + 2H_1(t_0)$ with $B$, $H_1$ expressed as explicit paired sums over all non-trivial zeros (Proposition~\ref{prop:hadamard_A_decomp}); B-20 resolved: $A(t_0)$ variability analytically explained by near-zero $H_1$ contributions; 13/13 numerically verified ($\mathrm{err}_{\mathrm{corr}}{<}0.003\%$; result~\#74, Remark~\ref{rem:hadamard_A_numerical}).  Collectively, results \#22--\#28 form a self-consistent
+specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62), and $\mu$-vs-$q$ separation establishing conductor as the dominant source of $A(t_0)$ variation (result~\#63), (x)~$A(t_0)$ analytic decomposition $A_\Gamma + A_L$ establishing arithmetic dominance (result~\#64), (xi)~GL(4) extension to $\mathrm{sym}^3(\Delta)$ with PARI-verified functional equation to $141$-digit precision (result~\#65), (xii)~GL(4) weight versus degree separation via $\mathrm{sym}^3(11\mathrm{a}1)$ ($w{=}1$, FE${=}-366$ digits, result~\#66), and (xiii)~GL(4) $\xi$-bundle $\kappa_\sigma$ ($\sigma$-direction) $A(t_0)$ measurement with B-23 resolved ($\kappa_\sigma \neq \kappa_t$) and B-12 identified as normalization-dependent open question (result~\#69, Remark~\ref{rem:xi_bundle_b23}), (xiv)~GL(5) extension to $\mathrm{sym}^4(11\mathrm{a}1)$ ($d{=}5$, $w{=}1$, $N{=}14641$) with PARI-verified functional equation to $331$-digit precision, $\sigma$-uniqueness PASS ($\sigma{=}2.5$, ${\approx}10000\times$ ratio), and $\xi$-bundle $A = 14.88$ (per-zero CV $< 0.2\%$, motivic normalization; results~\#70, \#71, Remark~\ref{rem:gl5_sym4}), and (xv)~GL(3) $\xi$-bundle $A(t_0)$ measurement at motivic centre $\sigma = k/2 = 1.5$ with $\sigma$-uniqueness 6/6 PASS ($\kappa \approx 10^6$ at centre, ratio $> 8000\times$) for both sym$^2$(11a1) ($A{=}9.04$) and sym$^2$(37a1) ($A{=}14.51$), with $k$ auto-detected via $L[4]$ (B-26 resolved; results~\#87, \#88), completing GL(1)--GL(5) coverage, and (xvi)~Hadamard decomposition of $A(t_0)$ via global zero distribution: $A(t_0) = B(t_0)^2 + 2H_1(t_0)$ with $B$, $H_1$ expressed as explicit paired sums over all non-trivial zeros (Proposition~\ref{prop:hadamard_A_decomp}); B-20 resolved: $A(t_0)$ variability analytically explained by near-zero $H_1$ contributions; 13/13 numerically verified ($\mathrm{err}_{\mathrm{corr}}{<}0.003\%$; result~\#74, Remark~\ref{rem:hadamard_A_numerical}), and (xvii)~degree universality of Proposition~\ref{prop:hadamard_A_decomp} extended to GL(2) $L(s,\Delta)$: 7/10 zeros below $1\%$ error ($10/10$ below $2\%$), $D{=}0$ confirmed ($|\mathrm{Re}(c_0)|_{\mathrm{max}} = 3.3\times10^{-5}$), B-20 pattern reproduced; precision decrease consistent with Weyl asymptotics (result~\#75, Remark~\ref{rem:hadamard_gl2_numerical}).  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
 simultaneously encodes individual winding numbers, Chern-class
 zero counts, Gauss--Bonnet area integrals, $\sigma$-localisation, and

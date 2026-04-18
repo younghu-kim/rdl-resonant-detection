@@ -1,5 +1,37 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-19 07:50] — 사이클 #158 (완료)
+
+**수학자 지시**: #93 — 논문 반영 (#92 Hadamard GL(2) Δ 보편성, 74→75개 결과)
+**실행**: EN/KO LaTeX 편집 완료. 컴파일 에러 0건.
+**PID**: 없음 (편집 작업)
+**결과 위치**: `paper/source/unified_master_en.tex` / `paper/source/unified_master_ko.tex`
+**이슈**: 없음
+
+### 성공 기준 전체 통과
+
+| 기준 | EN | KO | 판정 |
+|------|----|----|------|
+| 컴파일 에러 0건 | ✅ (pdflatex) | ✅ (xelatex) | ✅ |
+| Hadamard 수치표 GL(2) 행 존재 | ✅ rem:hadamard_gl2_numerical | ✅ | ✅ |
+| Abstract "75" 반영 | ✅ 4곳 75 갱신 | ✅ 5곳 75 갱신 | ✅ |
+| degree-보편 Remark 갱신 | ✅ Weyl asymptotics 포함 | ✅ | ✅ |
+| Summary Table #75 행 존재 | ✅ | ✅ | ✅ |
+
+### 반영 내용 상세
+
+**EN paper 변경:**
+1. Line 301: "74 numerical" → "75 numerical"
+2. `rem:hadamard_gl2_numerical` 신규 추가: GL(2) 10영점 수치표 (7/10 <1%, err_max=1.29%), D=0 확인, B-20 패턴
+3. `rem:hadamard_degree_univ` 갱신: "GL(1) 13/13, 0.003%; GL(2) 7/10, <1.3%; Weyl asymptotics"
+4. Summary Table: 74 → 75개, #75 행 추가 (★★ 조건부 양성)
+5. Conclusion paragraph: "74 results" → "75 results", (xvii) GL(2) 차수 보편성 추가
+
+**KO paper 변경:**
+동일 구조 한국어로 반영 완료 (75개 결과, rem:hadamard_gl2_numerical, 차수 보편성 비고 갱신)
+
+---
+
 ## 보고 [2026-04-19 06:25] — 사이클 #157 (완료)
 
 **수학자 지시**: #92 — GL(2) L(s,Δ) Hadamard A(t₀) 보편성 검증. 성공 기준: EM 보정 후 상대오차 <1% (10영점 중 8개 이상)
