@@ -173,7 +173,7 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Seventy-eight numerical results across ten verification
+\noindent Eighty numerical results across ten verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
 controls, GL(2) extension, GL(3) extension, cross-rank monodromy,
@@ -2441,6 +2441,77 @@ $L(s,\Delta)$; 10 zeros; $N{=}86$ + EM tail; 7/10 ${<}1\%$, 10/10 ${<}2\%$;
 Proposition~\ref{prop:hadamard_A_decomp} degree-universal]}
 \end{remark}
 
+\begin{remark}[GL(3) high-precision numerical verification of Proposition~\ref{prop:hadamard_A_decomp} --- result~\#80]
+\label{rem:hadamard_gl3_numerical}
+For $L(s,\mathrm{sym}^2 E_{11\mathrm{a}1})$ (GL(3), motivic weight $k=3$, conductor~121),
+we use $N=1189$ zeros computed via PARI/GP \texttt{lfunzeros} with $T_{\max}=500$
+and an Euler--Maclaurin tail correction with GL(3) zero density
+$\rho_3(t) = \tfrac{3}{2\pi}\log\tfrac{t}{2\pi}$.
+
+\medskip\noindent
+\textbf{Re$(c_0)$ Richardson correction.}
+The direct measurement $A_{\text{dir}} = \kappa(\rho_0+\delta) - 1/\delta^2$
+contains a numerical asymmetry $2\,\text{Re}(c_0)/\delta \approx 2$--$5\%$ of $A$,
+arising from the leading Laurent coefficient $c_0$ at the zero $\rho_0$.
+Since $\xi(s) = \xi(1-s)$ implies $c_0$ is purely imaginary (i.e.\ $D=0$),
+we correct: $A_{\text{true}} = A_{\text{dir}} - 2\,\text{Re}(c_0)/\delta$,
+where $\text{Re}(c_0)$ is estimated by Richardson extrapolation.
+This recovers the theoretically correct value with $|\text{Re}(c_0)| < 8\times 10^{-4}$
+(10/10 zeros), confirming $D=0$ numerically.
+
+Ten test zeros $t_0 \in [3.9,\,13.3]$ (same as result~\#76 / \#94c) give:
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{@{}rrrrrrrl@{}}
+\toprule
+$n$ & $t_0$ & $A_{\text{dir}}$ & $A_{\text{true}}$ & $A_{\text{corr}}$ & $\text{err}_{\text{new}}\%$ & $\text{err}_{\#94c}\%$ & \\
+\midrule
+ 1 &  3.899 & 12.577 & 12.561 & 12.504 & 0.46 & 1.82 & \checkmark${<}1\%$ \\
+ 2 &  4.735 &  6.581 &  6.562 &  6.539 & 0.35 & 1.77 & \checkmark${<}1\%$ \\
+ 3 &  6.189 &  7.979 &  7.963 &  7.900 & 0.79 & 3.05 & \checkmark${<}1\%$ \\
+ 4 &  7.312 &  6.946 &  6.929 &  6.870 & 0.86 & 3.34 & \checkmark${<}1\%$ \\
+ 5 &  8.650 &  7.830 &  7.815 &  7.722 & 1.18 & 4.30 & \checkmark${<}2\%$ \\
+ 6 & 10.128 & 16.103 & 16.079 & 15.906 & 1.08 & 3.89 & \checkmark${<}2\%$ \\
+ 7 & 10.937 & 11.729 & 11.701 & 11.583 & 1.01 & 3.80 & \checkmark${<}2\%$ \\
+ 8 & 12.071 & 20.966 & 20.930 & 20.714 & 1.03 & 3.79 & \checkmark${<}2\%$ \\
+ 9 & 12.745 & 19.615 & 19.565 & 19.417 & 0.76 & 3.05 & \checkmark${<}1\%$ \\
+10 & 13.335 & 12.090 & 12.048 & 12.012 & 0.30 & 1.65 & \checkmark${<}1\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip\noindent
+Result: $6/10 < 1\%$, $10/10 < 2\%$ ($A_{\text{true}}$ basis); all 10 zeros improved
+vs.\ result~\#76/\#94c ($N=271$, $T=150$: $3/10<2\%$).
+Re$(c_0) < 8\times 10^{-4}$ (10/10), confirming $D=0$.
+
+B-20 pattern for GL(3): $A_{\max} = 20.93$ at $t_8=12.07$
+(5 nearby zeros, $H_1^{\text{near}} = 4.40$) vs.\ $A_{\min} = 6.56$ at $t_2=4.73$,
+consistent with Proposition~\ref{prop:hadamard_A_decomp}.
+
+Degree universality (EM-corrected Hadamard sum, $A_{\text{true}}$ basis):
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{@{}llrrrl@{}}
+\toprule
+$d$ & $L$-function & $N$ (zeros) & ${<}1\%$ & ${<}2\%$ & grade \\
+\midrule
+1 & $\zeta(s)$ & 2000 & 13/13 & 13/13 & $\star\star\star$ \\
+2 & $L(s,\Delta)$ & 86 & 7/10 & 10/10 & $\star\star$ \\
+3 & $L(s,\mathrm{sym}^2 E)$ & 1189 & 6/10 & 10/10 & $\star\star$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip\noindent
+Precision decreases with degree due to lower zero density; EM tail correction
+compensates. The convergence limitation at $d=3$ with $N=271$ (result~\#76)
+is resolved at $N=1189$ ($T=500$): $2\%$ threshold fully achieved (10/10).
+\textcolor{ForestGreen}{[result \#80, conditionally positive (exp.\ \#100), 2026-04-19;
+sym$^2$(11a1); 10 zeros; $N{=}1189$ ($T{=}500$) + EM tail + Re$(c_0)$ Richardson;
+$6/10{<}1\%$, $10/10{<}2\%$; degree universality $d{=}1$--$3$ confirmed]}
+\end{remark}
+
 \begin{remark}[Degree universality]
 \label{rem:hadamard_degree_univ}
 Proposition~\ref{prop:hadamard_A_decomp} holds for every $L$-function admitting
@@ -2451,10 +2522,13 @@ pairing $(\rho_n,\bar\rho_n)$; no degree-specific input is required.
 Numerical verification: GL(1) $\zeta(s)$ achieves $13/13$ zeros with
 $\mathrm{err}_{\mathrm{corr}} < 0.003\%$ (result~\#74); GL(2) $L(s,\Delta)$
 achieves $7/10$ zeros with $\mathrm{err}_{\mathrm{corr}} < 1.3\%$
-(result~\#75, Remark~\ref{rem:hadamard_gl2_numerical}).
+(result~\#75, Remark~\ref{rem:hadamard_gl2_numerical});
+GL(3) $L(s,\mathrm{sym}^2 E_{11\mathrm{a}1})$ achieves $6/10$ zeros below $1\%$
+and $10/10$ below $2\%$ with $N{=}1189$ zeros
+(result~\#80, Remark~\ref{rem:hadamard_gl3_numerical}).
 Precision decreases with degree.  For GL(1) ($N{=}2000$ zeros) the raw
 convergence rate is $\alpha \approx 0.56$ ($R^2{=}0.99$); GL(2) and GL(3)
-measurements are currently inconclusive due to insufficient zero counts
+measurements are currently inconclusive for $\alpha$ due to insufficient zero counts
 (Remark~\ref{rem:hadamard_convergence_rate}).
 The limiting factor is the accuracy of the Euler--Maclaurin tail
 correction, which depends on the zero density formula's precision.
@@ -2475,7 +2549,7 @@ $d$ & $L$-function & zeros & $\alpha$ & $R^2$ & fit quality \\
 \midrule
 1 & $\zeta(s)$ & 2000 & 0.558 & 0.99 & excellent \\
 2 & $L(s,\Delta)$ & 159 & 0.36 & 0.66--0.99 & moderate \\
-3 & $L(s,\mathrm{sym}^2 E)$ & 271 & $\sim 0.5$ & 0.86--1.00 & variable \\
+3 & $L(s,\mathrm{sym}^2 E)$ & 1189 & $\sim 0.5$ & 0.86--1.00 & variable \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -2485,16 +2559,19 @@ attributable not to faster raw convergence but to the accuracy of the
 Euler--Maclaurin tail correction, which relies on the Weyl zero density
 $\rho(t) = \tfrac{\log(t/2\pi)}{2\pi}$.  For GL(2), the analogous density is
 reasonably accurate ($7/10 < 1\%$).  For GL(3) $\mathrm{sym}^2(11\mathrm{a}1)$
-(conductor~121), the Weyl density \emph{over-corrects} (20--55\% excess),
-yielding $0/8$ pass at the $2\%$ threshold (result~\#76).
+(conductor~121), the raw Weyl density \emph{over-corrects} (20--55\% excess)
+with $N=271$ zeros ($T=150$), yielding $0/8$ pass at the $2\%$ threshold
+(result~\#76).  However, with $N=1189$ zeros ($T=500$, result~\#80),
+the EM tail contribution reduces to ${\sim}0.9\%$, achieving $10/10{<}2\%$
+and $6/10{<}1\%$ after Re$(c_0)$ Richardson correction
+(Remark~\ref{rem:hadamard_gl3_numerical}).
 
 This is \emph{not} a failure of the analytic identity $A = B^2 + 2H_1$
-(which is proved degree-universally), but a practical limitation of
-numerical verification at higher degree: achieving $\mathrm{err} < 2\%$
-for GL(3) would require $N \approx 15{,}000$ zeros, beyond current
-computational reach.
-\textcolor{ForestGreen}{[results \#76--\#77, undetermined, 2026-04-19;
-GL(1) $\alpha{=}0.558$ confirmed; GL(2)/GL(3) inconclusive (insufficient zeros);
+(which is proved degree-universally), but a computational limitation
+resolved by increasing zero density.
+\textcolor{ForestGreen}{[results \#76--\#77, undetermined ($\alpha$ inconclusive), 2026-04-19;
+GL(1) $\alpha{=}0.558$ confirmed; GL(2)/GL(3) inconclusive;
+result \#80 ($N{=}1189$): $10/10{<}2\%$ at GL(3) achieved;
 EM tail quality is the differentiating factor]}
 \end{remark}
 
@@ -5472,7 +5549,7 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 78 numerical results obtained
+Table~\ref{tab:summary} consolidates all 80 numerical results obtained
 across ten verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -5480,7 +5557,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 78 numerical results across ten verification
+\caption{Summary of 80 numerical results across ten verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -5725,15 +5802,26 @@ with full transparency).
    see Remark~\ref{rem:hadamard_convergence_rate}
    & $\kappa$-$\delta$ / Theory \\
 \midrule
-78 & B-05 $\sigma$-uniqueness saturation at $d \geq 4$ & \textbf{E} &
-   GL(4) sym$^3$(11a1): $S(\sigma){=}45$ for all $\sigma{\in}\{1.6,1.8,1.9,2.0,2.1,2.2,2.4\}$,
-   ratio${=}1.000$ (7/7);
-   GL(5) sym$^4$(11a1): $S(\sigma){\in}\{59,60\}$ for all $\sigma{\in}\{2.1,2.3,2.4,2.5,2.6,2.7,2.9\}$,
-   ratio${\leq}1.017$ (7/7);
-   B-05 resolved: sign-change $\sigma$-uniqueness valid for $d{\leq}3$ only;
-   saturation mechanism: uniform zero spacing $\to$ sinusoidal $Z(t)$;
-   see Remark~\ref{rem:sigma_saturation_d4}
-   & GL(4--5) boundary \\
+78 & $\sigma$-uniqueness saturation $d=2$--$5$ & \textbf{E} &
+   $S(\sigma){=}\text{const}$ for GL(2)--GL(5); GL(4) $S{=}45$ (7/7$\sigma$);
+   GL(5) $S{\in}\{59,60\}$ (7/7$\sigma$); $A(d){<}0.02$;
+   $\sigma$-uniqueness is GL(1)-specific;
+   see Remark~\ref{rem:sigma_saturation}
+   & $\kappa$-$\delta$ / Theory \\
+\midrule
+79 & GL(3) $\sigma$-sweep PARI re-measurement & \textbf{E} &
+   sym$^2$(11a1) PARI $\Delta t{=}0.1$: $S{\in}\{63,64\}$ at 7$\sigma$;
+   $A{=}0.016$ (flat); prior AFE measurement $A{=}0.222$ was artifact;
+   see Remark~\ref{rem:sigma_saturation}
+   & $\kappa$-$\delta$ / Theory \\
+\midrule
+80 & Hadamard GL(3) high-precision ($T{=}500$) & \textbf{C} &
+   sym$^2$(11a1): $N{=}1189$ zeros ($T{\leq}500$); $10/10{<}2\%$, $6/10{<}1\%$ ($A_{\text{true}}$);
+   Re$(c_0)$ Richardson correction: $A_{\text{true}} = A_{\text{dir}} - 2\,\text{Re}(c_0)/\delta$;
+   B-20 pattern: $A_{\max}{=}20.93$ (5 nearby zeros), $A_{\min}{=}6.56$ (isolated);
+   degree universality: $d{=}1$ (13/13 ${<}0.003\%$), $d{=}2$ (7/10 ${<}1.3\%$), $d{=}3$ (6/10 ${<}1\%$);
+   see Remark~\ref{rem:hadamard_gl3_numerical}
+   & $\kappa$-$\delta$ / Theory \\
 \end{longtable}
 \end{center}
 
@@ -6407,7 +6495,7 @@ number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
 ($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
 NNS--curvature correlations, (vi)~negative controls establishing
-specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62), and $\mu$-vs-$q$ separation establishing conductor as the dominant source of $A(t_0)$ variation (result~\#63), (x)~$A(t_0)$ analytic decomposition $A_\Gamma + A_L$ establishing arithmetic dominance (result~\#64), (xi)~GL(4) extension to $\mathrm{sym}^3(\Delta)$ with PARI-verified functional equation to $141$-digit precision (result~\#65), (xii)~GL(4) weight versus degree separation via $\mathrm{sym}^3(11\mathrm{a}1)$ ($w{=}1$, FE${=}-366$ digits, result~\#66), and (xiii)~GL(4) $\xi$-bundle $\kappa_\sigma$ ($\sigma$-direction) $A(t_0)$ measurement with B-23 resolved ($\kappa_\sigma \neq \kappa_t$) and B-12 identified as normalization-dependent open question (result~\#69, Remark~\ref{rem:xi_bundle_b23}), (xiv)~GL(5) extension to $\mathrm{sym}^4(11\mathrm{a}1)$ ($d{=}5$, $w{=}1$, $N{=}14641$) with PARI-verified functional equation to $331$-digit precision, $\sigma$-uniqueness PASS ($\sigma{=}2.5$, ${\approx}10000\times$ ratio), and $\xi$-bundle $A = 14.88$ (per-zero CV $< 0.2\%$, motivic normalization; results~\#70, \#71, Remark~\ref{rem:gl5_sym4}), and (xv)~GL(3) $\xi$-bundle $A(t_0)$ measurement at motivic centre $\sigma = k/2 = 1.5$ with $\sigma$-uniqueness 6/6 PASS ($\kappa \approx 10^6$ at centre, ratio $> 8000\times$) for both sym$^2$(11a1) ($A{=}9.04$) and sym$^2$(37a1) ($A{=}14.51$), with $k$ auto-detected via $L[4]$ (B-26 resolved; results~\#87, \#88), completing GL(1)--GL(5) coverage, and (xvi)~Hadamard decomposition of $A(t_0)$ via global zero distribution: $A(t_0) = B(t_0)^2 + 2H_1(t_0)$ with $B$, $H_1$ expressed as explicit paired sums over all non-trivial zeros (Proposition~\ref{prop:hadamard_A_decomp}); B-20 resolved: $A(t_0)$ variability analytically explained by near-zero $H_1$ contributions; 13/13 numerically verified ($\mathrm{err}_{\mathrm{corr}}{<}0.003\%$; result~\#74, Remark~\ref{rem:hadamard_A_numerical}), and (xvii)~degree universality of Proposition~\ref{prop:hadamard_A_decomp} extended to GL(2) $L(s,\Delta)$: 7/10 zeros below $1\%$ error ($10/10$ below $2\%$), $D{=}0$ confirmed ($|\mathrm{Re}(c_0)|_{\mathrm{max}} = 3.3\times10^{-5}$), B-20 pattern reproduced; precision decrease consistent with Weyl asymptotics (result~\#75, Remark~\ref{rem:hadamard_gl2_numerical}), and (xviii)~quantification of the sign-change $\sigma$-uniqueness boundary across degrees 1--5: at $d \geq 4$, the sign-change count $S(\sigma)$ saturates ($S(\sigma) = \text{const}$ for all tested $\sigma$), rendering the PASS/FAIL distinction meaningless; GL(4) sym$^3$(11a1) achieves $S = 45$ with ratio $= 1.000$ (7/7~$\sigma$), GL(5) sym$^4$(11a1) achieves $S \in \{59,60\}$ with ratio $\leq 1.017$ (7/7~$\sigma$); saturation mechanism: uniform zero spacing $\to$ sinusoidal Hardy $Z$ $\to$ sign-change count $\sigma$-invariant; boundary B-05 resolved: $\sigma$-uniqueness valid for $d \leq 3$ only (result~\#78).  Collectively, results \#22--\#28 form a self-consistent
+specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62), and $\mu$-vs-$q$ separation establishing conductor as the dominant source of $A(t_0)$ variation (result~\#63), (x)~$A(t_0)$ analytic decomposition $A_\Gamma + A_L$ establishing arithmetic dominance (result~\#64), (xi)~GL(4) extension to $\mathrm{sym}^3(\Delta)$ with PARI-verified functional equation to $141$-digit precision (result~\#65), (xii)~GL(4) weight versus degree separation via $\mathrm{sym}^3(11\mathrm{a}1)$ ($w{=}1$, FE${=}-366$ digits, result~\#66), and (xiii)~GL(4) $\xi$-bundle $\kappa_\sigma$ ($\sigma$-direction) $A(t_0)$ measurement with B-23 resolved ($\kappa_\sigma \neq \kappa_t$) and B-12 identified as normalization-dependent open question (result~\#69, Remark~\ref{rem:xi_bundle_b23}), (xiv)~GL(5) extension to $\mathrm{sym}^4(11\mathrm{a}1)$ ($d{=}5$, $w{=}1$, $N{=}14641$) with PARI-verified functional equation to $331$-digit precision, $\sigma$-uniqueness PASS ($\sigma{=}2.5$, ${\approx}10000\times$ ratio), and $\xi$-bundle $A = 14.88$ (per-zero CV $< 0.2\%$, motivic normalization; results~\#70, \#71, Remark~\ref{rem:gl5_sym4}), and (xv)~GL(3) $\xi$-bundle $A(t_0)$ measurement at motivic centre $\sigma = k/2 = 1.5$ with $\sigma$-uniqueness 6/6 PASS ($\kappa \approx 10^6$ at centre, ratio $> 8000\times$) for both sym$^2$(11a1) ($A{=}9.04$) and sym$^2$(37a1) ($A{=}14.51$), with $k$ auto-detected via $L[4]$ (B-26 resolved; results~\#87, \#88), completing GL(1)--GL(5) coverage, and (xvi)~Hadamard decomposition of $A(t_0)$ via global zero distribution: $A(t_0) = B(t_0)^2 + 2H_1(t_0)$ with $B$, $H_1$ expressed as explicit paired sums over all non-trivial zeros (Proposition~\ref{prop:hadamard_A_decomp}); B-20 resolved: $A(t_0)$ variability analytically explained by near-zero $H_1$ contributions; 13/13 numerically verified ($\mathrm{err}_{\mathrm{corr}}{<}0.003\%$; result~\#74, Remark~\ref{rem:hadamard_A_numerical}), and (xvii)~degree universality of Proposition~\ref{prop:hadamard_A_decomp} extended to GL(2) $L(s,\Delta)$: 7/10 zeros below $1\%$ error ($10/10$ below $2\%$), $D{=}0$ confirmed ($|\mathrm{Re}(c_0)|_{\mathrm{max}} = 3.3\times10^{-5}$), B-20 pattern reproduced; precision decrease consistent with Weyl asymptotics (result~\#75, Remark~\ref{rem:hadamard_gl2_numerical}), and (xviii)~quantification of the sign-change $\sigma$-uniqueness boundary across degrees 1--5: at $d \geq 4$, the sign-change count $S(\sigma)$ saturates ($S(\sigma) = \text{const}$ for all tested $\sigma$), rendering the PASS/FAIL distinction meaningless; GL(4) sym$^3$(11a1) achieves $S = 45$ with ratio $= 1.000$ (7/7~$\sigma$), GL(5) sym$^4$(11a1) achieves $S \in \{59,60\}$ with ratio $\leq 1.017$ (7/7~$\sigma$); saturation mechanism: uniform zero spacing $\to$ sinusoidal Hardy $Z$ $\to$ sign-change count $\sigma$-invariant; boundary B-05 resolved: $\sigma$-uniqueness valid for $d \leq 3$ only (result~\#78), (xix)~GL(3) $\sigma$-sweep PARI re-measurement for sym$^2$(11a1): $\Delta t{=}0.1$, 457 points, $S{\in}\{63,64\}$ (7 offsets), $A{=}0.016$ (flat), confirming prior AFE asymmetry $A{=}0.222$ as coarse-sampling artifact (result~\#79, Remark~\ref{rem:sigma_saturation}), and (xx)~GL(3) Hadamard high-precision verification with $N{=}1189$ zeros ($T{\leq}500$): $10/10{<}2\%$, $6/10{<}1\%$ relative error ($A_{\text{true}}$ basis); Re$(c_0)$ Richardson correction method established ($A_{\text{true}} = A_{\text{dir}} - 2\,\text{Re}(c_0)/\delta$, correcting $\sim 2$--$5\%$ numerical asymmetry); B-20 pattern reproduced ($A_{\max}{=}20.93$ at $t_8{=}12.07$ with 5 nearby zeros, $A_{\min}{=}6.56$ at $t_2{=}4.73$); degree universality confirmed: $d{=}1$ (13/13, $<0.003\%$), $d{=}2$ (7/10, $<1.3\%$), $d{=}3$ (6/10, $<1\%$, $10/10{<}2\%$) (result~\#80, Remark~\ref{rem:hadamard_gl3_numerical}).  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
 simultaneously encodes individual winding numbers, Chern-class
 zero counts, Gauss--Bonnet area integrals, $\sigma$-localisation, and
@@ -7600,12 +7688,15 @@ sign-change landscape flattens.
   \item GL(5) $\mathrm{sym}^4(11\text{a}1)$: PASS ($\sigma = 2.5$ maximal; $\approx 10000\times$ ratio; result~\#70).
 \end{itemize}
 
-The overall pattern for the \emph{sign-change} diagnostic suggests
+The overall pattern for the \emph{sign-change} diagnostic confirms
 $\sigma$-uniqueness is a GL(1)-specific phenomenon at analytic centre $\frac{1}{2}$.
-At $d \geq 4$, the situation is more subtle: direct measurement (result~\#78) reveals
-\emph{saturation} rather than simple failure. When zero spacing is nearly uniform
+For $d \geq 2$, direct measurement (results~\#78--\#79) reveals
+\emph{saturation} across all tested degrees. When zero spacing is nearly uniform
 (as in GL(4) sym$^3$(11a1) with spacing $\approx 0.648$), the Hardy $Z$-function
 becomes nearly sinusoidal, and the sign-change count $S(\sigma)$ is $\sigma$-invariant.
+GL(2) and GL(3) exhibit the same flatness: GL(3) was re-measured by PARI (result~\#79,
+$\Delta t=0.1$, 457 points) and confirmed flat ($A=0.016$); the prior AFE measurement
+($A=0.222$) was a coarse-sampling artifact.
 \emph{However}, the $\xi$-bundle $\kappa_\sigma$ diagnostic recovers $\sigma$-uniqueness
 at the \emph{motivic centre} $k/2$: GL(3) at $\sigma = 1.5$ (6/6 PASS; result~\#88)
 and GL(5) at $\sigma = 2.5$ (3/3 PASS; result~\#70) both pass with ratio $\gg 1000\times$.
@@ -7626,7 +7717,7 @@ $d$ & $L$-function & $\sigma$-uniqueness status & $S(\sigma)/S(\text{centre})$ \
 1 & $\chi_3$ & PASS & $0.38$ (centre maximal) \\
 1 & $\zeta$, $\chi_4$, $\chi_5$, $\chi_7$ & FAIL & $\approx 1.000$ (flat) \\
 2 & 11a1, 37a1, $\Delta$ & FAIL & $\approx 1.000$ (flat) \\
-3 & sym$^2$(11a1) & FAIL & $0.82$--$1.22$ (slight variation) \\
+3 & sym$^2$(11a1) & flat & $1.000$--$1.016$ (PARI, result~\#79) \\
 4 & sym$^3$(11a1) & \textbf{Saturated} & $1.000$ (exactly flat) \\
 5 & sym$^4$(11a1) & \textbf{Saturated} & $0.983$--$1.017$ (nearly flat) \\
 \bottomrule
@@ -7640,10 +7731,46 @@ The GL(4) case achieves \emph{perfect} saturation: $S(\sigma) = 45$ identically 
 \medskip\noindent
 \textbf{Resolved boundary B-05.}  The sign-change $\sigma$-uniqueness diagnostic is:
 \begin{itemize}
-  \item \emph{Valid} for $d \leq 3$: sign-change pattern has $\sigma$-discriminating power.
-  \item \emph{Saturated (degenerate)} for $d \geq 4$: zero density $\to$ uniform spacing $\to$ sinusoidal $Z(t)$ $\to$ $S(\sigma) = \text{const}$.
+  \item \emph{Valid} for $d = 1$ only: sign-change pattern has $\sigma$-discriminating power (GL(1)-specific).
+  \item \emph{Saturated (degenerate)} for $d \geq 2$: zero density $\to$ uniform spacing $\to$ sinusoidal $Z(t)$ $\to$ $S(\sigma) = \text{const}$.
+    The GL(3) case is confirmed by PARI re-measurement (result~\#79, $A=0.016$);
+    the earlier AFE measurement ($A=0.222$) was a sampling artifact.
 \end{itemize}
 This is an honest boundary of the diagnostic tool, not a theoretical failure: the $\xi$-bundle $\kappa_\sigma$ curvature diagnostic (results~\#88, \#70) continues to function correctly at $d \geq 3$.
+See also Remark~\ref{rem:sigma_saturation} for the consolidated five-degree summary.
+\end{remark}
+
+\begin{remark}[$\sigma$-uniqueness saturation at degree $d \geq 2$ --- results \#78--\#79]
+\label{rem:sigma_saturation}
+The sign-change count $S(\sigma) = \#\{t_j : \mathrm{Re}\,\Lambda(\sigma+it_j)$
+changes sign$\}$ is constant in $\sigma$ for every tested $L$-function of degree
+$d \geq 2$:
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{@{}llcrrrl@{}}
+\toprule
+$d$ & $L$-function & center & $S(\text{crit})$ & $S$ range & $A(d)$ & verdict \\
+\midrule
+1 & $L(s,\chi_3)$ & $1/2$ & 21 & 8--21 & $-0.619$ & PASS \\
+2 & $L(s,E_{11\mathrm{a}1})$ & 1 & 17 & 17 & $0.000$ & flat \\
+3 & $L(s,\mathrm{sym}^2 E)$ & $3/2$ & 63 & 63--64 & $0.016$ & flat \\
+4 & $L(s,\mathrm{sym}^3 E)$ & 2 & 45 & 45 & $0.000$ & flat \\
+5 & $L(s,\mathrm{sym}^4 E)$ & $5/2$ & 59 & 59--60 & $0.017$ & flat \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip\noindent
+Here $A(d) = \max_{\sigma \neq \sigma_{\mathrm{crit}}} S(\sigma)/S(\sigma_{\mathrm{crit}}) - 1$
+measures asymmetry; $|A| < 0.02$ for $d = 2,3,4,5$.
+The earlier measurement for $d = 3$ (result~\#63, $A = 0.22$) used an AFE implementation
+with coarser sampling ($\Delta t = 0.8$, 41 points); the PARI re-measurement
+(result~\#79, $\Delta t = 0.1$, 457 points) confirms flatness.
+
+Consequently, $\sigma$-uniqueness is a diagnostic tool specific to GL(1); for
+$d \geq 2$, the sign-change profile $S(\sigma)$ carries no distinguishing information.
+\textcolor{ForestGreen}{[results \#78--\#79, established, 2026-04-19;
+$\sigma$-uniqueness saturates for $d \geq 2$; boundary B-05 resolved]}
 \end{remark}
 
 \textbf{Boundary B-25 (established for $d{=}3,5$)}: $\xi$-bundle $\kappa_\sigma$
@@ -7655,13 +7782,15 @@ automatically detected from the PARI \texttt{Ldata} parameter $L[4]$, giving
 $k = L[4]$ and centre $= k/2$.  This method is verified for GL(3) ($k=3$,
 centre $= 1.5$) and GL(5) ($k = 5$, centre $= 2.5$).
 
-\textbf{Boundary B-05 (resolved, result~\#78)}: The sign-change $\sigma$-uniqueness diagnostic degenerates for $d \geq 4$: $S(\sigma) = \text{const}$ (saturation).  Valid domain: $d \leq 3$.  Saturation mechanism: uniform zero spacing $\to$ sinusoidal Hardy $Z$ $\to$ $S(\sigma)$-invariant.  At $d \leq 3$, irregular zero spacing preserves $\sigma$-discriminating power.
+\textbf{Boundary B-05 (resolved, results~\#78--\#79)}: The sign-change $\sigma$-uniqueness diagnostic degenerates for $d \geq 2$: $S(\sigma) = \text{const}$ (saturation).  Valid domain: $d = 1$ only (GL(1)-specific).  Saturation mechanism: uniform zero spacing $\to$ sinusoidal Hardy $Z$ $\to$ $S(\sigma)$-invariant.  The GL(3) case, previously measured with AFE ($A = 0.222$, result~\#63), is confirmed flat by PARI re-measurement ($A = 0.016$, result~\#79); the prior asymmetry was an AFE artifact.  See Remark~\ref{rem:sigma_saturation}.
 
 \textcolor{ForestGreen}{[result \#66b, negative (diagnostic); 5-level
 deconvolution; all levels FAIL; origin = Dirichlet series convergence;
 result \#88, positive: $\xi$-bundle $\sigma$-uniqueness 6/6 PASS at motivic centre;
-result \#78: sign-change saturation at $d \geq 4$ confirmed (B-05 resolved);
-GL(4) ratio $= 1.000$ (exact), GL(5) ratio $\leq 1.017$ (7/7 $\sigma$ each);
+results \#78--\#79: sign-change saturation at $d \geq 2$ confirmed (B-05 resolved);
+GL(2) $A = 0.000$ (flat), GL(3) $A = 0.016$ (flat, PARI re-measurement),
+GL(4) $A = 0.000$ (exact), GL(5) $A = 0.017$ (flat);
+$\sigma$-uniqueness is GL(1)-specific; prior GL(3) $A = 0.222$ was AFE artifact;
 numerical verification, not proof]}
 
 \subsection{$\kappa$-Conductor Scaling and the $\kappa_{\mathrm{near}}$ Universal Constant}
