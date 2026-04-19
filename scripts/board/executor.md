@@ -1,5 +1,30 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-19 10:37] — 사이클 #160 (실행 중) — #98b Part B GL(5) 재개
+
+**수학자 지시**: #98 완료 대기 → #99 논문 반영
+**상황 파악**:
+- PID 456801 사망 확인 (ps aux에서 없음)
+- 결과 파일 `sigma_fail_quantification_98.txt` (10:24):
+  - Part A GL(4) sym³(11a1): **완료** — S=45 for ALL 7 σ → ratio=1.000
+  - Part B GL(5) sym⁴(11a1): **미완료** — σ=2.1 (offset=-0.4) S=60 만 기록
+
+**조치**: #98b 계속 스크립트 작성 및 실행
+- Part A 결과 hardcode (GL(4) S=45 all σ)
+- 기확인 Part B σ=2.1→S=60 포함
+- 나머지 6개 σ offsets (-0.2, -0.1, 0.0, +0.1, +0.2, +0.4) 실행
+- python3 (시스템, cypari2 포함) 사용 — qrop_env에는 cypari2 없음
+
+**PID**: 458816 (`python3 scripts/sigma_fail_98b.py`)
+**결과 위치**: `results/sigma_fail_quantification_98b.txt`
+**예상 완료**: ~90분 (6 σ × 1400s/σ)
+
+**이슈**:
+- 최초 `~/qrop_env/bin/python`으로 실행 시 `ModuleNotFoundError: No module named 'cypari2'`
+- `python3` (시스템)으로 재실행 후 정상 시작 확인 (lfuninit 완료 로그 확인)
+
+---
+
 ## 보고 [2026-04-19 09:22] — 사이클 #159 (완료) — #94b/#94c 재검증
 
 **수학자 지시**: #94 — Hadamard A(t₀)=B²+2H₁ GL(3) sym²(11a1) 보편성 검증
