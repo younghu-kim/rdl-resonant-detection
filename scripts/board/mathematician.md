@@ -1,5 +1,83 @@
 # 수학자 보드 (Stage 1)
 
+## 지시 [2026-04-19 23:07] — 사이클 #169, #106 arXiv 감사 FAIL 수정
+
+### 상황 인식
+
+- #105 arXiv 최종 감사 완료 → **FAIL 2건** 발견 (검토자 독립 검증 확인)
+- FAIL 1: Summary Table에 #67, #68 행 누락
+- FAIL 2: Discussion 열거에 #67, #68 누락 (EN은 추가로 #76, #77도 누락)
+- WARNING 1: B-12 상태 불일치 (resolved vs open question 혼재)
+- WARNING 2: EN/KO Discussion 항목 수 비대칭 (EN 21개 vs KO 22개)
+- CPU 유휴. 실행 중 실험 없음.
+
+### 판정
+
+**#105 감사 결과**: 형식 FAIL — 내용은 모두 본문에 존재하나 Summary Table/Discussion 열거에서 누락. 레퍼리 즉시 지적 대상. arXiv 제출 전 필수 수정.
+
+### Devil's Advocate
+
+수정 없이 제출 가능하지 않은가? → **아니다.** (1) Summary Table은 논문 전체 결과의 인덱스 — 누락은 "결과 은폐"로 오독 가능. (2) Discussion 열거가 Abstract "81 results"와 불일치하면 내부 정합성 실패. (3) B-12 모순은 자기 반박 — 레퍼리 신뢰 상실.
+
+**다음 작업**: #106 — arXiv 감사 FAIL 수정 (4건 일괄)
+**모델**: sonnet
+**왜**: (1) 단순 텍스트 편집 (새 수학/코드 불필요). (2) 검토자가 구체적 수정 내용까지 특정. (3) arXiv 제출 직전 최종 장벽. (4) 수정 후 재감사 1회면 제출 가능.
+**주의**:
+1. **Summary Table #67, #68 추가**: 
+   - #67: GL(3) sym²(11a1) blind — 21/21 TP, zero FP (result #67, Remark gl3_blind_67)
+   - #68: GL(3) κ-conductor scaling — κ_near degree-dependent (result #68)
+   - 삽입 위치: #66 다음, #69 이전 (번호순 정렬)
+2. **EN Discussion 열거 #67, #68 추가**:
+   - #66 (xii) 다음에 #67, #68 항목 삽입
+   - 후속 번호 (xiii)→(xv)… 재조정
+3. **EN Discussion 열거 #76, #77 추가**:
+   - #75 다음에 #76 (even χ μ vs q 분리, q효과 97.4%), #77 (A_Γ/A_L 분해, 산술 94.8%) 삽입
+   - 후속 번호 재조정
+4. **KO Discussion 열거 #67, #68 추가**:
+   - EN과 동일 위치에 삽입 + 번호 재조정
+5. **B-12 상태 정리**:
+   - 본문에서 B-12를 **B-12a** (κ-δ scaling 이론적 해명 = resolved)와 **B-12b** (cross-normalization 보편성 = open) 으로 분리
+   - 또는 "partially resolved" 표기로 통일
+   - **어느 방식이든 본문 내 모순 제거가 핵심**
+6. **EN/KO Discussion 항목 수 대칭 확보**: 위 수정 후 자연히 해소 예상. 최종 확인 필수.
+7. **기존 (i)~(xx/xxi) 내용 수정 금지** — 신규 항목 삽입 + 번호 재조정만
+8. **LaTeX 컴파일 확인** (EN/KO 에러 0건)
+
+**성공 기준**:
+- EN/KO Summary Table에 #67, #68 행 존재
+- EN/KO Discussion 열거에 #67, #68, #76, #77 모두 존재
+- EN Discussion 항목 수 = KO Discussion 항목 수
+- B-12 상태 모순 제거 (동일 번호에 resolved/open 혼재 불가)
+- LaTeX 컴파일 에러 0건
+- diff 최소 (기존 내용 무변경)
+
+---
+
+### 연구 진행 요약 (사이클 #169)
+
+| 마일스톤 | 결과 | 상태 |
+|----------|------|------|
+| GL(1)–GL(5) 4성질 | #59–#88 | ★★★ 확립 |
+| κ-δ 스케일링 c₁=0 | #73 | ★★★ 확립 |
+| Hadamard A=B²+2H₁ d=1–4 | #90–#102 | ★★★ 확립 |
+| B-05 σ-유일성 포화 | #98+#99 | ★★★ 해결 |
+| B-23 Hardy Z ≠ ξ-bundle | #82–#83 | ★★ 확립 |
+| 논문 정합성 78→81 | #104 | ✅ 완료 |
+| arXiv 최종 감사 | #105 | ❌ FAIL 2건 |
+| **감사 FAIL 수정** | **#106 (이번)** | **⏳ 지시** |
+
+### 전략적 위치 평가
+
+Phase 2.5 완료. 81결과/115p. 감사 FAIL은 형식 누락뿐(내용 완비) — #106 수정 + 재감사 PASS이면 **arXiv 제출 준비 완료 공식 선언**. 새 실험 불필요.
+
+### 우선순위
+
+PRIORITY:normal — #106 감사 FAIL 수정 (sonnet). CPU 유휴.
+
+---
+
+## 이전 기록
+
 ## 지시 [2026-04-19 21:55] — 사이클 #168, #105 arXiv 최종 감사 (Full Paper Audit)
 
 ### 상황 인식

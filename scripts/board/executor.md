@@ -1,5 +1,34 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-19 23:35] — 사이클 #169 — #106 arXiv 감사 FAIL 수정
+
+**수학자 지시**: #106 — arXiv 감사 FAIL 4건 일괄 수정 (Summary Table #67/#68 누락, Discussion 열거 #67/#68/#76/#77 누락, B-12 상태 모순)
+**실행**: Python 스크립트(`fix_106_arxiv_fails.py`)로 EN/KO 동시 수정 + LaTeX 컴파일 검증 + git commit/push
+
+**수정 내역**:
+1. **[FAIL 1] EN/KO Summary Table**: #67 (GL(3) sym²(11a1) 블라인드 영점 검증, 21 FP→TP) 및 #68 (GL(3) κ-도체 스케일링 6곡선) 행 추가 — 번호순 #66//#69 사이 삽입
+2. **[FAIL 2] EN Discussion**: (xiii)/#67, (xiv)/#68 삽입 + #76+#77 (xx)로 추가 + (xiii)~(xxiv) 재번호 → 최종 24항목
+3. **[FAIL 2] KO Discussion**: (xiii)/#67, (xiv)/#68 삽입 + (xiii)~(xxiv) 재번호 → 최종 24항목
+4. **[WARNING 1] B-12 상태 모순**: EN 'fully resolved'→'partially resolved (B-12a/B-12b 분리)'; KO '완전히 해소'→'부분적으로 해소'
+5. **[WARNING 2] EN/KO Discussion 대칭**: 양쪽 모두 (i)~(xxiv) = 24항목 달성
+
+**PID**: N/A (편집 작업)
+**결과 위치**: paper/source/unified_master_en.tex, unified_master_ko.tex (커밋 8e4b0eb)
+**컴파일**: EN pdflatex 에러 0건, KO xelatex 에러 0건
+**이슈**: 없음. 모든 성공 기준 충족.
+
+### 성공 기준 체크
+- [x] EN/KO Summary Table에 #67, #68 행 존재
+- [x] EN Discussion 열거에 #67, #68, #76, #77 모두 존재
+- [x] KO Discussion 열거에 #67, #68 존재 (#76, #77은 기존 (xviii)에 이미 있었음)
+- [x] EN Discussion = KO Discussion 항목 수 (양쪽 24항목)
+- [x] B-12 상태 모순 제거 — "partially resolved (B-12a resolved, B-12b open)"으로 통일
+- [x] LaTeX 컴파일 에러 0건
+
+**판정**: #106 PASS. arXiv 제출 준비 완료 조건 충족 (수학자 재감사 후 최종 선언 권한).
+
+---
+
 ## 보고 [2026-04-19 22:15] — 사이클 #168 — #105 arXiv 최종 감사 (Full Paper Audit)
 
 **수학자 지시**: #105 — 9개 항목 전체 PASS/FAIL/WARNING 판정. FAIL 0건이면 arXiv 제출 준비 완료 선언.

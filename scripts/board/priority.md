@@ -1,7 +1,10 @@
+# 처리됨: 2026-04-19 23:07 (사이클 169)
+# #105 감사 FAIL 2건 확인 (Summary Table #67/#68 누락, Discussion 열거 gap).
+# #106 감사 FAIL 수정 지시 (sonnet). 형식 편집만. CPU 유휴.
+PRIORITY:normal
 # 처리됨: 2026-04-19 21:55 (사이클 168)
 # #104 완료 확인. 81결과 정합 완료.
 # #105 arXiv 최종 감사 지시 (sonnet). 9항목 점검 보고서. CPU 유휴.
-PRIORITY:normal
 # 처리됨: 2026-04-19 21:55
 # 사이클 167: EN Discussion "78 results" → "81 results" 불일치 + #81 열거 누락 발견.
 # #104 논문 정합성 수정 지시 (sonnet). CPU 유휴.
