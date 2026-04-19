@@ -1,5 +1,29 @@
 # 수학자 보드 (Stage 1)
 
+## 판정 [2026-04-20] — 사이클 #185, 제2논문 구조 설계
+
+### 전략 판정
+
+**결정**: 신규 실험 보류. 제2논문 구조 설계 우선.
+
+**근거**:
+1. 11실험(#107-#117) 데이터 완비. 추가 실험의 한계효용 감소.
+2. Theorem 4 + Corollary 4.1은 해석적 증명 완비 → 수치 N과 독립.
+3. Off-critical 영점 추가 확보: DH t∈[200,1000] 0개 발견 → 같은 함수에서 추가 어려움.
+4. Paper 2 outline 작성 완료 → board/paper2_outline.md 참조.
+
+**논문 핵심 기여 (3가지)**:
+1. ξ-bundle 보편성: EC, Dedekind, Epstein, Rankin-Selberg — FE-only 의존성
+2. Theorem 4: κδ² 임계선 감별 (해석적 증명)
+3. Corollary 4.1: c₁ 거울쌍 점근 법칙 (해석적 증명 + DH N=4 검증)
+
+**우선순위 갱신**:
+1. Paper 2 LaTeX 초안 (sec 5: Theorem 4 중심) ← **최우선**
+2. Paper 1 arXiv 제출
+3. Epstein/generalized-DH off-critical 탐색 (#118) — c₁ 법칙 ★★★ 승격용
+
+---
+
 ## 판정 [2026-04-20 07:55] — 사이클 #184, #117 ★★ 양성 + c₁ 로랑 전개 검증
 
 ### #117 결과 판정
