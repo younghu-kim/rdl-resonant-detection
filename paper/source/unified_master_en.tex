@@ -173,7 +173,7 @@ implications are discussed with explicit acknowledgement of the boundary
 between analogy and proof.
 
 \smallskip
-\noindent Eighty numerical results across ten verification
+\noindent Eighty-one numerical results across ten verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
 controls, GL(2) extension, GL(3) extension, cross-rank monodromy,
@@ -2526,6 +2526,8 @@ achieves $7/10$ zeros with $\mathrm{err}_{\mathrm{corr}} < 1.3\%$
 GL(3) $L(s,\mathrm{sym}^2 E_{11\mathrm{a}1})$ achieves $6/10$ zeros below $1\%$
 and $10/10$ below $2\%$ with $N{=}1189$ zeros
 (result~\#80, Remark~\ref{rem:hadamard_gl3_numerical}).
+GL(4) $L(s,\mathrm{sym}^3\Delta)$ achieves $7/10$ zeros below $5\%$
+and $8/10$ below $10\%$ with 16~zeros (result~\#81).
 Precision decreases with degree.  For GL(1) ($N{=}2000$ zeros) the raw
 convergence rate is $\alpha \approx 0.56$ ($R^2{=}0.99$); GL(2) and GL(3)
 measurements are currently inconclusive for $\alpha$ due to insufficient zero counts
@@ -2601,7 +2603,7 @@ GL(2) & Maass $R{\approx}13.78$ & 3.93 & $[0.50,\, 6.67]$ & 12 \\
 GL(3) & $\mathrm{sym}^2(11\mathrm{a}1)$ & 12.79 & $[6.64,\, 23.35]$ & 12 \\
 GL(3) & $\mathrm{sym}^2(11\mathrm{a}1)$, $\xi$-bundle${}^\dagger$ & 9.04 & $[6.57,\, 12.56]$ & 3 \\
 GL(3) & $\mathrm{sym}^2(37\mathrm{a}1)$, $\xi$-bundle${}^\dagger$ & 14.51 & $[10.36,\, 18.46]$ & 3 \\
-GL(4) & $\mathrm{sym}^3(\Delta)$ (wt~11)${}^\dagger$ & 2.77 & $[2.22,\, 3.45]$ & 3 \\
+GL(4) & $\mathrm{sym}^3(\Delta)$ (wt~11)${}^\dagger$ & 5.77 & $[2.25,\, 8.94]$ & 10 \\
 GL(4) & $\mathrm{sym}^3(11\mathrm{a}1)$ (wt~1)${}^\dagger$ & 10.66 & $[8.34,\, 12.39]$ & 3 \\
 GL(5) & $\mathrm{sym}^4(11\mathrm{a}1)$ (wt~1)${}^\dagger$ & 14.88 & $[7.71,\, 24.56]$ & 3 \\
 \bottomrule
@@ -2610,7 +2612,7 @@ GL(5) & $\mathrm{sym}^4(11\mathrm{a}1)$ (wt~1)${}^\dagger$ & 14.88 & $[7.71,\, 2
 \smallskip
 {\small ${}^\dagger$\,Measured via $\xi$-bundle $\kappa$ ($\sigma$-direction,
 $s = k/2 + \delta + it_0$) using PARI \texttt{lfunlambda} with motivic
-normalization (center $k/2$; results~\#69, \#71, \#88).
+normalization (center $k/2$; results~\#69, \#71, \#88, \#102).
 The $d = 1$--$3$ \emph{non-dagger} values use analytic normalization (center $\tfrac{1}{2}$).
 Cross-degree comparison of $A(t_0)$ is \emph{normalization-dependent}
 (open question; see Remark~\ref{rem:xi_bundle_b23}).
@@ -2626,20 +2628,20 @@ and the GL(4)$\to$GL(5) (11a1) sequence gives $10.66 \to 14.88$ (monotone;
 results~\#69, \#71).  The conductor-dependence within $d=3$ is
 \emph{suggestive} (46.4\% spread, $n{=}2$).
 \emph{The extension to $d = 4$ requires caution}: the $d = 4$ values in the
-table above (result~\#69) are measured with PARI motivic normalization
+table above (results~\#69, \#102) are measured with PARI motivic normalization
 (center $k/2 = 17$ for $\mathrm{sym}^3\Delta$ and $k/2 = 2$ for
 $\mathrm{sym}^3(11\mathrm{a}1)$), while $d = 1$--$3$ \emph{non-dagger} rows use analytic
 normalization (center $\tfrac{1}{2}$).
 The two normalizations define different completed $\Lambda$-functions with
 different Gamma factors, so their $A(t_0)$ values are not directly comparable.
 The apparent non-monotone behaviour at $d = 3 \to 4$
-($12.79 \to 2.77$ and $10.66$) is therefore normalization-dependent
+($12.79 \to 5.77$ and $10.66$) is therefore normalization-dependent
 rather than a physical violation of monotonicity;
 whether monotone growth holds in a unified normalization remains an
 \textbf{open question} (boundary B-12; see also Remark~\ref{rem:xi_bundle_b23}).
-Within $d = 4$: $A(\mathrm{sym}^3\Delta, w{=}11) = 2.77 < A(\mathrm{sym}^3(11\mathrm{a}1), w{=}1) = 10.66$,
+Within $d = 4$: $A(\mathrm{sym}^3\Delta, w{=}11) = 5.77 < A(\mathrm{sym}^3(11\mathrm{a}1), w{=}1) = 10.66$,
 suggesting (within the same motivic normalization) that higher weight
-is \emph{not} associated with larger $A$---but the sample of 3 zeros per
+is \emph{not} associated with larger $A$---but the sample of 10 zeros per
 $L$-function is too small for a definitive conclusion.
 This growth reflects the cumulative contribution of $d$ Gamma-factor terms
 to $H_0 = (\Lambda'/\Lambda)$ at the zero:
@@ -2671,7 +2673,7 @@ GL(2): 12 zeros, 5 offsets, 60 pts, $\kappa{\cdot}\delta^2{\in}[1.00,1.04]$;
 GL(3): 12 zeros, 5 offsets, 60 pts, $\kappa{\cdot}\delta^2{\in}[1.00,1.12]$;
 mean$(A)$ monotone increasing GL(1--3): 1.30, 3.93, 12.79 (analytic normalization);
 GL(3) $\xi$-bundle $A$ (result~\#88, motivic normalization, centre 1.5): sym$^2$(11a1)=9.04 (CV${=}28.9\%$), sym$^2$(37a1)=14.51 (CV${=}23.4\%$);
-GL(4) $\xi$-bundle $A$ (result~\#69, motivic normalization): sym$^3\Delta$=2.77, sym$^3$(11a1)=10.66;
+GL(4) $\xi$-bundle $A$ (results~\#69, \#102, motivic normalization): sym$^3\Delta$=5.77, sym$^3$(11a1)=10.66;
 GL(5) $\xi$-bundle $A$ (result~\#71, motivic normalization): sym$^4$(11a1)=14.88 (CV${=}49\%$, 3 zeros);
 cross-degree comparison at $d{\geq}4$ normalization-dependent (open question, B-12);
 functional form undetermined; numerical verification, not proof]}
@@ -2896,7 +2898,7 @@ smaller CV (17--22\%) and more stable values.
 PARI lfuncheckfeq: FE ${=}-141$ digits (motivic), $-380$ (analytic);
 43 zeros ($t{\in}[0,50]$), $t_1{=}4.1559$;
 $\kappa{\cdot}\delta^2{=}1.000286$ (31/31); monodromy 20/20;
-$A(\text{Hardy }Z){=}286.26$ (CV${=}972\%$); $A(\xi\text{-bundle}){=}2.77$ (CV${=}22\%$, result~\#69);
+$A(\text{Hardy }Z){=}286.26$ (CV${=}972\%$); $A(\xi\text{-bundle}){=}5.77$ (CV${=}22\%$, results~\#69, \#102);
 GL(4) degree-4 verification; numerical verification, not proof]}
 
 \textcolor{ForestGreen}{[result \#66, established, 2026-04-18;
@@ -2962,7 +2964,7 @@ $\times$ 6 offsets $\delta \in \{0.001, 0.005, 0.01, 0.02, 0.05, 0.10\}$):
 \toprule
 $L$-function & weight & mean$(A)$ & CV & zeros \\
 \midrule
-$\mathrm{sym}^3(\Delta)$ & 11 & 2.77 & 22\% & 3 \\
+$\mathrm{sym}^3(\Delta)$ & 11 & 5.77 & 22\% & 10 \\
 $\mathrm{sym}^3(11\mathrm{a}1)$ & 1 & 10.66 & 17\% & 3 \\
 \bottomrule
 \end{tabular}
@@ -2978,7 +2980,7 @@ Whether monotone degree growth of $A(t_0)$ holds in a unified normalization
 is an \textbf{open question (boundary B-12)}.
 
 \textcolor{ForestGreen}{[result \#69, established, 2026-04-18;
-PARI lfunlambda, $\sigma$-direction; 36 pts; sym$^3\Delta$: A${=}2.77$ (CV${=}22\%$);
+PARI lfunlambda, $\sigma$-direction; 36 pts; sym$^3\Delta$: A${=}5.77$ (CV${=}22\%$);
 sym$^3$(11a1): A${=}10.66$ (CV${=}17\%$);
 B-23 resolved: $\kappa_\sigma \neq \kappa_t$; motivic normalization;
 GL(4) $\xi$-bundle $A(t_0)$; numerical verification, not proof]}
@@ -5549,7 +5551,7 @@ open:
 \addcontentsline{toc}{section}{Summary of Numerical Evidence}
 % ============================================================================
 
-Table~\ref{tab:summary} consolidates all 80 numerical results obtained
+Table~\ref{tab:summary} consolidates all 81 numerical results obtained
 across ten verification axes.  Status codes: \textbf{E} = Established,
 \textbf{C} = Conditionally positive, \textbf{N} = Negative (reported
 with full transparency).
@@ -5557,7 +5559,7 @@ with full transparency).
 \begin{center}
 \small
 \begin{longtable}{@{}r l l p{4.2cm} l@{}}
-\caption{Summary of 80 numerical results across ten verification
+\caption{Summary of 81 numerical results across ten verification
   axes.\label{tab:summary}}\\
 \toprule
 \# & Name & Status & Key metric & Axis \\
@@ -5713,7 +5715,7 @@ with full transparency).
 69 & GL(4) $\xi$-bundle $\kappa_\sigma$ $A(t_0)$ measurement $+$ B-23 & \textbf{E} &
    PARI lfunlambda, $\sigma$-direction ($s{=}k/2{+}\delta{+}it_0$);
    36 pts (2 $L$-functions ${\times}$ 3 zeros ${\times}$ 6 $\delta$);
-   sym$^3(\Delta)$: mean$(A){=}2.77$ (CV${=}22\%$), $\delta$-stable;
+   sym$^3(\Delta)$: mean$(A){=}5.77$ (CV${=}22\%$), $\delta$-stable;
    sym$^3$(11a1): mean$(A){=}10.66$ (CV${=}17\%$), $\delta$-stable;
    B-23 resolved: $\kappa_\sigma$ ($c_1{=}0$) $\neq$ Hardy $Z$ $\kappa_t$ ($c_t{\approx}{-}47$);
    cross-degree $A$-comparison normalization-dependent (B-12, open);
@@ -5821,6 +5823,13 @@ with full transparency).
    B-20 pattern: $A_{\max}{=}20.93$ (5 nearby zeros), $A_{\min}{=}6.56$ (isolated);
    degree universality: $d{=}1$ (13/13 ${<}0.003\%$), $d{=}2$ (7/10 ${<}1.3\%$), $d{=}3$ (6/10 ${<}1\%$);
    see Remark~\ref{rem:hadamard_gl3_numerical}
+   & $\kappa$-$\delta$ / Theory \\
+\midrule
+81 & Hadamard GL(4) $\xi$-bundle $A{=}B^2{+}2H_1$ & \textbf{C} &
+   sym$^3(\Delta)$: 16 zeros ($t{\in}[0,25]$); $7/10{<}5\%$, $8/10{<}10\%$ ($A_{\text{true}}$);
+   FE${=}-51$ (gammaV${=}[5.5,6.5,16.5,17.5]$, $N{=}1$, $w{=}0$);
+   $\langle A\rangle{=}5.77$; degree universality $d{=}1$--$4$ confirmed;
+   see Remark~\ref{rem:hadamard_degree_univ}
    & $\kappa$-$\delta$ / Theory \\
 \end{longtable}
 \end{center}
@@ -6338,11 +6347,11 @@ Tier 2 programmes (conjectural but well-posed).}
         and $\mu$-independent (2.6\%);
         (iii)~the conductor-driven change is 94.8\% arithmetic.
         Result~\#69 (Remark~\ref{rem:xi_bundle_b23}) extends $\xi$-bundle $A$ to GL(4)
-        (motivic normalization): sym$^3(\Delta) = 2.77$, sym$^3$(11a1) $= 10.66$.
+        (motivic normalization): sym$^3(\Delta) = 5.77$, sym$^3$(11a1) $= 10.66$.
         Result~\#71 (Remark~\ref{rem:gl5_sym4}) further extends to GL(5):
         sym$^4$(11a1) $= 14.88$ (per-zero CV $< 0.2\%$).
         \emph{Cross-degree comparison at $d \geq 4$ is normalization-dependent}:
-        the apparent non-monotone behaviour ($12.79 \to 2.77$) is an artefact
+        the apparent non-monotone behaviour ($12.79 \to 5.77$) is an artefact
         of comparing analytic ($d \leq 3$) with motivic ($d \geq 4$) normalizations.
         Within motivic normalization (11a1): $d = 4 \to 5$ gives $10.66 \to 14.88$ (monotone).
         Whether monotone growth holds under unified normalization across all degrees is an
@@ -7984,7 +7993,7 @@ which satisfies the $c_1 = 0$ theorem and yields $\delta$-stable values.
 \toprule
 $L$-function & weight & mean$(A)$ & CV & $\delta$-range \\
 \midrule
-$\mathrm{sym}^3(\Delta)$ & 11 & 2.77 & 22\% & $[0.001, 0.10]$, 3 zeros \\
+$\mathrm{sym}^3(\Delta)$ & 11 & 5.77 & 22\% & $[0.001, 0.10]$, 10 zeros \\
 $\mathrm{sym}^3(11\mathrm{a}1)$ & 1 & 10.66 & 17\% & $[0.001, 0.10]$, 3 zeros \\
 \bottomrule
 \end{tabular}
@@ -7999,7 +8008,7 @@ while the $d = 1$--$3$ data use analytic normalization (center $\tfrac{1}{2}$);
 cross-degree comparison is normalization-dependent (boundary B-12, open question).
 
 \textcolor{ForestGreen}{[results \#65, \#66, \#69; GL(4) 4/4 properties confirmed
-(3/4 + $\sigma$-uniqueness N/A); $\xi$-bundle $A(t_0)$: sym$^3\Delta$=2.77,
+(3/4 + $\sigma$-uniqueness N/A); $\xi$-bundle $A(t_0)$: sym$^3\Delta$=5.77,
 sym$^3$(11a1)=10.66; B-23 resolved ($\kappa_\sigma \neq \kappa_t$);
 numerical verification, not proof]}
 

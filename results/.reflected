@@ -60,6 +60,7 @@ results/gl3_conductor_scaling_68.txt
 results/gl3_fp_verification_67.txt
 results/gl3_gamma_deconv_66b.txt
 results/gl3_gamma_deconv_66.txt
+results/gl3_pari_sigma_sweep_99.txt
 results/gl3_sym2_11a1_63b.txt
 results/gl3_sym2_11a1_63.txt
 results/gl3_sym2_37a1_64.txt
@@ -82,9 +83,11 @@ results/hadamard_A_decomposition_90.txt
 results/hadamard_convergence_rate_96.txt
 results/hadamard_gl2_universality_92.txt
 results/hadamard_gl3_extended_95.txt
+results/hadamard_gl3_highprecision_100.txt
 results/hadamard_gl3_universality_94b.txt
 results/hadamard_gl3_universality_94c.txt
 results/hadamard_gl3_universality_94.txt
+results/hadamard_gl4_sym3_102.txt
 results/high_height_scaling.txt
 results/high_t_calibration.txt
 results/high_t_scaling.txt
