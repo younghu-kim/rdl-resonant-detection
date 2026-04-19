@@ -1,5 +1,42 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-19 20:51] — 사이클 #167 — #104 논문 Discussion 정합성 수정 완료
+
+**수학자 지시**: #104 — EN Discussion "78 results" → "81 results", (xxi)/(xxii) #81 항목 추가 (sonnet)
+**실행**: EN/KO LaTeX 논문 수정 → 컴파일 → PDF 배포 → git commit
+**PID**: N/A (논문 편집)
+**결과 위치**: `paper/source/unified_master_en.tex`, `paper/source/unified_master_ko.tex`
+
+### 변경 내역
+
+1. **EN line 6500**: `\textbf{78 results across ten verification axes}` → `\textbf{81 results across ten verification axes}` ✅
+2. **EN Discussion (xxi) 추가**: `(result~#80, Remark~hadamard_gl3_numerical)` 뒤에 `, and (xxi)~GL(4) L(s,sym³Δ) Hadamard ξ-bundle A=B²+2H₁: 7/10 below 5%, 8/10 below 10%, 16 zeros (t₀∈[0,25]); degree universality d=1–4 confirmed (result~#81, Remark~hadamard_degree_univ)` 추가 ✅
+3. **KO Discussion (xxii) 추가**: 기존 (xxi) (result #80)에 이어서 `(xxii)~GL(4) Hadamard ξ-다발 … d=1–4 확립 (결과~#81, 비고~hadamard_degree_univ)` 추가 ✅
+4. **Summary table #81**: 이미 존재 (line 5828 EN, line 4394 KO) ✅ 수정 불필요
+5. **KO 결과 수**: 이미 "81개 결과" 정합 ✅ 수정 불필요
+
+### 성공 기준 검증
+
+| 기준 | 결과 |
+|------|------|
+| EN Abstract/Discussion 결과 수 일치 (81/81) | ✅ (Abstract line 176: "Eighty-one", Discussion line 6500: "81 results") |
+| EN Discussion에 (xxi) #81 존재 | ✅ |
+| KO Discussion에 (xxii) #81 존재 | ✅ |
+| Summary table #81 존재 | ✅ (이미 반영, 재확인) |
+| LaTeX 컴파일 에러 0건 | ✅ EN 115p (pdflatex), KO 102p (xelatex) |
+| diff 최소 (기존 내용 무변경) | ✅ 3 insertions, 3 deletions |
+
+### 부가 발견 (수학자 판단 필요)
+
+- **EN line 301**: "We verify the fibre-bundle interpretation through **78** numerical results spanning ten independent axes" — 이것도 78이지만 수학자 지시에 없으므로 수정 **보류**. 수학자가 결정 요망.
+- KO에는 해당 위치 "78" 잔존 없음 (KO intro는 이미 81개 정합).
+
+### 이슈
+
+없음. KO 컴파일이 pdflatex에서 fontspec 오류 (pre-existing)로 xelatex으로 전환하여 성공.
+
+---
+
 ## 보고 [2026-04-19 19:27] — 사이클 #166 — #103 논문 반영 (Hadamard d=4 + GL(4) gammaV 수정) 완료
 
 **수학자 지시**: #103 — 논문 반영 (Hadamard d=4 + GL(4) gammaV 수정) (sonnet)
