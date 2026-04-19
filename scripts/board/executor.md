@@ -1,5 +1,122 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-19 22:15] — 사이클 #168 — #105 arXiv 최종 감사 (Full Paper Audit)
+
+**수학자 지시**: #105 — 9개 항목 전체 PASS/FAIL/WARNING 판정. FAIL 0건이면 arXiv 제출 준비 완료 선언.
+**실행**: EN/KO LaTeX 소스 직접 검사 (Summary Table, Abstract, Theorem 번호, ref/label 로그, Notation, Discussion 열거, Open Questions, Bibliography, 대칭성)
+**PID**: N/A (감사 작업)
+**결과 위치**: 아래 보고서
+
+---
+
+## arXiv 감사 보고서 (#105)
+
+### PASS 항목 (문제 없음)
+
+- **[항목 2] Abstract 수치 정합**: ✅
+  - EN Abstract line 176: "Eighty-one" ✅
+  - EN Discussion line 6500: "81 results across ten verification axes" ✅
+  - EN Introduction line 301: "81 numerical results" ✅ (검토자 #167 수정 확인)
+  - KO: "81개 결과" ✅
+  - 잔존 "78"은 전부 맥락 있는 값 (n=78 통계, R=13.78, 78.24 좌표 등) — 결과 수 오류 아님 ✅
+
+- **[항목 3] Theorem/Proposition/Conjecture 번호 연속**: ✅
+  - EN: theorem 8개, proposition 7개, corollary 3개, lemma 0개 = 18개 환경
+  - KO: 동일 (18개)
+  - LaTeX 로그: 중복 정의 없음, 번호 순서 오류 없음 ✅
+
+- **[항목 4] \ref/\label 정합**: ✅
+  - EN 로그: undefined reference **0건** ✅
+  - KO 로그: undefined reference **0건** (폰트 warning만 존재, 기존 known issue) ✅
+
+- **[항목 5] Notation 일관성** (spot check 5개): ✅
+  - κ (`\kappa`): EN line 881 주변 정의, 전체 일관 사용 ✅
+  - ξ (`\xif`): EN line 881 정의, consistent ✅
+  - A(t₀): 87회 동일 표기 ✅
+  - δ: nearest-zero 거리로 일관 사용 ✅
+  - L: 표준 표기 일관 ✅
+
+- **[항목 7] Open Questions — 해결된 경계 재확인**: ✅
+  - B-05 (σ-유일성 범위): "resolved" 명시 (EN line 7741, 7794) ✅
+  - B-10 (conductor PASS/FAIL): "resolved" (EN line 5648, 7460) ✅
+  - B-20 (A(t₀) 변동): "resolved" (EN line 2386) ✅
+  - B-23 (κ_σ ≠ κ_t): "resolved" (EN line 2985) ✅
+  - B-26 (motivic degree k): "resolved" (EN line 5760) ✅
+  - B-17: 논문에 등장하지 않음 (이전 사이클에서 제거/통합된 것으로 판단)
+
+- **[항목 8] Bibliography**: ✅
+  - \cite 키 16개, \bibitem 31개 (일부 bibitem은 비인용 참고용)
+  - 인용된 16개 키 전부 bibitem 대응 확인 ✅ (diff 결과: missing bibitem 0건)
+
+- **[항목 9] EN/KO 기본 대칭**: ✅ (단 아래 WARNING 참조)
+  - 결과 수: EN "81", KO "81" ✅
+  - 정리 환경 수: EN 18개 = KO 18개 ✅
+  - Summary Table 캡션: EN "81 numerical results", KO "81개 수치 결과" ✅
+
+---
+
+### FAIL 항목 (수정 필요)
+
+- **[항목 1] Summary Table 완전성**: ❌
+  - **EN**: 결과 #67, #68 행 누락 → 79행 (81행이어야 함)
+  - **KO**: 결과 #67, #68 행 누락 → 79행 (81행이어야 함)
+  - 결과 #67 내용: GL(3) 블라인드 예측 수정 F₁ (21 FP → TP 재분류, F₁=1.000)
+  - 결과 #68 내용: κ-도체 스케일링 — 6개 타원곡선 확장, κ_near ≈ 1125 보편 상수 확립
+  - 두 결과 모두 본문에 상세 설명 존재 (EN lines 7614, 7808; KO lines 5897, 6075)
+  - **제안 수정**: EN/KO Summary Table에 #67, #68 행 추가 (위치: #66 행 바로 아래)
+  - #67 표 내용 제안: `67 & GL(3) blind FP reclassification & \textbf{C} & 21/21 confirmed TP (AFE, dps=80); $F_1=1.000$ corrected & GL(3) sym² \\`
+  - #68 표 내용 제안: `68 & $\kappa_{\mathrm{near}}$ conductor scaling (6 curves) & \textbf{N} & Scaling negative ($R^2{=}0.0002$); $\kappa_{\mathrm{near}}{\approx}1125$ (CV${=}0.15\%$) & GL(3) sym² \\`
+
+- **[항목 6] Discussion 열거 (i)~(xxi/xxii) — EN**: ❌
+  - EN Discussion: (xii)→result \#66, (xiii)→result \#69 — **결과 #67, #68 누락**
+  - EN Discussion: (xvii)→result \#75, (xviii)→result \#78 — **결과 #76, #77 누락**
+  - (EN Discussion 현재 21개 항목; 내용상 23-25개여야 함)
+  - **제안 수정 A** (간단): (xii)와 (xiii) 사이에 "(xiii)~GL(3) blind FP reclassification... (result~\#67)" 및 "(xiv)~κ_near conductor scaling... (result~\#68)" 삽입, 이후 번호 재조정
+  - **제안 수정 B** (간단): (xvii)와 (xviii) 사이에 "(xviiia)~Hadamard GL(3) convergence limit... (results~\#76, \#77)" 삽입 또는 기존 항목에 inline 추가
+
+- **[항목 6] Discussion 열거 (i)~(xxii) — KO**: ❌ (부분)
+  - KO Discussion: (xii)→result \#66, (xiii)→result \#69 — **결과 #67, #68 누락**
+  - KO는 (xviii)에 results \#76, \#77 포함 ✅ (EN과 달리)
+  - **제안 수정**: KO도 (xii)와 (xiii) 사이에 #67, #68 항목 추가 후 번호 재조정
+
+---
+
+### WARNING 항목 (권장 수정)
+
+- **[항목 7] B-12 상태 불일치**: ⚠️
+  - EN line 7399-7422: `"\emph{Boundary B-12 is therefore fully resolved}"` — κ_near(d) 이론적 근거 해결
+  - EN lines 2641, 2678, 2980, 5721, 5743, 6358, 8008, 8088: `"open question (boundary B-12)"` — 정규화-의존 cross-degree A 비교는 미해결
+  - **동일 번호 B-12에 두 개의 다른 상태 공존**: 레퍼리가 "논문이 스스로 모순적"이라고 지적할 가능성
+  - **권장 수정**: 두 aspect를 명확히 분리: "B-12a (이론적 근거) = resolved; B-12b (cross-normalization A 비교) = open" 또는 각 위치에 "(partially resolved)" 주석 추가
+
+- **[항목 9] EN/KO Discussion 항목 수 비대칭**: ⚠️
+  - EN: (i)~(xxi) = **21항목**
+  - KO: (i)~(xxii) = **22항목** (KO에 GL(3) Hadamard 수렴 항목 (xviii) 추가 존재)
+  - 위 FAIL [항목 6] 수정 시 자연히 해소됨 (EN에 #76/#77 항목 추가하면 22항목으로 일치)
+
+---
+
+### 종합 판정
+
+| 항목 | EN | KO | 판정 |
+|------|----|----|------|
+| 1. Summary Table 완전성 | ❌ #67,#68 누락 | ❌ #67,#68 누락 | **FAIL** |
+| 2. Abstract 수치 정합 | ✅ | ✅ | PASS |
+| 3. Theorem/Prop 번호 연속 | ✅ | ✅ | PASS |
+| 4. \ref/\label 정합 | ✅ | ✅ | PASS |
+| 5. Notation 일관성 | ✅ | ✅ | PASS |
+| 6. Discussion 열거 | ❌ #67,#68,#76,#77 누락 | ❌ #67,#68 누락 | **FAIL** |
+| 7. Open Questions 상태 | ✅ (B-12 ⚠️) | ✅ | PASS+⚠️ |
+| 8. Bibliography | ✅ | ✅ | PASS |
+| 9. EN/KO 대칭 | ✅ (Discussion 항목수 ⚠️) | | PASS+⚠️ |
+
+**FAIL 2건, WARNING 2건.**
+
+**arXiv 제출 준비 완료**: ❌ — FAIL 항목 수정 후 재감사 필요.
+핵심 수정: Summary Table #67/#68 행 추가 (EN+KO) + Discussion 열거 #67/#68 항목 추가 (EN+KO) + EN Discussion #76/#77 항목 추가.
+
+---
+
 ## 보고 [2026-04-19 20:51] — 사이클 #167 — #104 논문 Discussion 정합성 수정 완료
 
 **수학자 지시**: #104 — EN Discussion "78 results" → "81 results", (xxi)/(xxii) #81 항목 추가 (sonnet)
