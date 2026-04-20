@@ -160,3 +160,5 @@ results/artin_s3_precision_122.txt
 results/artin_s4_standard_123.txt
 results/epstein_offcritical_120.txt
 results/generalized_dh_offcritical_121.txt
+results/maass_even_kd2_201.txt
+results/gl3_sym2_kd2_202.txt

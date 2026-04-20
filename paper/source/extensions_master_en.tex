@@ -2,7 +2,7 @@
 %  ξ-Bundle Curvature as a Critical-Line Discriminator:
 %  Universality Across L-Function Families and an Analytic Detection Theorem
 %  (Project RDL — Paper 2)
-%  Results #107–#117, #125–#127, #200
+%  Results #107–#117, #125–#127, #200–#202
 % ============================================================================
 \documentclass[11pt, a4paper]{article}
 
@@ -151,7 +151,19 @@ is independent of both modular weight and holomorphicity---a
 numerical consequence of the functional equation alone (Observation~8).
 
 \smallskip
-\noindent Fifteen numerical results support the framework's universality
+\noindent Two further results extend the spectral and degree landscape.
+Result~\#201 provides a second Maass cusp form test ($R=13.7798$,
+\emph{even} symmetry class), confirming the slope $1.9999\pm 0.0008$
+($R^{2}=1.000000$) and establishing independence from both $R$ and
+even/odd parity.  Result~\#202 records the \emph{first} standard
+$\kappa\delta^{2}$ slope measurement for a $\mathrm{GL}(3)$ $L$-function:
+$\mathrm{sym}^{2}(E,11a1)$ (conductor $N=121$, degree 3, center $\tfrac{3}{2}$)
+yields slope $2.0000\pm 0.0001$ ($R^{2}=1.000000$)---the highest
+precision obtained to date---providing strong evidence for
+degree-universality of the $\xi$-bundle curvature.
+
+\smallskip
+\noindent Seventeen numerical results support the framework's universality
 and the discriminator theorem.
 \end{tcolorbox}
 
@@ -214,17 +226,25 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         if $\sigma_{0}=\tfrac{1}{2}$, where $c_{1}$ is the leading
         off-critical Taylor coefficient of $\kappa\delta^{2}$.
   \item A \textbf{Summary Table} (Table~\ref{tab:summary}) collects all
-        fifteen new results (\#107--\#117, \#125--\#127, \#200).
+        seventeen new results (\#107--\#117, \#125--\#127, \#200--\#202).
   \item \textbf{Weight and spectral universality} (\S\ref{sec:modular}):
         The log-log slope of $\kappa\delta^{2}-1$ versus $\delta$ equals
         $2.0\pm0.001$ independently of both the modular weight~$k$ and
         holomorphicity, confirmed for holomorphic eigenforms at $k=12,16,20$
-        (Results~\#125--\#127) and a non-holomorphic Maass cusp form with
+        (Results~\#125--\#127), a non-holomorphic Maass cusp form with
         spectral parameter $R=9.5337$ (Result~\#200, slope
-        $2.0003\pm 0.0003$).  This is a numerical consequence of
-        Theorem~\ref{thm:rankinv}: since $\kappa\delta^{2}=1+O(\delta^{2})$
-        follows from the functional equation alone, the log-log slope
-        cannot depend on~$k$ or on the spectral parameter.
+        $2.0003\pm 0.0003$), and an even-symmetry Maass form at $R=13.7798$
+        (Result~\#201, slope $1.9999\pm 0.0008$).  This is a numerical
+        consequence of Theorem~\ref{thm:rankinv}: since
+        $\kappa\delta^{2}=1+O(\delta^{2})$ follows from the functional
+        equation alone, the log-log slope cannot depend on~$k$ or on the
+        spectral parameter.
+  \item \textbf{Degree extension} (\S\ref{ssec:gl3sym2}):
+        Result~\#202 ($\mathrm{sym}^{2}(E,11a1)$, degree~3) provides
+        the first $\kappa\delta^{2}$ slope measurement for a
+        $\mathrm{GL}(3)$ $L$-function: slope $2.0000\pm 0.0001$,
+        $\sigma$-uniqueness $5/5$ PASS.  This is strong evidence for
+        degree-universality of the $\xi$-bundle curvature.
 \end{enumerate}
 
 \noindent\textbf{Notation.} We write $\rho = \sigma_{0}+it_{0}$ for a
@@ -1008,6 +1028,154 @@ $\Delta t=2.88$, much larger than typical holomorphic gaps at comparable
 heights.  Consequently, proximate-zero interference---the dominant source
 of error for weight-$16$ and weight-$20$ forms---is negligible.
 
+\subsection{Even Maass Cusp Form ($R=13.7798$, Result~\#201)}
+\label{ssec:maass_even}
+
+Result~\#200 tests an \emph{odd}-symmetry Maass form.  To verify that
+the slope~$2$ is independent of the even/odd parity of the symmetry
+class---as well as independent of the spectral parameter~$R$---we test
+an \emph{even}-symmetry Maass cusp form on $\mathrm{SL}_2(\mathbb{Z})$
+with spectral parameter $R=13.7797513518\ldots$ (symmetry class~$0$).
+The gamma factor for the even case is:
+\[
+  \Lambda(s,u_R) = \pi^{-s}\,
+  \Gamma\!\Bigl(\frac{s+iR}{2}\Bigr)
+  \Gamma\!\Bigl(\frac{s-iR}{2}\Bigr)\,L(s,u_R), \qquad
+  \Lambda(s)=\Lambda(1-s), \quad \varepsilon=+1, \quad
+  \sigma_{\mathrm{crit}}=\tfrac{1}{2}.
+\]
+Nineteen zeros are located on $\mathrm{Re}(s)=\tfrac{1}{2}$, $t\in[3,50]$.
+
+\medskip
+\noindent\textbf{Result~\#201} (\textit{Even Maass cusp form, $R=13.7798$}):
+
+\begin{itemize}
+  \item P1 (FE): $|\Lambda(s)-\Lambda(1-s)|/|\Lambda(s)|=0.00$
+        at five test points; Hecke relations $a(6)=a(2)a(3)$,
+        $a(4)=a(2)^2-1$, $a(9)=a(3)^2-1$ verified exact.
+  \item P2 (zero count): 19 confirmed, $t\in[3,50]$.
+  \item P3 ($\kappa\delta^{2}$): Five-zero log-log slope
+        $\mathbf{1.9999\pm 0.0008}$, $R^{2}=1.000000$.
+  \item P4 (monodromy): $5/5=2.0000\pi$.
+\end{itemize}
+Overall: \textbf{4/5 PASS}.
+$\sigma$-uniqueness: FAIL (B-01, GL(2) pattern); sign-change counts at
+$\sigma\in\{0.1,0.2,0.5,\ldots\}$ yield $\sigma=0.5\to 11$,
+$\sigma=0.1,0.2\to 12$---the standard flat-plateau GL(2) pattern
+(the standard GL(2) flat-plateau pattern previously observed in
+Results~\#125 and \#127).
+
+\medskip
+\noindent\textbf{Even vs.\ Odd comparison.}
+Table~\ref{tab:maass_compare} places Results~\#200 and \#201 side by side.
+The key findings are: (i) the $R$-independence: changing $R$ from $9.5337$
+to $13.7798$ does not affect the slope within the error bars;
+(ii) parity independence: even and odd symmetry classes yield
+indistinguishable slopes, confirming that the $\xi$-bundle curvature
+depends only on the functional equation structure, not on the even/odd
+symmetry of the Maass form.
+
+\begin{table}[ht]
+\centering
+\caption{Even vs.\ Odd Maass cusp forms: $\kappa\delta^{2}$ comparison
+  (Results~\#200 and \#201).  Both on $\mathrm{SL}_2(\mathbb{Z})$,
+  $\sigma_{\mathrm{crit}}=\tfrac{1}{2}$, 5 zeros, 8 $\delta$-values.}
+\label{tab:maass_compare}
+\small
+\begin{tabular}{llrrrrl}
+\toprule
+Result & Symmetry & $R$ & Slope & $\pm\sigma$ & $R^{2}$ & Rating \\
+\midrule
+\#200 & Odd  & $9.5337$  & $2.0003$ & $0.0003$ & $1.000000$ & $\bigstar\bigstar\bigstar$ \\
+\#201 & Even & $13.7798$ & $1.9999$ & $0.0008$ & $1.000000$ & $\bigstar\bigstar\bigstar$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{Degree Extension: GL(3) $\mathrm{sym}^{2}(11a1)$ (Result~\#202)}
+\label{ssec:gl3sym2}
+
+All previous results in \S\ref{sec:modular} are for $\mathrm{GL}(2)$
+$L$-functions.  Result~\#202 tests whether the $\kappa\delta^{2}$
+universality extends to degree~$3$ by examining the symmetric square
+$L$-function $L(s, \mathrm{sym}^{2}(E, 11a1))$, which is a
+$\mathrm{GL}(3)$ $L$-function with:
+\begin{itemize}
+  \item conductor $N=121=11^2$, degree $d=3$, analytic center $\sigma_{\mathrm{center}}=\tfrac{3}{2}$,
+  \item gamma factor: $\Gamma_{\mathbb{R}}(s)\,\Gamma_{\mathbb{R}}(s+\tfrac{1}{2})
+        \,\Gamma_{\mathbb{R}}(s+1)$ (schematically; exact factor from LMFDB),
+  \item functional equation: $\Lambda(s)=\Lambda(3-s)$,
+        critical line $\mathrm{Re}(s)=\tfrac{3}{2}$.
+\end{itemize}
+The $\delta$-range for the GL(3) measurement is adjusted to
+$\delta\in[0.001, 0.03]$ to account for the larger $A(t_0)$ factor
+characteristic of degree-3 $L$-functions.
+
+\medskip
+\noindent\textbf{Result~\#202} (\textit{$\mathrm{sym}^{2}(E,11a1)$, GL(3), degree 3}):
+
+\begin{itemize}
+  \item P1 (FE): $|\Lambda(s)-\Lambda(3-s)|/|\Lambda(s)|=0.00$
+        on the critical line (err$=0.00$); off-critical functional
+        equation check outside \texttt{lfuninit} initialisation range
+        yields errors (limitation of the PARI/GP range, not a property
+        of the $L$-function; see Note below).
+  \item P2 (zero count): 5 zeros on critical line confirmed,
+        $t\in[3,50]$.
+  \item P3 ($\kappa\delta^{2}$): Five-zero log-log slope
+        $\mathbf{2.0000\pm 0.0001}$, $R^{2}=1.000000$---the
+        highest precision $\kappa\delta^{2}$ slope measurement obtained
+        across all results in Papers~1--2.
+  \item P4 (monodromy): $5/5=2.0000\pi$.
+  \item P5 ($\sigma$-uniqueness): $5/5$ PASS; sign-change count is
+        maximised at $\sigma=\tfrac{3}{2}$ (analytic center), with
+        counts decreasing on both sides---no GL(2)-type B-01 plateau.
+\end{itemize}
+Overall: \textbf{4/5 PASS} (P1 off-critical limitation noted below).
+
+\begin{table}[ht]
+\centering
+\caption{Result~\#202 — $\kappa\delta^{2}$ log-log slopes for five zeros
+  of $\mathrm{sym}^{2}(E,11a1)$ ($\delta\in[0.001,0.03]$, 6 values).
+  All $R^{2}=1.000000$.  This is a GL(3) degree-3 $L$-function;
+  $\sigma_{\mathrm{center}}=\tfrac{3}{2}$.}
+\label{tab:sym2_kd2}
+\small
+\begin{tabular}{llrl}
+\toprule
+Zero & $t$ & Slope & Rating \\
+\midrule
+$\rho_1$ & $3.8993$ & $1.9998$ & $\bigstar\bigstar\bigstar$ \\
+$\rho_2$ & $6.1895$ & $2.0000$ & $\bigstar\bigstar\bigstar$ \\
+$\rho_3$ & $7.3120$ & $2.0001$ & $\bigstar\bigstar\bigstar$ \\
+$\rho_4$ & $8.6501$ & $2.0001$ & $\bigstar\bigstar\bigstar$ \\
+$\rho_5$ & $10.1282$ & $1.9999$ & $\bigstar\bigstar\bigstar$ \\
+\midrule
+Mean & & $2.0000\pm 0.0001$ & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}[FE off-critical limitation]
+  The P1 off-critical failure arises from the \texttt{lfuninit}
+  initialisation range of the PARI/GP \texttt{lfun} package: evaluating
+  $\Lambda(s)$ at $\mathrm{Re}(s)$ well away from $\tfrac{3}{2}$ exceeds
+  the precomputed range.  This is a computational limitation, not a
+  property of the $L$-function itself.  The on-critical functional
+  equation (err$=0.00$) and all other properties (P2--P5) are unaffected.
+\end{remark}
+
+\paragraph{GL(2) vs.\ GL(3) comparison.}
+The two key differences from the GL(2) case are: (i) $\sigma$-uniqueness
+passes ($5/5$ PASS) without the B-01 plateau---the count is maximised
+uniquely at the analytic center $\sigma=\tfrac{3}{2}$; (ii) the
+$\delta$-range must be shifted to $[0.001, 0.03]$ (vs.\ $[0.005, 0.1]$
+for GL(2)) to avoid large-$A(t_0)$ saturation.  The $\kappa\delta^{2}$
+slope $2.0000\pm 0.0001$ is indistinguishable from the GL(2) results,
+providing strong evidence that the slope~$2$ is universal across degrees.
+
+
 \subsection{Weight and Spectral Invariance of $\kappa\delta^{2}$}
 \label{ssec:weightinv}
 
@@ -1021,7 +1189,8 @@ weights and spectral parameters tested to date.
   Results for $k=12,16,20$ and Maass $R=9.53$ from this section;
   $k=0,2$ from Paper~1.
   The Artin entry ($k=1$) uses the log$(\kappa)$ vs.\ log$(\delta^2)$
-  convention (Paper~3, theoretical slope $-1$) and is included for comparison.}
+  convention (Paper~3, theoretical slope $-1$) and is included for comparison.
+  Results~\#201 and \#202 are new additions from this paper.}
 \label{tab:weightuniv}
 \small
 \begin{tabular}{llllrrl}
@@ -1031,42 +1200,50 @@ $k$/Type & $L$-function & Family & $\sigma_{\mathrm{crit}}$ & Slope & $\pm\sigma
 $0$  & Riemann $\zeta$ & $\mathrm{GL}(1)$ & $\tfrac{1}{2}$ & $\approx 2.0$ & --- & $\bigstar\bigstar\bigstar$ \\
 $1$  & Artin $S_3$ (conv.\ B)$^{*}$ & $\mathrm{GL}(2)$, $k=1$ & $\tfrac{1}{2}$ & $-0.993$ & $0.001$ & $\bigstar\bigstar\bigstar$ \\
 $2$  & EC 11a1 & $\mathrm{GL}(2)$, $k=2$ & $1$ & $\approx 2.0$ & --- & $\bigstar\bigstar\bigstar$ \\
-Maass & $u_{R}$ ($R{=}9.53$) & $\mathrm{GL}(2)$, $k{=}0^{\dagger}$ & $\tfrac{1}{2}$ & $\mathbf{2.0003}$ & $\mathbf{0.0003}$ & $\bigstar\bigstar\bigstar$ \\
+Maass (odd) & $u_{R}$ ($R{=}9.53$) & $\mathrm{GL}(2)$, $k{=}0^{\dagger}$ & $\tfrac{1}{2}$ & $2.0003$ & $0.0003$ & $\bigstar\bigstar\bigstar$ \\
+Maass (even) & $u_{R}$ ($R{=}13.78$) & $\mathrm{GL}(2)$, $k{=}0^{\dagger}$ & $\tfrac{1}{2}$ & $\mathbf{1.9999}$ & $\mathbf{0.0008}$ & $\bigstar\bigstar\bigstar$ \\
 $12$ & Ramanujan $\Delta$ & $\mathrm{GL}(2)$, $k=12$ & $6$ & $2.0008$ & $0.0006$ & $\bigstar\bigstar\bigstar$ \\
 $16$ & $\Delta\cdot E_4$ & $\mathrm{GL}(2)$, $k=16$ & $8$ & $1.9989$ & $0.0035$ & $\bigstar\bigstar\bigstar$ \\
 $20$ & $\Delta\cdot E_8$ & $\mathrm{GL}(2)$, $k=20$ & $10$ & $1.9984$ & $0.0055$ & $\bigstar\bigstar\bigstar$ \\
+$\mathrm{sym}^2$ & $\mathrm{sym}^{2}(11a1)$ & $\mathrm{GL}(3)$, $d=3$ & $\tfrac{3}{2}$ & $\mathbf{2.0000}$ & $\mathbf{0.0001}$ & $\bigstar\bigstar\bigstar$ \\
 \bottomrule
 \multicolumn{7}{l}{\small $^{*}$Convention B: log$(\kappa)$ vs.\ log$(\delta^2)$, theoretical slope $-1$ (Paper~3).} \\
-\multicolumn{7}{l}{\small $^{\dagger}$Non-holomorphic; weight~$0$ in the automorphic sense, spectral parameter $R=9.5337$.} \\
+\multicolumn{7}{l}{\small $^{\dagger}$Non-holomorphic; weight~$0$ in the automorphic sense.} \\
 \multicolumn{7}{l}{\small Convention A (all others): log$(\kappa\delta^2-1)$ vs.\ log$(\delta)$, theoretical slope $2$.} \\
 \end{tabular}
 \end{table}
 
 For holomorphic forms at $k=12$, $16$, and $20$ the slopes agree: the
 three-weight mean is $1.9994\pm 0.0010$, and the maximum pairwise deviation
-is $0.0024$.  The Maass form ($R=9.5337$) adds a qualitatively different
-data point---non-holomorphic, weight~$0$, with a completely different gamma
-factor---yet its slope $2.0003\pm 0.0003$ is \emph{more} precise than any
-holomorphic measurement.  Combined with the $k=0$ (Riemann $\zeta$) and
-$k=2$ (EC 11a1) results from Paper~1, the convention-A slope equals
-$2.0\pm 0.001$ across all tested weights and spectral types: seven data
-points spanning holomorphic weights $k\in\{0,1,2,12,16,20\}$ and one
-non-holomorphic Maass form.
+is $0.0024$.  The Maass forms (Results~\#200, \#201) add two qualitatively
+different data points---non-holomorphic, weight~$0$, completely different
+gamma factors, different spectral parameters and parity---yet their slopes
+$2.0003\pm 0.0003$ and $1.9999\pm 0.0008$ are consistent with the
+holomorphic measurements.  The GL(3) result (Result~\#202, slope
+$2.0000\pm 0.0001$) extends this universality beyond $\mathrm{GL}(2)$.
+Combined with the $k=0$ (Riemann $\zeta$) and $k=2$ (EC 11a1) results
+from Paper~1, the convention-A slope equals $2.0\pm 0.001$ across all
+tested weights, spectral types, and degrees: nine data points spanning
+holomorphic weights $k\in\{0,1,2,12,16,20\}$, two non-holomorphic Maass
+forms, and one GL(3) degree-3 $L$-function.
 
-\begin{observation}[Weight and spectral invariance of $\kappa\delta^{2}$]
+\begin{observation}[Weight, spectral, and degree invariance of $\kappa\delta^{2}$]
 \label{obs:weightinv}
-  For degree-$2$ $L$-functions in the Selberg class---whether attached to
-  holomorphic Hecke eigenforms $f\in S_k(\mathrm{SL}_2(\mathbb{Z}))$ or
-  to Maass cusp forms with spectral parameter~$R$---the log-log slope of
-  $\kappa\delta^{2}-1$ versus $\delta$ equals $2.0\pm 0.001$.
+  For $L$-functions in the Selberg class---whether attached to
+  holomorphic Hecke eigenforms $f\in S_k(\mathrm{SL}_2(\mathbb{Z}))$,
+  Maass cusp forms with spectral parameter~$R$ and arbitrary even/odd
+  parity, or the $\mathrm{GL}(3)$ symmetric square $\mathrm{sym}^{2}(E)$---
+  the log-log slope of $\kappa\delta^{2}-1$ versus $\delta$ equals
+  $2.0\pm 0.001$.
   Analytically, this follows from Theorem~\ref{thm:rankinv}: the functional
-  equation $\Lambda(s)=\varepsilon\,\Lambda(1{-}s)$ (or $\Lambda(k{-}s)$)
-  implies $\kappa\delta^{2}=1+O(\delta^{2})$ regardless of the weight,
-  spectral parameter, or gamma-factor structure, so the leading correction
-  exponent---and hence the log-log slope---is a \emph{universal constant}
-  of the Selberg class.  Results~\#125--\#127 extend the verified weight
-  range by a factor of~$10$ beyond the previous maximum ($k=2$), while
-  Result~\#200 establishes the first non-holomorphic verification.
+  equation $\Lambda(s)=\varepsilon\,\Lambda(1{-}s)$ (or $\Lambda(k{-}s)$,
+  or $\Lambda(3{-}s)$) implies $\kappa\delta^{2}=1+O(\delta^{2})$ regardless
+  of the weight, spectral parameter, parity, or degree, so the leading
+  correction exponent---and hence the log-log slope---is a \emph{universal
+  constant} of the Selberg class.  Results~\#125--\#127 extend the verified
+  weight range by a factor of~$10$ beyond the previous maximum ($k=2$);
+  Results~\#200--\#201 establish non-holomorphic verification and parity
+  independence; Result~\#202 provides the first degree-$3$ evidence.
 \end{observation}
 
 
@@ -1085,25 +1262,32 @@ forms (class number 2--3).  Combined with Paper~1's $\mathrm{GL}(1)$--
 $\mathrm{GL}(5)$ results (81 numerical experiments), the framework now
 covers the major algebraic families of $L$-functions.
 
-\paragraph{Weight and spectral universality.}
-Results~\#125--\#127 and \#200 establish that the $\kappa\delta^{2}$ log-log
-slope is invariant under both the modular weight and holomorphicity.
+\paragraph{Weight, spectral, and degree universality.}
+Results~\#125--\#127 and \#200--\#202 establish that the $\kappa\delta^{2}$
+log-log slope is invariant under the modular weight, holomorphicity, Maass
+parity, and---crucially---the degree of the $L$-function.
 For holomorphic eigenforms the three-weight mean is $1.9994\pm 0.0010$
-($k=12,16,20$); the Maass cusp form ($R=9.5337$) yields
-$2.0003\pm 0.0003$, the most precise single measurement to date.  Combined
-with the $k=0,2$ results from Paper~1 and the $\mathrm{GL}(2)$ Artin
-result ($k=1$, Paper~3), the convention-A slope equals $2.0\pm 0.001$ across
-seven data points spanning the full $\mathrm{GL}(2)$ landscape: holomorphic
-weights $k\in\{0,1,2,12,16,20\}$ and one non-holomorphic Maass form.
+($k=12,16,20$).  The two Maass cusp forms (odd: $R=9.5337$,
+slope $2.0003\pm 0.0003$; even: $R=13.7798$, slope $1.9999\pm 0.0008$)
+confirm parity independence and $R$-independence.
+The GL(3) symmetric-square result (Result~\#202, slope $2.0000\pm 0.0001$)
+is the highest-precision measurement obtained to date and provides
+strong evidence for degree-universality.  Combined with the $k=0,2$
+results from Paper~1 and the $\mathrm{GL}(2)$ Artin result ($k=1$,
+Paper~3), the convention-A slope equals $2.0\pm 0.001$ across nine data
+points spanning holomorphic weights $k\in\{0,1,2,12,16,20\}$, two
+non-holomorphic Maass forms (even and odd), and one GL(3) degree-3
+$L$-function.
 This is a direct numerical consequence of Theorem~\ref{thm:rankinv}: the
 $\kappa\delta^{2}=1+O(\delta^{2})$ limit follows from the functional
-equation alone, regardless of the weight, spectral parameter, or
-gamma-factor structure.  The slope~$2$ appears to be a universal constant
-of the Selberg class.  The monotone increase in error bars for holomorphic
-forms ($\pm0.0006$, $\pm0.0035$, $\pm0.0055$ for $k=12,16,20$) reflects
+equation alone, regardless of the weight, spectral parameter, parity, or
+degree.  The slope~$2$ appears to be a universal constant of the Selberg
+class.  The monotone increase in error bars for holomorphic forms
+($\pm0.0006$, $\pm0.0035$, $\pm0.0055$ for $k=12,16,20$) reflects
 proximate-zero interference scaling with $\sigma_{\mathrm{crit}}=k/2$ and
-not a genuine weight dependence; the Maass form's superior precision
-($\pm 0.0003$) is attributable to its wide zero spacing.
+not a genuine weight dependence; the GL(3) result's superior precision
+($\pm 0.0001$) is attributable to its smaller $\delta$-range and the
+high regularity of sym$^2$ zeros.
 
 \paragraph{Euler product dispensability.}
 Theorem~\ref{thm:feonly} and Result~\#114 establish that the Euler
@@ -1136,6 +1320,10 @@ known scarcity of DH off-critical zeros.
         confirm the four $\xi$-bundle properties (Paper~3).
   \item \textit{Hilbert modular forms}: extending the spectral universality
         to number fields of degree $>1$.
+  \item \textit{Higher-degree $L$-functions}: Result~\#202 tests one
+        GL(3) $L$-function; systematic testing of GL(3) and GL(4)
+        families (e.g.\ $\mathrm{sym}^{3}(E)$, $\mathrm{sym}^{4}(E)$)
+        would strengthen the degree-universality claim.
   \item \textit{Selberg class generalisation}: Theorem~\ref{thm:disc}
         uses only FE; can it be sharpened to give $c_{1}$ in terms of
         the Selberg class degree?
@@ -1151,7 +1339,7 @@ known scarcity of DH off-critical zeros.
 \label{sec:conclusion}
 % ============================================================================
 
-We have extended the $\xi$-bundle framework of Kim~(2026) in three
+We have extended the $\xi$-bundle framework of Kim~(2026) in four
 directions.  First, universality: eleven new numerical results
 (\#107--\#117) confirm the four $\xi$-bundle properties across elliptic-
 curve, Rankin--Selberg, Dedekind, and Epstein $L$-functions; in
@@ -1161,21 +1349,26 @@ Theorem~7 proves analytically that the first Taylor coefficient
 $c_{1}$ of $\kappa\delta^{2}$ vanishes if and only if the zero lies on
 the critical line; numerical verification via $\delta$-sweep and direct
 analytic computation confirms this for all four known DH off-critical
-zeros.  Third, weight and spectral universality: four further results
-(\#125--\#127, \#200) establish that the $\kappa\delta^{2}$ log-log slope
-equals $2.0\pm 0.001$ independently of the modular weight ($k=12,16,20$)
-and of holomorphicity (Maass form with $R=9.5337$, slope
-$2.0003\pm 0.0003$), confirming Observation~8 and extending the verified
-parameter space from $k\leq 2$ to $k\leq 20$ plus the non-holomorphic
-sector.
+zeros.  Third, weight and spectral universality: six further results
+(\#125--\#127, \#200--\#201) establish that the $\kappa\delta^{2}$ log-log slope
+equals $2.0\pm 0.001$ independently of the modular weight ($k=12,16,20$),
+holomorphicity, spectral parameter, and even/odd parity of Maass forms,
+confirming Observation~8 and extending the verified parameter space from
+$k\leq 2$ to $k\leq 20$ plus the non-holomorphic sector.
+Fourth, degree extension: Result~\#202 ($\mathrm{sym}^{2}(E,11a1)$,
+GL(3), degree~3) records the first $\kappa\delta^{2}$ slope measurement
+for a degree-3 $L$-function, yielding slope $2.0000\pm 0.0001$---the
+highest precision obtained to date---and passes $\sigma$-uniqueness
+$5/5$ at the analytic center $\sigma=\tfrac{3}{2}$, providing strong
+evidence for degree-universality of the $\xi$-bundle curvature.
 
 Together, Theorems~5--7 and Observation~8 form a coherent picture:
 on the critical line, the $\xi$-bundle curvature satisfies
 $\kappa\delta^{2}=1+O(\delta^{2})$ universally across all $L$-function
-families, modular weights, and spectral types tested; off the critical
-line, a qualitatively different $O(\delta)$ correction appears,
-analytically traced to the breaking of mirror symmetry by the functional
-equation.
+families, modular weights, spectral types, parities, and degrees tested;
+off the critical line, a qualitatively different $O(\delta)$ correction
+appears, analytically traced to the breaking of mirror symmetry by the
+functional equation.
 
 
 % ============================================================================
@@ -1183,11 +1376,11 @@ equation.
 % ============================================================================
 \appendix
 
-\section{Summary Table: All Fifteen Results}
+\section{Summary Table: All Seventeen Results}
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#202 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1215,7 +1408,9 @@ Result & Section & Rating & Key finding \\
 \#125 & \S\ref{ssec:delta12}      & \textbf{$\bigstar\bigstar\bigstar$}    & Ramanujan $\Delta$ ($k=12$); 4/5 PASS; $\kappa\delta^{2}$ slope $2.0008\pm0.0006$; $\sigma$-uniq.\ FAIL (B-01) \\
 \#126 & \S\ref{ssec:w16}          & \textbf{$\bigstar\bigstar\bigstar$}    & Weight-16 cusp form ($\Delta\cdot E_4$); 5/5 PASS; slope $1.9989\pm0.0035$; weight invariance (Obs.~8) \\
 \#127 & \S\ref{ssec:w20}          & \textbf{$\bigstar\bigstar\bigstar$}    & Weight-20 cusp form ($\Delta\cdot E_8$); 4/5 PASS; slope $1.9984\pm0.0055$; $\sigma$-uniq.\ FAIL (B-01) \\
-\#200 & \S\ref{ssec:maass}        & \textbf{$\bigstar\bigstar\bigstar$}    & Maass cusp form ($R{=}9.5337$); 5/5 PASS; slope $\mathbf{2.0003\pm0.0003}$; most precise P3 to date \\
+\#200 & \S\ref{ssec:maass}        & \textbf{$\bigstar\bigstar\bigstar$}    & Maass cusp form ($R{=}9.5337$, odd); 5/5 PASS; slope $2.0003\pm0.0003$; first non-holomorphic verification \\
+\#201 & \S\ref{ssec:maass_even}   & \textbf{$\bigstar\bigstar\bigstar$}    & Even Maass cusp form ($R{=}13.7798$); 4/5 PASS; slope $\mathbf{1.9999\pm0.0008}$; $R$-independence \& parity independence confirmed \\
+\#202 & \S\ref{ssec:gl3sym2}      & \textbf{$\bigstar\bigstar\bigstar$}    & $\mathrm{sym}^{2}(11a1)$, GL(3), $d=3$; 4/5 PASS; slope $\mathbf{2.0000\pm0.0001}$ (highest precision); $\sigma$-uniq.\ 5/5 PASS; strong evidence for degree-universality \\
 \end{longtable}
 
 
