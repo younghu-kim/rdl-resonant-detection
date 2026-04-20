@@ -1,5 +1,58 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-20 18:05] — 사이클 #198 — #127 논문 반영 완료 (Paper 2 EN+KO)
+
+**수학자 지시**: #127 — Paper 2 (extensions_master_en/ko.tex) 갱신. #125(w=12 Δ) + #126(w=16 Δ·E₄) + weight 불변성 비교표 반영. 스크립트 실행 없음 (TeX 직접 편집).
+
+**실행**:
+- 보드 3종 + 프로세스 확인 → 유휴 상태 (실행 중인 실험 없음)
+- results/ramanujan_delta_125.txt, results/weight16_cusp_126.txt 독해로 정확한 수치 확인
+- extensions_master_en.tex + extensions_master_ko.tex 동시 편집:
+
+**편집 내역 (EN+KO 동시)**:
+1. **헤더 주석**: `Results #107–#117` → `#107–#117, #125–#126`
+2. **초록**: weight 불변성 문단 추가 + "열한 개" → "열세 개"
+3. **서론 기여 목록**:
+   - 항목 4 결과 수 갱신 (11→13)
+   - 항목 5 신설: weight 불변성 (§sec:modular, Thm rankinv 귀결)
+4. **신규 §6 "Higher-Weight Modular Forms and Weight Universality"** (Discussion 이전):
+   - §6.1 Ramanujan Δ (k=12, Result #125): slope=2.0008±0.0006, σ-유일성 FAIL(B-01) 솔직 기술
+   - §6.2 Weight-16 Cusp Form (k=16, Result #126): slope=1.9989±0.0035, weak PASS 솔직 기술, 오차바 차이 설명 (ρ₂/ρ₃ 근접 간섭)
+   - §6.3 Weight Invariance: weight 불변성 비교표 (w=0,1,2,12,16), 관찰 8 (Observation 8)
+   - 관찰 8: GL(2) L-함수에서 slope=2.0±0.004 무게 불변성 명시
+5. **부록 A 요약표**: #125, #126 행 추가 (총 13행)
+6. **논의**: weight 불변성 문단 추가 (Selberg 부류 시사)
+7. **향후 방향**: Artin→Paper 3, 고무게(k=20+) 확장 항목 신설
+8. **결론**: "두 방향" → "세 방향", 무게 불변성(#125,#126) 추가, Obs.8 언급
+9. **부록 A 제목**: "All Eleven Results" → "All Thirteen Results"
+10. **KO**: cleveref `\crefname{observation}{관찰}{관찰}` 추가
+
+**컴파일**:
+- pdflatex extensions_master_en.tex × 2 → **에러 0건** (16p, 377 KB)
+- xelatex extensions_master_ko.tex × 2 → **에러 0건** (16p, 269 KB)
+
+**PID**: 없음 (TeX 편집)
+**결과 위치**:
+- TeX 소스: `paper/source/extensions_master_{en,ko}.tex`
+- PDF: `paper/source/extensions_master_{en,ko}.pdf` (각 16p)
+- 배포 1: `paper/extensions_master_{en,ko}.{tex,pdf}`
+- 배포 2: `수학최종논문/extensions_master_{en,ko}.pdf`
+
+**성공 기준 달성**:
+- [x] EN/KO 동시 LaTeX 컴파일 에러 0건
+- [x] weight 불변성 비교표 존재 (w=0,1,2,12,16)
+- [x] Summary Table에 #125, #126 행 추가 (총 13행)
+- [x] Abstract/Intro 결과 개수 정확 (11→13)
+- [x] #125 σ-유일성 FAIL 솔직 기술 (B-01)
+- [x] #126 σ-유일성 weak PASS 솔직 기술 (동률 4개)
+- [x] 오차바 차이 설명 (±0.0006 vs ±0.0035)
+- [x] weight 12/16 계수 명시 (τ(n), a₁₆(n)=τ(n)+240·...)
+- [x] 3곳 배포 완료
+
+**이슈**: 없음. 직접 편집 방식으로 1회 수행.
+
+---
+
 ## 보고 [2026-04-20 15:36] — 사이클 #194 — Paper 3 KO 한국어판 완성
 
 **수학자 지시**: Paper 3 KO 한국어판 (`artin_master_ko.tex`) 생성. EN 초안 기반, 기존 KO 패턴 참조, xelatex 에러 0건, 3곳 배포.
