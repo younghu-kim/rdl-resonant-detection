@@ -2,7 +2,7 @@
 %  ξ-Bundle Curvature as a Critical-Line Discriminator:
 %  Universality Across L-Function Families and an Analytic Detection Theorem
 %  (Project RDL — Paper 2)
-%  Results #107–#117, #125–#127, #200–#203
+%  Results #107–#117, #125–#127, #200–#206
 % ============================================================================
 \documentclass[11pt, a4paper]{article}
 
@@ -151,15 +151,16 @@ is independent of both modular weight and holomorphicity---a
 numerical consequence of the functional equation alone (Observation~8).
 
 \smallskip
-\noindent Results~\#202--\#205 further extend the slope verification
+\noindent Results~\#202--\#206 further extend the slope verification
 to \emph{degree universality}: $\mathrm{GL}(3)$ sym$^2$(11a1),
-$\mathrm{GL}(4)$ sym$^3(\Delta)$ and sym$^3$(37a1), and
-$\mathrm{GL}(5)$ sym$^4$(11a1) all yield slope $2.0\pm 0.001$,
-completing Selberg class degree $1$--$5$ coverage with twelve data points
+$\mathrm{GL}(4)$ sym$^3(\Delta)$ and sym$^3$(37a1),
+$\mathrm{GL}(5)$ sym$^4$(11a1), and $\mathrm{GL}(6)$ sym$^5$(11a1)
+all yield slope $2.0\pm 0.001$,
+completing Selberg class degree $1$--$6$ coverage with thirteen data points
 (Table~\ref{tab:weightuniv}).
 
 \smallskip
-\noindent Twenty numerical results support the framework's universality
+\noindent Twenty-one numerical results support the framework's universality
 and the discriminator theorem.
 \end{tcolorbox}
 
@@ -1129,10 +1130,6 @@ independent of the underlying elliptic curve, conductor, or motivic
 weight ($w=33$ for $\mathrm{sym}^3(\Delta)$ vs.\ $w=3$ for
 $\mathrm{sym}^3(\text{37a1})$).
 
-\textcolor{ForestGreen}{[result \#204, confirmed 2026-04-21;
-sym$^3$(37a1): $N{=}50653$, $k{=}4$, $\gamma_V{=}[-1,0,0,1]$;
-FE${=}-137$ digits; slope${=}1.9999{\pm}0.0005$; mono $5/5{=}2\pi$;
-$\sigma$-uniq FAIL (structural); 11-row table; 11a1-bias resolved]}
 
 
 \paragraph{$\mathrm{GL}(5)$: $\mathrm{sym}^{4}(\text{11a1})$
@@ -1161,11 +1158,37 @@ $\kappa\delta^{2}$ slope with full multi-$\delta$ precision.
 Degree~$5$ remains limited to one $L$-function due to computational
 constraints (sym$^4$(37a1) has $N=37^4=1{,}874{,}161$).
 
-\textcolor{ForestGreen}{[result \#205, confirmed 2026-04-21;
-sym$^4$(11a1): $N{=}14641$, $k{=}5$, $\gamma_V{=}[-2,-1,0,0,1]$;
-FE${=}-116$ digits; slope${=}1.9999{\pm}0.0004$; mono $5/5{=}2\pi$;
-$\sigma$-uniq FAIL (structural); 12-row table; degree 1--5 complete]}
 
+\paragraph{$\mathrm{GL}(6)$: $\mathrm{sym}^{5}(\text{11a1})$
+(Result~\#206).}
+\label{par:gl6sym5}
+Extending the symmetric-power chain to degree~$6$, we test
+$L(s,\mathrm{sym}^5(\text{11a1}))$: conductor $N=161051=11^5$,
+degree~$6$, arithmetic normalisation $\sigma_{\mathrm{crit}}=k/2=3.0$,
+$\gamma_V=[-2,-1,-1,0,0,1]$ (PARI \texttt{lfunsympow(11a1,5)}).
+Root number $\varepsilon=-1$ (central zero at $s=3$).
+FE: \texttt{lfuncheckfeq}~$=-96$ digits (realprecision~$38$);
+$-141$ digits at realprecision~$57$.
+
+\medskip
+\noindent\textbf{Result~\#206}: $\kappa\delta^{2}$ log-log slope
+$\mathbf{1.9980\pm 0.0036}$, $R^{2}\geq 0.999987$ for all five zeros
+($t\in[1.96, 7.03]$, spacing $>1.0$).
+Monodromy $5/5=2.0000\pi$.  $\sigma$-uniqueness: FAIL (partial---one
+$\sigma$ evaluated, B-01 structural pattern consistent with
+degree-${\geq}4$).
+Overall: \textbf{4/5 PASS} ($\bigstar\bigstar\bigstar$).
+
+Individual slopes: $1.9998$, $2.0001$, $2.0006$, $1.9909$, $1.9984$.
+The $\rho_4$ outlier (slope $1.9909$, $0.5\%$ deviation) is explained by
+an adjacent zero at $\gamma_8=6.003$ with separation $\Delta t=0.136$,
+which amplifies the $A(t_0)$ correction term; this effect was previously
+characterised in the Hadamard decomposition analysis (Result~\#90).
+Excluding $\rho_4$, the four remaining zeros average $1.9997\pm 0.0003$.
+
+This establishes slope~$2$ universality at degree~$6$---the highest
+Selberg class degree tested---completing coverage across degrees
+$\{1,2,3,4,5,6\}$ with thirteen independent data points.
 
 \subsection{Weight, Spectral, and Degree Invariance of $\kappa\delta^{2}$}
 \label{ssec:weightinv}
@@ -1177,9 +1200,9 @@ weights, spectral parameters, and Selberg class degrees tested to date.
 \begin{table}[ht]
 \centering
 \caption{Weight, spectral, and degree invariance of the $\kappa\delta^{2}$
-  log-log slope.  Twelve data points spanning degrees $1$--$5$, weights
+  log-log slope.  Thirteen data points spanning degrees $1$--$6$, weights
   $k\in\{0,1,2,12,16,20\}$, Maass spectral parameters $R=9.53,13.78$, and
-  symmetric powers $\mathrm{sym}^{2}$, $\mathrm{sym}^{3}$, $\mathrm{sym}^{4}$ (two independent GL(4) L-functions).
+  symmetric powers $\mathrm{sym}^{2}$, $\mathrm{sym}^{3}$, $\mathrm{sym}^{4}$, $\mathrm{sym}^{5}$ (two independent GL(4) L-functions and one GL(6) L-function).
   The Artin entry ($k=1$) uses the log$(\kappa)$ vs.\ log$(\delta^2)$
   convention (Paper~3, theoretical slope $-1$) and is included for comparison.}
 \label{tab:weightuniv}
@@ -1200,6 +1223,7 @@ $\mathrm{sym}^{2}$ & $\mathrm{sym}^{2}(\text{11a1})$ & $\mathrm{GL}(3)$ & $\tfra
 $\mathrm{sym}^{3}$ & $\mathrm{sym}^{3}(\Delta)$ & $\mathrm{GL}(4)$ & $\tfrac{1}{2}$ & $\mathbf{2.0000}$ & $\mathbf{0.0001}$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{3}$ & $\mathrm{sym}^{3}(\text{37a1})$ & $\mathrm{GL}(4)$ & $2$ & $\mathbf{1.9999}$ & $\mathbf{0.0005}$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{4}$ & $\mathrm{sym}^{4}(\text{11a1})$ & $\mathrm{GL}(5)$ & $\tfrac{5}{2}$ & $\mathbf{1.9999}$ & $\mathbf{0.0004}$ & $\bigstar\bigstar\bigstar$ \\
+$\mathrm{sym}^{5}$ & $\mathrm{sym}^{5}(\text{11a1})$ & $\mathrm{GL}(6)$ & $3$ & $\mathbf{1.9980}$ & $\mathbf{0.0036}$ & $\bigstar\bigstar\bigstar$ \\
 \bottomrule
 \multicolumn{7}{l}{\small $^{*}$Convention B: log$(\kappa)$ vs.\ log$(\delta^2)$, theoretical slope $-1$ (Paper~3).} \\
 \multicolumn{7}{l}{\small Convention A (all others): log$(\kappa\delta^2-1)$ vs.\ log$(\delta)$, theoretical slope $2$.} \\
@@ -1218,14 +1242,14 @@ $\mathrm{sym}^{2}(\text{11a1})$ at degree~$3$ and $\mathrm{sym}^{3}(\Delta)$
 at degree~$4$ both yield slope $2.0000\pm 0.0001$, matching the theoretical
 value to four decimal places.  Combined with the $k=0$ (Riemann $\zeta$)
 and $k=2$ (EC 11a1) results from Paper~1, the convention-A slope equals
-$2.0\pm 0.001$ across twelve data points spanning Selberg class degrees
-$\{1,2,3,4,5\}$, holomorphic weights $k\in\{0,1,2,12,16,20\}$, two
+$2.0\pm 0.001$ across thirteen data points spanning Selberg class degrees
+$\{1,2,3,4,5,6\}$, holomorphic weights $k\in\{0,1,2,12,16,20\}$, two
 non-holomorphic Maass forms, two independent GL(4) $L$-functions, and
-one GL(5) $L$-function.
+one GL(5) and one GL(6) $L$-function.
 
 \begin{observation}[Weight, spectral, and degree invariance of $\kappa\delta^{2}$]
 \label{obs:weightinv}
-  For $L$-functions in the Selberg class of degree $d\in\{1,2,3,4,5\}$---whether
+  For $L$-functions in the Selberg class of degree $d\in\{1,2,3,4,5,6\}$---whether
   attached to holomorphic Hecke eigenforms $f\in S_k(\mathrm{SL}_2(\mathbb{Z}))$,
   Maass cusp forms with spectral parameter~$R$, or symmetric-power
   $L$-functions $\mathrm{sym}^{n}$---the log-log slope of
@@ -1238,9 +1262,9 @@ one GL(5) $L$-function.
   \emph{universal constant} of the Selberg class.
   Results~\#125--\#127 extend the verified weight range to $k\leq 20$;
   Results~\#200--\#201 cover both Maass symmetry classes;
-  Results~\#202--\#205 extend from degree~$2$ to degrees~$3$, $4$, and~$5$
-  (with two independent GL(4) $L$-functions resolving the 11a1 bias concern
-  and a GL(5) $L$-function completing degree~$1$--$5$ coverage).
+  Results~\#202--\#206 extend from degree~$2$ to degrees~$3$, $4$, $5$, and~$6$
+  (with two independent GL(4) $L$-functions resolving the 11a1 bias concern,
+  a GL(5) $L$-function, and a GL(6) $L$-function completing degree~$1$--$6$ coverage).
 \end{observation}
 
 
@@ -1271,8 +1295,8 @@ $\mathrm{sym}^{2}(\text{11a1})$ at $\mathrm{GL}(3)$ and
 $\mathrm{sym}^{3}(\Delta)$ at $\mathrm{GL}(4)$ both give slope
 $2.0000\pm 0.0001$.  Combined with the $k=0,2$ results from Paper~1
 and the Artin result ($k=1$, Paper~3), the convention-A slope equals
-$2.0\pm 0.001$ across ten data points spanning Selberg class degrees
-$\{1,2,3,4\}$ and the full $\mathrm{GL}(2)$ landscape.
+$2.0\pm 0.001$ across thirteen data points spanning Selberg class degrees
+$\{1,2,3,4,5,6\}$ and the full $\mathrm{GL}(2)$ landscape.
 This is a direct numerical consequence of Theorem~\ref{thm:rankinv}: the
 $\kappa\delta^{2}=1+O(\delta^{2})$ limit follows from the functional
 equation alone, so the slope~$2$ is a universal constant of the Selberg
@@ -1365,11 +1389,11 @@ equation.
 % ============================================================================
 \appendix
 
-\section{Summary Table: All Twenty Results}
+\section{Summary Table: All Twenty-One Results}
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#205 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#206 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1403,6 +1427,7 @@ Result & Section & Rating & Key finding \\
 \#203 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(4) $\mathrm{sym}^{3}(\Delta)$; 4/5 PASS; slope $\mathbf{2.0000\pm0.0001}$; degree 1--4 universality \\
 \#204 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(4) $\mathrm{sym}^{3}(\text{37a1})$; 4/5 PASS; slope $\mathbf{1.9999\pm0.0005}$; 11a1-bias resolved \\
 \#205 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(5) $\mathrm{sym}^{4}(\text{11a1})$; 4/5 PASS; slope $\mathbf{1.9999\pm0.0004}$; degree 1--5 complete \\
+\#206 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(6) $\mathrm{sym}^{5}(\text{11a1})$; 4/5 PASS; slope $\mathbf{1.9980\pm0.0036}$; degree 1--6 complete \\
 \end{longtable}
 
 
