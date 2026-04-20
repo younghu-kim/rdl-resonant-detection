@@ -6,21 +6,21 @@
 목표: DH(mod 5) 외의 L-함수에서 off-critical 영점 확보 → c₁ 법칙 보편성 확인.
 
 방법: 일반화 DH 구성 (올바른 함수방정식 각도).
-  f(s) = L(s,χ) + ω·L(s,χ̄)  where  ω² = ε(χ̄)/ε(χ)
-  ε(χ) = root number = τ(χ)/(i^a · √q),  τ = Gauss sum.
-  이 ω에서만 Λ_f(s) = Λ(s,χ) + ω·Λ(s,χ̄)가 함수방정식을 만족.
+  f(s) = Λ(s,χ) + ω·Λ(s,χ̄)  where  ω² = ε(χ)/ε(χ̄)
+  이 조건에서 Λ_f(1-s) = Λ_f(s) (FE sign = +1).
 
-핵심 수정 (v2): 임의 α 대신 root number에서 유도한 정확한 ω 사용.
-  이전 버전의 cos(α)/sin(α) 구성은 FE 불만족 → κδ² ≈ 0.001 실패.
-  올바른 ω 사용 시 κδ² ≈ 1 기대.
+핵심 수정 (v3):
+  - ω² = ε(χ)/ε(χ̄)  (NOT ε(χ̄)/ε(χ))
+  - lfunlambda() for Λ(s)  (NOT lfun(L,s,1) which is L'(s))
+  이전 버전: cos(α)/sin(α) 임의각 → FE 불만족 → κδ² ≈ 0.001 실패.
+  v2: ω² = ε(χ̄)/ε(χ) → 부호 오류, FE 불만족.
 
 대상:
-  mod 7: χ₁(order 6), χ₂(order 3) — 각각 올바른 ω
-  mod 11: χ₁(order 10), χ₂(order 5) — 각각 올바른 ω
-  mod 5 (DH 대조): χ₁(order 4) — ω from root number
+  mod 7: χ₁(order 6), χ₂(order 3)
+  mod 11: χ₁(order 10), χ₂(order 5)
+  mod 5 (DH 대조): χ₁(order 4)
 
 사용 환경: system python3 + cypari2
-
 결과: results/generalized_dh_offcritical_121.txt
 =============================================================================
 """
@@ -48,129 +48,119 @@ def log(msg=''):
 START = time.time()
 
 log("=" * 72)
-log("[실험 #121] 일반화 DH off-critical 영점 탐색 (PARI, v2)")
+log("[실험 #121] 일반화 DH off-critical 영점 탐색 (PARI, v3)")
 log("=" * 72)
 log(f"시작: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 log()
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 1. Root number 계산 (Gauss sum)
+# 1. Root number 계산 + DH 각도
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-log("━━━ 1. Root number 및 DH 각도 계산 ━━━")
+log("━━━ 1. Root number 및 DH ω 계산 ━━━")
+log("  공식: ω² = ε(χ)/ε(χ̄),  Λ_f(s) = Λ(s,χ) + ω·Λ(s,χ̄)")
+log("  FE: Λ_f(1-s) = Λ_f(s) (sign = +1)")
+log()
 
-def compute_char_table(q, k):
+def compute_root_number_pari(q, k):
     """
-    소수 q의 k번째 디리클레 지표 값 테이블.
-    원시근 g에 대해 χ_k(g^j) = e^{2πi·j·k/(q-1)}.
+    ε(χ_k) = Λ(s,χ_k)/Λ(1-s,χ̄_k)  from lfunlambda.
+    직접 PARI에서 수치 계산 — Gauss sum 불필요.
     """
     g = int(pari(f'znprimroot({q})'))
-    vals = {}
-    for j in range(q - 1):
-        n = pow(g, j, q)
-        vals[n] = np.exp(2j * np.pi * j * k / (q - 1))
-    return vals
-
-def compute_root_number(q, k):
-    """ε(χ_k) = τ(χ_k) / (i^a · √q), where a = 0 if χ(-1)=1, a=1 if χ(-1)=-1."""
-    vals = compute_char_table(q, k)
-    # Gauss sum τ(χ) = Σ χ(n)·e^{2πin/q}
-    tau = sum(vals[n] * np.exp(2j * np.pi * n / q) for n in range(1, q))
-    chi_minus1 = vals[q - 1]
-    a = 0 if abs(chi_minus1 - 1) < 0.01 else 1
-    eps = tau / (1j**a * np.sqrt(q))
-    return eps, a
-
-def compute_dh_omega(q, k):
-    """ω² = ε(χ̄)/ε(χ) = ε(χ_{q-1-k})/ε(χ_k). Returns ω = √(ratio)."""
+    g_k = pow(g, k, q)
     k_bar = (q - 1) - k
-    eps_k, a_k = compute_root_number(q, k)
-    eps_kb, a_kb = compute_root_number(q, k_bar)
-    ratio = eps_kb / eps_k
-    omega = np.sqrt(ratio)
-    return omega, eps_k, eps_kb, a_k
+    g_kb = pow(g, k_bar, q)
 
-# 모든 구성의 ω 계산
+    Lk = pari(f'lfuncreate(Mod({g_k},{q}))')
+    Lkb = pari(f'lfuncreate(Mod({g_kb},{q}))')
+
+    # ε(χ) = Λ(s,χ)/Λ(1-s,χ̄) — 임의 s에서 상수
+    s_test = pari('0.3+10*I')
+    s_test_conj = pari('0.7-10*I')  # 1-s
+    lam_s = complex(pari.lfunlambda(Lk, s_test))
+    lam_bar_1ms = complex(pari.lfunlambda(Lkb, s_test_conj))
+    eps = lam_s / lam_bar_1ms
+    return eps, g, g_k, g_kb
+
 CONFIGS_DATA = []
 
 for q, k, name in [(7, 1, "mod7-χ₁(ord6)"), (7, 2, "mod7-χ₂(ord3)"),
                      (11, 1, "mod11-χ₁(ord10)"), (11, 2, "mod11-χ₂(ord5)"),
                      (5, 1, "mod5-DH(대조)")]:
-    omega, eps, eps_bar, a = compute_dh_omega(q, k)
-    # 검증: ω²·ε(χ) = ε(χ̄)
-    check = omega**2 * eps
-    err = abs(check - eps_bar)
-
     k_bar = (q - 1) - k
     order = (q - 1) // np.gcd(k, q - 1)
-    log(f"  {name}: q={q}, k={k}, k̄={k_bar}, order={order}")
-    log(f"    ε(χ)  = {eps:.6f}, |ε|={abs(eps):.8f}")
-    log(f"    ε(χ̄) = {eps_bar:.6f}")
-    log(f"    ω = {omega:.6f}, |ω|={abs(omega):.8f}")
-    log(f"    검증 ω²·ε(χ)=ε(χ̄): err={err:.2e} {'✅' if err < 1e-10 else '❌'}")
 
-    # FE sign: c = ω·ε(χ)
-    c = omega * eps
-    log(f"    FE sign c = ω·ε(χ) = {c:.6f}, |c|={abs(c):.8f}")
+    eps_chi, g, g_k, g_kb = compute_root_number_pari(q, k)
+    eps_chi_bar, _, _, _ = compute_root_number_pari(q, k_bar)
+
+    # ω² = ε(χ)/ε(χ̄)
+    ratio = eps_chi / eps_chi_bar
+    omega = np.sqrt(ratio)
+
+    # FE 검증: Λ_f(1-s)/Λ_f(s) = 1
+    Lk_fe = pari(f'lfuncreate(Mod({g_k},{q}))')
+    Lkb_fe = pari(f'lfuncreate(Mod({g_kb},{q}))')
+    s_fe = pari('0.3+10*I')
+    s_fe_m = pari('0.7-10*I')
+    Lf_s = complex(pari.lfunlambda(Lk_fe, s_fe)) + omega * complex(pari.lfunlambda(Lkb_fe, s_fe))
+    Lf_1ms = complex(pari.lfunlambda(Lk_fe, s_fe_m)) + omega * complex(pari.lfunlambda(Lkb_fe, s_fe_m))
+    fe_check = abs(Lf_1ms / Lf_s - 1.0) if abs(Lf_s) > 1e-50 else 999
+
+    log(f"  {name}: q={q}, g={g}, g^k={g_k}, g^k̄={g_kb}, order={order}")
+    log(f"    ε(χ) = {eps_chi:.6f}, |ε|={abs(eps_chi):.8f}")
+    log(f"    ε(χ̄) = {eps_chi_bar:.6f}")
+    log(f"    ω = {omega:.6f}, |ω|={abs(omega):.8f}")
+    log(f"    FE check |Λ_f(1-s)/Λ_f(s) - 1| = {fe_check:.2e} {'✅' if fe_check < 1e-6 else '❌'}")
     log()
+
+    # parity a: χ(-1)=(-1)^a. compute from character table
+    g_prim = int(pari(f'znprimroot({q})'))
+    # χ_k(g^j) = e^{2πi·j·k/(q-1)}. χ(-1) = χ(q-1). q-1 = g^{(q-1)/2} mod q (since ord(g)=q-1)
+    # So χ(-1) = e^{2πi·(q-1)/2·k/(q-1)} = e^{πik} = (-1)^k
+    a_parity = k % 2
+    log(f"    a(parity) = {a_parity} ({'홀수' if a_parity else '짝수'})")
 
     CONFIGS_DATA.append({
         'q': q, 'k': k, 'k_bar': k_bar, 'name': name,
-        'omega': omega, 'a': a, 'order': order
+        'omega': omega, 'order': order, 'g_k': g_k, 'g_kb': g_kb,
+        'a': a_parity
     })
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 2. PARI L-함수 생성 및 평가 함수
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-log("━━━ 2. L-함수 생성 ━━━")
-
-def make_lfun_pair(q, k):
-    """PARI L-함수 쌍 생성. 원시근 g의 k승과 k̄=(q-1-k)승."""
-    g = int(pari(f'znprimroot({q})'))
-    g_k = pow(g, k, q)
-    k_bar = (q - 1) - k
-    g_kb = pow(g, k_bar, q)
-    L_chi = pari(f"lfuncreate(Mod({g_k},{q}))")
-    L_chi_bar = pari(f"lfuncreate(Mod({g_kb},{q}))")
-    fe = float(pari(f"lfuncheckfeq(lfuncreate(Mod({g_k},{q})))"))
-    log(f"  {q}: g={g}, g^k={g_k}, g^k̄={g_kb}, FE check={fe:.0f}")
-    return L_chi, L_chi_bar
-
-LFUN_PAIRS = {}
-for cfg in CONFIGS_DATA:
-    q, k = cfg['q'], cfg['k']
-    key = (q, k)
-    if key not in LFUN_PAIRS:
-        LFUN_PAIRS[key] = make_lfun_pair(q, k)
-
-log()
-
-
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 3. 일반화 DH 함수 (올바른 ω)
+# 2. Λ_f 평가 함수
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-def eval_L(L_obj, sigma, t):
-    """L(σ+it) 평가."""
-    s_str = f"{sigma} + {t}*I" if t >= 0 else f"{sigma} - {abs(t)}*I"
-    return complex(pari.lfun(L_obj, pari(s_str)))
+# Python Gen 객체로 L-함수 저장
+LFUN_OBJS = []
+for i, cfg in enumerate(CONFIGS_DATA):
+    L_chi = pari(f'lfuncreate(Mod({cfg["g_k"]},{cfg["q"]}))')
+    L_bar = pari(f'lfuncreate(Mod({cfg["g_kb"]},{cfg["q"]}))')
+    LFUN_OBJS.append((L_chi, L_bar))
 
-def eval_Lambda(L_obj, sigma, t):
-    """Λ(σ+it) = completed L-function."""
-    s_str = f"{sigma} + {t}*I" if t >= 0 else f"{sigma} - {abs(t)}*I"
-    return complex(pari.lfun(L_obj, pari(s_str), 1))
+def eval_L_f(idx, sigma, t, omega):
+    """f(s) = L(s,χ) + ω·L(s,χ̄)  via lfun (빠름, 영점 탐색용)."""
+    s_str = f"{sigma}+{t}*I" if t >= 0 else f"{sigma}-{abs(t)}*I"
+    s = pari(s_str)
+    L_chi, L_bar = LFUN_OBJS[idx]
+    v1 = complex(pari.lfun(L_chi, s))
+    v2 = complex(pari.lfun(L_bar, s))
+    return v1 + omega * v2
 
-def gen_dh_Lambda(sigma, t, omega, L_chi, L_chi_bar):
-    """Λ_f(s) = Λ(s,χ) + ω·Λ(s,χ̄)  — 올바른 DH 구성."""
-    v1 = eval_Lambda(L_chi, sigma, t)
-    v2 = eval_Lambda(L_chi_bar, sigma, t)
+def eval_Lambda_f(idx, sigma, t, omega):
+    """Λ_f(s) = Λ(s,χ) + ω·Λ(s,χ̄)  via lfunlambda (느림, κδ² 측정용)."""
+    s_str = f"{sigma}+{t}*I" if t >= 0 else f"{sigma}-{abs(t)}*I"
+    s = pari(s_str)
+    L_chi, L_bar = LFUN_OBJS[idx]
+    v1 = complex(pari.lfunlambda(L_chi, s))
+    v2 = complex(pari.lfunlambda(L_bar, s))
     return v1 + omega * v2
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 4. Off-critical 영점 탐색
+# 3. Off-critical 영점 탐색
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-log("━━━ 3. Off-critical 영점 탐색 ━━━")
+log("━━━ 2. Off-critical 영점 탐색 ━━━")
 
 T_MAX = 200
 SIGMA_SCAN = [0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90]
@@ -178,8 +168,8 @@ T_STEP = 0.5
 THRESHOLD = 0.5
 
 
-def find_offcritical(omega, L_chi, L_chi_bar, name):
-    """Λ_f(s) off-critical 영점 1D 스캔."""
+def find_offcritical(idx, omega, name):
+    """f(s) = L(s,χ)+ω·L(s,χ̄) off-critical 영점 1D 스캔 (lfun 사용, 빠름)."""
     log(f"\n  ─── {name}, ω={omega:.6f} ───")
     t0 = time.time()
 
@@ -189,48 +179,51 @@ def find_offcritical(omega, L_chi, L_chi_bar, name):
         prev_abs = None
         prev_t = None
 
-        for t in ts:
+        for t_val in ts:
             try:
-                val = gen_dh_Lambda(sigma, t, omega, L_chi, L_chi_bar)
+                val = eval_L_f(idx, sigma, t_val, omega)
                 cur_abs = abs(val)
             except Exception:
                 cur_abs = 1e30
 
-            # 국소 최솟값 검출
             if prev_abs is not None and prev_abs < THRESHOLD:
                 if cur_abs > prev_abs:
                     candidates.append((sigma, float(prev_t), prev_abs))
 
             prev_abs = cur_abs
-            prev_t = t
+            prev_t = t_val
+
+        elapsed = time.time() - t0
+        log(f"    σ={sigma:.2f}: {len(candidates)}개 누적 ({elapsed:.0f}초)")
 
     elapsed_scan = time.time() - t0
-    log(f"    스캔: {len(candidates)}개 후보 ({elapsed_scan:.1f}초)")
+    log(f"    스캔 완료: {len(candidates)}개 후보 ({elapsed_scan:.1f}초)")
 
-    # 상위 30개 정밀화
+    # 상위 15개 정밀화 (lfun 사용 — 빠름)
     confirmed = []
-    for sigma0, t0_val, v0 in sorted(candidates, key=lambda x: x[2])[:30]:
+    for sigma0, t0_val, v0 in sorted(candidates, key=lambda x: x[2])[:15]:
         try:
             def objective(x):
-                return abs(gen_dh_Lambda(x[0], x[1], omega, L_chi, L_chi_bar))
+                return abs(eval_L_f(idx, x[0], x[1], omega))
 
             res = minimize(objective, [sigma0, t0_val], method='Nelder-Mead',
-                           options={'xatol': 1e-10, 'fatol': 1e-14, 'maxiter': 2000})
+                           options={'xatol': 1e-10, 'fatol': 1e-14, 'maxiter': 500})
 
             sigma_r, t_r = res.x
             val_r = res.fun
 
-            if 0.01 < sigma_r < 0.99 and t_r > 0.5 and abs(sigma_r - 0.5) > 0.01 and val_r < 1e-6:
-                # 대칭: σ < 0.5이면 mirror로 변환
+            if 0.01 < sigma_r < 0.99 and t_r > 0.5 and abs(sigma_r - 0.5) > 0.01 and val_r < 1e-8:
                 if sigma_r < 0.5:
                     sigma_r = 1.0 - sigma_r
 
                 is_dup = any(abs(c['sigma'] - sigma_r) < 0.005 and
                              abs(c['t'] - t_r) < 0.5 for c in confirmed)
                 if not is_dup:
-                    confirmed.append({'sigma': sigma_r, 't': t_r, 'absf': val_r})
+                    # lfunlambda로 검증
+                    lam_val = abs(eval_Lambda_f(idx, sigma_r, t_r, omega))
+                    confirmed.append({'sigma': sigma_r, 't': t_r, 'absf': val_r, 'absLam': lam_val})
                     log(f"    ✅ #{len(confirmed)}: σ={sigma_r:.8f}, t={t_r:.6f}, "
-                        f"|Λ_f|={val_r:.3e}, |σ-½|={abs(sigma_r-0.5):.6f}")
+                        f"|f|={val_r:.3e}, |Λ_f|={lam_val:.3e}, |σ-½|={abs(sigma_r-0.5):.6f}")
         except Exception:
             pass
 
@@ -240,26 +233,48 @@ def find_offcritical(omega, L_chi, L_chi_bar, name):
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 5. c₁ 측정
+# 4. κδ² + c₁ 측정
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 DELTAS = [0.01, 0.02, 0.03, 0.05, 0.07, 0.1]
 
-def measure_c1(zero, omega, L_chi, L_chi_bar):
-    """κδ² 다중 δ + c₁ fit."""
-    sigma0, t0 = zero['sigma'], zero['t']
+def gamma_deriv_ratio(sigma, t, q, a):
+    """
+    γ'/γ(s) for Dirichlet L-function χ mod q with parity a.
+    γ(s) = (q/π)^{s/2} · Γ((s+a)/2)
+    γ'/γ = (1/2)·log(q/π) + (1/2)·ψ((s+a)/2)
+    """
+    from scipy.special import digamma
+    s_half = complex((sigma + a) / 2, t / 2)
+    # scipy digamma: real argument → extend via recurrence for complex
+    # Use PARI for complex digamma instead
+    s_str = f"{(sigma+a)/2}+{t/2}*I" if t >= 0 else f"{(sigma+a)/2}-{abs(t)/2}*I"
+    psi_val = complex(pari(f"psi({s_str})"))
+    return 0.5 * np.log(q / np.pi) + 0.5 * psi_val
 
+
+def measure_c1(zero, idx, omega):
+    """κδ² 다중 δ + c₁ fit.  Λ = γ·f 보정 포함."""
+    sigma0, t0 = zero['sigma'], zero['t']
+    q = CONFIGS_DATA[idx]['q']
+    a_val = CONFIGS_DATA[idx]['a']
+
+    # κ = |Λ_f'/Λ_f|² = |f'/f + γ'/γ|²
+    # f(s) = L(s,χ) + ω·L(s,χ̄),  γ는 두 성분 공통 (같은 패리티)
     kd2_data = []
     for delta in DELTAS:
-        s_off_sigma = sigma0 + delta
+        s_off = sigma0 + delta
         h = 1e-7
         try:
-            lam_c = gen_dh_Lambda(s_off_sigma, t0, omega, L_chi, L_chi_bar)
-            lam_p = gen_dh_Lambda(s_off_sigma + h, t0, omega, L_chi, L_chi_bar)
-            lam_m = gen_dh_Lambda(s_off_sigma - h, t0, omega, L_chi, L_chi_bar)
-            if abs(lam_c) > 1e-50:
-                lam_d = (lam_p - lam_m) / (2 * h)
-                kappa = abs(lam_d / lam_c) ** 2
+            f_c = eval_L_f(idx, s_off, t0, omega)
+            f_p = eval_L_f(idx, s_off + h, t0, omega)
+            f_m = eval_L_f(idx, s_off - h, t0, omega)
+            if abs(f_c) > 1e-200:
+                f_d = (f_p - f_m) / (2 * h)
+                logderiv_f = f_d / f_c  # f'/f
+                gamma_corr = gamma_deriv_ratio(s_off, t0, q, a_val)
+                logderiv_Lambda = logderiv_f + gamma_corr  # Λ'/Λ
+                kappa = abs(logderiv_Lambda) ** 2
                 kd2 = kappa * delta**2
                 kd2_data.append((delta, kd2))
         except Exception:
@@ -274,15 +289,18 @@ def measure_c1(zero, omega, L_chi, L_chi_bar):
     coeffs, _, _, _ = np.linalg.lstsq(A, y, rcond=None)
     c1_fit = coeffs[0]
 
-    # c₁ analytic: Re(Λ''/Λ')(ρ)
+    # c₁ analytic: c₁ = Re(f''/f') + 2·Re(γ'/γ(ρ))
+    # 유도: Λ'/Λ = 1/δ + B + O(δ), B = f''/f'/2 + γ'/γ
+    # κδ² = 1 + 2·Re(B)·δ + ... → c₁ = 2Re(B) = Re(f''/f') + 2Re(γ'/γ)
     h2 = 1e-6
     try:
-        lam_p = gen_dh_Lambda(sigma0 + h2, t0, omega, L_chi, L_chi_bar)
-        lam_c = gen_dh_Lambda(sigma0, t0, omega, L_chi, L_chi_bar)
-        lam_m = gen_dh_Lambda(sigma0 - h2, t0, omega, L_chi, L_chi_bar)
-        Ld = (lam_p - lam_m) / (2 * h2)
-        Ldd = (lam_p - 2*lam_c + lam_m) / (h2**2)
-        c1_analytic = (Ldd / Ld).real if abs(Ld) > 1e-50 else None
+        f_p = eval_L_f(idx, sigma0 + h2, t0, omega)
+        f_c = eval_L_f(idx, sigma0, t0, omega)
+        f_m = eval_L_f(idx, sigma0 - h2, t0, omega)
+        fd = (f_p - f_m) / (2 * h2)
+        fdd = (f_p - 2*f_c + f_m) / (h2**2)
+        gamma_re = gamma_deriv_ratio(sigma0, t0, q, a_val).real
+        c1_analytic = (fdd / fd).real + 2 * gamma_re if abs(fd) > 1e-200 else None
     except Exception:
         c1_analytic = None
 
@@ -290,23 +308,21 @@ def measure_c1(zero, omega, L_chi, L_chi_bar):
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 6. 실행
+# 5. 실행
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 all_results = []
 
-for cfg in CONFIGS_DATA:
-    q, k = cfg['q'], cfg['k']
-    L_chi, L_chi_bar = LFUN_PAIRS[(q, k)]
+for idx, cfg in enumerate(CONFIGS_DATA):
     omega = cfg['omega']
     name = cfg['name']
 
-    zeros = find_offcritical(omega, L_chi, L_chi_bar, name)
+    zeros = find_offcritical(idx, omega, name)
 
     if zeros:
         log(f"\n  ━━━ c₁ 측정: {name} ━━━")
         for z in zeros:
-            c1_fit, c1_analytic, kd2_data = measure_c1(z, omega, L_chi, L_chi_bar)
+            c1_fit, c1_analytic, kd2_data = measure_c1(z, idx, omega)
             dist = abs(z['sigma'] - 0.5)
             mirror = 1.0 / dist if dist > 0.001 else None
 
@@ -333,7 +349,7 @@ for cfg in CONFIGS_DATA:
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 7. 종합
+# 6. 종합
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 log(f"\n{'='*72}")
 log("종합")
@@ -390,7 +406,8 @@ if n_new > 0:
                    for r in all_results if r.get('c1_fit') and 'mod5' not in r.get('config', '')]
     if c1_products:
         mean_p = np.mean(c1_products)
-        log(f"  SC2 (c₁·|σ-½|≈1): mean={mean_p:.3f}")
+        std_p = np.std(c1_products) if len(c1_products) > 1 else 0
+        log(f"  SC2 (c₁·|σ-½|≈1): mean={mean_p:.3f}±{std_p:.3f}")
 
 # 판정
 if n_new >= 3:
