@@ -1,0 +1,1081 @@
+% ============================================================================
+%  ξ-다발 곡률에 의한 임계선 판별:
+%  L-함수 족에 걸친 보편성과 해석적 감별 정리
+%  (프로젝트 RDL — 제2논문)
+%  결과 #107–#117
+%  ── 한국어판 ──
+%  컴파일: xelatex extensions_master_ko.tex (2회 실행)
+% ============================================================================
+\documentclass[11pt, a4paper]{article}
+
+% ── 한글 지원 (XeLaTeX + kotex) ────────────────────────────────────────────
+\usepackage{kotex}
+\usepackage{fontspec}
+
+% ── Layout ─────────────────────────────────────────────────────────────────
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ── Mathematics ─────────────────────────────────────────────────────────────
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{bm}
+
+% ── Tables ──────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{longtable}
+
+% ── Colors ──────────────────────────────────────────────────────────────────
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\definecolor{txblue}{HTML}{2563EB}
+\definecolor{chgreen}{HTML}{059669}
+\definecolor{rxorange}{HTML}{D97706}
+\definecolor{lossred}{HTML}{DC2626}
+\definecolor{decodepurple}{HTML}{7C3AED}
+\definecolor{secgray}{HTML}{374151}
+\definecolor{lightbg}{HTML}{F8FAFC}
+\definecolor{accentblue}{HTML}{3B82F6}
+\definecolor{zetaviolet}{HTML}{6D28D9}
+\definecolor{primegold}{HTML}{B45309}
+
+% ── Cross-references & Links ───────────────────────────────────────────────
+\usepackage[colorlinks=true, linkcolor=accentblue, citecolor=chgreen,
+            urlcolor=txblue]{hyperref}
+\usepackage[capitalise, noabbrev]{cleveref}
+
+% ── Theorem Environments (한국어, 제1논문 번호 연속: 정리 1–4 이후) ──────
+\theoremstyle{plain}
+\newtheorem{theorem}{정리}
+\setcounter{theorem}{4}               % 다음 정리는 정리 5
+\newtheorem{lemma}[theorem]{보조정리}
+\newtheorem{proposition}[theorem]{명제}
+\newtheorem{corollary}[theorem]{따름정리}
+\newtheorem{conjecture}[theorem]{추측}
+\newtheorem{observation}[theorem]{관찰}
+
+\theoremstyle{definition}
+\newtheorem{definition}{정의}[section]
+\newtheorem{property}{성질}[section]
+\newtheorem{remark}{비고}[section]
+\newtheorem{example}{예제}[section]
+
+% cleveref 한국어 이름 설정
+\crefname{theorem}{정리}{정리}
+\Crefname{theorem}{정리}{정리}
+\crefname{corollary}{따름정리}{따름정리}
+\Crefname{corollary}{따름정리}{따름정리}
+\crefname{lemma}{보조정리}{보조정리}
+\Crefname{lemma}{보조정리}{보조정리}
+\crefname{definition}{정의}{정의}
+\Crefname{definition}{정의}{정의}
+\crefname{remark}{비고}{비고}
+\Crefname{remark}{비고}{비고}
+\crefname{section}{§}{§}
+\Crefname{section}{§}{§}
+\crefname{appendix}{부록}{부록}
+\Crefname{appendix}{부록}{부록}
+\crefname{table}{표}{표}
+\Crefname{table}{표}{표}
+\crefname{equation}{식}{식}
+\Crefname{equation}{식}{식}
+
+% ── Custom Commands ────────────────────────────────────────────────────────
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\eg}{\textit{e.g.}}
+\newcommand{\sectionline}{\noindent\rule{\textwidth}{0.4pt}\vspace{0.3em}}
+
+% 다발 관련 명령어
+\newcommand{\Lam}{\Lambda}             % 완성 L-함수
+\newcommand{\kap}{\kappa}             % 다발 곡률
+\newcommand{\mono}{\mathcal{M}}       % 모노드로미
+\newcommand{\FE}{\mathrm{FE}}         % 함수방정식
+\newcommand{\cv}{\mathrm{CV}}         % 변동계수
+\newcommand{\DHf}{\mathrm{DH}}         % 다벤포트-하일브론
+\newcommand{\EC}{\mathrm{EC}}         % 타원곡선
+\newcommand{\RS}{\mathrm{RS}}         % 랭킨-셀베르그
+\newcommand{\Ep}{\mathrm{Ep}}         % 엡스타인
+
+% ── Box Style ──────────────────────────────────────────────────────────────
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% ============================================================================
+\begin{document}
+
+% ── 제목 ──────────────────────────────────────────────────────────────────
+\begin{center}
+  {\LARGE\bfseries $\xi$-다발 곡률에 의한 임계선 판별}\\[6pt]
+  {\large\bfseries $L$-함수 족에 걸친 보편성\\[2pt]
+   과 해석적 감별 정리}\\[18pt]
+  {\large 김영후}\\[4pt]
+  {\normalsize 독립 연구자}\\[4pt]
+  {\small\today}\\[4pt]
+  {\small\textit{(동반 논문: ``광학 격자에서 제타 풍경까지의 위상 양자화,'' 2026)}}
+\end{center}
+
+\vspace{1.5em}
+
+% ── 초록 ───────────────────────────────────────────────────────────────────
+\begin{tcolorbox}[
+  colback=lightbg, colframe=zetaviolet!60!black,
+  title={\bfseries 초록}, fonttitle=\large,
+  arc=3pt, boxrule=0.8pt, toptitle=3pt, bottomtitle=3pt
+]
+Kim~(2026)의 $\xi$-다발 프레임워크를 확장하여,
+곡률 불변량 $\kappa\delta^{2}$가 확장된 $L$-함수 족---
+타원곡선 $L$-함수 (계수 0--3, 도체 11--10099),
+랭킨-셀베르그 $\mathrm{GL}(4)$, 데데킨트
+$\zeta$-함수 (7개의 허수 이차체), 오일러 곱을 갖지 않는
+세 형태를 포함한 엡스타인 $\zeta$-함수 (유수 $h>1$)---에 걸쳐
+함수방정식 검증, 영점 열거, $\kappa\delta^{2}\approx 1$,
+모노드로미 $\pm\pi$의 네 가지 보편적 성질을 만족함을 보인다.
+엡스타인 결과는 $\xi$-다발이 오일러 곱 구조가 아닌
+함수방정식 구조에만 의존함을 확립한다
+(\textbf{정리~6}).
+
+함수방정식은 만족하지만 임계선 외 영점을 갖는
+다벤포트-하일브론 (DH) 함수의 체계적 연구는
+예리한 판별자를 드러낸다: 임계선 위 영점은
+$\kappa\delta^{2} = 1 + O(\delta^{2})$를,
+임계선 외 영점은 $c_{1}\neq 0$인
+$\kappa\delta^{2} = 1 + c_{1}\delta + O(\delta^{2})$를 만족한다.
+$c_{1} = 0$인 것과 $\sigma_{0}=\tfrac{1}{2}$인 것이
+동치임을 해석적으로 증명하고 (\textbf{정리~7}),
+네 개의 알려진 DH 임계선 외 영점 모두에 대해
+$c_{1} = \mathrm{Re}(\Lambda''(\rho)/\Lambda'(\rho))$가
+$0.5\%$ 이내로 성립함을 수치적으로 검증한다.
+여덟 개의 $\delta$ 값에 걸친 $\delta$-스윕은
+로그-로그 스케일링 지수 $2.00\pm0.003$ (임계선 위)
+대 $0.96\pm0.04$ (임계선 외)를 확인하며,
+검사된 모든 $\delta$에서 완전한 분리가 성립한다.
+이 결과들은 리만 가설에 대한 $\xi$-다발 기반 판별자를 제공한다:
+임계선 외에 놓인 영점은 $\kappa\delta^{2}$에
+감지 가능한 $O(\delta)$ 보정항을 생성한다.
+
+\smallskip
+\noindent 열한 개의 수치 결과가 프레임워크의 보편성과
+판별 정리를 지지한다.
+\end{tcolorbox}
+
+\vspace{0.5em}
+\noindent\textbf{핵심어:} $\xi$-다발, $\kappa\delta^{2}$ 곡률,
+타원곡선 $L$-함수, 엡스타인 $\zeta$-함수, 다벤포트-하일브론 함수,
+함수방정식, 임계선 판별자, 모노드로미, 리만 가설
+
+\tableofcontents
+\newpage
+
+
+% ============================================================================
+\section{서론}
+\label{sec:intro}
+% ============================================================================
+
+동반 논문 Kim~(2026) (이하 \textit{제1논문})은
+\emph{$\xi$-다발 프레임워크}를 도입하였다:
+각 완성 $L$-함수 $\Lambda(s)$에 임계대 위의 선다발을 대응시키고,
+곡률 형식 $\kappa = |\Lambda'/\Lambda|^{2}$를 장착하는 기하학적 구성이다.
+세 주요 정리(정리 1--3)는 임계선 위에서의 곡률을
+가우스-보네형 적분을 통해 특성화하며,
+$\mathrm{GL}(1)$--$\mathrm{GL}(5)$ 족에 걸친
+81개의 수치 결과가 프레임워크를 뒷받침한다.
+
+본 논문은 두 가지 상호 보완적 목표를 추구한다.
+
+\paragraph{목표~A: 보편성.}
+제1논문에서 다루지 않은 족들에 대해
+네 가지 $\xi$-다발 성질 (P1~함수방정식, P2~영점 개수,
+P3~$\kappa\delta^{2}\approx 1$, P4~모노드로미 $\pm\pi$)을 검사한다:
+다양한 계수 및 도체를 갖는 타원곡선 $L$-함수 (\S\ref{sec:ec}),
+랭킨-셀베르그 $\mathrm{GL}(4)$ 합성곱 (\S\ref{sec:gl4rs}),
+데데킨트 $\zeta$-함수 (\S\ref{sec:dedekind}),
+유수 $h>1$인 비-오일러 형태를 포함한 엡스타인 $\zeta$-함수
+(\S\ref{sec:epstein}).
+양성 결과의 폭은 ``FE-only'' 충분성 정리(정리~6)를 동기부여한다.
+
+\paragraph{목표~B: 판별.}
+다벤포트-하일브론 (DH) 함수는 임계선 외 영점이
+명시적으로 알려진 최초의 \emph{통제된} 시험 사례이다.
+임계선 위 대 임계선 외 DH 영점에서의 $\kappa\delta^{2}$ 비교
+(\S\ref{sec:dh})는 질적 차이를 드러낸다:
+$\kappa\delta^{2}-1 = O(\delta^{2})$ 대 $O(\delta)$.
+이 차이를 해석적으로 증명하고 (정리~7),
+체계적인 $\delta$-스윕 (결과~\#116)과
+테일러 계수 계산 (결과~\#117)으로 검증한다.
+
+\paragraph{기여 요약.}
+\begin{enumerate}
+  \item \textbf{정리~5} (\S\ref{ssec:thm5}): 임계선 위의 타원곡선
+        $L$-함수에 대해 $\kappa\delta^{2}$는
+        계수, 도체, 함수방정식의 부호($\varepsilon$)에 무관하게
+        불변이다.
+  \item \textbf{정리~6} (\S\ref{ssec:thm6}): 비-오일러 엡스타인
+        $\zeta$-함수에 대해 네 가지 $\xi$-다발 성질이 통과하여,
+        오일러 곱 구조가 \emph{불필요함}을 확립한다.
+  \item \textbf{정리~7} (\S\ref{ssec:thm7}): $c_{1}=0$인 것과
+        $\sigma_{0}=\tfrac{1}{2}$인 것이 동치이다.
+        여기서 $c_{1}$은 $\kappa\delta^{2}$의 주도 임계선 외
+        테일러 계수이다.
+  \item \textbf{종합 요약표} (표~\ref{tab:summary})에
+        열한 개의 새로운 결과 (\#107--\#117)를 수록한다.
+\end{enumerate}
+
+\noindent\textbf{표기법.} $\rho = \sigma_{0}+it_{0}$는 $\Lambda$의 영점,
+$\delta=|\sigma-\sigma_{0}|$는 수평 오프셋,
+$d=|\sigma_{0}-\tfrac{1}{2}|$는 임계선까지의 거리를 나타낸다.
+곡률 $\kappa(s) = |\Lambda'(s)/\Lambda(s)|^{2}$과
+이를 $\delta$로 스케일링한 $\kappa\delta^{2}$가
+주요 관측량이다.
+
+
+% ============================================================================
+\section{프레임워크 요약}
+\label{sec:recap}
+% ============================================================================
+
+본 절에서는 제1논문의 정의와 주요 결과 중 이하에서 필요한 것만 간략히
+재서술한다. 이하에서 $\Lambda(s)$는 $|\varepsilon|=1$인
+함수방정식 $\Lambda(s) = \varepsilon\,\overline{\Lambda(1-\bar{s})}$를
+만족하는 완성 $L$-함수를 가리킨다.
+
+\begin{definition}[$\xi$-다발 곡률]
+  $s\neq\rho$ ($\Lambda$의 임의의 영점)에서 \emph{곡률}을
+  \[
+    \kappa(s) \;:=\; \left|\frac{\Lambda'(s)}{\Lambda(s)}\right|^{2}
+  \]
+  으로 정의한다. 수평 오프셋 $\delta$를 갖는 영점 $\rho$에서의
+  \emph{$\delta$-스케일링된 곡률}은 $s = \rho+\delta$에서
+  계산한 $\kappa\delta^{2}$이다.
+\end{definition}
+
+\begin{definition}[네 가지 $\xi$-다발 성질]
+  완성 $L$-함수 $\Lambda$가 \emph{네 가지 성질 (4P)을 통과한다}는 것은
+  다음을 의미한다:
+  \begin{description}
+    \item[P1] 함수방정식:
+      $|\Lambda(s)/(\varepsilon\,\overline{\Lambda(1-\bar{s})})-1|<10^{-20}$이
+      검사점들에서 성립.
+    \item[P2] 영점 개수: $[T_{0}, T_{1}]$에서의 영점 개수가
+      편각 원리 계산값과 일치.
+    \item[P3] 곡률: $\kappa\delta^{2}\approx 1$
+      (임계선 위 영점에서 $\delta=0.03$ 기준 잔차 $<2\%$).
+    \item[P4] 모노드로미: 임계선을 따라
+      $|{}\Delta\!\arg\Lambda\!/\pi|=1$ (Hardy $Z$-함수 부호 변환)
+      또는 각 영점 주위의 등고선 적분 $=2\pi$.
+  \end{description}
+\end{definition}
+
+\begin{remark}[P3의 수반성 (주도 차수에서)]
+\label{rem:tautology}
+  $\sigma_{0}=\tfrac{1}{2}$에서 함수방정식은
+  $\mathrm{Re}(\Lambda'(\rho)/\Lambda'(\rho+\delta))$가
+  주도 차수에서 소멸하도록 강제하므로,
+  $\kappa\delta^{2}=1+O(\delta^{2})$는
+  함수방정식의 직접적 귀결이지 독립적 진술이 아니다.
+  비자명한 정보는 $O(\delta)$ 보정 계수 $c_{1}$에 있다:
+  임계선 위 영점에서 $c_{1}=0$이고,
+  $c_{1}\neq 0$은 임계선 외 영점을 신호한다 (정리~7).
+\end{remark}
+
+제1논문의 세 주요 정리 (정리 1--3)는 다음을 확립한다:
+(T1) 임계선 위에서 $\kappa$에 대한 가우스-보네형 적분 공식;
+(T2) 임계선 위 영점에서 $\delta\to 0$에 따른
+$\kappa\delta^{2}\to 1$ 극한;
+(T3) GL(5)까지의 디리클레 $L$-함수에 대한 모노드로미 $\pm\pi$ 성질.
+제1논문의 정리~4는 $\mathrm{GL}(1)$--$\mathrm{GL}(5)$에 대한
+임계선 위 $\kappa\delta^{2}$ 보편성을 서술한다.
+본 논문은 이를 EC, 랭킨-셀베르그, 데데킨트, 엡스타인 족으로 확장하고
+(정리~5--6), 판별 기준을 제공한다 (정리~7).
+
+
+% ============================================================================
+\section{타원곡선 $L$-함수}
+\label{sec:ec}
+% ============================================================================
+
+\subsection{함수방정식의 부호와 $\varepsilon$-보정}
+\label{ssec:epsilon}
+
+타원곡선 $L$-함수 $L(E,s)$는 천이 변수 $s\mapsto s-\tfrac{1}{2}$ 아래에서
+$\Lambda(s) = \varepsilon\,\overline{\Lambda(2-\bar{s})}$를 만족한다.
+여기서 $\varepsilon=\pm 1$은 곡선 $E$에 의해 결정된다.
+$\varepsilon=-1$ (홀수 함수방정식 부호를 갖는 곡선,
+예: 37a1, 53a1, 79a1, 5077a1)인 경우,
+표준 Hardy $Z$-함수 방식의 부호 변환 계산은 실패한다:
+$\text{rank}(E)$차 중심 영점이
+$\sigma_{0}=\tfrac{1}{2}$에서 모든 부호 변환을 흡수하여
+P4의 거짓 실패를 야기한다
+(결과~\#107: 37a1은 $0/18$개의 부호 변환을 보고).
+
+\paragraph{해결책.}
+$\varepsilon=-1$ 곡선에 대해 Hardy 부호 변환 계산을
+허수부로 대체한다: $\mathrm{Im}(\Lambda(\tfrac{1}{2}+it))$가
+각 단순 임계선 위 영점에서 부호를 바꾼다 (AP-18 보정).
+이 치환으로 \textit{모든} 여덟 개의 검사 곡선이 P4를 통과한다
+(결과~\#108).
+
+\medskip
+\noindent
+\textbf{결과~\#107} (\textit{$\varepsilon$-보정 이전 예비 단계}):
+여덟 개 EC 곡선 (계수 0--3, 도체 11--5077),
+PARI/GP \texttt{lfuncreate}, \texttt{realprecision=100}.
+P3는 전 경우에서 통과 ($\kappa\delta^{2}=1.000\pm0.000$).
+$\varepsilon=-1$ 곡선 전체에서 P4 실패 (Hardy $Z$ 부호 변환 방식).
+
+\medskip
+\noindent
+\textbf{결과~\#108} (\textit{$\varepsilon$-보정 이후}):
+동일한 여덟 곡선, $\varepsilon$-인식 모노드로미.
+여덟 곡선 전체가 $4/4$ 성질을 통과.
+
+\begin{table}[ht]
+\centering
+\caption{결과~\#108 — 여덟 EC 곡선, $\varepsilon$-보정 모노드로미.}
+\label{tab:ec108}
+\small
+\begin{tabular}{lrrrl}
+\toprule
+곡선 & 계수 & $N$ & $\varepsilon$ & P1/P2/P3/P4 \\
+\midrule
+11a1  & 0 & 11   & $+1$ & $\checkmark/\checkmark/\checkmark/\checkmark$ \\
+43a1  & 0 & 43   & $-1$ & $\checkmark/\checkmark/\checkmark/\checkmark$ \\
+197a1 & 0 & 197  & $+1$ & $\checkmark/\checkmark/\checkmark/\checkmark$ \\
+37a1  & 1 & 37   & $-1$ & $\checkmark/\checkmark/\checkmark/\checkmark$ \\
+53a1  & 1 & 53   & $-1$ & $\checkmark/\checkmark/\checkmark/\checkmark$ \\
+79a1  & 1 & 79   & $-1$ & $\checkmark/\checkmark/\checkmark/\checkmark$ \\
+389a1 & 2 & 389  & $+1$ & $\checkmark/\checkmark/\checkmark/\checkmark$ \\
+5077a1& 3 & 5077 & $-1$ & $\checkmark/\checkmark/\checkmark/\checkmark$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{계수 및 도체에 걸친 $\kappa_{\mathrm{near}}$ 보편성}
+\label{ssec:thm5}
+
+\textbf{결과~\#109}는 제1논문의 정의
+$\kappa(s)=|\Lambda'(s)/\Lambda(s)|^{2}$를 이용하여,
+동일한 여덟 EC 곡선에 대해
+다섯 개의 오프셋 $\delta\in\{0.01,0.02,0.03,0.05,0.10\}$에서
+$\kappa\delta^{2}$를 측정한다.
+
+\begin{table}[ht]
+\centering
+\caption{결과~\#109 — $\delta=0.03$에서의 $\kappa\delta^{2}$, 여덟 EC 곡선.}
+\label{tab:ec109}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+곡선 & 계수 & $N$ & $\varepsilon$ & $\kappa\delta^{2}$ ($\delta=0.03$) \\
+\midrule
+11a1   & 0 & 11    & $+1$ & $1.00442$ \\
+43a1   & 0 & 43    & $-1$ & $1.00774$ \\
+197a1  & 0 & 197   & $+1$ & $1.01801$ \\
+37a1   & 1 & 37    & $-1$ & $1.00654$ \\
+53a1   & 1 & 53    & $-1$ & $1.00715$ \\
+79a1   & 1 & 79    & $-1$ & $1.00670$ \\
+389a1  & 2 & 389   & $+1$ & $1.01036$ \\
+5077a1 & 3 & 5077  & $-1$ & $1.01705$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+$\delta=0.01$에서의 변동계수는 여덟 곡선 전체에 걸쳐 $0.13\%$ 미만이다.
+도체 $N$에 따른 완만한 증가 추세
+(\S\ref{ssec:conductor}에서 다룸)는
+주도 차수 보편성에 영향을 주지 않는다.
+
+\begin{theorem}[$\kappa\delta^{2}$ 계수-불변성]
+\label{thm:rankinv}
+  $E$를 도체 $N$, 해석적 계수 $r$,
+  함수방정식 부호 $\varepsilon=\pm 1$을 갖는
+  $\mathbb{Q}$ 위의 타원곡선이라 하자.
+  임의의 비중심 임계선 위 영점 $\rho=\tfrac{1}{2}+it_{0}$
+  ($t_{0}>0$)에 대해, 충분히 작은 $\delta>0$에서
+  \[
+    \kappa(\rho+\delta)\,\delta^{2}
+    \;=\; 1 \;+\; O(\delta^{2}),
+  \]
+  이 성립하며, 묵시 상수는 $r$, $N$, $\varepsilon$에 무관하다.
+\end{theorem}
+
+\begin{proof}
+  $\Lambda$의 임의의 단순 영점 $\rho$에서
+  $\Lambda(s) = (s-\rho)\,A(s)$, $A(\rho)\neq 0$으로 쓰면,
+  $\Lambda'(s)/\Lambda(s) = (s-\rho)^{-1} + A'(s)/A(s)$이므로
+  $\kappa(s)\,\delta^{2} = |1 + (s-\rho)\,A'(s)/A(s)|^{2}$.
+  $s=\rho+\delta$ (실수)에서 전개하면:
+  $\kappa(\rho+\delta)\,\delta^{2} = 1 + 2\delta\,\mathrm{Re}(A'(\rho)/A(\rho))
+  + O(\delta^{2})$.
+  함수방정식 $\Lambda(s) = \varepsilon\,\overline{\Lambda(1-\bar{s})}$는
+  $\sigma_{0}=\tfrac{1}{2}$에서 $A$가 임계선에 대해
+  거울 대칭을 가짐을 함의하므로,
+  $\mathrm{Re}(A'(\rho)/A(\rho))=0$.
+  따라서 $O(\delta)$ 항이 소멸하고,
+  $\kappa\delta^{2}=1+O(\delta^{2})$가 $r$, $N$, $\varepsilon$에 무관하게 성립한다.
+\end{proof}
+
+\begin{remark}
+  계수로부터의 독립성은 중심 영점 ($\varepsilon=-1$ 곡선에서 $t_{0}=0$)을
+  제외한 데에서 비롯된다;
+  $t_{0}>0$에서 모든 영점은 확률 1로 단순하며 (BSD 추측)
+  정리~\ref{thm:rankinv}가 적용된다.
+\end{remark}
+
+
+\subsection{모노드로미 정밀도}
+\label{ssec:mono}
+
+\textbf{결과~\#110}은 두 가지 방법으로 각 곡선당 15개의 영점에서
+모노드로미를 측정한다: (i) Hardy $Z$-함수 선형 위상 누적,
+(ii) 반지름 $r=0.05$인 원 위의 등고선 적분
+$\oint d(\arg\Lambda)$.
+
+\medskip
+\noindent 8개 곡선, 총 120개의 영점 전체에 대해:
+\[
+  |\Delta\!\arg\Lambda / \pi| = 1.000000\pm 0.000000,
+  \qquad
+  \oint d(\arg\Lambda)/\pi = 2.000000\pm 0.000000.
+\]
+모노드로미는 각 단순 영점 주위에서 $2\pi$ (즉, 한 번의 완전한 권회)이며,
+유수 정리와 일치한다. 예외는 관찰되지 않았다.
+
+
+\subsection{도체 스케일링}
+\label{ssec:conductor}
+
+\textbf{결과~\#111}은 16개의 EC 곡선
+(계수 0, 1, 도체 11--10099)에 걸쳐
+$\delta=0.03$에서의 $\Delta\kappa := \kappa\delta^{2}-1$을
+$\log N$에 대해 피팅한다.
+
+\[
+  \Delta\kappa \;\approx\; 2\,\log N \cdot 10^{-3}, \qquad R^{2}=0.73.
+\]
+
+양의 기울기는 더 큰 도체가 약간 더 큰 $O(\delta^{2})$ 보정항을 만들어냄을
+나타내며, $\Lambda$의 도체 의존 아다마르 곱 구조와 일치한다.
+$N=10099$에서도 효과는 $\delta=0.03$ 기준 $<2\%$로,
+주도 차수 판별 (정리~\ref{thm:disc})의 목적에서
+도체 효과는 무시할 수 있다.
+
+
+% ============================================================================
+\section{오일러 곱 너머}
+\label{sec:beyond}
+% ============================================================================
+
+\subsection{랭킨-셀베르그 $\mathrm{GL}(4)$}
+\label{sec:gl4rs}
+
+랭킨-셀베르그 합성곱 $L(s, E_{1}\times E_{2})$는
+$\mathrm{GL}(4)$ $L$-함수이다.
+\textbf{결과~\#112}는 두 쌍을 검사한다:
+
+\begin{table}[ht]
+\centering
+\caption{결과~\#112 — 랭킨-셀베르그 $\mathrm{GL}(4)$, 4성질 검사.}
+\label{tab:rs112}
+\small
+\begin{tabular}{llrrl}
+\toprule
+쌍 & 영점 수 & $\kappa\delta^{2}$ & 모노드로미 & 결과 \\
+\midrule
+$11a1 \times 37a1$ & 22 & $1.01381$ & $2.000\pi$ & $4/4$ \\
+$37a1 \times 53a1$ & 27 & $1.03338$ & $2.000\pi$ & $4/4$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+$\delta=0.03$에서의 GL(1) 기준값 ($\approx 1.004$)에 비해
+약간 높은 $\kappa\delta^{2}$ 값은
+더 높은 도체와 $\mathrm{GL}(4)$ 차수 인자를 반영하며,
+결과~\#111의 도체 스케일링과 일치한다.
+
+
+\subsection{데데킨트 $\zeta$-함수}
+\label{sec:dedekind}
+
+허수 이차체 $K=\mathbb{Q}(\sqrt{D})$에 대한
+데데킨트 $\zeta$-함수 $\zeta_{K}(s)$는
+$\zeta_{K}(s) = \zeta(s)L(\chi_{D},s)$로 인수분해되므로
+오일러 곱을 갖는다.
+\textbf{결과~\#113}은 7개의 체를 검사한다:
+
+\begin{table}[ht]
+\centering
+\caption{결과~\#113 — 데데킨트 $\zeta$-함수, 7개의 허수 이차체.}
+\label{tab:ded113}
+\small
+\begin{tabular}{lrrrrl}
+\toprule
+체 & $D$ & $h$ & 영점 수 & $\kappa\delta^{2}$ & P1--P4 \\
+\midrule
+$\mathbb{Q}(\sqrt{-3})$   & $-3$   & 1 & 11 & $1.00234$ & $4/4$ \\
+$\mathbb{Q}(i)$           & $-4$   & 1 & 13 & $1.00172$ & $4/4$ \\
+$\mathbb{Q}(\sqrt{-7})$   & $-7$   & 1 & 15 & $1.00235$ & $4/4$ \\
+$\mathbb{Q}(\sqrt{-2})$   & $-8$   & 1 & 16 & $1.00161$ & $4/4$ \\
+$\mathbb{Q}(\sqrt{-11})$  & $-11$  & 1 & 18 & $1.00135$ & $4/4$ \\
+$\mathbb{Q}(\sqrt{-23})$  & $-23$  & 3 & 20 & $1.00464$ & $4/4$ \\
+$\mathbb{Q}(\sqrt{-163})$ & $-163$ & 1 & 30 & $1.00322$ & $4/4$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+7개의 체 전체가 $4/4$를 통과한다.
+유수 3인 체 ($D=-23$)는 $\kappa\delta^{2}=1.00464$로
+유수 1인 체들보다 약간 높지만, 여전히 $0.5\%$ 이내이다.
+
+
+\subsection{엡스타인 $\zeta$-함수: 함수방정식 충분성}
+\label{sec:epstein}
+\label{ssec:thm6}
+
+판별식 $D=b^{2}-4ac<0$인 양정치 이진 이차형식
+$Q(x,y)=ax^{2}+bxy+cy^{2}$에 대응하는
+엡스타인 $\zeta$-함수 $Z(Q,s)$는 함수방정식을 만족하지만,
+유수 $h>1$인 경우 일반적으로 오일러 곱을 갖지 \emph{않는다}.
+
+\textbf{결과~\#114}는 네 가지 형식을 검사한다:
+
+\begin{table}[ht]
+\centering
+\caption{결과~\#114 — 엡스타인 $\zeta$-함수.
+  세 개의 비-오일러 형식 ($h>1$)이 4P를 통과.}
+\label{tab:ep114}
+\small
+\begin{tabular}{llrrcl}
+\toprule
+형식 $Q$ & $D$ & $h$ & 영점 수 & 오일러? & P1--P4 \\
+\midrule
+$x^{2}+y^{2}$           & $-4$  & 1 & 13 & 예  & $4/4$ \\
+$x^{2}+5y^{2}$          & $-20$ & 2 & 18 & 아니오  & $4/4$ \\
+$2x^{2}+xy+3y^{2}$      & $-23$ & 3 & 10 & 아니오  & $4/4$ \\
+$x^{2}+6y^{2}$          & $-24$ & 2 & 19 & 아니오  & $4/4$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+네 형식 모두 네 가지 성질 전체를 통과한다.
+특히 $\kappa\delta^{2}$ 값이 각각 $1.00571$, $1.00457$, $1.00510$인
+세 비-오일러 형식 ($h=2,3$)은 $\xi$-다발이
+오일러 곱을 필요로 하지 않음을 입증한다.
+
+\begin{theorem}[FE-only 충분성]
+\label{thm:feonly}
+  $\Lambda(s)=Z(Q,s)\Gamma_{\mathbb{R}}(s)$가
+  오일러 곱의 존재 여부와 무관하게
+  함수방정식 $\Lambda(s)=|D|^{1/2-s}\Lambda(1-s)$를 만족하는
+  완성 엡스타인 $\zeta$-함수라 하자.
+  그러면 모든 단순 임계선 위 영점에 대해
+  네 가지 $\xi$-다발 성질 (P1--P4)이 성립한다.
+\end{theorem}
+
+\begin{proof}
+  P1은 정의에 의해 성립한다. P2는 $\Lambda$에 편각 원리를 적용하여 따른다.
+  P3는 정리~\ref{thm:rankinv}로부터 따른다
+  (증명은 함수방정식만 사용하며 오일러 곱을 사용하지 않는다).
+  P4 (모노드로미 $\pm\pi$)는 $\Lambda$가 실축에서 실수값을 가짐과
+  코시-리만 방정식에서 따른다; 오일러 곱은 마찬가지로 불필요하다.
+  수치 검증: 결과~\#114, 세 비-오일러 형식, 모두 $4/4$.
+\end{proof}
+
+\begin{remark}
+  정리~\ref{thm:feonly}는 $\xi$-다발 성질을 오일러 곱으로부터
+  분리한다. 임계선 외 영점이 알려진 $L$-함수 족들
+  (특히 DH 함수)에서, 오일러 곱의 부재가
+  이상 현상의 원인이 아니다---함수방정식이 원인이다.
+\end{remark}
+
+
+% ============================================================================
+\section{임계선 판별: DH 함수}
+\label{sec:dh}
+% ============================================================================
+
+\subsection{다벤포트-하일브론 함수}
+\label{ssec:dhdef}
+
+다벤포트-하일브론 (DH) 함수는 다음으로 정의된다:
+\[
+  f_{\DHf}(s) \;=\; \tfrac{1}{2}(1+i\kappa_{\DHf})\,L(s,\chi)
+              \;+\; \tfrac{1}{2}(1-i\kappa_{\DHf})\,L(s,\bar{\chi}),
+\]
+여기서 $\chi$는 법 5인 원시 지표이고
+$\kappa_{\DHf} = \sqrt{(10-2\sqrt{5})/(5+\sqrt{5})} \approx 0.2841$이다.
+이 함수는 함수방정식
+\[
+  \Lambda(s) \;:=\; \left(\frac{5}{\pi}\right)^{s/2}\Gamma\!\left(\frac{s+1}{2}\right)f_{\DHf}(s)
+  \;=\; \varepsilon\,\overline{\Lambda(1-\bar{s})},
+  \qquad |\varepsilon|=1
+\]
+을 만족하지만, 임계선 외 영점을 가지므로
+셀베르그 부류의 원소가 \emph{아니다}~\cite{titchmarsh1986}.
+
+$t<200$ 범위에서 알려진 네 개의 임계선 외 영점은:
+\begin{equation}
+  \label{eq:dhzeros}
+  \begin{aligned}
+    \text{OFF\#1}: &\;\rho=0.808517+85.699\,i, &\quad d=0.3085,\\
+    \text{OFF\#2}: &\;\rho=0.650830+114.163\,i, &\quad d=0.1508,\\
+    \text{OFF\#3}: &\;\rho=0.574356+166.479\,i, &\quad d=0.0744,\\
+    \text{OFF\#4}: &\;\rho=0.724258+176.702\,i, &\quad d=0.2243,
+  \end{aligned}
+\end{equation}
+여기서 $d=|\sigma_{0}-\tfrac{1}{2}|$이다. 각 영점은
+$1-\bar{\rho}$에 거울쌍을 갖는다.
+잔차 $|f_{\DHf}(\rho)|<10^{-14}$는
+\texttt{mpmath.dps}$=80$--$120$에서 검증되었다.
+
+
+\subsection{DH 영점에 대한 4성질 검사}
+\label{ssec:dhtest}
+
+\textbf{결과~\#115}는 10개의 임계선 위 DH 영점
+($t\in[5.1, 27.9]$)과 4개의 임계선 외 영점에 4P 검사를 적용한다.
+
+\medskip
+\noindent\textbf{P1.} 5개의 검사점에서 검증;
+최대 상대 오차 $7.6\times10^{-81}$ (\texttt{dps}=80).
+
+\medskip
+\noindent\textbf{P2.} 임계선 위 및 임계선 외 영점 모두
+실제 영점임이 확인된다
+(편각 원리 + \texttt{findroot} 정제).
+
+\medskip
+\noindent\textbf{P3 (판별자).}
+\begin{equation}
+  \label{eq:p3disc}
+  \kappa\delta^{2}\big|_{\delta=0.03}:
+  \quad
+  \underbrace{1.001726\pm 0.000773}_{\text{임계선 위 (}N=10\text{)}}
+  \quad\text{대}\quad
+  \underbrace{1.209547\pm 0.099196}_{\text{임계선 외 (}N=4\text{)}}.
+\end{equation}
+임계선 외의 최솟값 ($1.114$, OFF\#1)은
+모든 검사된 $\delta$ 값에서 임계선 위의 최댓값 ($1.004$, ON\#7)을
+초과하여 \emph{완전한 분리}를 구성한다.
+
+\medskip
+\noindent\textbf{P4 (모노드로미).} 임계선 위 영점: 세 반지름
+$r\in\{0.05, 0.15, 0.50\}$ 전체에서 $2\pi$.
+임계선 외 영점: 모노드로미는 $r$에 따라 달라지며
+($r$이 거울쌍을 포함할 만큼 커짐에 따라 $2\pi$--$4\pi$ 범위),
+각 임계선 외 영점과 그 대칭쌍으로 이루어진 단일 쌍과 일치한다.
+
+
+\subsection{정리~7: 해석적 판별}
+\label{ssec:thm7}
+
+\begin{theorem}[임계선 판별자]
+\label{thm:disc}
+  $\Lambda(s)$가 함수방정식
+  $\Lambda(s)=\varepsilon\,\overline{\Lambda(1-\bar{s})}$를
+  만족한다고 하자. 단순 영점 $\rho=\sigma_{0}+it_{0}$에 대해
+  \[
+    \kappa(\rho+\delta)\,\delta^{2}
+    \;=\; 1 \;+\; c_{1}\,\delta \;+\; c_{2}\,\delta^{2} \;+\; O(\delta^{3})
+  \]
+  으로 쓰면,
+  \[
+    c_{1} \;=\; 2\,\mathrm{Re}\!\left(\frac{A'(\rho)}{A(\rho)}\right)
+  \]
+  이 성립한다. 여기서 $\Lambda(s)=(s-\rho)A(s)$, $A(\rho)\neq 0$.
+  나아가,
+  \[
+    \boxed{c_{1} = 0 \;\iff\; \sigma_{0} = \tfrac{1}{2}.}
+  \]
+\end{theorem}
+
+\begin{proof}
+  $\Lambda(s)=(s-\rho)A(s)$로 쓰면
+  $\Lambda'(s)/\Lambda(s) = (s-\rho)^{-1}+A'(s)/A(s)$.
+  $s=\rho+\delta$ (실수 $\delta>0$)에서:
+  \[
+    \kappa(\rho+\delta)\,\delta^{2}
+    = \delta^{2}\abs{\tfrac{1}{\delta} + \tfrac{A'(\rho)}{A(\rho)}+O(\delta)}^{2}
+    = 1 + 2\delta\,\mathrm{Re}\!\left(\tfrac{A'(\rho)}{A(\rho)}\right) + O(\delta^{2}).
+  \]
+  따라서 $c_{1}=2\,\mathrm{Re}(A'(\rho)/A(\rho))$.
+
+  \medskip\noindent
+  ($\Leftarrow$) $\sigma_{0}=\tfrac{1}{2}$이면,
+  함수방정식 $\Lambda(s)=\varepsilon\,\overline{\Lambda(1-\bar{s})}$에 의해
+  임계선에 제한된 $A(s)$는 (전역 위상 인자를 제외하고) 실수이므로
+  $\mathrm{Re}(A'(\rho)/A(\rho))=0$.
+
+  \medskip\noindent
+  ($\Rightarrow$) $\sigma_{0}\neq\tfrac{1}{2}$이면,
+  거울 대칭이 깨진다: 아다마르 인수분해
+  $A(s)=A(0)\prod_{\rho'}(1-s/\rho')e^{s/\rho'}$는
+  $\mathrm{Re}(1/\rho')\neq\mathrm{Re}(1/(1-\bar{\rho}'))$인
+  (단, $\sigma_{0}\neq\tfrac{1}{2}$인 경우)
+  쌍 $(\sigma_{0}+it_{0},\,1-\sigma_{0}+it_{0})$를 포함한다.
+  따라서 $\mathrm{Re}(A'(\rho)/A(\rho))\neq 0$이어서 $c_{1}\neq 0$.
+\end{proof}
+
+\begin{corollary}[수치 감별]
+  $\sigma_{0}\neq\tfrac{1}{2}$인 영점 $\rho$는
+  $\kappa(\rho+\delta)\delta^{2}-1$ 대 $\delta$ 피팅으로 감별할 수 있다:
+  비영 $y$-절편이 임계선 외 영점을 나타낸다.
+\end{corollary}
+
+
+\subsection{$\delta$-스윕 검증}
+\label{ssec:sweep}
+
+\textbf{결과~\#116}은 14개의 DH 영점
+(임계선 위 10개, 임계선 외 4개) 전체에 대해
+여덟 개의 값 $\delta\in\{0.005,0.01,0.015,0.02,0.03,0.05,0.07,0.10\}$에서
+$\kappa\delta^{2}$를 측정하고,
+$\log|\kappa\delta^{2}-1|$ 대 $\log\delta$를 피팅한다.
+
+\begin{table}[ht]
+\centering
+\caption{결과~\#116 — $\delta$-스윕 로그-로그 기울기.
+  정리~\ref{thm:disc}는 기울기 $2$ (임계선 위) 및 $1$ (임계선 외)을 예측한다.}
+\label{tab:sweep116}
+\small
+\begin{tabular}{lccc}
+\toprule
+영점 유형 & $N$ & 기울기 & $R^{2}$ \\
+\midrule
+임계선 위 (ON\#1--\#10)  & 10 & $1.999\pm 0.003$ & $1.0000$ \\
+임계선 외 (OFF\#1--\#3) & 3  & $0.963\pm 0.039$ & $\geq 0.999$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+임계선 위의 기울기 $1.999\pm0.003$은
+이론적 예측값 $2$에서 $0.05\%$ 이내이다.
+임계선 외의 기울기 $0.963\pm0.039$는
+이론적 예측값 $1$에서 $3.7\%$ 이내이다.
+간격 $\min(\kappa\delta^{2})_{\text{임계선 외}} > \max(\kappa\delta^{2})_{\text{임계선 위}}$는
+여덟 개의 $\delta$ 값 전체에서 성립하여 강건한 판별을 제공한다.
+
+\begin{remark}
+  임계선 외의 기울기 $0.963$ 대 이론값 $1.0$의 차이는
+  단순히 설명된다: 유한 $\delta$에서 $c_{2}\delta^{2}$ 항이 기여한다.
+  OFF\#3 (가장 작은 $d=0.074$)에서 $c_{2}\approx -36$이므로,
+  유효 선형 기울기에 대한 보정항 $c_{2}\delta$는
+  $\delta=0.1$에서 $\approx -3.6$으로, 피팅된 기울기를 $1$ 아래로 끌어내린다.
+  $\delta\to 0$에 따라 기울기는 $1$로 수렴한다.
+\end{remark}
+
+
+\subsection{$c_{1}$ 계수: 해석 공식과 점근식}
+\label{ssec:c1}
+
+\textbf{결과~\#117}은 두 가지 독립적인 방법으로 $c_{1}$을 추출한다:
+(i) $(\kappa\delta^{2}-1)/\delta$ 대 $\delta$의 선형 회귀
+(절편 $= c_{1}$),
+(ii) $\mathrm{Re}(\Lambda''(\rho)/\Lambda'(\rho))$의 직접 계산.
+
+\begin{table}[ht]
+\centering
+\caption{결과~\#117 — DH 임계선 외 영점 네 개에 대한 $c_{1}$ 계수.
+  $d=|\sigma_{0}-\tfrac{1}{2}|$. 두 방법은 $0.5\%$ 이내에서 일치한다.}
+\label{tab:c1117}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+영점 & $\sigma_{0}$ & $t_{0}$ & $d$ & $c_{1}^{\text{피팅}}$
+     & $c_{1}^{\text{해석}}$ & 상대 오차 \\
+\midrule
+OFF\#1 & 0.808517 & 85.699  & 0.3085 & 3.7599 & 3.7614 & $0.04\%$ \\
+OFF\#2 & 0.650830 & 114.163 & 0.1508 & 6.9163 & 6.9241 & $0.11\%$ \\
+OFF\#3 & 0.574356 & 166.479 & 0.0744 & 13.5426 & 13.6112 & $0.50\%$ \\
+OFF\#4 & 0.724258 & 176.702 & 0.2243 & 5.0257 & 5.0290 & $0.07\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+정리~\ref{thm:disc}는 $c_{1}=\mathrm{Re}(\Lambda''(\rho)/\Lambda'(\rho))$를
+동정한다; 표~\ref{tab:c1117}은 이 항등식을 수치적으로 확인한다.
+
+\paragraph{점근 거동.}
+$c_{1}$ 대 $d$의 로그-로그 피팅은
+\[
+  c_{1} \;\sim\; 1.303\,d^{-0.897}, \qquad R^{2}=0.9989
+\]
+을 주며, $d\to 0$에 따른 주도 점근식 $c_{1}\sim d^{-1}$과 일치한다
+(따름정리~\ref{cor:asym} 참조).
+
+\begin{corollary}[$c_{1}$의 주도 점근식]
+\label{cor:asym}
+  $d=|\sigma_{0}-\tfrac{1}{2}|\to 0$인 단순 영점
+  $\rho=\sigma_{0}+it_{0}$에 대해,
+  \[
+    c_{1} \;=\; \frac{1}{d} \;+\; O(1),
+  \]
+  따라서 $d\to 0$에 따라 $c_{1}\cdot d \to 1$.
+\end{corollary}
+
+\begin{proof}
+  아다마르 곱에서 $A'(\rho)/A(\rho)$에 대한 주도 기여는
+  거울쌍 $\bar\rho' = 1-\sigma_{0}+it_{0}$에서 온다:
+  \[
+    \frac{A'(\rho)}{A(\rho)} \;\approx\; \frac{1}{\rho-\bar\rho'}
+    \;=\; \frac{1}{2\sigma_{0}-1} \;=\; \frac{1}{2d},
+  \]
+  따라서 $c_{1}=2\,\mathrm{Re}(A'(\rho)/A(\rho))\approx 1/d$.
+  $O(1)$ 보정항은 곱에서의 나머지 모든 영점들의 기여에서 온다.
+\end{proof}
+
+\begin{remark}[점근식의 수치 검증]
+  표~\ref{tab:c1117}은 $c_{1}\cdot d$ 값으로
+  $1.160$ (OFF\#1, $d=0.309$), $1.043$ (OFF\#2, $d=0.151$),
+  $1.007$ (OFF\#3, $d=0.074$), $1.127$ (OFF\#4, $d=0.224$)를 보인다.
+  평균은 $1.084\pm 0.062$이며, 점근값 $1$에 가장 가까운 것은
+  OFF\#3 ($c_{1}\cdot d = 1.007$, 이론에서 $0.7\%$)으로,
+  $d\to 0$ 극한이 부드럽게 접근됨을 확인한다.
+  더 큰 $d$에서의 편차는 예상된 것이다:
+  $c_{1}=1/d+O(1)$은 $c_{1}\cdot d = 1 + O(d)$를 의미한다.
+\end{remark}
+
+
+% ============================================================================
+\section{논의}
+\label{sec:disc}
+% ============================================================================
+
+\paragraph{보편성.}
+네 가지 $\xi$-다발 성질은 확장된 $L$-함수 족에 걸쳐 통과한다:
+타원곡선 $L$-함수 (계수 0--3, 도체 11--10099, 8개 곡선, $\varepsilon=\pm 1$),
+랭킨-셀베르그 $\mathrm{GL}(4)$ (2쌍),
+데데킨트 $\zeta$-함수 (7개의 허수 이차체),
+유수 2--3인 3개의 비-오일러 형태를 포함한 엡스타인 $\zeta$-함수.
+제1논문의 $\mathrm{GL}(1)$--$\mathrm{GL}(5)$ 결과 (81개의 수치 실험)와 합산하면,
+프레임워크는 이제 $L$-함수의 주요 대수 족 전체를 포괄한다.
+
+\paragraph{오일러 곱의 불필요성.}
+정리~\ref{thm:feonly}와 결과~\#114는 오일러 곱이
+$\xi$-다발 성질에 필요하지 않음을 확립한다.
+이는 $\xi$-다발 기하가 함수방정식 구조만의 귀결이라는
+해석과 부합한다.
+
+\paragraph{판별 정리.}
+정리~\ref{thm:disc}는 $\kappa\delta^{2}$에 대한
+$O(\delta)$ 보정항을 임계선으로부터의 영점의 위치와
+연결하는 최초의 \emph{해석적} 진술을 제공한다.
+수치 검증 (결과~\#115--\#117)은 유일하게 알려진 명시적 시험 사례
+(DH 함수)에 대해 이 연결을 확인한다.
+리만 $\zeta$-함수에 대해서는 임계선 외 영점이 알려져 있지 않으며;
+정리~\ref{thm:disc}는 그러한 영점이 존재한다면
+감지 가능한 $O(\delta)$ 신호를 생성할 것임을 함의한다.
+
+\paragraph{한계.}
+점근식 $c_{1}\cdot d \to 1$은 $N=4$개의 데이터 점으로 검증되었다.
+체계적인 $\delta$-스윕 (결과~\#116)은
+$N=3$개의 임계선 외 영점에 한정된다
+(OFF\#4는 $\delta<0.1$에서 정밀도 불충분).
+$t\in[200,400]$ 범위에서는 새로운 임계선 외 영점이
+발견되지 않았다 (22개의 후보점 검사, 0개 확인),
+DH 임계선 외 영점의 희소성과 일치한다.
+
+\paragraph{향후 방향.}
+\begin{enumerate}
+  \item \textit{아틴 $L$-함수}: 비가환, 잠재적 비자기-쌍대.
+  \item \textit{셀베르그 부류 일반화}: 정리~\ref{thm:disc}는
+        FE만 사용한다; 셀베르그 부류 차수에 의한 $c_{1}$을
+        제시하도록 정밀화할 수 있는가?
+  \item \textit{$\sigma$-국소화}: 비수평 오프셋
+        (복소 $\delta$)으로의 판별 확장.
+  \item \textit{추가 DH 임계선 외 영점}: $t>400$에 대한
+        더 높은 정밀도에서의 탐색 확장.
+\end{enumerate}
+
+
+% ============================================================================
+\section{결론}
+\label{sec:conclusion}
+% ============================================================================
+
+Kim~(2026)의 $\xi$-다발 프레임워크를 두 가지 방향으로 확장하였다.
+첫째, 보편성: 열한 개의 새로운 수치 결과
+(\#107--\#117)가 타원곡선, 랭킨-셀베르그, 데데킨트, 엡스타인
+$L$-함수에 걸쳐 네 가지 $\xi$-다발 성질을 확인하며;
+특히 비-오일러 엡스타인 $\zeta$-함수 (정리~6)는
+오일러 곱이 필요하지 않음을 보여준다.
+둘째, 판별: 정리~7은 $\kappa\delta^{2}$의 첫 번째 테일러 계수
+$c_{1}$이 영점이 임계선 위에 있을 때에만 소멸함을 해석적으로 증명하며;
+$\delta$-스윕과 직접 해석 계산을 통한 수치 검증이
+알려진 네 개의 DH 임계선 외 영점 전체에서 이를 확인한다.
+
+정리~5--7은 하나의 일관된 그림을 형성한다:
+임계선 위에서 $\xi$-다발 곡률은 검사된 모든 $L$-함수 족에 걸쳐
+$\kappa\delta^{2}=1+O(\delta^{2})$를 보편적으로 만족하고;
+임계선 외에서는 질적으로 다른 $O(\delta)$ 보정항이 나타나며,
+이는 해석적으로 함수방정식에 의한 거울 대칭의 파괴로 추적된다.
+
+
+% ============================================================================
+% 부록
+% ============================================================================
+\appendix
+
+\section{종합 요약표: 열한 개 결과 전체}
+\label{app:summary}
+
+\begin{longtable}{lllp{5.5cm}}
+\caption{결과~\#107--\#117 요약 (동반 논문). 등급:
+  \textbf{$\bigstar\bigstar\bigstar$} 강양성,
+  \textbf{$\bigstar\bigstar$} 양성, \textbf{C} 조건부.}
+\label{tab:summary}\\
+\toprule
+결과 & 절 & 등급 & 핵심 발견 \\
+\midrule
+\endfirsthead
+\multicolumn{4}{c}{\tablename~\thetable{} (계속)}\\
+\toprule
+결과 & 절 & 등급 & 핵심 발견 \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\#107 & \S\ref{ssec:epsilon}      & \textbf{$\bigstar\bigstar$}\,C  & EC 8 곡선; $\varepsilon=-1$에서 P4 실패 (Hardy $Z$ 방식); P3 전체 통과 \\
+\#108 & \S\ref{ssec:epsilon}      & \textbf{$\bigstar\bigstar\bigstar$}    & EC 8 곡선, $\varepsilon$-보정; 전체 4/4 통과; $\kappa\delta^{2}=1.000$ \\
+\#109 & \S\ref{ssec:thm5}         & \textbf{$\bigstar\bigstar$}     & $\kappa_{\text{near}}$ 보편성; $\delta=0.01$에서 CV $<0.13\%$; 계수/도체 무관 \\
+\#110 & \S\ref{ssec:mono}         & \textbf{$\bigstar\bigstar\bigstar$}    & EC 8 곡선, 120 영점; $|\Delta\!\arg/\pi|=1.000000$; 등고선 $=2.000000\pi$ \\
+\#111 & \S\ref{ssec:conductor}    & \textbf{$\bigstar\bigstar$}     & 도체 스케일링 $\Delta\kappa\approx 2\log N\times 10^{-3}$; $R^{2}=0.73$; 효과 $<2\%$ \\
+\#112 & \S\ref{sec:gl4rs}         & \textbf{$\bigstar\bigstar$}     & R-S GL(4), 2쌍; 4/4 통과; $\kappa\delta^{2}=1.014$, $1.033$ \\
+\#113 & \S\ref{sec:dedekind}      & \textbf{$\bigstar\bigstar\bigstar$}    & Dedekind $\zeta$, 7 체 (h=1,3); 4/4 통과; 전체 $\kappa\delta^{2}<1.005$ \\
+\#114 & \S\ref{sec:epstein}       & \textbf{$\bigstar\bigstar\bigstar$}    & Epstein $\zeta$; 비-오일러 3개 (h=2,3); 4/4 통과; FE-only 충분성 (정리~6) \\
+\#115 & \S\ref{ssec:dhtest}       & \textbf{$\bigstar\bigstar\bigstar$}    & DH 임계선 위/외 판별; $1.002\pm0.001$ 대 $1.210\pm0.099$; 완전 분리 \\
+\#116 & \S\ref{ssec:sweep}        & \textbf{$\bigstar\bigstar\bigstar$}    & $\delta$-스윕; 기울기 $1.999\pm0.003$ (위) 대 $0.963\pm0.039$ (외); 정리~7 확인 \\
+\#117 & \S\ref{ssec:c1}           & \textbf{$\bigstar\bigstar$}     & $c_{1}=\mathrm{Re}(\Lambda''/\Lambda')$ 검증 ($<0.5\%$, $N=4$); $c_{1}\cdot d\to 1$ \\
+\end{longtable}
+
+
+\section{수치 데이터: DH 임계선 외 영점}
+\label{app:dhzeros}
+
+표~\ref{tab:dhdata}는 충분한 정밀도를 갖는
+세 개의 DH 임계선 외 영점에 대한 완전한 $\delta$-스윕 데이터를 수록한다
+(OFF\#4는 $\delta\geq 0.10$에서만 포함).
+
+\begin{table}[ht]
+\centering
+\caption{결과~\#116의 $\kappa\delta^{2}$ 값, DH 임계선 외 영점.
+  임계선 위 앙상블 평균 (10개 영점)이 비교를 위해 제시된다.}
+\label{tab:dhdata}
+\small
+\begin{tabular}{lrrrrrrrr}
+\toprule
+영점 & $\delta{=}0.005$ & $0.01$ & $0.015$ & $0.02$ & $0.03$ & $0.05$ & $0.07$ & $0.10$ \\
+\midrule
+위 (평균) & 1.000048 & 1.000192 & 1.000432 & 1.000767 & 1.001726 & 1.004795 & 1.009399 & 1.019182 \\
+OFF\#1 & 1.018828 & 1.037696 & 1.056606 & 1.075561 & 1.113605 & 1.190280 & 1.267813 & 1.385945 \\
+OFF\#2 & 1.034427 & 1.068469 & 1.102132 & 1.135420 & 1.200904 & 1.327729 & 1.449538 & 1.624253 \\
+OFF\#3 & 1.067034 & 1.132039 & 1.195056 & 1.256139 & 1.372769 & 1.585968 & 1.776429 & 2.028926 \\
+OFF\#4 & --- & --- & --- & --- & --- & --- & --- & 1.506337 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\section{$c_{1}$의 거울쌍 분해}
+\label{app:mirror}
+
+임계선 외 영점 $\rho=\sigma_{0}+it_{0}$에 대해
+거울쌍은 $\tilde\rho=1-\sigma_{0}+it_{0}$이다.
+거울쌍의 $A'(\rho)/A(\rho)$에 대한 주도 기여는
+\[
+  \frac{1}{\rho-\tilde\rho} = \frac{1}{2\sigma_{0}-1} = \frac{1}{2d}
+\]
+으로, $c_{1}^{\text{거울}} = 2\,\mathrm{Re}(1/(2d)) = 1/d$를 준다.
+표~\ref{tab:mirror}는 결과~\#117의 분해를 보인다.
+
+\begin{table}[ht]
+\centering
+\caption{$c_{1}$의 거울쌍 대 배경 분해 (결과~\#117).}
+\label{tab:mirror}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+영점 & $d$ & $c_{1}^{\text{피팅}}$ & $c_{1}^{\text{거울}}=1/d$ & $c_{1}^{\text{배경}}$ & $c_{1}^{\text{배경}}/c_{1}^{\text{거울}}$ \\
+\midrule
+OFF\#1 & 0.3085 & 3.760 & 3.241 & 2.139 & 1.320 \\
+OFF\#2 & 0.1508 & 6.916 & 6.630 & 3.601 & 1.086 \\
+OFF\#3 & 0.0744 & 13.543 & 13.449 & 6.818 & 1.014 \\
+OFF\#4 & 0.2243 & 5.026 & 4.459 & 2.796 & 1.254 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+$d\to 0$에 따라 배경 대 거울 비율이 $1$에 접근하여,
+두 기여가 극한에서 동일한 크기를 가짐을 나타낸다.
+데이터는 $c_{1}\cdot d\to 1$을 보이는데, 이는
+배경 항들 사이에 유의미한 상쇄가 있음을 시사한다.
+
+
+% ============================================================================
+\begin{thebibliography}{99}
+
+\bibitem{kim2026}
+Kim, Y.-H. (2026).
+\textit{Phase Quantisation from Optical Lattices to the Zeta Landscape:
+A Unified Framework}.
+Preprint, arXiv:2026.xxxxx.
+
+\bibitem{titchmarsh1986}
+Titchmarsh, E.~C. (1986).
+\textit{The Theory of the Riemann Zeta-Function} (2nd ed., revised by
+D.~R.~Heath-Brown).
+Oxford University Press.
+
+\bibitem{edwards1974}
+Edwards, H.~M. (1974).
+\textit{Riemann's Zeta Function}.
+Academic Press.
+
+\bibitem{davenport1936}
+Davenport, H., \& Heilbronn, H. (1936).
+On the zeros of certain Dirichlet series.
+\textit{Journal of the London Mathematical Society}, 11, 181--185.
+
+\bibitem{silverman1992}
+Silverman, J.~H. (1992).
+\textit{The Arithmetic of Elliptic Curves} (2nd ed.).
+Springer.
+
+\bibitem{iwaniec2004}
+Iwaniec, H., \& Kowalski, E. (2004).
+\textit{Analytic Number Theory}.
+American Mathematical Society.
+
+\bibitem{epstein1903}
+Epstein, P. (1903).
+Zur Theorie allgemeiner Zetafunktionen.
+\textit{Mathematische Annalen}, 56, 615--644.
+
+\bibitem{rubinstein2001}
+Rubinstein, M. (2001).
+Numerical computations concerning the Riemann hypothesis.
+\textit{PhD thesis}, Princeton University.
+
+\bibitem{cremona2019}
+Cremona, J.~E. (2019).
+\textit{Algorithms for Modular Elliptic Curves} (2nd ed.).
+Cambridge University Press.
+
+\bibitem{pari2023}
+PARI/GP (2023). Version 2.15.4.
+\url{https://pari.math.u-bordeaux.fr/}.
+
+\bibitem{mpmath2023}
+Johansson, F., et al.\ (2023).
+\textit{mpmath: a Python library for arbitrary-precision
+floating-point arithmetic} (version 1.3.0).
+\url{https://mpmath.org/}.
+
+\end{thebibliography}
+
+\end{document}

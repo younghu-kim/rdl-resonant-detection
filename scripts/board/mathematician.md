@@ -1,5 +1,78 @@
 # 수학자 보드 (Stage 1)
 
+## 지시 [2026-04-20 10:13] — 사이클 #185, #119 제2논문 한국어 버전 생성
+
+### 상황 인식
+
+- **#118 완료**: extensions_master_en.tex (1043줄, 14p, Thm 5-7). 배포 완료.
+- **Paper 1**: 81결과, arXiv-ready (수정 금지).
+- **Paper 2**: EN 완성. KO 미존재.
+- **CPU**: 유휴. 실험 없음. 장기 프로세스 없음.
+- **사이클 #184 에러**: max turns (50) 도달 — 작업 미완.
+
+### 전략 판단
+
+**선택지 평가**:
+1. ~~Epstein off-critical 영점 탐색 (B-28)~~ — 과학적 가치 최고이나, DH t∈[200,1000]에서 0개 발견. 같은 방식으로 Epstein에서도 실패 확률 높음. 탐색 전략 재설계 필요 → 이번 사이클이 아닌 다음 사이클에서 전략 수립 후 실행.
+2. **Paper 2 한국어 버전** ← 선택. 구체적, 완결 가능, 배포 필요. EN이 있으므로 번역+현지화. sonnet 충분.
+3. ~~Paper 1 arXiv 제출~~ — 저자 판단 사항.
+
+**근거**: 과학적 실험보다 논문 구비 우선인 이유 — B-28 탐색은 높은 t (>1000)에서의 탐색 전략이 확정되지 않았고, 무계획 brute-force는 CPU 낭비. 한편 Paper 2 KO는 확실히 완결되어 연구 자산을 증가시킨다.
+
+### 지시
+
+**다음 작업**: #119 — `paper/source/extensions_master_ko.tex` 생성
+**모델**: sonnet
+**왜**: (1) Paper 2 EN 완성 → KO 병행이 자연스러운 다음 단계. (2) KO 독자 접근성. (3) Paper 1도 EN/KO 쌍으로 관리. (4) 단순 번역+현지화라 sonnet 적합.
+**참조**: 
+- `paper/source/extensions_master_en.tex` (소스)
+- `paper/source/unified_master_ko.tex` (스타일 참조 — Paper 1 한국어판)
+**주의**:
+- EN 원문의 수학적 내용/수치 100% 보존. 수식, 표, 수치 변경 금지.
+- unified_master_ko.tex의 용어체계 준수 (ξ-다발, 곡률, 접속, 모노드로미 등)
+- Theorem/Definition 번호 EN과 동일 유지 (Thm 5, 6, 7)
+- Summary Table 수치 EN과 동일
+- LaTeX 컴파일 에러 0건 (pdflatex)
+- unified_master_en.tex, unified_master_ko.tex, extensions_master_en.tex **수정 금지**
+- 분량: EN과 동일 구조 (14p 내외)
+
+**성공 기준**:
+1. extensions_master_ko.tex 존재 + pdflatex 에러 0건
+2. Theorem 5, 6, 7 statement가 EN과 수학적으로 동일 (번호, 수식 일치)
+3. Summary Table 11행 (#107-#117) 수치 EN과 동일
+4. 기존 3파일 git diff 0
+5. unified_master_ko.tex 용어와 일관
+
+---
+
+### 연구 진행 요약 (사이클 #185)
+
+| 마일스톤 | 결과 | 상태 |
+|----------|------|------|
+| GL(1)–GL(5) 4성질 | #59–#88 | ★★★ 확립 |
+| κ-δ 스케일링 c₁=0 | #73 | ★★★ 확립 |
+| Hadamard A=B²+2H₁ d=1–4 | #90–#102 | ★★★ 확립 |
+| B-05 σ-유일성 포화 | #98+#99 | ★★★ 해결 |
+| B-23 Hardy Z ≠ ξ-bundle | #82–#83 | ★★ 확립 |
+| 논문1 arXiv 준비 | #106 | ★★★ 완료 |
+| EC rank-불변 (B-08) | #108 | ★★★ 해결 |
+| Non-Euler (B-02) | #114 | ★★★ 해결 |
+| DH on/off 감별 (B-28) | #115 | ★★★ 해결 |
+| δ-sweep Thm 4 | #116 | ★★★ 확인 |
+| c₁ 보편 법칙 | #117 | ★★ 양성 (N=4) |
+| **Paper 2 EN** | **#118** | **★★★ 완료** |
+| **Paper 2 KO** | **#119 (이번)** | **⏳ 지시** |
+
+### 전략적 위치 평가
+
+Phase 3 (다중 논문 체제) 진입. Paper 1 arXiv-ready, Paper 2 EN 완성. KO 버전 완비 후, 과학적 실험 재개: B-28 Epstein off-critical 탐색 전략 수립이 다음 핵심 과제.
+
+### 우선순위
+
+PRIORITY:normal — #119 Paper 2 KO (sonnet). CPU 유휴.
+
+---
+
 ## 판정 [2026-04-20 09:10] — 사이클 #186, #118 완료 확인 + 배포
 
 ### #118 결과 판정
