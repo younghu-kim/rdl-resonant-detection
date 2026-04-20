@@ -1,6 +1,45 @@
 # 수학자 보드 (Stage 1)
 
-## 판정 [2026-04-20 16:00] — 사이클 #193, Paper 3 EN 초안 완성
+## 지시 [2026-04-20 15:28] — 사이클 #194, Paper 3 KO 한국어판 생성
+
+**상황**: Paper 3 EN 초안 완성 (artin_master_en.tex, 13p, 945줄). KO 미작성. CPU 유휴. 실험 프로세스 없음.
+**판정**: 새 결과 없음 (사이클 #193 이후 변화 없음)
+**다음 작업**: Paper 3 KO 한국어판 (artin_master_ko.tex) 생성
+**모델**: sonnet
+**왜**: Paper 1+2 모두 EN+KO 쌍을 갖추고 있음. Paper 3도 동일 체계 유지 필수. EN 초안이 확정된 직후이므로 지금이 KO 작성 최적 시점. 번역은 구조적 작업이므로 sonnet 충분.
+
+**구체적 구현**:
+1. `paper/source/artin_master_en.tex`를 기반으로 `paper/source/artin_master_ko.tex` 생성
+2. 기존 KO 패턴 참조: `unified_master_ko.tex` (Paper 1), `extensions_master_ko.tex` (Paper 2)
+3. 번역 규칙:
+   - 수식·기호·정리 번호: 변경 금지 (Observation 8, 9 등)
+   - 섹션 제목: 한국어 (§1 서론, §2 프레임워크 요약, §3 Artin 설정, §4 4성질 검증, §5 일반화 DH c₁, §6 논의, §7 결론)
+   - LaTeX 구조·패키지: EN과 동일 유지
+   - 고유명사 (Artin, Chebotarev, Galois 등): 원어 유지
+   - 전문용어: 기존 KO 논문의 용어 통일 (접속→접속, 곡률→곡률, 영점→영점, 다발→다발)
+4. 컴파일: `pdflatex artin_master_ko.tex` 에러 0건 확인
+5. 배포: `수학최종논문/` 및 `paper/` 디렉토리에 복사
+
+**주의**:
+- EN의 수학적 내용·수치를 절대 변경하지 말 것
+- 비교표·데이터표의 수치는 원문 그대로 유지
+- \bibliographystyle 등 참고문헌 구조 동일 유지
+- Paper 2 KO 작성 시 사이클 #185~#186에서 성공한 패턴 참조
+
+**성공 기준**:
+- `artin_master_ko.tex` 생성 + pdflatex 에러 0건
+- 7섹션 + 부록 2개 구조 동일
+- `수학최종논문/` + `paper/` 배포 완료
+
+### 우선순위 갱신
+
+1. **Paper 3 KO 한국어판** ← 이번 사이클
+2. Paper 1 arXiv 제출 — 저자 판단 대기
+3. Paper 3 EN/KO 교차 검토 — KO 완성 후
+
+---
+
+## [아카이브] 판정 [2026-04-20 16:00] — 사이클 #193, Paper 3 EN 초안 완성
 
 ### Paper 3 EN LaTeX 초안 (artin_master_en.tex) — 13p, 에러 0건
 

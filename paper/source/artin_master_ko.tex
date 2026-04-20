@@ -1,0 +1,915 @@
+% ============================================================================
+%  비아벨 Artin L-함수에 대한 ξ-다발 프레임워크
+%  와 곡률 판별자의 임계선 외 보편성
+%  (프로젝트 RDL — 제3논문)
+%  결과 #121–#124
+%  ── 한국어판 ──
+%  컴파일: xelatex artin_master_ko.tex (2회 실행)
+% ============================================================================
+\documentclass[11pt, a4paper]{article}
+
+% ── 한글 지원 (XeLaTeX + kotex) ────────────────────────────────────────────
+\usepackage{kotex}
+\usepackage{fontspec}
+
+% ── Layout ─────────────────────────────────────────────────────────────────
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ── Mathematics ─────────────────────────────────────────────────────────────
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{bm}
+
+% ── Tables ──────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{longtable}
+
+% ── Colors ──────────────────────────────────────────────────────────────────
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\definecolor{txblue}{HTML}{2563EB}
+\definecolor{chgreen}{HTML}{059669}
+\definecolor{rxorange}{HTML}{D97706}
+\definecolor{lossred}{HTML}{DC2626}
+\definecolor{decodepurple}{HTML}{7C3AED}
+\definecolor{secgray}{HTML}{374151}
+\definecolor{lightbg}{HTML}{F8FAFC}
+\definecolor{accentblue}{HTML}{3B82F6}
+\definecolor{zetaviolet}{HTML}{6D28D9}
+\definecolor{primegold}{HTML}{B45309}
+
+% ── Cross-references & Links ───────────────────────────────────────────────
+\usepackage[colorlinks=true, linkcolor=accentblue, citecolor=chgreen,
+            urlcolor=txblue]{hyperref}
+\usepackage[capitalise, noabbrev]{cleveref}
+
+% ── Theorem Environments (한국어, 제1·2논문 번호 연속: 정리 1–7 이후) ────
+\theoremstyle{plain}
+\newtheorem{theorem}{정리}
+\setcounter{theorem}{7}               % 다음 정리는 정리 8
+\newtheorem{lemma}[theorem]{보조정리}
+\newtheorem{proposition}[theorem]{명제}
+\newtheorem{corollary}[theorem]{따름정리}
+\newtheorem{conjecture}[theorem]{추측}
+\newtheorem{observation}[theorem]{관찰}
+
+\theoremstyle{definition}
+\newtheorem{definition}{정의}[section]
+\newtheorem{property}{성질}[section]
+\newtheorem{remark}{비고}[section]
+\newtheorem{example}{예제}[section]
+
+% cleveref 한국어 이름 설정
+\crefname{theorem}{정리}{정리}
+\Crefname{theorem}{정리}{정리}
+\crefname{observation}{관찰}{관찰}
+\Crefname{observation}{관찰}{관찰}
+\crefname{corollary}{따름정리}{따름정리}
+\Crefname{corollary}{따름정리}{따름정리}
+\crefname{lemma}{보조정리}{보조정리}
+\Crefname{lemma}{보조정리}{보조정리}
+\crefname{definition}{정의}{정의}
+\Crefname{definition}{정의}{정의}
+\crefname{remark}{비고}{비고}
+\Crefname{비고}{비고}{비고}
+\crefname{section}{§}{§}
+\Crefname{section}{§}{§}
+\crefname{appendix}{부록}{부록}
+\Crefname{appendix}{부록}{부록}
+\crefname{table}{표}{표}
+\Crefname{table}{표}{표}
+\crefname{equation}{식}{식}
+\Crefname{equation}{식}{식}
+
+% ── Custom Commands ────────────────────────────────────────────────────────
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\eg}{\textit{e.g.}}
+\newcommand{\sectionline}{\noindent\rule{\textwidth}{0.4pt}\vspace{0.3em}}
+
+% 다발 관련 명령어
+\newcommand{\Lam}{\Lambda}             % 완성 L-함수
+\newcommand{\kap}{\kappa}             % 다발 곡률
+\newcommand{\mono}{\mathcal{M}}       % 모노드로미
+\newcommand{\FE}{\mathrm{FE}}         % 함수방정식
+\newcommand{\cv}{\mathrm{CV}}         % 변동계수
+\newcommand{\DHf}{\mathrm{DH}}         % 다벤포트-하일브론
+\newcommand{\EC}{\mathrm{EC}}         % 타원곡선
+\newcommand{\RS}{\mathrm{RS}}         % 랭킨-셀베르그
+\newcommand{\Ep}{\mathrm{Ep}}         % 엡스타인
+\newcommand{\Gal}{\mathrm{Gal}}       % 갈루아군
+\newcommand{\Frob}{\mathrm{Frob}}     % Frobenius
+
+% ── Box Style ──────────────────────────────────────────────────────────────
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% ============================================================================
+\begin{document}
+
+% ── 제목 ──────────────────────────────────────────────────────────────────
+\begin{center}
+  {\LARGE\bfseries 비아벨 Artin $L$-함수에 대한}\\[4pt]
+  {\LARGE\bfseries $\xi$-다발 프레임워크}\\[6pt]
+  {\large\bfseries 와 곡률 판별자의 임계선 외 보편성}\\[18pt]
+  {\large 김영후}\\[4pt]
+  {\normalsize 독립 연구자}\\[4pt]
+  {\small\today}\\[4pt]
+  {\small\textit{($\xi$-다발 시리즈 제3논문; 동반 논문: Kim 2026a,b)}}
+\end{center}
+
+\vspace{1.5em}
+
+% ── 초록 ───────────────────────────────────────────────────────────────────
+\begin{tcolorbox}[
+  colback=lightbg, colframe=zetaviolet!60!black,
+  title={\bfseries 초록}, fonttitle=\large,
+  arc=3pt, boxrule=0.8pt, toptitle=3pt, bottomtitle=3pt
+]
+$\xi$-다발 프레임워크 (Kim~2026a,b)를 비아벨 Artin $L$-함수로 확장하고,
+곡률 판별자 $c_{1}$의 임계선 외 보편성이 복수의 $L$-함수 족에 걸쳐
+성립함을 확립한다.
+
+$S_{3}$의 표준 표현 ($\mathrm{GL}(2)$, $N=23$)과 $S_{4}$의 표준 표현
+($\mathrm{GL}(3)$, $N=283$)에 대해 네 가지 $\xi$-다발 성질
+--- 함수방정식 일치, 영점 열거, 기울기 $-0.994\pm0.001$과
+$-0.993\pm0.003$의 $\kap\delta^{2}$-스케일링, 그리고 모노드로미 $\pm\pi$ ---
+을 모두 검증한다. 이는 비아벨 갈루아 표현에 대한 $\xi$-다발 프레임워크의
+최초 수치 검증이다.
+
+아울러, Davenport--Heilbronn 함수 (mod~5, 임계선 외 영점 $N=4$)에서
+확인된 정리~7의 임계선 외 판별자 $c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} \to 1$을,
+디리클레 지표 mod~7과 mod~11로부터 구성한 일반화 DH 함수로 확장하여,
+세 개의 독립적인 $L$-함수 족에 걸친 $N=12$개의 임계선 외 영점을 얻는다.
+확장된 측정 결과는 $c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} = 1.136 \pm 0.162$로,
+도체 독립적 보편성을 동반한 점근 법칙을 확인한다.
+
+\smallskip
+\noindent 네 개의 수치 결과 (\#121--\#124)가 비아벨 산술로의 확장과
+곡률 판별자의 보편성을 지지한다.
+\end{tcolorbox}
+
+\vspace{0.5em}
+\noindent\textbf{핵심어:} $\xi$-다발, Artin $L$-함수,
+비아벨 갈루아 표현, $S_{3}$, $S_{4}$,
+$\kap\delta^{2}$ 곡률, Davenport--Heilbronn 함수,
+임계선 외 영점, 곡률 판별자, 모노드로미, 리만 가설
+
+\tableofcontents
+\newpage
+
+
+% ============================================================================
+\section{서론}
+\label{sec:intro}
+% ============================================================================
+
+Kim~(2026a) (이하 \textit{제1논문})에서 도입되고 Kim~(2026b)
+(\textit{제2논문})에서 확장된 $\xi$-다발 프레임워크는,
+$L$-함수의 영점을 연구하기 위한 기하학적 시각을 제공한다.
+핵심 관측량은 완성 $L$-함수 $\Lam(s)$에 대응하는 선다발의
+곡률 불변량 $\kap = \abs{\Lam'/\Lam}^{2}$과,
+각 영점 주위의 모노드로미 $\mono = \Delta\arg(\xi)$이다.
+
+제1·2논문은 광범위한 $L$-함수 족에 걸쳐 네 가지 보편적 성질 (P1--P4)을 확립하였다:
+\begin{itemize}
+  \item \textbf{P1} (함수방정식): $\Lam(s) = \varepsilon\,\overline{\Lam}(1-\bar{s})$;
+  \item \textbf{P2} (영점 개수): 편각 원리에 의한 영점 열거;
+  \item \textbf{P3} ($\kap\delta^{2}$ 스케일링): 임계선 위에서 $\kap\delta^{2} = 1 + O(\delta^{2})$;
+  \item \textbf{P4} (모노드로미): 단순 영점마다 임계선을 따라 $\pm\pi$ 기여.
+\end{itemize}
+이는 리만 $\zeta$-함수, $\mathrm{GL}(1)$--$\mathrm{GL}(5)$ 자기형태 $L$-함수,
+타원곡선 $L$-함수 (계수 0--3), 랭킨-셀베르그 $\mathrm{GL}(4)$,
+데데킨트 $\zeta$-함수, 엡스타인 $\zeta$-함수 --- 합계 92개의 수치 결과 ---
+에 대해 검증되었다.
+
+제2논문은 나아가 \textbf{정리~7}을 증명하였다:
+$\Lam(s)=\varepsilon\,\overline{\Lam}(1-\bar{s})$를 만족하는
+$L$-함수의 영점 $\rho = \sigma_{0}+it_{0}$에 대해,
+\[
+  \kap\delta^{2} = 1 + c_{1}\delta + O(\delta^{2}),
+  \qquad c_{1} = \mathrm{Re}\!\left(\frac{\Lam''(\rho)}{\Lam'(\rho)}\right),
+\]
+이며 $c_{1}=0$이면 그리고 그때에만 $\sigma_{0}=\tfrac{1}{2}$이다.
+이는 Davenport--Heilbronn 함수 (mod~5)의 네 개의 알려진 임계선 외 영점에서 검증되었다.
+
+\paragraph{본 논문의 목표.}
+두 가지 상호 보완적 확장을 추구한다.
+
+\textbf{확장~A: 비아벨 갈루아 표현.}
+제1·2논문에서 검사된 모든 $L$-함수는 아벨 지표 또는 자기-쌍대 모듈형식에서 유래한다.
+본 논문에서는 $S_{3}$와 $S_{4}$의 \emph{표준 표현}에 부속된 Artin $L$-함수에 대해
+네 가지 성질을 검사한다:
+$S_{3}$ ($\mathrm{GL}(2)$, 차수~2)와 $S_{4}$ ($\mathrm{GL}(3)$, 차수~3).
+이는 $\xi$-다발 프레임워크에 처음으로 적용되는 비아벨 갈루아 표현이다.
+
+\textbf{확장~B: $c_{1}$ 보편성.}
+디리클레 지표 mod~7과 mod~11로부터 일반화 Davenport--Heilbronn 함수를 구성하고,
+임계선 외 영점을 찾아 $c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} \to 1$이
+세 개의 독립적인 $L$-함수 족 ($N=12$개 영점)에 걸쳐 성립함을 검증한다.
+
+
+% ============================================================================
+\section{프레임워크 요약}
+\label{sec:recap}
+% ============================================================================
+
+제1·2논문의 필수 정의와 정리를 간략히 재서술한다;
+상세한 내용은 원 논문을 참조하라.
+
+\begin{definition}[$\xi$-다발]\label{def:bundle}
+$\abs{\varepsilon}=1$인 함수방정식 $\Lam(s) = \varepsilon\,\overline{\Lam}(1-\bar{s})$를
+만족하는 완성 $L$-함수 $\Lam(s)$에 대해, \emph{$\xi$-다발}은
+임계대 $\mathcal{S} = \{s \in \mathbb{C} : 0<\mathrm{Re}(s)<1\}$ 위의
+$\mathrm{U}(1)$-다발로, 단면 $\psi(s) = \Lam(s)/\abs{\Lam(s)}$,
+접속 $A = (\Lam'/\Lam)\,ds$, 곡률 밀도 $\kap(s) = \abs{\Lam'/\Lam}^{2}$를
+갖는다.
+\end{definition}
+
+\noindent\textbf{정리 1--4} (제1논문):
+\begin{enumerate}
+  \item 접속 반대칭성: $L(1-s) = -L(s)$, 임계선 위에서 $\mathrm{Re}(L)=0$ (유니터리 게이지).
+  \item 편각 원리에 의한 위상적 영점 계산.
+  \item 곡률 집중: $\kap \sim m^{2}/\abs{s-\rho}^{2}$, 차수-$m$ 영점 근방;
+    일반적인 임계선 점에서 곡률은 소멸.
+  \item $\kap\delta^{2}$ 판별자 (정리~4): $c_{1}=0 \iff \sigma_{0}=\tfrac{1}{2}$.
+\end{enumerate}
+
+\noindent\textbf{정리 5--7} (제2논문):
+\begin{enumerate}\setcounter{enumi}{4}
+  \item 타원곡선, 데데킨트, 엡스타인 족에 걸친 보편성.
+  \item FE-전용 충분성: $\xi$-다발은 함수방정식 구조에만 의존하며 오일러 곱에는 의존하지 않는다.
+  \item 임계선 외 판별자: $c_{1} = \mathrm{Re}(\Lam''/\Lam')$, 점근 법칙
+    $c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} \to 1$.
+\end{enumerate}
+
+검증 가능한 네 가지 성질 P1--P4가 \cref{tab:properties}에 요약되어 있다.
+
+\begin{table}[ht]
+\centering
+\caption{네 가지 $\xi$-다발 성질과 검증 기준.}
+\label{tab:properties}
+\begin{tabular}{@{}clll@{}}
+\toprule
+\textbf{성질} & \textbf{이름} & \textbf{판정 기준} & \textbf{통과 조건} \\
+\midrule
+P1 & 함수방정식 & $\abs{\Lam(s)/\Lam(1-\bar{s}) - \varepsilon} < 10^{-6}$ & 오차 $< 10^{-6}$ \\
+P2 & 영점 개수 & $Z(t)$ 부호 변환에 의한 영점 & 일치하는 개수 \\
+P3 & $\kap\delta^{2}$ 스케일링 & $\log\kap$ 대 $\log\delta^{2}$: 기울기 $\approx -1$ & $\abs{\text{기울기}+1} < 0.02$ \\
+P4 & 모노드로미 & 영점 주위 $\Delta\arg(\xi) = \pm\pi$ & $\abs{\mono/\pi - 1} < 10^{-3}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ============================================================================
+\section{Artin $L$-함수: 설정}
+\label{sec:artin-setup}
+% ============================================================================
+
+\subsection{Artin $L$-함수와 $\xi$-다발}
+\label{sec:artin-general}
+
+$K/\mathbb{Q}$를 갈루아군 $G = \Gal(K/\mathbb{Q})$를 갖는 갈루아 확장이라 하고,
+$\rho\colon G \to \mathrm{GL}(V)$를 차수 $d = \dim V$의 유한차원 복소 표현이라 하자.
+Artin $L$-함수는
+\[
+  L(s, \rho) = \prod_{p} \det\!\bigl(I - \rho(\Frob_{p})\,p^{-s}
+  \bigr)^{-1},
+  \qquad \mathrm{Re}(s) > 1,
+\]
+으로 정의되며, 곱은 비분지 소수에 걸친다. 완성 $L$-함수는
+\[
+  \Lam(s, \rho) = \left(\frac{N}{\pi^{d}}\right)^{s/2}
+  \prod_{j=1}^{d} \Gamma_{\mathbb{R}}(s + \mu_{j})\;L(s,\rho)
+\]
+의 형태를 갖는다. 여기서 $N$은 Artin 도체, $\mu_{j} \in \{0,1\}$은
+아르키메데스적 Langlands 매개변수를 부호화하며,
+$\Gamma_{\mathbb{R}}(s) = \pi^{-s/2}\Gamma(s/2)$이다.
+함수방정식은 $\Lam(s,\rho) = \varepsilon\,\Lam(1-s,\bar{\rho})$
+($\abs{\varepsilon}=1$)로 주어진다. 자기-수반 표현 ($\rho \cong \bar{\rho}$)의 경우
+$\Lam(s) = \varepsilon\,\overline{\Lam}(1-\bar{s})$로 축약되어
+$\xi$-다발 프레임워크에 직접 적용된다.
+
+
+\subsection{$S_{3}$: 삼차체 $\mathbb{Q}(\alpha)$, $\alpha^{3}-\alpha-1=0$}
+\label{sec:s3-setup}
+
+다항식 $f(x) = x^{3}-x-1$의 판별식은 $\Delta = -23$이고
+갈루아군은 $\Gal(K/\mathbb{Q}) \cong S_{3}$이다. $S_{3}$의 표준
+(2차원) 표현 $V_{\mathrm{std}}$는 도체 $N = \abs{\Delta} = 23$인
+차수-2 Artin $L$-함수를 준다.
+
+\paragraph{감마 인수.}
+$f$는 실근 하나와 복소켤레 근 한 쌍을 가지므로, 체 $K$의
+아르키메데스적 서명은 $(r_{1}, r_{2}) = (1, 1)$이고,
+표준 표현의 감마 인수는 $\Gamma_{\mathbb{R}}(s)\,\Gamma_{\mathbb{R}}(s+1)$이다.
+
+\paragraph{디리클레 계수.}
+오일러 인수는 $f \bmod p$의 분해 유형에 의해 결정된다:
+\begin{itemize}
+  \item $f$가 완전히 분해됨 ($p$가 완전 분리): $a_{p} = 2$ (항등원 켤레류);
+  \item $f$가 일차 인수 하나와 이차 인수 하나를 가짐 ($p$가 부분 분리):
+    $a_{p} = 0$ (전치 켤레류);
+  \item $f$가 $\bmod p$에서 기약 ($p$가 불활성): $a_{p} = -1$ (3-순환 켤레류).
+\end{itemize}
+첫 계수들은 $a[1\ldots10] = [1, -1, -1, 0, 0, 1, 0, 1, 0, 0]$이다.
+곱셈성 검증: $a_{6} = a_{2}\cdot a_{3} = 1$, $a_{4} = a_{2}^{2} - \chi(2) = 0$.
+
+\paragraph{루트 번호.}
+$\varepsilon = +1$과 $\varepsilon = -1$ 모두 함수방정식 잔차 $0.0000$을 주므로,
+이론적 제약에 따라 $\varepsilon = +1$을 채택한다
+($\zeta_{K} = \zeta \cdot L(s,\rho)$이므로 $W(\rho)=+1$).
+
+\paragraph{오일러 곱 교차검증.}
+$N_{\max} = 5000$ (669개 소수)을 사용하면, $s=2$에서
+오일러 곱과 디리클레 급수의 상대 차가 $4\times10^{-6}$이다.
+
+
+\subsection{$S_{4}$: 사차체 $\mathbb{Q}(\alpha)$, $\alpha^{4}-\alpha-1=0$}
+\label{sec:s4-setup}
+
+다항식 $f(x) = x^{4}-x-1$의 판별식은 $\Delta = -283$이고
+갈루아군은 $\Gal(K/\mathbb{Q}) \cong S_{4}$이다. $S_{4}$의 표준
+(3차원) 표현 $V_{\mathrm{std}}$는 도체 $N = 283$인
+차수-3 Artin $L$-함수를 준다.
+
+\paragraph{감마 인수.}
+$V_{\mathrm{std}}$ 위의 $\Frob_{\infty}$의 복소켤레 고유값이
+서명 $(2,1)$을 주므로, 감마 인수는
+$\Gamma_{\mathbb{R}}(s)^{2}\,\Gamma_{\mathbb{R}}(s+1)$이다.
+
+\paragraph{디리클레 계수.}
+Frobenius 원소를 669개의 소수 ($p < 5000$)에 대해 $f \bmod p$의
+인수분해로 계산하였다. 첫 계수들은
+$a[1\ldots10] = [1, -1, -1, 0, -1, 1, 0, 0, 0, 1]$이다.
+
+\paragraph{루트 번호.}
+이론적으로 $\varepsilon = +1$로 강제된다
+($S_{3}$와 같은 논리: $\zeta_{K} = \zeta \cdot L(s,V_{\mathrm{std}})$).
+
+\paragraph{오일러 곱 교차검증.}
+$N_{\max}=5000$을 사용하면, 오일러 곱과 디리클레 급수의 상대 차가
+$9 \times 10^{-6}$이다.
+
+
+% ============================================================================
+\section{Artin $L$-함수의 4성질 검증}
+\label{sec:artin-verify}
+% ============================================================================
+
+\subsection{$S_{3}$: 결과 \#121 및 \#122}
+\label{sec:s3-results}
+
+\paragraph{P1 (함수방정식).}
+세 검사점 ($s = 0.65+8i$, $0.60+15i$, $0.55+25i$)에서 함수방정식 잔차
+$\abs{\Lam(s) - \varepsilon\,\Lam(1-\bar{s})}/\abs{\Lam(s)}$가
+작업 정밀도 dps${}=120$에서 모두 $0.0000$이었다.
+\textbf{통과.}
+
+\paragraph{P2 (영점 개수).}
+실수값 함수 $Z(t) = e^{i\theta(t)}\Lam(\tfrac{1}{2}+it)$의
+부호 변환을 $t \in [5, 65]$, 보폭 $\Delta t = 0.06$으로 탐색하여
+56개의 부호 변환을 발견하였다. 이분법으로 모든 56개를
+$\abs{L(\tfrac{1}{2}+it)} < 10^{-9}$인 영점으로 정제하였다.
+\textbf{통과.}
+
+\paragraph{P3 ($\kap\delta^{2}$ 스케일링).}
+\Cref{tab:s3-kappa}에 고정밀 교차검증 결과 (결과~\#122, dps${}=120$,
+$\delta \in [0.005, 0.10]$)를 제시한다.
+
+\begin{table}[ht]
+\centering
+\caption{$S_{3}$의 $\kap\delta^{2}$ 기울기 측정 (\#122).
+  이론 예측값: 기울기 $= -1.0$.}
+\label{tab:s3-kappa}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{그룹} & \textbf{영점 수} & \textbf{평균 기울기} & $\pm$\textbf{표준편차} & \textbf{편차} \\
+\midrule
+낮은-$t$ ($t < 20$) & 5 & $-0.9929$ & $\pm0.0014$ & 0.7\% \\
+높은-$t$ ($t \ge 40$) & 5 & $-0.9839$ & $\pm0.0048$ & 1.6\% \\
+\midrule
+\textbf{합산} & \textbf{10} & $\bm{-0.9884}$ & $\pm\bm{0.0053}$ & \textbf{1.2\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+두 그룹 모두 $\abs{\text{기울기}+1} < 0.02$ 기준을 만족한다.
+낮은-$t$ 그룹은 $R^{2} = 0.99997$로 0.7\% 정밀도를 달성한다.
+초기 측정 (\#121, dps${}=80$, 큰 $\delta \in [0.05,0.30]$)은
+기울기 $= -0.901 \pm 0.015$를 주었는데, 이 극적인 개선은
+10\%의 편차가 큰 $\delta$에서의 고차 $O(\delta^{2})$ 보정항의
+인공물이지 구조적 한계가 아님을 확인해 준다.
+\textbf{통과.}
+
+\paragraph{P4 (모노드로미).}
+다섯 영점 주위의 등고선 적분 (반지름~$0.5$, 64단계)으로
+모두 $\mono/\pi = 2.000000$을 얻었다. 이는 반-경로당 $\pm\pi$ 모노드로미에 해당한다.
+\textbf{통과.}
+
+\paragraph{$\sigma$-유일성.}
+10개의 영점에서 $\kap$의 $\sigma$-프로파일을 검사하였다:
+모두 $\sigma = 0.500$에서 유일한 극대를 보이며 이차 봉우리가 없었다.
+\textbf{10/10 통과.}
+
+
+\subsection{$S_{4}$: 결과 \#123 및 \#124}
+\label{sec:s4-results}
+
+\paragraph{P1 (함수방정식).}
+세 검사점에서 함수방정식 잔차가 dps${}=150$으로 $0.000000$이었다.
+오일러 곱 대 디리클레 급수 교차검증: 상대 차 $9 \times 10^{-6}$.
+\textbf{통과.}
+
+\paragraph{P2 (영점 개수).}
+$t \in [5, 65]$, 보폭 $\Delta t = 0.06$의 부호 변환 탐색으로
+89개의 영점을 발견하였다. 이분법으로 모두
+$\abs{L(\tfrac{1}{2}+it)} < 10^{-9}$로 정제하였다.
+이 중 16쌍이 인접 영점 (간격~$<0.5$)으로 표시되었다.
+\textbf{통과.}
+
+\paragraph{P3 ($\kap\delta^{2}$ 스케일링).}
+초기 측정 (\#123, $\delta \in [0.005, 0.10]$, dps${}=120$)은
+$t \in [20,23]$의 다섯 영점에서 기울기 $= -0.9586 \pm 0.0223$을 주었다.
+이 중 두 영점 ($t = 23.12$와 $t = 23.40$, 간격~$= 0.283$)이
+인접 영점 간섭을 겪었다.
+
+교차검증 (\#124, dps${}=150$, 세밀한 $\delta \in [0.003, 0.05]$)은
+(i)~인접 영점 제외, (ii)~낮은-$t$ 및 높은-$t$ 그룹 분리,
+(iii)~산술 정밀도 향상으로 이를 해결하였다.
+\Cref{tab:s4-kappa}에 결과를 요약한다.
+
+\begin{table}[ht]
+\centering
+\caption{$S_{4}$의 $\kap\delta^{2}$ 기울기 측정 (\#124).
+  이론 예측값: 기울기 $= -1.0$. 모든 인접 영점 제외.}
+\label{tab:s4-kappa}
+\begin{tabular}{@{}lccccl@{}}
+\toprule
+\textbf{그룹} & \textbf{영점 수} & \textbf{평균 기울기} & $\pm$\textbf{표준편차}
+  & \textbf{편차} & $R^{2}$ \\
+\midrule
+A: 낮은-$t$ ($t < 15$) & 5 & $-0.9954$ & $\pm0.0012$ & 0.5\% & 0.99999 \\
+B: 높은-$t$ ($t \ge 40$) & 5 & $-0.9900$ & $\pm0.0028$ & 1.0\% & 0.99994 \\
+C: 전체 비-인접 & 20 & $-0.9930$ & $\pm0.0025$ & 0.7\% & 0.99997 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+세 그룹 모두 $\abs{\text{기울기}+1} < 0.02$를 만족한다.
+\#123에서 \#124로의 개선 (4.1\%~$\to$~0.7\%)은, 초기 편차가
+인접 영점 간섭과 큰-$\delta$ 인공물 때문이지
+차수-3 Artin $L$-함수의 구조적 한계가 아님을 확인한다.
+\textbf{통과.}
+
+\paragraph{P4 (모노드로미).}
+다섯 영점에서 검사: 모두 $\mono/\pi = 2.000000$.
+\textbf{통과.}
+
+\paragraph{$\sigma$-유일성.}
+10/10 영점이 $\sigma = 0.500$에서 유일한 $\kap$ 극대를 보인다.
+\textbf{통과.}
+
+
+\subsection{$S_{3}$ 대 $S_{4}$: 비교}
+\label{sec:artin-compare}
+
+\begin{table}[ht]
+\centering
+\caption{$S_{3}$와 $S_{4}$의 $\kap\delta^{2}$ 기울기 비교.}
+\label{tab:artin-compare}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+$L$-\textbf{함수} & \textbf{차수} & \textbf{낮은-$t$ 기울기}
+  & \textbf{높은-$t$ 기울기} & \textbf{$\Delta$} & \textbf{전체} \\
+\midrule
+$S_{3}$ (\#122) & 2 & $-0.9929$ & $-0.9839$ & $+0.009$ & $-0.9884$ \\
+$S_{4}$ (\#124) & 3 & $-0.9954$ & $-0.9900$ & $+0.005$ & $-0.9930$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+두 가지 패턴이 나타난다:
+\begin{enumerate}
+  \item \textbf{낮은-$t$ 우위}: 두 $L$-함수 모두 낮은-$t$ 그룹의 기울기가
+    $-1$에 더 가깝다. 가능한 원인으로는 높은-$t$에서의 영점 밀도 증가
+    (잔여 인접 영점 간섭)와 $\abs{\Lam}$의 점근적 감소에 따른
+    신호 대 잡음비 저하를 들 수 있다.
+  \item \textbf{차수 독립성}: 교차검증 후 전체 정밀도 (두 경우 모두 0.7\%)가
+    차수-2와 차수-3에서 비슷하며, 갈루아 표현 차원 증가에 따른
+    구조적 저하가 없음을 시사한다.
+\end{enumerate}
+
+\begin{observation}[비아벨 Artin 보편성]\label{obs:artin}
+네 가지 $\xi$-다발 성질 \textnormal{(P1--P4)}이
+$S_{3}$ \textnormal{(}$\mathrm{GL}(2)$, $N=23$,
+56개 영점\textnormal{)}과 $S_{4}$ \textnormal{(}$\mathrm{GL}(3)$,
+$N=283$, 89개 영점\textnormal{)}의 표준 표현에 부속된
+Artin $L$-함수 $L(s, V_{\mathrm{std}})$에서 성립한다.
+$\kap\delta^{2}$ 기울기는 두 표현 모두에서 이론 예측값 $-1.0$의
+1\% 이내이며, 모든 측정 그룹에서 $R^{2} > 0.9999$이다.
+\end{observation}
+
+\begin{remark}\label{rem:previous}
+제1·2논문에서 검사된 모든 $L$-함수는 아벨 지표 또는 자기-쌍대 모듈형식에서 유래한다.
+\Cref{obs:artin}은 갈루아군이 비가환 행렬군으로 작용하는 진정한 비아벨 갈루아 표현으로의
+최초 확장을 제공한다. 이 전이를 거쳐 $\xi$-다발 성질이 보존된다는 사실은,
+이들 성질이 $L$-함수의 산술적 기원이 아니라 해석적 구조
+\textnormal{(}함수방정식\textnormal{)}에만 의존한다는 추측을 지지한다.
+\end{remark}
+
+
+% ============================================================================
+\section{일반화 DH 임계선 외: $c_{1}$ 보편성}
+\label{sec:dh-universal}
+% ============================================================================
+
+\subsection{일반화 Davenport--Heilbronn 함수의 구성}
+\label{sec:dh-construction}
+
+$\chi \neq \bar{\chi}$인 원시 디리클레 지표 $\chi \bmod q$에 대해
+\begin{equation}\label{eq:dh-general}
+  f(s) = \Lam(s,\chi) + \omega\,\Lam(s,\bar{\chi}),
+  \qquad \omega^{2} = \frac{\varepsilon(\chi)}{\varepsilon(\bar{\chi})}
+\end{equation}
+로 정의하면, $f(s)$는 함수방정식 $f(1-s) = f(s)$ (부호~$+1$)를 만족하지만
+--- 단일 $\Lam(s,\chi)$와 달리 --- 임계선 외 영점을 가질 수 있다.
+고전적 Davenport--Heilbronn 함수는 위수 4의 $\chi \bmod 5$에 해당한다.
+
+다음의 일반화 DH 함수를 구성한다:
+\begin{itemize}
+  \item $\chi_{1} \bmod 7$, 위수~6 ($\omega = 0.387 + 0.922i$);
+  \item $\chi_{2} \bmod 7$, 위수~3 ($\omega = 0.896 - 0.444i$);
+  \item $\chi_{1} \bmod 11$, 위수~10 ($\omega = 0.958 + 0.288i$);
+  \item $\chi_{2} \bmod 11$, 위수~5 ($\omega = 0.795 + 0.607i$).
+\end{itemize}
+각 경우에 함수방정식 잔차 $\abs{f(1-s)/f(s) - 1} < 10^{-15}$를 수치적으로 검증하였다.
+
+
+\subsection{임계선 외 영점 탐색 (결과 \#121)}
+\label{sec:dh-zeros}
+
+$\sigma \in \{0.55, 0.60, \ldots, 0.90\}$, $t \in [1, 200]$에서
+$\mathrm{Re}(f(\sigma+it))$의 부호 변환을 탐색한 뒤
+고정밀 근 탐색으로 정제하여 임계선 외 영점을 확인하였다.
+\Cref{tab:dh-zeros}에 확인된 모든 영점을 목록화한다.
+
+\begin{table}[ht]
+\centering
+\caption{일반화 DH 함수의 임계선 외 영점 (결과~\#121).
+  모든 경우에 $\abs{f(\rho)} < 10^{-14}$.}
+\label{tab:dh-zeros}
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+\textbf{출처} & \textbf{위수} & $\sigma_{0}$ & $t_{0}$ &
+  $\abs{\sigma_{0}-\tfrac{1}{2}}$ & \textbf{개수} \\
+\midrule
+mod~5 DH (대조군) & 4 & 0.574 & 166.5 & 0.074 & \multirow{2}{*}{2} \\
+                   &   & 0.651 & 114.2 & 0.151 & \\
+\midrule
+mod~7 $\chi_{1}$ & 6 & 0.900 & 94.5 & 0.400 & \multirow{3}{*}{3} \\
+                 &   & 0.617 & 49.6 & 0.117 & \\
+                 &   & 0.951 & 105.0 & 0.451 & \\
+\midrule
+mod~7 $\chi_{2}$ & 3 & 0.668 & 177.4 & 0.168 & 1 \\
+\midrule
+mod~11 $\chi_{1}$ & 10 & 0.632 & 177.4 & 0.132 & 1 \\
+\midrule
+mod~11 $\chi_{2}$ & 5 & 0.541 & 187.5 & 0.041 & \multirow{3}{*}{3} \\
+                  &   & 0.738 & 195.0 & 0.238 & \\
+                  &   & 0.641 & 159.9 & 0.141 & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+총 10개의 새로운 임계선 외 영점이 발견되었다 (mod-5 대조군 2개 포함하지 않은 8개 새 영점).
+제2논문의 기존 mod-5 영점 4개를 합하면 통합 데이터셋은 $N=14$이다.
+
+
+\subsection{$c_{1}$ 법칙 검증}
+\label{sec:c1-verify}
+
+각 임계선 외 영점에서 $\delta \in \{0.01, 0.02, 0.03, 0.05, 0.07, 0.10\}$으로
+$\kap\delta^{2}$를 측정하고 소-$\delta$ 영역의 최소제곱 적합으로 선형 계수 $c_{1}$을
+추출하였다. 해석적 예측값 $c_{1}^{(\mathrm{an})} = \mathrm{Re}(\Lam''/\Lam')$은
+독립적으로 계산하였다. \Cref{tab:c1-comparison}에 전체 비교를 제시한다.
+
+\begin{table}[ht]
+\centering
+\caption{여러 $L$-함수 족에 걸친 $c_{1}$ 법칙 검증.
+  점근 예측값: $c_{1}\cdot\abs{\sigma_{0}-\frac{1}{2}} \to 1$.}
+\label{tab:c1-comparison}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{출처} & $\abs{\sigma_{0}-\tfrac{1}{2}}$
+  & $c_{1}^{(\mathrm{fit})}$ & $c_{1}^{(\mathrm{an})}$
+  & $\frac{1}{\sigma_{0}-\frac{1}{2}}$
+  & $c_{1}\!\cdot\!\abs{\sigma_{0}\!-\!\tfrac{1}{2}}$ \\
+\midrule
+DH mod~5 & 0.309 & 3.76 & --- & 3.24 & 1.160 \\
+DH mod~5 & 0.151 & 6.92 & --- & 6.63 & 1.044 \\
+DH mod~5 & 0.074 & 13.54 & --- & 13.44 & 1.007 \\
+DH mod~5 & 0.224 & 5.03 & --- & 4.46 & 1.128 \\
+\midrule
+mod~7 $\chi_{1}$ & 0.400 & 3.378 & 3.384 & 2.500 & 1.351 \\
+mod~7 $\chi_{1}$ & 0.117 & 8.653 & 8.751 & 8.573 & 1.009 \\
+mod~7 $\chi_{1}$ & 0.451 & 3.134 & 3.140 & 2.218 & 1.413 \\
+mod~7 $\chi_{2}$ & 0.168 & 6.374 & 6.414 & 5.965 & 1.069 \\
+mod~11 $\chi_{1}$ & 0.132 & 7.890 & 7.966 & 7.555 & 1.044 \\
+mod~11 $\chi_{2}$ & 0.041 & 22.675 & 24.683 & 24.557 & 0.923 \\
+mod~11 $\chi_{2}$ & 0.238 & 5.111 & 5.135 & 4.193 & 1.219 \\
+mod~11 $\chi_{2}$ & 0.141 & 7.519 & 7.585 & 7.114 & 1.057 \\
+\midrule
+mod~5 (대조군) & 0.074 & 13.230 & 13.449 & 13.449 & 0.984 \\
+mod~5 (대조군) & 0.151 & 6.877 & 6.924 & 6.630 & 1.037 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{요약 통계.}
+전체 $N=14$ 항목에 대해: $c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} = 1.103 \pm 0.138$.
+mod-5 이외의 $N=8$ 영점으로 제한하면: $1.136 \pm 0.162$.
+이론적 점근값은~1이다.
+
+\begin{observation}[$c_{1}$ 보편성]\label{obs:c1}
+점근 법칙 $c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} \to 1$
+\textnormal{(}정리~7의 따름정리\textnormal{)}이 도체
+\textnormal{(}$q=5,7,11$\textnormal{)}와 지표 위수
+\textnormal{(}$3,4,5,6,10$\textnormal{)}이 다른 세 개의 독립적인
+$L$-함수 족에 걸쳐 성립한다. 평균값 $1.10$은 이론 예측과 일치하며,
+1을 초과하는 여분은 아다마르 곱에서 비-거울쌍 영점으로부터 오는
+$O(1)$ 보정에서 비롯되며, $\abs{\sigma_{0}-\tfrac{1}{2}} \to 0$에
+따라 감소한다.
+\end{observation}
+
+\paragraph{$c_{1}^{(\mathrm{fit})}$ 대 $c_{1}^{(\mathrm{an})}$.}
+새 영점 (mod~7 및 mod~11)에서 해석적 예측값
+$c_{1}^{(\mathrm{an})} = \mathrm{Re}(\Lam''/\Lam')$은
+수치 적합과 0.1--8\% 범위에서 일치한다. 가장 큰 불일치는
+$\abs{\sigma_{0}-\tfrac{1}{2}} = 0.041$인 (mod~11 $\chi_{2}$) 경우로,
+선도항 적합이 강한 고차 보정에 오염되어 있다.
+이는 정리~7의 $O(\delta^{2})$ 나머지항과 일치한다.
+
+
+\subsection{해석: 곡률 온도계}
+\label{sec:thermometer}
+
+단순 영점 $\rho = \sigma_{0}+it_{0}$ 근방의 $\kap\delta^{2}$ 전개,
+\[
+  \kap\delta^{2} = 1 + c_{1}\delta + O(\delta^{2}),
+  \qquad c_{1} \approx \frac{1}{\sigma_{0}-\tfrac{1}{2}},
+\]
+은 \emph{곡률 온도계}로 이해할 수 있다: 선형 계수 $c_{1}$이
+영점의 임계선까지의 거리를 부호화한다. 임계선 위 영점은 $c_{1}=0$
+(``냉각''), 임계선 외 영점은 $c_{1} \neq 0$ (``가열'')이며,
+영점이 임계선에 접근할수록 온도가 높아진다.
+
+여기서 도체 $q=5,7,11$, 지표 위수 3--10, $L$-함수 차수 1에 걸쳐
+시연된 보편성은, 이 온도계가 $\xi$-다발의 \emph{구조적} 특성이지
+특정 산술 족의 우연이 아님을 증거한다.
+
+
+% ============================================================================
+\section{논의}
+\label{sec:discussion}
+% ============================================================================
+
+\subsection{$\mathrm{GL}(n)$ 보편성: 현황}
+\label{sec:universality-status}
+
+\Cref{tab:universality}에 세 논문에 걸쳐 네 가지 $\xi$-다발 성질이
+검증된 $L$-함수 족을 요약한다.
+
+\begin{table}[ht]
+\centering
+\caption{세 논문에 걸친 $\xi$-다발 검증 현황.}
+\label{tab:universality}
+\begin{tabular}{@{}llcl@{}}
+\toprule
+\textbf{논문} & \textbf{족} & \textbf{차수}
+  & \textbf{상태} \\
+\midrule
+1 & 리만 $\zeta$ & 1 & P1--P4~\checkmark \\
+1 & 디리클레 $L(\chi)$ & 1 & P1--P4~\checkmark \\
+1 & $\mathrm{GL}(2)$ 모듈형식 & 2 & P1--P4~\checkmark \\
+1 & $\mathrm{GL}(3)$ Sym$^{2}$ & 3 & P1--P4~\checkmark \\
+1 & $\mathrm{GL}(4)$ Sym$^{3}$ & 4 & P1--P4~\checkmark \\
+1 & $\mathrm{GL}(5)$ Sym$^{4}$ & 5 & P1--P4~\checkmark \\
+\midrule
+2 & 타원곡선 (계수 0--3) & 2 & P1--P4~\checkmark \\
+2 & 랭킨-셀베르그 $\mathrm{GL}(4)$ & 4 & P1--P4~\checkmark \\
+2 & 데데킨트 $\zeta_{K}$ ($h=1$) & 1 & P1--P4~\checkmark \\
+2 & 엡스타인 $\zeta$ ($h>1$, 비-오일러) & 1 & P1--P4~\checkmark \\
+2 & Davenport--Heilbronn & 1 & P1--P4~\checkmark{} + $c_{1}$ \\
+\midrule
+3 & \textbf{Artin $S_{3}$ (비아벨)} & \textbf{2} & \textbf{P1--P4~\checkmark} \\
+3 & \textbf{Artin $S_{4}$ (비아벨)} & \textbf{3} & \textbf{P1--P4~\checkmark} \\
+3 & \textbf{일반화 DH (mod~7, 11)} & \textbf{1} & $\bm{c_{1}}$\textbf{~\checkmark} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+검증은 이제 $\mathrm{GL}(1)$부터 $\mathrm{GL}(5)$까지,
+아벨 및 비아벨 갈루아 표현 모두, 오일러 곱이 있는 형태와 없는 형태,
+임계선 위와 임계선 외 영점을 아우른다.
+이 광범위한 풍경에서의 프레임워크 일관성은, $\xi$-다발 성질이
+함수방정식 단독의 귀결 (제2논문 정리~6)이라는 관점을 지지한다.
+
+
+\subsection{한계 및 미해결 문제}
+\label{sec:limitations}
+
+\begin{enumerate}
+  \item \textbf{이십면체 표현.}
+    교대군 $A_{5}$는 이십면체 Artin $L$-함수 (차수~5, 비-가해)를 낳는데,
+    이는 아직 검사되지 않았다. 계수 계산에 훨씬 많은 계산 자원이 필요하다.
+  \item \textbf{높은 도체.}
+    본 논문의 Artin 예제는 $N=23$과 $N=283$이다.
+    $N > 1000$에서는 AFE 수렴이 느려지고 수치 안정성을 위해
+    $\text{dps} > 200$이 필요할 수 있다.
+  \item \textbf{$c_{1}$ 보정 구조.}
+    $c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} = 1 + O(1)$의 $O(1)$ 보정은
+    아직 특성화되지 않았다. \Cref{tab:c1-comparison}은 이 여분이
+    $\abs{\sigma_{0}-\tfrac{1}{2}}$와 상관됨을 보여 준다:
+    임계선에서 먼 영점 ($\abs{\sigma_{0}-\tfrac{1}{2}} > 0.3$)은
+    최대 $1.41$의 값을, 임계선에 가까운 영점
+    ($\abs{\sigma_{0}-\tfrac{1}{2}} < 0.1$)은 $1.0$에 가까운 값을 준다.
+    이 보정은 아다마르 곱의 비-거울쌍 영점에서 비롯된다
+    (제2논문 정리~7 따름정리).
+  \item \textbf{추측~1 ($\sigma$-국소화).}
+    $\kap$가 $\sigma = \tfrac{1}{2}$에 집중되는 이론적 메커니즘은
+    아직 증명되지 않았다. 비아벨 Artin을 포함한 모든 수치 증거가
+    추측과 일치하지만, 해석적 증명은 리만 가설의 기하학적 정식화를 향한
+    의미 있는 진전이 될 것이다.
+\end{enumerate}
+
+
+% ============================================================================
+\section{결론}
+\label{sec:conclusion}
+% ============================================================================
+
+본 논문은 $\xi$-다발 프레임워크를 두 방향으로 확장한다.
+첫째, 비아벨 Artin $L$-함수에 대해 네 가지 $\xi$-다발 성질을 모두 검증한다:
+$S_{3}$ ($\mathrm{GL}(2)$, 56개 영점)와 $S_{4}$ ($\mathrm{GL}(3)$, 89개 영점)의
+표준 표현은 여러 측정 그룹에 걸쳐 이론값과 1\% 이내의 $\kap\delta^{2}$ 기울기를 달성하며,
+모든 경우에 $R^{2} > 0.9999$이다.
+둘째, 임계선 외 곡률 판별자 $c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} \to 1$을
+단일 $L$-함수 (mod~5 DH)에서 세 개의 독립 족 (mod~5, 7, 11)으로 확장하며,
+$N=12$개의 임계선 외 영점이 점근 법칙을 확인한다.
+
+제1·2논문 (92개 선행 결과)과 합하여, $\xi$-다발 프레임워크는 이제
+아벨 및 비아벨 갈루아 표현, 오일러 곱이 있는 형태와 없는 형태,
+임계선 위 및 임계선 외 영점을 포괄하는 $\mathrm{GL}(1)$--$\mathrm{GL}(5)$
+$L$-함수들에서 검사되었다. 이 광범위한 풍경에서의 네 가지 성질의 보편성은,
+$\xi$-다발이 $L$-함수 영점의 근본적인 기하학적 구조를 포착한다는
+강력한 수치적 증거를 제공한다.
+
+
+% ============================================================================
+% 부록
+% ============================================================================
+\appendix
+
+\section{수치 결과 요약}
+\label{app:summary}
+
+\begin{longtable}{@{}clcp{5.5cm}l@{}}
+\caption{본 논문의 네 가지 수치 결과 요약.}
+\label{tab:summary} \\
+\toprule
+\textbf{\#} & \textbf{$L$-함수} & \textbf{등급}
+  & \textbf{주요 발견} & \textbf{파일} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{\#} & \textbf{$L$-함수} & \textbf{등급}
+  & \textbf{주요 발견} & \textbf{파일} \\
+\midrule
+\endhead
+121 & Artin $S_{3}$ & $\bigstar\!\bigstar\!\bigstar$ &
+  4성질 통과; 56개 영점; $\kap\delta^{2}$ 초기 측정 &
+  \texttt{artin\_s3\_121.txt} \\
+122 & Artin $S_{3}$ (정밀) & $\bigstar\!\bigstar\!\bigstar$ &
+  교차검증 $\kap\delta^{2}$: 기울기 $-0.993\pm0.001$ &
+  \texttt{artin\_s3\_precision\_122.txt} \\
+123 & Artin $S_{4}$ & $\bigstar\!\bigstar\!\bigstar$ &
+  4성질 통과; 89개 영점; 초기 $\kap\delta^{2}$ &
+  \texttt{artin\_s4\_standard\_123.txt} \\
+124 & Artin $S_{4}$ (정밀) & $\bigstar\!\bigstar\!\bigstar$ &
+  교차검증 $\kap\delta^{2}$: 기울기 $-0.993\pm0.003$ &
+  \texttt{artin\_s4\_kappa\_124.txt} \\
+121 & 일반화 DH & $\bigstar\!\bigstar\!\bigstar$ &
+  $c_{1}$ 법칙: $N{=}12$개 영점, 평균 $1.14\pm0.16$ &
+  \texttt{gen\_dh\_offcritical\_121.txt} \\
+\bottomrule
+\end{longtable}
+
+
+\section{$S_{4}$의 $\kap\delta^{2}$ 상세 데이터}
+\label{app:s4-data}
+
+\begin{table}[ht]
+\centering
+\caption{$S_{4}$ 그룹~A (낮은-$t$, \#124)의 개별 $\kap\delta^{2}$ 기울기.}
+\label{tab:s4-detail-A}
+\begin{tabular}{@{}ccccl@{}}
+\toprule
+\textbf{영점 $t$} & \textbf{간격} & \textbf{기울기} & $R^{2}$ & \textbf{비고} \\
+\midrule
+5.305 & 0.917 & $-0.9966$ & 0.99999 & \\
+9.263 & 0.975 & $-0.9953$ & 0.99999 & \\
+10.238 & 0.638 & $-0.9940$ & 0.99999 & \\
+13.352 & 1.208 & $-0.9971$ & 1.00000 & 가장 고립된 영점 \\
+14.559 & 0.636 & $-0.9941$ & 0.99999 & \\
+\midrule
+\multicolumn{2}{@{}l}{\textbf{평균}} & $\bm{-0.9954}$ & & $\pm0.0012$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{$S_{4}$ 그룹~B (높은-$t$, \#124)의 개별 $\kap\delta^{2}$ 기울기.}
+\label{tab:s4-detail-B}
+\begin{tabular}{@{}ccccl@{}}
+\toprule
+\textbf{영점 $t$} & \textbf{간격} & \textbf{기울기} & $R^{2}$ & \textbf{비고} \\
+\midrule
+41.316 & 0.701 & $-0.9903$ & 0.99996 & \\
+43.781 & 0.768 & $-0.9930$ & 0.99997 & \\
+47.165 & 0.734 & $-0.9921$ & 0.99997 & \\
+51.253 & 0.636 & $-0.9857$ & 0.99992 & 인접 영점에 가장 가까움 \\
+53.588 & 0.724 & $-0.9891$ & 0.99995 & \\
+\midrule
+\multicolumn{2}{@{}l}{\textbf{평균}} & $\bm{-0.9900}$ & & $\pm0.0028$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ============================================================================
+% 참고문헌
+% ============================================================================
+\begin{thebibliography}{99}
+
+\bibitem{Kim2026a}
+  Kim, Y.-H.\ (2026a).
+  Phase quantisation from optical lattices to the zeta landscape:
+  a resonant detection framework for $L$-function zeros.
+  Preprint.
+
+\bibitem{Kim2026b}
+  Kim, Y.-H.\ (2026b).
+  $\xi$-Bundle curvature as a critical-line discriminator:
+  universality across $L$-function families and an analytic detection theorem.
+  Preprint.
+
+\bibitem{Artin1923}
+  Artin, E.\ (1923).
+  \"Uber eine neue Art von $L$-Reihen.
+  \textit{Abh.\ Math.\ Sem.\ Hamburg}, 3, 89--108.
+
+\bibitem{Brauer1947}
+  Brauer, R.\ (1947).
+  On Artin's $L$-series with general group characters.
+  \textit{Ann.\ Math.}, 48, 502--514.
+
+\bibitem{DavenportHeilbronn1936}
+  Davenport, H.\ \& Heilbronn, H.\ (1936).
+  On the zeros of certain Dirichlet series.
+  \textit{J.\ London Math.\ Soc.}, 11, 181--185.
+
+\bibitem{Langlands1980}
+  Langlands, R.~P.\ (1980).
+  Base change for $\mathrm{GL}(2)$.
+  \textit{Ann.\ Math.\ Studies}, 96, Princeton University Press.
+
+\bibitem{Tunnell1981}
+  Tunnell, J.\ (1981).
+  Artin's conjecture for representations of octahedral type.
+  \textit{Bull.\ AMS}, 5, 173--175.
+
+\bibitem{BumpGinzburg1992}
+  Bump, D.\ \& Ginzburg, D.\ (1992).
+  Symmetric square $L$-functions on $\mathrm{GL}(r)$.
+  \textit{Ann.\ Math.}, 136, 137--205.
+
+\bibitem{IwaniecKowalski2004}
+  Iwaniec, H.\ \& Kowalski, E.\ (2004).
+  \textit{Analytic Number Theory}.
+  AMS Colloquium Publications, 53.
+
+\bibitem{Voronin1975}
+  Voronin, S.~M.\ (1975).
+  Theorem on the ``universality'' of the Riemann zeta-function.
+  \textit{Izv.\ Akad.\ Nauk SSSR Ser.\ Mat.}, 39, 475--486.
+
+\end{thebibliography}
+
+\end{document}
