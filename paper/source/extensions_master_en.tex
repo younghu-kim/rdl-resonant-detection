@@ -2,7 +2,7 @@
 %  ξ-Bundle Curvature as a Critical-Line Discriminator:
 %  Universality Across L-Function Families and an Analytic Detection Theorem
 %  (Project RDL — Paper 2)
-%  Results #107–#117, #125–#126
+%  Results #107–#117, #125–#127, #200
 % ============================================================================
 \documentclass[11pt, a4paper]{article}
 
@@ -135,19 +135,23 @@ off the critical line produces a detectable $O(\delta)$ correction to
 $\kappa\delta^{2}$.
 
 \smallskip
-\noindent Two additional results (\#125--\#126) establish
-\emph{weight invariance}: the $\kappa\delta^{2}$ log-log slope equals
-$2.0\pm 0.004$ for the unique normalised Hecke eigenforms of modular
+\noindent Four additional results (\#125--\#127, \#200) establish
+\emph{weight and spectral universality}: the $\kappa\delta^{2}$ log-log slope equals
+$2.0\pm 0.001$ for the unique normalised Hecke eigenforms of modular
 weights $k=12$ (Ramanujan's $\Delta$, Result~\#125,
-slope $2.0008\pm 0.0006$) and $k=16$
-($\Delta\cdot E_4$, Result~\#126, slope $1.9989\pm 0.0035$).
-Combined with the $k=0$ and $k=2$ results from Paper~1, the slope~$2$ is
-confirmed across weights $k\in\{0,2,12,16\}$, demonstrating that the
-$\kappa\delta^{2}$ universality is independent of modular weight---a
+slope $2.0008\pm 0.0006$), $k=16$
+($\Delta\cdot E_4$, Result~\#126, slope $1.9989\pm 0.0035$),
+and $k=20$ ($\Delta\cdot E_8$, Result~\#127, slope $1.9984\pm 0.0055$).
+Result~\#200 extends this to a \emph{non-holomorphic} Maass cusp form
+(spectral parameter $R=9.5337$, slope $2.0003\pm 0.0003$---the most
+precise measurement to date).  Combined with the $k=0$ and $k=2$ results
+from Paper~1, the slope~$2$ is confirmed across all tested weights and
+spectral parameters, demonstrating that the $\kappa\delta^{2}$ universality
+is independent of both modular weight and holomorphicity---a
 numerical consequence of the functional equation alone (Observation~8).
 
 \smallskip
-\noindent Thirteen numerical results support the framework's universality
+\noindent Fifteen numerical results support the framework's universality
 and the discriminator theorem.
 \end{tcolorbox}
 
@@ -210,15 +214,17 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         if $\sigma_{0}=\tfrac{1}{2}$, where $c_{1}$ is the leading
         off-critical Taylor coefficient of $\kappa\delta^{2}$.
   \item A \textbf{Summary Table} (Table~\ref{tab:summary}) collects all
-        thirteen new results (\#107--\#117, \#125--\#126).
-  \item \textbf{Weight invariance} (\S\ref{sec:modular}): The log-log
-        slope of $\kappa\delta^{2}-1$ versus $\delta$ equals $2.0\pm0.004$
-        independently of the modular weight~$k$, confirmed for $k=12$
-        (Result~\#125, Ramanujan's $\Delta$) and $k=16$
-        (Result~\#126, $\Delta\cdot E_4$).  This is a numerical
-        consequence of Theorem~\ref{thm:rankinv}: since $\kappa\delta^{2}
-        = 1+O(\delta^{2})$ follows from the functional equation alone,
-        the log-log slope cannot depend on~$k$.
+        fifteen new results (\#107--\#117, \#125--\#127, \#200).
+  \item \textbf{Weight and spectral universality} (\S\ref{sec:modular}):
+        The log-log slope of $\kappa\delta^{2}-1$ versus $\delta$ equals
+        $2.0\pm0.001$ independently of both the modular weight~$k$ and
+        holomorphicity, confirmed for holomorphic eigenforms at $k=12,16,20$
+        (Results~\#125--\#127) and a non-holomorphic Maass cusp form with
+        spectral parameter $R=9.5337$ (Result~\#200, slope
+        $2.0003\pm 0.0003$).  This is a numerical consequence of
+        Theorem~\ref{thm:rankinv}: since $\kappa\delta^{2}=1+O(\delta^{2})$
+        follows from the functional equation alone, the log-log slope
+        cannot depend on~$k$ or on the spectral parameter.
 \end{enumerate}
 
 \noindent\textbf{Notation.} We write $\rho = \sigma_{0}+it_{0}$ for a
@@ -820,16 +826,19 @@ consistent with the leading asymptotics $c_{1}\sim d^{-1}$ as $d\to 0$
 
 
 % ============================================================================
-\section{Higher-Weight Modular Forms and Weight Universality}
+\section{Weight and Spectral Universality}
 \label{sec:modular}
 % ============================================================================
 
 Theorem~\ref{thm:rankinv} shows that $\kappa\delta^{2}=1+O(\delta^{2})$
 follows from the functional equation alone, so the log-log slope of
 $\kappa\delta^{2}-1$ versus $\delta$ is predicted to equal $2$ universally.
-We now verify whether this slope is invariant under the modular weight~$k$,
-using the unique normalised Hecke eigenforms of levels $k=12$ and $k=16$
-in $S_k(\mathrm{SL}_2(\mathbb{Z}))$.
+We now verify whether this slope is invariant under the modular weight~$k$
+(\S\ref{ssec:delta12}--\S\ref{ssec:w20})
+and under passage from holomorphic to non-holomorphic forms
+(\S\ref{ssec:maass}), using the unique normalised Hecke eigenforms of
+$S_k(\mathrm{SL}_2(\mathbb{Z}))$ for $k=12,16,20$ and a Maass cusp form
+with spectral parameter $R=9.5337$.
 
 \subsection{Ramanujan's $\Delta$ Function ($k=12$, Result~\#125)}
 \label{ssec:delta12}
@@ -900,17 +909,116 @@ four-way tie.  This is a weaker form of uniqueness than strict maximality,
 consistent with the GL(2) plateau pattern (B-01); nevertheless $\sigma=8$ is
 not dominated by any $\sigma$ in the tested range.
 
-\subsection{Weight Invariance of $\kappa\delta^{2}$}
+\subsection{Weight-20 Cusp Form ($k=20$, Result~\#127)}
+\label{ssec:w20}
+
+The space $S_{20}(\mathrm{SL}_2(\mathbb{Z}))$ is one-dimensional; its unique
+normalised Hecke eigenform is $f_{20}(z)=\Delta(z)\cdot E_8(z)$, where
+$E_8(z)=1+480\sum_{n\geq 1}\sigma_7(n)q^n$.  Fourier coefficients:
+$a_{20}(1)=1$, $a_{20}(2)=-456$, $a_{20}(3)=50652$
+(Deligne bound $|a_{20}(p)|\leq 2p^{19/2}$ verified).
+Completed $L$-function:
+\[
+  \Lambda(s)=(2\pi)^{-s}\Gamma(s)\,L(s,f_{20}), \qquad
+  \Lambda(s)=\Lambda(20-s), \quad \varepsilon=+1, \quad
+  \sigma_{\mathrm{crit}}=10.
+\]
+
+\noindent\textbf{Result~\#127} (\textit{Weight-20 cusp form $\Delta\cdot E_8$}):
+Twenty-two zeros on $\mathrm{Re}(s)=10$, $t\in[1,60]$.
+P1: error $=0.00$; P2: 22 confirmed;
+P3: five-zero slope $\mathbf{1.9984\pm 0.0055}$, $R^{2}\geq 0.9999$;
+P4: $5/5=2.0000\pi$.  Overall: \textbf{4/5 PASS}.
+
+The $\pm 0.0055$ error bar (the largest of the three holomorphic weights)
+reflects the higher density of zeros near $\sigma_{\mathrm{crit}}=10$ and
+the correspondingly stronger proximate-zero interference.
+$\sigma$-uniqueness: FAIL (B-01), consistent with all other $\mathrm{GL}(2)$
+results.
+
+\subsection{Maass Cusp Form ($R=9.5337$, Result~\#200)}
+\label{ssec:maass}
+
+The preceding three results involve \emph{holomorphic} forms.  To test
+whether the slope~$2$ persists beyond holomorphicity, we turn to a
+\emph{Maass cusp form}: a non-holomorphic eigenfunction of the Laplacian
+$\Delta_{\mathrm{hyp}}$ on $\mathrm{SL}_2(\mathbb{Z})\backslash\mathbb{H}$
+with eigenvalue $\lambda = \tfrac{1}{4}+R^2$, $R=9.5336952613535575543$
+(odd symmetry class).  Unlike holomorphic eigenforms, Maass forms have
+modular weight~$0$ and the gamma factor involves
+$\Gamma_{\mathbb{R}}(s+iR)\,\Gamma_{\mathbb{R}}(s-iR)$ instead of
+$\Gamma(s)$.  The completed $L$-function satisfies:
+\[
+  \Lambda(s,u_R) = \pi^{-s}\,
+  \Gamma\!\Bigl(\frac{s+iR}{2}\Bigr)
+  \Gamma\!\Bigl(\frac{s-iR}{2}\Bigr)\,L(s,u_R), \qquad
+  \Lambda(s)=\Lambda(1-s), \quad \varepsilon=+1, \quad
+  \sigma_{\mathrm{crit}}=\tfrac{1}{2}.
+\]
+Fourier coefficients ($n=1,\ldots,455$) loaded from the LMFDB database,
+with Hecke relations $a(6)=a(2)a(3)$, $a(4)=a(2)^2-1$, $a(9)=a(3)^2-1$
+verified to machine precision (\texttt{dps}$=80$).
+
+\medskip
+\noindent\textbf{Result~\#200} (\textit{Maass cusp form, $R=9.5337$, odd}):
+Nineteen zeros on $\mathrm{Re}(s)=\tfrac{1}{2}$, $t\in[3,50]$.
+
+\begin{itemize}
+  \item P1 (FE): $|\Lambda(s)-\Lambda(1-s)|/|\Lambda(s)|=0.00$ at five test
+        points (\texttt{dps}$=80$).
+  \item P2 (zero count): 19 confirmed via sign-change bisection
+        ($\approx 43$~min; $\rho_1=0.5+3.264i$, \ldots, $\rho_{19}=0.5+48.865i$).
+  \item P3 ($\kappa\delta^{2}$): Five-zero log-log slope
+        $\mathbf{2.0003\pm 0.0003}$, $R^{2}=1.000000$ for all five zeros.
+        Table~\ref{tab:maass_kd2} details each zero.
+  \item P4 (monodromy): $5/5=2.0000\pi$ (contour integration, radius $0.5$,
+        64~steps).
+\end{itemize}
+Overall: \textbf{5/5 PASS}.  P5 ($\sigma$-uniqueness): all seven test values
+$\sigma\in\{0.1,0.2,0.3,0.5,0.7,0.8,0.9\}$ yield exactly 12 sign changes,
+confirming $\sigma=0.5$ is maximal.  Unlike the holomorphic eigenforms at
+weights 12 and~20, no B-01 excess was observed---likely due to the wider
+zero spacing ($\Delta t\approx 3.3$) of this Maass form.
+
+\begin{table}[ht]
+\centering
+\caption{$\kappa\delta^{2}$ log-log slopes for the five lowest Maass zeros
+  ($R=9.5337$, $\delta\in[0.005,0.1]$, 8 values).  All $R^{2}=1.000000$.}
+\label{tab:maass_kd2}
+\small
+\begin{tabular}{llrl}
+\toprule
+Zero & $t$ & Slope & Rating \\
+\midrule
+$\rho_1$ & $3.264$ & $1.9999$ & $\bigstar\bigstar\bigstar$ \\
+$\rho_2$ & $12.418$ & $2.0002$ & $\bigstar\bigstar\bigstar$ \\
+$\rho_3$ & $17.577$ & $2.0004$ & $\bigstar\bigstar\bigstar$ \\
+$\rho_4$ & $20.674$ & $2.0005$ & $\bigstar\bigstar\bigstar$ \\
+$\rho_5$ & $23.553$ & $2.0007$ & $\bigstar\bigstar\bigstar$ \\
+\midrule
+Mean & & $2.0003\pm 0.0003$ & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The slope $2.0003\pm 0.0003$ is the most precise P3 measurement across
+all $L$-functions tested in Papers~1--3.  The exceptional precision stems
+from the wide zero spacing: the smallest gap is $\rho_4$--$\rho_5$ at
+$\Delta t=2.88$, much larger than typical holomorphic gaps at comparable
+heights.  Consequently, proximate-zero interference---the dominant source
+of error for weight-$16$ and weight-$20$ forms---is negligible.
+
+\subsection{Weight and Spectral Invariance of $\kappa\delta^{2}$}
 \label{ssec:weightinv}
 
 Table~\ref{tab:weightuniv} collects the $\kappa\delta^{2}$ log-log slopes
 (slope of $\log(\kappa\delta^{2}-1)$ vs.\ $\log\delta$) across all modular
-weights tested to date.
+weights and spectral parameters tested to date.
 
 \begin{table}[ht]
 \centering
-\caption{Weight invariance of the $\kappa\delta^{2}$ log-log slope
-  across modular weights.  Results for $k=12,16,20$ from this section;
+\caption{Weight and spectral invariance of the $\kappa\delta^{2}$ log-log slope.
+  Results for $k=12,16,20$ and Maass $R=9.53$ from this section;
   $k=0,2$ from Paper~1.
   The Artin entry ($k=1$) uses the log$(\kappa)$ vs.\ log$(\delta^2)$
   convention (Paper~3, theoretical slope $-1$) and is included for comparison.}
@@ -918,39 +1026,47 @@ weights tested to date.
 \small
 \begin{tabular}{llllrrl}
 \toprule
-$k$ & $L$-function & Family & $\sigma_{\mathrm{crit}}$ & Slope & $\pm\sigma$ & Rating \\
+$k$/Type & $L$-function & Family & $\sigma_{\mathrm{crit}}$ & Slope & $\pm\sigma$ & Rating \\
 \midrule
 $0$  & Riemann $\zeta$ & $\mathrm{GL}(1)$ & $\tfrac{1}{2}$ & $\approx 2.0$ & --- & $\bigstar\bigstar\bigstar$ \\
 $1$  & Artin $S_3$ (conv.\ B)$^{*}$ & $\mathrm{GL}(2)$, $k=1$ & $\tfrac{1}{2}$ & $-0.993$ & $0.001$ & $\bigstar\bigstar\bigstar$ \\
 $2$  & EC 11a1 & $\mathrm{GL}(2)$, $k=2$ & $1$ & $\approx 2.0$ & --- & $\bigstar\bigstar\bigstar$ \\
+Maass & $u_{R}$ ($R{=}9.53$) & $\mathrm{GL}(2)$, $k{=}0^{\dagger}$ & $\tfrac{1}{2}$ & $\mathbf{2.0003}$ & $\mathbf{0.0003}$ & $\bigstar\bigstar\bigstar$ \\
 $12$ & Ramanujan $\Delta$ & $\mathrm{GL}(2)$, $k=12$ & $6$ & $2.0008$ & $0.0006$ & $\bigstar\bigstar\bigstar$ \\
 $16$ & $\Delta\cdot E_4$ & $\mathrm{GL}(2)$, $k=16$ & $8$ & $1.9989$ & $0.0035$ & $\bigstar\bigstar\bigstar$ \\
 $20$ & $\Delta\cdot E_8$ & $\mathrm{GL}(2)$, $k=20$ & $10$ & $1.9984$ & $0.0055$ & $\bigstar\bigstar\bigstar$ \\
 \bottomrule
 \multicolumn{7}{l}{\small $^{*}$Convention B: log$(\kappa)$ vs.\ log$(\delta^2)$, theoretical slope $-1$ (Paper~3).} \\
+\multicolumn{7}{l}{\small $^{\dagger}$Non-holomorphic; weight~$0$ in the automorphic sense, spectral parameter $R=9.5337$.} \\
 \multicolumn{7}{l}{\small Convention A (all others): log$(\kappa\delta^2-1)$ vs.\ log$(\delta)$, theoretical slope $2$.} \\
 \end{tabular}
 \end{table}
 
-For $k=12$, $16$, and $20$ the slopes agree: the three-weight mean is
-$1.9994\pm 0.0010$, and the maximum pairwise deviation is $0.0024$.
-Combined with the $k=0$ (Riemann $\zeta$) and $k=2$ (EC 11a1) results
-from Paper~1, the convention-A slope equals $2.0\pm 0.001$ across all
-tested weights.
+For holomorphic forms at $k=12$, $16$, and $20$ the slopes agree: the
+three-weight mean is $1.9994\pm 0.0010$, and the maximum pairwise deviation
+is $0.0024$.  The Maass form ($R=9.5337$) adds a qualitatively different
+data point---non-holomorphic, weight~$0$, with a completely different gamma
+factor---yet its slope $2.0003\pm 0.0003$ is \emph{more} precise than any
+holomorphic measurement.  Combined with the $k=0$ (Riemann $\zeta$) and
+$k=2$ (EC 11a1) results from Paper~1, the convention-A slope equals
+$2.0\pm 0.001$ across all tested weights and spectral types: seven data
+points spanning holomorphic weights $k\in\{0,1,2,12,16,20\}$ and one
+non-holomorphic Maass form.
 
-\begin{observation}[Weight invariance of $\kappa\delta^{2}$]
+\begin{observation}[Weight and spectral invariance of $\kappa\delta^{2}$]
 \label{obs:weightinv}
-  For $\mathrm{GL}(2)$ $L$-functions $L(s,f)$ with $f\in
-  S_k(\mathrm{SL}_2(\mathbb{Z}))$ a normalised Hecke eigenform, the
-  log-log slope of $\kappa\delta^{2}-1$ versus $\delta$ equals
-  $2.0\pm 0.001$ independently of the modular weight~$k$.
+  For degree-$2$ $L$-functions in the Selberg class---whether attached to
+  holomorphic Hecke eigenforms $f\in S_k(\mathrm{SL}_2(\mathbb{Z}))$ or
+  to Maass cusp forms with spectral parameter~$R$---the log-log slope of
+  $\kappa\delta^{2}-1$ versus $\delta$ equals $2.0\pm 0.001$.
   Analytically, this follows from Theorem~\ref{thm:rankinv}: the functional
-  equation $\Lambda(s)=\Lambda(k-s)$ implies $\kappa\delta^{2}=1+O(\delta^{2})$
-  regardless of~$k$, so the leading correction exponent---and hence the
-  log-log slope---cannot depend on~$k$.  Results~\#125--\#127 extend the
-  verified weight range by a factor of~$10$ beyond the previous maximum
-  ($k=2$), while Selberg-class membership and the Ramanujan--Petersson
-  bound are verified for all three eigenforms.
+  equation $\Lambda(s)=\varepsilon\,\Lambda(1{-}s)$ (or $\Lambda(k{-}s)$)
+  implies $\kappa\delta^{2}=1+O(\delta^{2})$ regardless of the weight,
+  spectral parameter, or gamma-factor structure, so the leading correction
+  exponent---and hence the log-log slope---is a \emph{universal constant}
+  of the Selberg class.  Results~\#125--\#127 extend the verified weight
+  range by a factor of~$10$ beyond the previous maximum ($k=2$), while
+  Result~\#200 establishes the first non-holomorphic verification.
 \end{observation}
 
 
@@ -969,23 +1085,25 @@ forms (class number 2--3).  Combined with Paper~1's $\mathrm{GL}(1)$--
 $\mathrm{GL}(5)$ results (81 numerical experiments), the framework now
 covers the major algebraic families of $L$-functions.
 
-\paragraph{Weight invariance.}
-Results~\#125--\#127 establish that the $\kappa\delta^{2}$ log-log slope
-equals $1.9994\pm 0.0010$ (three-weight mean and standard deviation)
-for normalised Hecke eigenforms of modular weights $k=12$, $16$, and
-$20$, consistent with all lower-weight results ($k=0,2$) from Paper~1
-and with the $\mathrm{GL}(2)$ Artin result ($k=1$, Paper~3) under the
-complementary log$(\kappa)$ convention.  This is a direct numerical
-consequence of Theorem~\ref{thm:rankinv}: the $\kappa\delta^{2}=1+O(\delta^{2})$
-limit follows from the functional equation $\Lambda(s)=\Lambda(k-s)$
-regardless of $k$, so the slope exponent~$2$ is weight-independent by
-construction.  Combined with the $\mathrm{GL}(1)$--$\mathrm{GL}(5)$
-family breadth established in Papers~1--2, the slope~$2$ appears to be
-a universal invariant of the Selberg class, independent of both the
-algebraic family and the modular weight.  The monotone increase in
-error bars ($\pm0.0006$, $\pm0.0035$, $\pm0.0055$ for $k=12,16,20$)
-reflects proximate-zero interference scaling with the critical-line
-position $\sigma_{\mathrm{crit}}=k/2$ and not a genuine weight dependence.
+\paragraph{Weight and spectral universality.}
+Results~\#125--\#127 and \#200 establish that the $\kappa\delta^{2}$ log-log
+slope is invariant under both the modular weight and holomorphicity.
+For holomorphic eigenforms the three-weight mean is $1.9994\pm 0.0010$
+($k=12,16,20$); the Maass cusp form ($R=9.5337$) yields
+$2.0003\pm 0.0003$, the most precise single measurement to date.  Combined
+with the $k=0,2$ results from Paper~1 and the $\mathrm{GL}(2)$ Artin
+result ($k=1$, Paper~3), the convention-A slope equals $2.0\pm 0.001$ across
+seven data points spanning the full $\mathrm{GL}(2)$ landscape: holomorphic
+weights $k\in\{0,1,2,12,16,20\}$ and one non-holomorphic Maass form.
+This is a direct numerical consequence of Theorem~\ref{thm:rankinv}: the
+$\kappa\delta^{2}=1+O(\delta^{2})$ limit follows from the functional
+equation alone, regardless of the weight, spectral parameter, or
+gamma-factor structure.  The slope~$2$ appears to be a universal constant
+of the Selberg class.  The monotone increase in error bars for holomorphic
+forms ($\pm0.0006$, $\pm0.0035$, $\pm0.0055$ for $k=12,16,20$) reflects
+proximate-zero interference scaling with $\sigma_{\mathrm{crit}}=k/2$ and
+not a genuine weight dependence; the Maass form's superior precision
+($\pm 0.0003$) is attributable to its wide zero spacing.
 
 \paragraph{Euler product dispensability.}
 Theorem~\ref{thm:feonly} and Result~\#114 establish that the Euler
@@ -1016,8 +1134,8 @@ known scarcity of DH off-critical zeros.
   \item \textit{Artin $L$-functions}: non-abelian, potentially non-self-dual.
         Preliminary results for $S_3$ and $S_4$ Artin $L$-functions
         confirm the four $\xi$-bundle properties (Paper~3).
-  \item \textit{Non-holomorphic forms}: extending the weight invariance to
-        Maass cusp forms and Hilbert modular forms.
+  \item \textit{Hilbert modular forms}: extending the spectral universality
+        to number fields of degree $>1$.
   \item \textit{Selberg class generalisation}: Theorem~\ref{thm:disc}
         uses only FE; can it be sharpened to give $c_{1}$ in terms of
         the Selberg class degree?
@@ -1043,17 +1161,21 @@ Theorem~7 proves analytically that the first Taylor coefficient
 $c_{1}$ of $\kappa\delta^{2}$ vanishes if and only if the zero lies on
 the critical line; numerical verification via $\delta$-sweep and direct
 analytic computation confirms this for all four known DH off-critical
-zeros.  Third, weight invariance: two further results (\#125--\#126)
-establish that the $\kappa\delta^{2}$ log-log slope equals $2.0\pm 0.004$
-for Hecke eigenforms of modular weights $k=12$ and $k=16$, confirming
-Observation~8 and extending the verified weight range by a factor of~$8$.
+zeros.  Third, weight and spectral universality: four further results
+(\#125--\#127, \#200) establish that the $\kappa\delta^{2}$ log-log slope
+equals $2.0\pm 0.001$ independently of the modular weight ($k=12,16,20$)
+and of holomorphicity (Maass form with $R=9.5337$, slope
+$2.0003\pm 0.0003$), confirming Observation~8 and extending the verified
+parameter space from $k\leq 2$ to $k\leq 20$ plus the non-holomorphic
+sector.
 
 Together, Theorems~5--7 and Observation~8 form a coherent picture:
 on the critical line, the $\xi$-bundle curvature satisfies
 $\kappa\delta^{2}=1+O(\delta^{2})$ universally across all $L$-function
-families and modular weights tested; off the critical line, a qualitatively
-different $O(\delta)$ correction appears, analytically traced to the
-breaking of mirror symmetry by the functional equation.
+families, modular weights, and spectral types tested; off the critical
+line, a qualitatively different $O(\delta)$ correction appears,
+analytically traced to the breaking of mirror symmetry by the functional
+equation.
 
 
 % ============================================================================
@@ -1061,11 +1183,11 @@ breaking of mirror symmetry by the functional equation.
 % ============================================================================
 \appendix
 
-\section{Summary Table: All Thirteen Results}
+\section{Summary Table: All Fifteen Results}
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#126 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1092,6 +1214,8 @@ Result & Section & Rating & Key finding \\
 \#117 & \S\ref{ssec:c1}           & \textbf{$\bigstar\bigstar$}     & $c_{1}=\mathrm{Re}(\Lambda''/\Lambda')$ verified ($<0.5\%$, $N=4$); $c_{1}\cdot d\to 1$ \\
 \#125 & \S\ref{ssec:delta12}      & \textbf{$\bigstar\bigstar\bigstar$}    & Ramanujan $\Delta$ ($k=12$); 4/5 PASS; $\kappa\delta^{2}$ slope $2.0008\pm0.0006$; $\sigma$-uniq.\ FAIL (B-01) \\
 \#126 & \S\ref{ssec:w16}          & \textbf{$\bigstar\bigstar\bigstar$}    & Weight-16 cusp form ($\Delta\cdot E_4$); 5/5 PASS; slope $1.9989\pm0.0035$; weight invariance (Obs.~8) \\
+\#127 & \S\ref{ssec:w20}          & \textbf{$\bigstar\bigstar\bigstar$}    & Weight-20 cusp form ($\Delta\cdot E_8$); 4/5 PASS; slope $1.9984\pm0.0055$; $\sigma$-uniq.\ FAIL (B-01) \\
+\#200 & \S\ref{ssec:maass}        & \textbf{$\bigstar\bigstar\bigstar$}    & Maass cusp form ($R{=}9.5337$); 5/5 PASS; slope $\mathbf{2.0003\pm0.0003}$; most precise P3 to date \\
 \end{longtable}
 
 

@@ -154,3 +154,9 @@ results/epstein_offcritical_diag_120b.txt
 results/ramanujan_delta_125.txt
 results/weight16_cusp_126.txt
 results/weight20_cusp_127.txt
+results/maass_kd2_200.txt
+results/artin_s3_121.txt
+results/artin_s3_precision_122.txt
+results/artin_s4_standard_123.txt
+results/epstein_offcritical_120.txt
+results/generalized_dh_offcritical_121.txt
