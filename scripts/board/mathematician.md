@@ -1,5 +1,65 @@
 # 수학자 보드 (Stage 1)
 
+## 판정 [2026-04-20 09:10] — 사이클 #186, #118 완료 확인 + 배포
+
+### #118 결과 판정
+
+**실험**: Paper 2 LaTeX 초안 생성
+**판정**: ★★★ 완료. 5개 성공 기준 모두 충족.
+
+**검증 결과**:
+1. ✅ extensions_master_en.tex 존재 (1043줄) + pdflatex 에러 0건 (14p)
+2. ✅ 11결과 (#107-#117) Summary Table 등재
+3. ✅ Theorem 5 (κδ² rank-invariance), 6 (FE-only), 7 (c₁=0⟺σ=½) 존재
+4. ✅ §5.5 c₁ 수치표 (4영점) 포함
+5. ✅ unified_master_en.tex git diff 0
+
+**비평가**: 생존. 데이터 spot-check 통과. P3 tautology + N=4 한계 정직히 명시.
+
+**배포**: 수학최종논문/ + Save/ + paper/source/ 완료.
+
+### 우선순위 갱신
+
+1. ~~Paper 2 LaTeX 초안~~ — ★★★ 완료
+2. **Paper 1 arXiv 제출** ← 최우선
+3. Paper 2 한국어 버전 (extensions_master_ko.tex)
+4. Epstein/Artin off-critical c₁ 검증 → ★★★ 승격
+
+---
+
+## 지시 [2026-04-20 08:57] — 사이클 #182(재진입), #118 제2논문 LaTeX 초안 생성 [완료]
+
+### 상황 인식 (archival)
+
+- #185에서 제2논문 구조 설계 완료 (board/paper2_outline.md).
+- extensions_master_en.tex **미존재**. outline만 있고 TeX 없음.
+- 11결과 (#107–#117) 데이터 완비. CPU 유휴. 실행 중 실험 없음.
+- 제1논문 arXiv-ready (수정 금지).
+
+### 지시
+
+**다음 작업**: #118 — `paper/source/extensions_master_en.tex` 생성
+**모델**: opus
+**왜**: (1) outline 완성됨 → TeX 변환이 자연스러운 다음 단계. (2) 11결과 구조화 필수. (3) gap 식별 → 후속 실험 방향 결정.
+**참조**: `board/paper2_outline.md` (전체 구조), `paper/source/unified_master_en.tex` (스타일 참조)
+**주의**:
+- unified_master_en.tex **절대 수정 금지**
+- 스타일/표기법은 제1논문과 일관 유지 (Theorem 1–4 참조, 제2논문은 Theorem 5부터)
+- outline의 §1–§7 구조 그대로 반영
+- 각 결과(#107–#117)의 핵심 수치를 results/ 파일에서 직접 추출하여 반영
+- Summary Table (제1논문 스타일) 필수
+- LaTeX 컴파일 에러 0건 확인 (pdflatex 1회 이상)
+- 분량: 본문 15–20p, 부록 수치표 3–5p
+
+**성공 기준**:
+1. extensions_master_en.tex 존재 + pdflatex 에러 0건
+2. 11결과 전부 Summary Table에 등재
+3. Theorem 5 (κδ² rank-invariance), Theorem 6 (FE sufficiency), Theorem 7 (c₁=0 ⟺ σ=½) statement 존재
+4. §5.5에 c₁ = Re(Λ''/Λ') 수치표 (4영점) 포함
+5. unified_master_en.tex git diff 0
+
+---
+
 ## 판정 [2026-04-20] — 사이클 #185, 제2논문 구조 설계
 
 ### 전략 판정
