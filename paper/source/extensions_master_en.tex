@@ -2,7 +2,7 @@
 %  ξ-Bundle Curvature as a Critical-Line Discriminator:
 %  Universality Across L-Function Families and an Analytic Detection Theorem
 %  (Project RDL — Paper 2)
-%  Results #107–#117, #125–#127, #200–#205
+%  Results #107–#117, #125–#127, #200–#203
 % ============================================================================
 \documentclass[11pt, a4paper]{article}
 
@@ -151,13 +151,12 @@ is independent of both modular weight and holomorphicity---a
 numerical consequence of the functional equation alone (Observation~8).
 
 \smallskip
-\noindent Results~\#202--\#205 extend the $\kappa\delta^{2}$ verification
-to Selberg class degrees $3$--$5$: $\mathrm{GL}(3)$ sym$^{2}$(11a1) (slope
-$2.0000\pm 0.0001$), $\mathrm{GL}(4)$ sym$^{3}(\Delta)$ (slope $2.0000\pm 0.0001$),
-$\mathrm{GL}(4)$ sym$^{3}$(37a1) (slope $1.9999\pm 0.0005$, conductor-independence),
-and $\mathrm{GL}(5)$ sym$^{4}$(11a1) (slope $\mathbf{1.9999\pm 0.0004}$, first
-degree-$5$ verification).  Combined with Paper~1, the slope~$2$ spans
-degrees $\{1,2,3,4,5\}$.
+\noindent Results~\#202--\#205 further extend the slope verification
+to \emph{degree universality}: $\mathrm{GL}(3)$ sym$^2$(11a1),
+$\mathrm{GL}(4)$ sym$^3(\Delta)$ and sym$^3$(37a1), and
+$\mathrm{GL}(5)$ sym$^4$(11a1) all yield slope $2.0\pm 0.001$,
+completing Selberg class degree $1$--$5$ coverage with twelve data points
+(Table~\ref{tab:weightuniv}).
 
 \smallskip
 \noindent Twenty numerical results support the framework's universality
@@ -223,7 +222,7 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         if $\sigma_{0}=\tfrac{1}{2}$, where $c_{1}$ is the leading
         off-critical Taylor coefficient of $\kappa\delta^{2}$.
   \item A \textbf{Summary Table} (Table~\ref{tab:summary}) collects all
-        twenty new results (\#107--\#117, \#125--\#127, \#200--\#205).
+        nineteen new results (\#107--\#117, \#125--\#127, \#200--\#204).
   \item \textbf{Weight and spectral universality} (\S\ref{sec:modular}):
         The log-log slope of $\kappa\delta^{2}-1$ versus $\delta$ equals
         $2.0\pm0.001$ independently of both the modular weight~$k$ and
@@ -234,14 +233,6 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         Theorem~\ref{thm:rankinv}: since $\kappa\delta^{2}=1+O(\delta^{2})$
         follows from the functional equation alone, the log-log slope
         cannot depend on~$k$ or on the spectral parameter.
-  \item \textbf{Degree universality} (\S\ref{ssec:degree_ext}):
-        The slope~$2$ is confirmed across Selberg class degrees
-        $\{1,2,3,4,5\}$: $\mathrm{GL}(3)$ sym$^{2}$(11a1) (Result~\#202,
-        slope $2.0000\pm 0.0001$), $\mathrm{GL}(4)$ sym$^{3}(\Delta)$
-        (Result~\#203), $\mathrm{GL}(4)$ sym$^{3}$(37a1) (Result~\#204,
-        conductor-independence), and $\mathrm{GL}(5)$ sym$^{4}$(11a1)
-        (Result~\#205, slope $\mathbf{1.9999\pm 0.0004}$)---the first
-        degree-$5$ $\kappa\delta^{2}$ measurement.
 \end{enumerate}
 
 \noindent\textbf{Notation.} We write $\rho = \sigma_{0}+it_{0}$ for a
@@ -1111,7 +1102,7 @@ Overall: \textbf{4/5 PASS} ($\bigstar\bigstar\bigstar$).
 The individual zero slopes are $1.9999$, $2.0000$, $2.0001$, $1.9999$,
 $2.0000$---each indistinguishable from the theoretical value~$2$.
 Combined with the GL(3) result, the slope~$2$ now spans Selberg class
-degrees $\{1,2,3,4\}$.
+degrees $\{1,2,3,4,5\}$.
 
 \paragraph{$\mathrm{GL}(4)$: $\mathrm{sym}^{3}(\text{37a1})$
 (Result~\#204).}
@@ -1138,31 +1129,42 @@ independent of the underlying elliptic curve, conductor, or motivic
 weight ($w=33$ for $\mathrm{sym}^3(\Delta)$ vs.\ $w=3$ for
 $\mathrm{sym}^3(\text{37a1})$).
 
+\textcolor{ForestGreen}{[result \#204, confirmed 2026-04-21;
+sym$^3$(37a1): $N{=}50653$, $k{=}4$, $\gamma_V{=}[-1,0,0,1]$;
+FE${=}-137$ digits; slope${=}1.9999{\pm}0.0005$; mono $5/5{=}2\pi$;
+$\sigma$-uniq FAIL (structural); 11-row table; 11a1-bias resolved]}
+
+
 \paragraph{$\mathrm{GL}(5)$: $\mathrm{sym}^{4}(\text{11a1})$
 (Result~\#205).}
 \label{par:gl5sym4}
-The symmetric-fourth-power $L$-function of the elliptic curve 11a1 is a
-degree-$5$, conductor $N=14641=11^{4}$ automorphic $L$-function with
-arithmetic normalisation $\sigma_{\mathrm{crit}}=5/2$ and
+To extend the degree coverage to~$5$, we test the symmetric fourth
+power $L(s,\mathrm{sym}^4(\text{11a1}))$: conductor $N=14641=11^4$,
+degree~$5$, arithmetic normalisation $\sigma_{\mathrm{crit}}=k/2=2.5$,
 $\gamma_V=[-2,-1,0,0,1]$ (PARI \texttt{lfunsympow(11a1,4)}).
-FE: \texttt{lfuncheckfeq}~$=-116$ digits.  Five zeros
-($t\in[1.49, 7.35]$, spacing~$>1.0$) are selected from the 35 found
-by manual $|L|$-minimum search.
+FE: \texttt{lfuncheckfeq}~$=-116$ digits.
 
 \medskip
 \noindent\textbf{Result~\#205}: $\kappa\delta^{2}$ log-log slope
-$\mathbf{1.9999\pm 0.0004}$, $R^{2}=1.000000$ for all five zeros.
+$\mathbf{1.9999\pm 0.0004}$, $R^{2}=1.000000$ for all five zeros
+($t\in[1.49, 7.35]$, spacing $>1.0$).
 Monodromy $5/5=2.0000\pi$.  $\sigma$-uniqueness: FAIL (centre=36,
-max=68 at $\sigma=2.30$), consistent with the degree-${\geq}2$
-structural FAIL pattern (B-05).
+max=68), consistent with degree-${\geq}2$ structural pattern (B-05).
 Overall: \textbf{4/5 PASS} ($\bigstar\bigstar\bigstar$).
 
 Individual slopes: $2.0000$, $1.9996$, $1.9995$, $2.0000$, $2.0006$.
-This is the first $\kappa\delta^{2}$ slope measurement at Selberg class
-degree~$5$.  Combined with Results~\#202--\#204, the slope~$2$
-universality now spans degrees $\{1,2,3,4,5\}$---providing the
-strongest numerical evidence to date for Selberg-class universality
-of the $\xi$-bundle curvature.
+This confirms slope~$2$ universality at degree~$5$, completing the
+coverage across Selberg class degrees $\{1,2,3,4,5\}$.
+Result~\#85 (Paper~1) had already verified the four classical
+properties at GL(5); the present measurement adds the quantitative
+$\kappa\delta^{2}$ slope with full multi-$\delta$ precision.
+Degree~$5$ remains limited to one $L$-function due to computational
+constraints (sym$^4$(37a1) has $N=37^4=1{,}874{,}161$).
+
+\textcolor{ForestGreen}{[result \#205, confirmed 2026-04-21;
+sym$^4$(11a1): $N{=}14641$, $k{=}5$, $\gamma_V{=}[-2,-1,0,0,1]$;
+FE${=}-116$ digits; slope${=}1.9999{\pm}0.0004$; mono $5/5{=}2\pi$;
+$\sigma$-uniq FAIL (structural); 12-row table; degree 1--5 complete]}
 
 
 \subsection{Weight, Spectral, and Degree Invariance of $\kappa\delta^{2}$}
@@ -1177,7 +1179,7 @@ weights, spectral parameters, and Selberg class degrees tested to date.
 \caption{Weight, spectral, and degree invariance of the $\kappa\delta^{2}$
   log-log slope.  Twelve data points spanning degrees $1$--$5$, weights
   $k\in\{0,1,2,12,16,20\}$, Maass spectral parameters $R=9.53,13.78$, and
-  symmetric powers $\mathrm{sym}^{2}$, $\mathrm{sym}^{3}$, $\mathrm{sym}^{4}$ (degrees 3--5).
+  symmetric powers $\mathrm{sym}^{2}$, $\mathrm{sym}^{3}$, $\mathrm{sym}^{4}$ (two independent GL(4) L-functions).
   The Artin entry ($k=1$) uses the log$(\kappa)$ vs.\ log$(\delta^2)$
   convention (Paper~3, theoretical slope $-1$) and is included for comparison.}
 \label{tab:weightuniv}
@@ -1218,8 +1220,8 @@ value to four decimal places.  Combined with the $k=0$ (Riemann $\zeta$)
 and $k=2$ (EC 11a1) results from Paper~1, the convention-A slope equals
 $2.0\pm 0.001$ across twelve data points spanning Selberg class degrees
 $\{1,2,3,4,5\}$, holomorphic weights $k\in\{0,1,2,12,16,20\}$, two
-non-holomorphic Maass forms, and three symmetric-power $L$-functions
-($\mathrm{sym}^{2}$, $\mathrm{sym}^{3}$, $\mathrm{sym}^{4}$).
+non-holomorphic Maass forms, two independent GL(4) $L$-functions, and
+one GL(5) $L$-function.
 
 \begin{observation}[Weight, spectral, and degree invariance of $\kappa\delta^{2}$]
 \label{obs:weightinv}
@@ -1236,9 +1238,9 @@ non-holomorphic Maass forms, and three symmetric-power $L$-functions
   \emph{universal constant} of the Selberg class.
   Results~\#125--\#127 extend the verified weight range to $k\leq 20$;
   Results~\#200--\#201 cover both Maass symmetry classes;
-  Results~\#202--\#204 extend from degree~$2$ to degrees~$3$ and~$4$
-  (with two independent GL(4) $L$-functions resolving the 11a1 bias concern);
-  Result~\#205 (GL(5) sym$^{4}$(11a1)) confirms the first degree-$5$ measurement.
+  Results~\#202--\#205 extend from degree~$2$ to degrees~$3$, $4$, and~$5$
+  (with two independent GL(4) $L$-functions resolving the 11a1 bias concern
+  and a GL(5) $L$-function completing degree~$1$--$5$ coverage).
 \end{observation}
 
 
@@ -1258,20 +1260,19 @@ $\mathrm{GL}(5)$ results (81 numerical experiments), the framework now
 covers the major algebraic families of $L$-functions.
 
 \paragraph{Weight, spectral, and degree universality.}
-Results~\#125--\#127, \#200--\#201, and \#202--\#205 establish that the
+Results~\#125--\#127, \#200--\#201, and \#202--\#203 establish that the
 $\kappa\delta^{2}$ log-log slope is invariant under the modular weight,
 holomorphicity, Maass symmetry class, and Selberg class degree.
 For holomorphic eigenforms the three-weight mean is $1.9994\pm 0.0010$
 ($k=12,16,20$); the two Maass cusp forms yield $2.0003\pm 0.0003$
 ($R=9.53$, odd) and $1.9999\pm 0.0008$ ($R=13.78$, even).  The degree
 extension via symmetric powers produces the most precise measurements:
-$\mathrm{sym}^{2}(\text{11a1})$ at $\mathrm{GL}(3)$,
-$\mathrm{sym}^{3}(\Delta)$ and $\mathrm{sym}^{3}$(37a1) at $\mathrm{GL}(4)$,
-and $\mathrm{sym}^{4}$(11a1) at $\mathrm{GL}(5)$ all yield slope
-$2.0\pm 0.001$.  Combined with the $k=0,2$ results from Paper~1
+$\mathrm{sym}^{2}(\text{11a1})$ at $\mathrm{GL}(3)$ and
+$\mathrm{sym}^{3}(\Delta)$ at $\mathrm{GL}(4)$ both give slope
+$2.0000\pm 0.0001$.  Combined with the $k=0,2$ results from Paper~1
 and the Artin result ($k=1$, Paper~3), the convention-A slope equals
-$2.0\pm 0.001$ across twelve data points spanning Selberg class degrees
-$\{1,2,3,4,5\}$ and the full $\mathrm{GL}(2)$ landscape.
+$2.0\pm 0.001$ across ten data points spanning Selberg class degrees
+$\{1,2,3,4\}$ and the full $\mathrm{GL}(2)$ landscape.
 This is a direct numerical consequence of Theorem~\ref{thm:rankinv}: the
 $\kappa\delta^{2}=1+O(\delta^{2})$ limit follows from the functional
 equation alone, so the slope~$2$ is a universal constant of the Selberg
@@ -1308,10 +1309,9 @@ known scarcity of DH off-critical zeros.
         confirm the four $\xi$-bundle properties (Paper~3).
   \item \textit{Hilbert modular forms}: extending the spectral universality
         to number fields of degree $>1$.
-  \item \textit{Higher-degree extension}: Results~\#202--\#205 now
-        cover degrees $3$--$5$; extending to degree~$6$
-        ($\mathrm{sym}^{5}$, $\mathrm{GL}(6)$) would test the limits
-        of current computational infrastructure.
+  \item \textit{Higher-degree extension}: Results~\#202--\#203 cover
+        degrees 3 and~4; extending to degree~$5$ ($\mathrm{sym}^{4}$)
+        would test the limits of current computational infrastructure.
   \item \textit{Selberg class generalisation}: Theorem~\ref{thm:disc}
         uses only FE; can it be sharpened to give $c_{1}$ in terms of
         the Selberg class degree?
@@ -1344,11 +1344,12 @@ $R=9.53$ and $13.78$), and symmetry class (odd and even).
 Fourth, degree universality: Results~\#202--\#205 extend the slope
 verification from $\mathrm{GL}(2)$ to $\mathrm{GL}(3)$
 ($\mathrm{sym}^{2}(\text{11a1})$, slope $2.0000\pm 0.0001$),
-$\mathrm{GL}(4)$ ($\mathrm{sym}^{3}(\Delta)$ and $\mathrm{sym}^{3}$(37a1),
-conductor-independence confirmed), and $\mathrm{GL}(5)$
-($\mathrm{sym}^{4}$(11a1), slope $\mathbf{1.9999\pm 0.0004}$,
-first degree-$5$ measurement), confirming Observation~8 across Selberg
-class degrees $\{1,2,3,4,5\}$.
+$\mathrm{GL}(4)$ ($\mathrm{sym}^{3}(\Delta)$ and
+$\mathrm{sym}^{3}(\text{37a1})$, slopes $2.0000\pm 0.0001$ and
+$1.9999\pm 0.0005$), and $\mathrm{GL}(5)$
+($\mathrm{sym}^{4}(\text{11a1})$, slope $1.9999\pm 0.0004$),
+confirming Observation~8 across Selberg class degrees $\{1,2,3,4,5\}$
+with twelve independent data points.
 
 Together, Theorems~5--7 and Observation~8 form a coherent picture:
 on the critical line, the $\xi$-bundle curvature satisfies
@@ -1401,7 +1402,7 @@ Result & Section & Rating & Key finding \\
 \#202 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(3) $\mathrm{sym}^{2}(\text{11a1})$; 5/5 PASS; slope $\mathbf{2.0000\pm0.0001}$; first degree-3 measurement \\
 \#203 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(4) $\mathrm{sym}^{3}(\Delta)$; 4/5 PASS; slope $\mathbf{2.0000\pm0.0001}$; degree 1--4 universality \\
 \#204 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(4) $\mathrm{sym}^{3}(\text{37a1})$; 4/5 PASS; slope $\mathbf{1.9999\pm0.0005}$; 11a1-bias resolved \\
-\#205 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(5) $\mathrm{sym}^{4}(\text{11a1})$; 4/5 PASS; slope $\mathbf{1.9999\pm0.0004}$; first degree-5 measurement \\
+\#205 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(5) $\mathrm{sym}^{4}(\text{11a1})$; 4/5 PASS; slope $\mathbf{1.9999\pm0.0004}$; degree 1--5 complete \\
 \end{longtable}
 
 
