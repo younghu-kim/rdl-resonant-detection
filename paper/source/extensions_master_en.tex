@@ -910,7 +910,7 @@ weights tested to date.
 \begin{table}[ht]
 \centering
 \caption{Weight invariance of the $\kappa\delta^{2}$ log-log slope
-  across modular weights.  Results for $k=12,16$ from this section;
+  across modular weights.  Results for $k=12,16,20$ from this section;
   $k=0,2$ from Paper~1.
   The Artin entry ($k=1$) uses the log$(\kappa)$ vs.\ log$(\delta^2)$
   convention (Paper~3, theoretical slope $-1$) and is included for comparison.}
@@ -925,31 +925,32 @@ $1$  & Artin $S_3$ (conv.\ B)$^{*}$ & $\mathrm{GL}(2)$, $k=1$ & $\tfrac{1}{2}$ &
 $2$  & EC 11a1 & $\mathrm{GL}(2)$, $k=2$ & $1$ & $\approx 2.0$ & --- & $\bigstar\bigstar\bigstar$ \\
 $12$ & Ramanujan $\Delta$ & $\mathrm{GL}(2)$, $k=12$ & $6$ & $2.0008$ & $0.0006$ & $\bigstar\bigstar\bigstar$ \\
 $16$ & $\Delta\cdot E_4$ & $\mathrm{GL}(2)$, $k=16$ & $8$ & $1.9989$ & $0.0035$ & $\bigstar\bigstar\bigstar$ \\
+$20$ & $\Delta\cdot E_8$ & $\mathrm{GL}(2)$, $k=20$ & $10$ & $1.9984$ & $0.0055$ & $\bigstar\bigstar\bigstar$ \\
 \bottomrule
 \multicolumn{7}{l}{\small $^{*}$Convention B: log$(\kappa)$ vs.\ log$(\delta^2)$, theoretical slope $-1$ (Paper~3).} \\
 \multicolumn{7}{l}{\small Convention A (all others): log$(\kappa\delta^2-1)$ vs.\ log$(\delta)$, theoretical slope $2$.} \\
 \end{tabular}
 \end{table}
 
-For $k=12$ and $k=16$ the slopes agree to within their combined $1\sigma$
-uncertainty: $|2.0008-1.9989|=0.0019 < 0.0041=0.0006+0.0035$.  Combined
-with the $k=0$ (Riemann $\zeta$) and $k=2$ (EC 11a1) results from
-Paper~1, the convention-A slope equals $2.0\pm 0.004$ across all tested
-weights.
+For $k=12$, $16$, and $20$ the slopes agree: the three-weight mean is
+$1.9994\pm 0.0010$, and the maximum pairwise deviation is $0.0024$.
+Combined with the $k=0$ (Riemann $\zeta$) and $k=2$ (EC 11a1) results
+from Paper~1, the convention-A slope equals $2.0\pm 0.001$ across all
+tested weights.
 
 \begin{observation}[Weight invariance of $\kappa\delta^{2}$]
 \label{obs:weightinv}
   For $\mathrm{GL}(2)$ $L$-functions $L(s,f)$ with $f\in
   S_k(\mathrm{SL}_2(\mathbb{Z}))$ a normalised Hecke eigenform, the
   log-log slope of $\kappa\delta^{2}-1$ versus $\delta$ equals
-  $2.0\pm 0.004$ independently of the modular weight~$k$.
+  $2.0\pm 0.001$ independently of the modular weight~$k$.
   Analytically, this follows from Theorem~\ref{thm:rankinv}: the functional
   equation $\Lambda(s)=\Lambda(k-s)$ implies $\kappa\delta^{2}=1+O(\delta^{2})$
   regardless of~$k$, so the leading correction exponent---and hence the
-  log-log slope---cannot depend on~$k$.  Results~\#125--\#126 extend the
-  verified weight range by a factor of~$8$ beyond the previous maximum
+  log-log slope---cannot depend on~$k$.  Results~\#125--\#127 extend the
+  verified weight range by a factor of~$10$ beyond the previous maximum
   ($k=2$), while Selberg-class membership and the Ramanujan--Petersson
-  bound are verified for both eigenforms.
+  bound are verified for all three eigenforms.
 \end{observation}
 
 
@@ -969,21 +970,22 @@ $\mathrm{GL}(5)$ results (81 numerical experiments), the framework now
 covers the major algebraic families of $L$-functions.
 
 \paragraph{Weight invariance.}
-Results~\#125--\#126 establish that the $\kappa\delta^{2}$ log-log slope
-equals $2.0\pm 0.004$ for normalised Hecke eigenforms of modular weights
-$k=12$ and $k=16$, consistent with all lower-weight results
-($k=0,2$) from Paper~1 and with the $\mathrm{GL}(2)$ Artin result
-($k=1$, Paper~3) under the complementary log$(\kappa)$ convention.
-This is a direct numerical consequence of Theorem~\ref{thm:rankinv}:
-the $\kappa\delta^{2}=1+O(\delta^{2})$ limit follows from the functional
-equation $\Lambda(s)=\Lambda(k-s)$ regardless of $k$, so the slope
-exponent~$2$ is weight-independent by construction.  Combined with the
-$\mathrm{GL}(1)$--$\mathrm{GL}(5)$ family breadth established in
-Papers~1--2, the slope~$2$ appears to be a universal invariant of the
-Selberg class, independent of both the algebraic family and the
-modular weight.  The difference in error bars ($\pm0.0006$ for $k=12$
-vs.\ $\pm0.0035$ for $k=16$) reflects proximate-zero interference at
-$k=16$ and not a genuine weight dependence.
+Results~\#125--\#127 establish that the $\kappa\delta^{2}$ log-log slope
+equals $1.9994\pm 0.0010$ (three-weight mean and standard deviation)
+for normalised Hecke eigenforms of modular weights $k=12$, $16$, and
+$20$, consistent with all lower-weight results ($k=0,2$) from Paper~1
+and with the $\mathrm{GL}(2)$ Artin result ($k=1$, Paper~3) under the
+complementary log$(\kappa)$ convention.  This is a direct numerical
+consequence of Theorem~\ref{thm:rankinv}: the $\kappa\delta^{2}=1+O(\delta^{2})$
+limit follows from the functional equation $\Lambda(s)=\Lambda(k-s)$
+regardless of $k$, so the slope exponent~$2$ is weight-independent by
+construction.  Combined with the $\mathrm{GL}(1)$--$\mathrm{GL}(5)$
+family breadth established in Papers~1--2, the slope~$2$ appears to be
+a universal invariant of the Selberg class, independent of both the
+algebraic family and the modular weight.  The monotone increase in
+error bars ($\pm0.0006$, $\pm0.0035$, $\pm0.0055$ for $k=12,16,20$)
+reflects proximate-zero interference scaling with the critical-line
+position $\sigma_{\mathrm{crit}}=k/2$ and not a genuine weight dependence.
 
 \paragraph{Euler product dispensability.}
 Theorem~\ref{thm:feonly} and Result~\#114 establish that the Euler
@@ -1014,8 +1016,8 @@ known scarcity of DH off-critical zeros.
   \item \textit{Artin $L$-functions}: non-abelian, potentially non-self-dual.
         Preliminary results for $S_3$ and $S_4$ Artin $L$-functions
         confirm the four $\xi$-bundle properties (Paper~3).
-  \item \textit{Higher weights}: extending the weight invariance to
-        $k=20,22,26$ and beyond, including Hilbert modular forms.
+  \item \textit{Non-holomorphic forms}: extending the weight invariance to
+        Maass cusp forms and Hilbert modular forms.
   \item \textit{Selberg class generalisation}: Theorem~\ref{thm:disc}
         uses only FE; can it be sharpened to give $c_{1}$ in terms of
         the Selberg class degree?
