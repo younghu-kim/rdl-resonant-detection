@@ -151,7 +151,7 @@ is independent of both modular weight and holomorphicity---a
 numerical consequence of the functional equation alone (Observation~8).
 
 \smallskip
-\noindent Eighteen numerical results support the framework's universality
+\noindent Nineteen numerical results support the framework's universality
 and the discriminator theorem.
 \end{tcolorbox}
 
@@ -214,7 +214,7 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         if $\sigma_{0}=\tfrac{1}{2}$, where $c_{1}$ is the leading
         off-critical Taylor coefficient of $\kappa\delta^{2}$.
   \item A \textbf{Summary Table} (Table~\ref{tab:summary}) collects all
-        eighteen new results (\#107--\#117, \#125--\#127, \#200--\#203).
+        nineteen new results (\#107--\#117, \#125--\#127, \#200--\#204).
   \item \textbf{Weight and spectral universality} (\S\ref{sec:modular}):
         The log-log slope of $\kappa\delta^{2}-1$ versus $\delta$ equals
         $2.0\pm0.001$ independently of both the modular weight~$k$ and
@@ -1096,6 +1096,36 @@ $2.0000$---each indistinguishable from the theoretical value~$2$.
 Combined with the GL(3) result, the slope~$2$ now spans Selberg class
 degrees $\{1,2,3,4\}$.
 
+\paragraph{$\mathrm{GL}(4)$: $\mathrm{sym}^{3}(\text{37a1})$
+(Result~\#204).}
+\label{par:gl4sym3_37a1}
+To address the potential bias toward the 11a1/\,$\Delta$ family
+(sym$^{2}$(11a1) and sym$^{3}(\Delta)$ are both 11a1-derived), we
+verify the same slope on a fully independent elliptic curve.
+$L(s,\mathrm{sym}^3(\text{37a1}))$ has conductor $N=50653=37^3$,
+degree~$4$, arithmetic normalisation $\sigma_{\mathrm{crit}}=k/2=2$,
+and $\gamma_V=[-1,0,0,1]$ (PARI \texttt{lfunsympow(37a1,3)}).
+FE: \texttt{lfuncheckfeq}~$=-137$ digits.
+
+\medskip
+\noindent\textbf{Result~\#204}: $\kappa\delta^{2}$ log-log slope
+$\mathbf{1.9999\pm 0.0005}$, $R^{2}=1.000000$ for all five zeros
+($t\in[0.37, 5.55]$, spacing $>1.0$).
+Monodromy $5/5=2.0000\pi$.  $\sigma$-uniqueness: FAIL (centre=40,
+max=70), consistent with degree-${\geq}2$ structural pattern (B-05).
+Overall: \textbf{4/5 PASS} ($\bigstar\bigstar\bigstar$).
+
+Individual slopes: $2.0002$, $2.0002$, $2.0000$, $2.0002$, $1.9988$.
+This confirms that the slope~$2$ universality at degree~$4$ is
+independent of the underlying elliptic curve, conductor, or motivic
+weight ($w=33$ for $\mathrm{sym}^3(\Delta)$ vs.\ $w=3$ for
+$\mathrm{sym}^3(\text{37a1})$).
+
+\textcolor{ForestGreen}{[result \#204, confirmed 2026-04-21;
+sym$^3$(37a1): $N{=}50653$, $k{=}4$, $\gamma_V{=}[-1,0,0,1]$;
+FE${=}-137$ digits; slope${=}1.9999{\pm}0.0005$; mono $5/5{=}2\pi$;
+$\sigma$-uniq FAIL (structural); 11-row table; 11a1-bias resolved]}
+
 
 \subsection{Weight, Spectral, and Degree Invariance of $\kappa\delta^{2}$}
 \label{ssec:weightinv}
@@ -1107,9 +1137,9 @@ weights, spectral parameters, and Selberg class degrees tested to date.
 \begin{table}[ht]
 \centering
 \caption{Weight, spectral, and degree invariance of the $\kappa\delta^{2}$
-  log-log slope.  Ten data points spanning degrees $1$--$4$, weights
+  log-log slope.  Eleven data points spanning degrees $1$--$4$, weights
   $k\in\{0,1,2,12,16,20\}$, Maass spectral parameters $R=9.53,13.78$, and
-  symmetric powers $\mathrm{sym}^{2}$, $\mathrm{sym}^{3}$.
+  symmetric powers $\mathrm{sym}^{2}$, $\mathrm{sym}^{3}$ (two independent GL(4) L-functions).
   The Artin entry ($k=1$) uses the log$(\kappa)$ vs.\ log$(\delta^2)$
   convention (Paper~3, theoretical slope $-1$) and is included for comparison.}
 \label{tab:weightuniv}
@@ -1128,6 +1158,7 @@ $k{=}16$ & $\Delta\cdot E_4$ & $\mathrm{GL}(2)$ & $8$ & $1.9989$ & $0.0035$ & $\
 $k{=}20$ & $\Delta\cdot E_8$ & $\mathrm{GL}(2)$ & $10$ & $1.9984$ & $0.0055$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{2}$ & $\mathrm{sym}^{2}(\text{11a1})$ & $\mathrm{GL}(3)$ & $\tfrac{3}{2}$ & $\mathbf{2.0000}$ & $\mathbf{0.0001}$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{3}$ & $\mathrm{sym}^{3}(\Delta)$ & $\mathrm{GL}(4)$ & $\tfrac{1}{2}$ & $\mathbf{2.0000}$ & $\mathbf{0.0001}$ & $\bigstar\bigstar\bigstar$ \\
+$\mathrm{sym}^{3}$ & $\mathrm{sym}^{3}(\text{37a1})$ & $\mathrm{GL}(4)$ & $2$ & $\mathbf{1.9999}$ & $\mathbf{0.0005}$ & $\bigstar\bigstar\bigstar$ \\
 \bottomrule
 \multicolumn{7}{l}{\small $^{*}$Convention B: log$(\kappa)$ vs.\ log$(\delta^2)$, theoretical slope $-1$ (Paper~3).} \\
 \multicolumn{7}{l}{\small Convention A (all others): log$(\kappa\delta^2-1)$ vs.\ log$(\delta)$, theoretical slope $2$.} \\
@@ -1146,9 +1177,9 @@ $\mathrm{sym}^{2}(\text{11a1})$ at degree~$3$ and $\mathrm{sym}^{3}(\Delta)$
 at degree~$4$ both yield slope $2.0000\pm 0.0001$, matching the theoretical
 value to four decimal places.  Combined with the $k=0$ (Riemann $\zeta$)
 and $k=2$ (EC 11a1) results from Paper~1, the convention-A slope equals
-$2.0\pm 0.001$ across ten data points spanning Selberg class degrees
-$\{1,2,3,4\}$, holomorphic weights $k\in\{0,1,2,12,16,20\}$, and two
-non-holomorphic Maass forms.
+$2.0\pm 0.001$ across eleven data points spanning Selberg class degrees
+$\{1,2,3,4\}$, holomorphic weights $k\in\{0,1,2,12,16,20\}$, two
+non-holomorphic Maass forms, and two independent GL(4) $L$-functions.
 
 \begin{observation}[Weight, spectral, and degree invariance of $\kappa\delta^{2}$]
 \label{obs:weightinv}
@@ -1165,7 +1196,8 @@ non-holomorphic Maass forms.
   \emph{universal constant} of the Selberg class.
   Results~\#125--\#127 extend the verified weight range to $k\leq 20$;
   Results~\#200--\#201 cover both Maass symmetry classes;
-  Results~\#202--\#203 extend from degree~$2$ to degrees~$3$ and~$4$.
+  Results~\#202--\#204 extend from degree~$2$ to degrees~$3$ and~$4$
+  (with two independent GL(4) $L$-functions resolving the 11a1 bias concern).
 \end{observation}
 
 
@@ -1322,6 +1354,7 @@ Result & Section & Rating & Key finding \\
 \#201 & \S\ref{ssec:maass_even}   & \textbf{$\bigstar\bigstar\bigstar$}    & Even Maass ($R{=}13.7798$); 4/5 PASS; slope $1.9999\pm0.0008$; symmetry-class independence \\
 \#202 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(3) $\mathrm{sym}^{2}(\text{11a1})$; 5/5 PASS; slope $\mathbf{2.0000\pm0.0001}$; first degree-3 measurement \\
 \#203 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(4) $\mathrm{sym}^{3}(\Delta)$; 4/5 PASS; slope $\mathbf{2.0000\pm0.0001}$; degree 1--4 universality \\
+\#204 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(4) $\mathrm{sym}^{3}(\text{37a1})$; 4/5 PASS; slope $\mathbf{1.9999\pm0.0005}$; 11a1-bias resolved \\
 \end{longtable}
 
 
