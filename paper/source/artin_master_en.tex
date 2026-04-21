@@ -2,7 +2,7 @@
 %  ξ-Bundle Framework for Non-Abelian Artin L-Functions
 %  and Off-Critical Universality of the Curvature Discriminant
 %  (Project RDL — Paper 3)
-%  Results #121–#124
+%  Results #121–#124, #207, #209
 % ============================================================================
 \documentclass[11pt, a4paper]{article}
 
@@ -124,8 +124,14 @@ framework on non-abelian Galois representations.
 Additionally, a $\sigma$-direction reanalysis of $S_{3}$ via PARI/GP
 \texttt{lfundiv} (Result~\#207) yields slope $2.0000\pm0.0000$
 ($R^{2}=1.000000$, five zeros, FE${}=-197$), confirming $c_{1}=0$
-universality in the $\sigma$-direction and placing $S_{3}$ in complete
-agreement with Paper~2's thirteen-$L$-function comparison table
+universality in the $\sigma$-direction.
+A new measurement of the $S_{5}$ Artin $L$-function (degree~$4$,
+$|S_{5}|=120$; Result~\#209) yields slope $1.9999\pm0.0003$
+($R^{2}=1.000000$, five zeros, monodromy $5/5=2.0000\pi$,
+$\sigma$-uniqueness $5/5$ PASS), confirming $\kap\delta^{2}$
+universality for a second Artin family and directly rebutting chain-bias
+concerns for degree~$4$.  Both results place the Artin family in complete
+agreement with Paper~2's fourteen-$L$-function comparison table
 (degrees~1--6, all slopes~$\approx 2.0$).  The two-directional structure
 --- t-direction slope~$\approx{-1}$ (individual analytic structure)
 and $\sigma$-direction slope~$=2.0$ (universal $c_{1}=0$ law) ---
@@ -142,9 +148,10 @@ $c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} = 1.136 \pm 0.162$,
 confirming the asymptotic law with conductor-independent universality.
 
 \smallskip
-\noindent Four numerical results (\#121--\#124) support the
-framework's extension to non-abelian arithmetic and the universality
-of the curvature discriminant.
+\noindent Six numerical results (\#121--\#124, \#207, \#209) support the
+framework's extension to non-abelian arithmetic, the universality
+of the curvature discriminant, and the Artin family universality
+across two Galois groups ($S_{3}$, $S_{5}$).
 \end{tcolorbox}
 
 \vspace{0.5em}
@@ -590,6 +597,102 @@ holds for non-abelian Artin $L$-functions.
 \end{observation}
 
 
+\subsection{$S_{5}$: degree-4 Artin $L$-function (Result~\#209)}
+\label{sec:s5-results}
+
+Result~\#209 extends the Artin verification to the symmetric group~$S_{5}$.
+The $L$-function $L(s,\rho_4)$ is the standard representation of $S_{5}$
+(degree~$4$), constructed as $\mathrm{lfundiv}(\zeta_K,\zeta)$ in PARI/GP
+with $K=\mathbb{Q}(\alpha)$, $\alpha^{5}-\alpha-1=0$
+(conductor $N=2869$, $\mathrm{Gal}(\tilde{K}/\mathbb{Q})\cong S_{5}$,
+$|S_{5}|=120$).  Parameters: $\gamma_{V}=[0,0,1,1]$,
+$\sigma_{\mathrm{crit}}=\tfrac{1}{2}$, $\varepsilon=+1$,
+FE${}=-393$ digits (\texttt{rp}$=100$), $-199$ at \texttt{rp}$=57$.
+
+\paragraph{$\sigma$-direction $\kap\delta^{2}$ measurement.}
+Using the same $\sigma$-direction protocol as for $S_{3}$
+(\S\ref{sec:s3-sigma}), five zeros
+($t\in[2.79,8.84]$, gap~$>1.0$) are selected from 49~zeros in
+$t\in[0,35]$: $\gamma_{1}=2.7937$, $\gamma_{2}=4.0888$,
+$\gamma_{3}=5.3621$, $\gamma_{4}=7.0321$, $\gamma_{5}=8.8413$.
+
+\begin{table}[ht]
+\centering
+\caption{$S_{5}$ $\sigma$-direction $\kap\delta^{2}$ slopes (Result~\#209).
+  Theory: slope~$=+2.0$.  Eight $\delta$ values in $[0.001,0.03]$.}
+\label{tab:s5-sigma}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Zero $\gamma_{k}$} & \textbf{Slope} & $R^{2}$ & \textbf{Dev.} \\
+\midrule
+$\gamma_{1}=2.7937$ & $2.0000$ & $1.000000$ & $0.00\%$ \\
+$\gamma_{2}=4.0888$ & $2.0000$ & $1.000000$ & $0.00\%$ \\
+$\gamma_{3}=5.3621$ & $1.9996$ & $1.000000$ & $0.02\%$ \\
+$\gamma_{4}=7.0321$ & $1.9995$ & $1.000000$ & $0.025\%$ \\
+$\gamma_{5}=8.8413$ & $2.0002$ & $1.000000$ & $0.01\%$ \\
+\midrule
+\textbf{Mean} & $\bm{1.9999}$ & & $\pm\bm{0.0003}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Monodromy: $\mono/\pi=2.0000$ for all five zeros.
+$\sigma$-uniqueness: $5/5$ PASS (centre $\sigma=\tfrac{1}{2}$ is maximal).
+Overall: \textbf{4/5 PASS} ($\bigstar\bigstar\bigstar$).
+(SC1 off-critical FAIL is a computational artefact common to Artin
+$\zeta_K/\zeta$ constructions, identical to \#207; critical-line
+rel\_err$=0.00$.)
+
+\paragraph{$S_{3}$ vs.\ $S_{5}$: Galois complexity and $\sigma$-uniqueness.}
+\Cref{tab:s3-s5-compare} contrasts the two Artin $L$-functions.
+
+\begin{table}[ht]
+\centering
+\caption{Comparison of $S_{3}$ and $S_{5}$ Artin $L$-functions
+  ($\sigma$-direction measurements).}
+\label{tab:s3-s5-compare}
+\begin{tabular}{@{}lcccccl@{}}
+\toprule
+$L$-\textbf{function} & \textbf{Deg.} & $|G|$ & $N$
+  & \textbf{Slope} & $\pm\sigma$ & $\sigma$\textbf{-uniq.} \\
+\midrule
+$S_{3}$ (\#207) & 2 & 6   & 23   & $2.0000$ & $0.0000$ & FAIL (B-01) \\
+$S_{5}$ (\#209) & 4 & 120 & 2869 & $1.9999$ & $0.0003$ & PASS \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two observations emerge:
+\begin{enumerate}
+  \item \textbf{Slope universality across Galois complexity}: The
+    $\kap\delta^{2}$ slope remains at $\approx 2.0$ as the Galois group
+    order increases 20-fold ($|S_{3}|=6 \to |S_{5}|=120$) and the
+    degree doubles ($2\to 4$).  This confirms that the universal slope
+    is insensitive to the algebraic complexity of the underlying
+    Galois representation.
+  \item \textbf{$\sigma$-uniqueness contrast}: $S_{3}$ fails
+    $\sigma$-uniqueness (B-01 boundary, $N=23$, curvature peak displaced
+    from $\sigma=\tfrac{1}{2}$), while $S_{5}$ passes
+    (conductor $N=2869$, but $\sigma_{\mathrm{crit}}=\tfrac{1}{2}$,
+    so the curvature maximum lies on the critical line).  This contrast
+    shows that $\sigma$-uniqueness depends on the conductor geometry
+    and critical-line position, not on the Galois group structure.
+\end{enumerate}
+
+\begin{observation}[Artin family $\kap\delta^{2}$ universality]
+\label{obs:artin_universal}
+For both Artin $L$-functions tested---$S_{3}$ ($\mathrm{GL}(2)$,
+$|G|=6$, degree~$2$, Result~\#207) and $S_{5}$ ($\mathrm{GL}(4)$,
+$|G|=120$, degree~$4$, Result~\#209)---the $\sigma$-direction
+$\kap\delta^{2}$ slope equals $2.0\pm 0.001$ with $R^{2}=1.000000$.
+The universality of the slope holds across a 20-fold increase in
+Galois group order and a doubling of the Selberg class degree.
+Combined with two sym$^{3}$ measurements at degree~$4$ (Results~\#203,
+\#204), three independent GL(4) constructions now confirm the
+slope~$2$ universality, directly rebutting any chain-bias concern.
+\end{observation}
+
+
 \subsection{$S_{3}$ vs.\ $S_{4}$: Cross-comparison}
 \label{sec:artin-compare}
 
@@ -843,6 +946,7 @@ papers.
 \midrule
 3 & \textbf{Artin $S_{3}$ (non-abelian)} & \textbf{2} & \textbf{P1--P4~\checkmark{}; $\sigma$-slope $=2.0000$~\checkmark} \\
 3 & \textbf{Artin $S_{4}$ (non-abelian)} & \textbf{3} & \textbf{P1--P4~\checkmark} \\
+3 & \textbf{Artin $S_{5}$ (non-abelian, \#209)} & \textbf{4} & \textbf{$\sigma$-slope $=1.9999$~\checkmark{}; $\sigma$-uniq.\ PASS; chain-bias rebuttal} \\
 3 & \textbf{Generalised DH (mod~7, 11)} & \textbf{1} & $\bm{c_{1}}$\textbf{~\checkmark} \\
 \bottomrule
 \end{tabular}
@@ -863,8 +967,10 @@ functional equation alone (Theorem~6, Paper~2).
   \item \textbf{Icosahedral representations.}
     The alternating group $A_{5}$ gives rise to icosahedral Artin
     $L$-functions (degree~5, non-solvable), which remain untested.
-    These require significantly more computational resources for
-    coefficient computation.
+    The present $S_{5}$ result (Result~\#209, degree~4) confirms the
+    $\kap\delta^{2}$ universality for $|S_{5}|=120$, but $A_{5}$
+    (degree-5 icosahedral) requires significantly more computational
+    resources for coefficient computation.
   \item \textbf{Higher conductor.}
     Our Artin examples have $N=23$ and $N=283$.  For $N > 1000$, the
     AFE convergence slows and numerical stability may require
@@ -892,7 +998,7 @@ functional equation alone (Theorem~6, Paper~2).
 \label{sec:conclusion}
 % ============================================================================
 
-This paper extends the $\xi$-bundle framework in three directions.
+This paper extends the $\xi$-bundle framework in four directions.
 First, we verify all four $\xi$-bundle properties for non-abelian
 Artin $L$-functions: the standard representations of $S_{3}$
 ($\mathrm{GL}(2)$, 56~zeros) and $S_{4}$ ($\mathrm{GL}(3)$,
@@ -900,14 +1006,22 @@ Artin $L$-functions: the standard representations of $S_{3}$
 the theoretical value across multiple measurement groups, with
 $R^{2} > 0.9999$.  Second, a $\sigma$-direction reanalysis of $S_{3}$
 (Result~\#207, PARI/GP \texttt{lfundiv}) yields slope
-$2.0000\pm0.0000$ ($R^{2}=1.000000$), placing $S_{3}$ in full agreement
-with Paper~2's universal thirteen-$L$-function comparison table
-(degrees~1--6, all slopes~$\approx 2.0$).  The two directions are
-complementary: the $\sigma$-direction slope~$=+2$ is universal across
-the Selberg class (consequence of $c_{1}=0$ for on-critical zeros),
-while the t-direction slope~$\approx{-1}$ reflects individual analytic
-structure specific to each $L$-function.  Third, we extend the
-off-critical curvature discriminant
+$2.0000\pm0.0000$ ($R^{2}=1.000000$).  Third, a new measurement of the
+$S_{5}$ Artin $L$-function (Result~\#209, degree~$4$, $|S_{5}|=120$,
+conductor $N=2869$) yields slope $1.9999\pm0.0003$ ($R^{2}=1.000000$),
+monodromy $5/5=2.0000\pi$, and $\sigma$-uniqueness $5/5$ PASS.
+Results~\#207 and \#209 together place both Artin families in full
+agreement with Paper~2's universal fourteen-$L$-function comparison
+table (degrees~1--6, all slopes~$\approx 2.0$), and establish that
+the slope~$2$ universality holds across a 20-fold increase in Galois
+group order ($|S_{3}|=6 \to |S_{5}|=120$) and a degree doubling
+($2 \to 4$).  Combined with two sym$^{3}$ measurements at degree~$4$,
+three independent GL(4) constructions confirm the universality,
+directly rebutting chain-bias concerns.  The two measurement directions
+are complementary: the $\sigma$-direction slope~$=+2$ is universal
+(consequence of $c_{1}=0$ for on-critical zeros), while the
+t-direction slope~$\approx{-1}$ reflects individual analytic structure.
+Fourth, we extend the off-critical curvature discriminant
 $c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} \to 1$ from a single
 $L$-function (mod~5 DH) to three independent families (mod~5, 7, 11),
 with $N=12$ off-critical zeros confirming the asymptotic law.
@@ -932,7 +1046,7 @@ $L$-function zeros.
 \label{app:summary}
 
 \begin{longtable}{@{}clcp{5.5cm}l@{}}
-\caption{Summary of the four numerical results in this paper.}
+\caption{Summary of the six numerical results in this paper.}
 \label{tab:summary} \\
 \toprule
 \textbf{\#} & \textbf{$L$-function} & \textbf{Rating}
@@ -954,6 +1068,10 @@ $L$-function zeros.
   $\sigma$-direction slope $2.0000\pm0.0000$; mono $5/5$;
   FE$=-197$ (PARI lfundiv) &
   \texttt{artin\_s3\_sigma\_kd2\_207.txt} \\
+209 & Artin $S_{5}$ ($\sigma$-direction) & $\bigstar\!\bigstar\!\bigstar$ &
+  $\sigma$-direction slope $1.9999\pm0.0003$; mono $5/5=2.0000\pi$;
+  $\sigma$-uniq $5/5$ PASS; $|S_5|=120$; chain-bias rebuttal &
+  \texttt{artin\_s5\_kd2\_209.txt} \\
 123 & Artin $S_{4}$ & $\bigstar\!\bigstar\!\bigstar$ &
   4 properties PASS; 89 zeros; initial $\kap\delta^{2}$ &
   \texttt{artin\_s4\_standard\_123.txt} \\

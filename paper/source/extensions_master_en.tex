@@ -2,7 +2,7 @@
 %  ξ-Bundle Curvature as a Critical-Line Discriminator:
 %  Universality Across L-Function Families and an Analytic Detection Theorem
 %  (Project RDL — Paper 2)
-%  Results #107–#117, #125–#127, #200–#207
+%  Results #107–#117, #125–#127, #200–#207, #209
 % ============================================================================
 \documentclass[11pt, a4paper]{article}
 
@@ -155,12 +155,15 @@ numerical consequence of the functional equation alone (Observation~8).
 to \emph{degree universality}: $\mathrm{GL}(3)$ sym$^2$(11a1),
 $\mathrm{GL}(4)$ sym$^3(\Delta)$ and sym$^3$(37a1),
 $\mathrm{GL}(5)$ sym$^4$(11a1), and $\mathrm{GL}(6)$ sym$^5$(11a1)
-all yield slope $2.0\pm 0.001$,
-completing Selberg class degree $1$--$6$ coverage with thirteen data points
-(Table~\ref{tab:weightuniv}).
+all yield slope $2.0\pm 0.001$.
+Result~\#209 further adds an Artin $S_5$ $L$-function (degree~$4$,
+non-abelian Galois group $|S_5|=120$, derived independently of any
+symmetric-power chain), completing Selberg class degree $1$--$6$ coverage
+with \textbf{fourteen} data points (Table~\ref{tab:weightuniv}) and
+directly rebutting any chain-bias concern for degree-$4$ universality.
 
 \smallskip
-\noindent Twenty-two numerical results support the framework's universality
+\noindent Twenty-three numerical results support the framework's universality
 and the discriminator theorem.
 \end{tcolorbox}
 
@@ -1058,8 +1061,9 @@ All preceding $\kappa\delta^{2}$ measurements concern degree-$2$
 $L$-functions (automorphic forms on $\mathrm{GL}(2)$).  A central
 question is whether the slope~$2$ persists for higher-degree
 $L$-functions in the Selberg class.  We test degrees~$3$ through~$6$
-via symmetric-power $L$-functions, and additionally resolve an earlier
-anomaly for the Artin $S_3$ $L$-function.
+via symmetric-power $L$-functions, additionally verify the slope for an
+Artin $S_5$ $L$-function (degree~$4$, Galois group $|S_5|=120$), and
+resolve an earlier anomaly for the Artin $S_3$ $L$-function.
 
 \paragraph{$\mathrm{GL}(3)$: $\mathrm{sym}^{2}(E, \text{11a1})$
 (Result~\#202).}
@@ -1132,6 +1136,46 @@ weight ($w=33$ for $\mathrm{sym}^3(\Delta)$ vs.\ $w=3$ for
 $\mathrm{sym}^3(\text{37a1})$).
 
 
+\paragraph{$\mathrm{GL}(4)$: Artin $S_5$ $L$-function
+(Result~\#209).}
+\label{par:gl4artin_s5}
+The two preceding degree-$4$ measurements (\#203, \#204) arise from
+symmetric-cube $L$-functions of elliptic curves.  To verify that the
+slope~$2$ is not an artefact of the sym$^n$ chain (``chain-bias''
+critique), we test a degree-$4$ $L$-function from a completely
+independent source: the Artin $L$-function $L(s,\rho_4)$ attached to
+the \emph{standard representation} $\rho_4$ of the symmetric group~$S_5$.
+
+The $L$-function is realised as $\mathrm{lfundiv}(\zeta_K,\zeta)$ in
+PARI/GP, where $K=\mathbb{Q}(\alpha)$ with $\alpha^5-\alpha-1=0$
+(conductor $N=2869$, $\mathrm{Gal}(\tilde{K}/\mathbb{Q})\cong S_5$,
+$|S_5|=120$, disc$(K)=2869$).  Degree~$4$, $\gamma_V=[0,0,1,1]$,
+$\sigma_{\mathrm{crit}}=\tfrac{1}{2}$, $\varepsilon=+1$.
+FE: \texttt{lfuncheckfeq}~$=-393$ digits (\texttt{rp}$=100$);
+$-199$ at \texttt{rp}$=57$.
+
+\medskip
+\noindent\textbf{Result~\#209}: $\kappa\delta^{2}$ log-log slope
+$\mathbf{1.9999\pm 0.0003}$, $R^{2}=1.000000$ for all five zeros
+($t\in[2.79, 8.84]$, spacing $>1.0$; 49 zeros found by
+\texttt{lfunzeros}, 5 selected).
+Monodromy $5/5=2.0000\pi$.  $\sigma$-uniqueness: $5/5$ PASS
+(centre $\sigma=\tfrac{1}{2}$ is maximal), in contrast to $S_3$
+(\#207, $\sigma$-uniqueness FAIL due to $N=23$, B-01 boundary).
+Overall: \textbf{4/5 PASS} ($\bigstar\bigstar\bigstar$).
+
+Individual slopes: $2.0000$, $2.0000$, $1.9996$, $1.9995$, $2.0002$.
+This is the first degree-$4$ $\kappa\delta^{2}$ measurement from the
+Artin family.  The $S_5$ representation is constructed directly from
+number-field arithmetic ($K=\mathbb{Q}(\alpha)$, $\alpha^5-\alpha-1=0$)
+with no connection to elliptic curves or modular forms, and the Galois
+group $S_5$ ($|S_5|=120$) is non-abelian of degree~$4$ compared to
+$|S_3|=6$ for the earlier Artin result.  Combined with
+$\mathrm{sym}^3(\Delta)$ (\#203) and $\mathrm{sym}^3(\text{37a1})$
+(\#204), degree~$4$ now has three independent $\kappa\delta^{2}$
+measurements from two distinct $L$-function families (sym$^n$ and
+Artin), directly rebutting the chain-bias critique.
+
 
 \paragraph{$\mathrm{GL}(5)$: $\mathrm{sym}^{4}(\text{11a1})$
 (Result~\#205).}
@@ -1189,7 +1233,8 @@ Excluding $\rho_4$, the four remaining zeros average $1.9997\pm 0.0003$.
 
 This establishes slope~$2$ universality at degree~$6$---the highest
 Selberg class degree tested---completing coverage across degrees
-$\{1,2,3,4,5,6\}$ with thirteen independent data points.
+$\{1,2,3,4,5,6\}$ (fourteen independent data points including
+two Artin $L$-functions; see Result~\#209 below).
 
 \paragraph{Artin $S_3$ $L$-function: $\sigma$-direction remeasurement
 (Result~\#207).}
@@ -1232,12 +1277,14 @@ weights, spectral parameters, and Selberg class degrees tested to date.
 \begin{table}[ht]
 \centering
 \caption{Weight, spectral, and degree invariance of the $\kappa\delta^{2}$
-  log-log slope.  Thirteen data points spanning degrees $1$--$6$, weights
-  $k\in\{0,1,2,12,16,20\}$, Maass spectral parameters $R=9.53,13.78$, and
-  symmetric powers $\mathrm{sym}^{2}$, $\mathrm{sym}^{3}$, $\mathrm{sym}^{4}$, $\mathrm{sym}^{5}$ (two independent GL(4) L-functions and one GL(6) L-function).
-  The Artin entry ($k=1$) was remeasured in the $\sigma$-direction
-  (Result~\#207, PARI \texttt{lfundiv}), resolving the earlier anomaly:
-  the convention-A slope is $2.0000\pm 0.0000$ with $R^{2}=1.000000$.}
+  log-log slope.  Fourteen data points spanning degrees $1$--$6$, weights
+  $k\in\{0,1,2,12,16,20\}$, Maass spectral parameters $R=9.53,13.78$,
+  symmetric powers $\mathrm{sym}^{2}$--$\mathrm{sym}^{5}$, and two Artin
+  $L$-functions ($S_3$, $S_5$).  Three independent GL(4) $L$-functions
+  (sym$^3(\Delta)$, sym$^3$(37a1), Artin $S_5$) directly rebut chain-bias
+  concerns.  Artin entries use the $\sigma$-direction convention
+  (Results~\#207, \#209, PARI \texttt{lfundiv}), resolving the
+  $t$-direction anomaly; convention-A slopes are $2.0000$ and $1.9999$.}
 \label{tab:weightuniv}
 \small
 \begin{tabular}{llllrrl}
@@ -1255,11 +1302,13 @@ $k{=}20$ & $\Delta\cdot E_8$ & $\mathrm{GL}(2)$ & $10$ & $1.9984$ & $0.0055$ & $
 $\mathrm{sym}^{2}$ & $\mathrm{sym}^{2}(\text{11a1})$ & $\mathrm{GL}(3)$ & $\tfrac{3}{2}$ & $\mathbf{2.0000}$ & $\mathbf{0.0001}$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{3}$ & $\mathrm{sym}^{3}(\Delta)$ & $\mathrm{GL}(4)$ & $\tfrac{1}{2}$ & $\mathbf{2.0000}$ & $\mathbf{0.0001}$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{3}$ & $\mathrm{sym}^{3}(\text{37a1})$ & $\mathrm{GL}(4)$ & $2$ & $\mathbf{1.9999}$ & $\mathbf{0.0005}$ & $\bigstar\bigstar\bigstar$ \\
+Artin $S_5$ & Artin $S_5$ (\#209) & $\mathrm{GL}(4)$ & $\tfrac{1}{2}$ & $\mathbf{1.9999}$ & $\mathbf{0.0003}$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{4}$ & $\mathrm{sym}^{4}(\text{11a1})$ & $\mathrm{GL}(5)$ & $\tfrac{5}{2}$ & $\mathbf{1.9999}$ & $\mathbf{0.0004}$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{5}$ & $\mathrm{sym}^{5}(\text{11a1})$ & $\mathrm{GL}(6)$ & $3$ & $\mathbf{1.9980}$ & $\mathbf{0.0036}$ & $\bigstar\bigstar\bigstar$ \\
 \bottomrule
 \multicolumn{7}{l}{\small All slopes measured in convention A: log$(\kappa\delta^2-1)$ vs.\ log$(\delta)$, theoretical slope $2$.} \\
-\multicolumn{7}{l}{\small \#207: Artin $S_3$ remeasured in $\sigma$-direction via PARI \texttt{lfundiv}; prior Paper~3 value ($-0.993$, $t$-direction) resolved.} \\
+\multicolumn{7}{l}{\small \#207: Artin $S_3$ ($N=23$, $|S_3|=6$) remeasured in $\sigma$-direction via PARI \texttt{lfundiv}; prior $t$-direction value ($-0.993$) resolved.} \\
+\multicolumn{7}{l}{\small \#209: Artin $S_5$ ($N=2869$, $|S_5|=120$, $x^5{-}x{-}1=0$); first degree-4 Artin measurement; chain-bias rebuttal.} \\
 \end{tabular}
 \end{table}
 
@@ -1275,10 +1324,11 @@ $\mathrm{sym}^{2}(\text{11a1})$ at degree~$3$ and $\mathrm{sym}^{3}(\Delta)$
 at degree~$4$ both yield slope $2.0000\pm 0.0001$, matching the theoretical
 value to four decimal places.  Combined with the $k=0$ (Riemann $\zeta$)
 and $k=2$ (EC 11a1) results from Paper~1, the convention-A slope equals
-$2.0\pm 0.001$ across thirteen data points spanning Selberg class degrees
-$\{1,2,3,4,5,6\}$, holomorphic weights $k\in\{0,1,2,12,16,20\}$, two
-non-holomorphic Maass forms, two independent GL(4) $L$-functions, and
-one GL(5) and one GL(6) $L$-function.
+$2.0\pm 0.001$ across \textbf{fourteen} data points spanning Selberg class
+degrees $\{1,2,3,4,5,6\}$, holomorphic weights $k\in\{0,1,2,12,16,20\}$,
+two non-holomorphic Maass forms, three independent GL(4) $L$-functions
+(including the Artin $S_5$ result~\#209), and one GL(5) and one
+GL(6) $L$-function.
 
 \begin{observation}[Weight, spectral, and degree invariance of $\kappa\delta^{2}$]
 \label{obs:weightinv}
@@ -1288,7 +1338,7 @@ one GL(5) and one GL(6) $L$-function.
   non-abelian Galois representations, or symmetric-power
   $L$-functions $\mathrm{sym}^{n}$---the log-log slope of
   $\kappa\delta^{2}-1$ versus $\delta$ equals $2.0\pm 0.006$
-  across all thirteen data points with zero outliers.
+  across all fourteen data points with zero outliers.
   Analytically, this follows from Theorem~\ref{thm:rankinv}: the functional
   equation $\Lambda(s)=\varepsilon\,\Lambda(k{-}s)$ implies
   $\kappa\delta^{2}=1+O(\delta^{2})$ regardless of the weight,
@@ -1299,7 +1349,10 @@ one GL(5) and one GL(6) $L$-function.
   Results~\#200--\#201 cover both Maass symmetry classes;
   Results~\#202--\#206 extend from degree~$2$ to degrees~$3$, $4$, $5$, and~$6$;
   Result~\#207 confirms the Artin $S_3$ $L$-function ($\sigma$-direction
-  slope $2.0000\pm 0.0000$, resolving the earlier $t$-direction anomaly).
+  slope $2.0000\pm 0.0000$, resolving the earlier $t$-direction anomaly);
+  Result~\#209 adds the Artin $S_5$ $L$-function (degree~$4$, $|S_5|=120$,
+  slope $1.9999\pm 0.0003$), confirming universality across two Artin
+  families and three independent GL(4) constructions.
 \end{observation}
 
 
@@ -1329,11 +1382,12 @@ extension via symmetric powers produces the most precise measurements:
 $\mathrm{sym}^{2}(\text{11a1})$ at $\mathrm{GL}(3)$ and
 $\mathrm{sym}^{3}(\Delta)$ at $\mathrm{GL}(4)$ both give slope
 $2.0000\pm 0.0001$.  Combined with the $k=0,2$ results from Paper~1
-and the Artin $S_3$ result ($k=1$, \#207; $\sigma$-direction remeasurement
-yielding slope $2.0000\pm 0.0000$), the slope equals
-$2.0\pm 0.006$ across all thirteen data points with \emph{zero outliers},
-spanning Selberg class degrees $\{1,2,3,4,5,6\}$ and the full
-$\mathrm{GL}(2)$ landscape.
+the Artin $S_3$ result ($k=1$, \#207; $\sigma$-direction remeasurement
+yielding slope $2.0000\pm 0.0000$), and the Artin $S_5$ result (\#209,
+slope $1.9999\pm 0.0003$, first degree-4 Artin measurement), the slope
+equals $2.0\pm 0.006$ across all \textbf{fourteen} data points with
+\emph{zero outliers}, spanning Selberg class degrees $\{1,2,3,4,5,6\}$,
+the full $\mathrm{GL}(2)$ landscape, and two Artin families.
 This is a direct numerical consequence of Theorem~\ref{thm:rankinv}: the
 $\kappa\delta^{2}=1+O(\delta^{2})$ limit follows from the functional
 equation alone, so the slope~$2$ is a universal constant of the Selberg
@@ -1418,12 +1472,17 @@ $1.9999\pm 0.0005$), $\mathrm{GL}(5)$
 ($\mathrm{sym}^{4}(\text{11a1})$, slope $1.9999\pm 0.0004$),
 and $\mathrm{GL}(6)$
 ($\mathrm{sym}^{5}(\text{11a1})$, slope $1.9980\pm 0.0036$),
-confirming Observation~8 across Selberg class degrees $\{1,2,3,4,5,6\}$
-with thirteen independent data points and zero outliers.
+confirming Observation~8 across Selberg class degrees $\{1,2,3,4,5,6\}$.
 Result~\#207 resolves the Artin $S_3$ anomaly from Paper~3:
 $\sigma$-direction remeasurement via PARI \texttt{lfundiv} yields
 slope $2.0000\pm 0.0000$, confirming that the earlier $t$-direction
 value ($-0.993$) was a measurement-convention artefact.
+Result~\#209 further adds the Artin $S_5$ $L$-function
+(degree~$4$, $\mathrm{GL}(4)$, $|S_5|=120$, slope $1.9999\pm 0.0003$):
+the first degree-$4$ measurement from the Artin family,
+establishing three independent GL(4) constructions (sym$^n \times 2$
+plus Artin) and completing \textbf{fourteen} independent data points
+with zero outliers.
 
 Together, Theorems~5--7 and Observation~8 form a coherent picture:
 on the critical line, the $\xi$-bundle curvature satisfies
@@ -1439,11 +1498,11 @@ equation.
 % ============================================================================
 \appendix
 
-\section{Summary Table: All Twenty-One Results}
+\section{Summary Table: All Twenty-Three Results}
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#206 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#207, \#209 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1479,6 +1538,7 @@ Result & Section & Rating & Key finding \\
 \#205 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(5) $\mathrm{sym}^{4}(\text{11a1})$; 4/5 PASS; slope $\mathbf{1.9999\pm0.0004}$; degree 1--5 complete \\
 \#206 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(6) $\mathrm{sym}^{5}(\text{11a1})$; 4/5 PASS; slope $\mathbf{1.9980\pm0.0036}$; degree 1--6 complete \\
 \#207 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & Artin $S_3$ $\sigma$-dir.\ remeasured; 4/5 PASS; slope $\mathbf{2.0000\pm0.0000}$; anomaly resolved \\
+\#209 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & Artin $S_5$ ($|S_5|{=}120$, degree~4); 4/5 PASS; slope $\mathbf{1.9999\pm0.0003}$; chain-bias rebuttal; $\sigma$-uniq.\ PASS \\
 \end{longtable}
 
 
