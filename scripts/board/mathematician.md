@@ -1,8 +1,24 @@
 # 수학자 보드 (Stage 1)
 
-## 지시 [2026-04-22 05:36] — 사이클 #244
+## 지시 [2026-04-22] — 사이클 #245
 
-**상황**: C-242 DH 패리티 결과 도착 (5/5 ON-PASS, 4/4 OFF-FAIL). B-36 해결. C-240/241/242가 Paper 2에 Remark `rem:laurentparity`로 이미 반영됨 — 그러나 Remark 형태. 검토자와 사이클 #243 모두 Proposition 승격 권고. CPU 유휴. 사이클 #243은 max turns(50) 초과 에러.
+**상황**: #244 지시 실행 완료. Remark→Proposition 승격 + proof 환경 + Abstract 언급. EN 25p / KO 24p. 배포 완료.
+
+**Paper 2 현황**: EN 25p, KO 24p, ~34결과, Proposition 9개 (prop:laurentparity 포함).
+
+**다음 판단 필요**:
+1. **arXiv 제출 준비**: Abstract의 "Twenty-five numerical results"가 실제 34결과와 불일치 — 수정 필요
+2. **B-38 (d≥5 A 공식)**: 계산 비용 높음, 후속 논문 이관 권고
+3. **B-40 (Epstein off-critical)**: B-36 강화, 후속 논문 이관 권고
+4. **σ-국소화 증명**: Phase 2.5 최우선 열린 문제 — 이론 시도 가치 있음
+
+**전략**: 논문 완성 최우선. Abstract 결과 수 정정 → arXiv 제출 준비.
+
+---
+
+## [아카이브] 지시 [2026-04-22 05:36] — 사이클 #244
+
+Remark→Proposition 승격 지시 → **사이클 #245에서 실행 완료**.
 
 **C-242 최종 판정**: ★★★★ 양성 — DH 패리티 sharpness로 B-36 완전 해결
 

@@ -158,6 +158,10 @@ $0.5\%$ 이내로 성립함을 수치적으로 검증한다.
 이 결과들은 리만 가설에 대한 $\xi$-다발 기반 판별자를 제공한다:
 임계선 외에 놓인 영점은 $\kappa\delta^{2}$에
 감지 가능한 $O(\delta)$ 보정항을 생성한다.
+로랑 패리티 명제 (명제~\ref{prop:laurentparity})는
+임계선 위 영점에서 모든 로랑 계수에 대해
+$c_n=(-1)^{n+1}\bar{c}_n$이 성립함을 증명하며,
+DH 임계선 외 영점에서의 실패로 필요충분성을 확인한다.
 
 \smallskip
 \noindent 아홉 개의 추가 결과 (\#125--\#127, \#200--\#205)는
@@ -194,9 +198,6 @@ Rankin--Selberg 합성곱 $L(s, \text{11a1}\times\text{37a1})$의
 \smallskip
 \noindent 스물네 개의 수치 결과가 프레임워크의 보편성과
 판별 정리를 지지한다.
-임계선 위의 영점을 특성화하는 로랑 패리티 정리
-(명제~\ref{prop:laurentparity})가 증명되고 $17$개 영점에서 검증되었으며,
-Davenport--Heilbronn 함수로 필요충분성이 확인되었다.
 \end{tcolorbox}
 
 \vspace{0.5em}
@@ -1340,9 +1341,9 @@ $|\!\operatorname{Re}(c_0)|/|\!\operatorname{Im}(c_0)|\sim 2$--$7$인
 \end{proposition}
 
 \begin{proof}
-함수방정식(FE)은 $c_n(\pi,\rho)$를 $\varepsilon(-1)^n c_n(\tilde\pi,\bar\rho)$에 대응시킨다.
-켤레 중심 대칭(CC)은 $c_n(\pi,\rho)$를 $\bar c_n(\tilde\pi,\bar\rho)$에 대응시킨다.
-결합하면: $c_n = (-1)^{n+1}\bar c_n$.
+함수방정식은 $c_n(\pi,\rho)$를 $\varepsilon(-1)^n c_n(\tilde{\pi},\bar{\rho})$로 사상한다.
+켤레 중심 대칭은 $c_n(\pi,\rho)$를 $\bar{c}_n(\tilde{\pi},\bar{\rho})$로 사상한다.
+결합하면: $c_n = (-1)^{n+1}\bar{c}_n$.
 \end{proof}
 
 \begin{corollary}[진폭 공식]
