@@ -1,11 +1,15 @@
 gl4_sym3_37a1_kd2_204.txt
 gl4_sym3_kd2_203.txt
+/home/k0who029/Desktop/gdl_unified/results/rankin_selberg_kd2_210.txt
 results/A_decomposition_77.txt
 results/angle_at_zeros_inventory.txt
 results/artin_s3_121.txt
 results/artin_s3_precision_122.txt
+results/artin_s3_sigma_kd2_207.txt
 results/artin_s4_kappa_124.txt
 results/artin_s4_standard_123.txt
+results/artin_s5_kd2_209.txt
+results/A_scaling_law_212.txt
 results/basis_bandwidth_scaling.txt
 results/blind_zero_prediction.txt
 results/bundle_prediction_fp_monodromy.txt
@@ -40,6 +44,7 @@ results/dirichlet_cross_comparison.txt
 results/dirichlet_high_conductor.txt
 results/dirichlet_kappa_75.txt
 results/dirichlet_kappa_76.txt
+results/dirichlet_kd2_213.txt
 results/dirichlet_midpoint_nonlocal.txt
 results/dirichlet_mod7_40b.txt
 results/dirichlet_mod7_verification.txt
@@ -99,6 +104,7 @@ results/gl4_sym3_pari_79.txt
 results/gl4_sym3_pari_80.txt
 results/gl5_sym4_85.txt
 results/gl5_sym4_kd2_205.txt
+results/gl6_sym5_kd2_206.txt
 results/gram_point_curvature.txt
 results/gue_poisson_midpoint_comparison.txt
 results/hadamard_A_decomposition_90.txt
@@ -147,6 +153,7 @@ results/ramanujan_delta_blind_56.txt
 results/rank_dependent_corrected_108.txt
 results/rank_dependent_xi_bundle_107.txt
 results/rankin_selberg_112.txt
+results/rankin_selberg_kd2_210.txt
 results/residual_spectrum.txt
 results/s1_full_integration.txt
 results/s1_geodesic_readout.txt
@@ -166,6 +173,3 @@ results/xi_bundle_kappa_gl4_83.txt
 results/zero_107_analysis.txt
 results/zero_173_analysis.txt
 results/zeta_4property_71.txt
-results/gl6_sym5_kd2_206.txt
-results/artin_s3_sigma_kd2_207.txt
-/home/k0who029/Desktop/gdl_unified/results/rankin_selberg_kd2_210.txt

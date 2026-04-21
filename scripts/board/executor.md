@@ -1,5 +1,49 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-21 13:45] — 사이클 #228 — #214 Paper 2 Dirichlet 반영 완료
+
+**수학자 지시**: #214 — Paper 2 EN+KO에 Dirichlet 가족 비교표 추가 + 16행 비교표 갱신 + "five families" → "six families" 갱신
+
+**실행**: extensions_master_en.tex + extensions_master_ko.tex 수정 (각 10+ 편집)
+
+**주요 변경 내용 (EN+KO)**:
+
+1. **Abstract**: "#213 Dirichlet 언급 추가" + "fifteen → sixteen", "five → six distinct families", "Twenty-four → Twenty-five numerical results"
+2. **Introduction**: "nineteen → twenty-five new results (#107-#213)"
+3. **신규 단락** (ssec:degree_ext 내): `\paragraph{Dirichlet L-functions at GL(1)...}` — 4지표 표, 통합 slope=2.0002±0.0001, σ-uniqueness 분석
+4. **비교표 캡션**: "Fifteen" → "Sixteen", "five" → "six families", χ₋₇ 언급 추가
+5. **비교표 행**: ζ 다음에 `Dirichlet | χ₋₇ (#213) | GL(1) | 1/2 | 2.0000 | 0.0014 | ★★★` 추가 → 16행
+6. **Observation**: 목록에 "primitive Dirichlet L-functions" 추가 + #213 결과 언급
+7. **Discussion**: "fifteen" → "sixteen", "five → six construction families"
+8. **Conclusion**: "five → six distinct families (Dirichlet characters 추가)"
+9. **Summary 표 제목**: "Twenty-Three" → "Twenty-Five"
+10. **Summary 표 행**: #213 행 추가 (χ₋₇, sixth family, conductor independence)
+11. **\defeq 정의**: 기존 미정의 명령 수정 (`\coloneqq` 래핑)
+
+**컴파일 결과**:
+- EN: pdflatex 2패스 → exit 0, 에러 0건, **24p** (25p 미달 ✓)
+- KO: xelatex 2패스 → exit 0, 에러 0건, **23p** (이전 22p → +1p)
+
+**성공 기준 달성**:
+- [x] EN/KO LaTeX 컴파일 에러 0건
+- [x] 비교표 16행 (기존 15 + χ₋₇)
+- [x] "six families" 표기 (Abstract, Intro, Discussion, Conclusion)
+- [x] Summary table에 #213 행 추가
+- [x] Paper 2 EN ≤ 25p (현재 24p)
+- [x] dirichlet_kd2_213.txt.reflected 등록
+
+**결과 위치**:
+- `paper/source/extensions_master_en.tex` (수정)
+- `paper/source/extensions_master_ko.tex` (수정)
+- `paper/source/extensions_master_en.pdf` (컴파일, 24p)
+- `paper/source/extensions_master_ko.pdf` (컴파일, 23p)
+- `paper/extensions_master_en.pdf` (배포)
+- `paper/extensions_master_ko.pdf` (배포)
+
+**이슈**: `\defeq` 미정의 명령이 기존 코드에 있었음 → `\coloneqq` 래핑으로 수정
+
+---
+
 ## 보고 [2026-04-21 12:24] — 사이클 #225 — #212 A(t₀) degree-scaling law ★★★ 완료
 
 **수학자 지시**: #212 — 6 degree (d=1~6) L-함수에서 A(t₀) 추출, degree vs mean(A) 관계 정량화, 최적 모델 피팅, Conjecture 공식화.

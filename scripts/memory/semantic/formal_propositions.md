@@ -285,3 +285,35 @@ Theorem 4의 c₁·|σ₀-½| → 1 점근 법칙이 DH mod 5뿐 아니라 mod 7
 **검증**: `generalized_dh_offcritical_121.txt`
 **비평가**: **생존** — conductor 변화에도 법칙 유지. 3개 독립 L-함수 클래스.
 **상태**: 검증됨 ★★★
+
+### Proposition 11 (A(t₀) Hadamard 분해) **[NEW]**
+**서술**: Selberg class degree-d, conductor N인 L-함수의 단순 영점 ρ₀ = σ_c + it₀에서
+부선도 진폭 A(t₀) ≡ κ(σ_c+δ, t₀) - 1/δ²는 다음으로 분해된다:
+
+  A(t₀) = Im(R(ρ₀))² + 2Re(R'(ρ₀))
+
+여기서 R(s) = (d/ds)log[Λ(s)/(s-ρ₀)]|_{s=ρ₀} (ρ₀ 제외 Hadamard 잔차).
+
+**증명 (Theorem 4 귀결)**:
+  1. Λ(s) = (s-ρ₀)·A(s), A(ρ₀)≠0. Λ'/Λ = 1/(s-ρ₀) + R(s), R = A'/A.
+  2. s = σ_c + δ + it₀ (δ 실수, 작음) 대입:
+     Λ'/Λ = 1/δ + R(ρ₀) + R'(ρ₀)·δ + O(δ²)
+  3. κ = |Λ'/Λ|² = 1/δ² + 2Re(R)/δ + |R|² + 2Re(R') + O(δ)
+  4. Theorem 4: on-critical 영점에서 Re(R(ρ₀)) = 0 (FE 강제)
+     → 1/δ 항 소거, κ = 1/δ² + Im(R)² + 2Re(R') + O(δ)
+  5. A(t₀) = Im(R(ρ₀))² + 2Re(R'(ρ₀)). □
+
+**물리적 해석**:
+- Im(R(ρ₀)) = -Σ_{k≠0} 1/(t₀-tₖ) + Im(Γ-terms) = "영점 간 간섭" (S₁)
+- 2Re(R'(ρ₀)) = 2Σ_{k≠0} 1/(t₀-tₖ)² + Re(Γ''-terms) = "인접 영점 밀도 효과" (2H₁)
+- A ~ d²·(log N_eff)² (경험적, R²=0.983, 6 degree, 52 영점)
+- 동일 가족(sym^n) 내: A ∝ d² (logN = n·log|Δ_E| ∝ d)
+
+**검증**: #212 (6 degree, 52 영점). Out-of-sample:
+- Artin S₅ (d=4, N=2869): pred 23.9, actual 24.9 (4%)
+- RS(11a1×37a1) (d=4, N=407): pred 19.6, actual 30.7 (high variance)
+- Artin S₃ (d=2, N=23): pred 8.6, actual 5.0 (70% — 소-N 영역 부정확)
+  `A_scaling_law_212.txt`
+
+**비평가**: 분해 자체는 **생존** (Theorem 4의 직접 귀결). 경험적 스케일링은 **취약** (계수 불안정, 6점-3파라미터).
+**상태**: 분해 정리 = 증명됨. 스케일링 법칙 = 관측(잠정).

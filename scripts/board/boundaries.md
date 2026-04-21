@@ -113,16 +113,21 @@
 - **후속**: degree 5 (sym⁴) 데이터 확보 → 함수 형태 결정 (지수? 다항식?)
 - **저γ 편향**: γ<6에서 κ_near~1111.6 (0.3% 하방). DPS 한계 또는 감마 인자 근사 오차. 미해결.
 
-### B-10: σ-유일성 PASS/FAIL 분기 조건 ⭐⭐⭐ → **★★★ 확정** (#70, 2026-04-17)
+### B-10: σ-유일성 PASS/FAIL 분기 조건 ⭐⭐⭐ → **★★★ 확정 + 정교화** (#70 + #213)
 - **현상**: GL(2) holomorphic FAIL, GL(2) Maass PASS (27/27), GL(1) PASS (385)
 - **기각**: B-05 "degree가 결정" 가설
-- **대안 A**: conductor N=1→PASS, N>1→FAIL ← **★★★ 확정**
+- **대안 A (원래)**: conductor N=1→PASS, N>1→FAIL ← **#213에서 반례 발견**
 - **대안 B**: weight 0→PASS, weight≥2→FAIL ← ❌ 기각
-- **#70 판별**: Δ(N=1, weight=12) → **23/23 PASS** → 가설 A 확정
+- **#70 판별**: Δ(N=1, weight=12) → **23/23 PASS** → 가설 A 확정 (degree≥2 범위 내)
   - N=1: ζ(PASS), Maass×2(PASS), Δ(PASS) — 전원 PASS
   - N>1: 11a1(FAIL), 37a1(FAIL), sym²(11a1)(FAIL) — 전원 FAIL
   - weight(0 vs 12)는 σ-유일성에 **영향 없음**
-- **상태**: ★★★ 확정. 논문 반영 완료.
+- **⭐ #213 정교화 (2026-04-21)**: Dirichlet χ₋₃(N=3), χ₋₄(N=4), χ₅(N=5), χ₋₇(N=7) 전원 σ-uniq **PASS**
+  - degree=1, N>1 → PASS! 대안 A의 반례.
+  - **정교화된 법칙**: **degree=1 → N 무관 PASS; degree≥2 ∧ N=1 → PASS; degree≥2 ∧ N>1 → FAIL**
+  - 핵심 변수: **degree와 conductor의 교호작용**. degree=1은 Dirichlet 급수 수렴이 충분히 빠르므로 σ-의존성 유지.
+  - 단, σ-방향 측정(κδ² slope) vs 부호변환 측정(sign-change count)의 PASS/FAIL 기준이 다를 수 있음. #213은 σ-방향 ratio=8.99로 PASS.
+- **상태**: ★★★ 확정 (정교화됨). 논문 Remark 갱신 필요.
 
 ### B-14: Rankin-Selberg 비원시성 함정 (교훈, 2026-04-17 #72)
 - **현상**: L(s, Δ⊗Δ) = L(s, sym²Δ)·ζ(s). 원시적 degree 4가 아님.
