@@ -1335,6 +1335,15 @@ and $6$~non-self-dual zeros ($\chi\bmod 5$, $\chi\bmod 7$;
 Result~\#C-241) all satisfy $|\operatorname{Re}(c_{2k})|/|c_{2k}|\leq
 3\times 10^{-7}$ and $\operatorname{Im}(c_{2k+1})=0$ to machine
 precision ($200$-digit arithmetic).
+\textbf{Sharpness.}
+The hypothesis $\sigma=\tfrac{1}{2}$ (i.e.\ $1{-}\rho=\bar{\rho}$)
+is essential: the Davenport--Heilbronn function satisfies both FE and
+SR, yet its four known off-critical zeros
+($\sigma\neq\tfrac{1}{2}$) show
+$|\!\operatorname{Re}(c_0)|/|\!\operatorname{Im}(c_0)|\sim 2$--$7$,
+while five on-critical zeros satisfy $\sim 10^{-12}$
+(Result~\#C-242).
+Thus parity characterises zeros on the critical line.
 \end{remark}
 
 \begin{corollary}[Amplitude formula]
@@ -1597,6 +1606,7 @@ Result & Section & Rating & Key finding \\
 \#218 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A$ formula cross-validation; $20/20$ PASS; $\Delta$, $\chi_{-3}$, $\chi_{-7}$, $\mathrm{sym}^{2}(\text{37a1})$; mean error $0.5\%$; chain bias ruled out \\
 \#C-240 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar$} & Laurent parity $c_n=(-1)^{n{+}1}\bar{c}_n$; $11/11$ PASS (self-dual); $|\!\operatorname{Re}(c_2)|/|c_2|\leq 3{\times}10^{-7}$; Remark~\ref{rem:laurentparity} \\
 \#C-241 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{universal}: non-self-dual $\chi_5,\chi_7$ also $6/6$ PASS; self-dual not needed (FE+SR suffice); Remark~\ref{rem:laurentparity} \\
+\#C-242 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{sharpness}: DH on-critical $5/5$ PASS ($r(c_0){\sim}10^{-12}$), off-critical $4/4$ FAIL ($r(c_0){\sim}4.4$); $\sigma{=}\tfrac{1}{2}$ essential; Remark~\ref{rem:laurentparity} \\
 \end{longtable}
 
 

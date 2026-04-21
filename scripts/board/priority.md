@@ -7,9 +7,8 @@
 
 ## 현재 명령
 
-# 사이클 #241 [2026-04-22 04:21]
-# CPU 유휴. 실행 중 실험 없음.
-# C-240 Laurent 패리티 11/11 PASS (★★★★).
-# 다음 작업: C-241 비자기쌍대 패리티 sharpness 테스트 (sonnet).
-# 별도 kill/pause 명령 없음.
+# 사이클 #243 [2026-04-22]
+# C-242 완료. B-36 RESOLVED (패리티⟺임계선 ★★★★). DH on/off 9/9 정확 분리.
+# Paper 2: 25p/33결과. C-242 반영 후 arXiv 준비 방향.
+# 열린 경계: B-38 (d≥5 비용), B-40 (Epstein off-critical).
 PRIORITY:normal
