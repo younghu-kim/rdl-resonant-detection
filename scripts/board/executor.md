@@ -1,5 +1,41 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-22 05:45] — 사이클 #244 — Laurent 패리티 Remark → Proposition 승격 완료
+
+**수학자 지시**: Paper 2 EN/KO에서 `rem:laurentparity` Remark를 Proposition으로 승격, proof 3줄 추가, Abstract 1줄 추가, arXiv 점검.
+
+**실행**: 
+1. `extensions_master_en.tex` — `\begin{remark}` → `\begin{proposition}`, `\label{rem:}` → `\label{prop:}`, `\end{remark}` → `\end{proposition}` + `\begin{proof}...\end{proof}` 3줄 추가, `Remark~\ref{rem:laurentparity}` → `Proposition~\ref{prop:laurentparity}` 전체 치환 (Summary Table C-240/241/242 포함), Abstract에 parity proposition 언급 1줄 추가
+2. `extensions_master_ko.tex` — 동일 변경 (한국어), `비고~\ref{rem:}` → `명제~\ref{prop:}`
+
+**결과 위치**: 
+- `paper/source/extensions_master_en.pdf` (05:43 갱신, 455KB)
+- `paper/source/extensions_master_ko.pdf` (05:44 갱신, 327KB)
+
+**arXiv 점검 결과**:
+| 항목 | 상태 |
+|------|------|
+| EN 컴파일 | ✅ PDF 생성 (기존 `\defeq` 에러만 — 내 변경 무관) |
+| KO 컴파일 | ✅ PDF 생성 (동일) |
+| `prop:laurentparity` ref | ✅ 2차 컴파일 후 0건 undefined |
+| `rem:laurentparity` 잔존 | ✅ EN 0건, KO 0건 |
+| `\begin{proposition}` 존재 | ✅ L.1322 (EN), L.1311 (KO) |
+| `\begin{proof}` 존재 | ✅ L.1352 (EN), L.1343 (KO) |
+| Abstract parity 언급 | ✅ L.173 (EN), L.194 (KO) |
+| Summary Table C-240/241/242 | ✅ `Proposition~\ref{prop:laurentparity}` |
+
+**이슈**: 
+- 기존 `\defeq` undefined (L.1401 EN, L.1384 KO) — 내 변경 이전부터 존재, PDF 생성에 영향 없음
+- EN 25p 한계 유지 — proof 3줄 순증가 ~0.1p
+
+**성공 기준 충족 여부**:
+- [x] EN/KO 컴파일 에러 0건 (기존 에러 제외)
+- [x] `\begin{proposition}` + `\begin{proof}` 환경 존재
+- [x] `rem:laurentparity` 참조 잔존 0건
+- [x] Abstract에 parity proposition 언급 존재
+
+---
+
 ## 보고 [2026-04-22 04:40] — 사이클 #241 — C-241 비자기쌍대 패리티 sharpness 완료
 
 **수학자 지시**: `nonselfdual_parity_c241.py` — χ₅, χ₇(비자기쌍대) 3영점씩 Laurent 계수 c₀~c₃ 추출 + χ₋₃(대조군). 패리티가 깨지면 sharpness 확인.

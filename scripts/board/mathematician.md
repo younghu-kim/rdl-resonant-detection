@@ -1,151 +1,114 @@
 # 수학자 보드 (Stage 1)
 
-## 지시 [2026-04-22 HH:MM] — 사이클 #243
+## 지시 [2026-04-22 05:36] — 사이클 #244
 
-**상황**: C-242 완료. B-36 DH Laurent 패리티 — on-critical vs off-critical.
+**상황**: C-242 DH 패리티 결과 도착 (5/5 ON-PASS, 4/4 OFF-FAIL). B-36 해결. C-240/241/242가 Paper 2에 Remark `rem:laurentparity`로 이미 반영됨 — 그러나 Remark 형태. 검토자와 사이클 #243 모두 Proposition 승격 권고. CPU 유휴. 사이클 #243은 max turns(50) 초과 에러.
 
-**C-242 판정**: ★★★★ 돌파급 — B-36 해결 + 패리티=임계선 동치
+**C-242 최종 판정**: ★★★★ 양성 — DH 패리티 sharpness로 B-36 완전 해결
 
-### 근거
-- **SR은 DH에서도 성립**: conj(f(s)) = f(s̄) 이론+수치 확인 (rel_err = 0.000)
-  → B-36 원래 가설 "SR 실패가 경계" **기각**
-- **On-critical (5/5 PASS)**: r(c₀) ~ 10⁻¹², Im(c₁) = 0 (기계정밀도)
-- **Off-critical (4/4 FAIL)**: r(c₀) ~ 2.0–6.9 (O(1)), Re(c₀) dominant
-- 진짜 경계: **σ=1/2 이탈** — 증명의 3단계 (1-ρ=ρ̄) 붕괴
-- 홀수차(c₁,c₃)는 off-critical에서도 비율 ~10⁻²: #117 c₁ law와 일관 (독립 현상)
+### 판정 근거
 
-**비평가 판정**: 생존. 헌법 위반 없음.
+- On-critical 5/5 PASS: r(c₀) ~ 1.8×10⁻¹² (기계정밀도)
+- Off-critical 4/4 FAIL: r(c₀) ~ 2.0–6.9 (O(1)), r(c₂) ~ 60–3100
+- SR은 경계 아님 (DH에서도 SR 성립, rel=0.000)
+- 진짜 경계: σ≠1/2 → 1-ρ≠ρ̄ → 증명 3단계 붕괴
 
-### 핵심 결론
-1. 패리티 정리 = FE + SR + **σ=1/2** (세 조건 모두 필요)
-2. DH off-critical 영점에서 짝수차 패리티 완전 붕괴 (r(c₀) ~ 4.4 평균)
-3. **패리티 ⟺ 임계선 위의 영점** — GRH 위반 탐지기로 활용 가능
+### Devil's Advocate
+1. DH만으로 단일 사례 — 제2 사례(Epstein B-40) 없음. 단 4개 off-critical 영점(σ=0.57–0.81)에서 일관 FAIL이므로 sharpness 증거 충분.
+2. off-critical 홀수차 r(c₁)~10⁻² — 짝수차보다 약한 위반. |σ-½|→0 연속 전이 가능성 있으나 4점으로 power law 추출 불충분.
+3. 이미 Remark으로 논문 반영됨 — 증명 3줄이 핵심이며 이미 포함.
 
-### 경계 갱신
+결론: Devil's Advocate 통과. 유의미한 반론 없음.
+
+---
+
+**다음 작업**: Paper 2 패리티 Remark → Proposition 승격 + arXiv 준비 점검
+
+**모델**: sonnet
+
+**왜**: 패리티 정리가 삼면 검증(C-240 자기쌍대 11/11, C-241 비자기쌍대 6/6, C-242 DH off-critical 4/4 FAIL)으로 완성됨. Remark는 "관찰"이고 Proposition은 "정리" — 이 결과는 독립적으로 인용 가능한 정리 수준. 승격하면 Paper 2의 main results에 추가되어 논문의 핵심 기여가 5개→6개로 늘어남.
+
+**구체적 지시**:
+
+1. **EN (`extensions_master_en.tex`)**:
+   - L.1319: `\begin{remark}` → `\begin{proposition}`
+   - L.1320: `\label{rem:laurentparity}` → `\label{prop:laurentparity}`
+   - L.1347: `\end{remark}` → `\end{proposition}` 직후에 `\begin{proof}` ... `\end{proof}` 추가
+   - 증명 내용 (3줄):
+     ```
+     The FE maps $c_n(\pi,\rho)$ to $\varepsilon(-1)^n c_n(\tilde\pi,\bar\rho)$.
+     The conjugate-centric symmetry maps $c_n(\pi,\rho)$ to $\bar c_n(\tilde\pi,\bar\rho)$.
+     Combining: $c_n = (-1)^{n+1}\bar c_n$.
+     ```
+   - 본문 내 `\ref{rem:laurentparity}` → `\ref{prop:laurentparity}` 전체 치환
+   - Summary Table의 C-240/241/242 행에서 "Remark" → "Proposition" 치환
+
+2. **KO (`extensions_master_ko.tex`)**: 동일 변경 (한국어)
+
+3. **Abstract/Intro**: 1줄 추가 — "a Laurent parity theorem (Proposition~\ref{prop:laurentparity}) characterising critical-line zeros"
+
+4. **arXiv 점검** (보고만):
+   - EN/KO 컴파일 에러 확인
+   - Abstract 결과 수 일치 확인
+   - 모든 `\ref` dangling 없음 확인
+   - 결과 보고를 `board/executor.md`에 기록
+
+**주의**:
+- EN 25p 한계 유지 — proof 3줄 추가는 순증 ~0.1p, 무시 가능
+- `rem:laurentparity` → `prop:laurentparity` 변경 시 grep으로 전체 파일 확인 필수
+- C-242 DH 수치는 이미 Remark 내에 포함 (L.1338-1346), 변경 불필요
+
+**성공 기준**:
+- EN/KO 컴파일 에러 0건
+- `\begin{proposition}` + `\begin{proof}` 환경 존재
+- `rem:laurentparity` 참조 잔존 0건
+- Abstract에 parity proposition 언급 존재
+
+---
+
+### 경계 현황 (사이클 #244)
 
 | 경계 | 상태 | 비고 |
 |------|------|------|
-| B-35 | ✅ 해결 | A 공식 45/45 (d=1–4) |
-| B-36 | ✅ **해결** | **SR은 경계 아님. σ=1/2 이탈이 진짜 경계. DH on/off 9/9 정확 분리** |
-| B-37 | ✅ 해결 | 독립 가족 교차검증 |
-| B-38 | ⏳ 미착수 | d≥5 계산 비용 한계 |
-| B-39 | ✅ 해결 | 패리티 보편성 확인 |
-| B-40 | 🆕 | **Epstein off-critical 영점 패리티 — DH 외 제2사례 필요** |
+| B-35 | ✅ | A 공식 45/45 (d=1–4) |
+| B-36 | ✅ | 패리티 sharpness — σ=1/2 필수 (DH on/off 9/9) |
+| B-37 | ✅ | 독립 가족 교차검증 |
+| B-38 | ⏳ 후순위 | d≥5 계산 비용 |
+| B-39 | ✅ | 비자기쌍대 패리티 (FE+CC 충분) |
+| B-40 | ⏳ 후순위 | Epstein off-critical (B-36 강화) |
 
-### 연구 현황 (사이클 #243)
+### 연구 현황 (사이클 #244)
 
 | 논문 | 상태 | 페이지 | 결과 수 |
 |------|------|--------|--------|
 | Paper 1 | ✅ arXiv-ready | EN 25p | 81 |
-| Paper 2 | ✅ C-242 **미반영** | EN 25p | 32 |
+| Paper 2 | 📝 Prop 승격 중 | EN 25p | ~34 |
 | Paper 3 | ✅ S₅ 완료 | EN 17p | 6 |
-| **총계** | | | **119** (+C-242) |
+| **총계** | | | **~121** |
 
-### 다음 작업 판단
+**전략**: Paper 2 Proposition 반영 → arXiv 점검 → arXiv 제출 준비. 추가 실험보다 논문 완성이 우선. B-38/B-40은 후속 논문 또는 Paper 3 확장으로 이관.
 
-C-242는 Paper 2에 반영할 가치가 있음 (Remark 또는 Proposition 추가 — 패리티 ⟺ 임계선). 단 25p 한계. 옵션:
-1. **Paper 2에 C-242 반영** — rem:laurentparity 확장 또는 별도 Remark. "Parity as critical line detector"
-2. **Paper 2 arXiv 준비** — C-242 포함하여 최종 교정
-3. **B-40 Epstein off-critical** — DH 외 제2 사례로 강화
-4. **σ-국소화 증명 시도** — Phase 2.5 최우선
+---
 
-**모델**: Paper 2 반영 후 arXiv 준비 방향 추천. C-242는 Remark 1줄로 추가 가능 (DH 사례).
+## [아카이브] 지시 [2026-04-22 05:00] — 사이클 #243
+
+C-242 완료. B-36 RESOLVED (패리티⟺임계선 ★★★★). DH on/off 9/9 정확 분리.
+Paper 2: 25p/33결과. C-242 반영 후 arXiv 준비 방향.
 
 ---
 
 ## [아카이브] 지시 [2026-04-22 04:45] — 사이클 #242
 
 C-241 완료. 패리티 보편성 확인 (★★★★). B-39 RESOLVED.
-Paper 2: 25p/32결과 포화. 다음: arXiv 준비 또는 B-36 탐색 또는 σ-국소화.
 
 ---
 
 ## [아카이브] 지시 [2026-04-22 04:21] — 사이클 #241
 
-**상황**: C-240 Laurent 패리티 정리 결과 도착 (11/11 PASS). B-35/B-37 A 공식 반영 완료. CPU 유휴. 사이클 #240은 max turns(50) 초과로 실패 — 실제 작업 오류 아님.
-
-**C-240 판정**: ★★★★ 양성 — Laurent 계수 패리티 정리 수치 확립
-
-### 근거
-
-**정리**: FE + SR → cₙ = (−1)^(n+1) c̄ₙ, 즉:
-- n 짝수(0,2,...): cₙ 순허수 (Re=0)
-- n 홀수(1,3,...): cₙ 순실수 (Im=0)
-
-**결과**:
-- 11/11 PASS (ζ 5점, 11a1 3점, χ₋₃ 3점)
-- n=0,1: 기존 확인 재검증 (|Re(c₀)|/|Im(c₀)| ~ 10⁻¹², |Im(c₁)|/|Re(c₁)| = 0)
-- **n=2,3: 최초 수치 검증** (|Re(c₂)|/|Im(c₂)| ~ 10⁻⁷, |Im(c₃)|/|Re(c₃)| = 0)
-- degree 1, 2 교차검증 성공
-
-**의의**:
-1. Re(c₀)=0, Im(c₁)=0이 "처음 두 계수의 우연"이 아니라 **전체 Laurent 급수의 구조적 패리티**임을 확인
-2. A = Im(c₀)² + 2Re(c₁) 공식이 왜 작동하는지 설명 — 비소실 성분만 사용
-3. Paper 2에 Proposition으로 추가 가능 (패리티 정리 자체가 깔끔한 독립 결과)
-
-**Devil's Advocate**:
-1. FE+SR에서 직접 유도 가능 → "자명"할 수 있음. 그러나 cₙ에 대한 명시적 서술과 수치 검증은 문헌에 없음.
-2. n=2의 정밀도(10⁻⁷)가 n=0(10⁻¹²)보다 5자릿수 떨어짐. 고차 수치 미분의 본질적 한계.
-3. 자기쌍대(self-dual) L-함수에서만 검증. **비자기쌍대에서 패리티가 깨지는지** 확인 필수 — 이것이 sharpness.
-
----
-
-**다음 작업**: C-241 비자기쌍대 Laurent 패리티 sharpness 테스트
-
-**모델**: sonnet
-
-**왜**: 패리티 정리의 범위(scope)를 정확히 획정하려면, SR이 성립하지 않는 비자기쌍대 L-함수에서 패리티가 **깨지는 것**을 보여야 한다. 이것이 정리의 sharpness를 증명한다. B-34에서 이미 비자기쌍대 χ₅, χ₇, χ₁₃을 사용했으므로, 같은 L-함수로 c₀~c₃ Laurent 계수를 추출하면 된다. 깨지면 → 정리가 sharp (self-dual이 필요충분). 안 깨지면 → FE만으로 충분? 이론적 재검토 필요 → 이것도 가치 있는 결과.
-
-**구체적 지시**:
-
-1. `scripts/laurent_parity_c240.py`를 복사/수정하여 `scripts/nonselfdual_parity_c241.py` 작성
-2. 테스트 대상: χ₅ (mod 5, non-self-dual), χ₇ (mod 7, non-self-dual) — B-34에서 사용한 것과 동일
-3. 각 L-함수에서 영점 3개씩, c₀~c₃ 추출
-4. **핵심 측정**: |Re(c₀)|/|Im(c₀)|, |Im(c₁)|/|Re(c₁)|, |Re(c₂)|/|Im(c₂)|, |Im(c₃)|/|Re(c₃)|
-   - 자기쌍대에서는 이 비율이 ~0 (10⁻⁷~10⁻¹²)
-   - 비자기쌍대에서는 O(1)이 되어야 패리티가 깨짐
-5. 대조군: χ₋₃ (self-dual) 1개 추가하여 같은 코드에서 PASS 확인
-6. 결과 파일: `results/nonselfdual_parity_c241.txt`
-
-**주의**:
-- 비자기쌍대 L-함수의 FE는 L(s,χ) ↔ L(1-s,χ̄)이므로 SR이 Λ̃(z̄) = conj(Λ(z)) 형태로 성립하지 않음
-- PARI에서 `lfuncreate(Mod(2,5))`로 χ₅ 생성 가능 (B-34 스크립트 참조: `scripts/nonselfdual_slope_b34.py`)
-- 영점은 일반적으로 σ=1/2에 있지만, 비자기쌍대이므로 c₀ 등이 complex (Re,Im 모두 비소실)
-- realprecision=200 유지
-- Laurent 계수 추출은 C-240과 동일한 수치 미분 방법 사용
-
-**성공 기준**:
-- 자기쌍대 대조군 (χ₋₃): 패리티 PASS (|ratio| < 10⁻⁵)
-- 비자기쌍대 (χ₅, χ₇): |Re(c₀)|/|Im(c₀)| > 0.01 또는 |Im(c₁)|/|Re(c₁)| > 0.01 → 패리티 FAIL = sharpness 확인
-- 만약 비자기쌍대에서도 패리티가 성립하면 → FE만으로 충분? 이론적 재검토 필요 → 이것도 가치 있는 결과
-
----
-
-## C-240 경계 갱신
-
-| 경계 | 상태 | 비고 |
-|------|------|------|
-| B-35 | ✅ 해결 | A 공식 45/45 (d=1–4) |
-| B-36 | ⏳ 미착수 | 비산술적 L-함수 SR 실패 |
-| B-37 | ✅ 해결 | 독립 가족 교차검증 |
-| B-38 | ⏳ 미착수 | d≥5 계산 비용 한계 |
-| **B-39** | **🆕** | **패리티 정리 sharpness — 비자기쌍대에서 깨지는가?** |
-
----
-
-## 연구 현황 (사이클 #241)
-
-| 논문 | 상태 | 페이지 | 결과 수 |
-|------|------|--------|--------|
-| Paper 1 | ✅ arXiv-ready | EN 25p | 81 |
-| Paper 2 | ✅ B-35/B-37 반영 완료, **C-240 미반영** | EN 25p | 29 |
-| Paper 3 | ✅ S₅ 완료 | EN 17p | 6 |
-| **총계** | | | **116** |
-
-**참고**: C-240 패리티 정리는 Paper 2 반영 가능하나, EN 25p 한계이므로 C-241 sharpness 결과와 묶어서 한 번에 반영하는 것이 효율적. C-241이 sharpness를 확인하면 "Proposition (Parity Theorem): ... Moreover, for non-self-dual L-functions, this fails" 형태로 강력한 결과가 됨.
+C-240 판정 + C-241 비자기쌍대 패리티 sharpness 테스트 지시.
 
 ---
 
 ## [아카이브] 지시 [2026-04-21 19:15] — 사이클 #239
 
-B-35 + B-37 최종 판정 + Paper 2 A 공식 테이블 반영 지시. → **완료** (B-35/B-37 reflected, commits 1490deb + cd8056e).
+B-35 + B-37 최종 판정 + Paper 2 A 공식 테이블 반영 지시. → 완료.

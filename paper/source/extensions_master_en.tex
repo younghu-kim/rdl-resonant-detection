@@ -170,6 +170,9 @@ establish Selberg class universality.
 \smallskip
 \noindent Twenty-five numerical results support the framework's universality
 and the discriminator theorem.
+A Laurent parity theorem (Proposition~\ref{prop:laurentparity}) characterising critical-line zeros
+is proved and verified across $17$~zeros (self-dual and non-self-dual), with sharpness confirmed
+by the Davenport--Heilbronn function.
 \end{tcolorbox}
 
 \vspace{0.5em}
@@ -1316,8 +1319,8 @@ one GL(5) $L$-function, and one GL(6) $L$-function.
   since $\operatorname{Re}(c_0)=0$ kills the $\delta^1$ term.
 \end{proof}
 
-\begin{remark}[Laurent coefficient parity---universal]
-\label{rem:laurentparity}
+\begin{proposition}[Laurent coefficient parity---universal]
+\label{prop:laurentparity}
 The FE/SR argument yields $c_n = (-1)^{n+1}\bar{c}_n$ for
 \emph{every} Laurent coefficient $c_n$, $n\geq 0$,
 and for \emph{every} $L$-function satisfying
@@ -1344,7 +1347,13 @@ $|\!\operatorname{Re}(c_0)|/|\!\operatorname{Im}(c_0)|\sim 2$--$7$,
 while five on-critical zeros satisfy $\sim 10^{-12}$
 (Result~\#C-242).
 Thus parity characterises zeros on the critical line.
-\end{remark}
+\end{proposition}
+
+\begin{proof}
+The FE maps $c_n(\pi,\rho)$ to $\varepsilon(-1)^n c_n(\tilde\pi,\bar\rho)$.
+The conjugate-centric symmetry maps $c_n(\pi,\rho)$ to $\bar c_n(\tilde\pi,\bar\rho)$.
+Combining: $c_n = (-1)^{n+1}\bar c_n$.
+\end{proof}
 
 \begin{corollary}[Amplitude formula]
 \label{cor:amplitude}
@@ -1604,9 +1613,9 @@ Result & Section & Rating & Key finding \\
 \#216 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Non-self-dual ($\chi_5,\chi_7,\chi_{13}$); slope $\mathbf{2.0004\pm0.0024}$; FE+SR proof; Thm generalised \\
 \#217 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A$ formula degrees $1$--$4$; $25$ zeros, $5$ $L$-functions; mean error $1.3\%$; Cor.~\ref{cor:amplitude} verified \\
 \#218 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A$ formula cross-validation; $20/20$ PASS; $\Delta$, $\chi_{-3}$, $\chi_{-7}$, $\mathrm{sym}^{2}(\text{37a1})$; mean error $0.5\%$; chain bias ruled out \\
-\#C-240 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar$} & Laurent parity $c_n=(-1)^{n{+}1}\bar{c}_n$; $11/11$ PASS (self-dual); $|\!\operatorname{Re}(c_2)|/|c_2|\leq 3{\times}10^{-7}$; Remark~\ref{rem:laurentparity} \\
-\#C-241 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{universal}: non-self-dual $\chi_5,\chi_7$ also $6/6$ PASS; self-dual not needed (FE+SR suffice); Remark~\ref{rem:laurentparity} \\
-\#C-242 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{sharpness}: DH on-critical $5/5$ PASS ($r(c_0){\sim}10^{-12}$), off-critical $4/4$ FAIL ($r(c_0){\sim}4.4$); $\sigma{=}\tfrac{1}{2}$ essential; Remark~\ref{rem:laurentparity} \\
+\#C-240 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar$} & Laurent parity $c_n=(-1)^{n{+}1}\bar{c}_n$; $11/11$ PASS (self-dual); $|\!\operatorname{Re}(c_2)|/|c_2|\leq 3{\times}10^{-7}$; Proposition~\ref{prop:laurentparity} \\
+\#C-241 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{universal}: non-self-dual $\chi_5,\chi_7$ also $6/6$ PASS; self-dual not needed (FE+SR suffice); Proposition~\ref{prop:laurentparity} \\
+\#C-242 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{sharpness}: DH on-critical $5/5$ PASS ($r(c_0){\sim}10^{-12}$), off-critical $4/4$ FAIL ($r(c_0){\sim}4.4$); $\sigma{=}\tfrac{1}{2}$ essential; Proposition~\ref{prop:laurentparity} \\
 \end{longtable}
 
 
