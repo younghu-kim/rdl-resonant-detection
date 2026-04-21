@@ -177,3 +177,6 @@ results/kd2_slope2_proof_214.txt
 results/c1_pair_correlation_215.txt
 results/nonselfdual_slope_b34.txt
 results/A_formula_highdeg_b35.txt
+results/A_formula_independent_b37.txt
+results/laurent_parity_c240.txt
+results/nonselfdual_parity_c241.txt

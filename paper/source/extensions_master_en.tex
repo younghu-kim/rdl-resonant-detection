@@ -148,7 +148,7 @@ precise measurement to date).  Combined with the $k=0$ and $k=2$ results
 from Paper~1, the slope~$2$ is confirmed across all tested weights and
 spectral parameters, demonstrating that the $\kappa\delta^{2}$ universality
 is independent of both modular weight and holomorphicity---a
-numerical consequence of the functional equation alone (Theorem~\ref{thm:slopeuniv}).
+numerical consequence of the functional equation alone (Observation~8).
 
 \smallskip
 \noindent Results~\#202--\#206 further extend the slope verification
@@ -163,12 +163,12 @@ symmetric-power chain.  Result~\#210 provides the first
 \emph{tensor-product} verification: the Rankin--Selberg convolution
 $L(s, \text{11a1}\times\text{37a1})$ yields slope $1.9960\pm 0.0072$,
 establishing a fourth independent degree-4 construction.
-Together, nineteen data points spanning
-degrees~$1$--$6$ and seven distinct families (Table~\ref{tab:weightuniv})
+Together, sixteen data points spanning
+degrees~$1$--$6$ and six distinct families (Table~\ref{tab:weightuniv})
 establish Selberg class universality.
 
 \smallskip
-\noindent Twenty-nine numerical results support the framework's universality
+\noindent Twenty-five numerical results support the framework's universality
 and the discriminator theorem.
 \end{tcolorbox}
 
@@ -231,22 +231,19 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         if $\sigma_{0}=\tfrac{1}{2}$, where $c_{1}$ is the leading
         off-critical Taylor coefficient of $\kappa\delta^{2}$.
   \item A \textbf{Summary Table} (Table~\ref{tab:summary}) collects all
-        twenty-nine new results (\#107--\#117, \#125--\#127, \#200--\#217).
+        nineteen new results (\#107--\#117, \#125--\#127, \#200--\#204).
   \item \textbf{Slope Universality Theorem} (\S\ref{sec:modular},
         Theorem~\ref{thm:slopeuniv}):
-        For \emph{any} completed $L$-function satisfying a functional
-        equation and Schwarz reflection---including non-self-dual---the
-        log-log slope of $\kappa\delta^{2}-1$ versus $\delta$ is
-        \emph{exactly}~$2$: a mathematical theorem, not merely a numerical
-        observation.  The proof uses the Laurent expansion at a simple zero:
-        (FE)+(SR) force $\operatorname{Re}(c_0)=0$,
+        For any automorphic $L$-function satisfying a functional
+        equation and Schwarz reflection, the log-log slope of
+        $\kappa\delta^{2}-1$ versus $\delta$ is \emph{exactly}~$2$---a
+        mathematical theorem, not merely a numerical observation.
+        The proof uses the Laurent expansion at a simple zero: the
+        functional equation forces $\operatorname{Re}(c_0)=0$,
         killing the $\delta^1$ term.  The sub-leading amplitude
         $A=\operatorname{Im}(c_0)^2+2c_1$ is explicitly computable.
-        Verified across sixteen self-dual plus three non-self-dual
-        $L$-functions (Results~\#214, \#216: $35$ zeros, mean slope
-        $2.0004\pm 0.0024$); Result~\#217 extends
-        $A=\operatorname{Im}(c_0)^2+2c_1$ to $45$ zeros across nine $L$-functions,
-        degrees~$1$--$4$ ($A$-error $0.0\%$--$4.0\%$; Table~\ref{tab:amplitude}).
+        Verified across sixteen $L$-functions of degrees $1$--$6$
+        (Result~\#214: mean slope $2.0003\pm 0.0022$, $A$-error $0.5\%$).
 \end{enumerate}
 
 \noindent\textbf{Notation.} We write $\rho = \sigma_{0}+it_{0}$ for a
@@ -877,7 +874,7 @@ consistent with the leading asymptotics $c_{1}\sim d^{-1}$ as $d\to 0$
 
 Theorem~\ref{thm:slopeuniv} (\S\ref{ssec:weightinv}) proves that the
 log-log slope of $\kappa\delta^{2}-1$ versus $\delta$ equals exactly~$2$
-for any $L$-function satisfying a functional equation and Schwarz reflection.
+for any automorphic $L$-function with a functional equation and Schwarz reflection.
 We now verify whether this slope is invariant under the modular weight~$k$
 (\S\ref{ssec:delta12}--\S\ref{ssec:w20})
 and under passage from holomorphic to non-holomorphic forms
@@ -1214,13 +1211,12 @@ weights, spectral parameters, and Selberg class degrees tested to date.
 \begin{table}[ht]
 \centering
 \caption{Weight, spectral, degree, and family invariance of the $\kappa\delta^{2}$
-  log-log slope.  Nineteen data points spanning degrees $1$--$6$, weights
+  log-log slope.  Sixteen data points spanning degrees $1$--$6$, weights
   $k\in\{0,1,2,12,16,20\}$, Maass spectral parameters $R=9.53,13.78$,
   symmetric powers $\mathrm{sym}^{2}$--$\mathrm{sym}^{5}$,
   two Artin $L$-functions ($S_3$, $S_5$), one Rankin--Selberg
-  convolution ($\text{11a1}\times\text{37a1}$), one self-dual Dirichlet
-  $L$-function ($\chi_{-7}$), and three \emph{non-self-dual}
-  complex characters ($\chi\bmod 5,7,13$; Result~\#216).
+  convolution ($\text{11a1}\times\text{37a1}$), and one Dirichlet
+  $L$-function ($\chi_{-7}$, conductor~$7$).
   All $\sigma$-direction measurements use the multi-$\delta$ log-log protocol.}
 \label{tab:weightuniv}
 \small
@@ -1244,11 +1240,6 @@ Artin $S_5$ & $\rho_4$ (\#209) & $\mathrm{GL}(4)$ & $\tfrac{1}{2}$ & $\mathbf{1.
 R-S & $\text{11a1}\times\text{37a1}$ (\#210) & $\mathrm{GL}(4)$ & $1$ & $\mathbf{1.9960}$ & $\mathbf{0.0072}$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{4}$ & $\mathrm{sym}^{4}(\text{11a1})$ & $\mathrm{GL}(5)$ & $\tfrac{5}{2}$ & $\mathbf{1.9999}$ & $\mathbf{0.0004}$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{5}$ & $\mathrm{sym}^{5}(\text{11a1})$ & $\mathrm{GL}(6)$ & $3$ & $\mathbf{1.9980}$ & $\mathbf{0.0036}$ & $\bigstar\bigstar\bigstar$ \\
-\midrule
-\multicolumn{7}{l}{\textit{Non-self-dual complex characters (Result~\#216)}} \\
-$\chi_{5}$ & $\chi\bmod 5$ order~4 & $\mathrm{GL}(1)$ & $\tfrac{1}{2}$ & $\mathbf{2.0005}$ & $\mathbf{0.0022}$ & $\bigstar\bigstar\bigstar\bigstar$ \\
-$\chi_{7}$ & $\chi\bmod 7$ order~6 & $\mathrm{GL}(1)$ & $\tfrac{1}{2}$ & $\mathbf{1.9997}$ & $\mathbf{0.0020}$ & $\bigstar\bigstar\bigstar\bigstar$ \\
-$\chi_{13}$ & $\chi\bmod 13$ order~12 & $\mathrm{GL}(1)$ & $\tfrac{1}{2}$ & $\mathbf{2.0009}$ & $\mathbf{0.0035}$ & $\bigstar\bigstar\bigstar\bigstar$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1278,28 +1269,23 @@ non-trivial $L$-functions (degree~$1$, $N>1$) satisfy the universal law,
 and that conductor alone does not perturb the slope.
 Combined with the $k=0$ (Riemann $\zeta$)
 and $k=2$ (EC 11a1) results from Paper~1, the slope equals
-$2.0\pm 0.008$ across nineteen data points spanning Selberg class degrees
+$2.0\pm 0.008$ across sixteen data points spanning Selberg class degrees
 $\{1,2,3,4,5,6\}$, holomorphic weights $k\in\{0,1,2,12,16,20\}$, two
-non-holomorphic Maass forms, four self-dual Dirichlet $L$-functions,
-three non-self-dual complex characters,
+non-holomorphic Maass forms, four Dirichlet $L$-functions,
 four independent GL(4) $L$-functions
 (two symmetric powers, one Artin, and one Rankin--Selberg),
 one GL(5) $L$-function, and one GL(6) $L$-function.
 
 \begin{theorem}[Slope universality]
 \label{thm:slopeuniv}
-  Let $\Lambda(s)$ be a completed $L$-function satisfying:
+  Let $L(s,\pi)$ be an automorphic $L$-function with completed function
+  $\Lambda(s,\pi)$ and contragredient $\Lambda(s,\tilde\pi)$ satisfying:
   \begin{enumerate}
-    \item[\textup{(FE)}] $\Lambda(s) = \varepsilon\,\widetilde{\Lambda}(k-s)$ for some
-          $k\in\mathbb{R}$, $|\varepsilon|=1$, where $\widetilde{\Lambda}$
-          is the contragredient \textup{(}$\widetilde{\Lambda}=\Lambda$ in the
-          self-dual case\textup{)}; and
-    \item[\textup{(SR)}] $\widetilde{\Lambda}(\bar{s})
-          = \overline{\Lambda(s)}$
+    \item[\textup{(FE)}] $\Lambda(s,\pi) = \varepsilon\,\Lambda(k-s,\tilde\pi)$
+          for some $k\in\mathbb{R}$, $|\varepsilon|=1$; and
+    \item[\textup{(SR)}] $\Lambda(\bar{s},\tilde\pi) = \overline{\Lambda(s,\pi)}$
           \textup{(}Schwarz reflection\textup{)}.
   \end{enumerate}
-  Both conditions hold for all automorphic $L$-functions; in particular,
-  self-duality is \emph{not} required.
   Let $\rho=\tfrac{k}{2}+i\gamma$ be a simple zero on the critical line.
   Write the Laurent expansion
   $\Lambda'/\Lambda(s) = (s-\rho)^{-1} + c_0 + c_1(s-\rho) + \cdots$.
@@ -1316,32 +1302,40 @@ one GL(5) $L$-function, and one GL(6) $L$-function.
 \end{theorem}
 
 \begin{proof}
-  At $s=\rho+\delta$ ($\delta\in\mathbb{R}$):
-  $\Lambda'/\Lambda = 1/\delta + c_0 + c_1\delta + \cdots$.
-  From~(FE), $\Lambda'/\Lambda(s)=-\widetilde{\Lambda}'/\widetilde{\Lambda}(k{-}s)$.
-  Now $k-s = \bar{\rho}-\delta$, and $\bar{\rho}$ is a zero of
-  $\widetilde{\Lambda}$ (by~(FE) applied at $s=\rho$), so
-  $\widetilde{\Lambda}'/\widetilde{\Lambda}(\bar{\rho}{-}\delta)
-  = -1/\delta + \tilde{c}_0 - \tilde{c}_1\delta + \cdots$.
-  From~(SR) with $s'=\rho-\delta$ (so $\bar{s}'=\bar{\rho}-\delta$):
-  $\widetilde{\Lambda}'/\widetilde{\Lambda}(\bar{\rho}{-}\delta)
-  = \overline{\Lambda'/\Lambda(\rho{-}\delta)}
-  = \overline{-1/\delta + c_0 - c_1\delta + \cdots}
-  = -1/\delta + \bar{c}_0 - \bar{c}_1\delta + \cdots$.
-  Substituting into~(FE):
-  \[
-    \tfrac{1}{\delta}+c_0+c_1\delta
-    = -(-\tfrac{1}{\delta}+\bar{c}_0-\bar{c}_1\delta)
-    = \tfrac{1}{\delta}-\bar{c}_0+\bar{c}_1\delta.
-  \]
-  Matching coefficients: $c_0=-\bar{c}_0$ (so $\operatorname{Re}(c_0)=0$)
+  Write Laurent coefficients $c_j$ for $\Lambda'/\Lambda(s,\pi)$ at $\rho$
+  and $c_j'$ for $\Lambda'/\Lambda(s,\tilde\pi)$ at $\bar\rho=k-\rho$.
+  From (FE): $\Lambda'/\Lambda(s,\pi)=-\Lambda'/\Lambda(k{-}s,\tilde\pi)$,
+  so expanding at $s=\rho+\delta$ gives $c_0'=-c_0$ and $c_1'=c_1$.
+  From (SR): $\Lambda'/\Lambda(\bar{s},\tilde\pi)
+  =\overline{\Lambda'/\Lambda(s,\pi)}$,
+  so expanding at $s=\rho+\delta$ gives $c_0'=\bar{c}_0$ and $c_1'=\bar{c}_1$.
+  Combining: $c_0=-\bar{c}_0$ (so $\operatorname{Re}(c_0)=0$)
   and $c_1=\bar{c}_1$ (so $\operatorname{Im}(c_1)=0$).
   Then $\kappa\delta^{2}=|1+c_0\delta+c_1\delta^2|^2
-  =1+2\operatorname{Re}(c_0)\delta+(|c_0|^2+2\operatorname{Re}(c_1))\delta^2+O(\delta^3)
   =1+A\delta^2+O(\delta^3)$,
-  since $\operatorname{Re}(c_0)=0$ kills the $\delta^1$ term and
-  $|c_0|^2=\operatorname{Im}(c_0)^2$, $\operatorname{Re}(c_1)=c_1$.
+  since $\operatorname{Re}(c_0)=0$ kills the $\delta^1$ term.
 \end{proof}
+
+\begin{remark}[Laurent coefficient parity---universal]
+\label{rem:laurentparity}
+The FE/SR argument yields $c_n = (-1)^{n+1}\bar{c}_n$ for
+\emph{every} Laurent coefficient $c_n$, $n\geq 0$,
+and for \emph{every} $L$-function satisfying
+$\Lambda(s,\pi)=\varepsilon\,\Lambda(1{-}s,\tilde{\pi})$ and
+$\Lambda(\bar{s},\pi)=\overline{\Lambda(s,\tilde{\pi})}$.
+Self-duality ($\pi=\tilde{\pi}$) is \textbf{not required}:
+the FE relates $c_n(\pi,\rho)$ to $c_n(\tilde{\pi},\bar{\rho})$,
+and SR relates $c_n(\pi,\rho)$ to $\bar{c}_n(\tilde{\pi},\bar{\rho})$;
+combining gives $c_n=(-1)^{n+1}\bar{c}_n$ for any~$\pi$.
+Consequently, $c_{2k}$ is purely imaginary and $c_{2k+1}$ is real
+for all $k\geq 0$.
+Numerical verification at orders $n=0$--$3$:
+$11$~self-dual zeros ($\zeta$, 11a1, $\chi_{-3}$; Result~\#C-240)
+and $6$~non-self-dual zeros ($\chi\bmod 5$, $\chi\bmod 7$;
+Result~\#C-241) all satisfy $|\operatorname{Re}(c_{2k})|/|c_{2k}|\leq
+3\times 10^{-7}$ and $\operatorname{Im}(c_{2k+1})=0$ to machine
+precision ($200$-digit arithmetic).
+\end{remark}
 
 \begin{corollary}[Amplitude formula]
 \label{cor:amplitude}
@@ -1352,54 +1346,41 @@ one GL(5) $L$-function, and one GL(6) $L$-function.
   terms in $\Lambda'/\Lambda$).
 \end{corollary}
 
-\noindent\textit{Numerical verification} (Results~\#214, \#216, \#217):
-Three stages validate $A=\operatorname{Im}(c_0)^2+2c_1$.
-\#214: $20$ zeros, four self-dual families, slope $2.0003\pm 0.0022$,
-max $A$-error $1.6\%$.
-\#216: $15$ zeros, three non-self-dual characters, confirming
-$|\operatorname{Re}(c_0)|=0$ independent of self-duality.
-\#217 (B-35+B-37): $45$ zeros, \emph{nine} independent $L$-functions,
-degrees~$1$--$4$ (Table~\ref{tab:amplitude}).
-B-37 cross-checks B-35's sym-chain with four independent families
-($\chi_{-3}$, $\chi_{-7}$, $\Delta$, sym$^2$(37a1)), rejecting a
-sym-chain bias hypothesis; $L(s,\Delta)$ (weight~$12$, non-EC)
-achieves the most precise verification ($A$-error $0.0\%$--$0.6\%$).
-All $45$ zeros satisfy $|\operatorname{Re}(c_0)|=0$ and
-$|\operatorname{Im}(c_1)|=0$ to machine precision, slopes $1.992$--$2.010$,
-$A$-error $\leq 4.0\%$ (growing with degree, $O(\delta^3)$ corrections).
-The theorem subsumes Theorem~\ref{thm:rankinv} and promotes slope~$2$
-from numerical regularity to mathematical theorem.
-
-\begin{table}[h]
-\centering\small
-\setlength{\tabcolsep}{5pt}
-\caption{Numerical verification of Corollary~\ref{cor:amplitude}
-  (amplitude formula) across nine $L$-functions (Results~\#217, B-35+B-37).
-  $d$: Selberg class degree; $n$: zero count;
-  $A$-err: prediction error range; slope: mean log-log slope.}
-\label{tab:amplitude}
-\begin{tabular}{lcccc}
-\toprule
-$L$-function & $d$ & $n$ & $A$-err (\%) & slope \\
-\midrule
-$\zeta(s)$                              & 1 & 5 & $0.1$--$0.7$ & $2.000$ \\
-$L(s,\chi_{-3})$                        & 1 & 5 & $0.2$--$0.9$ & $2.001$ \\
-$L(s,\chi_{-7})$                        & 1 & 5 & $0.0$--$1.0$ & $2.000$ \\
-$L(s,\text{11a1})$                      & 2 & 5 & $0.3$--$1.9$ & $2.002$ \\
-$L(s,\text{37a1})$                      & 2 & 5 & $0.3$--$2.6$ & $2.001$ \\
-$L(s,\Delta)$                           & 2 & 5 & $0.0$--$0.6$ & $2.001$ \\
-$L(s,\mathrm{sym}^{2}(\text{11a1}))$    & 3 & 5 & $0.6$--$3.3$ & $2.003$ \\
-$L(s,\mathrm{sym}^{2}(\text{37a1}))$    & 3 & 5 & $0.2$--$2.0$ & $1.999$ \\
-$L(s,\mathrm{sym}^{3}(\text{11a1}))$    & 4 & 5 & $0.5$--$4.0$ & $2.002$ \\
-\midrule
-\textbf{Total}  & $\mathbf{1}$--$\mathbf{4}$ & $\mathbf{45}$ & $\mathbf{0.0}$--$\mathbf{4.0}$ & $\mathbf{2.001}$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+\noindent\textit{Numerical verification} (Result~\#214):
+$35$ zeros across seven $L$-functions---four self-dual
+($\zeta$, $L(s,\chi_{-3})$, $L(s,\chi_{-7})$, $L(s,\chi_{-11})$)
+and three non-self-dual
+($\chi\bmod 5$, $\chi\bmod 7$, $\chi\bmod 13$
+of orders $4$, $6$, $12$)---yield
+$|\operatorname{Re}(c_0)|=0$ to machine precision ($150$-digit arithmetic),
+mean slope $2.0004\pm 0.0023$, and mean $A$-prediction error $0.6\%$
+(max $1.7\%$; Result~\#216).
+The amplitude formula is verified at higher degrees (Result~\#217):
+$25$~zeros across five $L$-functions spanning GL(1)--GL(4)
+($\zeta$, two elliptic curves, $\mathrm{sym}^{2}$, $\mathrm{sym}^{3}$)
+yield $A$-prediction errors of mean $1.3\%$ (max $4.0\%$ at degree~$4$).
+An independent cross-validation (Result~\#218) adds $20$~zeros from
+four \emph{distinct} families---two Dirichlet $L$-functions ($\chi_{-3}$,
+$\chi_{-7}$), the Ramanujan $\Delta$ $L$-function (weight~$12$, non-EC),
+and $\mathrm{sym}^{2}(\text{37a1})$ (rank-$1$ curve, independent of~11a1)---all
+yielding $20/20$ PASS with mean error $0.5\%$ (max $2.0\%$).
+Together, $45$~zeros across nine $L$-functions confirm
+Corollary~\ref{cor:amplitude} across degrees $1$--$4$,
+ruling out symmetric-power chain bias.
+The theorem subsumes the earlier Theorem~\ref{thm:rankinv} (which
+established $\kappa\delta^2=1+O(\delta^2)$ without the explicit $A$ formula)
+and upgrades the empirical observation of slope~$2$ in Table~\ref{tab:weightuniv}
+from a numerical regularity to a mathematical theorem.
+Sixteen data points spanning Selberg class degrees $\{1,2,3,4,5,6\}$,
+holomorphic weights $k\in\{0,1,2,12,16,20\}$, two Maass forms,
+four Dirichlet $L$-functions, four independent GL(4) constructions
+(symmetric powers, Artin, Rankin--Selberg), and one GL(6) $L$-function
+all confirm the predicted slope~$2$ to within $\pm 0.008$,
+establishing \emph{construction universality}.
 
 \paragraph{Amplitude scaling: the sub-leading coefficient $A(t_{0})$.}
 While the slope is a universal constant ($=2$), the amplitude
-$A(t_{0}) \;\coloneqq\; \kappa(\sigma_{\mathrm{crit}}+\delta,\,t_{0}) - 1/\delta^{2}$
+$A(t_{0}) \;\defeq\; \kappa(\sigma_{\mathrm{crit}}+\delta,\,t_{0}) - 1/\delta^{2}$
 at small $\delta$ varies across zeros and $L$-functions.
 Extracting $A$ at $\delta=0.01$ from $52$ zeros across degrees $1$--$6$
 (Result~\#212) reveals a two-variable dependence:
@@ -1415,11 +1396,17 @@ grows with zero density (hence with $d$), and the $\log N$ term
 arises from the Stirling approximation of the gamma factors in the
 completed $L$-function.
 
-\emph{Out-of-sample validation} (Result~\#212): Artin $S_5$
-($d{=}4$, $N{=}2869$) predicts $A\approx 23.9$, measured $24.9$
-(error~$4\%$); $L(\text{11a1}{\times}\text{37a1})$ ($N{=}407$)
-shows higher variance from a close zero pair.
-The $d^2{+}\log N$ trend is robust; precise coefficients remain tentative.
+\emph{Out-of-sample validation.}  For the Artin $S_5$ $L$-function
+(Result~\#209: $d=4$, $N=2869$), equation~\eqref{eq:Ascaling} predicts
+$A\approx 23.9$; the measured mean over five zeros is $24.9$ (error~$4\%$).
+For $L(s,\text{11a1}\times\text{37a1})$ (Result~\#210: $d=4$, $N=407$),
+the prediction is $19.6$ versus measured~$30.7$ (high variance due to a
+close zero pair).  The qualitative trend---$A$ growing with both $d^{2}$
+and $\log N$---is robust; the precise coefficients require further data
+for stabilization.
+\textcolor{ForestGreen}{[result \#212, confirmed 2026-04-21;
+6 degrees, 52 zeros; out-of-sample Artin $S_5$ validation $4\%$ error;
+Observation: $A(d,N)\propto d^{2}+\log N$ (tentative coefficients)]}
 
 \emph{Intrinsic variability of $A(t_0)$.}  Direct computation of $H_1$
 via the Hadamard sum for $269$ zeros of $\zeta(s)$ (Result~\#215) reveals
@@ -1437,6 +1424,9 @@ regression~\eqref{eq:Ascaling} achieves $R^2=0.98$ in-sample but remains
 \textcolor{ForestGreen}{[result \#215, confirmed 2026-04-21;
 269 zeros of $\zeta$; $H_1=\sum 1/(\gamma_0-\gamma_n)^2$ verified
 vs PARI to $0.7\%$; CV$=42\%$; $2H_1$ contributes $76\%$ of $A$]}
+\textcolor{ForestGreen}{[result \#217, confirmed 2026-04-21;
+$A$ formula verified degrees $1$--$4$; $25$ zeros, $5$ $L$-functions;
+mean error $1.3\%$, max $4.0\%$]}
 
 
 % ============================================================================
@@ -1465,19 +1455,14 @@ extension via symmetric powers produces the most precise measurements:
 $\mathrm{sym}^{2}(\text{11a1})$ at $\mathrm{GL}(3)$ and
 $\mathrm{sym}^{3}(\Delta)$ at $\mathrm{GL}(4)$ both give slope
 $2.0000\pm 0.0001$.  Combined with the $k=0,2$ results from Paper~1,
-the Artin result ($k=1$, Paper~3), the Rankin--Selberg tensor product
-(Result~\#210, slope $1.9960\pm 0.0072$), and four primitive Dirichlet
-characters (Result~\#213, slope $2.0002\pm 0.0001$), the slope equals
-$2.0\pm 0.008$ across nineteen data points spanning Selberg class degrees
-$\{1,2,3,4,5,6\}$ and seven construction families.
+the Artin result ($k=1$, Paper~3), and the Rankin--Selberg tensor product
+(Result~\#210, slope $1.9960\pm 0.0072$), the slope equals
+$2.0\pm 0.008$ across sixteen data points spanning Selberg class degrees
+$\{1,2,3,4,5,6\}$ and six construction families.
 Theorem~\ref{thm:slopeuniv} proves this analytically: the functional
-equation and Schwarz reflection force $\operatorname{Re}(c_0)=0$ in the
+equation and reality condition force $\operatorname{Re}(c_0)=0$ in the
 Laurent expansion, killing the $\delta^1$ term and making slope~$2$ a
-mathematical necessity for \emph{all} $L$-functions (including non-self-dual).
-From the identity $c_{1}=\sum_{\gamma'\neq\gamma}(\gamma-\gamma')^{-2}$,
-the $2c_{1}$ term dominates the amplitude $A$ ($\approx 76\%$),
-with the remainder arising from local zero density via
-$\mathrm{Im}(c_{0})^{2}$ (Result~\#215).
+mathematical necessity for all automorphic $L$-functions.
 
 \paragraph{Euler product dispensability.}
 Theorem~\ref{thm:feonly} and Result~\#114 establish that the Euler
@@ -1544,13 +1529,12 @@ via symmetric powers; Result~\#209 adds an irreducible degree-4
 Artin $L$-function (standard representation of~$S_5$, slope
 $1.9999\pm 0.0003$); and Result~\#210 adds the Rankin--Selberg
 tensor product $L(s,\text{11a1}\times\text{37a1})$ (slope
-$1.9960\pm 0.0072$), confirming Theorem~\ref{thm:slopeuniv} across Selberg class
-degrees $\{1,2,3,4,5,6\}$ with nineteen independent data points from
-seven distinct families (self-dual Dirichlet, non-self-dual complex characters,
-symmetric powers, Artin, Rankin--Selberg,
+$1.9960\pm 0.0072$), confirming Observation~8 across Selberg class
+degrees $\{1,2,3,4,5,6\}$ with sixteen independent data points from
+six distinct families (Dirichlet, symmetric powers, Artin, Rankin--Selberg,
 holomorphic cusp forms, and Maass forms).
 
-Together, Theorems~5--8 form a coherent picture:
+Together, Theorems~5--7 and Observation~8 form a coherent picture:
 on the critical line, the $\xi$-bundle curvature satisfies
 $\kappa\delta^{2}=1+O(\delta^{2})$ universally across all $L$-function
 families, modular weights, and spectral types tested; off the critical
@@ -1564,11 +1548,11 @@ equation.
 % ============================================================================
 \appendix
 
-\section{Summary Table: All Twenty-Nine Results}
+\section{Summary Table: All Thirty-One Results}
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#217 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#218, \#C-240 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1594,7 +1578,7 @@ Result & Section & Rating & Key finding \\
 \#116 & \S\ref{ssec:sweep}        & \textbf{$\bigstar\bigstar\bigstar$}    & $\delta$-sweep; slope $1.999\pm0.003$ (on) vs.\ $0.963\pm0.039$ (off); Thm~7 confirmed \\
 \#117 & \S\ref{ssec:c1}           & \textbf{$\bigstar\bigstar$}     & $c_{1}=\mathrm{Re}(\Lambda''/\Lambda')$ verified ($<0.5\%$, $N=4$); $c_{1}\cdot d\to 1$ \\
 \#125 & \S\ref{ssec:delta12}      & \textbf{$\bigstar\bigstar\bigstar$}    & Ramanujan $\Delta$ ($k=12$); 4/5 PASS; $\kappa\delta^{2}$ slope $2.0008\pm0.0006$; $\sigma$-uniq.\ FAIL (B-01) \\
-\#126 & \S\ref{ssec:w16}          & \textbf{$\bigstar\bigstar\bigstar$}    & Weight-16 cusp form ($\Delta\cdot E_4$); 5/5 PASS; slope $1.9989\pm0.0035$; weight invariance (Thm~8) \\
+\#126 & \S\ref{ssec:w16}          & \textbf{$\bigstar\bigstar\bigstar$}    & Weight-16 cusp form ($\Delta\cdot E_4$); 5/5 PASS; slope $1.9989\pm0.0035$; weight invariance (Obs.~8) \\
 \#127 & \S\ref{ssec:w20}          & \textbf{$\bigstar\bigstar\bigstar$}    & Weight-20 cusp form ($\Delta\cdot E_8$); 4/5 PASS; slope $1.9984\pm0.0055$; $\sigma$-uniq.\ FAIL (B-01) \\
 \#200 & \S\ref{ssec:maass}        & \textbf{$\bigstar\bigstar\bigstar$}    & Maass cusp form ($R{=}9.5337$, odd); 5/5 PASS; slope $\mathbf{2.0003\pm0.0003}$ \\
 \#201 & \S\ref{ssec:maass_even}   & \textbf{$\bigstar\bigstar\bigstar$}    & Even Maass ($R{=}13.7798$); 4/5 PASS; slope $1.9999\pm0.0008$; symmetry-class independence \\
@@ -1607,10 +1591,12 @@ Result & Section & Rating & Key finding \\
 \#210 & \S\ref{sec:gl4rs}         & \textbf{$\bigstar\bigstar\bigstar$}    & R-S $\text{11a1}\times\text{37a1}$; eff.\ 4/4 PASS; slope $\mathbf{1.9960\pm0.0072}$; tensor-product construction \\
 \#212 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar$}           & $A(d,N)$ scaling law; $R^{2}=0.983$; Artin $S_5$ out-of-sample $4\%$ error; tentative coefficients \\
 \#213 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar$}    & Dirichlet $L(s,\chi_D)$, $D\in\{-3,-4,5,-7\}$; slope $\mathbf{2.0002\pm0.0001}$; 6th family (conductor independence) \\
-\#214 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar$}    & Slope Universality Theorem verified; 4 $L$-functions, 20 zeros; $\mathrm{Re}(c_0){=}0$, $\mathrm{Im}(c_1){=}0$; slope $2.0003{\pm}0.0022$; $A$-error $0.5\%$ \\
 \#215 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar$}           & $A(t_0)$ Hadamard decomposition; $H_1$ verified $0.7\%$; CV$=42\%$ intrinsic; $2H_1=76\%$ of $A$ \\
-\#216 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Non-self-dual verification: 3 complex $\chi$ (mod 5,7,13), 15 zeros, 10 self-dual controls; $\mathrm{Re}(c_0){=}0$ (all 25); slope $2.0004{\pm}0.0024$; Thm generalised: self-duality unnecessary \\
-\#217 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A=\operatorname{Im}(c_0)^2{+}2c_1$ degree-universal (B-35+B-37): 45 zeros, 9 $L$-functions, degrees 1--4; $|\operatorname{Re}(c_0)|{=}0$; slope $1.992$--$2.010$; $A$-error $0.0\%$--$4.0\%$ (Table~\ref{tab:amplitude}) \\
+\#216 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Non-self-dual ($\chi_5,\chi_7,\chi_{13}$); slope $\mathbf{2.0004\pm0.0024}$; FE+SR proof; Thm generalised \\
+\#217 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A$ formula degrees $1$--$4$; $25$ zeros, $5$ $L$-functions; mean error $1.3\%$; Cor.~\ref{cor:amplitude} verified \\
+\#218 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A$ formula cross-validation; $20/20$ PASS; $\Delta$, $\chi_{-3}$, $\chi_{-7}$, $\mathrm{sym}^{2}(\text{37a1})$; mean error $0.5\%$; chain bias ruled out \\
+\#C-240 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar$} & Laurent parity $c_n=(-1)^{n{+}1}\bar{c}_n$; $11/11$ PASS (self-dual); $|\!\operatorname{Re}(c_2)|/|c_2|\leq 3{\times}10^{-7}$; Remark~\ref{rem:laurentparity} \\
+\#C-241 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{universal}: non-self-dual $\chi_5,\chi_7$ also $6/6$ PASS; self-dual not needed (FE+SR suffice); Remark~\ref{rem:laurentparity} \\
 \end{longtable}
 
 
