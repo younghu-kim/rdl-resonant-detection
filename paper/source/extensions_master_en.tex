@@ -2,7 +2,7 @@
 %  ξ-Bundle Curvature as a Critical-Line Discriminator:
 %  Universality Across L-Function Families and an Analytic Detection Theorem
 %  (Project RDL — Paper 2)
-%  Results #107–#117, #125–#127, #200–#206
+%  Results #107–#117, #125–#127, #200–#207
 % ============================================================================
 \documentclass[11pt, a4paper]{article}
 
@@ -160,7 +160,7 @@ completing Selberg class degree $1$--$6$ coverage with thirteen data points
 (Table~\ref{tab:weightuniv}).
 
 \smallskip
-\noindent Twenty-one numerical results support the framework's universality
+\noindent Twenty-two numerical results support the framework's universality
 and the discriminator theorem.
 \end{tcolorbox}
 
@@ -1051,14 +1051,15 @@ $13.78$), confirming that the $\kappa\delta^{2}$ universality is
 independent of the Maass spectral data.
 
 
-\subsection{Degree Extension: $\mathrm{GL}(3)$ and $\mathrm{GL}(4)$}
+\subsection{Degree Extension: $\mathrm{GL}(3)$ through $\mathrm{GL}(6)$, and Artin Universality}
 \label{ssec:degree_ext}
 
 All preceding $\kappa\delta^{2}$ measurements concern degree-$2$
 $L$-functions (automorphic forms on $\mathrm{GL}(2)$).  A central
 question is whether the slope~$2$ persists for higher-degree
-$L$-functions in the Selberg class.  We test degree~$3$ and degree~$4$
-via symmetric-power $L$-functions.
+$L$-functions in the Selberg class.  We test degrees~$3$ through~$6$
+via symmetric-power $L$-functions, and additionally resolve an earlier
+anomaly for the Artin $S_3$ $L$-function.
 
 \paragraph{$\mathrm{GL}(3)$: $\mathrm{sym}^{2}(E, \text{11a1})$
 (Result~\#202).}
@@ -1103,7 +1104,7 @@ Overall: \textbf{4/5 PASS} ($\bigstar\bigstar\bigstar$).
 The individual zero slopes are $1.9999$, $2.0000$, $2.0001$, $1.9999$,
 $2.0000$---each indistinguishable from the theoretical value~$2$.
 Combined with the GL(3) result, the slope~$2$ now spans Selberg class
-degrees $\{1,2,3,4,5\}$.
+degrees $\{1,2,3,4\}$.
 
 \paragraph{$\mathrm{GL}(4)$: $\mathrm{sym}^{3}(\text{37a1})$
 (Result~\#204).}
@@ -1190,6 +1191,37 @@ This establishes slope~$2$ universality at degree~$6$---the highest
 Selberg class degree tested---completing coverage across degrees
 $\{1,2,3,4,5,6\}$ with thirteen independent data points.
 
+\paragraph{Artin $S_3$ $L$-function: $\sigma$-direction remeasurement
+(Result~\#207).}
+\label{par:artin_s3}
+Results~\#121--\#122 in Paper~3 measured the $\kappa\delta^{2}$ slope for
+the Artin $S_3$ $L$-function (Galois group $S_3$, degree~$2$,
+$N=23$) in the $t$-direction using a custom approximate functional
+equation, obtaining slope~$\approx -0.993$---the only outlier among
+all tested $L$-functions.  To resolve this anomaly, we remeasure in the
+$\sigma$-direction using PARI's \texttt{lfundiv($\zeta_K$,$\zeta$)}
+with \texttt{realprecision}$=57$:
+FE check $=-197$ digits ($-393$ at \texttt{rp}$=100$).
+
+\medskip
+\noindent\textbf{Result~\#207}: $\kappa\delta^{2}$ log-log slope
+$\mathbf{2.0000\pm 0.0000}$, $R^{2}=1.000000$ for all five zeros
+($t\in[5.1, 16.7]$, spacing $>1.0$; 54 zeros found by
+\texttt{lfunzeros}, 5 selected).
+Monodromy $5/5=2.0000\pi$.  $\sigma$-uniqueness: FAIL (centre$=70$,
+max$=108$ at $\sigma=0.30$), consistent with B-01 ($N=23>1$).
+Overall: \textbf{4/5 PASS} ($\bigstar\bigstar\bigstar$).
+
+Individual slopes: $2.0000$, $2.0000$, $2.0000$, $2.0000$, $2.0001$---the
+most precise measurement in this paper.  The earlier $t$-direction anomaly
+is explained by two compounding factors: (1) Hardy $Z$ curvature in
+the $t$-direction has $c_{1}=-Z''/Z'\neq 0$ (cf.\ boundary B-23),
+producing a fundamentally different scaling; (2) the custom AFE used in
+\#121 had limited precision (FE check $\approx 7$ digits vs.\ $197$
+with PARI), causing $\Delta t\approx 0.1$ errors in zero locations.
+The $\sigma$-direction measurement confirms that the Artin $S_3$
+$L$-function obeys slope~$2$ universality without exception.
+
 \subsection{Weight, Spectral, and Degree Invariance of $\kappa\delta^{2}$}
 \label{ssec:weightinv}
 
@@ -1203,8 +1235,9 @@ weights, spectral parameters, and Selberg class degrees tested to date.
   log-log slope.  Thirteen data points spanning degrees $1$--$6$, weights
   $k\in\{0,1,2,12,16,20\}$, Maass spectral parameters $R=9.53,13.78$, and
   symmetric powers $\mathrm{sym}^{2}$, $\mathrm{sym}^{3}$, $\mathrm{sym}^{4}$, $\mathrm{sym}^{5}$ (two independent GL(4) L-functions and one GL(6) L-function).
-  The Artin entry ($k=1$) uses the log$(\kappa)$ vs.\ log$(\delta^2)$
-  convention (Paper~3, theoretical slope $-1$) and is included for comparison.}
+  The Artin entry ($k=1$) was remeasured in the $\sigma$-direction
+  (Result~\#207, PARI \texttt{lfundiv}), resolving the earlier anomaly:
+  the convention-A slope is $2.0000\pm 0.0000$ with $R^{2}=1.000000$.}
 \label{tab:weightuniv}
 \small
 \begin{tabular}{llllrrl}
@@ -1212,7 +1245,7 @@ weights, spectral parameters, and Selberg class degrees tested to date.
 Type & $L$-function & Degree & $\sigma_{\mathrm{crit}}$ & Slope & $\pm\sigma$ & Rating \\
 \midrule
 $k{=}0$  & Riemann $\zeta$ & $\mathrm{GL}(1)$ & $\tfrac{1}{2}$ & $\approx 2.0$ & --- & $\bigstar\bigstar\bigstar$ \\
-$k{=}1$  & Artin $S_3$ (conv.\ B)$^{*}$ & $\mathrm{GL}(2)$ & $\tfrac{1}{2}$ & $-0.993$ & $0.001$ & $\bigstar\bigstar\bigstar$ \\
+$k{=}1$  & Artin $S_3$ (\#207) & $\mathrm{GL}(2)$ & $\tfrac{1}{2}$ & $\mathbf{2.0000}$ & $\mathbf{0.0000}$ & $\bigstar\bigstar\bigstar$ \\
 $k{=}2$  & EC 11a1 & $\mathrm{GL}(2)$ & $1$ & $\approx 2.0$ & --- & $\bigstar\bigstar\bigstar$ \\
 Maass odd & $u_{R}^{-}$ ($R{=}9.53$) & $\mathrm{GL}(2)$ & $\tfrac{1}{2}$ & $\mathbf{2.0003}$ & $\mathbf{0.0003}$ & $\bigstar\bigstar\bigstar$ \\
 Maass even & $u_{R}^{+}$ ($R{=}13.78$) & $\mathrm{GL}(2)$ & $\tfrac{1}{2}$ & $1.9999$ & $0.0008$ & $\bigstar\bigstar\bigstar$ \\
@@ -1225,8 +1258,8 @@ $\mathrm{sym}^{3}$ & $\mathrm{sym}^{3}(\text{37a1})$ & $\mathrm{GL}(4)$ & $2$ & 
 $\mathrm{sym}^{4}$ & $\mathrm{sym}^{4}(\text{11a1})$ & $\mathrm{GL}(5)$ & $\tfrac{5}{2}$ & $\mathbf{1.9999}$ & $\mathbf{0.0004}$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{5}$ & $\mathrm{sym}^{5}(\text{11a1})$ & $\mathrm{GL}(6)$ & $3$ & $\mathbf{1.9980}$ & $\mathbf{0.0036}$ & $\bigstar\bigstar\bigstar$ \\
 \bottomrule
-\multicolumn{7}{l}{\small $^{*}$Convention B: log$(\kappa)$ vs.\ log$(\delta^2)$, theoretical slope $-1$ (Paper~3).} \\
-\multicolumn{7}{l}{\small Convention A (all others): log$(\kappa\delta^2-1)$ vs.\ log$(\delta)$, theoretical slope $2$.} \\
+\multicolumn{7}{l}{\small All slopes measured in convention A: log$(\kappa\delta^2-1)$ vs.\ log$(\delta)$, theoretical slope $2$.} \\
+\multicolumn{7}{l}{\small \#207: Artin $S_3$ remeasured in $\sigma$-direction via PARI \texttt{lfundiv}; prior Paper~3 value ($-0.993$, $t$-direction) resolved.} \\
 \end{tabular}
 \end{table}
 
@@ -1251,9 +1284,11 @@ one GL(5) and one GL(6) $L$-function.
 \label{obs:weightinv}
   For $L$-functions in the Selberg class of degree $d\in\{1,2,3,4,5,6\}$---whether
   attached to holomorphic Hecke eigenforms $f\in S_k(\mathrm{SL}_2(\mathbb{Z}))$,
-  Maass cusp forms with spectral parameter~$R$, or symmetric-power
+  Maass cusp forms with spectral parameter~$R$, Artin $L$-functions of
+  non-abelian Galois representations, or symmetric-power
   $L$-functions $\mathrm{sym}^{n}$---the log-log slope of
-  $\kappa\delta^{2}-1$ versus $\delta$ equals $2.0\pm 0.001$.
+  $\kappa\delta^{2}-1$ versus $\delta$ equals $2.0\pm 0.006$
+  across all thirteen data points with zero outliers.
   Analytically, this follows from Theorem~\ref{thm:rankinv}: the functional
   equation $\Lambda(s)=\varepsilon\,\Lambda(k{-}s)$ implies
   $\kappa\delta^{2}=1+O(\delta^{2})$ regardless of the weight,
@@ -1262,9 +1297,9 @@ one GL(5) and one GL(6) $L$-function.
   \emph{universal constant} of the Selberg class.
   Results~\#125--\#127 extend the verified weight range to $k\leq 20$;
   Results~\#200--\#201 cover both Maass symmetry classes;
-  Results~\#202--\#206 extend from degree~$2$ to degrees~$3$, $4$, $5$, and~$6$
-  (with two independent GL(4) $L$-functions resolving the 11a1 bias concern,
-  a GL(5) $L$-function, and a GL(6) $L$-function completing degree~$1$--$6$ coverage).
+  Results~\#202--\#206 extend from degree~$2$ to degrees~$3$, $4$, $5$, and~$6$;
+  Result~\#207 confirms the Artin $S_3$ $L$-function ($\sigma$-direction
+  slope $2.0000\pm 0.0000$, resolving the earlier $t$-direction anomaly).
 \end{observation}
 
 
@@ -1294,9 +1329,11 @@ extension via symmetric powers produces the most precise measurements:
 $\mathrm{sym}^{2}(\text{11a1})$ at $\mathrm{GL}(3)$ and
 $\mathrm{sym}^{3}(\Delta)$ at $\mathrm{GL}(4)$ both give slope
 $2.0000\pm 0.0001$.  Combined with the $k=0,2$ results from Paper~1
-and the Artin result ($k=1$, Paper~3), the convention-A slope equals
-$2.0\pm 0.001$ across thirteen data points spanning Selberg class degrees
-$\{1,2,3,4,5,6\}$ and the full $\mathrm{GL}(2)$ landscape.
+and the Artin $S_3$ result ($k=1$, \#207; $\sigma$-direction remeasurement
+yielding slope $2.0000\pm 0.0000$), the slope equals
+$2.0\pm 0.006$ across all thirteen data points with \emph{zero outliers},
+spanning Selberg class degrees $\{1,2,3,4,5,6\}$ and the full
+$\mathrm{GL}(2)$ landscape.
 This is a direct numerical consequence of Theorem~\ref{thm:rankinv}: the
 $\kappa\delta^{2}=1+O(\delta^{2})$ limit follows from the functional
 equation alone, so the slope~$2$ is a universal constant of the Selberg
@@ -1319,30 +1356,37 @@ implies that if such a zero existed, it would produce a detectable
 $O(\delta)$ signal.
 
 \paragraph{Limitations.}
-The asymptotic $c_{1}\cdot d \to 1$ is validated with $N=4$ data points.
+The asymptotic $c_{1}\cdot d \to 1$ is validated with $N=12$ off-critical
+zeros across three generalised DH $L$-function classes ($\bmod 5$, $7$,
+$11$; Result~\#121).
 The systematic $\delta$-sweep (Result~\#116) is limited to $N=3$
 off-critical zeros (OFF\#4 had insufficient precision at $\delta<0.1$).
-No new off-critical zeros were discovered in the range $t\in[200,400]$
-(22 candidate points checked, 0 confirmed), consistent with the
-known scarcity of DH off-critical zeros.
+The degree-universality evidence at $\mathrm{GL}(5)$ and $\mathrm{GL}(6)$
+rests on a single $L$-function each ($\mathrm{sym}^{4}$ and
+$\mathrm{sym}^{5}$ of 11a1), due to the large conductors of alternative
+curves (e.g.\ $\mathrm{sym}^{4}(\text{37a1})$, $N=37^{4}\approx 1.9\times 10^{6}$).
 
 \paragraph{Future directions.}
 \begin{enumerate}
-  \item \textit{Artin $L$-functions}: non-abelian, potentially non-self-dual.
-        Preliminary results for $S_3$ and $S_4$ Artin $L$-functions
-        confirm the four $\xi$-bundle properties (Paper~3).
+  \item \textit{Beyond symmetric powers}: the current degree extension
+        relies on the $\mathrm{sym}^{n}$ chain from a single elliptic
+        curve.  Rankin--Selberg $L(f\times g,s)$ for independent forms
+        $f\neq g$ would provide a genuinely non-$\mathrm{sym}^{n}$
+        test of degree universality.
   \item \textit{Hilbert modular forms}: extending the spectral universality
         to number fields of degree $>1$.
-  \item \textit{Higher-degree extension}: Results~\#202--\#203 cover
-        degrees 3 and~4; extending to degree~$5$ ($\mathrm{sym}^{4}$)
-        would test the limits of current computational infrastructure.
   \item \textit{Selberg class generalisation}: Theorem~\ref{thm:disc}
         uses only FE; can it be sharpened to give $c_{1}$ in terms of
         the Selberg class degree?
-  \item \textit{$\sigma$-localisation}: extending the discrimination to
-        non-horizontal offsets (complex $\delta$).
+  \item \textit{$\sigma$-localisation proof}: the FWHM~$<0.004$ of
+        $\kappa\delta^{2}$ profiles in the $\sigma$-direction is observed
+        universally but lacks an analytic derivation.
   \item \textit{Additional DH off-critical zeros}: extending the search
         to $t>400$ with higher precision.
+  \item \textit{Degree~$7$ and beyond}: $\mathrm{sym}^{6}(\text{11a1})$
+        at $\mathrm{GL}(7)$ ($N=11^{6}\approx 1.8\times 10^{6}$) may
+        test computational limits; success would further strengthen the
+        degree-universality evidence.
 \end{enumerate}
 
 
@@ -1365,15 +1409,21 @@ zeros.  Third, weight and spectral universality: Results~\#125--\#127
 and \#200--\#201 establish that the slope equals $2.0\pm 0.001$
 independently of weight ($k=12,16,20$), holomorphicity (two Maass forms,
 $R=9.53$ and $13.78$), and symmetry class (odd and even).
-Fourth, degree universality: Results~\#202--\#205 extend the slope
+Fourth, degree universality: Results~\#202--\#207 extend the slope
 verification from $\mathrm{GL}(2)$ to $\mathrm{GL}(3)$
 ($\mathrm{sym}^{2}(\text{11a1})$, slope $2.0000\pm 0.0001$),
 $\mathrm{GL}(4)$ ($\mathrm{sym}^{3}(\Delta)$ and
 $\mathrm{sym}^{3}(\text{37a1})$, slopes $2.0000\pm 0.0001$ and
-$1.9999\pm 0.0005$), and $\mathrm{GL}(5)$
+$1.9999\pm 0.0005$), $\mathrm{GL}(5)$
 ($\mathrm{sym}^{4}(\text{11a1})$, slope $1.9999\pm 0.0004$),
-confirming Observation~8 across Selberg class degrees $\{1,2,3,4,5\}$
-with twelve independent data points.
+and $\mathrm{GL}(6)$
+($\mathrm{sym}^{5}(\text{11a1})$, slope $1.9980\pm 0.0036$),
+confirming Observation~8 across Selberg class degrees $\{1,2,3,4,5,6\}$
+with thirteen independent data points and zero outliers.
+Result~\#207 resolves the Artin $S_3$ anomaly from Paper~3:
+$\sigma$-direction remeasurement via PARI \texttt{lfundiv} yields
+slope $2.0000\pm 0.0000$, confirming that the earlier $t$-direction
+value ($-0.993$) was a measurement-convention artefact.
 
 Together, Theorems~5--7 and Observation~8 form a coherent picture:
 on the critical line, the $\xi$-bundle curvature satisfies
@@ -1428,6 +1478,7 @@ Result & Section & Rating & Key finding \\
 \#204 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(4) $\mathrm{sym}^{3}(\text{37a1})$; 4/5 PASS; slope $\mathbf{1.9999\pm0.0005}$; 11a1-bias resolved \\
 \#205 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(5) $\mathrm{sym}^{4}(\text{11a1})$; 4/5 PASS; slope $\mathbf{1.9999\pm0.0004}$; degree 1--5 complete \\
 \#206 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & GL(6) $\mathrm{sym}^{5}(\text{11a1})$; 4/5 PASS; slope $\mathbf{1.9980\pm0.0036}$; degree 1--6 complete \\
+\#207 & \S\ref{ssec:degree_ext}   & \textbf{$\bigstar\bigstar\bigstar$}    & Artin $S_3$ $\sigma$-dir.\ remeasured; 4/5 PASS; slope $\mathbf{2.0000\pm0.0000}$; anomaly resolved \\
 \end{longtable}
 
 

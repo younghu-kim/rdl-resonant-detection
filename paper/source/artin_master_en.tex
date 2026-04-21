@@ -117,9 +117,20 @@ For the standard representations of $S_{3}$ ($\mathrm{GL}(2)$,
 $N=23$) and $S_{4}$ ($\mathrm{GL}(3)$, $N=283$), we verify all four
 $\xi$-bundle properties: functional-equation consistency, zero
 enumeration, $\kap\delta^{2}$-scaling with slopes $-0.994\pm0.001$
-and $-0.993\pm0.003$ respectively, and monodromy $\pm\pi$.  These
-constitute the first numerical verification of the $\xi$-bundle
+and $-0.993\pm0.003$ respectively (t-direction), and monodromy $\pm\pi$.
+These constitute the first numerical verification of the $\xi$-bundle
 framework on non-abelian Galois representations.
+
+Additionally, a $\sigma$-direction reanalysis of $S_{3}$ via PARI/GP
+\texttt{lfundiv} (Result~\#207) yields slope $2.0000\pm0.0000$
+($R^{2}=1.000000$, five zeros, FE${}=-197$), confirming $c_{1}=0$
+universality in the $\sigma$-direction and placing $S_{3}$ in complete
+agreement with Paper~2's thirteen-$L$-function comparison table
+(degrees~1--6, all slopes~$\approx 2.0$).  The two-directional structure
+--- t-direction slope~$\approx{-1}$ (individual analytic structure)
+and $\sigma$-direction slope~$=2.0$ (universal $c_{1}=0$ law) ---
+provides a richer characterisation of the $\xi$-bundle geometry for
+non-abelian Artin $L$-functions.
 
 We further extend Theorem~7's off-critical discriminant
 $c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} \to 1$ from the original
@@ -479,6 +490,106 @@ Five zeros tested: $\mono/\pi = 2.000000$ in all cases.
 \textbf{PASS.}
 
 
+\subsection{$S_{3}$: $\sigma$-direction $\kap\delta^{2}$ measurement (Result~\#207)}
+\label{sec:s3-sigma}
+
+The P3 measurements in \cref{sec:s3-results} follow the \emph{t-direction}
+protocol: $\delta$ is a small offset along the imaginary axis from a
+zero at $t_{0}$, and $\log\kap$ vs $\log\delta^{2}$ is expected to
+have slope~$-1$.  Paper~2's thirteen-$L$-function comparison table uses
+the complementary \emph{$\sigma$-direction} protocol: $\delta$ is an
+offset along the real axis from $\sigma_{0}=\tfrac{1}{2}$, for which
+the expected slope is~$+2$.  To resolve an apparent discrepancy
+between the two tables and to complete the picture, we applied the
+$\sigma$-direction protocol to $S_{3}$ using PARI/GP's
+\texttt{lfundiv} (Result~\#207).
+
+\paragraph{Setup.}
+The Artin $L$-function $L(s,\rho)$ is realised as
+$\mathrm{lfundiv}(\zeta_{K},\zeta)$ in PARI/GP at
+realprecision~$57$.  Functional-equation accuracy:
+$\texttt{lfuncheckfeq}=-197$ (rp~$57$) and $-393$ (rp~$100$).
+From 54~zeros in $t\in[0,60]$, five were selected with mutual
+gap~${>}1.0$: $\gamma_{1}=5.1157$, $\gamma_{2}=7.1593$,
+$\gamma_{3}=8.8814$, $\gamma_{4}=10.2820$, $\gamma_{5}=11.4300$.
+
+\paragraph{Results.}
+\Cref{tab:s3-sigma} presents the individual slopes;
+\cref{tab:s3-twodir} compares the two measurement directions.
+
+\begin{table}[ht]
+\centering
+\caption{$S_{3}$ $\sigma$-direction $\kap\delta^{2}$ slopes (Result~\#207).
+  Theory: slope~$=+2.0$.  Eight $\delta$ values in $[0.001,0.03]$.}
+\label{tab:s3-sigma}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Zero $\gamma_{k}$} & \textbf{Slope} & $R^{2}$ & \textbf{Dev.} \\
+\midrule
+$\gamma_{1}=5.1157$ & $2.0000$ & $1.000000$ & $0.00\%$ \\
+$\gamma_{2}=7.1593$ & $2.0000$ & $1.000000$ & $0.00\%$ \\
+$\gamma_{3}=8.8814$ & $2.0000$ & $1.000000$ & $0.00\%$ \\
+$\gamma_{4}=10.2820$ & $2.0000$ & $1.000000$ & $0.00\%$ \\
+$\gamma_{5}=11.4300$ & $2.0001$ & $1.000000$ & $0.005\%$ \\
+\midrule
+\textbf{Mean} & $\bm{2.0000}$ & & $\pm\bm{0.0000}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Monodromy: $\mono/\pi=2.0000$ for all five zeros (radius~$0.01$,
+64~steps).  \textbf{PASS} on $\sigma$-direction P3 and P4.
+
+\begin{table}[ht]
+\centering
+\caption{Two-directional $\kap\delta^{2}$ slopes for $S_{3}$.}
+\label{tab:s3-twodir}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+\textbf{Direction} & \textbf{Result} & \textbf{Slope} & $\pm\sigma$ & \textbf{Theory} \\
+\midrule
+t-direction (AFE) & \#122 & $-0.993$ & $0.001$ & $-1.0$ \\
+$\sigma$-direction (PARI) & \#207 & $+2.0000$ & $0.0000$ & $+2.0$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Interpretation: resolving the Artin anomaly.}
+The two measurements probe different aspects of the $\xi$-bundle geometry.
+
+\begin{itemize}
+  \item \textbf{$\sigma$-direction (slope~$=+2.0$)}: reflects the
+    universal property $c_{1}=0$ for on-critical zeros
+    ($\sigma_{0}=\tfrac{1}{2}$).  When $\delta$ is displaced in the
+    $\sigma$-direction from an on-critical zero,
+    $\kap\delta^{2}=1+O(\delta^{2})$ so the leading power is always
+    $+2$, regardless of the specific $L$-function.  This universality
+    is confirmed across all thirteen $L$-functions in Paper~2's
+    comparison table (degrees~1--6, slopes~$\approx 2.0$);
+    $S_{3}$ now joins this list in perfect agreement.
+  \item \textbf{t-direction (slope~$\approx{-1}$)}: encodes the
+    individual analytic structure of the $L$-function via the
+    $Z''/Z'$ term.  For $S_{3}$ the slope is~$\approx{-1}$,
+    matching the theoretical prediction and confirming P3.
+\end{itemize}
+
+The earlier apparent \emph{Artin anomaly}---$S_{3}$ appearing as
+the sole outlier in slope comparisons---arose from comparing
+t-direction and $\sigma$-direction measurements without
+distinguishing the two protocols.  In the $\sigma$-direction,
+$S_{3}$ is fully universal.
+
+\begin{observation}[Two-directional $\kap\delta^{2}$ universality]
+\label{obs:bidir}
+For the $S_{3}$ Artin $L$-function ($\mathrm{GL}(2)$, $N=23$), the
+$\kap\delta^{2}$ scaling yields slope~$\approx{-1}$ in the t-direction
+and slope~$=2.0000\pm0.0000$ in the $\sigma$-direction.  The latter
+places $S_{3}$ in complete agreement with the universal value observed
+across degrees~1--6 in Paper~2, confirming that $c_{1}=0$ universality
+holds for non-abelian Artin $L$-functions.
+\end{observation}
+
+
 \subsection{$S_{3}$ vs.\ $S_{4}$: Cross-comparison}
 \label{sec:artin-compare}
 
@@ -730,7 +841,7 @@ papers.
 2 & Epstein $\zeta$ ($h>1$, non-Euler) & 1 & P1--P4~\checkmark \\
 2 & Davenport--Heilbronn & 1 & P1--P4~\checkmark{} + $c_{1}$ \\
 \midrule
-3 & \textbf{Artin $S_{3}$ (non-abelian)} & \textbf{2} & \textbf{P1--P4~\checkmark} \\
+3 & \textbf{Artin $S_{3}$ (non-abelian)} & \textbf{2} & \textbf{P1--P4~\checkmark{}; $\sigma$-slope $=2.0000$~\checkmark} \\
 3 & \textbf{Artin $S_{4}$ (non-abelian)} & \textbf{3} & \textbf{P1--P4~\checkmark} \\
 3 & \textbf{Generalised DH (mod~7, 11)} & \textbf{1} & $\bm{c_{1}}$\textbf{~\checkmark} \\
 \bottomrule
@@ -781,24 +892,35 @@ functional equation alone (Theorem~6, Paper~2).
 \label{sec:conclusion}
 % ============================================================================
 
-This paper extends the $\xi$-bundle framework in two directions.
+This paper extends the $\xi$-bundle framework in three directions.
 First, we verify all four $\xi$-bundle properties for non-abelian
 Artin $L$-functions: the standard representations of $S_{3}$
 ($\mathrm{GL}(2)$, 56~zeros) and $S_{4}$ ($\mathrm{GL}(3)$,
-89~zeros) achieve $\kap\delta^{2}$ slopes within 1\% of the
-theoretical value across multiple measurement groups, with
-$R^{2} > 0.9999$.  Second, we extend the off-critical curvature
-discriminant $c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} \to 1$ from a
-single $L$-function (mod~5 DH) to three independent families (mod~5,
-7, 11), with $N=12$ off-critical zeros confirming the asymptotic law.
+89~zeros) achieve $\kap\delta^{2}$ t-direction slopes within 1\% of
+the theoretical value across multiple measurement groups, with
+$R^{2} > 0.9999$.  Second, a $\sigma$-direction reanalysis of $S_{3}$
+(Result~\#207, PARI/GP \texttt{lfundiv}) yields slope
+$2.0000\pm0.0000$ ($R^{2}=1.000000$), placing $S_{3}$ in full agreement
+with Paper~2's universal thirteen-$L$-function comparison table
+(degrees~1--6, all slopes~$\approx 2.0$).  The two directions are
+complementary: the $\sigma$-direction slope~$=+2$ is universal across
+the Selberg class (consequence of $c_{1}=0$ for on-critical zeros),
+while the t-direction slope~$\approx{-1}$ reflects individual analytic
+structure specific to each $L$-function.  Third, we extend the
+off-critical curvature discriminant
+$c_{1}\cdot\abs{\sigma_{0}-\tfrac{1}{2}} \to 1$ from a single
+$L$-function (mod~5 DH) to three independent families (mod~5, 7, 11),
+with $N=12$ off-critical zeros confirming the asymptotic law.
 
 Together with Papers~1 and~2 (92~prior results), the $\xi$-bundle
 framework has now been tested on $\mathrm{GL}(1)$--$\mathrm{GL}(5)$
 $L$-functions spanning abelian and non-abelian Galois representations,
 forms with and without Euler products, and zeros on and off the
 critical line.  The universality of the four properties across this
-landscape provides strong numerical evidence that the $\xi$-bundle
-captures a fundamental geometric structure of $L$-function zeros.
+landscape, confirmed in both the t-direction and the $\sigma$-direction
+for non-abelian Artin $L$-functions, provides strong numerical evidence
+that the $\xi$-bundle captures a fundamental geometric structure of
+$L$-function zeros.
 
 
 % ============================================================================
@@ -825,9 +947,13 @@ captures a fundamental geometric structure of $L$-function zeros.
 121 & Artin $S_{3}$ & $\bigstar\!\bigstar\!\bigstar$ &
   4 properties PASS; 56 zeros; $\kap\delta^{2}$ initial &
   \texttt{artin\_s3\_121.txt} \\
-122 & Artin $S_{3}$ (precision) & $\bigstar\!\bigstar\!\bigstar$ &
-  Cross-validated $\kap\delta^{2}$: slope $-0.993\pm0.001$ &
+122 & Artin $S_{3}$ (t-dir.\ precision) & $\bigstar\!\bigstar\!\bigstar$ &
+  t-direction slope $-0.993\pm0.001$ (AFE) &
   \texttt{artin\_s3\_precision\_122.txt} \\
+207 & Artin $S_{3}$ ($\sigma$-direction) & $\bigstar\!\bigstar\!\bigstar$ &
+  $\sigma$-direction slope $2.0000\pm0.0000$; mono $5/5$;
+  FE$=-197$ (PARI lfundiv) &
+  \texttt{artin\_s3\_sigma\_kd2\_207.txt} \\
 123 & Artin $S_{4}$ & $\bigstar\!\bigstar\!\bigstar$ &
   4 properties PASS; 89 zeros; initial $\kap\delta^{2}$ &
   \texttt{artin\_s4\_standard\_123.txt} \\
