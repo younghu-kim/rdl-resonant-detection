@@ -148,7 +148,7 @@ precise measurement to date).  Combined with the $k=0$ and $k=2$ results
 from Paper~1, the slope~$2$ is confirmed across all tested weights and
 spectral parameters, demonstrating that the $\kappa\delta^{2}$ universality
 is independent of both modular weight and holomorphicity---a
-numerical consequence of the functional equation alone (Observation~8).
+numerical consequence of the functional equation alone (Theorem~\ref{thm:slopeuniv}).
 
 \smallskip
 \noindent Results~\#202--\#206 further extend the slope verification
@@ -168,7 +168,7 @@ degrees~$1$--$6$ and six distinct families (Table~\ref{tab:weightuniv})
 establish Selberg class universality.
 
 \smallskip
-\noindent Twenty-five numerical results support the framework's universality
+\noindent Twenty-seven numerical results support the framework's universality
 and the discriminator theorem.
 \end{tcolorbox}
 
@@ -231,7 +231,7 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         if $\sigma_{0}=\tfrac{1}{2}$, where $c_{1}$ is the leading
         off-critical Taylor coefficient of $\kappa\delta^{2}$.
   \item A \textbf{Summary Table} (Table~\ref{tab:summary}) collects all
-        nineteen new results (\#107--\#117, \#125--\#127, \#200--\#204).
+        twenty-seven new results (\#107--\#117, \#125--\#127, \#200--\#215).
   \item \textbf{Slope Universality Theorem} (\S\ref{sec:modular},
         Theorem~\ref{thm:slopeuniv}):
         For any self-dual completed $L$-function satisfying a functional
@@ -1348,7 +1348,7 @@ establishing \emph{construction universality}.
 
 \paragraph{Amplitude scaling: the sub-leading coefficient $A(t_{0})$.}
 While the slope is a universal constant ($=2$), the amplitude
-$A(t_{0}) \;\defeq\; \kappa(\sigma_{\mathrm{crit}}+\delta,\,t_{0}) - 1/\delta^{2}$
+$A(t_{0}) \;\coloneqq\; \kappa(\sigma_{\mathrm{crit}}+\delta,\,t_{0}) - 1/\delta^{2}$
 at small $\delta$ varies across zeros and $L$-functions.
 Extracting $A$ at $\delta=0.01$ from $52$ zeros across degrees $1$--$6$
 (Result~\#212) reveals a two-variable dependence:
@@ -1420,14 +1420,19 @@ extension via symmetric powers produces the most precise measurements:
 $\mathrm{sym}^{2}(\text{11a1})$ at $\mathrm{GL}(3)$ and
 $\mathrm{sym}^{3}(\Delta)$ at $\mathrm{GL}(4)$ both give slope
 $2.0000\pm 0.0001$.  Combined with the $k=0,2$ results from Paper~1,
-the Artin result ($k=1$, Paper~3), and the Rankin--Selberg tensor product
-(Result~\#210, slope $1.9960\pm 0.0072$), the slope equals
+the Artin result ($k=1$, Paper~3), the Rankin--Selberg tensor product
+(Result~\#210, slope $1.9960\pm 0.0072$), and four primitive Dirichlet
+characters (Result~\#213, slope $2.0002\pm 0.0001$), the slope equals
 $2.0\pm 0.008$ across sixteen data points spanning Selberg class degrees
 $\{1,2,3,4,5,6\}$ and six construction families.
 Theorem~\ref{thm:slopeuniv} proves this analytically: the functional
 equation and reality condition force $\operatorname{Re}(c_0)=0$ in the
 Laurent expansion, killing the $\delta^1$ term and making slope~$2$ a
 mathematical necessity for all self-dual $L$-functions.
+From the identity $c_{1}=\sum_{\gamma'\neq\gamma}(\gamma-\gamma')^{-2}$,
+the $2c_{1}$ term dominates the amplitude $A$ ($\approx 76\%$),
+with the remainder arising from local zero density via
+$\mathrm{Im}(c_{0})^{2}$ (Result~\#215).
 
 \paragraph{Euler product dispensability.}
 Theorem~\ref{thm:feonly} and Result~\#114 establish that the Euler
@@ -1494,12 +1499,12 @@ via symmetric powers; Result~\#209 adds an irreducible degree-4
 Artin $L$-function (standard representation of~$S_5$, slope
 $1.9999\pm 0.0003$); and Result~\#210 adds the Rankin--Selberg
 tensor product $L(s,\text{11a1}\times\text{37a1})$ (slope
-$1.9960\pm 0.0072$), confirming Observation~8 across Selberg class
+$1.9960\pm 0.0072$), confirming Theorem~\ref{thm:slopeuniv} across Selberg class
 degrees $\{1,2,3,4,5,6\}$ with sixteen independent data points from
 six distinct families (Dirichlet, symmetric powers, Artin, Rankin--Selberg,
 holomorphic cusp forms, and Maass forms).
 
-Together, Theorems~5--7 and Observation~8 form a coherent picture:
+Together, Theorems~5--8 form a coherent picture:
 on the critical line, the $\xi$-bundle curvature satisfies
 $\kappa\delta^{2}=1+O(\delta^{2})$ universally across all $L$-function
 families, modular weights, and spectral types tested; off the critical
@@ -1513,11 +1518,11 @@ equation.
 % ============================================================================
 \appendix
 
-\section{Summary Table: All Twenty-Four Results}
+\section{Summary Table: All Twenty-Seven Results}
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#213 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#215 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1543,7 +1548,7 @@ Result & Section & Rating & Key finding \\
 \#116 & \S\ref{ssec:sweep}        & \textbf{$\bigstar\bigstar\bigstar$}    & $\delta$-sweep; slope $1.999\pm0.003$ (on) vs.\ $0.963\pm0.039$ (off); Thm~7 confirmed \\
 \#117 & \S\ref{ssec:c1}           & \textbf{$\bigstar\bigstar$}     & $c_{1}=\mathrm{Re}(\Lambda''/\Lambda')$ verified ($<0.5\%$, $N=4$); $c_{1}\cdot d\to 1$ \\
 \#125 & \S\ref{ssec:delta12}      & \textbf{$\bigstar\bigstar\bigstar$}    & Ramanujan $\Delta$ ($k=12$); 4/5 PASS; $\kappa\delta^{2}$ slope $2.0008\pm0.0006$; $\sigma$-uniq.\ FAIL (B-01) \\
-\#126 & \S\ref{ssec:w16}          & \textbf{$\bigstar\bigstar\bigstar$}    & Weight-16 cusp form ($\Delta\cdot E_4$); 5/5 PASS; slope $1.9989\pm0.0035$; weight invariance (Obs.~8) \\
+\#126 & \S\ref{ssec:w16}          & \textbf{$\bigstar\bigstar\bigstar$}    & Weight-16 cusp form ($\Delta\cdot E_4$); 5/5 PASS; slope $1.9989\pm0.0035$; weight invariance (Thm~8) \\
 \#127 & \S\ref{ssec:w20}          & \textbf{$\bigstar\bigstar\bigstar$}    & Weight-20 cusp form ($\Delta\cdot E_8$); 4/5 PASS; slope $1.9984\pm0.0055$; $\sigma$-uniq.\ FAIL (B-01) \\
 \#200 & \S\ref{ssec:maass}        & \textbf{$\bigstar\bigstar\bigstar$}    & Maass cusp form ($R{=}9.5337$, odd); 5/5 PASS; slope $\mathbf{2.0003\pm0.0003}$ \\
 \#201 & \S\ref{ssec:maass_even}   & \textbf{$\bigstar\bigstar\bigstar$}    & Even Maass ($R{=}13.7798$); 4/5 PASS; slope $1.9999\pm0.0008$; symmetry-class independence \\
@@ -1556,6 +1561,7 @@ Result & Section & Rating & Key finding \\
 \#210 & \S\ref{sec:gl4rs}         & \textbf{$\bigstar\bigstar\bigstar$}    & R-S $\text{11a1}\times\text{37a1}$; eff.\ 4/4 PASS; slope $\mathbf{1.9960\pm0.0072}$; tensor-product construction \\
 \#212 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar$}           & $A(d,N)$ scaling law; $R^{2}=0.983$; Artin $S_5$ out-of-sample $4\%$ error; tentative coefficients \\
 \#213 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar$}    & Dirichlet $L(s,\chi_D)$, $D\in\{-3,-4,5,-7\}$; slope $\mathbf{2.0002\pm0.0001}$; 6th family (conductor independence) \\
+\#214 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar$}    & Slope Universality Theorem verified; 4 $L$-functions, 20 zeros; $\mathrm{Re}(c_0){=}0$, $\mathrm{Im}(c_1){=}0$; slope $2.0003{\pm}0.0022$; $A$-error $0.5\%$ \\
 \#215 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar$}           & $A(t_0)$ Hadamard decomposition; $H_1$ verified $0.7\%$; CV$=42\%$ intrinsic; $2H_1=76\%$ of $A$ \\
 \end{longtable}
 
