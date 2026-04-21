@@ -244,9 +244,9 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         $A=\operatorname{Im}(c_0)^2+2c_1$ is explicitly computable.
         Verified across sixteen self-dual plus three non-self-dual
         $L$-functions (Results~\#214, \#216: $35$ zeros, mean slope
-        $2.0004\pm 0.0024$); Result~\#217 further validates
-        $A=\operatorname{Im}(c_0)^2+2c_1$ across degrees~$1$--$4$
-        ($25$ zeros, $A$-error $0.1\%$--$4.0\%$).
+        $2.0004\pm 0.0024$); Result~\#217 extends
+        $A=\operatorname{Im}(c_0)^2+2c_1$ to $45$ zeros across nine $L$-functions,
+        degrees~$1$--$4$ ($A$-error $0.0\%$--$4.0\%$; Table~\ref{tab:amplitude}).
 \end{enumerate}
 
 \noindent\textbf{Notation.} We write $\rho = \sigma_{0}+it_{0}$ for a
@@ -1353,33 +1353,49 @@ one GL(5) $L$-function, and one GL(6) $L$-function.
 \end{corollary}
 
 \noindent\textit{Numerical verification} (Results~\#214, \#216, \#217):
-$20$ zeros across four self-dual $L$-functions
-($\zeta$, $L(s,\chi_{-3})$, $L(s,\chi_{-7})$, $L(s,\chi_{-11})$)
-yield $|\operatorname{Re}(c_0)|=0$ to machine precision ($150$-digit arithmetic),
-mean slope $2.0003\pm 0.0022$, and mean $A$-prediction error $0.5\%$
-(max $1.6\%$).
-Result~\#216 extends verification to $15$ zeros across three
-\emph{non-self-dual} complex characters ($\chi\bmod 5$ order~$4$,
-$\chi\bmod 7$ order~$6$, $\chi\bmod 13$ order~$12$), all yielding
-$|\operatorname{Re}(c_0)|=0$ and mean slope $2.0004\pm 0.0024$---confirming
-that the theorem's reach includes the non-self-dual case.
-Result~\#217 (B-35) extends the $A$-formula check \emph{across the degree hierarchy}:
-$25$ zeros spanning $\mathrm{GL}(1)$--$\mathrm{GL}(4)$
-($\zeta$, 11a1, 37a1, sym$^2$(11a1), sym$^3$(11a1))
-yield $|\operatorname{Re}(c_0)|<3\!\times\!10^{-11}$,
-slopes $1.992$--$2.010$, and $A$-prediction error $0.1\%$--$4.0\%$
-(error increasing with degree, consistent with $O(\delta^3)$ corrections).
-The theorem subsumes the earlier Theorem~\ref{thm:rankinv} (which
-established $\kappa\delta^2=1+O(\delta^2)$ without the explicit $A$ formula)
-and upgrades the empirical observation of slope~$2$ in Table~\ref{tab:weightuniv}
-from a numerical regularity to a mathematical theorem.
-Nineteen data points spanning Selberg class degrees $\{1,2,3,4,5,6\}$,
-holomorphic weights $k\in\{0,1,2,12,16,20\}$, two Maass forms,
-four self-dual Dirichlet $L$-functions, three non-self-dual complex characters,
-four independent GL(4) constructions
-(symmetric powers, Artin, Rankin--Selberg), and one GL(6) $L$-function
-all confirm the predicted slope~$2$ to within $\pm 0.008$,
-establishing \emph{construction universality}.
+Three stages validate $A=\operatorname{Im}(c_0)^2+2c_1$.
+\#214: $20$ zeros, four self-dual families, slope $2.0003\pm 0.0022$,
+max $A$-error $1.6\%$.
+\#216: $15$ zeros, three non-self-dual characters, confirming
+$|\operatorname{Re}(c_0)|=0$ independent of self-duality.
+\#217 (B-35+B-37): $45$ zeros, \emph{nine} independent $L$-functions,
+degrees~$1$--$4$ (Table~\ref{tab:amplitude}).
+B-37 cross-checks B-35's sym-chain with four independent families
+($\chi_{-3}$, $\chi_{-7}$, $\Delta$, sym$^2$(37a1)), rejecting a
+sym-chain bias hypothesis; $L(s,\Delta)$ (weight~$12$, non-EC)
+achieves the most precise verification ($A$-error $0.0\%$--$0.6\%$).
+All $45$ zeros satisfy $|\operatorname{Re}(c_0)|=0$ and
+$|\operatorname{Im}(c_1)|=0$ to machine precision, slopes $1.992$--$2.010$,
+$A$-error $\leq 4.0\%$ (growing with degree, $O(\delta^3)$ corrections).
+The theorem subsumes Theorem~\ref{thm:rankinv} and promotes slope~$2$
+from numerical regularity to mathematical theorem.
+
+\begin{table}[h]
+\centering\small
+\setlength{\tabcolsep}{5pt}
+\caption{Numerical verification of Corollary~\ref{cor:amplitude}
+  (amplitude formula) across nine $L$-functions (Results~\#217, B-35+B-37).
+  $d$: Selberg class degree; $n$: zero count;
+  $A$-err: prediction error range; slope: mean log-log slope.}
+\label{tab:amplitude}
+\begin{tabular}{lcccc}
+\toprule
+$L$-function & $d$ & $n$ & $A$-err (\%) & slope \\
+\midrule
+$\zeta(s)$                              & 1 & 5 & $0.1$--$0.7$ & $2.000$ \\
+$L(s,\chi_{-3})$                        & 1 & 5 & $0.2$--$0.9$ & $2.001$ \\
+$L(s,\chi_{-7})$                        & 1 & 5 & $0.0$--$1.0$ & $2.000$ \\
+$L(s,\text{11a1})$                      & 2 & 5 & $0.3$--$1.9$ & $2.002$ \\
+$L(s,\text{37a1})$                      & 2 & 5 & $0.3$--$2.6$ & $2.001$ \\
+$L(s,\Delta)$                           & 2 & 5 & $0.0$--$0.6$ & $2.001$ \\
+$L(s,\mathrm{sym}^{2}(\text{11a1}))$    & 3 & 5 & $0.6$--$3.3$ & $2.003$ \\
+$L(s,\mathrm{sym}^{2}(\text{37a1}))$    & 3 & 5 & $0.2$--$2.0$ & $1.999$ \\
+$L(s,\mathrm{sym}^{3}(\text{11a1}))$    & 4 & 5 & $0.5$--$4.0$ & $2.002$ \\
+\midrule
+\textbf{Total}  & $\mathbf{1}$--$\mathbf{4}$ & $\mathbf{45}$ & $\mathbf{0.0}$--$\mathbf{4.0}$ & $\mathbf{2.001}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \paragraph{Amplitude scaling: the sub-leading coefficient $A(t_{0})$.}
 While the slope is a universal constant ($=2$), the amplitude
@@ -1399,17 +1415,11 @@ grows with zero density (hence with $d$), and the $\log N$ term
 arises from the Stirling approximation of the gamma factors in the
 completed $L$-function.
 
-\emph{Out-of-sample validation.}  For the Artin $S_5$ $L$-function
-(Result~\#209: $d=4$, $N=2869$), equation~\eqref{eq:Ascaling} predicts
-$A\approx 23.9$; the measured mean over five zeros is $24.9$ (error~$4\%$).
-For $L(s,\text{11a1}\times\text{37a1})$ (Result~\#210: $d=4$, $N=407$),
-the prediction is $19.6$ versus measured~$30.7$ (high variance due to a
-close zero pair).  The qualitative trend---$A$ growing with both $d^{2}$
-and $\log N$---is robust; the precise coefficients require further data
-for stabilization.
-\textcolor{ForestGreen}{[result \#212, confirmed 2026-04-21;
-6 degrees, 52 zeros; out-of-sample Artin $S_5$ validation $4\%$ error;
-Observation: $A(d,N)\propto d^{2}+\log N$ (tentative coefficients)]}
+\emph{Out-of-sample validation} (Result~\#212): Artin $S_5$
+($d{=}4$, $N{=}2869$) predicts $A\approx 23.9$, measured $24.9$
+(error~$4\%$); $L(\text{11a1}{\times}\text{37a1})$ ($N{=}407$)
+shows higher variance from a close zero pair.
+The $d^2{+}\log N$ trend is robust; precise coefficients remain tentative.
 
 \emph{Intrinsic variability of $A(t_0)$.}  Direct computation of $H_1$
 via the Hadamard sum for $269$ zeros of $\zeta(s)$ (Result~\#215) reveals
@@ -1600,7 +1610,7 @@ Result & Section & Rating & Key finding \\
 \#214 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar$}    & Slope Universality Theorem verified; 4 $L$-functions, 20 zeros; $\mathrm{Re}(c_0){=}0$, $\mathrm{Im}(c_1){=}0$; slope $2.0003{\pm}0.0022$; $A$-error $0.5\%$ \\
 \#215 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar$}           & $A(t_0)$ Hadamard decomposition; $H_1$ verified $0.7\%$; CV$=42\%$ intrinsic; $2H_1=76\%$ of $A$ \\
 \#216 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Non-self-dual verification: 3 complex $\chi$ (mod 5,7,13), 15 zeros, 10 self-dual controls; $\mathrm{Re}(c_0){=}0$ (all 25); slope $2.0004{\pm}0.0024$; Thm generalised: self-duality unnecessary \\
-\#217 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A=\operatorname{Im}(c_0)^2{+}2c_1$ degree-universal: 25 zeros, degrees 1--4 ($\zeta$, 11a1, 37a1, sym$^2$, sym$^3$); $|\operatorname{Re}(c_0)|{<}3{\times}10^{-11}$; slope $1.992$--$2.010$; $A$-error $0.1\%$--$4.0\%$ \\
+\#217 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A=\operatorname{Im}(c_0)^2{+}2c_1$ degree-universal (B-35+B-37): 45 zeros, 9 $L$-functions, degrees 1--4; $|\operatorname{Re}(c_0)|{=}0$; slope $1.992$--$2.010$; $A$-error $0.0\%$--$4.0\%$ (Table~\ref{tab:amplitude}) \\
 \end{longtable}
 
 

@@ -1,6 +1,67 @@
 # 설계자/실행자 보드
 
-## 보고 [2026-04-21 18:05] — 사이클 #236 — B-35 (#217) Paper 2 반영 완료
+## 보고 [2026-04-21 19:40] — 사이클 #239 — B-35+B-37 (#217 통합) Paper 2 반영 완료
+
+**수학자 지시**: B-35(25/25)+B-37(20/20) 통합 → A 공식 검증 테이블 Paper 2 EN+KO 삽입. EN ≤ 25p 유지. Summary table #217 갱신. `.reflected` 마커 2개 생성.
+
+**실행 요약**:
+
+### 변경 내용 (EN + KO 동시)
+
+#### 삽입된 `tab:amplitude` (9행 + Total)
+| L-함수 | d | n | A-오차 | slope |
+|--------|---|---|--------|-------|
+| ζ(s) | 1 | 5 | 0.1–0.7% | 2.000 |
+| L(χ₋₃) | 1 | 5 | 0.2–0.9% | 2.001 |
+| L(χ₋₇) | 1 | 5 | 0.0–1.0% | 2.000 |
+| L(11a1) | 2 | 5 | 0.3–1.9% | 2.002 |
+| L(37a1) | 2 | 5 | 0.3–2.6% | 2.001 |
+| L(Δ) | 2 | 5 | 0.0–0.6% | 2.001 |
+| sym²(11a1) | 3 | 5 | 0.6–3.3% | 2.001 |
+| sym²(37a1) | 3 | 5 | 0.2–2.0% | 1.999 |
+| sym³(11a1) | 4 | 5 | 0.5–4.0% | 2.002 |
+| **합계** | 1–4 | **45** | 0.0–4.0% | **2.001** |
+
+#### EN 변경 (extensions_master_en.tex)
+1. **Abstract bullet**: `25 zeros` → `45 zeros across nine L-functions` + `Table~\ref{tab:amplitude}` 참조 추가
+2. **cor:amplitude 수치 검증 단락**: 28줄 → 15줄 압축 (B-35+B-37 통합 서술)
+3. **tab:amplitude 신규 삽입**: 9행 × 5열 compact table (after 수치 검증 서술)
+4. **Out-of-sample 단락**: 11줄 → 5줄 압축 (25p 유지용)
+5. **Summary table #217**: "25 zeros, sym chain" → "45 zeros, 9 L-함수, B-35+B-37, Table~\ref{tab:amplitude}"
+
+#### KO 변경 (extensions_master_ko.tex)
+- EN과 동일 구조, 한국어 표현으로 변환
+- 표 캡션: "아홉 개 L-함수" 한국어 헤더
+
+#### 압축으로 절약된 공간
+- 수치 검증 단락: -13줄
+- Out-of-sample: -6줄
+- 테이블 추가: +22줄
+- 순증가: +3줄 → EN 25p 유지
+
+**컴파일 결과**:
+- EN: pdflatex 2패스 → 에러 0건, **25p** ✓
+- KO: xelatex 2패스 → 에러 0건, **23p** ✓
+
+**성공 기준 달성**:
+- [x] A 공식 검증 테이블 EN+KO 삽입 (`tab:amplitude`)
+- [x] EN ≤ 25p (정확히 25p)
+- [x] KO ≤ 24p (23p)
+- [x] Abstract/Intro 45 zeros, nine L-functions 갱신
+- [x] Summary Table #217 B-35+B-37 통합 서술 + Table 참조
+- [x] `.reflected` 파일 2개 생성:
+  - `results/A_formula_highdeg_b35.txt.reflected` ✓
+  - `results/A_formula_independent_b37.txt.reflected` ✓
+- [x] 컴파일 에러 0건
+
+**PDF 배포**:
+- paper/source/ ✓
+- paper/ ✓
+- ~/Desktop/수학최종논문/ ✓
+
+---
+
+## [아카이브] 보고 [2026-04-21 18:05] — 사이클 #236 — B-35 (#217) Paper 2 반영 완료
 
 **수학자 지시**: B-35 완료 대기 → 최종 판정 → Paper 2 A 공식 검증표 반영. EN ≤ 25p 유지. Summary table에 B-35 결과 행 추가.
 
