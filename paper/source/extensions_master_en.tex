@@ -234,16 +234,17 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         twenty-seven new results (\#107--\#117, \#125--\#127, \#200--\#215).
   \item \textbf{Slope Universality Theorem} (\S\ref{sec:modular},
         Theorem~\ref{thm:slopeuniv}):
-        For any self-dual completed $L$-function satisfying a functional
-        equation and reality condition, the log-log slope of
-        $\kappa\delta^{2}-1$ versus $\delta$ is \emph{exactly}~$2$---a
-        mathematical theorem, not merely a numerical observation.
-        The proof uses the Laurent expansion at a simple zero: the
-        functional equation forces $\operatorname{Re}(c_0)=0$,
+        For \emph{any} completed $L$-function satisfying a functional
+        equation and Schwarz reflection---including non-self-dual---the
+        log-log slope of $\kappa\delta^{2}-1$ versus $\delta$ is
+        \emph{exactly}~$2$: a mathematical theorem, not merely a numerical
+        observation.  The proof uses the Laurent expansion at a simple zero:
+        (FE)+(SR) force $\operatorname{Re}(c_0)=0$,
         killing the $\delta^1$ term.  The sub-leading amplitude
         $A=\operatorname{Im}(c_0)^2+2c_1$ is explicitly computable.
-        Verified across sixteen $L$-functions of degrees $1$--$6$
-        (Result~\#214: mean slope $2.0003\pm 0.0022$, $A$-error $0.5\%$).
+        Verified across sixteen self-dual plus three non-self-dual
+        $L$-functions (Results~\#214, B-34: $35$ zeros, mean slope
+        $2.0004\pm 0.0024$).
 \end{enumerate}
 
 \noindent\textbf{Notation.} We write $\rho = \sigma_{0}+it_{0}$ for a
@@ -1280,11 +1281,16 @@ one GL(5) $L$-function, and one GL(6) $L$-function.
 \label{thm:slopeuniv}
   Let $\Lambda(s)$ be a completed $L$-function satisfying:
   \begin{enumerate}
-    \item[\textup{(FE)}] $\Lambda(s) = \varepsilon\,\Lambda(k-s)$ for some
-          $k\in\mathbb{R}$, $|\varepsilon|=1$; and
-    \item[\textup{(RC)}] $\Lambda(\bar{s}) = \overline{\Lambda(s)}$
-          \textup{(}self-dual, i.e.\ $\varepsilon\in\{\pm 1\}$\textup{)}.
+    \item[\textup{(FE)}] $\Lambda(s) = \varepsilon\,\widetilde{\Lambda}(k-s)$ for some
+          $k\in\mathbb{R}$, $|\varepsilon|=1$, where $\widetilde{\Lambda}$
+          is the contragredient \textup{(}$\widetilde{\Lambda}=\Lambda$ in the
+          self-dual case\textup{)}; and
+    \item[\textup{(SR)}] $\widetilde{\Lambda}(\bar{s})
+          = \overline{\Lambda(s)}$
+          \textup{(}Schwarz reflection\textup{)}.
   \end{enumerate}
+  Both conditions hold for all automorphic $L$-functions; in particular,
+  self-duality is \emph{not} required.
   Let $\rho=\tfrac{k}{2}+i\gamma$ be a simple zero on the critical line.
   Write the Laurent expansion
   $\Lambda'/\Lambda(s) = (s-\rho)^{-1} + c_0 + c_1(s-\rho) + \cdots$.
@@ -1303,12 +1309,20 @@ one GL(5) $L$-function, and one GL(6) $L$-function.
 \begin{proof}
   At $s=\rho+\delta$ ($\delta\in\mathbb{R}$):
   $\Lambda'/\Lambda = 1/\delta + c_0 + c_1\delta + \cdots$.
-  From (FE), $\Lambda'/\Lambda(s)=-\Lambda'/\Lambda(k{-}s)$;
-  from (RC), $\Lambda'/\Lambda(\bar{z})=\overline{\Lambda'/\Lambda(z)}$.
-  Combining at $s=\rho+\delta$:
+  From~(FE), $\Lambda'/\Lambda(s)=-\widetilde{\Lambda}'/\widetilde{\Lambda}(k{-}s)$.
+  Now $k-s = \bar{\rho}-\delta$, and $\bar{\rho}$ is a zero of
+  $\widetilde{\Lambda}$ (by~(FE) applied at $s=\rho$), so
+  $\widetilde{\Lambda}'/\widetilde{\Lambda}(\bar{\rho}{-}\delta)
+  = -1/\delta + \tilde{c}_0 - \tilde{c}_1\delta + \cdots$.
+  From~(SR) with $s'=\rho-\delta$ (so $\bar{s}'=\bar{\rho}-\delta$):
+  $\widetilde{\Lambda}'/\widetilde{\Lambda}(\bar{\rho}{-}\delta)
+  = \overline{\Lambda'/\Lambda(\rho{-}\delta)}
+  = \overline{-1/\delta + c_0 - c_1\delta + \cdots}
+  = -1/\delta + \bar{c}_0 - \bar{c}_1\delta + \cdots$.
+  Substituting into~(FE):
   \[
     \tfrac{1}{\delta}+c_0+c_1\delta
-    = -\overline{\bigl(-\tfrac{1}{\delta}+c_0-c_1\delta\bigr)}
+    = -(-\tfrac{1}{\delta}+\bar{c}_0-\bar{c}_1\delta)
     = \tfrac{1}{\delta}-\bar{c}_0+\bar{c}_1\delta.
   \]
   Matching coefficients: $c_0=-\bar{c}_0$ (so $\operatorname{Re}(c_0)=0$)
@@ -1329,12 +1343,17 @@ one GL(5) $L$-function, and one GL(6) $L$-function.
   terms in $\Lambda'/\Lambda$).
 \end{corollary}
 
-\noindent\textit{Numerical verification} (Result~\#214):
+\noindent\textit{Numerical verification} (Results~\#214, B-34):
 $20$ zeros across four self-dual $L$-functions
 ($\zeta$, $L(s,\chi_{-3})$, $L(s,\chi_{-7})$, $L(s,\chi_{-11})$)
 yield $|\operatorname{Re}(c_0)|=0$ to machine precision ($150$-digit arithmetic),
 mean slope $2.0003\pm 0.0022$, and mean $A$-prediction error $0.5\%$
 (max $1.6\%$).
+Result~B-34 extends verification to $15$ zeros across three
+\emph{non-self-dual} complex characters ($\chi\bmod 5$ order~$4$,
+$\chi\bmod 7$ order~$6$, $\chi\bmod 13$ order~$12$), all yielding
+$|\operatorname{Re}(c_0)|=0$ and mean slope $2.0004\pm 0.0024$---confirming
+that the theorem's reach includes the non-self-dual case.
 The theorem subsumes the earlier Theorem~\ref{thm:rankinv} (which
 established $\kappa\delta^2=1+O(\delta^2)$ without the explicit $A$ formula)
 and upgrades the empirical observation of slope~$2$ in Table~\ref{tab:weightuniv}
@@ -1426,9 +1445,9 @@ characters (Result~\#213, slope $2.0002\pm 0.0001$), the slope equals
 $2.0\pm 0.008$ across sixteen data points spanning Selberg class degrees
 $\{1,2,3,4,5,6\}$ and six construction families.
 Theorem~\ref{thm:slopeuniv} proves this analytically: the functional
-equation and reality condition force $\operatorname{Re}(c_0)=0$ in the
+equation and Schwarz reflection force $\operatorname{Re}(c_0)=0$ in the
 Laurent expansion, killing the $\delta^1$ term and making slope~$2$ a
-mathematical necessity for all self-dual $L$-functions.
+mathematical necessity for \emph{all} $L$-functions (including non-self-dual).
 From the identity $c_{1}=\sum_{\gamma'\neq\gamma}(\gamma-\gamma')^{-2}$,
 the $2c_{1}$ term dominates the amplitude $A$ ($\approx 76\%$),
 with the remainder arising from local zero density via
@@ -1563,6 +1582,7 @@ Result & Section & Rating & Key finding \\
 \#213 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar$}    & Dirichlet $L(s,\chi_D)$, $D\in\{-3,-4,5,-7\}$; slope $\mathbf{2.0002\pm0.0001}$; 6th family (conductor independence) \\
 \#214 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar$}    & Slope Universality Theorem verified; 4 $L$-functions, 20 zeros; $\mathrm{Re}(c_0){=}0$, $\mathrm{Im}(c_1){=}0$; slope $2.0003{\pm}0.0022$; $A$-error $0.5\%$ \\
 \#215 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar$}           & $A(t_0)$ Hadamard decomposition; $H_1$ verified $0.7\%$; CV$=42\%$ intrinsic; $2H_1=76\%$ of $A$ \\
+B-34 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Non-self-dual verification: 3 complex $\chi$ (mod 5,7,13), 15 zeros; $\mathrm{Re}(c_0){=}0$; slope $2.0004{\pm}0.0024$; Thm strengthened: self-duality unnecessary \\
 \end{longtable}
 
 
