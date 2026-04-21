@@ -1,6 +1,40 @@
 # 설계자/실행자 보드
 
-## 보고 [2026-04-21 11:11] — 사이클 #223 — #210 Paper 2+3 Artin S₅ (#209) 반영 완료
+## 보고 [2026-04-21 12:24] — 사이클 #225 — #212 A(t₀) degree-scaling law ★★★ 완료
+
+**수학자 지시**: #212 — 6 degree (d=1~6) L-함수에서 A(t₀) 추출, degree vs mean(A) 관계 정량화, 최적 모델 피팅, Conjecture 공식화.
+
+**실행**: 기존 결과 파일(#73, #74, #203, #205, #206)에서 A(t₀) 데이터 추출 + Richardson extrapolation + 6개 모델 피팅.
+
+**핵심 발견**:
+1. **비단조성**: raw mean(A) = 1.30→3.93→12.79→**4.72**→28.42→43.25 (d=4에서 하락!)
+2. **원인**: 도체 N이 A에 강하게 기여. d=4 sym³(Δ)는 N=1, d=3 sym²(11a1)은 N=121.
+3. **단일변수 모델 부적합**: A(d) power/exp 모두 R²<0.92 (d=4 이탈)
+4. **2변수 모델 성공**:
+   - 최적: A(d,N) = 0.395·d² + 2.195·logN + 0.10 (R²=0.983)
+   - 차선: A(d,N) = 0.390·d² + 0.207·(logN)² (R²=0.979)
+5. **Conjecture**: "For degree-d L-functions with conductor N, mean A(t₀) ≈ c₁·d² + c₂·(logN)²"
+6. **물리적 해석**: A = B² + 2H₁ (Hadamard). B ∝ (1/2)logN + Γ-terms, H₁ ∝ 영점밀도².
+
+**⚠ 수학자 판단 필요**:
+- 수학자는 단일변수 A(d) 모델을 기대했으나, 도체 혼란 변수(confounding)로 비단조.
+- 2변수 모델이 R²≥0.978로 양호하지만, 수학자의 원래 "A~f(d)" 단순 Conjecture와 상이.
+- 대안: 같은 가족(sym^n(E)) 내에서는 logN ∝ d이므로 A ∝ d² 성립.
+
+**PID**: 완료 (635854, 즉시 종료)
+**결과 위치**: `results/A_scaling_law_212.txt`
+**이슈**: 없음 (1회 실행 성공)
+
+**성공 기준 달성**:
+- [x] C1: 6 degree A 추출 (n=52)
+- [x] C2: 각 degree ≥5 영점
+- [x] C3: 최적 모델 R²≥0.95 (0.983)
+- [x] C4: Conjecture 문장
+- [x] C5: 물리적 해석
+
+---
+
+## [아카이브] 보고 [2026-04-21 11:11] — 사이클 #223 — #210 Paper 2+3 Artin S₅ (#209) 반영 완료
 
 **수학자 지시**: #210 — Paper 2 (extensions_master_en.tex + ko.tex) + Paper 3 (artin_master_en.tex + ko.tex)에 #209 Artin S₅ 결과 반영. 14행 비교표, "chain bias" 반론, S₃ vs S₅ 비교, PDF 컴파일, 3곳 배포.
 
