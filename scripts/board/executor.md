@@ -1,5 +1,51 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-21 16:17] — 사이클 #234 — #216 Slope Universality Theorem 일반화 Paper 2 반영 완료
+
+**수학자 지시**: #216 — Slope Universality Theorem에서 "self-dual" 조건 제거. Schwarz reflection 기반 증명 일반화. 비교표에 χ₅, χ₇, χ₁₃ 비자기쌍대 행 추가. B-34 → #216 번호 부여.
+
+**실행**: extensions_master_en.tex + extensions_master_ko.tex 수정
+
+**주요 변경 내용 (EN+KO)**:
+
+1. **서론 (line 878 EN / 908 KO)**: "self-dual L-function" → "L-function satisfying FE and Schwarz reflection"
+2. **비교표 (tab:weightuniv)**: 3개 비자기쌍대 행 추가 (χ₅ mod 5 order 4: 2.0005±0.0022, χ₇ mod 7 order 6: 1.9997±0.0020, χ₁₃ mod 13 order 12: 2.0009±0.0035) → 16→19행
+3. **비교표 캡션**: "Sixteen" → "Nineteen", 비자기쌍대 설명 추��
+4. **데이터 점 카운트**: "sixteen data points" → "nineteen data points" (5곳 EN, 4곳 KO)
+5. **가족 카운트**: "six families" → "seven families" (EN+KO, Abstract/Discussion/Conclusion)
+6. **결과 카운트**: "twenty-seven" → "twenty-eight" (EN+KO)
+7. **결과 범위**: "#200--#215" → "#200--#216"
+8. **요약표**: B-34 → #216 (EN+KO), 25점(15 non-SD + 10 SD) 명시
+9. **요약표 제목**: "Twenty-Seven" → "Twenty-Eight" (EN), "스물세 개" → "스물여덟 개" (KO)
+10. **KO 동기화**: 여러 불일치 수정 (열다섯→열아홉, 스물일곱→스물여덟 등)
+
+**컴파일 결과**:
+- EN: pdflatex 2패스 → 에러 0건, **25p** (≤25p ✓)
+- KO: xelatex 2패스 → 에러 0건, **23p**
+
+**성공 기준 달성**:
+- [x] EN/KO LaTeX 컴파일 에러 0건
+- [x] Theorem에서 "self-dual" 조건 불필요 명시 (이미 반영됨, 서론 참조문 갱신)
+- [x] Schwarz reflection 기��� 증명 (이미 반영됨)
+- [x] 비교표에 χ₅, χ₇, χ₁₃ 포함 (19 data points, 7 families)
+- [x] Paper 2 EN ≤ 25p (정확히 25p)
+- [x] Summary table #216 행 존재
+- [x] .reflected에 nonselfdual_slope_b34.txt 등록
+
+**결과 위치**:
+- `paper/source/extensions_master_en.pdf` (25p)
+- `paper/source/extensions_master_ko.pdf` (23p)
+- `paper/extensions_master_en.pdf` (배포)
+- `paper/extensions_master_ko.pdf` (배포)
+- `~/Desktop/수학최종논문/` (배포)
+
+**이슈**:
+- EN 25p 유지 — 비교표 4행 추가에도 불구하고 25p 유지 성공
+- 수학자 "16→25점" 지시: 25는 B-34의 25개 영점(15 non-SD + 10 SD)을 의미하는 것으로 해석. 비교표는 L-함수 유형별 1행이므로 19행(16+3)으로 구성
+- KO 요약표 캡션이 "#200--#210"으로 뒤처져 있었음 → "#200--#216"으로 갱신
+
+---
+
 ## 보고 [2026-04-21 14:51] — 사이클 #230 — Slope Universality Theorem Paper 2 반영 완료
 
 **수학자 지시**: #214 Slope Universality Theorem → Paper 2 EN+KO 반영. Observation→Theorem 승격, #214/#215 Summary 추가, 25p 유지.

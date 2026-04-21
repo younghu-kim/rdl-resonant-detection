@@ -163,12 +163,12 @@ symmetric-power chain.  Result~\#210 provides the first
 \emph{tensor-product} verification: the Rankin--Selberg convolution
 $L(s, \text{11a1}\times\text{37a1})$ yields slope $1.9960\pm 0.0072$,
 establishing a fourth independent degree-4 construction.
-Together, sixteen data points spanning
-degrees~$1$--$6$ and six distinct families (Table~\ref{tab:weightuniv})
+Together, nineteen data points spanning
+degrees~$1$--$6$ and seven distinct families (Table~\ref{tab:weightuniv})
 establish Selberg class universality.
 
 \smallskip
-\noindent Twenty-seven numerical results support the framework's universality
+\noindent Twenty-eight numerical results support the framework's universality
 and the discriminator theorem.
 \end{tcolorbox}
 
@@ -231,7 +231,7 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         if $\sigma_{0}=\tfrac{1}{2}$, where $c_{1}$ is the leading
         off-critical Taylor coefficient of $\kappa\delta^{2}$.
   \item A \textbf{Summary Table} (Table~\ref{tab:summary}) collects all
-        twenty-seven new results (\#107--\#117, \#125--\#127, \#200--\#215).
+        twenty-eight new results (\#107--\#117, \#125--\#127, \#200--\#216).
   \item \textbf{Slope Universality Theorem} (\S\ref{sec:modular},
         Theorem~\ref{thm:slopeuniv}):
         For \emph{any} completed $L$-function satisfying a functional
@@ -243,7 +243,7 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         killing the $\delta^1$ term.  The sub-leading amplitude
         $A=\operatorname{Im}(c_0)^2+2c_1$ is explicitly computable.
         Verified across sixteen self-dual plus three non-self-dual
-        $L$-functions (Results~\#214, B-34: $35$ zeros, mean slope
+        $L$-functions (Results~\#214, \#216: $35$ zeros, mean slope
         $2.0004\pm 0.0024$).
 \end{enumerate}
 
@@ -875,7 +875,7 @@ consistent with the leading asymptotics $c_{1}\sim d^{-1}$ as $d\to 0$
 
 Theorem~\ref{thm:slopeuniv} (\S\ref{ssec:weightinv}) proves that the
 log-log slope of $\kappa\delta^{2}-1$ versus $\delta$ equals exactly~$2$
-for any self-dual $L$-function with a functional equation.
+for any $L$-function satisfying a functional equation and Schwarz reflection.
 We now verify whether this slope is invariant under the modular weight~$k$
 (\S\ref{ssec:delta12}--\S\ref{ssec:w20})
 and under passage from holomorphic to non-holomorphic forms
@@ -1212,12 +1212,13 @@ weights, spectral parameters, and Selberg class degrees tested to date.
 \begin{table}[ht]
 \centering
 \caption{Weight, spectral, degree, and family invariance of the $\kappa\delta^{2}$
-  log-log slope.  Sixteen data points spanning degrees $1$--$6$, weights
+  log-log slope.  Nineteen data points spanning degrees $1$--$6$, weights
   $k\in\{0,1,2,12,16,20\}$, Maass spectral parameters $R=9.53,13.78$,
   symmetric powers $\mathrm{sym}^{2}$--$\mathrm{sym}^{5}$,
   two Artin $L$-functions ($S_3$, $S_5$), one Rankin--Selberg
-  convolution ($\text{11a1}\times\text{37a1}$), and one Dirichlet
-  $L$-function ($\chi_{-7}$, conductor~$7$).
+  convolution ($\text{11a1}\times\text{37a1}$), one self-dual Dirichlet
+  $L$-function ($\chi_{-7}$), and three \emph{non-self-dual}
+  complex characters ($\chi\bmod 5,7,13$; Result~\#216).
   All $\sigma$-direction measurements use the multi-$\delta$ log-log protocol.}
 \label{tab:weightuniv}
 \small
@@ -1241,6 +1242,11 @@ Artin $S_5$ & $\rho_4$ (\#209) & $\mathrm{GL}(4)$ & $\tfrac{1}{2}$ & $\mathbf{1.
 R-S & $\text{11a1}\times\text{37a1}$ (\#210) & $\mathrm{GL}(4)$ & $1$ & $\mathbf{1.9960}$ & $\mathbf{0.0072}$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{4}$ & $\mathrm{sym}^{4}(\text{11a1})$ & $\mathrm{GL}(5)$ & $\tfrac{5}{2}$ & $\mathbf{1.9999}$ & $\mathbf{0.0004}$ & $\bigstar\bigstar\bigstar$ \\
 $\mathrm{sym}^{5}$ & $\mathrm{sym}^{5}(\text{11a1})$ & $\mathrm{GL}(6)$ & $3$ & $\mathbf{1.9980}$ & $\mathbf{0.0036}$ & $\bigstar\bigstar\bigstar$ \\
+\midrule
+\multicolumn{7}{l}{\textit{Non-self-dual complex characters (Result~\#216)}} \\
+$\chi_{5}$ & $\chi\bmod 5$ order~4 & $\mathrm{GL}(1)$ & $\tfrac{1}{2}$ & $\mathbf{2.0005}$ & $\mathbf{0.0022}$ & $\bigstar\bigstar\bigstar\bigstar$ \\
+$\chi_{7}$ & $\chi\bmod 7$ order~6 & $\mathrm{GL}(1)$ & $\tfrac{1}{2}$ & $\mathbf{1.9997}$ & $\mathbf{0.0020}$ & $\bigstar\bigstar\bigstar\bigstar$ \\
+$\chi_{13}$ & $\chi\bmod 13$ order~12 & $\mathrm{GL}(1)$ & $\tfrac{1}{2}$ & $\mathbf{2.0009}$ & $\mathbf{0.0035}$ & $\bigstar\bigstar\bigstar\bigstar$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1270,9 +1276,10 @@ non-trivial $L$-functions (degree~$1$, $N>1$) satisfy the universal law,
 and that conductor alone does not perturb the slope.
 Combined with the $k=0$ (Riemann $\zeta$)
 and $k=2$ (EC 11a1) results from Paper~1, the slope equals
-$2.0\pm 0.008$ across sixteen data points spanning Selberg class degrees
+$2.0\pm 0.008$ across nineteen data points spanning Selberg class degrees
 $\{1,2,3,4,5,6\}$, holomorphic weights $k\in\{0,1,2,12,16,20\}$, two
-non-holomorphic Maass forms, four Dirichlet $L$-functions,
+non-holomorphic Maass forms, four self-dual Dirichlet $L$-functions,
+three non-self-dual complex characters,
 four independent GL(4) $L$-functions
 (two symmetric powers, one Artin, and one Rankin--Selberg),
 one GL(5) $L$-function, and one GL(6) $L$-function.
@@ -1343,13 +1350,13 @@ one GL(5) $L$-function, and one GL(6) $L$-function.
   terms in $\Lambda'/\Lambda$).
 \end{corollary}
 
-\noindent\textit{Numerical verification} (Results~\#214, B-34):
+\noindent\textit{Numerical verification} (Results~\#214, \#216):
 $20$ zeros across four self-dual $L$-functions
 ($\zeta$, $L(s,\chi_{-3})$, $L(s,\chi_{-7})$, $L(s,\chi_{-11})$)
 yield $|\operatorname{Re}(c_0)|=0$ to machine precision ($150$-digit arithmetic),
 mean slope $2.0003\pm 0.0022$, and mean $A$-prediction error $0.5\%$
 (max $1.6\%$).
-Result~B-34 extends verification to $15$ zeros across three
+Result~\#216 extends verification to $15$ zeros across three
 \emph{non-self-dual} complex characters ($\chi\bmod 5$ order~$4$,
 $\chi\bmod 7$ order~$6$, $\chi\bmod 13$ order~$12$), all yielding
 $|\operatorname{Re}(c_0)|=0$ and mean slope $2.0004\pm 0.0024$---confirming
@@ -1358,9 +1365,10 @@ The theorem subsumes the earlier Theorem~\ref{thm:rankinv} (which
 established $\kappa\delta^2=1+O(\delta^2)$ without the explicit $A$ formula)
 and upgrades the empirical observation of slope~$2$ in Table~\ref{tab:weightuniv}
 from a numerical regularity to a mathematical theorem.
-Sixteen data points spanning Selberg class degrees $\{1,2,3,4,5,6\}$,
+Nineteen data points spanning Selberg class degrees $\{1,2,3,4,5,6\}$,
 holomorphic weights $k\in\{0,1,2,12,16,20\}$, two Maass forms,
-four Dirichlet $L$-functions, four independent GL(4) constructions
+four self-dual Dirichlet $L$-functions, three non-self-dual complex characters,
+four independent GL(4) constructions
 (symmetric powers, Artin, Rankin--Selberg), and one GL(6) $L$-function
 all confirm the predicted slope~$2$ to within $\pm 0.008$,
 establishing \emph{construction universality}.
@@ -1442,8 +1450,8 @@ $2.0000\pm 0.0001$.  Combined with the $k=0,2$ results from Paper~1,
 the Artin result ($k=1$, Paper~3), the Rankin--Selberg tensor product
 (Result~\#210, slope $1.9960\pm 0.0072$), and four primitive Dirichlet
 characters (Result~\#213, slope $2.0002\pm 0.0001$), the slope equals
-$2.0\pm 0.008$ across sixteen data points spanning Selberg class degrees
-$\{1,2,3,4,5,6\}$ and six construction families.
+$2.0\pm 0.008$ across nineteen data points spanning Selberg class degrees
+$\{1,2,3,4,5,6\}$ and seven construction families.
 Theorem~\ref{thm:slopeuniv} proves this analytically: the functional
 equation and Schwarz reflection force $\operatorname{Re}(c_0)=0$ in the
 Laurent expansion, killing the $\delta^1$ term and making slope~$2$ a
@@ -1519,8 +1527,9 @@ Artin $L$-function (standard representation of~$S_5$, slope
 $1.9999\pm 0.0003$); and Result~\#210 adds the Rankin--Selberg
 tensor product $L(s,\text{11a1}\times\text{37a1})$ (slope
 $1.9960\pm 0.0072$), confirming Theorem~\ref{thm:slopeuniv} across Selberg class
-degrees $\{1,2,3,4,5,6\}$ with sixteen independent data points from
-six distinct families (Dirichlet, symmetric powers, Artin, Rankin--Selberg,
+degrees $\{1,2,3,4,5,6\}$ with nineteen independent data points from
+seven distinct families (self-dual Dirichlet, non-self-dual complex characters,
+symmetric powers, Artin, Rankin--Selberg,
 holomorphic cusp forms, and Maass forms).
 
 Together, Theorems~5--8 form a coherent picture:
@@ -1537,11 +1546,11 @@ equation.
 % ============================================================================
 \appendix
 
-\section{Summary Table: All Twenty-Seven Results}
+\section{Summary Table: All Twenty-Eight Results}
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#215 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#216 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1582,7 +1591,7 @@ Result & Section & Rating & Key finding \\
 \#213 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar$}    & Dirichlet $L(s,\chi_D)$, $D\in\{-3,-4,5,-7\}$; slope $\mathbf{2.0002\pm0.0001}$; 6th family (conductor independence) \\
 \#214 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar$}    & Slope Universality Theorem verified; 4 $L$-functions, 20 zeros; $\mathrm{Re}(c_0){=}0$, $\mathrm{Im}(c_1){=}0$; slope $2.0003{\pm}0.0022$; $A$-error $0.5\%$ \\
 \#215 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar$}           & $A(t_0)$ Hadamard decomposition; $H_1$ verified $0.7\%$; CV$=42\%$ intrinsic; $2H_1=76\%$ of $A$ \\
-B-34 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Non-self-dual verification: 3 complex $\chi$ (mod 5,7,13), 15 zeros; $\mathrm{Re}(c_0){=}0$; slope $2.0004{\pm}0.0024$; Thm strengthened: self-duality unnecessary \\
+\#216 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Non-self-dual verification: 3 complex $\chi$ (mod 5,7,13), 15 zeros, 10 self-dual controls; $\mathrm{Re}(c_0){=}0$ (all 25); slope $2.0004{\pm}0.0024$; Thm generalised: self-duality unnecessary \\
 \end{longtable}
 
 
