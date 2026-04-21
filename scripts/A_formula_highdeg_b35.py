@@ -114,6 +114,9 @@ LFUNCS = [
 C0_DELTAS = np.array([0.001, 0.002, 0.003, 0.005, 0.007, 0.01])
 SLOPE_DELTAS = np.array([0.01, 0.015, 0.02, 0.03, 0.05, 0.08, 0.1, 0.15, 0.2])
 
+# 현재 L-함수의 임계선 중심 (L[4]/2로 결정)
+SIGMA_C = 0.5  # 기본값, L-함수별 갱신
+
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 핵심 함수
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -127,22 +130,22 @@ def get_log_deriv(sigma, t0):
     return complex(float(gp("real(r_val)")), float(gp("imag(r_val)")))
 
 def extract_c0_symmetric(t0):
-    """c₀ 추출 — (f(½+δ) + f(½-δ))/2 ≈ c₀ + O(δ²)"""
+    """c₀ 추출 — (f(σ_c+δ) + f(σ_c-δ))/2 ≈ c₀ + O(δ²)"""
     c0_estimates = []
     for d in C0_DELTAS:
-        f_plus = get_log_deriv(0.5 + d, t0)
-        f_minus = get_log_deriv(0.5 - d, t0)
+        f_plus = get_log_deriv(SIGMA_C + d, t0)
+        f_minus = get_log_deriv(SIGMA_C - d, t0)
         c0_est = (f_plus + f_minus) / 2.0
         c0_estimates.append(c0_est)
     c0_val = np.mean(c0_estimates[:3])
     return c0_val
 
 def extract_c1_symmetric(t0):
-    """c₁ 추출 — [(f(½+δ) - f(½-δ))/2 - 1/δ] / δ ≈ c₁ + O(δ²)"""
+    """c₁ 추출 — [(f(σ_c+δ) - f(σ_c-δ))/2 - 1/δ] / δ ≈ c₁ + O(δ²)"""
     c1_estimates = []
     for d in C0_DELTAS:
-        f_plus = get_log_deriv(0.5 + d, t0)
-        f_minus = get_log_deriv(0.5 - d, t0)
+        f_plus = get_log_deriv(SIGMA_C + d, t0)
+        f_minus = get_log_deriv(SIGMA_C - d, t0)
         antisym = (f_plus - f_minus) / 2.0
         c1_est = (antisym - 1.0/d) / d
         c1_estimates.append(c1_est)
@@ -153,7 +156,7 @@ def measure_slope(t0):
     """κδ² log-log slope 측정 + A_meas"""
     kd2_vals = []
     for d in SLOPE_DELTAS:
-        ratio = get_log_deriv(0.5 + d, t0)
+        ratio = get_log_deriv(SIGMA_C + d, t0)
         kappa = abs(ratio)**2
         kd2_vals.append(kappa * d**2)
 
@@ -192,7 +195,11 @@ for lf in LFUNCS:
         setup_cmd = lf['setup'].strip().replace('\n', '; ')
         gp(setup_cmd)
 
-        # FE 검증
+        # 임계선 중심 추출: k = Lcur[4], σ_c = k/2
+        k_val = float(str(gp("Lcur[4]")))
+        SIGMA_C = k_val / 2.0
+        log(f"  k = {k_val}, σ_c = {SIGMA_C}")
+
         # 영점 탐색
         gp(f"zeros = lfunzeros(Lcur, {lf['t_max']:.1f})")
         n_zeros_found = int(gp("length(zeros)"))

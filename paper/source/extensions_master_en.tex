@@ -168,7 +168,7 @@ degrees~$1$--$6$ and seven distinct families (Table~\ref{tab:weightuniv})
 establish Selberg class universality.
 
 \smallskip
-\noindent Twenty-eight numerical results support the framework's universality
+\noindent Twenty-nine numerical results support the framework's universality
 and the discriminator theorem.
 \end{tcolorbox}
 
@@ -231,7 +231,7 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         if $\sigma_{0}=\tfrac{1}{2}$, where $c_{1}$ is the leading
         off-critical Taylor coefficient of $\kappa\delta^{2}$.
   \item A \textbf{Summary Table} (Table~\ref{tab:summary}) collects all
-        twenty-eight new results (\#107--\#117, \#125--\#127, \#200--\#216).
+        twenty-nine new results (\#107--\#117, \#125--\#127, \#200--\#217).
   \item \textbf{Slope Universality Theorem} (\S\ref{sec:modular},
         Theorem~\ref{thm:slopeuniv}):
         For \emph{any} completed $L$-function satisfying a functional
@@ -244,7 +244,9 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
         $A=\operatorname{Im}(c_0)^2+2c_1$ is explicitly computable.
         Verified across sixteen self-dual plus three non-self-dual
         $L$-functions (Results~\#214, \#216: $35$ zeros, mean slope
-        $2.0004\pm 0.0024$).
+        $2.0004\pm 0.0024$); Result~\#217 further validates
+        $A=\operatorname{Im}(c_0)^2+2c_1$ across degrees~$1$--$4$
+        ($25$ zeros, $A$-error $0.1\%$--$4.0\%$).
 \end{enumerate}
 
 \noindent\textbf{Notation.} We write $\rho = \sigma_{0}+it_{0}$ for a
@@ -1350,7 +1352,7 @@ one GL(5) $L$-function, and one GL(6) $L$-function.
   terms in $\Lambda'/\Lambda$).
 \end{corollary}
 
-\noindent\textit{Numerical verification} (Results~\#214, \#216):
+\noindent\textit{Numerical verification} (Results~\#214, \#216, \#217):
 $20$ zeros across four self-dual $L$-functions
 ($\zeta$, $L(s,\chi_{-3})$, $L(s,\chi_{-7})$, $L(s,\chi_{-11})$)
 yield $|\operatorname{Re}(c_0)|=0$ to machine precision ($150$-digit arithmetic),
@@ -1361,6 +1363,12 @@ Result~\#216 extends verification to $15$ zeros across three
 $\chi\bmod 7$ order~$6$, $\chi\bmod 13$ order~$12$), all yielding
 $|\operatorname{Re}(c_0)|=0$ and mean slope $2.0004\pm 0.0024$---confirming
 that the theorem's reach includes the non-self-dual case.
+Result~\#217 (B-35) extends the $A$-formula check \emph{across the degree hierarchy}:
+$25$ zeros spanning $\mathrm{GL}(1)$--$\mathrm{GL}(4)$
+($\zeta$, 11a1, 37a1, sym$^2$(11a1), sym$^3$(11a1))
+yield $|\operatorname{Re}(c_0)|<3\!\times\!10^{-11}$,
+slopes $1.992$--$2.010$, and $A$-prediction error $0.1\%$--$4.0\%$
+(error increasing with degree, consistent with $O(\delta^3)$ corrections).
 The theorem subsumes the earlier Theorem~\ref{thm:rankinv} (which
 established $\kappa\delta^2=1+O(\delta^2)$ without the explicit $A$ formula)
 and upgrades the empirical observation of slope~$2$ in Table~\ref{tab:weightuniv}
@@ -1546,11 +1554,11 @@ equation.
 % ============================================================================
 \appendix
 
-\section{Summary Table: All Twenty-Eight Results}
+\section{Summary Table: All Twenty-Nine Results}
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#216 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#217 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1592,6 +1600,7 @@ Result & Section & Rating & Key finding \\
 \#214 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar$}    & Slope Universality Theorem verified; 4 $L$-functions, 20 zeros; $\mathrm{Re}(c_0){=}0$, $\mathrm{Im}(c_1){=}0$; slope $2.0003{\pm}0.0022$; $A$-error $0.5\%$ \\
 \#215 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar$}           & $A(t_0)$ Hadamard decomposition; $H_1$ verified $0.7\%$; CV$=42\%$ intrinsic; $2H_1=76\%$ of $A$ \\
 \#216 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Non-self-dual verification: 3 complex $\chi$ (mod 5,7,13), 15 zeros, 10 self-dual controls; $\mathrm{Re}(c_0){=}0$ (all 25); slope $2.0004{\pm}0.0024$; Thm generalised: self-duality unnecessary \\
+\#217 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A=\operatorname{Im}(c_0)^2{+}2c_1$ degree-universal: 25 zeros, degrees 1--4 ($\zeta$, 11a1, 37a1, sym$^2$, sym$^3$); $|\operatorname{Re}(c_0)|{<}3{\times}10^{-11}$; slope $1.992$--$2.010$; $A$-error $0.1\%$--$4.0\%$ \\
 \end{longtable}
 
 
