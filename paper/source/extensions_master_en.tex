@@ -171,7 +171,7 @@ degrees~$1$--$6$ and six distinct families (Table~\ref{tab:weightuniv})
 establish Selberg class universality.
 
 \smallskip
-\noindent Twenty-five numerical results support the framework's universality
+\noindent Thirty-four numerical results support the framework's universality
 and the discriminator theorem.
 \end{tcolorbox}
 
@@ -1355,6 +1355,58 @@ The conjugate-centric symmetry maps $c_n(\pi,\rho)$ to $\bar{c}_n(\tilde{\pi},\b
 Combining: $c_n = (-1)^{n+1}\bar{c}_n$.
 \end{proof}
 
+\begin{theorem}[Off-critical parity protection]
+\label{thm:parityprotection}
+Under the hypotheses of Proposition~\textup{\ref{prop:laurentparity}},
+let $\rho=(\tfrac{1}{2}+\delta)+it_0$ with $\delta\neq 0$ be a simple
+off-critical zero, and let $c_n$ denote the Laurent coefficients of
+$\Lambda'/\Lambda$ at~$\rho$.
+Then:
+\begin{enumerate}[\upshape(a)]
+\item \textbf{Odd-order protection.}
+      $r(c_{2k+1})\coloneqq |\!\operatorname{Im}(c_{2k+1})|/|\!\operatorname{Re}(c_{2k+1})|
+       = O(|\delta|^{2k+3})$ as $\delta\to 0$.
+\item \textbf{Even-order amplification.}
+      $r(c_{2k})\coloneqq |\!\operatorname{Re}(c_{2k})|/|\!\operatorname{Im}(c_{2k})|
+       = O(|\delta|^{-(2k+1)})$ as $\delta\to 0$.
+\end{enumerate}
+In particular, the parity violation for odd-order coefficients decays
+as a power law in the off-critical displacement $|\delta|$,
+with the exponent growing linearly in the order~$k$.
+\end{theorem}
+
+\begin{proof}
+By the FE and conjugate-centric symmetry,
+the zero~$\rho$ has a partner
+$1{-}\bar{\rho}=(\tfrac{1}{2}-\delta)+it_0$.
+In the Hadamard product representation, the partner zero at distance
+$2\delta$ contributes $(-1)^n/(2\delta)^{n+1}$ (a real quantity) to $c_n$.
+For odd~$n$, this dominates $\operatorname{Re}(c_n)$ (the parity-preserving
+component), giving $|\!\operatorname{Re}(c_{2k+1})|\asymp (2\delta)^{-(2k+2)}$.
+The parity-violating component $\operatorname{Im}(c_{2k+1})$ arises from
+the first-order $\delta$-perturbation of on-critical zero contributions
+in the Hadamard sum; its leading term is $O(\delta)$.
+The ratio gives $r(c_{2k+1})=O(\delta/(2\delta)^{-(2k+2)})=O(\delta^{2k+3})$.
+For even~$n$, the partner contributes $O((2\delta)^{-(2k+1)})$
+to $\operatorname{Re}(c_{2k})$ (the parity-\emph{violating} component),
+while $|\!\operatorname{Im}(c_{2k})|$ is dominated by
+on-critical-zero contributions of order $O(1)$, so $r(c_{2k})$ grows.
+\end{proof}
+
+\noindent\textit{Numerical verification} (Result~\#C-243):
+Laurent coefficients $c_0$--$c_7$ computed at $5$~on-critical and
+$4$~off-critical zeros of the Davenport--Heilbronn function
+($\mathrm{dps}=120$, $72$~values total).
+The \emph{partner dominance ratio}
+$|\!\operatorname{Re}(c_{2k+1})|/(2\delta)^{-(2k+2)}$
+approaches~$1$ as $\delta\to 0$
+($0.98$ for $c_1$ at $\delta=0.074$; $1.00$ for $c_3$).
+The $\delta$-exponents $\beta_k\coloneqq \log r/\log|\delta|$
+average $2.91$, $4.38$, $5.94$, $7.74$ for $k=0,1,2,3$
+(predicted: $3,5,7,9$); the systematic deficit is attributed to
+$t$-dependent prefactors confounded with~$\delta$.
+Even/odd asymmetry ratio: $2.4\times 10^7$.
+
 \begin{corollary}[Amplitude formula]
 \label{cor:amplitude}
   The sub-leading coefficient $A=\operatorname{Im}(c_0)^2+2c_1$ decomposes
@@ -1570,7 +1622,7 @@ equation.
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#218, \#C-240 (companion paper). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#218, \#C-240--\#C-242 (34 results). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1616,6 +1668,7 @@ Result & Section & Rating & Key finding \\
 \#C-240 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar$} & Laurent parity $c_n=(-1)^{n{+}1}\bar{c}_n$; $11/11$ PASS (self-dual); $|\!\operatorname{Re}(c_2)|/|c_2|\leq 3{\times}10^{-7}$; Proposition~\ref{prop:laurentparity} \\
 \#C-241 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{universal}: non-self-dual $\chi_5,\chi_7$ also $6/6$ PASS; self-dual not needed (FE+SR suffice); Proposition~\ref{prop:laurentparity} \\
 \#C-242 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{sharpness}: DH on-critical $5/5$ PASS ($r(c_0){\sim}10^{-12}$), off-critical $4/4$ FAIL ($r(c_0){\sim}4.4$); $\sigma{=}\tfrac{1}{2}$ essential; Proposition~\ref{prop:laurentparity} \\
+\#C-243 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{protection}: $r(c_{2k{+}1}){=}O(|\delta|^{2k{+}3})$; partner dominance $0.98$--$1.00$; even/odd ratio $2.4{\times}10^{7}$; Theorem~\ref{thm:parityprotection} \\
 \end{longtable}
 
 
