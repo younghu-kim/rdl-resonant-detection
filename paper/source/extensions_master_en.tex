@@ -18,6 +18,7 @@
 % ── Mathematics ─────────────────────────────────────────────────────────────
 \usepackage{amsmath, amssymb, amsthm, mathtools}
 \usepackage{bm}
+\usepackage{enumitem}
 
 % ── Tables ──────────────────────────────────────────────────────────────────
 \usepackage{booktabs}
@@ -78,7 +79,6 @@
 \newcommand{\EC}{\mathrm{EC}}         % Elliptic Curve
 \newcommand{\RS}{\mathrm{RS}}         % Rankin-Selberg
 \newcommand{\Ep}{\mathrm{Ep}}         % Epstein
-\newcommand{\defeq}{\coloneqq}        % definitional equality
 
 % ── Box Style ──────────────────────────────────────────────────────────────
 \usepackage{tcolorbox}
@@ -1363,7 +1363,7 @@ let $\rho=(\tfrac{1}{2}+\delta)+it_0$ with $\delta\neq 0$ be a simple
 off-critical zero, and let $c_n$ denote the Laurent coefficients of
 $\Lambda'/\Lambda$ at~$\rho$.
 Then:
-\begin{enumerate}[\upshape(a)]
+\begin{enumerate}[label=\upshape(\alph*)]
 \item \textbf{Odd-order protection.}
       $r(c_{2k+1})\coloneqq |\!\operatorname{Im}(c_{2k+1})|/|\!\operatorname{Re}(c_{2k+1})|
        = O(|\delta|^{2k+3})$ as $\delta\to 0$.
@@ -1451,7 +1451,7 @@ establishing \emph{construction universality}.
 
 \paragraph{Amplitude scaling: the sub-leading coefficient $A(t_{0})$.}
 While the slope is a universal constant ($=2$), the amplitude
-$A(t_{0}) \;\defeq\; \kappa(\sigma_{\mathrm{crit}}+\delta,\,t_{0}) - 1/\delta^{2}$
+$A(t_{0}) \;\coloneqq\; \kappa(\sigma_{\mathrm{crit}}+\delta,\,t_{0}) - 1/\delta^{2}$
 at small $\delta$ varies across zeros and $L$-functions.
 Extracting $A$ at $\delta=0.01$ from $52$ zeros across degrees $1$--$6$
 (Result~\#212) reveals a two-variable dependence:

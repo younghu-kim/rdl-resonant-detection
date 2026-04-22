@@ -20,6 +20,7 @@
 % ── Mathematics ─────────────────────────────────────────────────────────────
 \usepackage{amsmath, amssymb, amsthm, mathtools}
 \usepackage{bm}
+\usepackage{enumitem}
 
 % ── Tables ──────────────────────────────────────────────────────────────────
 \usepackage{booktabs}
@@ -101,7 +102,6 @@
 \newcommand{\EC}{\mathrm{EC}}         % 타원곡선
 \newcommand{\RS}{\mathrm{RS}}         % 랭킨-셀베르그
 \newcommand{\Ep}{\mathrm{Ep}}         % 엡스타인
-\newcommand{\defeq}{\coloneqq}        % 정의 동치
 
 % ── Box Style ──────────────────────────────────────────────────────────────
 \usepackage{tcolorbox}
@@ -1352,7 +1352,7 @@ $|\!\operatorname{Re}(c_0)|/|\!\operatorname{Im}(c_0)|\sim 2$--$7$인
 명제~\textup{\ref{prop:laurentparity}}의 가정 하에서,
 $\rho=(\tfrac{1}{2}+\delta)+it_0$ ($\delta\neq 0$)이 단순 off-critical 영점이고
 $c_n$이 $\Lambda'/\Lambda$의 $\rho$에서의 로랑 계수일 때:
-\begin{enumerate}[\upshape(a)]
+\begin{enumerate}[label=\upshape(\alph*)]
 \item \textbf{홀수차 보호.}
       $r(c_{2k+1})\coloneqq |\!\operatorname{Im}(c_{2k+1})|/|\!\operatorname{Re}(c_{2k+1})|
        = O(|\delta|^{2k+3})$ ($\delta\to 0$).
@@ -1421,7 +1421,7 @@ $\kappa\delta^2=1+O(\delta^2)$를 확립)를 포괄하며,
 
 \paragraph{진폭 스케일링: 차선도 계수 $A(t_{0})$.}
 기울기는 보편 상수($=2$)이지만, 진폭
-$A(t_{0}) \;\defeq\; \kappa(\sigma_{\mathrm{crit}}+\delta,\,t_{0}) - 1/\delta^{2}$은
+$A(t_{0}) \;\coloneqq\; \kappa(\sigma_{\mathrm{crit}}+\delta,\,t_{0}) - 1/\delta^{2}$은
 $\delta\to 0$에서 영점과 $L$-함수에 따라 달라진다.
 $\delta=0.01$에서 차수 $1$--$6$에 걸친 $52$개 영점으로부터 $A$를 추출하면
 (결과~\#212), 2변수 의존성이 관찰된다:
