@@ -1501,6 +1501,58 @@ mean error $1.3\%$, max $4.0\%$]}
 
 
 % ============================================================================
+\subsection{Laurent Amplitude and Zero-Gap Statistics (Result~\#219)}
+\label{ssec:agap}
+% ============================================================================
+
+The Laurent amplitude $A(\gamma)=\operatorname{Im}(c_0)^2+2\operatorname{Re}(c_1)$
+encodes non-trivial information about the local zero spacing.
+For the first $200$ zeros of $\zeta(s)$ ($t\in[14.1,\,396.4]$), we compute
+$c_0,\,c_1$ via Cauchy integration (\texttt{dps}$=60$, 128-point contour)
+and measure Spearman correlations with the right gap
+$g_{\mathrm{R}}=\gamma_{n+1}-\gamma_n$, the left gap
+$g_{\mathrm{L}}=\gamma_n-\gamma_{n-1}$, and the minimum gap
+$g_{\min}=\min(g_{\mathrm{R}},g_{\mathrm{L}})$.
+
+\paragraph{Gap correlation (GUE-normalised).}
+Because both $A(\gamma)$ and $g_{\mathrm{R}}(\gamma)$ trend with $t$
+(via logarithmic density growth), we normalise gaps to the GUE mean
+spacing $\bar\Delta(t)=2\pi/\log(t/2\pi)$ before computing correlations.
+The GUE-normalised Spearman correlation is
+\begin{equation}\label{eq:Agap}
+  \rho\bigl(A,\, g_{\min}^{\mathrm{GUE}}\bigr)
+  = -0.62 \quad (p = 1.7\times 10^{-22},\; N=200).
+\end{equation}
+The raw (unnormalised) correlation is $-0.85$, of which approximately
+$25\%$ is attributable to the shared $t$-trend; the GUE-normalised
+value~\eqref{eq:Agap} isolates the intrinsic spectral effect.
+
+\paragraph{Directional asymmetry.}
+The right-gap correlation $\rho(A,g_{\mathrm{R}})=-0.81$ is $4.4$ times
+stronger than $\rho(A,g_{\mathrm{L}})=-0.18$; after GUE normalisation
+the left gap becomes non-significant ($p=0.21$).
+In the Hadamard product, the dominant nearest-neighbour contribution to
+$\operatorname{Im}(c_0)$ is $\operatorname{Im}(c_0)_{\mathrm{NN}}
+= 1/g_{\mathrm{R}}-1/g_{\mathrm{L}}$, and the sign structure of this
+expression naturally favours the right gap.  A full mechanistic
+explanation of the asymmetry remains open.
+
+\paragraph{Adjacent pair correlation.}
+Consecutive amplitudes satisfy
+$\rho(A_n,A_{n+1})=+0.40$ ($p=4.4\times 10^{-9}$), indicating positive
+short-range correlation beyond the shared $t$-trend.  This is consistent
+with the nearest-neighbour sharing effect (two consecutive amplitudes
+both depend on their common gap) but may also contain a non-trivial
+component from the background $c_1$ coefficient (see below).
+
+\textcolor{ForestGreen}{[Result \#219, confirmed 2026-04-24;
+200 zeros of $\zeta$; $A(\gamma)$ vs gap Spearman correlation;
+GUE-normalised $\rho=-0.62$ ($p=10^{-22}$); right/left asymmetry $4.4{\times}$;
+pair $\rho=+0.40$ ($p=10^{-9}$); $t$-detrended residual $\rho=-0.76$ (20-pt);
+independent verification: 6-point $A$ check-sum $|\Delta|<3\times10^{-6}$]}
+
+
+% ============================================================================
 \section{Discussion}
 \label{sec:disc}
 % ============================================================================
@@ -1623,7 +1675,7 @@ equation.
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#218, \#C-240--\#C-242 (34 results). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#219, \#C-240--\#C-243 (35 results). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1670,6 +1722,7 @@ Result & Section & Rating & Key finding \\
 \#C-241 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{universal}: non-self-dual $\chi_5,\chi_7$ also $6/6$ PASS; self-dual not needed (FE+SR suffice); Proposition~\ref{prop:laurentparity} \\
 \#C-242 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{sharpness}: DH on-critical $5/5$ PASS ($r(c_0){\sim}10^{-12}$), off-critical $4/4$ FAIL ($r(c_0){\sim}4.4$); $\sigma{=}\tfrac{1}{2}$ essential; Proposition~\ref{prop:laurentparity} \\
 \#C-243 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{protection}: $r(c_{2k{+}1}){=}O(|\delta|^{2k{+}3})$; partner dominance $0.98$--$1.00$; even/odd ratio $2.4{\times}10^{7}$; Theorem~\ref{thm:parityprotection} \\
+\#219 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & $A(\gamma)$--gap correlation; GUE-norm.\ $\rho{=}{-}0.62$ ($p{=}10^{-22}$); R/L asymmetry $4.4{\times}$; pair $\rho{=}{+}0.40$ ($p{=}10^{-9}$); $t$-detrended $\rho{=}{-}0.76$ \\
 \end{longtable}
 
 

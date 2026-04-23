@@ -5,6 +5,7 @@ parity_asymmetry_c243.txt
 results/A_decomposition_77.txt
 results/A_formula_highdeg_b35.txt
 results/A_formula_independent_b37.txt
+results/A_gap_correlation_c256.txt
 results/angle_at_zeros_inventory.txt
 results/artin_s3_121.txt
 results/artin_s3_precision_122.txt
@@ -183,3 +184,5 @@ results/xi_bundle_kappa_gl4_83.txt
 results/zero_107_analysis.txt
 results/zero_173_analysis.txt
 results/zeta_4property_71.txt
+sigma_A_crosscheck_c255.txt
+sigma_localization_profile_c254.txt
