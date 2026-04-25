@@ -39,14 +39,15 @@
 
 #### §3.1 Theorem (A-gap Lower Bound) [무조건적]
 **Theorem 1**: Let L(s) be in the Selberg class with simple zeros ρₙ = 1/2 + iγₙ. Then:
-  A(γₙ) ≥ 4/gap_min(γₙ)²
+  A(γₙ) ≥ 2/Δ_min(γₙ)²
 where gap_min(γₙ) = min(γₙ - γₙ₋₁, γₙ₊₁ - γₙ).
 
 Proof:
   (1) A = S₁² + 2H₁ ≥ 2H₁  (S₁² ≥ 0)
   (2) H₁ = Σ_{k≠n} 1/(γₙ-γₖ)² ≥ 1/Δ_L² + 1/Δ_R²  (양정치 급수)
   (3) 1/Δ_L² + 1/Δ_R² ≥ 2/g²  (AM-HM 또는 직접)
-  (4) ∴ A ≥ 4/g². □
+  (3) 합 ≥ 1/Δ_min² (한 항만으로 충분)
+  (4) ∴ A ≥ 2/Δ_min². □
 
 **Corollary**: ρ_Spearman(A, gap_min) < 0 whenever the gap distribution is non-degenerate.
 (Informal: 하한이 g⁻²로 발산하고 상한은 유한이므로, 순위 상관은 음.)

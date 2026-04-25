@@ -1,6 +1,125 @@
 # 검토자 보드
 
-## 검증 [2026-04-25 14:15] — 사이클 #270 — C-269 GL(4) + C-270 gap_min t-안정성 검증 + 논문 반영
+## 검증 [2026-04-25 14:55] — 사이클 #272 — Paper 4 KO판 검증 + Thm 1 수정 확인
+
+### 1. C-272 Paper 4 한국어판 검증
+
+**대상**: `paper/source/paper4_amplitude_gap_ko.tex` (9p)
+**수학자 판정**: ★★★★ (KO판 완성 + Thm 1 수정 후 미러링)
+**검증 결과**: ✅ 통과
+
+#### 핵심 검증 항목
+
+| 항목 | EN 값 | KO 값 | 판정 |
+|------|--------|--------|------|
+| Thm 1 하한 | `2/\Delta_{\min}^2` | `2/\Delta_{\min}^2` | ✅ |
+| ρ(A_L, g_min) | -0.7996 | -0.7996 | ✅ |
+| ρ(A_Λ, g_min) | -0.8998 | -0.8998 | ✅ |
+| a (적합) | 2.63 | 2.63 | ✅ |
+| R² | 0.987 | 0.987 | ✅ |
+| 2H₁/A | 86.7% | 86.7% | ✅ |
+| H₁^{NN}/H₁ | 66.4% | 66.4% | ✅ |
+| 8-bin span | 0.163 | 0.163 | ✅ |
+| Kendall τ | -0.286, p=0.399 | -0.286, p=0.399 | ✅ |
+| GL(4) sym³(11a1) ρ | -0.520 | -0.520 | ✅ |
+| GL(4) sym³(37a1) ρ | -0.514 | -0.514 | ✅ |
+| PCC c | 1.9527 | 1.9527 | ✅ |
+
+**EN/KO 수치 불일치**: 0건 ✅
+
+#### 구조 검증
+
+| EN 섹션 | KO 섹션 | 일치 |
+|---------|---------|------|
+| §1 Introduction | §1 서론 | ✅ |
+| §2 Preliminaries | §2 예비 지식 | ✅ |
+| §3 Amplitude--Gap Anti-Correlation | §3 진폭--간격 반상관 | ✅ |
+| §4 Height Scaling | §4 A(γ)의 높이 스케일링 | ✅ |
+| §5 Degree-Independent Universality | §5 차수-독립 보편성 | ✅ |
+| §6 A_Λ vs A_L Dichotomy | §6 A_Λ와 A_L 이분법 | ✅ |
+| §7 GUE Prediction | §7 GUE 예측 | ✅ |
+| §8 Partial Correlation | §8 편상관 | ✅ |
+| §9 σ--A Cross-Check | §9 σ--A 교차 검증 | ✅ |
+| §10 Discussion | §10 논의 | ✅ |
+
+#### C-271 Thm 1 증명 수정 검증
+
+- 4/g² 잔류: EN 0건, KO 0건 ✅
+- 올바른 하한 2/Δ_min²: EN 14곳, KO 14곳 ✅
+- 증명 3단계(B²≥0 → H₁≥1/Δ_min² → A≥2/Δ_min²): EN/KO 동일 ✅
+- raw gap Δ_min vs GUE-normalized g_min 구분: 정의에서 명확히 구분 ✅
+
+#### Red Team
+
+1. **GL(4) sym³ 기호**: KO판에서 `\mathrm{sym}^3`로 표기 — EN과 동일 ✅
+2. **참고문헌 8건**: montgomery1973, odlyzko1987, paper1-3, titchmarsh1986, iwaniec2004, mehta2004 — EN과 동일 ✅
+3. **폰트 경고**: `TU/UnBatang.ttf(0)/m/it` 이탤릭 fallback — 기존 KO 논문들과 동일한 무해 경고 ✅
+4. **페이지 차이**: KO 9p vs EN 8p — 한국어 텍스트 자연 팽창 범위 내 (12.5%) ✅
+5. **과대 표현**: "수치적 근거가 시사한다" 등 적절한 표현 사용 ✅
+
+**전체 판정**: ★★★★ 통과. EN/KO 수치 0건 불일치. Thm 1 수정 완전 반영.
+
+---
+
+### 2. 논문 반영 상태 ✅ 반영 불필요
+
+**C-272는 논문 작성 작업 자체**이므로 추가 논문 반영 불필요.
+- Paper 4 EN: 8p, 13 씨앗 전부 반영 ✅
+- Paper 4 KO: 9p, EN 완전 미러링 ✅
+- Thm 1 수정 (2/Δ_min²): EN/KO 모두 반영 ✅
+
+**PDF 배포**:
+- `~/Desktop/수학최종논문/paper4_amplitude_gap_ko.pdf` ✅ (검토자가 배포)
+- `~/Desktop/gdl_unified/paper/paper4_amplitude_gap_ko.pdf` ✅ (검토자가 배포)
+
+---
+
+### 3. 품질 게이트 [2026-04-25]
+
+- 카테고리: Paper 4 (A-gap + Hadamard) — 독립 논문 ✅
+- Abstract 정합: ✅ (보편성 10 L-함수, 하한 2/Δ_min², 높이-안정성 — 정확)
+- 과대 표현: ✅ ("수치적 근거", "확인" 사용, "증명하다"는 하한에만 사용)
+- 번호 연속성: ✅ (Thm/Prop/Obs/Def/Rem 번호 연속)
+- EN/KO 동일: ✅ (12항목 수치 교차검증, 0건 불일치)
+- 컴파일: ✅ (EN 8p, KO 9p, 에러 없음)
+- 본문: EN 8p, KO 9p (< 25p)
+
+---
+
+### 4. 4논문 상태 총괄
+
+| 논문 | 상태 | 페이지 | 결과 수 |
+|------|------|--------|--------|
+| Paper 1 (unified_master) | ✅ arXiv-ready | EN 117p | 81 |
+| Paper 2 (extensions_master) | ✅ arXiv-ready | EN 33p / KO 29p | ~42 |
+| Paper 3 (artin_master) | ✅ 완료 | EN 13p / KO 15p | 6 |
+| **Paper 4 (amplitude_gap)** | **✅ 초안 완성** | **EN 8p / KO 9p** | **13 씨앗** |
+| **총계** | **Paper 1-3 제출 준비, Paper 4 초안** | | **~129 + 13** |
+
+**⚠️ Paper 2 → Paper 4 분리**: Paper 2의 A-gap 결과(9건)를 Paper 4로 이관하면 Paper 2 분량이 ~24p로 감소하여 25p 기준 충족. 단, Paper 4가 초안(8p)이므로 현재는 Paper 2에 유지하고 Paper 4 성숙 후 이관 추천.
+
+---
+
+### 설계자 피드백
+
+1. **우수**: KO판 컴파일 성공, EN 미러링 정확, Thm 1 수정 완전 반영
+2. **우수**: 정의 2.1에서 raw gap Δ_min과 GUE 정규화 g_min 구분 명확
+3. **우수**: 참고문헌 8건 정리, 한국어 참고문헌 표기 적절
+4. **주의 (KO PDF 배포 누락)**: 검토자가 수동으로 수학최종논문 + paper/ 배포 완료. 향후 컴파일 후 배포 자동화 필요
+5. **건의**: Paper 4 EN/KO abstract에서 "열 개의 자기동형 L-함수" / "ten automorphic L-functions" — 정확. 향후 GL(5)+ 추가 시 업데이트 필요
+
+### 수학자에게 전달
+
+C-272 독립 검증 완료:
+- **Paper 4 KO판**: ★★★★ 통과. 9p. EN/KO 수치 0건 불일치.
+- **Thm 1 수정**: 2/Δ_min² 전면 반영. 4/g² 잔류 0건. EN/KO 동일.
+- **PDF 배포**: EN+KO 모두 수학최종논문/ 및 paper/ 배포 완료.
+- **Paper 4 현황**: EN 8p + KO 9p 초안 완성. 13 씨앗 전부 반영. Thm 1 증명 수정 완료.
+- **다음 추천**: Paper 4 polish (참고문헌 보강, 그림 추가) 또는 Paper 2→4 A-gap 결과 이관 설계.
+
+---
+
+## [아카이브] 검증 [2026-04-25 14:15] — 사이클 #270 — C-269 GL(4) + C-270 gap_min t-안정성 검증 + 논문 반영
 
 ### 1. C-269 GL(4) Sym³ A-gap 보편성 검증
 

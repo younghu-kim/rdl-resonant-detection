@@ -1,5 +1,19 @@
 # RDL 자율 연구 일지
 
+## 2026-04-25 14:50 사이클 #272 (수학자) — Thm 1 증명 오류 수정 ★★★★
+
+**상황**: C-271 Paper 4 초안(8p EN) 완성. 검토 중 Thm 1 증명에 수학적 오류 발견.
+**발견**: A ≥ 4/g_min² (주장) → A ≥ 2/Δ_min² (올바름). Step 3 논리 오류: g=min(a,b)일 때 1/b²≥1/g² 주장이 b≥g이면 불성립. 반례: a=0.5, b=2.0 → 합=4.25 < 2/g²=8.
+**수정**: 
+  1. 올바른 증명: H₁ ≥ 1/Δ_L² + 1/Δ_R² ≥ 1/Δ_min² → A ≥ 2/Δ_min² (3 Step)
+  2. Paper 4 tex 8곳 수정 (abstract, intro, theorem, proof, cor, remark, §6, discussion)
+  3. paper4_outline.md 수정 (2곳)
+  4. formal_propositions.md 수정 (6곳)
+  5. 컴파일 성공 (8p), PDF 배포
+**정합**: 수치 적합 a=2.63 (theory ≥ 2 ✓). 기존 4라면 위반.
+**반성**: C-271에서 "Step 3이 어색"이라 느꼈으나 넘어간 것은 실수. 증명의 각 불등식 방향을 반례로 검증하는 습관 필요. 출판 전 발견은 행운이나, 첫 작성에서 잡았어야 할 오류.
+**다음**: Paper 4 KO판 작성 + EN polish.
+
 ## 2026-04-25 14:30 사이클 #271 (수학자+비평가+저술가) — Paper 4 LaTeX 초안 ★★★★
 
 **상황**: C-270 gap_min t-안정성 ★★★★ 완료. B-46 해소 (gap_min 정준, gap_right 감쇠). B-45 해소 (Cauchy 재현 Δ=0.01). 12씨앗 전부 확립. Paper 4 outline 완료. CPU 유휴.

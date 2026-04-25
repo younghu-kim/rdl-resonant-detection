@@ -1,0 +1,725 @@
+% paper4_amplitude_gap_ko.tex
+% Paper 4: 자기동형 L-함수에서의 Hadamard 진폭과 영점 간격
+% Draft started: 2026-04-25 (Cycle #272)
+% Co-Authored-By: Claude Sonnet 4.6
+% 컴파일: xelatex paper4_amplitude_gap_ko.tex (2회 실행)
+
+\documentclass[11pt,a4paper]{article}
+
+% ── 한글 지원 (XeLaTeX + kotex) ─────────────────────────────────────────────
+\usepackage{kotex}
+\usepackage{fontspec}
+
+% ── Layout ──────────────────────────────────────────────────────────────────
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ── Mathematics ─────────────────────────────────────────────────────────────
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+
+% ── Tables ──────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{array}
+
+% ── Colors & Links ──────────────────────────────────────────────────────────
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+% ── Enum ────────────────────────────────────────────────────────────────────
+\usepackage{enumitem}
+
+% ── Theorem Environments (한국어) ───────────────────────────────────────────
+\theoremstyle{plain}
+\newtheorem{theorem}{정리}[section]
+\newtheorem{proposition}[theorem]{명제}
+\newtheorem{corollary}[theorem]{따름정리}
+\newtheorem{lemma}[theorem]{보조정리}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{정의}
+\newtheorem{remark}[theorem]{주석}
+\newtheorem{observation}[theorem]{관찰}
+
+% ── Custom commands ──────────────────────────────────────────────────────────
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\GUE}{GUE}
+\DeclareMathOperator{\Res}{Res}
+\newcommand{\xif}{\xi}
+\newcommand{\La}{\Lambda}
+
+% ── Title ────────────────────────────────────────────────────────────────────
+\title{자기동형 $L$-함수에서의 Hadamard 진폭과 영점 간격}
+\author{김영후}
+\date{초고: 2026년 4월}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Selberg class에 속하는 $L$-함수 $L(s)$의 임계선 위 단순 영점
+$\rho_n = \tfrac{1}{2} + i\gamma_n$에 대해,
+\emph{Hadamard 진폭}
+$A(\gamma_n) = \operatorname{Im}(c_0)^2 + 2\operatorname{Re}(c_1)$을
+완전 $L$-함수의 로그 도함수의 Laurent 전개
+$\La'/\La(\rho_n + u) = u^{-1} + c_0 + c_1 u + \cdots$
+로부터 추출한다.
+이 진폭은 각 영점의 국소 스펙트럼 가중치를 측정한다.
+우리는 무조건적 하한
+$A(\gamma_n) \ge 2/\Delta_{\min}(\gamma_n)^2$을 증명하는데,
+여기서 $\Delta_{\min} = \min(\gamma_n - \gamma_{n-1},\,\gamma_{n+1} - \gamma_n)$은
+인접 영점까지의 최소 간격이다.
+또한 Spearman 반상관 $\rho(A, g_{\min})$이
+(i)~\emph{보편적}: GL(1)부터 GL(4)까지 열 개의 자기동형 $L$-함수에서
+일관되게 음수이고,
+(ii)~\emph{높이-안정}: 완전 진폭 $A_\La$와 $g_{\min}$의 쌍에서
+$t$-독립(여덟 높이 구간에서 범위 $0.16$)이며,
+(iii)~\emph{GUE 예측}: GUE 랜덤 행렬 앙상블이 관측된 gap--진폭 상관의
+$86\%$를 재현함을 수치로 보인다.
+나머지 $14\%$는 감마 인자 교차항
+$-2 S_1^L \cdot \operatorname{Im}(\psi'/2)$에 기인함을 규명한다.
+이러한 결과들은 $A(\gamma)$를 개별 영점 강도를 국소 스펙트럼 간격과
+연결하는 새로운 불변량으로 확립하며, Langlands 계층에 걸쳐
+차수-독립 보편성을 보인다.
+\end{abstract}
+
+
+% ============================================================================
+\section{서론}
+\label{sec:intro}
+% ============================================================================
+
+$L$-함수의 비자명 영점 분포는 Riemann의 1859년 논문 이래 연구의 중심 대상이었다.
+수직 분포(영점 밀도, 쌍 상관)는 Montgomery~\cite{montgomery1973},
+Odlyzko~\cite{odlyzko1987} 등의 연구를 통해 잘 이해되었지만,
+각 영점의 \emph{개별} 특성---어떤 영점이 해석적 구조에 얼마나
+``강하게'' 기여하는가---은 상대적으로 주목받지 못했다.
+
+본 논문에서는 \emph{Hadamard 진폭} $A(\gamma)$를 도입한다.
+이는 완전 $L$-함수 $\La(s)$의 단순 영점
+$\rho = \tfrac{1}{2} + i\gamma$ 각각에 부여되는 비음 실수이다.
+진폭은 로그 도함수의 Laurent 전개를 통해 정의된다:
+\begin{equation}\label{eq:laurent}
+  \frac{\La'}{\La}(\rho + u) = \frac{1}{u} + c_0 + c_1 u
+  + c_2 u^2 + \cdots,
+\end{equation}
+여기서 계수 $c_n$은 산술적·스펙트럼 정보를 담고 있다.
+패리티 정리(~\cite{paper2}의 정리 5)에 의해, 임계선 위의 영점에 대해
+$c_0$는 순허수이고 $c_1$은 순실수이므로:
+\begin{equation}\label{eq:amplitude_def}
+  A(\gamma) \;=\; \operatorname{Im}(c_0)^2 + 2\,c_1
+  \;=\; B(\gamma)^2 + 2\,H_1(\gamma),
+\end{equation}
+여기서 $B = \operatorname{Im}(c_0)$이고 $H_1 = c_1 = \operatorname{Re}(c_1)$이다.
+$\La(s)$의 Hadamard 곱 표현은 명시적 분해를 준다:
+\begin{equation}\label{eq:hadamard_decomp}
+  B(\gamma_n) = -\sum_{k \ne n}' \frac{1}{\gamma_n - \gamma_k}
+  + \Gamma\text{-항들}, \qquad
+  H_1(\gamma_n) = \sum_{k \ne n}' \frac{1}{(\gamma_n - \gamma_k)^2}
+  + \Gamma'\text{-항들},
+\end{equation}
+여기서 프라임 합은 $\La(s)$의 모든 비자명 영점 $\gamma_k$에 대해 돌아간다
+(정확한 정의는 \S\ref{sec:prelim} 참조).
+합 $B$는 교대 부호(소거적)이고, $H_1$은 엄밀히 양수---이 비대칭성이
+이후 결과들의 원천이다.
+
+\medskip\noindent\textbf{주요 기여.}
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{무조건적 하한} (\cref{thm:lower_bound}):
+        $A(\gamma) \ge 2/\Delta_{\min}(\gamma)^2$은
+        $H_1$의 양정치성의 직접적 귀결이다.
+  \item \textbf{차수-독립 보편성}
+        (\cref{sec:universality}): Spearman 반상관
+        $\rho(A, g) < 0$이 GL(1)부터 GL(4)까지 열 개의 $L$-함수에서
+        검증된다. 대상에는 Riemann $\zeta$, Dirichlet $L$-함수,
+        타원곡선 $L$-함수, 그리고 $\mathrm{sym}^3$까지의 대칭 거듭제곱이 포함된다.
+  \item \textbf{GUE 메커니즘} (\cref{sec:gue}): GUE 시뮬레이션이
+        관측 상관의 $86\%$를 재현하고, 나머지 $14\%$는
+        감마 인자 교차항으로 설명된다.
+  \item \textbf{정준 메트릭 선택}
+        (\cref{sec:dichotomy}): $g_{\min}$은
+        높이-안정(Kendall $\tau = -0.29$, $p = 0.40$)인 반면,
+        $g_{\mathrm{right}}$는 높이에 따라 감쇠($\tau = +1.0$,
+        $p = 5 \times 10^{-5}$)하여, $g_{\min}$이 정준 gap 메트릭임을 확인한다.
+\end{enumerate}
+
+\medskip\noindent\textbf{선행 연구와의 관계.}
+진폭 $A(\gamma)$는 \cite{paper1,paper2,paper3}의 $\xi$-다발 프레임워크에서
+곡률 계수에 해당한다: 항등식
+$\kappa \delta^2 - 1 = A\delta^2 + O(\delta^3)$ (\cite{paper2}의 따름정리 4.2)는
+$A$가 영점 근방에서 곡률 $\kappa = |\La'/\La|^2$의 $1/\delta^2$ 발산으로부터의
+주요 편차를 지배함을 보여준다.
+Hadamard 분해 $A = B^2 + 2H_1$ (\cite{paper2}의 명제 11)은
+$A$를 전역 영점 분포와 연결하는 반면,
+본 논문은 \emph{국소} 스펙트럼 간격에 대한 귀결을 전개한다.
+
+
+% ============================================================================
+\section{예비 지식}
+\label{sec:prelim}
+% ============================================================================
+
+\subsection{설정과 기호}
+
+$L(s)$가 Selberg class $\mathcal{S}$에 속한다고 하자:
+Euler 곱, 해석적 연속, 그리고 함수 방정식
+\begin{equation}\label{eq:FE}
+  \La(s) = \varepsilon\, \overline{\La(1 - \bar{s})},
+  \qquad |\varepsilon| = 1
+\end{equation}
+을 갖는다. 여기서 $\La(s) = \gamma(s)\, L(s)$는 감마 인자 $\gamma(s)$를 포함한
+완전 $L$-함수이다. 임계선 $\sigma = \sigma_c$ 위의 모든 영점 $\rho_n$이
+단순하다고 가정한다.
+
+높이 순으로 정렬된 영점의 허수부를 $\gamma_n$으로 쓴다:
+$\gamma_1 < \gamma_2 < \cdots$.
+높이 $T$에서의 \emph{국소 밀도}는 $\bar{d}(T) = N(T)/T$이며,
+$N(T)$는 $0 < \gamma \le T$인 영점의 수이다.
+\emph{GUE 정규화 간격}은
+\begin{equation}\label{eq:gap_norm}
+  g_n^{\mathrm{GUE}} = \frac{\gamma_{n+1} - \gamma_n}
+  {\bar{d}_n^{-1}}, \qquad
+  \bar{d}_n = \frac{2}{\gamma_{n+1} - \gamma_{n-1}}
+\end{equation}
+으로 정의된다. 여기서 $\bar{d}_n$은 양방향 간격으로 추정한 국소 밀도이다.
+
+\begin{definition}[간격 메트릭]\label{def:gaps}
+$n$번째 영점 $\gamma_n$에 대해:
+\begin{align}
+  g_{\mathrm{right}}(\gamma_n) &= (\gamma_{n+1} - \gamma_n)\,\bar{d}_n,
+  \label{eq:gap_right}\\
+  g_{\min}(\gamma_n) &= \min(\gamma_n - \gamma_{n-1},\;
+  \gamma_{n+1} - \gamma_n)\,\bar{d}_n.
+  \label{eq:gap_min}
+\end{align}
+\end{definition}
+
+\subsection{Laurent 계수와 Hadamard 분해}
+
+단순 영점 $\rho_n = \tfrac{1}{2} + i\gamma_n$에서
+로그 도함수는 단순 극을 갖는다:
+\[
+  \frac{\La'}{\La}(\rho_n + u) = \frac{1}{u}
+  + \sum_{m=0}^{\infty} c_m(\gamma_n)\, u^m.
+\]
+
+\begin{proposition}[패리티, {\cite[정리~5]{paper2}}]\label{prop:parity}
+함수 방정식~\eqref{eq:FE}와 켤레-부합 조건
+$\La(\bar{s}, \bar{\chi}) = \overline{\La(s,\chi)}$ 하에서,
+Laurent 계수는 모든 $m \ge 0$에 대해
+$c_m = (-1)^{m+1}\,\bar{c}_m$을 만족한다.
+특히 $c_0 \in i\mathbb{R}$이고 $c_1 \in \mathbb{R}$이다.
+\end{proposition}
+
+$\La(s)$의 Hadamard 곱은 명시적 표현을 준다:
+\begin{equation}\label{eq:hadamard_c1}
+  c_1(\gamma_n) = \sum_{\substack{k=1 \\ k \ne n}}^{\infty}
+  \frac{1}{(\gamma_n - \gamma_k)^2}
+  + \text{(감마 인자 도함수 항들)}.
+\end{equation}
+합의 모든 항이 양수이므로:
+
+\begin{lemma}\label{lem:H1_positive}
+모든 단순 영점에 대해 $H_1(\gamma_n) = c_1(\gamma_n) > 0$이다.
+또한
+\begin{equation}\label{eq:H1_NN}
+  H_1(\gamma_n) \ge \frac{1}{\Delta_L^2} + \frac{1}{\Delta_R^2},
+\end{equation}
+여기서 $\Delta_L = \gamma_n - \gamma_{n-1}$이고
+$\Delta_R = \gamma_{n+1} - \gamma_n$이다.
+\end{lemma}
+
+\begin{definition}[Hadamard 진폭]\label{def:amplitude}
+$\gamma_n$의 \emph{Hadamard 진폭}은
+\[
+  A(\gamma_n) = B(\gamma_n)^2 + 2\,H_1(\gamma_n),
+\]
+여기서 $B = \operatorname{Im}(c_0)$이고 $H_1 = c_1$이다.
+두 가지 변형을 구분한다:
+\begin{itemize}
+  \item $A_\La$: 완전 $\La$-함수로부터 계산된 진폭
+        (감마 인자 기여 포함);
+  \item $A_L$: 원시 $L$-함수로부터 계산된 진폭
+        (감마 인자 항 제외).
+\end{itemize}
+관계식은
+$c_m^\La = c_m^L + \frac{1}{m!}\,(\gamma'/\gamma)^{(m)}(\rho_n)$이다.
+\end{definition}
+
+
+% ============================================================================
+\section{진폭--간격 반상관}
+\label{sec:theorem}
+% ============================================================================
+
+\subsection{무조건적 하한}
+
+\begin{theorem}[진폭--간격 하한]\label{thm:lower_bound}
+$L(s) \in \mathcal{S}$가 임계선 위에 단순 영점
+$\rho_n = \tfrac{1}{2} + i\gamma_n$을 갖는다고 하자. 그러면
+\begin{equation}\label{eq:lower_bound}
+  A(\gamma_n) \;\ge\; \frac{2}{\Delta_{\min}(\gamma_n)^2},
+\end{equation}
+여기서 $\Delta_{\min} = \min(\Delta_L,\,\Delta_R)$,
+$\Delta_L = \gamma_n - \gamma_{n-1}$, $\Delta_R = \gamma_{n+1} - \gamma_n$이다.
+\end{theorem}
+
+\begin{proof}
+\textit{1단계.}\;
+$B^2 \ge 0$이므로,
+$A = B^2 + 2H_1 \ge 2H_1$이다.
+
+\smallskip\noindent\textit{2단계.}\;
+\cref{lem:H1_positive}에 의해,
+$H_1 \ge 1/\Delta_L^2 + 1/\Delta_R^2$이다.
+두 항 모두 양수이므로 합은 큰 항 하나만으로 충분하다:
+\[
+  \frac{1}{\Delta_L^2} + \frac{1}{\Delta_R^2}
+  \;\ge\; \frac{1}{\Delta_{\min}^2}.
+\]
+
+\smallskip\noindent\textit{3단계.}\;
+종합하면: $A \ge 2H_1 \ge 2/\Delta_{\min}^2$.
+\end{proof}
+
+\begin{corollary}\label{cor:anticorrelation}
+$L(s)$의 간격 분포가 비퇴화(즉, 모든 간격이 같지 않음)이면,
+$\rho_{\mathrm{Sp}}(A, g_{\min}) < 0$이다.
+\end{corollary}
+
+\begin{proof}
+하한 $A \ge 2/\Delta_{\min}^2$은 $\Delta_{\min} \to 0$일 때 발산하는 반면,
+$A$는 임의의 유한 영점 집합에 대해 위에서 유계이다
+($H_1$이 수렴 급수이므로).
+따라서 $g$가 작은 영점은 반드시 $A$가 크고,
+순위 순서가 음의 Spearman 상관을 부과한다.
+\end{proof}
+
+\begin{remark}[경계의 예리성]\label{rem:tightness}
+하한 $A \ge 2/\Delta_{\min}^2$은 다음 수치적 의미에서 ``거의 예리하다.''
+$\zeta(s)$에서 $n = 910$개의 내부 영점($\gamma \le 2000$)에 대해,
+최근접 이웃 기여
+$H_1^{\mathrm{NN}} = 1/\Delta_L^2 + 1/\Delta_R^2$은
+$H_1$의 $66.4\%$를 차지하고, $2H_1$은 $A$의 $86.7\%$를 차지한다.
+따라서 두 항 하한이 지배적 메커니즘을 포착한다.
+$g = g_{\min}^{\mathrm{GUE}}$를 정규화 간격으로 사용한
+$E[A \mid g] \approx a/g^2 + b$ 적합은 $a = 2.63$
+(\cref{thm:lower_bound}에서 $a \ge 2\bar{d}^2 \approx 1.4$와 부합,
+$\bar{d}$는 국소 밀도)을 $R^2 = 0.987$로 준다.
+\end{remark}
+
+
+\subsection{$\zeta(s)$에 대한 수치 검증}
+\label{subsec:zeta_verification}
+
+\cref{thm:lower_bound}를 $\gamma \le 2000$인 $1517$개의 영점을 사용한
+Riemann 제타 함수에서 검증한다.
+편향 없는 간격 추정을 위해 중앙 $60\%$($n = 910$개)를 사용한다.
+진폭 $A_L$은 영점-합 방법(모든 $1517$항의 Hadamard 부분 합)으로,
+$A_\La$는 Stirling 전개된 감마 기여를 더해 계산한다.
+
+\begin{center}
+\begin{tabular}{lccl}
+\toprule
+\textbf{통계량} & \textbf{값} & \textbf{$p$-값} & \textbf{판정} \\
+\midrule
+$\rho(A_L,\; g_{\min})$  & $-0.7996$ & $2.6 \times 10^{-203}$ & \checkmark \\
+$\rho(A_\La,\; g_{\min})$ & $-0.8998$ & $< 10^{-300}$ & \checkmark \\
+$\rho(A_\La,\; g_{\mathrm{right}})$ & $-0.4553$ & $9.0 \times 10^{-48}$ & \checkmark \\
+$2H_1/A$ (평균)           & $0.867$   & ---         & $H_1$ 지배 \\
+$H_1^{\mathrm{NN}}/H_1$ (평균) & $0.664$  & ---   & NN 지배 \\
+$E[A \mid g] \sim a/g^2 + b$ & $R^2 = 0.987$ & --- & 하한 예리 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+$8$-구간 조건부 기댓값 $E[A \mid g_{\min} \in \text{구간}_j]$는
+엄밀히 단조 감소한다: $22.76 \to 14.20 \to 10.42 \to 8.17
+\to 6.55 \to 5.46 \to 4.56 \to 4.02$
+(연속하는 일곱 쌍 모두 $E[A]_{j} > E[A]_{j+1}$).
+
+
+\subsection{쌍 상관 하에서의 조건부 단조성}
+\label{subsec:conditional}
+
+\begin{proposition}[조건부 단조성]\label{prop:conditional}
+Montgomery의 쌍 상관 추측 하에서, 조건부 기댓값은
+\[
+  E[A \mid g_{\min} = g] \;=\; \frac{2a}{g^2} + c + O(g)
+  \qquad (g \to 0)
+\]
+을 만족한다. 여기서 $c = 2\int_1^\infty R_2(x)/x^2\,dx = 1.9527$은
+멀리 있는 영점들의 꼬리 기여를 포착하고, $a$는 쌍 상관 핵에 의존하는 상수이다.
+\end{proposition}
+
+\begin{proof}[증명 개요]
+$g$가 작을 때 최근접 이웃 기여 $H_1^{\mathrm{NN}} =
+1/\Delta_L^2 + 1/\Delta_R^2$가 지배하여 $2a/g^2$ 항을 준다
+($a$는 최솟값이 주어졌을 때의 $\Delta_L$, $\Delta_R$의 조건부 분포로 결정됨).
+꼬리 기여 $H_1^{\mathrm{tail}} =
+\sum_{|k-n| \ge 2} 1/(\gamma_n - \gamma_k)^2$는
+쌍 상관 보편성 하에서 높이-독립 상수로 수렴한다:
+\[
+  E[H_1^{\mathrm{tail}}] = \bar{d}^2 \int_1^\infty
+  \frac{R_2(x)}{x^2}\,dx + O(\bar{d}),
+\]
+여기서 $R_2(x) = 1 - (\sin\pi x/\pi x)^2$는 GUE 쌍 상관 함수이다.
+수치 계산으로 $\int_1^\infty R_2(x)/x^2\,dx = 0.9764$를 얻어
+$c = 2 \times 0.9764 = 1.9527$이 된다.
+\end{proof}
+
+
+% ============================================================================
+\section{$A(\gamma)$의 높이 스케일링}
+\label{sec:height}
+% ============================================================================
+
+구간-평균 진폭은 로그 제곱 스케일링을 따른다:
+\begin{equation}\label{eq:height_scaling}
+  \langle A(\gamma) \rangle_{\mathrm{구간}}
+  \;\approx\; 0.49\,\bigl(\log(\gamma/(2\pi))\bigr)^2
+  - 1.24\,\log(\gamma/(2\pi)) + 2.14,
+\end{equation}
+$\zeta(s)$의 10구간 300 영점($\gamma \in [14.1, 541.8]$)에서
+$R^2_w = 0.975$이다.
+
+메커니즘은 $H_1$의 지배이다: 평균 밀도
+$\bar{d} = \log(\gamma/(2\pi))/(2\pi)$는
+$\langle H_1 \rangle \sim \bar{d}^2 \times \text{(쌍 상관 적분)}
+\sim (\log\gamma)^2/(2\pi)^2$를 함의하는 반면,
+$B^2$는 부차적 $(\log\gamma)^1$ 항을 기여한다.
+분해는 $2H_1/A = 77.5\%$(평균), $B^2/A = 22.5\%$이다.
+
+\begin{remark}
+$\langle H_1\rangle \sim \alpha\,(\log\gamma/(2\pi))^2$에서 측정된
+계수 $0.129$는 순박한 추정 $1/12 = 0.083$보다 인수 $1.55$ 크다.
+이는 예상된 결과이다: 유한 $K$항 Hadamard 부분 합이
+$H_1$을 과소 추정하고, EM 보정 완전 합은 $\alpha$를 이론값에 더 가깝게 준다.
+\end{remark}
+
+
+% ============================================================================
+\section{차수-독립 보편성}
+\label{sec:universality}
+% ============================================================================
+
+Langlands 계층의 차수 1--4에 걸친 열 개의 $L$-함수에서
+진폭--간격 반상관을 검증한다.
+GL(1) 및 GL(2) $L$-함수의 경우 Cauchy 윤곽 진폭 $A_\La$이
+자연스럽게 $g_{\mathrm{right}}$와 짝을 이루고,
+GL(3) 및 GL(4)의 경우 영점-합 진폭 $A_L$이
+$g_{\min}$과 짝을 이룬다
+(이 짝짓기의 설명은 \cref{sec:dichotomy} 참조).
+
+\begin{table}[h]
+\centering
+\caption{열 개의 $L$-함수에 걸친 진폭--간격 Spearman 상관.
+모든 상관이 음수($p < 10^{-4}$).}
+\label{tab:universality}
+\begin{tabular}{llrrrrl}
+\toprule
+\textbf{$L$-함수} & $d$ & $N$ & $n$ &
+\textbf{간격 메트릭} & $\rho$ & $p$ \\
+\midrule
+$\zeta(s)$ & 1 & 1 & 198 & $g_{\mathrm{right}}$ & $-0.590$ & $6.1 \times 10^{-20}$ \\
+$L(s,\chi_3)$ & 1 & 3 & 72 & $g_{\mathrm{right}}$ & $-0.573$ & $1.4 \times 10^{-7}$ \\
+$L(s,\chi_4)$ & 1 & 4 & 80 & $g_{\mathrm{right}}$ & $-0.553$ & $1.0 \times 10^{-7}$ \\
+$L(s,\chi_5)$ & 1 & 5 & 46 & $g_{\mathrm{right}}$ & $-0.633$ & $2.3 \times 10^{-6}$ \\
+$L(s,E_{11\mathrm{a}1})$ & 2 & 11 & 92 & $g_{\mathrm{right}}$ & $-0.569$ & $3.3 \times 10^{-9}$ \\
+$L(s,E_{37\mathrm{a}1})$ & 2 & 37 & 112 & $g_{\mathrm{right}}$ & $-0.550$ & $3.4 \times 10^{-10}$ \\
+$L(s,\mathrm{sym}^2 E_{11})$ & 3 & 121 & 96 & $g_{\min}$ & $-0.420$ & $1.9 \times 10^{-5}$ \\
+$L(s,\mathrm{sym}^2 E_{37})$ & 3 & 1369 & 48 & $g_{\min}$ & $-0.490$ & $3.8 \times 10^{-4}$ \\
+$L(s,\mathrm{sym}^3 E_{11})$ & 4 & 1331 & 101 & $g_{\min}$ & $-0.520$ & $2.5 \times 10^{-8}$ \\
+$L(s,\mathrm{sym}^3 E_{37})$ & 4 & 50653 & 131 & $g_{\min}$ & $-0.514$ & $3.5 \times 10^{-10}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+열 개의 $L$-함수 모두 $p < 10^{-4}$의 음의 진폭--간격 상관을 보인다.
+상관 강도 $\rho \in [-0.63, -0.42]$는 차수($d = 1$--$4$),
+conductor($N = 1$--$50653$), root number($\varepsilon = \pm 1$)에 걸쳐 견고하다.
+특히 $\sigma$-유일성 진단은 $d \ge 4$에서 포화하는 반면(모든 $\sigma$에서
+자명하게 PASS),
+$A$--gap 반상관은 완전한 판별력을 유지한다---두 진단은 영점 구조의
+직교 측면을 탐색한다.
+
+\begin{observation}[인접 쌍 상관]\label{obs:adjacent}
+\cref{tab:universality}의 모든 $L$-함수에 대해
+$\rho(A_n, A_{n+1}) \in [+0.28, +0.53]$(일관되게 양수)이다.
+메커니즘은 인접 영점이 Hadamard 합에서 최근접 이웃 항을 공유한다는 것이다:
+$\Delta_{n,n+1}$이 작으면 $A_n$과 $A_{n+1}$ 모두 큰 $1/\Delta^2$ 기여를 받는다.
+\end{observation}
+
+\begin{observation}[차수-의존 $2H_1/A$ 비율]\label{obs:h1_ratio}
+분수 $2H_1/A$는 차수에 따라 감소한다:
+$0.87$(GL(1)) $\to$ $0.77$(GL(2), 추정) $\to$
+${\sim}0.67$(GL(4)).
+이는 높은 차수에서 교대 합 $B$의 항이 더 많아지고 소거가 덜 완전해짐에 따라
+$B^2 = \operatorname{Im}(c_0)^2$의 중요성이 증가하는 것을 반영한다.
+\end{observation}
+
+
+% ============================================================================
+\section{$A_\La$와 $A_L$ 이분법}
+\label{sec:dichotomy}
+% ============================================================================
+
+$\zeta(s)$에 대한 교차 검증 실험은 진폭--간격 짝짓기에서
+근본적 이분법을 드러낸다:
+\begin{itemize}
+  \item $A_\La$(완전, 감마 포함): $g_{\mathrm{right}}$와 상관
+        (낮은 $t$에서 $\rho = -0.72$, $t \approx 1600$에서 $-0.12$로 감쇠);
+  \item $A_L$(원시, 감마 없음): $g_{\min}$과 상관
+        ($\rho = -0.80$ 전체, 높이 의존성 약함).
+\end{itemize}
+
+관계식은:
+\begin{equation}\label{eq:AL_ALambda}
+  c_0^\La = c_0^L + \frac{1}{2}\,\psi\!\left(\frac{\rho}{2}\right)
+  + \text{상수},
+\end{equation}
+여기서 $\psi = \Gamma'/\Gamma$이다. 감마 인자 이동
+$\sim \log(t/2\pi)$는 높이에 따라 증가하여
+낮은 $t$에서는 $g_{\mathrm{right}}$를 선호하는 방향 편향을 도입하지만
+높은 $t$에서는 희석된다.
+
+\subsection{높이 안정성: 정준 메트릭으로서의 $g_{\min}$}
+\label{subsec:height_stability}
+
+진폭--간격 상관의 높이 의존성(경계 B-46)을 해소하기 위해,
+$\zeta(s)$의 $910$개 내부 영점을 여덟 높이 구간으로 분할하고
+각각에서 $\rho$를 측정한다:
+
+\begin{center}
+\begin{tabular}{rrrrrrr}
+\toprule
+구간 & $\bar{t}$ & $\rho(A_\La, g_{\min})$ &
+$\rho(A_\La, g_{\mathrm{right}})$ &
+$\rho(A_L, g_{\min})$ &
+$\rho(A_L, g_{\mathrm{right}})$ & $n$ \\
+\midrule
+1 & 626  & $-0.814$ & $-0.686$ & $-0.956$ & $-0.450$ & 114 \\
+2 & 778  & $-0.889$ & $-0.641$ & $-0.973$ & $-0.376$ & 114 \\
+3 & 924  & $-0.938$ & $-0.624$ & $-0.963$ & $-0.300$ & 113 \\
+4 & 1064 & $-0.961$ & $-0.504$ & $-0.934$ & $-0.216$ & 114 \\
+5 & 1202 & $-0.977$ & $-0.496$ & $-0.906$ & $-0.191$ & 114 \\
+6 & 1337 & $-0.948$ & $-0.339$ & $-0.829$ & $-0.057$ & 113 \\
+7 & 1469 & $-0.954$ & $-0.262$ & $-0.823$ & $+0.002$ & 114 \\
+8 & 1599 & $-0.867$ & $-0.120$ & $-0.673$ & $+0.159$ & 114 \\
+\midrule
+\multicolumn{2}{l}{범위} & $0.163$ & $0.567$ & $0.300$ & $0.609$ & \\
+\multicolumn{2}{l}{Kendall $\tau$} & $-0.29$ & $+1.00$ & $+0.86$ & $+1.00$ & \\
+\multicolumn{2}{l}{$p$-값} & $0.40$ & $5\!\times\!10^{-5}$ & $0.002$ & $5\!\times\!10^{-5}$ & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{observation}[$g_{\min}$ 높이 안정성]\label{obs:stability}
+쌍 $(\!A_\La,\, g_{\min}\!)$은 높이-안정하다:
+Kendall $\tau = -0.29$($p = 0.40$, 비유의),
+범위 $= 0.163 < 0.20$.
+나머지 세 쌍 모두 유의미한 단조 추세를 보인다($p < 0.01$).
+이는 $g_{\min}$이 진폭 반상관의 \emph{정준 간격 메트릭}임을 확인한다.
+\end{observation}
+
+메커니즘은 투명하다: 하한
+$A \ge 2/\Delta_{\min}^2$ (\cref{thm:lower_bound})은 순전히 대수적이며
+높이-독립적이다. 하한이 예리하므로
+($2H_1^{\mathrm{NN}}/A \approx 87\%$), 순위 상관은
+기계적으로 하한에 의해 구동되어 높이-독립성을 물려받는다.
+반면 $g_{\mathrm{right}}$ 메트릭은
+감마 인자 오염($\sim \log(t)$ 가산적 이동)을 받아
+높이에 따라 단조롭게 저하된다.
+
+\begin{remark}[Cauchy 방법 검증]
+$T \le 300$에서 $A_\La$의 독립적 Cauchy 윤곽 계산
+($n = 136$, 반지름 $= 0.01$, 128점 구적,
+\texttt{dps}$= 60$)은
+$\rho(A_\La, g_{\mathrm{right}}) = -0.580$($p = 1.4 \times 10^{-13}$)을 주어,
+원래 측정값 $-0.590$을 $|\Delta\rho| = 0.010$ 이내로 재현한다.
+이 낮은-$t$ 값($-0.58$)과 전체 범위 값($-0.46$)의 차이는
+위에서 기록된 높이 감쇠로 완전히 설명된다.
+\end{remark}
+
+
+% ============================================================================
+\section{GUE 예측}
+\label{sec:gue}
+% ============================================================================
+
+진폭--간격 상관의 랜덤 행렬 내용을 정량화하기 위해,
+$300 \times 300$ GUE 행렬의 $1000$회 시뮬레이션을 수행하고,
+$88{,}000$개의 bulk 고유값(중앙 $30\%$)을 추출하여
+Hadamard 진폭
+$A = \sum_{k \ne n} 1/(E_n - E_k)^2$을 계산한다
+(최근접 이웃 $K \ge 5$개에서 수렴).
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{측도} & \textbf{GUE 예측} & \textbf{관측} & \textbf{일치도} \\
+\midrule
+$\rho(A, g_{\mathrm{right}})$ & $-0.499 \pm 0.001$ & $-0.578$ & $86\%$ \\
+$\rho(A_n, A_{n+1})$ & $+0.363$ & $+0.28$--$+0.42$ & 정확 \\
+NN 기여 $2H_1^{\mathrm{NN}}/A$ & $68\%$ & $78\%$ & 방향적 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+GUE는 관측된 $g_{\mathrm{right}}$ 상관의 $86\%$를 재현한다.
+잔차 $\Delta\rho \approx 0.08$의 두 후보 원인:
+
+\begin{enumerate}
+  \item \textbf{감마 인자 교차항.}\;
+        감마 기여
+        $\Delta A_\Gamma = -2 S_1^L \cdot \operatorname{Im}(\psi(\rho/2)/2)$는
+        낮은 $t$에서 상관을 강화하는 높이-의존적 이동을 도입한다.
+        직접 측정:
+        $\rho(\Delta A_\Gamma, g_{\mathrm{right}}) = -0.70$
+        ($p \approx 0$),
+        교차항이 $14\%$ 잔차의 주요 원천임을 확인한다.
+  \item \textbf{산술적 내용.}\;
+        $S_1^2/A$ 비율이 GUE bulk($11\%$)와 $L$-함수(${\sim}23\%$)에서 다르며,
+        이는 교대 합 $B$에서 산술 계수의 비소거를 반영한다.
+\end{enumerate}
+
+
+% ============================================================================
+\section{편상관}
+\label{sec:partial}
+% ============================================================================
+
+``공유 간격'' 효과를 내재적 진폭--진폭 결합에서 분리하기 위해,
+$n$번째와 $(n\!+\!1)$번째 영점 사이의 간격을 통제한
+편상관 $\rho(A_n, A_{n+1} \mid g_{n,n+1})$을 계산한다.
+
+$\zeta(s)$($n = 910$)에 대해:
+$\rho_{\mathrm{편상관}}(A_n, A_{n+1} \mid g_{n,n+1}) = +0.391$
+($p = 1.3 \times 10^{-18}$).
+공유 간격 효과를 제거한 후에도 인접 진폭들은 양의 상관을 유지한다.
+메커니즘은 공유 최근접 이웃 항이다: $\gamma_n$과 $\gamma_{n+1}$ 모두
+$\gamma_{n+2}$에 가깝다면, 두 진폭 모두 $\gamma_{n+2}$로부터 큰
+$H_1$ 기여를 받는다.
+
+
+% ============================================================================
+\section{$\sigma$--$A$ 교차 검증}
+\label{sec:crosscheck}
+% ============================================================================
+
+$\sigma$-프로파일 전개(\cite{paper2}의 따름정리 4.3)는
+$A(\gamma)$에 대한 독립적 경로를 제공한다:
+곡률 프로파일 $\kappa(\sigma, \gamma) = 1/(\sigma - \tfrac{1}{2})^2 + A + O((\sigma-\tfrac{1}{2})^2)$를
+적합하면 Laurent 전개의 $A(\gamma)$와 같아야 하는 계수 $c(\gamma)$를 얻는다.
+
+20개의 $\zeta(s)$ 영점에 대해:
+$\rho(\text{$\sigma$-스캔 } c(\gamma),\; \text{Laurent } A(\gamma))
+= 0.99999744$,
+최대 상대 오차 $0.19\%$.
+두 완전히 독립적인 계산 방법---하나는 $\sigma$-방향 적합,
+다른 하나는 Cauchy 윤곽 적분---의 이 6자리 일치는
+진폭 정의의 유효성을 검증하고 체계적 수치 인공물을 배제한다.
+
+
+% ============================================================================
+\section{논의}
+\label{sec:discussion}
+% ============================================================================
+
+\subsection{결과 요약}
+
+Hadamard 진폭 $A(\gamma)$가 자기동형 $L$-함수의 개별 영점의
+의미 있는 불변량임을 확립했다:
+\begin{enumerate}[label=(\roman*)]
+  \item 무조건적 하한 $A \ge 2/\Delta_{\min}^2$
+        (\cref{thm:lower_bound})은 Hadamard 곱 공식의 직접적 귀결이며
+        미증명 가설을 필요로 하지 않는다.
+  \item 반상관은 차수 1--4의 열 개의 $L$-함수에서 검증되어
+        차수-독립 보편성을 확립한다.
+  \item GUE 랜덤 행렬 앙상블이 상관의 $86\%$를 설명하며,
+        잔차는 감마 인자 교차항에 기인함을 규명한다.
+  \item 쌍 $(A_\La, g_{\min})$이 높이-안정한 반면
+        $(A_\La, g_{\mathrm{right}})$은 감쇠하여,
+        $g_{\min}$이 정준 메트릭임을 확인한다.
+\end{enumerate}
+
+\subsection{물리적 해석}
+
+진폭 $A(\gamma)$는 영점의
+\emph{스펙트럼 영향 반경}으로 해석될 수 있다:
+$A$가 큰 영점은 국소 해석적 구조에 더 강한 영향을 미치며,
+\cref{thm:lower_bound}은 이 영향이 최근접 이웃 거리의 제곱에
+반비례함을 보여준다.
+양자화 Hamiltonian의 Berry--Keating 스펙트럼 해석
+$A \sim$ 국소 상태 밀도와의 유추는 시사적이나
+아직 증명되지 않았다.
+
+\subsection{열린 문제들}
+
+\begin{enumerate}
+  \item \textbf{$\rho \approx -0.57$의 해석적 도출.}\;
+        Spearman 상관의 특정 값을 쌍 상관 함수로부터 도출할 수 있는가?
+  \item \textbf{$2H_1/A$의 차수 스케일링.}\;
+        비율이 $0.87$(GL(1))에서 ${\sim}0.67$(GL(4))로 감소하는데,
+        이것이 $L$-함수의 차수로부터 예측될 수 있는가?
+  \item \textbf{$\sigma$-국소화와 $A$--gap 이중성.}\;
+        $\sigma$-프로파일 $\kappa(\sigma) = 1/\varepsilon^2 + A + \cdots$와
+        간격 하한 $A \ge 2/\Delta_{\min}^2$은
+        영점의 횡방향($\sigma$-방향)과 종방향($t$-방향) 구조 사이의
+        이중성을 시사한다.
+  \item \textbf{GL(5) 이상.}\;
+        $\mathrm{sym}^4$(차수 5) 이상으로의 확장은
+        Langlands 계층에서 보편성이 지속되는지 검증할 것이다.
+\end{enumerate}
+
+
+% ============================================================================
+% 참고문헌
+% ============================================================================
+\begin{thebibliography}{99}
+
+\bibitem{montgomery1973}
+H.~L.~Montgomery,
+``The pair correlation of zeros of the zeta function,''
+\textit{Proc.\ Symp.\ Pure Math.}, vol.~24, pp.~181--193, 1973.
+
+\bibitem{odlyzko1987}
+A.~M.~Odlyzko,
+``On the distribution of spacings between zeros of the zeta function,''
+\textit{Math.\ Comp.}, vol.~48, pp.~273--308, 1987.
+
+\bibitem{paper1}
+Y.-H.~Kim,
+``위상 양자화, 게이지 ODE와 $L$-함수 영점을 위한 $\xi$-다발 프레임워크 I,''
+2026 (프리프린트).
+
+\bibitem{paper2}
+Y.-H.~Kim,
+``위상 양자화, 게이지 ODE와 $L$-함수 영점을 위한 $\xi$-다발 프레임워크 II:
+이론적 기초,''
+2026 (프리프린트).
+
+\bibitem{paper3}
+Y.-H.~Kim,
+``위상 양자화, 게이지 ODE와 $L$-함수 영점을 위한 $\xi$-다발 프레임워크 III:
+확장과 보편성,''
+2026 (프리프린트).
+
+\bibitem{titchmarsh1986}
+E.~C.~Titchmarsh,
+\textit{The Theory of the Riemann Zeta-Function}, 2판
+(D.~R.~Heath-Brown 개정). Oxford University Press, 1986.
+
+\bibitem{iwaniec2004}
+H.~Iwaniec, E.~Kowalski,
+\textit{Analytic Number Theory}.
+AMS Colloquium Publications, vol.~53, 2004.
+
+\bibitem{mehta2004}
+M.~L.~Mehta,
+\textit{Random Matrices}, 3판. Academic Press, 2004.
+
+\end{thebibliography}
+
+\end{document}

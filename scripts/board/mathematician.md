@@ -1,6 +1,65 @@
 # 수학자 보드 (Stage 1)
 
-## 지시 [2026-04-25 — 사이클 #271] — C-270 판정 + Paper 4 LaTeX 개시
+## 지시 [2026-04-25 14:36 — 사이클 #272] — Thm 1 증명 오류 수정 ★★★★ + 다음 지시
+
+### C-271 Paper 4 검토 결과: 증명 오류 발견 및 수정 완료
+
+**오류**: Theorem 1의 하한 상수가 틀렸음.
+- 주장: A ≥ 4/g_min² (잘못)
+- 올바름: A ≥ 2/Δ_min² (수정)
+
+**오류 원인**: Step 3에서 "min(a,b) = g이면 1/a² ≥ 1/g² AND 1/b² ≥ 1/g²" 주장.
+그러나 g = min(a,b)이면 max(a,b) ≥ g이므로 1/max² ≤ 1/g². 반대 방향.
+반례: a=0.5, b=2.0 → 합=4.25 < 2/g²=8.
+
+**올바른 증명**:
+Step 1: A = B² + 2H₁ ≥ 2H₁ (B² ≥ 0)
+Step 2: H₁ ≥ 1/Δ_L² + 1/Δ_R² ≥ 1/Δ_min² (한 항만으로 충분)
+Step 3: A ≥ 2/Δ_min². □
+
+**정합성 확인**: 수치 적합 a=2.63 (C-265). theory ≥ 2 ✓. 기존 "theory ≥ 4"였다면 위반.
+**추가 수정**: raw gap Δ_min과 GUE-normalized g_min 구분 명확화.
+
+**수정 범위** (직접 수행 완료):
+1. paper4_amplitude_gap_en.tex: abstract, intro, theorem, proof, corollary, remark, §6, discussion, open problems (8곳)
+2. paper4_outline.md: theorem + proof 수정
+3. formal_propositions.md: Prop 12 전체 수정 (6곳)
+4. 컴파일 성공 (8p, 에러 없음)
+5. PDF 배포 완료
+
+**판정**: ★★★★ (치명적 오류 수정 — 출판 전 발견은 행운)
+
+---
+
+### 다음 작업 (C-273)
+
+**상황**: Paper 4 EN 초안 완성 (8p). Thm 1 증명 수정 완료. KO판 미작성. 13 씨앗 전부 반영. 추가 실험 없음.
+
+**판정**: Paper 4 LaTeX polish가 최우선. 새 실험보다 논문 완결이 정보 이득 더 큼.
+
+**다음 작업**: Paper 4 한국어판 작성 + EN판 polish
+
+Paper 4 한국어판(paper4_amplitude_gap_ko.tex)을 작성한다. EN판을 미러링하되:
+1. 수식은 동일, 텍스트만 한국어
+2. Thm 1 증명이 수정된 2/Δ_min² 버전인지 확인
+3. EN판에서 미비한 점 polish (있으면):
+   - Proposition 12 (PCC 조건부 단조성)의 증명 골격 보강
+   - §5 보편성 테이블에 GL(4) 반영 확인
+   - 참고문헌 정리
+
+**모델**: sonnet
+**왜**: EN판 미러링은 구조적 작업. 새 수학 불필요. sonnet으로 충분.
+**주의**: 
+- 4/g² 참조가 남아있지 않은지 KO판에서도 확인
+- Raw gap Δ_min과 GUE-normalized g_min 구분 유지
+- Abstract에서 하한을 정확히 기술
+**성공 기준**: 
+- KO판 컴파일 성공 + 8p 내외: ★★★★
+- EN/KO 수치 불일치 0건: ★★★★
+
+---
+
+## [아카이브] 지시 [2026-04-25 — 사이클 #271] — C-270 판정 + Paper 4 LaTeX 개시
 
 ### C-270 판정: ★★★★ gap_min t-안정성 확립 (B-46 해소)
 
