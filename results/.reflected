@@ -322,6 +322,8 @@ results/gl3_fp_verification_67.txt
 results/gl3_gamma_deconv_66b.txt
 results/gl3_gamma_deconv_66.txt
 results/gl3_pari_sigma_sweep_99.txt
+results/gl3_sigma_profile_c305.txt
+results/gl3_sigma_smalldelta_c306.txt
 results/gl3_sym2_11a1_63b.txt
 results/gl3_sym2_11a1_63.txt
 results/gl3_sym2_37a1_64.txt

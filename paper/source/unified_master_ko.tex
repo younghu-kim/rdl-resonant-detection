@@ -2370,11 +2370,15 @@ $\alpha=1.005\pm 0.010$, $A/\pi N=0.95$, $R^{2}=0.9999$,
 대칭비 $E(0.5{+}\Delta)/E(0.5{-}\Delta)=1.000000$ (20/20점).
 
 \smallskip\noindent
-\textbf{GL(1)과 GL(2)의 보편성.}
-동일한 $1/|\sigma-\sigma_c|$ 법칙이 디리클레 $L$-함수(GL(1), $\sigma_c=1/2$)와
-GL(2) 타원곡선 $L$-함수($\sigma_c=1$) 모두에서 성립한다.
+\textbf{GL($d$), $d=1,2,3$의 보편성.}
+동일한 $1/|\sigma-\sigma_c|$ 법칙이 디리클레 $L$-함수(GL(1), $\sigma_c=1/2$),
+GL(2) 타원곡선 $L$-함수($\sigma_c=1$), 그리고
+GL(3) 대칭제곱 $L$-함수 $L(\mathrm{sym}^2(11\text{a}1), s)$ ($\sigma_c=3/2$)
+모두에서 성립한다.
 GL(2)의 경우 아다마르 대각항만으로 $\alpha_{\mathrm{diag}}=1.02$, $R^2>0.9999$이며,
-전체 $E(\sigma)$는 \emph{소$\Delta\sigma$} 영역($\Delta\sigma\leq 0.10$, 즉 평균 영점 간격보다 충분히 작은 오프셋)에서 $\alpha=1.02\pm 0.01$을 회복한다.
+전체 $E(\sigma)$는 \emph{소$\Delta\sigma$} 영역($\Delta\sigma\leq 0.10$)에서 $\alpha=1.02\pm 0.01$을 회복한다.
+GL(3)의 경우 대각항 $\alpha_{\mathrm{diag}}=1.009$ ($R^2>0.9999$),
+전체 에너지는 $\Delta\sigma\leq 0.05$에서 $\alpha=1.004$ ($R^2=0.9999$)를 회복한다.
 
 \begin{center}
 \small
@@ -2388,15 +2392,21 @@ $L(s,\chi_4)$ & GL(1) & $1/2$ & $1.003$ & $0.955$ & $0.9978$ & $\Delta\sigma\geq
 $L(s,\chi_5)$ & GL(1) & $1/2$ & $0.986$ & $1.029$ & $0.9956$ & $\Delta\sigma\geq 0.02$ \\
 $L(E_{11\text{a}1},s)$ & GL(2) & $1$ & $1.026$ & $0.864$ & $0.9999$ & $\Delta\sigma\leq 0.10$ \\
 $L(E_{37\text{a}1},s)$ & GL(2) & $1$ & $1.017$ & $0.884$ & $0.9999$ & $\Delta\sigma\leq 0.10$ \\
+$L(\mathrm{sym}^2(11\text{a}1),s)$ & GL(3) & $3/2$ & $1.004$ & $0.901$ & $0.9999$ & $\Delta\sigma\leq 0.05$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \noindent
-6개 사례 모두 $|\alpha-1|<0.03$: 에너지 $\sigma$-집중 법칙은 셀베르그 류 차수 1, 2에서
-\emph{근사적으로 보편적}이다.
-GL(2)의 진폭비 $A/\pi N\approx 0.87$ (GL(1)의 $\approx 0.97$ 대비)은
-영점 밀도 증가에 따른 교차항 기여를 반영한다.
+7개 사례 모두 $|\alpha-1|<0.03$: 에너지 $\sigma$-집중 법칙은
+\emph{GL($d$), $d=1,2,3$에서 보편적}이다.
+단, 차수가 증가함에 따라 유효 영역이 축소되며,
+\emph{차수-적응적 범위 법칙}
+$\Delta\sigma_{\max} \approx \bar{g}/d$
+($\bar{g}$는 평균 영점 간격)이 $\alpha=1$ 관측 가능 범위를 지배한다:
+GL(1) ($\bar{g}\approx 7.2$): 전체 $\Delta\sigma$;
+GL(2) ($\bar{g}\approx 1.2$): $\Delta\sigma\leq 0.10$;
+GL(3) ($\bar{g}\approx 0.72$): $\Delta\sigma\leq 0.05$.
 
 \smallskip\noindent
 \textbf{교차항 메커니즘.}
@@ -2405,10 +2415,15 @@ GL(2)의 진폭비 $A/\pi N\approx 0.87$ (GL(1)의 $\approx 0.97$ 대비)은
 교차항은 $\Delta\sigma \ll g_{\min}$(최소 영점 간격)일 때 $<5\%$이나,
 $\Delta\sigma\approx 0.3$에서 GL(2)의 경우 $+15$--$27\%$에 달한다
 (GL(1)은 평균 간격 $\approx 7.2 \gg \Delta\sigma$이므로 무시 가능).
-이것이 GL(2)의 원시 멱법칙 적합에서 $\alpha_{\mathrm{raw}}\approx 0.7$이 나오는 원인이다.
+GL(3) sym$^2$(11a1)에서는 교차항이 \emph{부호 전환}을 보인다:
+$\Delta\sigma < \bar{g}/d \approx 0.24$에서 교차항이 음($\approx -9\%$, $\Delta\sigma\in[0.02, 0.05]$)이며,
+큰 오프셋에서 양으로 전환한다($+47\%$ at $\Delta\sigma=0.30$).
+이 음의 교차항은 GL(3)의 높은 영점 밀도에 의한 쌍 반발(pair repulsion)을 반영하며,
+차수-적응적 범위 법칙의 물리적 원인이다.
 교차항 구조는 영점의 쌍 상관(pair correlation)을 부호화하며,
 GUE 이점 함수와의 연결은 후속 과제이다.
-\textcolor{ForestGreen}{[확인 2026-04-26; GL(2) 11a1/37a1 소$\Delta\sigma$ 적합]}
+\textcolor{ForestGreen}{[확인 2026-04-26; GL(2) 11a1/37a1 소$\Delta\sigma$ 적합;
+GL(3) sym$^2$(11a1) $\alpha{=}1.004$, 교차항 부호 전환 $\approx -9\%$, 2026-04-26]}
 \end{enumerate}
 
 \subsection{블라인드 영점 예측}

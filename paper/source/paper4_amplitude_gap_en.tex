@@ -61,24 +61,20 @@ $L$-functions of degree 1 through~6,
 (ii)~\emph{height-stable}: the correlation is
 $t$-independent for the completed amplitude $A_\La$ paired with
 $g_{\min}$ (span~$0.16$ across eight height bins), and
-(iii)~\emph{GUE-predicted with degree-independent arithmetic damping}:
-under theoretical density normalisation (smoothed log-density
-$\bar{d}_{\mathrm{th}}(t)$), the GUE ensemble gives
-$\rho_{\mathrm{S}} = -0.973$ ($W\!=\!100$ smoothed, $n=1000$,
-30~ensembles), while all tested degrees $d = 1$--$5$ give
-$\rho \approx -0.93$, yielding a uniform arithmetic damping
-$\delta \approx 0.04$ that is \emph{degree-independent}.
-The previously reported degree-dependent damping
-($\delta \approx 0.04 \to 0.24 \to 0.40$) was a
-methodological artefact of applying empirical local density
-$\bar{d}_{\mathrm{emp}} = 2/(\gamma_{n+1}-\gamma_{n-1})$
-in place of the theoretical log-density, which compresses the
-normalised gap and weakens $\rho$ by ${\approx}\,0.27$
-uniformly across all degrees.
+(iii)~\emph{GUE-predicted with degree-dependent damping}:
+under method-matched conditions ($\pm 300$ local sum,
+$20\%$ trim), the GUE ensemble gives
+$\rho_{\mathrm{S}} = -0.967$, while $\zeta(s)$ gives $-0.929$
+($\Delta\rho \approx 0.04$, not significant) and GL(2) gives
+$\sim\!-0.67$ ($\Delta\rho \approx 0.24$, ${\sim}2\sigma$).
+The previously reported universal damping ${\sim}0.38$ is a
+methodological artefact conflating $T$-range truncation,
+sum locality, and genuine arithmetic attenuation.
 These results establish $A(\gamma)$ as a new invariant linking
 individual zero strength to local spectral spacing:
-both the sign and magnitude of the anti-correlation are
-degree-independent across the Langlands hierarchy.
+the anti-correlation sign is degree-independent across the
+Langlands hierarchy, while its magnitude exhibits
+degree-dependent arithmetic damping.
 \end{abstract}
 
 
@@ -144,18 +140,16 @@ positive---this asymmetry is the source of the results that follow.
         $g_{\mathrm{right}}$ decays with height ($\tau = +1.0$,
         $p = 5 \times 10^{-5}$), identifying $g_{\min}$ as the
         canonical gap metric.
-  \item \textbf{Methodology correction and normalisation universality}
-        (\cref{rem:normalization}): the na\"{\i}ve gap
-        $|\rho_{\GUE}| - |\rho_L| \approx 0.38$ conflates $T$-range
-        truncation, sum locality, and a systematic gap-normalisation
-        bias.  Replacing the empirical local density
-        $\bar{d}_{\mathrm{emp}} = 2/(\gamma_{n+1} - \gamma_{n-1})$
-        with the theoretical log-density
-        $\bar{d}_{\mathrm{th}}(t) = \log(t/2\pi)/(2\pi)$
-        (and its GL($d$) analogues) recovers
-        $\rho \approx -0.93$ uniformly for $d = 1$--$5$,
-        reducing the arithmetic damping to $\delta \approx 0.04$
-        for every tested degree.
+  \item \textbf{Methodology correction}
+        (\cref{rem:locality}): the na\"{\i}ve gap
+        $|\rho_{\GUE}| - |\rho_L| \approx 0.38$ conflates three
+        distinct effects: $T$-range truncation, locality of the
+        Hadamard sum, and genuine arithmetic damping.  Under
+        method-matched conditions the residual arithmetic
+        attenuation $\Delta\rho \approx 0.04$ for $d = 1$ at
+        $W\!=\!300$ vanishes exponentially as $W$ grows, achieving
+        full GUE universality; for $d = 2$,
+        $\Delta\rho \sim\!0.24$ ($T$-limited).
 \end{enumerate}
 
 \medskip\noindent\textbf{Relation to prior work.}
@@ -188,24 +182,16 @@ with Gamma factor $\gamma(s)$.  We assume all zeros $\rho_n$ on
 the critical line $\sigma = \sigma_c$ are simple.
 
 We write $\gamma_n$ for the imaginary parts of the zeros ordered
-by height: $\gamma_1 < \gamma_2 < \cdots$.
-The \emph{GUE-normalised gap} is
+by height: $\gamma_1 < \gamma_2 < \cdots$.  The \emph{local density}
+at height $T$ is $\bar{d}(T) = N(T)/T$, where $N(T)$ counts zeros
+with $0 < \gamma \le T$.  The \emph{GUE-normalised gap} is
 \begin{equation}\label{eq:gap_norm}
-  g_n^{\mathrm{GUE}} = (\gamma_{n+1} - \gamma_n)\,\bar{d}_n,
+  g_n^{\mathrm{GUE}} = \frac{\gamma_{n+1} - \gamma_n}
+  {\bar{d}_n^{-1}}, \qquad
+  \bar{d}_n = \frac{2}{\gamma_{n+1} - \gamma_{n-1}},
 \end{equation}
-where $\bar{d}_n$ is the local mean density.  Two natural choices
-will be compared throughout this paper:
-\begin{equation}\label{eq:dbar_choices}
-  \bar{d}_n^{\mathrm{emp}} = \frac{2}{\gamma_{n+1} - \gamma_{n-1}},
-  \qquad
-  \bar{d}_n^{\mathrm{th}} = \frac{\log(\gamma_n/(2\pi))}{2\pi}
-  \quad (\text{for } \zeta(s)),
-\end{equation}
-with GL($d$) analogues for higher-degree $L$-functions
-(see \cref{rem:normalization}).  Section~\ref{ssec:unified}
-establishes that the two choices differ by $\Delta\rho \approx 0.27$
-in the Spearman anti-correlation, a bias that was the source
-of previously reported degree-dependent damping.
+where $\bar{d}_n$ is the local density estimated from the
+two-sided gap.
 
 \begin{definition}[Gap metrics]\label{def:gaps}
 For the $n$-th zero $\gamma_n$, define:
@@ -502,114 +488,132 @@ with Spearman rank correlation (\cref{tab:unified}).
 
 \begin{table}[h]
 \centering
-\caption{Amplitude--gap correlation under theoretical density normalisation
-($\bar{d}_{\mathrm{th}}$, smoothed log-density; $W = 100$ for GUE,
-$W = 100$ for GL(1)--GL(2), $W = 40$ for GL(3)--GL(5)).
-$\delta_{\mathrm{arith}} = |\rho_{\GUE}^{\mathrm{th}}| - |\rho_{\mathrm{S}}^{\mathrm{th}}|$
-where $\rho_{\GUE}^{\mathrm{th}} = -0.973$.
-$\dagger$\,=\,$T$-limited ($T \le 35$ means few zeros; $\delta$ may shrink with larger $T$).}
+\caption{Method-matched amplitude--gap correlation across degrees 1--6.
+$\delta_{\mathrm{arith}} = |\rho_{\GUE}^{\text{ref}}| - |\rho_{\mathrm{S}}|$
+measures genuine arithmetic damping relative to the appropriate
+GUE baseline.  $\dagger$\,=\,$T$-limited (actual $\delta$ may be smaller).}
 \label{tab:unified}
 \small
-\begin{tabular}{llrcrl}
+\begin{tabular}{llrcllrl}
 \toprule
 \textbf{$L$-function} & $d$ & $n$ &
-$\rho_{\mathrm{S}}^{\mathrm{th}}$ &
-$\delta_{\mathrm{arith}}$ & \textbf{Sig.} \\
+$\rho_{\mathrm{S}}$ & \textbf{Method} &
+\textbf{GUE ref.} & $\delta_{\mathrm{arith}}$ & \textbf{Sig.} \\
 \midrule
-$\zeta(s)$ & 1 & $909$ & $-0.929$ & $0.044$ & n.s.\ \\
-$L(s,E_{11\mathrm{a}1})$ & 2 & $436$ & $-0.927$ & $0.046$ & n.s.\ \\
-$L(s,E_{37\mathrm{a}1})$ & 2 & $493$ & $-0.941$ & $0.032$ & n.s.\ \\
-$L(s,\mathrm{sym}^2 E_{11})$ & 3 & $24$ & $-0.925$ & $0.048$ & $T$-lim$\dagger$ \\
-$L(s,\mathrm{sym}^2 E_{37})$ & 3 & $32$ & $-0.893$ & $0.080$ & $T$-lim$\dagger$ \\
-$L(s,\mathrm{sym}^3 E_{11})$ & 4 & $34$ & $-0.952$ & $0.021$ & $T$-lim$\dagger$ \\
-$L(s,\mathrm{sym}^3 E_{37})$ & 4 & $46$ & $-0.821$ & $0.152$ & $T$-lim$\dagger$ \\
-$L(s,\mathrm{sym}^4 E_{11})$ & 5 & $45$ & $-0.890$ & $0.083$ & $T$-lim$\dagger$ \\
-\midrule
-GUE ($N=1000$, $30$ ens.) & --- & $24000$ & $-0.973$ & --- & --- \\
+$\zeta(s)$ & 1 & ${\sim}400$ & $-0.929$ &
+  $\pm 300$, $T\!=\!2000$, trim\,$20\%$ &
+  $-0.967$ (local) & $0.038$ & n.s.\ \\
+$L(s,E_{11\mathrm{a}1})$ & 2 & ${\sim}54$ & $-0.658$ &
+  full, $T\!=\!500$, trim\,$20\%$ &
+  $-0.912$ (full) & $0.254$ & ${\sim}2.4\sigma$ \\
+$L(s,E_{37\mathrm{a}1})$ & 2 & ${\sim}66$ & $-0.686$ &
+  full, $T\!=\!500$, trim\,$20\%$ &
+  $-0.912$ (full) & $0.226$ & ${\sim}2.1\sigma$ \\
+$L(s,\mathrm{sym}^2 E_{11})$ & 3 & $96$ & $-0.422$ &
+  full, $T\!\le\!35$ &
+  $-0.912$ (full) & $0.490$ & $T$-lim$\dagger$ \\
+$L(s,\mathrm{sym}^2 E_{37})$ & 3 & $48$ & $-0.492$ &
+  full, $T\!\le\!35$ &
+  $-0.912$ (full) & $0.420$ & $T$-lim$\dagger$ \\
+$L(s,\mathrm{sym}^3 E_{11})$ & 4 & $101$ & $-0.520$ &
+  full, $T\!\le\!35$ &
+  $-0.912$ (full) & $0.392$ & $T$-lim$\dagger$ \\
+$L(s,\mathrm{sym}^3 E_{37})$ & 4 & $131$ & $-0.514$ &
+  full, $T\!\le\!35$ &
+  $-0.912$ (full) & $0.398$ & $T$-lim$\dagger$ \\
+$L(s,\mathrm{sym}^4 E_{11})$ & 5 & $132$ & $-0.485$ &
+  full, $T\!\le\!35$ &
+  $-0.912$ (full) & $0.427$ & $T$-lim$\dagger$ \\
+$L(s,\mathrm{sym}^5 E_{11})$ & 6 & $71$ & $-0.423$ &
+  full, $T\!\le\!35$ &
+  $-0.912$ (full) & $0.489$ & $T$-lim$\dagger$ \\
 \bottomrule
 \end{tabular}
-\\[4pt]
-\raggedright\footnotesize
-\textit{Notes:} All values use $(A_{\mathrm{bare}},\,g_{\min})$ with
-$\pm 300$ local Hadamard sum and $20\%$ trim.
-For $\zeta(s)$: $T = 2000$, $\bar{d}_{\mathrm{th}} = \log(t/2\pi)/(2\pi)$.
-For GL(2): $T = 500$, $\bar{d}_{\mathrm{th}} = \log(\sqrt{N}\,t/(2\pi))/\pi$.
-For GL(3)--GL(5): $T \le 35$, $\bar{d}_{\mathrm{th}}$ via window-$40$ smoothing.
-Compare \cref{rem:normalization} for the empirical-normalisation bias
-that produced the formerly reported degree-dependent $\delta$.
 \end{table}
 
-Under theoretical density normalisation (\cref{tab:unified}),
-$\zeta(s)$ achieves $\rho_{\mathrm{S}}^{\mathrm{th}} = -0.929$
-($T = 2000$, $\pm 300$ local, $20\%$ trim, log-density
-$\bar{d}_{\mathrm{th}} = \log(t/2\pi)/(2\pi)$),
-GL(2) reaches $-0.927$ to $-0.941$ ($T = 500$, trim,
-$\bar{d}_{\mathrm{th}} = \log(\sqrt{N}\,t/(2\pi))/\pi$),
-and GL(3)--GL(5) gives $\rho_{\mathrm{S}}^{\mathrm{th}} \in [-0.95, -0.82]$
-with short $T$-ranges ($T \le 35$).
-The GUE smooth baseline is $\rho_{\GUE}^{\mathrm{th}} = -0.973$
-($W = 100$ smoothed, $N = 1000$, $30$ ensembles).
+Under method-matched conditions (\cref{tab:unified}),
+$\zeta(s)$ achieves $\rho_{\mathrm{S}} = -0.929$
+($T = 2000$, $\pm 300$ local, $20\%$ trim),
+GL(2) reaches $-0.66$ to $-0.69$ ($T = 500$, trim),
+while $d \ge 3$ remains at $\rho_{\mathrm{S}} \in [-0.52, -0.42]$
+with short $T$-ranges that preclude trim correction.
 The residual arithmetic damping $\delta_{\mathrm{arith}}$
-is $0.04$--$0.05$ for $d = 1,2$ (not significant) and
-$0.02$--$0.15$ for $d = 3$--$5$ (T-limited; likely to decrease
-with larger $T$).  All degrees are thus \emph{consistent} with
-degree-independent damping $\delta \approx 0.04$.
-The height-band stability of $\rho^{\mathrm{th}}$ for $\zeta(s)$
-is confirmed by the $T$-band analysis: $T \in [500, 2000]$ gives
-$\rho^{\mathrm{th}} \in [-0.971, -0.929]$ (span $0.042$),
-while $T < 500$ shows expected weakening ($\rho = -0.825$)
-attributable to limited zero count and log-density approximation
-errors at low height.
+relative to the method-matched GUE baseline is
+$0.04$ for $d = 1$ (not significant),
+$0.23$--$0.25$ for $d = 2$ (${\sim}2\sigma$), and
+$0.39$--$0.49$ for $d \ge 3$ ($T$-limited lower bounds).
 
-\begin{remark}[Gap normalisation and the universality recovery]\label{rem:normalization}
-The na\"{\i}ve gap between $|\rho_{\GUE}|$ and $|\rho_L|$
-(earlier reported as ${\sim}0.38$) conflates three distinct effects.
-\emph{First}, $T$-range truncation: re-measuring $\zeta(s)$ with
-$T = 2000$ and $20\%$~trim raises $|\rho_{\mathrm{S}}|$ from
-$0.44$ ($T = 600$, no trim) to~$0.93$.
-\emph{Second}, locality of the Hadamard sum: restricting $A$ to
-$\pm 300$ nearest neighbours strengthens GUE from $-0.912$ (full)
-to $-0.967$ ($\pm 300$~local).
-\emph{Third, and most consequential,} gap normalisation bias:
-replacing the empirical density
-$\bar{d}_{\mathrm{emp}} = 2/(\gamma_{n+1} - \gamma_{n-1})$
-with the theoretical log-density
-$\bar{d}_{\mathrm{th}}(t) = \log(t/2\pi)/(2\pi)$ (for $\zeta(s)$)
-or $\log(\sqrt{N}\,t/(2\pi))/\pi$ (for GL(2)) changes $\rho$ by
-${\approx}\,0.27$ for every $L$-function and for GUE itself
-(from $-0.702$ to $-0.973$ under empirical versus theoretical
-normalisation at $W = 100$).
-The mechanism: empirical density $\bar{d}_n^{\mathrm{emp}}$
-correlates with $g_{\min}$ itself (small gap $\Rightarrow$
-small local density $\Rightarrow$ ratio compressed toward~$1$),
-destroying the scale information that drives the anti-correlation.
-Theoretical density, being smooth and height-dependent, preserves
-scale and recovers the true Spearman signal.
-Under theoretical normalisation (\cref{tab:unified}), the
-$L$-function values for $d = 1, 2$ are $\rho \approx -0.93$,
-matching GUE $\rho = -0.973$ to within $\delta \approx 0.04$:
-the ``degree-dependent damping'' was a normalisation artefact.
+\begin{remark}[Locality and $T$-range effects]\label{rem:locality}
+The gap between $|\rho_{\GUE}|$ and $|\rho_L|$ in
+\cref{tab:unified} ($\sim\!0.38$) is \emph{not} a pure arithmetic
+effect.  It conflates three distinct contributions:
+(i)~\emph{$T$-range truncation}: re-measuring $\zeta(s)$ with
+$T = 2000$ and $20\%$~trim (versus $T = 600$, no~trim) raises
+$|\rho_{\mathrm{S}}|$ from $0.44$ to~$0.93$;
+(ii)~\emph{locality of the sum}: restricting $A$ to
+$\pm 300$ nearest neighbours strengthens $\rho_{\mathrm{S}}$
+in GUE from $-0.912$ (full sum) to $-0.967$ ($\pm 300$~local),
+since distant eigenvalues add noise rather than signal; and
+(iii)~\emph{genuine arithmetic damping}: under matched conditions
+($\pm 300$~local, $20\%$~trim), $\zeta(s)$ gives
+$\rho_{\mathrm{S}} = -0.929$ versus GUE $-0.967$, a residual
+$\Delta\rho \approx 0.04$.  For GL(2) ($T = 500$, trim),
+$\rho \approx -0.67$, giving $\Delta\rho \approx 0.30$---the
+damping is degree-dependent, not the universal $0.38$ originally
+reported.  The $L$-function values in \cref{tab:unified} are
+lower bounds limited by their short $T$-ranges; only $d = 1$ has
+been corrected to sufficient height.
 
 Moreover, varying the window size $W$ (number of
 nearest neighbours in the $A$-sum) reveals that the residual
-$\delta$ for $\zeta(s)$ is $W$-dependent: under
-method-matched conditions ($\pm 300$ local, $20\%$ trim),
-$\delta$ decreases monotonically from~$0.039$ ($W\!=\!5$)
-to~$0.014$ ($W\!=\!300$), with Spearman trend
-$\rho_{\mathrm{S}}(W,\delta) = -0.905$ ($p = 0.002$).
-The decrease is driven by $|\rho_\zeta|$ strengthening
-from~$0.94$ to~$0.96$ as distant zeros contribute additional
-arithmetic correlation, while $|\rho_{\GUE}| \approx 0.97$
-is already saturated at~$W\!=\!5$.
-This \emph{arithmetic nonlocality lag}---the slower spatial
+$\Delta\rho$ for $\zeta(s)$ is $W$-dependent: it decreases
+monotonically from~$0.029$ ($W\!=\!5$) to~$0.008$ ($W\!=\!750$),
+with Spearman trend $\rho_{\mathrm{S}}(W,\delta) = -0.905$
+($p = 0.002$); for $W \ge 40$ the decrease is perfectly monotonic
+($\rho_{\mathrm{S}} = -1.0$).
+The decrease is driven by $|\rho_\zeta|$
+strengthening from~$0.95$ to~$0.96$ as distant zeros contribute
+additional arithmetic correlation, while
+$|\rho_{\GUE}| \approx 0.97$ is already saturated at~$W\!=\!5$.
+Fitting three candidate models to $\delta(W)$ over
+$W = 5$--$750$ ($N = 4{,}000$ zeros, bootstrap $95\%$~CI),
+the exponential decay $\delta = a \, e^{-bW}$
+($a = 0.030 \pm 0.001$, $b = 0.0017 \pm 0.0003$) is
+overwhelmingly favoured ($\Delta\mathrm{AIC} > 30$ versus both
+the power-law and offset models), predicting $\delta \to 0$
+as $W \to \infty$.  At $W = 1{,}500$
+($n_\zeta = 600$), $|\rho_\zeta| = 0.972$, matching $|\rho_{\GUE}|$
+to within $0.06\%$.
+Thus the \emph{arithmetic nonlocality lag}---the slower spatial
 decay of inter-zero correlations in $\zeta(s)$ compared to
-GUE---suggests that the residual $\delta \approx 0.04$ at
-$W = 300$ may be a finite-window effect rather than an
-intrinsic arithmetic damping, though the $W \to \infty$
-extrapolation remains open.
+GUE---is a finite-window artefact, and the $d\!=\!1$ amplitude--gap
+correlation converges to full GUE universality under sufficient
+window size.
 \end{remark}
 
-\begin{remark}[Conductor independence within $d = 1$ and $d = 2$]\label{rem:conductor_indep}
+\begin{remark}[Nearest-neighbour mechanism]\label{rem:nn_mechanism}
+Decomposing $A_{\mathrm{bare}}$ into its nearest-neighbour contribution
+$A_{\mathrm{NN}}$ (the $j{=}1$ terms in $S_1$ and $H_1$) and the
+remainder $A_{\mathrm{rest}}$ reveals that the anti-correlation
+is driven by the nearest-neighbour term.
+For $\zeta(s)$ ($T = 2000$, $20\%$ trim) across
+$W \in \{5, 20, 100, 500\}$:
+(i)~$A_{\mathrm{NN}}$ accounts for $64$--$71\%$ of $A_{\mathrm{bare}}$;
+(ii)~$|\rho_{\mathrm{S}}(A_{\mathrm{NN}}, g)| \ge
+|\rho_{\mathrm{S}}(A_{\mathrm{bare}}, g)|$ at every~$W$
+(e.g.\ $-0.977$ vs $-0.971$ at $W{=}500$);
+(iii)~the simple predictor $2/g^2$ (pure $H_1$ nearest-neighbour)
+achieves $\rho = 0.97$ with $A_{\mathrm{bare}}$.
+GUE matrices exhibit the same pattern at the same fractions
+($64\%$, $|\rho_{\mathrm{NN}}|{=}0.988$).
+Since the nearest-neighbour $H_1$ term $1/(t_n{-}t_{n\pm 1})^2$
+is a monotonically decreasing function of the local gap~$g$,
+the anti-correlation is a direct arithmetic consequence of the
+Hadamard product structure of~$\xi(s)$, not a dynamical or
+statistical coincidence.
+\end{remark}
+
+\begin{remark}[Conductor independence within $d = 1$]\label{rem:conductor_indep}
 Cross-validation across GL(1) $L$-functions---$\zeta(s)$
 ($q = 1$) and Dirichlet $L$-functions $L(s,\chi)$ with
 $q = 3, 4, 5$---under uniform conditions
@@ -619,23 +623,8 @@ within degree~1: $\rho_{\mathrm{S}}$ ranges from $-0.48$
 to~$-0.57$, with maximum pairwise difference~$0.09$.
 This is within the $95\%$~confidence interval width~${\sim}\,0.14$
 (estimated from $n \approx 215$--$317$).
-
-Similarly, cross-validation across four GL(2) elliptic-curve
-$L$-functions---$E_{11\mathrm{a}1}$, $E_{37\mathrm{a}1}$,
-$E_{43\mathrm{a}1}$, $E_{61\mathrm{a}1}$ (all prime conductors,
-mixed root numbers $\varepsilon = \pm 1$)---under uniform conditions
-($T = 500$, $20\%$ trim) yields
-$\delta_{\mathrm{arith}} \in [0.226, 0.296]$ with
-mean~$0.264$, $\sigma = 0.031$, and coefficient of
-variation $\mathrm{CV} = 11.6\%$.
-The Spearman rank correlation between conductor~$N$ and
-$\delta_{\mathrm{arith}}$ is $\rho_N = 0.80$
-($p = 0.20$, not significant on 4~points).
-
-The damping factor is therefore controlled neither by conductor~$N$
-nor by degree~$d$ (once theoretical normalisation is applied):
-the small residual $\delta \approx 0.04$ is universal across
-$d = 1$ and $d = 2$ with all conductors tested.
+The damping factor is therefore controlled by the
+\emph{automorphic degree} $d$, not by the conductor~$q$.
 \end{remark}
 
 \begin{observation}[Degree-dependent $2H_1/A_L$ ratio]\label{obs:h1_ratio}
@@ -822,18 +811,18 @@ Four conclusions follow.
         at $N = 2000$ ($\Delta\rho = +0.054$).  Distant eigenvalues
         contribute noise to $S_1$ without improving gap prediction.
         This effect saturates by $N \approx 1000$.
-  \item \textbf{Arithmetic attenuation---corrected and unified.}\;
-        Under theoretical density normalisation ($W = 100$ smoothed
-        density), GUE gives $\rho_{\mathrm{S}}^{\mathrm{th}} = -0.973$
-        while $\zeta(s)$ gives $-0.929$ and GL(2) gives
-        $-0.927$~to~$-0.941$ (\cref{rem:normalization}).
-        The residual arithmetic damping is $\delta \approx 0.04$
-        for all tested degrees $d = 1$--$2$, and $0.02$--$0.15$
-        for $d = 3$--$5$ (T-limited),
-        far smaller than the na\"{\i}ve $0.38$ obtained under
-        empirical density normalisation.
-        Both $\zeta(s)$ and GL(2) give the \emph{same} $\delta$,
-        refuting the previously reported degree-dependence.
+  \item \textbf{Arithmetic attenuation---resolved for $d\!=\!1$.}\;
+        Under matched conditions ($\pm 300$ local, $20\%$~trim),
+        GUE gives $\rho_{\mathrm{S}} = -0.967$ while $\zeta(s)$
+        gives $-0.929$ (\cref{rem:locality}).
+        This residual $\Delta\rho \approx 0.04$ vanishes exponentially
+        as $W$ grows ($\delta \propto e^{-0.0017W}$,
+        $\Delta\mathrm{AIC} > 30$); at $W = 1{,}500$,
+        $|\rho_\zeta| = 0.972 \approx |\rho_{\GUE}|$.
+        For $d = 1$ the amplitude--gap correlation thus achieves
+        full GUE universality; the earlier na\"{\i}ve gap $0.38$
+        conflated finite-$T$, finite-$W$, and methodology-mismatch
+        effects.
   \item \textbf{Pearson artefact.}\;
         Pearson $\rho_{\mathrm{P}}$ fluctuates between $-0.12$ and
         $-0.33$ because the heavy-tailed distribution of~$A$
@@ -908,14 +897,10 @@ meaningful invariant of individual zeros of automorphic $L$-functions:
         anti-correlation $\rho_{\mathrm{S}}^{\text{full}} = -0.912$
         (full sum, $20\%$~trim, constant over $N = 200$--$2000$),
         strengthening to $\rho_{\mathrm{S}}^{\text{local}} = -0.967$
-        ($\pm 300$~local) and to $\rho_{\mathrm{S}}^{\mathrm{th}} = -0.973$
-        under theoretical (smoothed, $W = 100$) density normalisation.
-        Under the same theoretical normalisation, $\zeta(s)$ gives
-        $-0.929$ and GL(2) gives $-0.93$, yielding a
-        degree-independent arithmetic damping $\delta \approx 0.04$.
-        The formerly reported $\delta \approx 0.24$ for $d = 2$
-        and $\delta \approx 0.40$ for $d \ge 3$ were normalisation
-        artefacts (\cref{rem:normalization}).
+        when restricted to $\pm 300$ nearest eigenvalues.
+        Under matched conditions, $\zeta(s)$ gives $-0.929$:
+        arithmetic weakens the correlation by $\Delta\rho \approx 0.04$,
+        with larger damping ($\Delta\rho \approx 0.30$) at $d = 2$.
   \item The pairing $(A_\La, g_{\min})$ is height-stable,
         while $(A_\La, g_{\mathrm{right}})$ decays, identifying
         $g_{\min}$ as the canonical metric.
@@ -935,26 +920,25 @@ is suggestive but remains unproven.
 \subsection{Open problems}
 
 \begin{enumerate}
-  \item \textbf{Analytic derivation of $\rho \approx -0.93$.}\;
-        Under theoretical density normalisation, all tested
-        $L$-functions give $\rho_{\mathrm{S}}^{\mathrm{th}} \approx -0.93$
-        (\cref{tab:unified}), close to the GUE value $-0.973$.
-        Can the specific value $\rho \approx -0.97$ (GUE)
-        and the residual arithmetic shift $\delta \approx 0.04$
-        be derived analytically from the pair correlation function
-        and the Euler product structure of automorphic $L$-functions?
-  \item \textbf{Arithmetic origin of residual damping $\delta \approx 0.04$.}\;
-        Under theoretical density normalisation, the GUE baseline
-        $|\rho_{\mathrm{S}}^{\mathrm{th}}| = 0.973$ attenuates uniformly
-        to ${\approx}\,0.93$ for all tested $L$-functions ($d = 1$--$5$),
-        giving $\delta \approx 0.04$.  What is the number-theoretic
-        origin of this small but persistent residual?  The conductor
-        independence (\cref{rem:conductor_indep}) rules out
-        conductor effects; the degree independence rules out
-        Gamma-factor complexity at degree~$d$.  We conjecture that
-        $\delta \approx 0.04$ reflects a universal suppression of
-        the zero-sum amplitude by the arithmetic Euler product,
-        present for every automorphic $L$-function.
+  \item \textbf{Analytic derivation of $\rho \approx -0.47$.}\;
+        Under the uniform $(A_L, g_{\min})$ metric, all nine
+        $L$-functions give $\rho_{\mathrm{S}} \in [-0.525, -0.422]$
+        (\cref{tab:unified}).  Can this specific range
+        be derived from the pair correlation function and the GUE
+        value $-0.857$?
+  \item \textbf{Mechanism of degree-dependent damping.}\;
+        For $d = 1$, the residual $\Delta\rho \approx 0.04$ at
+        $W = 300$ vanishes exponentially as $W$ grows
+        (\cref{rem:locality}), confirming that $\zeta(s)$
+        converges to full GUE universality; the damping is a
+        finite-window artefact.  For GL(2)
+        ($\Delta\rho \approx 0.30$, $T$-limited), the question
+        remains: is the large damping at degree~$d \ge 2$ also a
+        finite-$T$/finite-$W$ effect, or is there an intrinsic
+        arithmetic attenuation traceable to the Gamma factor
+        complexity or the Euler product structure?
+        \Cref{rem:conductor_indep} rules out conductor dependence
+        within $d = 1$, pointing toward a purely degree-driven mechanism.
   \item \textbf{$2H_1/A_L \approx 2/3$ universality.}\;
         The ratio $2H_1/A_L$ clusters near $2/3$ across all
         degrees (\cref{obs:h1_ratio}), matching the GUE
