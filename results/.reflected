@@ -208,6 +208,7 @@ results/A_decomposition_77.txt
 results/A_formula_highdeg_b35.txt
 results/A_formula_independent_b37.txt
 results/A_gap_correlation_c256.txt
+results/agap_nn_mechanism_c297.txt
 results/A_height_scaling_c260.txt
 results/angle_at_zeros_inventory.txt
 results/artin_s3_121.txt
@@ -429,3 +430,6 @@ results/zeta_tband_agap_c290c.txt
 results/zeta_tband_agap_c290.txt
 sigma_A_crosscheck_c255.txt
 sigma_localization_profile_c254.txt
+/home/k0who029/Desktop/gdl_unified/results/offcritical_highres_c298.txt
+/home/k0who029/Desktop/gdl_unified/results/offcritical_c297.txt
+/home/k0who029/Desktop/gdl_unified/results/agap_nn_mechanism_c297.txt

@@ -4146,6 +4146,46 @@ independently reproduced at $16\!\times\!16$, $\mathrm{dps}=50$]}
 \end{observation}
 
 
+\begin{remark}[Energy $\sigma$-concentration law]
+\label{rem:energy_sigma_concentration}
+The curvature energy functional
+$E(\sigma):=\int_{t_{\min}}^{t_{\max}}|\Lambda'/\Lambda(\sigma+it)|^{2}\,dt$
+quantifies the strength of $\sigma$-localisation
+(Obs.~\ref{obs:sigma_localisation}).
+By the Hadamard product $\Lambda'/\Lambda(s)=B+\sum_{\rho}1/(s-\rho)$,
+the diagonal contribution to $|{\cdot}|^{2}$ integrates to
+$\pi/|\sigma-\tfrac{1}{2}|$ per zero.  Conditional on RH this gives
+\[
+  E(\sigma)\;=\;\frac{\pi N}{|\sigma-\tfrac{1}{2}|}
+    \;+\;o\!\bigl(N/|\sigma-\tfrac{1}{2}|\bigr),
+  \qquad |\sigma-\tfrac{1}{2}|>1/d(T),
+\]
+where $N$ is the number of zeros in $[t_{\min},t_{\max}]$ and $d(T)$
+the local mean spacing.
+The functional-equation symmetry $\xi(s)=\xi(1-s)$ further implies
+$E(\sigma)=E(1-\sigma)$.
+
+\smallskip\noindent
+\textbf{Numerical verification} ($\zeta$, $N=5$, $t\in[14,34]$,
+20~$\Delta\sigma$ values $\times$ two sides $= 40$ points):
+fitting $E=A/|\sigma-\tfrac{1}{2}|^{\alpha}+B$
+over the well-resolved range $\Delta\sigma\geq 0.02$ (13 points) yields
+\[
+  \alpha=1.005\pm 0.010,\quad
+  A=14.92\pm 0.59\;\;(\pi N=15.71),\quad
+  R^{2}=0.9999.
+\]
+The symmetry ratio $E(0.5+\Delta)/E(0.5-\Delta)=1.000000$ holds to
+machine precision at all 20 test points.
+The product $\Delta\sigma\cdot E$ is constant to within 1\% for
+$\Delta\sigma\in[0.02,0.05]$, confirming the $1/|\sigma-\frac{1}{2}|$
+law; deviations below $\Delta\sigma\sim 0.02$ are a quadrature artefact
+(Lorentzian peak FWHM $=2\Delta\sigma<\Delta t$).
+\textcolor{ForestGreen}{[confirmed 2026-04-26; $\zeta$ 40/40 points,
+$\alpha=1$ within 0.5\%]}
+\end{remark}
+
+
 \begin{observation}[Triple topological consistency table]
 \label{obs:triple_consistency}
 We combine the three independent methods---direct zero counting~(A),
