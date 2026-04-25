@@ -600,6 +600,59 @@ candidate origins:
         of arithmetic coefficients in the alternating sum $B$.
 \end{enumerate}
 
+\subsection{Full Laurent amplitude and $N$-independence}
+\label{ssec:gue-full}
+
+The preceding analysis used a nearest-neighbour approximation
+$A \approx 2H_1$.  We now compute the \emph{full} Laurent amplitude
+$A = S_1^2 + 2H_1$ for GUE$(N)$ matrices with
+$N \in \{50,100,200,500,1000,2000\}$,
+reporting both Pearson and Spearman correlations with
+$g_{\min}^{\GUE}$ (central $80\%$ of eigenvalues, $20$--$100$
+realisations per~$N$).
+
+\begin{center}
+\begin{tabular}{rcccc}
+\toprule
+$N$ & $\rho_{\mathrm{S}}(A,g_{\min})$ & $\rho_{\mathrm{P}}(A,g_{\min})$
+    & $2H_1/A$ & $H_1^{\mathrm{NN}}/H_1$ \\
+\midrule
+50   & $-0.862$ & $-0.124$ & $0.774$ & $0.685$ \\
+100  & $-0.854$ & $-0.321$ & $0.778$ & $0.675$ \\
+200  & $-0.857$ & $-0.330$ & $0.779$ & $0.672$ \\
+500  & $-0.857$ & $-0.226$ & $0.779$ & $0.669$ \\
+1000 & $-0.856$ & $-0.306$ & $0.778$ & $0.669$ \\
+2000 & $-0.859$ & $-0.331$ & $0.778$ & $0.669$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Three conclusions follow.
+
+\begin{enumerate}
+  \item \textbf{Spearman stability.}\;
+        $\rho_{\mathrm{S}}(A,g_{\min}) = -0.857 \pm 0.003$
+        is constant across $N = 50$--$2000$ ($p \approx 0$ for all~$N$).
+        The amplitude--gap anti-correlation is an intrinsic GUE property,
+        independent of matrix size.
+  \item \textbf{Pearson artefact.}\;
+        Pearson $\rho_{\mathrm{P}}$ fluctuates between $-0.12$ and
+        $-0.33$ because the heavy-tailed distribution of~$A$
+        (dominated by $1/\Delta^2$ near small gaps) violates the
+        linearity assumption.  Spearman, being rank-based, is immune.
+  \item \textbf{Arithmetic attenuation.}\;
+        The GUE Spearman value $|\rho_{\mathrm{S}}| = 0.86$ exceeds
+        the $L$-function values $0.42$--$0.58$ (\cref{sec:univ}).
+        Arithmetic structure \emph{weakens} the anti-correlation,
+        rather than creating it.
+\end{enumerate}
+
+The ratio $H_1^{\mathrm{NN}}/H_1$ converges to $2/3$ (reaching
+$0.669$ at $N = 2000$), matching the $L$-function observation.
+In contrast, $2H_1/A = 0.78$ (GUE) differs from $0.66$
+($L$-functions, $d \ge 4$): the overall ratio is \emph{not}
+a GUE universal, though the nearest-neighbour dominance fraction~is.
+
 
 % ============================================================================
 \section{Partial Correlation}
@@ -657,9 +710,11 @@ meaningful invariant of individual zeros of automorphic $L$-functions:
         Hadamard's product formula and requires no unproven hypotheses.
   \item The anti-correlation is verified across twelve $L$-functions
         of degree~1--6, establishing degree-independent universality.
-  \item The GUE random matrix ensemble explains $86\%$ of the
-        correlation, with the residual traced to the Gamma-factor
-        cross-term.
+  \item The GUE random matrix ensemble produces a Spearman
+        anti-correlation $\rho_{\mathrm{S}} = -0.857 \pm 0.003$
+        (constant over $N = 50$--$2000$), \emph{stronger} than
+        $L$-functions ($0.42$--$0.58$): arithmetic attenuates the
+        correlation rather than creating it.
   \item The pairing $(A_\La, g_{\min})$ is height-stable,
         while $(A_\La, g_{\mathrm{right}})$ decays, identifying
         $g_{\min}$ as the canonical metric.
@@ -684,8 +739,11 @@ is suggestive but remains unproven.
         derived from the pair correlation function?
   \item \textbf{Degree scaling of $2H_1/A$.}\;
         The ratio decreases from $0.87$ (GL(1)) and saturates
-        at ${\sim}0.66$ for $d \ge 4$; can this be predicted from the degree of the
-        $L$-function?
+        at ${\sim}0.66$ for $d \ge 4$.  The GUE value is $0.78$,
+        so the saturation at $0.66$ reflects arithmetic content
+        rather than a random-matrix universal.  Can the precise
+        value and the mechanism of attenuation be predicted from the
+        degree of the $L$-function?
   \item \textbf{$\sigma$-localisation and $A$--gap duality.}\;
         The $\sigma$-profile $\kappa(\sigma) = 1/\varepsilon^2 + A + \cdots$
         and the gap bound $A \ge 2/\Delta_{\min}^2$ suggest a duality between
