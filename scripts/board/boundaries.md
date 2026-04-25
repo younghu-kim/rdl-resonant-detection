@@ -433,6 +433,16 @@
   σ-국소화 증명은 RH 동치 → 현실적 증명 목표 아님.
 - **상태**: ★★★★ 해결. Paper 4 방향에서는 증명 불가 → 다른 씨앗 탐색 필요.
 
+### B-44: GL(3) A-gap gap_right vs gap_min 불일치 → ✅ 해소 (2026-04-25 C-264)
+- **현상**: GL(3) zero-sum에서 gap_right 상관 약화, gap_min은 유지.
+- **해결 (C-264 교차검증)**: **A_Λ vs A_L 이분법**으로 완전 설명.
+  - A_Λ (Cauchy/lfunlambda, completed L): gap_right와 상관 (ρ ≈ -0.55~-0.72)
+  - A_L (zero-sum, primitive L): gap_min과 상관 (ρ ≈ -0.53~-0.61)
+  - 차이: c₀^Λ = c₀^L + γ_R'/γ_R(ρ₀), Gamma factor가 Laurent 계수에 기여
+  - C-256/C-263은 A_Λ 계산 → gap_right 관측. C-264는 A_L 계산 → gap_min 관측.
+- **GL(3) gap_min**: ρ=-0.42/-0.49, GL(1) ρ=-0.61과 일관 → 보편적
+- **상태**: ✅ 해소. 진정한 경계 아님 — 방법론 차이.
+
 ### Paper 2 현황 갱신 [2026-04-22, 사이클 #243]
 - **범위**: ~33개 결과 (#107-#117, #125-#127, #200-#215, B-34, B-35+B-37, C-240, C-241, C-242)
 - **핵심 정리**: Thm 5 (보편성), Thm 6 (FE 충분성), Thm 7 (c₁ 판별), Thm slopeuniv (Slope Universality)

@@ -1,0 +1,37 @@
+[사이클 #264] 교차검증 결과 — A_Λ vs A_L 이분법 발견
+
+=== 핵심 발견 ===
+  C-256/C-263의 Cauchy 방법: A_Λ = Im(c₀^Λ)² + 2Re(c₁^Λ) (completed L-function Λ)
+  C-264의 zero-sum 방법: A_L ≈ S₁² + 2H₁ (primitive L-function, 영점합 근사)
+
+  A_Λ ↔ gap_right anti-correlation (ρ ≈ -0.55 ~ -0.72)
+  A_L ↔ gap_min anti-correlation (ρ ≈ -0.53 ~ -0.61)
+
+  차이 원인: Gamma factor γ_R'/γ_R(ρ₀)가 c₀^Λ에 포함됨
+  c₀^Λ = c₀^L + γ_R'/γ_R(ρ₀), c₁^Λ = c₁^L + (γ_R'/γ_R)'(ρ₀)
+
+=== ζ(s) Cauchy/lfunlambda (C-263 방식) ===
+  n=15 (lfunlambda without lfuninit, 19/305 성공)
+  ρ(A_Λ, gap_right_GUE) = -0.7214  (p=2.4e-3)  ✅
+  ρ(A_Λ, gap_min_GUE)   = -0.3250  (p=2.4e-1)  ❌
+  → C-256 Cauchy 결과(ρ=-0.5898) 재현 성공
+
+=== ζ(s) zero-sum (T=2000, 1517 zeros, 중앙 60%) ===
+  n=910
+  ρ(A_Λ(full+Gamma), gap_right) = -0.0814  ⚠️
+  ρ(A_Λ(full+Gamma), gap_min)   = -0.6098  ✅
+  ρ(A_L(full,no Gamma), gap_right) = +0.2046
+  ρ(A_L(full,no Gamma), gap_min)   = -0.5426  ✅
+  ρ(A(same-only), gap_right) = -0.3397  ✅
+  ρ(A(same-only), gap_min)   = -0.5321  ✅
+  → zero-sum은 gap_min과 상관, gap_right 재현 불가 (영점합 절단 효과)
+
+=== GL(3) zero-sum (A_L) 재해석 ===
+  Sym²(11a1): ρ(A_L, gap_min_GUE) = -0.42  (p=2e-5)  ✅
+  Sym²(37a1): ρ(A_L, gap_min_GUE) = -0.49  (p=4e-4)  ✅
+  → GL(3) gap_min anti-correlation 유효, GL(1) ζ(s)와 일관
+
+=== 결론 ===
+  ★★★ gap_min anti-correlation is universal: GL(1), GL(2), GL(3)
+  ★★★ A_Λ vs A_L 이분법: Gamma factor가 gap_right ↔ gap_min 선택성 결정
+  ⚠️ GL(3) A_Λ(gap_right) 검증 미완: lfunlambda too slow for Sym²

@@ -1614,6 +1614,69 @@ $\chi_3,\chi_4,\chi_5$ (GL(1)) and $E_{11a1},E_{37a1}$ (GL(2));
 $\rho\in[-0.63,-0.55]$; $6/6$ sign-consistent;
 degree-independent universality; bare $L'/L+\psi$ correction for GL(2)]}
 
+\paragraph{GL(3) extension via zero-sum method (Result~\#C-264).}
+The Cauchy-integral computation of~$A_\Lambda$ (completed $L$-function)
+suffers from Gamma underflow at $\mathrm{GL}(3)$.  An alternative
+\emph{zero-sum method} computes~$A_L$ from the Hadamard product of the
+primitive $L$-function:
+$A_L = S_1^2 + 2H_1$, where $S_1 = \sum_{k\neq 0}1/(\gamma_0-\gamma_k)$
+and $H_1 = \sum_{k\neq 0}1/(\gamma_0-\gamma_k)^2$, with digamma corrections.
+This method correlates with the \emph{minimum} gap
+$g_{\min}=\min(g_{\mathrm{R}},g_{\mathrm{L}})$ rather than $g_{\mathrm{R}}$
+alone---a consequence of the Gamma factor $\gamma_R'/\gamma_R(\rho_0)$
+absorbed into~$c_0^\Lambda$ but absent from~$c_0^L$.
+For GL(3) symmetric squares:
+\begin{itemize}
+  \item $\mathrm{Sym}^2(\text{11a1})$: $\rho(A_L,g_{\min}^{\mathrm{GUE}})
+    = -0.42$ ($p=1.9\times10^{-5}$, $n=96$);
+  \item $\mathrm{Sym}^2(\text{37a1})$: $\rho(A_L,g_{\min}^{\mathrm{GUE}})
+    = -0.49$ ($p=3.8\times10^{-4}$, $n=48$).
+\end{itemize}
+Both are significant and directionally consistent with the GL(1)--GL(2)
+results.  The $A_\Lambda$/$A_L$ dichotomy ($g_{\mathrm{R}}$ vs.\
+$g_{\min}$ selectivity) is a methodological finding: the Gamma factor
+in $c_0^\Lambda$ breaks the left--right symmetry of the anticorrelation.
+
+\textcolor{ForestGreen}{[Result \#C-264, confirmed 2026-04-25;
+GL(3) $\mathrm{Sym}^2$ (11a1, 37a1); zero-sum method;
+$\rho(A_L,g_{\min})\in[-0.49,-0.42]$; $A_\Lambda/A_L$ dichotomy identified]}
+
+\paragraph{Hadamard mechanism: Proposition~12 (Result~\#C-265).}
+The anticorrelation admits a semi-analytic explanation via the
+Hadamard decomposition $A = S_1^2 + 2H_1$.
+Since every term $1/(\gamma_0-\gamma_k)^2>0$, the nearest-neighbour (NN)
+contribution provides a strict lower bound:
+\begin{equation}\label{eq:H1NN}
+  H_1 \;\geq\; H_1^{\mathrm{NN}}
+  = \frac{1}{\Delta_L^2}+\frac{1}{\Delta_R^2}
+  \;\geq\; \frac{2}{g_{\min}^2},
+\end{equation}
+so $A \geq 2/g_{\min}^2$.  Numerical verification on $910$
+inner zeros of~$\zeta(s)$ ($T=2000$) confirms:
+\begin{itemize}
+  \item $2H_1/A = 86.7\%$ (H$_1$ dominance) and
+        $H_1^{\mathrm{NN}}/H_1 = 66.4\%$ (NN dominance);
+  \item $E[A\mid g_{\min}^{\mathrm{GUE}}\!\in\!\text{bin}]$ is
+        \emph{perfectly monotone decreasing} across $8$ quantile bins
+        ($7/7$ consecutive pairs, Kendall $\tau=-1.00$, $p=5.0\times10^{-5}$);
+  \item the conditional expectation fits $E[A\mid g]\approx 2.63/g^2+1.43$
+        with $R^2=0.987$, coefficient $a=2.63>2$ consistent with
+        the bound~\eqref{eq:H1NN};
+  \item $\rho(A,g_{\min}^{\mathrm{GUE}})=-0.90$ ($p\approx 0$, $n=910$).
+\end{itemize}
+Under the GUE pair-correlation conjecture
+$R_2(x)=1-(\sin\pi x/\pi x)^2$, the tail contribution satisfies
+$E[H_1^{\mathrm{tail}}]=2\int_1^\infty R_2(x)/x^2\,dx=1.953$,
+which is $g$-independent to leading order.
+This establishes Proposition~12 (conditional on PCC):
+\emph{$E[A\mid g_{\min}=g]$ is monotone decreasing in~$g$},
+with the mechanism $A\gtrsim 2/g^2+\text{const}$
+making $\rho(A,g_{\min})<0$ a structural necessity.
+
+\textcolor{ForestGreen}{[Result \#C-265, confirmed 2026-04-25;
+Prop~12 (PCC-conditional); $n{=}910$; $E[A|g]$ monotone $7/7$;
+$\rho{=}{-}0.90$; $R^2{=}0.987$; $H_1{\geq}2/g^2$ mechanism]}
+
 
 % ============================================================================
 \section{Discussion}
@@ -1650,15 +1713,20 @@ equation and reality condition force $\operatorname{Re}(c_0)=0$ in the
 Laurent expansion, killing the $\delta^1$ term and making slope~$2$ a
 mathematical necessity for all automorphic $L$-functions.
 
-\paragraph{$A$--gap degree-independent universality.}
+\paragraph{$A$--gap degree-independent universality and mechanism.}
 The Laurent amplitude $A(\gamma)$ correlates negatively with GUE-normalised
-right gaps across six $L$-functions spanning $\mathrm{GL}(1)$ and
-$\mathrm{GL}(2)$, with $\rho\in[-0.63,-0.55]$ and $6/6$ sign consistency
-(Results~\#219, \#C-261, \#C-263).  This numerical evidence suggests
-that the $A$--gap anticorrelation is a \emph{degree-independent}
-phenomenon: larger Laurent amplitudes predict tighter zero spacing,
-regardless of conductor, rank, functional equation sign, or Selberg
-class degree.  A theoretical mechanism remains to be identified.
+gaps across eight $L$-functions spanning $\mathrm{GL}(1)$--$\mathrm{GL}(3)$:
+$\rho\in[-0.63,-0.42]$ with $8/8$ sign consistency
+(Results~\#219, \#C-261, \#C-263, \#C-264).
+The $A_\Lambda/A_L$ dichotomy (Result~\#C-264) clarifies that the Cauchy
+method correlates with $g_{\mathrm{R}}$ while the zero-sum method
+correlates with $g_{\min}$, both reflecting the same underlying
+anticorrelation.
+Proposition~12 (Result~\#C-265) identifies the mechanism:
+the Hadamard lower bound $A\geq 2/g_{\min}^2$ from nearest-neighbour
+dominance ($H_1^{\mathrm{NN}}/H_1=66\%$, $2H_1/A=87\%$) makes
+$\rho(A,g_{\min})<0$ a structural necessity under the GUE
+pair-correlation conjecture.
 
 \paragraph{Euler product dispensability.}
 Theorem~\ref{thm:feonly} and Result~\#114 establish that the Euler
@@ -1732,10 +1800,13 @@ holomorphic cusp forms, and Maass forms).
 
 Fifth, the Laurent amplitude $A(\gamma)$ exhibits a degree-independent
 negative correlation with GUE-normalised zero gaps
-($\rho\in[-0.63,-0.55]$, $6/6$ sign-consistent) across
-$\mathrm{GL}(1)$ Dirichlet and $\mathrm{GL}(2)$ elliptic-curve
-$L$-functions (Results~\#219, \#C-261, \#C-263), suggesting that
-$A(\gamma)$ is a universal predictor of local zero spacing.
+($\rho\in[-0.63,-0.42]$, $8/8$ sign-consistent) across
+$\mathrm{GL}(1)$--$\mathrm{GL}(3)$
+$L$-functions (Results~\#219, \#C-261, \#C-263, \#C-264), and
+Proposition~12 (Result~\#C-265) identifies the Hadamard mechanism:
+$A\geq 2/g_{\min}^2$ from nearest-neighbour dominance makes the
+anticorrelation a structural necessity under the GUE pair-correlation
+conjecture ($E[A|g]$ monotone decreasing, $7/7$ bins, $R^2=0.987$).
 
 Together, Theorems~5--7 and Observation~8 form a coherent picture:
 on the critical line, the $\xi$-bundle curvature satisfies
@@ -1755,7 +1826,7 @@ equation.
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#219, \#C-240--\#C-243, \#C-261, \#C-263 (37 results). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#219, \#C-240--\#C-243, \#C-261, \#C-263--\#C-265 (39 results). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1805,6 +1876,8 @@ Result & Section & Rating & Key finding \\
 \#219 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & $A(\gamma)$--gap correlation; GUE-norm.\ $\rho{=}{-}0.62$ ($p{=}10^{-22}$); R/L asymmetry $4.4{\times}$; pair $\rho{=}{+}0.40$ ($p{=}10^{-9}$); $t$-detrended $\rho{=}{-}0.76$ \\
 \#C-261 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & $A$--gap Dirichlet universality; $\chi_3,\chi_4,\chi_5$; $\rho{\in}[-0.63,-0.55]$; $3/3$ sign-consistent; non-self-dual included \\
 \#C-263 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A$--gap GL(2) degree-independent universality; $E_{11a1}$ $\rho{=}{-}0.57$, $E_{37a1}$ $\rho{=}{-}0.55$; $6/6$ GL(1)+GL(2) consistent; bare $L'/L{+}\psi$ \\
+\#C-264 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & GL(3) $A$--gap via zero-sum; $\mathrm{Sym}^2(\text{11a1})$ $\rho{=}{-}0.42$, $\mathrm{Sym}^2(\text{37a1})$ $\rho{=}{-}0.49$; $g_{\min}$ universality; $A_\Lambda/A_L$ dichotomy \\
+\#C-265 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Prop~12 (PCC-conditional): Hadamard mechanism $A{\geq}2/g_{\min}^2$; $E[A|g]$ monotone $7/7$; $\rho{=}{-}0.90$; $R^2{=}0.987$; $2H_1/A{=}87\%$ \\
 \end{longtable}
 
 

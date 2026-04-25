@@ -24,6 +24,7 @@ results/capacity_scaling.txt
 results/cluster_physics_v2.txt
 results/compare_fourier_modes.txt
 results/complex_vector_readout.txt
+results/crosscheck_c264.txt
 results/curvature_autocorr_38.txt
 results/curvature_delta_sweep.txt
 results/curvature_gue_distribution_37.txt
@@ -89,6 +90,7 @@ results/gl2_blind_prediction_37a1_54.txt
 results/gl2_blind_prediction_52.txt
 results/gl2_fp_monodromy_51.txt
 results/gl2_high_t_scaling_59.txt
+results/gl3_A_gap_c264.txt
 results/gl3_blind_prediction_65.txt
 results/gl3_conductor_scaling_68.txt
 results/gl3_fp_verification_67.txt
@@ -119,6 +121,7 @@ results/gl6_sym5_kd2_206.txt
 results/gram_point_curvature.txt
 results/gue_poisson_midpoint_comparison.txt
 results/hadamard_A_decomposition_90.txt
+results/hadamard_agap_mechanism_c265.txt
 results/hadamard_convergence_rate_96.txt
 results/hadamard_gl2_universality_92.txt
 results/hadamard_gl3_extended_95.txt
