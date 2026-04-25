@@ -1,3 +1,5 @@
+gap_stability_c270.txt
+gl4_A_gap_c269.txt
 gl4_sym3_37a1_kd2_204.txt
 gl4_sym3_kd2_203.txt
 /home/k0who029/Desktop/gdl_unified/results/A_decomposition_77.txt
@@ -318,6 +320,7 @@ results/gl4_sym3_kd2_203.txt
 results/gl4_sym3_pari_78.txt
 results/gl4_sym3_pari_79.txt
 results/gl4_sym3_pari_80.txt
+results/gl5_A_gap_c273.txt
 results/gl5_sym4_85.txt
 results/gl5_sym4_kd2_205.txt
 results/gl6_sym5_kd2_206.txt
@@ -401,5 +404,3 @@ results/zero_173_analysis.txt
 results/zeta_4property_71.txt
 sigma_A_crosscheck_c255.txt
 sigma_localization_profile_c254.txt
-gl4_A_gap_c269.txt
-gap_stability_c270.txt

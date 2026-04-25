@@ -1506,291 +1506,23 @@ mean error $1.3\%$, max $4.0\%$]}
 % ============================================================================
 
 The Laurent amplitude $A(\gamma)=\operatorname{Im}(c_0)^2+2\operatorname{Re}(c_1)$
-encodes non-trivial information about the local zero spacing.
-For the first $200$ zeros of $\zeta(s)$ ($t\in[14.1,\,396.4]$), we compute
-$c_0,\,c_1$ via Cauchy integration (\texttt{dps}$=60$, 128-point contour)
-and measure Spearman correlations with the right gap
-$g_{\mathrm{R}}=\gamma_{n+1}-\gamma_n$, the left gap
-$g_{\mathrm{L}}=\gamma_n-\gamma_{n-1}$, and the minimum gap
-$g_{\min}=\min(g_{\mathrm{R}},g_{\mathrm{L}})$.
+exhibits a degree-independent negative correlation with GUE-normalised zero
+gaps ($\rho\in[-0.63,-0.42]$, $11/11$ sign-consistent) across \emph{eleven}
+automorphic $L$-functions spanning $\mathrm{GL}(1)$--$\mathrm{GL}(5)$
+(Results~\#219, \#C-261, \#C-263--\#C-265, \#C-268--\#C-270, \#C-273;
+including $\mathrm{Sym}^4(\text{11a1})$ at GL(5):
+$\rho=-0.485$, $p=3.7\times10^{-9}$, $n=132$).
+The Hadamard lower bound $A\geq 2/g_{\min}^2$ (Proposition~12, Result~\#C-265)
+makes $\rho(A,g_{\min})<0$ a structural necessity under the GUE
+pair-correlation conjecture, and $g_{\min}$ is height-stable
+(8-bin span$=0.163$, Kendall $\tau$ non-significant; Result~\#C-270).
+Complete treatment---including the $A_\Lambda/A_L$ dichotomy (Result~\#C-264),
+the Gamma-factor decomposition (Result~\#C-268), and all measurements---is
+given in Kim~(2026d)~\cite{kim2026paper4}.
 
-\paragraph{Gap correlation (GUE-normalised).}
-Because both $A(\gamma)$ and $g_{\mathrm{R}}(\gamma)$ trend with $t$
-(via logarithmic density growth), we normalise gaps to the GUE mean
-spacing $\bar\Delta(t)=2\pi/\log(t/2\pi)$ before computing correlations.
-The GUE-normalised Spearman correlation is
-\begin{equation}\label{eq:Agap}
-  \rho\bigl(A,\, g_{\min}^{\mathrm{GUE}}\bigr)
-  = -0.62 \quad (p = 1.7\times 10^{-22},\; N=200).
-\end{equation}
-The raw (unnormalised) correlation is $-0.85$, of which approximately
-$25\%$ is attributable to the shared $t$-trend; the GUE-normalised
-value~\eqref{eq:Agap} isolates the intrinsic spectral effect.
-
-\paragraph{Directional asymmetry.}
-The right-gap correlation $\rho(A,g_{\mathrm{R}})=-0.81$ is $4.4$ times
-stronger than $\rho(A,g_{\mathrm{L}})=-0.18$; after GUE normalisation
-the left gap becomes non-significant ($p=0.21$).
-In the Hadamard product, the dominant nearest-neighbour contribution to
-$\operatorname{Im}(c_0)$ is $\operatorname{Im}(c_0)_{\mathrm{NN}}
-= 1/g_{\mathrm{R}}-1/g_{\mathrm{L}}$, and the sign structure of this
-expression naturally favours the right gap.  A full mechanistic
-explanation of the asymmetry remains open.
-
-\paragraph{Adjacent pair correlation.}
-Consecutive amplitudes satisfy
-$\rho(A_n,A_{n+1})=+0.40$ ($p=4.4\times 10^{-9}$), indicating positive
-short-range correlation beyond the shared $t$-trend.  This is consistent
-with the nearest-neighbour sharing effect (two consecutive amplitudes
-both depend on their common gap) but may also contain a non-trivial
-component from the background $c_1$ coefficient (see below).
-
-\textcolor{ForestGreen}{[Result \#219, confirmed 2026-04-24;
-200 zeros of $\zeta$; $A(\gamma)$ vs gap Spearman correlation;
-GUE-normalised $\rho=-0.62$ ($p=10^{-22}$); right/left asymmetry $4.4{\times}$;
-pair $\rho=+0.40$ ($p=10^{-9}$); $t$-detrended residual $\rho=-0.76$ (20-pt);
-independent verification: 6-point $A$ check-sum $|\Delta|<3\times10^{-6}$]}
-
-\paragraph{Dirichlet universality (Result~\#C-261).}
-To test whether the $A$--gap correlation is specific to $\zeta(s)$ or
-reflects a broader phenomenon, we repeat the analysis for three
-Dirichlet $L$-functions: $L(s,\chi_3)$ ($q=3$, real),
-$L(s,\chi_4)$ ($q=4$, real), and $L(s,\chi_5)$ ($q=5$, complex
-non-self-dual).  Table~\ref{tab:agap_univ} summarises the results.
-All three Dirichlet $L$-functions exhibit negative Spearman correlations
-$\rho(A,g_{\mathrm{R}}^{\mathrm{GUE}})\in[-0.63,\,-0.55]$
-with $p<10^{-6}$, consistent with the $\zeta(s)$ value of~$-0.59$.
-The complex character $\chi_5$ (non-self-dual) shows the strongest
-correlation ($\rho=-0.63$), suggesting that the phenomenon does not
-require self-duality.
-
-\paragraph{GL(2) extension: degree-independent universality (Result~\#C-263).}
-We further extend the analysis to $\mathrm{GL}(2)$ $L$-functions
-associated with elliptic curves.
-For the elliptic curve $E_{11a1}$ ($N=11$, rank~$0$, $\varepsilon=+1$;
-$92$ inner zeros, $t<100$), a Cauchy integral
-computes $c_0,c_1$ via bare $L'/L$ with analytic $\psi(s)$ correction
-(to avoid Gamma underflow at large~$t$), yielding
-$\rho(A,g_{\mathrm{R}}^{\mathrm{GUE}})=-0.5688$ ($p=3.3\times10^{-9}$).
-For $E_{37a1}$ ($N=37$, rank~$1$, $\varepsilon=-1$; $112$ inner zeros),
-the correlation is $\rho=-0.5500$ ($p=3.4\times10^{-10}$).
-The GL(2) GUE normalisation uses the analytic conductor density
-$\bar{d}(t)=(2\pi)^{-1}\log(N t^{2}/(4\pi^{2}))$.
-Theorem~\ref{thm:slope} is verified: $|\!\operatorname{Re}(c_0)/\operatorname{Im}(c_0)|<5\times10^{-5}$
-for all zeros of both curves.
-
-\begin{table}[ht]
-\centering
-\caption{$A(\gamma)$--gap Spearman correlation across $\mathrm{GL}(1)$
-  and $\mathrm{GL}(2)$ $L$-functions.  All six show $\rho\in[-0.63,-0.55]$
-  with negative sign and $p<10^{-5}$.}
-\label{tab:agap_univ}
-\begin{tabular}{llcccc}
-\toprule
-$L$-function & degree & $n$ & $\rho(A,g_{\mathrm{R}}^{\mathrm{GUE}})$ & $p$-value & $\rho(A_n,A_{n+1})$ \\
-\midrule
-$\zeta(s)$ & GL(1) & 198 & $-0.5898$ & $6.1\times 10^{-20}$ & $+0.40$ \\
-$\chi_3\bmod 3$ & GL(1) & 72 & $-0.5733$ & $1.4\times 10^{-7}$ & $+0.42$ \\
-$\chi_4\bmod 4$ & GL(1) & 80 & $-0.5530$ & $1.0\times 10^{-7}$ & $+0.37$ \\
-$\chi_5\bmod 5$ & GL(1) & 46 & $-0.6334$ & $2.3\times 10^{-6}$ & $+0.28$ \\
-$E_{11a1}$ & GL(2) & 92 & $-0.5688$ & $3.3\times 10^{-9}$ & $+0.45$ \\
-$E_{37a1}$ & GL(2) & 112 & $-0.5500$ & $3.4\times 10^{-10}$ & $+0.53$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Combining all six $L$-functions, the Spearman correlation
-$\rho(A,g_{\mathrm{R}}^{\mathrm{GUE}})$ lies in the interval
-$[-0.63,-0.55]$ with uniform negative sign ($6/6$) and $p<0.01$
-($6/6$), spanning both $\mathrm{GL}(1)$ (Dirichlet) and $\mathrm{GL}(2)$
-(elliptic curve) families, self-dual and non-self-dual characters,
-and functional equation signs $\varepsilon=\pm 1$.
-This numerical evidence suggests that the negative $A$--gap correlation
-is a \emph{degree-independent} universal property of automorphic
-$L$-functions.
-
-\textcolor{ForestGreen}{[Results \#C-261 and \#C-263, confirmed 2026-04-25;
-$\chi_3,\chi_4,\chi_5$ (GL(1)) and $E_{11a1},E_{37a1}$ (GL(2));
-$\rho\in[-0.63,-0.55]$; $6/6$ sign-consistent;
-degree-independent universality; bare $L'/L+\psi$ correction for GL(2)]}
-
-\paragraph{GL(3) extension via zero-sum method (Result~\#C-264).}
-The Cauchy-integral computation of~$A_\Lambda$ (completed $L$-function)
-suffers from Gamma underflow at $\mathrm{GL}(3)$.  An alternative
-\emph{zero-sum method} computes~$A_L$ from the Hadamard product of the
-primitive $L$-function:
-$A_L = S_1^2 + 2H_1$, where $S_1 = \sum_{k\neq 0}1/(\gamma_0-\gamma_k)$
-and $H_1 = \sum_{k\neq 0}1/(\gamma_0-\gamma_k)^2$, with digamma corrections.
-This method correlates with the \emph{minimum} gap
-$g_{\min}=\min(g_{\mathrm{R}},g_{\mathrm{L}})$ rather than $g_{\mathrm{R}}$
-alone---a consequence of the Gamma factor $\gamma_R'/\gamma_R(\rho_0)$
-absorbed into~$c_0^\Lambda$ but absent from~$c_0^L$.
-For GL(3) symmetric squares:
-\begin{itemize}
-  \item $\mathrm{Sym}^2(\text{11a1})$: $\rho(A_L,g_{\min}^{\mathrm{GUE}})
-    = -0.42$ ($p=1.9\times10^{-5}$, $n=96$);
-  \item $\mathrm{Sym}^2(\text{37a1})$: $\rho(A_L,g_{\min}^{\mathrm{GUE}})
-    = -0.49$ ($p=3.8\times10^{-4}$, $n=48$).
-\end{itemize}
-Both are significant and directionally consistent with the GL(1)--GL(2)
-results.  The $A_\Lambda$/$A_L$ dichotomy ($g_{\mathrm{R}}$ vs.\
-$g_{\min}$ selectivity) is a methodological finding: the Gamma factor
-in $c_0^\Lambda$ breaks the left--right symmetry of the anticorrelation.
-
-\textcolor{ForestGreen}{[Result \#C-264, confirmed 2026-04-25;
-GL(3) $\mathrm{Sym}^2$ (11a1, 37a1); zero-sum method;
-$\rho(A_L,g_{\min})\in[-0.49,-0.42]$; $A_\Lambda/A_L$ dichotomy identified]}
-
-\paragraph{Hadamard mechanism: Proposition~12 (Result~\#C-265).}
-The anticorrelation admits a semi-analytic explanation via the
-Hadamard decomposition $A = S_1^2 + 2H_1$.
-Since every term $1/(\gamma_0-\gamma_k)^2>0$, the nearest-neighbour (NN)
-contribution provides a strict lower bound:
-\begin{equation}\label{eq:H1NN}
-  H_1 \;\geq\; H_1^{\mathrm{NN}}
-  = \frac{1}{\Delta_L^2}+\frac{1}{\Delta_R^2}
-  \;\geq\; \frac{2}{g_{\min}^2},
-\end{equation}
-so $A \geq 2/g_{\min}^2$.  Numerical verification on $910$
-inner zeros of~$\zeta(s)$ ($T=2000$) confirms:
-\begin{itemize}
-  \item $2H_1/A = 86.7\%$ (H$_1$ dominance) and
-        $H_1^{\mathrm{NN}}/H_1 = 66.4\%$ (NN dominance);
-  \item $E[A\mid g_{\min}^{\mathrm{GUE}}\!\in\!\text{bin}]$ is
-        \emph{perfectly monotone decreasing} across $8$ quantile bins
-        ($7/7$ consecutive pairs, Kendall $\tau=-1.00$, $p=5.0\times10^{-5}$);
-  \item the conditional expectation fits $E[A\mid g]\approx 2.63/g^2+1.43$
-        with $R^2=0.987$, coefficient $a=2.63>2$ consistent with
-        the bound~\eqref{eq:H1NN};
-  \item $\rho(A,g_{\min}^{\mathrm{GUE}})=-0.90$ ($p\approx 0$, $n=910$).
-\end{itemize}
-Under the GUE pair-correlation conjecture
-$R_2(x)=1-(\sin\pi x/\pi x)^2$, the tail contribution satisfies
-$E[H_1^{\mathrm{tail}}]=2\int_1^\infty R_2(x)/x^2\,dx=1.953$,
-which is $g$-independent to leading order.
-This establishes Proposition~12 (conditional on PCC):
-\emph{$E[A\mid g_{\min}=g]$ is monotone decreasing in~$g$},
-with the mechanism $A\gtrsim 2/g^2+\text{const}$
-making $\rho(A,g_{\min})<0$ a structural necessity.
-
-\textcolor{ForestGreen}{[Result \#C-265, confirmed 2026-04-25;
-Prop~12 (PCC-conditional); $n{=}910$; $E[A|g]$ monotone $7/7$;
-$\rho{=}{-}0.90$; $R^2{=}0.987$; $H_1{\geq}2/g^2$ mechanism]}
-
-\paragraph{Gamma factor contribution: three-factor decomposition
-(Result~\#C-268).}
-The Cauchy-method observation $\rho(A_\Lambda,g_{\mathrm{R}}^{\mathrm{GUE}})
-=-0.578$ (Result~\#219) exceeds the GUE theoretical prediction
-$\rho_{\mathrm{GUE}}=-0.50$.
-To quantify the role of the Gamma factor, we decompose $A_\Lambda$
-into the pure zero-sum amplitude $A_L$ (Gamma-free) and the Gamma
-correction $\Delta A = A_\Lambda - A_L$, where
-\[
-  \Delta A \;=\; -2\,S_1^L\cdot\operatorname{Im}\gamma_S
-  \;+\; (\operatorname{Im}\gamma_S)^2
-  \;+\; 2\operatorname{Re}\gamma_H, \qquad
-  \gamma_S = \tfrac{1}{2}\psi\!\left(\tfrac{s}{2}\right)
-  - \tfrac{1}{2}\log\pi.
-\]
-On $n=910$ inner zeros of~$\zeta(s)$ ($T=2000$, central $60\%$):
-\begin{itemize}
-  \item $\rho(A_L, g_{\mathrm{R}}^{\mathrm{GUE}}) = -0.165$
-        ($p=6.0\times10^{-7}$): the zero-sum amplitude alone
-        has weak $g_{\mathrm{R}}$ sensitivity;
-  \item $\rho(A_\Lambda, g_{\mathrm{R}}^{\mathrm{GUE}}) = -0.455$
-        ($p=9.0\times10^{-48}$): adding the Gamma factor amplifies
-        the correlation by $\Delta\rho = -0.291$;
-  \item $\rho(\Delta A, g_{\mathrm{R}}^{\mathrm{GUE}}) = -0.696$
-        ($p=9.8\times10^{-133}$): the Gamma correction itself
-        is strongly anticorrelated with $g_{\mathrm{R}}$.
-\end{itemize}
-The dominant mechanism is the cross-term
-$\Delta A \approx -2S_1^L\cdot\operatorname{Im}\gamma_S$,
-where $\operatorname{Im}\gamma_S \approx 0.786$ is nearly constant;
-the Gamma factor acts as an amplifier of the zero-sum $S_1^L$.
-The three-factor additive decomposition of $\rho(A_\Lambda, g_{\mathrm{R}})$:
-\[
-  \underbrace{-0.500}_{\rho_{\mathrm{GUE}}}
-  \;+\; \underbrace{+0.336}_{\rho_{\mathrm{arith}}}
-  \;+\; \underbrace{-0.291}_{\rho_{\Gamma}}
-  \;=\; -0.455,
-\]
-where $\rho_{\mathrm{arith}} = \rho(A_L, g_{\mathrm{R}}) - \rho_{\mathrm{GUE}}$
-reflects the arithmetic $S_1^2$ contribution.
-A residual of $0.12$ between the Hadamard-method $\rho=-0.455$ and
-the Cauchy-method $\rho=-0.578$ remains, attributable to methodological
-differences (finite truncation of the zero-sum vs.\ direct $\Lambda'/\Lambda$
-evaluation).
-The Gamma-to-$A$ ratio exhibits strong height dependence
-(Kendall $\tau=-1.00$, $p=5.0\times10^{-5}$):
-at low~$t$ ($\bar{t}\approx626$) $\Delta A/A_\Lambda \approx +10\%$,
-decreasing to $\approx -21\%$ at high~$t$ ($\bar{t}\approx1599$).
-
-\textcolor{ForestGreen}{[Result \#C-268, confirmed 2026-04-25;
-Gamma factor contribution $\Delta\rho{=}{-}0.291$;
-$\rho(\Delta A, g_{\mathrm{R}}){=}{-}0.696$ ($p{=}10^{-132}$);
-3-factor decomposition; B-45 partially resolved]}
-
-\paragraph{GL(4) extension: $\mathrm{Sym}^3$ universality (Result~\#C-269).}
-Extending the $A$--gap analysis to degree~$4$ via symmetric cubes:
-\begin{itemize}
-  \item $\mathrm{Sym}^3(\text{11a1})$ ($N=1331$, $d=4$):
-    $\rho(A_L, g_{\min}^{\mathrm{GUE}}) = -0.5199$
-    ($p=2.5\times10^{-8}$, $n=101$);
-  \item $\mathrm{Sym}^3(\text{37a1})$ ($N=50653$, $d=4$):
-    $\rho(A_L, g_{\min}^{\mathrm{GUE}}) = -0.5137$
-    ($p=3.5\times10^{-10}$, $n=131$).
-\end{itemize}
-Combined with all previous measurements, the $A$--gap anticorrelation is
-now established across \emph{ten} $L$-functions spanning
-$\mathrm{GL}(1)$--$\mathrm{GL}(4)$ with $10/10$ sign consistency
-($\rho\in[-0.63,-0.42]$).
-The Prop~12 diagnostics remain consistent at degree~$4$:
-$2H_1/A = 0.66$--$0.68$ (NN dominance) and
-$\rho(A_n,A_{n+1})>+0.29$ (pair correlation).
-This completes the degree-independence claim up to the highest
-currently accessible symmetric power.
-
-\textcolor{ForestGreen}{[Result \#C-269, confirmed 2026-04-25;
-GL(4) $\mathrm{Sym}^3$ (11a1, 37a1);
-$\rho(A_L,g_{\min})\in[-0.52,-0.51]$; $10/10$ GL(1)--GL(4) universality]}
-
-\paragraph{Height stability of $g_{\min}$ and the canonical metric
-(Result~\#C-270).}
-The $g_{\mathrm{R}}$ anticorrelation decays strongly with height
-(Result~\#C-268).  A natural question is whether $g_{\min}$ suffers
-the same instability.
-Dividing the $n=910$ inner zeros of~$\zeta(s)$ ($T=2000$) into $8$
-equal-size $t$-bins, the completed amplitude yields:
-\begin{itemize}
-  \item $\rho(A_\Lambda, g_{\min}^{\mathrm{GUE}})$: range
-    $[-0.977, -0.814]$, \textbf{span\,$=0.163 < 0.20$}
-    (Kendall $\tau=-0.286$, $p=0.40$, non-significant
-    $\Rightarrow$ no systematic trend);
-  \item $\rho(A_\Lambda, g_{\mathrm{R}}^{\mathrm{GUE}})$: range
-    $[-0.686, -0.120]$, span\,$=0.567$
-    (Kendall $\tau=+1.000$, $p=5.0\times10^{-5}$,
-    strong monotone decay confirmed).
-\end{itemize}
-Thus $g_{\min}$ is the \emph{canonical} gap metric for the
-$A$--gap anticorrelation: it is height-stable across the
-full range $t\in[600,1600]$, whereas $g_{\mathrm{R}}$ is
-height-contaminated by Gamma-factor interference.
-This validates the numerical scope of Proposition~12
-($A\geq 2/g_{\min}^2$) across all accessible heights.
-
-Independent reproduction of the Cauchy method at $T=300$ ($n=136$)
-yields $\rho(A_\Lambda, g_{\mathrm{R}}^{\mathrm{GUE}}) = -0.580$,
-differing from the original C-256 measurement ($-0.590$) by only
-$|\Delta\rho|=0.010$, confirming methodological reproducibility.
-The residual $0.12$ between Hadamard ($-0.455$) and Cauchy ($-0.580$)
-methods is attributable to methodological differences
-(zero-sum truncation effects vs.\ direct contour integration).
-
-\textcolor{ForestGreen}{[Result \#C-270, confirmed 2026-04-25;
-$g_{\min}$ $t$-stable (span${=}0.163$); $g_{\mathrm{R}}$ decays
-($\tau{=}{+}1.0$); $g_{\min}$ canonical; Cauchy reproduced
-($|\Delta\rho|{=}0.01$); B-45 resolved; B-46 resolved]}
+\textcolor{ForestGreen}{[Results \#219, \#C-261, \#C-263--\#C-265,
+\#C-268--\#C-270, \#C-273; confirmed 2026-04-25;
+$11/11$ GL(1)--GL(5); see Kim~(2026d)~\cite{kim2026paper4}]}
 
 
 % ============================================================================
@@ -1830,26 +1562,15 @@ mathematical necessity for all automorphic $L$-functions.
 
 \paragraph{$A$--gap degree-independent universality and mechanism.}
 The Laurent amplitude $A(\gamma)$ correlates negatively with GUE-normalised
-gaps across \emph{ten} $L$-functions spanning $\mathrm{GL}(1)$--$\mathrm{GL}(4)$:
-$\rho\in[-0.63,-0.42]$ with $10/10$ sign consistency
-(Results~\#219, \#C-261, \#C-263, \#C-264, \#C-269).
-The $A_\Lambda/A_L$ dichotomy (Result~\#C-264) clarifies that the Cauchy
-method correlates with $g_{\mathrm{R}}$ while the zero-sum method
-correlates with $g_{\min}$, both reflecting the same underlying
-anticorrelation.
-Proposition~12 (Result~\#C-265) identifies the mechanism:
-the Hadamard lower bound $A\geq 2/g_{\min}^2$ from nearest-neighbour
-dominance ($H_1^{\mathrm{NN}}/H_1=66\%$, $2H_1/A=87\%$) makes
-$\rho(A,g_{\min})<0$ a structural necessity under the GUE
-pair-correlation conjecture.
-The three-factor decomposition (Result~\#C-268) further shows that the
-Gamma factor amplifies the $g_{\mathrm{R}}$ anticorrelation by
-$\Delta\rho=-0.291$, with the cross-term
-$-2S_1^L\operatorname{Im}\gamma_S$ as the dominant channel.
-Crucially, $g_{\min}$ is height-stable (Result~\#C-270: span\,$=0.163$
-across $8$ $t$-bins, Kendall $\tau$ non-significant) while $g_{\mathrm{R}}$
-decays monotonically with~$t$, establishing $g_{\min}$ as the canonical
-gap metric.
+gaps across \emph{eleven} $L$-functions spanning $\mathrm{GL}(1)$--$\mathrm{GL}(5)$:
+$\rho\in[-0.63,-0.42]$ with $11/11$ sign consistency
+(Results~\#219, \#C-261, \#C-263--\#C-265, \#C-268--\#C-270, \#C-273).
+The $g_{\min}$ metric is height-stable (span\,$=0.163$, Kendall $\tau$
+non-significant), and the Hadamard lower bound $A\geq 2/g_{\min}^2$
+(Proposition~12) makes the anticorrelation a structural necessity under
+the GUE pair-correlation conjecture.
+Full treatment including the $A_\Lambda/A_L$ dichotomy and Gamma-factor
+decomposition is given in Kim~(2026d)~\cite{kim2026paper4}.
 
 \paragraph{Euler product dispensability.}
 Theorem~\ref{thm:feonly} and Result~\#114 establish that the Euler
@@ -1923,16 +1644,16 @@ holomorphic cusp forms, and Maass forms).
 
 Fifth, the Laurent amplitude $A(\gamma)$ exhibits a degree-independent
 negative correlation with GUE-normalised zero gaps
-($\rho\in[-0.63,-0.42]$, $10/10$ sign-consistent) across
-$\mathrm{GL}(1)$--$\mathrm{GL}(4)$
-$L$-functions (Results~\#219, \#C-261, \#C-263, \#C-264, \#C-269), and
-Proposition~12 (Result~\#C-265) identifies the Hadamard mechanism:
+($\rho\in[-0.63,-0.42]$, $11/11$ sign-consistent) across
+$\mathrm{GL}(1)$--$\mathrm{GL}(5)$
+$L$-functions (Results~\#219, \#C-261, \#C-263--\#C-265, \#C-268--\#C-270, \#C-273),
+and Proposition~12 (Result~\#C-265) identifies the Hadamard mechanism:
 $A\geq 2/g_{\min}^2$ from nearest-neighbour dominance makes the
 anticorrelation a structural necessity under the GUE pair-correlation
 conjecture ($E[A|g]$ monotone decreasing, $7/7$ bins, $R^2=0.987$).
 The gap metric $g_{\min}$ is height-stable (Result~\#C-270, span$=0.163$),
-while $g_{\mathrm{R}}$ decays with~$t$, confirming $g_{\min}$ as the
-canonical metric for Proposition~12.
+confirming $g_{\min}$ as the canonical metric;
+complete treatment in Kim~(2026d)~\cite{kim2026paper4}.
 
 Together, Theorems~5--7 and Observation~8 form a coherent picture:
 on the critical line, the $\xi$-bundle curvature satisfies
@@ -1948,11 +1669,13 @@ equation.
 % ============================================================================
 \appendix
 
-\section{Summary Table: All Thirty-One Results}
+\section{Summary Table: All Forty-Two Results}
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#219, \#C-240--\#C-243, \#C-261, \#C-263--\#C-265 (39 results). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#219,
+  \#C-240--\#C-243, \#C-261, \#C-263--\#C-265, \#C-268--\#C-270, \#C-273
+  (42 results). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1999,14 +1722,15 @@ Result & Section & Rating & Key finding \\
 \#C-241 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{universal}: non-self-dual $\chi_5,\chi_7$ also $6/6$ PASS; self-dual not needed (FE+SR suffice); Proposition~\ref{prop:laurentparity} \\
 \#C-242 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{sharpness}: DH on-critical $5/5$ PASS ($r(c_0){\sim}10^{-12}$), off-critical $4/4$ FAIL ($r(c_0){\sim}4.4$); $\sigma{=}\tfrac{1}{2}$ essential; Proposition~\ref{prop:laurentparity} \\
 \#C-243 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{protection}: $r(c_{2k{+}1}){=}O(|\delta|^{2k{+}3})$; partner dominance $0.98$--$1.00$; even/odd ratio $2.4{\times}10^{7}$; Theorem~\ref{thm:parityprotection} \\
-\#219 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & $A(\gamma)$--gap correlation; GUE-norm.\ $\rho{=}{-}0.62$ ($p{=}10^{-22}$); R/L asymmetry $4.4{\times}$; pair $\rho{=}{+}0.40$ ($p{=}10^{-9}$); $t$-detrended $\rho{=}{-}0.76$ \\
-\#C-261 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & $A$--gap Dirichlet universality; $\chi_3,\chi_4,\chi_5$; $\rho{\in}[-0.63,-0.55]$; $3/3$ sign-consistent; non-self-dual included \\
-\#C-263 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A$--gap GL(2) degree-independent universality; $E_{11a1}$ $\rho{=}{-}0.57$, $E_{37a1}$ $\rho{=}{-}0.55$; $6/6$ GL(1)+GL(2) consistent; bare $L'/L{+}\psi$ \\
-\#C-264 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & GL(3) $A$--gap via zero-sum; $\mathrm{Sym}^2(\text{11a1})$ $\rho{=}{-}0.42$, $\mathrm{Sym}^2(\text{37a1})$ $\rho{=}{-}0.49$; $g_{\min}$ universality; $A_\Lambda/A_L$ dichotomy \\
-\#C-265 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Prop~12 (PCC-conditional): Hadamard mechanism $A{\geq}2/g_{\min}^2$; $E[A|g]$ monotone $7/7$; $\rho{=}{-}0.90$; $R^2{=}0.987$; $2H_1/A{=}87\%$ \\
-\#C-268 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & Gamma factor 3-factor decomposition: $\rho(\Delta A, g_{\mathrm{R}}){=}{-}0.696$ ($p{=}10^{-132}$); $\Delta\rho{=}{-}0.291$ amplification; cross-term $-2S_1^L\operatorname{Im}\gamma_S$ dominant; B-45 partial \\
-\#C-269 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & GL(4) $\mathrm{Sym}^3$ $A$--gap; $\mathrm{Sym}^3(\text{11a1})$ $\rho{=}{-}0.52$, $\mathrm{Sym}^3(\text{37a1})$ $\rho{=}{-}0.51$; $10/10$ GL(1)--GL(4) universality; $2H_1/A{\approx}0.67$ \\
-\#C-270 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $g_{\min}$ $t$-stability: span${=}0.163$ (8 bins, $\tau$ n.s.); $g_{\mathrm{R}}$ decays ($\tau{=}{+}1.0$); $g_{\min}$ canonical metric; Cauchy reproduced $|\Delta\rho|{=}0.01$; B-45/B-46 resolved \\
+\#219 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & $A(\gamma)$--gap correlation; GUE-norm.\ $\rho{=}{-}0.62$ ($p{=}10^{-22}$); R/L asymmetry $4.4{\times}$; pair $\rho{=}{+}0.40$ ($p{=}10^{-9}$); see~\cite{kim2026paper4} \\
+\#C-261 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & $A$--gap Dirichlet universality; $\chi_3,\chi_4,\chi_5$; $\rho{\in}[-0.63,-0.55]$; $3/3$ sign-consistent; see~\cite{kim2026paper4} \\
+\#C-263 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A$--gap GL(2) universality; $E_{11a1}$ $\rho{=}{-}0.57$, $E_{37a1}$ $\rho{=}{-}0.55$; $6/6$ GL(1)+GL(2) consistent; see~\cite{kim2026paper4} \\
+\#C-264 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & GL(3) $A$--gap; $\mathrm{Sym}^2(\text{11a1})$ $\rho{=}{-}0.42$, $\mathrm{Sym}^2(\text{37a1})$ $\rho{=}{-}0.49$; $A_\Lambda/A_L$ dichotomy; see~\cite{kim2026paper4} \\
+\#C-265 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Prop~12: Hadamard $A{\geq}2/g_{\min}^2$; $E[A|g]$ monotone $7/7$; $\rho{=}{-}0.90$; $R^2{=}0.987$; see~\cite{kim2026paper4} \\
+\#C-268 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & Gamma 3-factor decomp.: $\rho(\Delta A, g_{\mathrm{R}}){=}{-}0.696$; $\Delta\rho{=}{-}0.291$; cross-term dominant; see~\cite{kim2026paper4} \\
+\#C-269 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & GL(4) $\mathrm{Sym}^3$ $A$--gap; $\rho{\in}[-0.52,-0.51]$; $10/10$ GL(1)--GL(4); see~\cite{kim2026paper4} \\
+\#C-270 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $g_{\min}$ $t$-stable: span${=}0.163$; $g_{\mathrm{R}}$ decays; canonical metric; B-45/B-46 resolved; see~\cite{kim2026paper4} \\
+\#C-273 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & GL(5) $\mathrm{Sym}^4(\text{11a1})$ $A$--gap; $\rho(A_L,g_{\min}^{\mathrm{GUE}}){=}{-}0.485$ ($p{=}3.7{\times}10^{-9}$, $n{=}132$); $11/11$ GL(1)--GL(5); see~\cite{kim2026paper4} \\
 \end{longtable}
 
 
@@ -2083,6 +1807,12 @@ Kim, Y.-H. (2026).
 \textit{Phase Quantisation from Optical Lattices to the Zeta Landscape:
 A Unified Framework}.
 Preprint, arXiv:2026.xxxxx.
+
+\bibitem{kim2026paper4}
+Kim, Y.-H. (2026d).
+\textit{Amplitude--Gap Anti-Correlation in Automorphic $L$-Functions:
+Hadamard Mechanism and Degree-Independent Universality}.
+Preprint.
 
 \bibitem{titchmarsh1986}
 Titchmarsh, E.~C. (1986).
