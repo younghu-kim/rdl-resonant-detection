@@ -5,8 +5,8 @@
 
 ## 현재 명령
 
-# 사이클 #289 [2026-04-25 21:30]
-# C-285: GL(2) conductor 의존성 실험 (43a1 + 61a1)
-# B-54 탐사. 기존 스크립트 재사용, sonnet 충분.
-PRIORITY:normal
+# 사이클 #291 [2026-04-25 22:21]
+# C-291: N_MAX 감도 검증 — Paper 4 d-dependent damping 진위 판별
+# B-55 탐사. 긴급. opus 모델.
+PRIORITY:high
 PAUSE_EXPLORATION:false

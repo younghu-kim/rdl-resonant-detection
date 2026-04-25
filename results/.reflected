@@ -300,6 +300,7 @@ results/gl2_blind_prediction_52.txt
 results/gl2_conductor_dep_c285.txt
 results/gl2_fp_monodromy_51.txt
 results/gl2_high_t_scaling_59.txt
+results/gl2_theoretical_norm_c291.txt
 results/gl2_trim_test_c282c.txt
 results/gl3_11a1_c280b.txt
 results/gl3_Abare_gap_c280.txt
@@ -334,12 +335,14 @@ results/gl5_sym4_85.txt
 results/gl5_sym4_kd2_205.txt
 results/gl6_A_gap_c275.txt
 results/gl6_sym5_kd2_206.txt
+results/glk_theoretical_norm_c292.txt
 results/gram_point_curvature.txt
 results/gue_2H1A_ratio_c276.txt
 results/gue_agap_extension_c277.txt
 results/gue_A_gap_prediction_c265.txt
 results/gue_local_agap_c283.txt
 results/gue_poisson_midpoint_comparison.txt
+results/gue_theoretical_norm_c293.txt
 results/hadamard_A_decomposition_90.txt
 results/hadamard_agap_mechanism_c265.txt
 results/hadamard_convergence_rate_96.txt
@@ -372,6 +375,7 @@ results/maass_even_kd2_201.txt
 results/maass_kd2_200.txt
 results/midpoint_hadamard_c246.txt
 results/multiseed_if128.txt
+results/nmax_sensitivity_c291.txt
 results/nonlocal_reach_decay.txt
 results/nonselfdual_parity_c241.txt
 results/nonselfdual_slope_b34.txt
@@ -417,5 +421,7 @@ results/zero_173_analysis.txt
 results/zeta_4property_71.txt
 results/zeta_Abare_gap_c278.txt
 results/zeta_conj_fix_c282.txt
+results/zeta_tband_agap_c290c.txt
+results/zeta_tband_agap_c290.txt
 sigma_A_crosscheck_c255.txt
 sigma_localization_profile_c254.txt
