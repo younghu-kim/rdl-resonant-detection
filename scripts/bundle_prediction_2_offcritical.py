@@ -87,7 +87,8 @@ def curvature_2d_map(sigmas, t_points):
             s = mpmath.mpf(str(sigma)) + 1j * mpmath.mpf(str(t))
             try:
                 kappa_map[i, j] = curvature(s)
-            except:
+            except Exception as e:
+                print(f"WARNING: curvature({sigma:.3f},{t:.3f}) 실패: {e}")
                 kappa_map[i, j] = np.nan
     return kappa_map
 
@@ -110,7 +111,8 @@ def energy_profile(sigmas, t_min=13.0, t_max=34.0, n_t=200):
                     vals.append(kappa)
                 else:
                     vals.append(1e6)  # cap
-            except:
+            except Exception as e:
+                print(f"WARNING: energy({sigma:.3f},{t:.3f}) 실패: {e}")
                 vals.append(0.0)
         E = np.trapezoid(vals, dx=dt)
         energies.append(E)
@@ -193,6 +195,14 @@ def main():
 
         f.write(f"\n에너지 피크: σ={sigmas_energy[idx_peak]:.3f}\n")
         f.write(f"E(0.5)/E(0.3) = {energies[16]/energies[8]:.1f}×\n")
+
+    # 수학자 지시: results/offcritical_c297.txt에도 복사
+    import shutil
+    copy_path = os.path.expanduser(
+        '~/Desktop/gdl_unified/results/offcritical_c297.txt'
+    )
+    shutil.copy2(out_path, copy_path)
+    print(f"복사 완료: {copy_path}")
 
     print("완료.")
 

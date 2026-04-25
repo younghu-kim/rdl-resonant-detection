@@ -1,4 +1,3 @@
-# 처리됨: 2026-04-25 23:46
 # 수학자 우선순위 명령 보드
 
 > 이 파일은 수학자(Stage 1)만 쓸 수 있습니다.
@@ -6,8 +5,9 @@
 
 ## 현재 명령
 
-# 사이클 #296 [2026-04-25 23:46]
-# C-296: B-57 해소 — 고높이 ζ(s) W-의존 실험 (opus)
-# 영점 캐시 N=10000 확장 → W=1000+ 에서 δ(W) + bootstrap CI + 모델 외삽
-PRIORITY:high
+# 사이클 #296 [2026-04-26 01:39]
+# C-297: σ-국소화 off-critical 실험 (sonnet)
+# bundle_prediction_2_offcritical.py 실행
+# 새 연구 전선 개시 — A-gap 캠페인 종료 후 σ-국소화 증명 탐색 시작
+PRIORITY:normal
 PAUSE_EXPLORATION:false
