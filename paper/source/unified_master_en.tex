@@ -2285,6 +2285,123 @@ $\kappa\cdot\delta^2 \in [1.00012, 1.01206]$; $O(1/\delta)$ coefficient $= 0$ co
 \end{remark}
 
 % -----------------------------------------------------------------------
+% Theorem: Laurent coefficient parity (generalisation of c_0, c_1 result)
+% -----------------------------------------------------------------------
+\begin{theorem}[Laurent coefficient parity]
+\label{thm:laurent_parity}
+Let $L(s,\pi)$ be an $L$-function satisfying
+\begin{itemize}
+  \item[(i)] \emph{Functional equation (FE):}\;
+    $\Lambda_\pi(s) = \varepsilon \cdot \overline{\Lambda_{\tilde\pi}(1-\bar{s})}$,
+    with $|\varepsilon|=1$;
+  \item[(ii)] \emph{Complex conjugation (CC):}\;
+    $\Lambda_{\tilde\pi}(\bar{s}) = \overline{\Lambda_\pi(s)}$.
+\end{itemize}
+Every automorphic $L$-function satisfies both conditions.
+Let $\rho = \sigma_c + i\gamma$ be a simple zero of $\Lambda_\pi$ on the
+critical line ($\sigma_c = k/2$ for motivic weight~$k$), and write the
+Laurent expansion of the logarithmic derivative:
+\[
+  \frac{\Lambda_\pi'}{\Lambda_\pi}(\rho + u)
+  = \frac{1}{u} + \sum_{n=0}^{\infty} c_n\, u^n.
+\]
+Then for all $n \ge 0$:
+\begin{equation}\label{eq:cn_parity}
+  c_n = (-1)^{n+1}\,\bar{c}_n.
+\end{equation}
+In particular,
+\begin{itemize}
+  \item $n$ even: $c_n$ is purely imaginary ($\operatorname{Re}(c_n) = 0$);
+  \item $n$ odd: $c_n$ is purely real ($\operatorname{Im}(c_n) = 0$).
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+\textbf{Step 1 (FE differentiation).}\;
+Differentiating $\Lambda_\pi(s) = \varepsilon\,\overline{\Lambda_{\tilde\pi}(1-\bar{s})}$
+logarithmically gives
+$(\Lambda_\pi'/\Lambda_\pi)(s) = -\overline{(\Lambda_{\tilde\pi}'/\Lambda_{\tilde\pi})(1-\bar{s})}$.
+At $s = \rho + u$ with $1-\bar{s} = (1-\bar\rho) - \bar{u}$, comparing $u^n$ coefficients yields
+$c_n(\rho, \pi) = (-1)^{n+1}\,\overline{c_n(1{-}\bar\rho,\,\tilde\pi)}$.
+
+\textbf{Step 2 (CC application).}\;
+Condition~(CC) implies $c_n(\bar\rho, \tilde\pi) = \bar{c}_n(\rho, \pi)$
+for every zero $\rho$.
+
+\textbf{Step 3 (Critical line).}\;
+When $\rho$ lies on the critical line, $1 - \bar\rho = \rho$, so
+$c_n(1{-}\bar\rho,\,\tilde\pi) = c_n(\rho,\,\tilde\pi) = \overline{c_n(\bar\rho,\,\pi)}$.
+By~(CC) again, this equals $c_n(\rho,\pi)$ when $\bar\rho$ is also a zero of~$\Lambda_\pi$;
+on the critical line, $\bar\rho = 1-\rho$ is indeed a zero by FE.
+Combining Steps~1--2:
+$c_n = (-1)^{n+1}\,\bar{c}_n$.
+\end{proof}
+
+\begin{remark}
+Proposition~\ref{prop:kappa_exact_expansion} is the special case $n \in \{0,1\}$
+of Theorem~\ref{thm:laurent_parity}, restricted to~$\zeta(s)$.
+The full parity theorem extends to all orders and all automorphic $L$-functions.
+\end{remark}
+
+% -----------------------------------------------------------------------
+% Corollary: sigma-profile expansion (all odd epsilon powers vanish)
+% -----------------------------------------------------------------------
+\begin{corollary}[$\sigma$-profile expansion]
+\label{cor:sigma_profile}
+Under the hypotheses of Theorem~\ref{thm:laurent_parity},
+let $\varepsilon := \sigma - \sigma_c$ with $\varepsilon \neq 0$ and
+$\kappa(\sigma_c{+}\varepsilon,\,\gamma) := |(\Lambda_\pi'/\Lambda_\pi)(\sigma_c{+}\varepsilon{+}i\gamma)|^2$.
+Then
+\begin{equation}\label{eq:sigma_profile}
+  \kappa(\sigma_c + \varepsilon,\,\gamma)
+  = \frac{1}{\varepsilon^2}
+    + A(\gamma)
+    + B(\gamma)\,\varepsilon^2
+    + O(\varepsilon^4),
+\end{equation}
+where
+$A(\gamma) = \operatorname{Im}(c_0)^2 + 2c_1$
+and
+$B(\gamma) = 2c_3 + 2\operatorname{Im}(c_0)\operatorname{Im}(c_2) + c_1^2$.
+\textbf{All odd powers of~$\varepsilon$ vanish identically.}
+\end{corollary}
+
+\begin{proof}
+The Laurent expansion gives
+$(\Lambda'/\Lambda)(\rho+\varepsilon) = 1/\varepsilon + c_0 + c_1\varepsilon + c_2\varepsilon^2 + \cdots$.
+In $|\cdot|^2$, the coefficient of $\varepsilon^k$ ($k$ odd) is
+$\sum_{m+n-2=k} \operatorname{Re}(c_m\,\bar{c}_n)$.
+Since $k$ is odd, $m+n$ is odd, so $m$ and $n$ have different parities.
+By Theorem~\ref{thm:laurent_parity}, $c_m$ (even index) is purely imaginary and
+$c_n$ (odd index) is purely real, so $c_m\,\bar{c}_n$ is purely imaginary
+and $\operatorname{Re}(c_m\,\bar{c}_n) = 0$.
+The coefficients of the even powers follow by direct expansion
+using $\operatorname{Re}(c_0) = 0$ and $\operatorname{Im}(c_1) = 0$.
+\end{proof}
+
+\begin{remark}[Numerical verification of Corollary~\ref{cor:sigma_profile} --- C-254/C-255]
+\label{rem:sigma_profile_numerical}
+Two independent methods verify \eqref{eq:sigma_profile} for $\zeta(s)$, $n = 20$ zeros:
+\begin{enumerate}
+  \item \emph{$\sigma$-scan (C-254):}\; $\kappa(\tfrac12{+}\varepsilon, \gamma)$ evaluated at
+    19~values of $\varepsilon \in [-0.45,\, 0.45]$ per zero.
+    Best-fit algebraic exponent: $\alpha = -1.9946 \pm 0.0025$
+    (theory: $-2.0$), $R^2 = 1.0000$ (20/20).
+    FE symmetry $\kappa(\sigma) = \kappa(1{-}\sigma)$ confirmed to machine precision.
+  \item \emph{Contour-integral Laurent (C-255):}\; $c_0,\, c_1$ extracted by Cauchy integral
+    (128-point circle, $r = 0.01$, $\mathrm{dps} = 60$).
+    $A(\gamma)_{\text{Laurent}} = \operatorname{Im}(c_0)^2 + 2c_1$ compared to
+    $A(\gamma)_{\sigma\text{-scan}}$ from the quadratic fit.
+\end{enumerate}
+Cross-validation: Spearman $\rho = 0.99999744$ between the two methods,
+$\max|\Delta|/|A| = 0.19\%$ (20/20 zeros).
+Theorem~\ref{thm:laurent_parity} consistency: $\max|\operatorname{Re}(c_0)|/|\operatorname{Im}(c_0)| < 10^{-43}$,
+$\max|\operatorname{Im}(c_1)|/|\operatorname{Re}(c_1)| < 10^{-42}$ (200 zeros, C-256 data).
+
+\textcolor{ForestGreen}{[C-254/C-255, established, 2026-04-24; $\zeta(s)$; 20 zeros; $\alpha{=}{-}1.995$; cross-validation $\rho{=}0.99999744$; Theorem~\ref{thm:laurent_parity} + Corollary~\ref{cor:sigma_profile}]}
+\end{remark}
+
+% -----------------------------------------------------------------------
 % Proposition: Hadamard decomposition of A(t_0) — result #74
 % -----------------------------------------------------------------------
 \begin{proposition}[Hadamard decomposition of $A(t_0)$]
@@ -6379,6 +6496,32 @@ Tier 2 programmes (conjectural but well-posed).}
         direct numerical extraction of $H_0^L$ (cancellation barrier);
         $\sigma$-uniqueness at motivic center for all GL($n$) (B-25).
         \textbf{Priority: medium.}
+  \item \textbf{Amplitude--gap anti-correlation and universality
+        \textcolor{ForestGreen}{[confirmed 2026-04-25]}.}
+        The Hadamard amplitude $A(\gamma) = \operatorname{Im}(c_0)^2 + 2\operatorname{Re}(c_1)$
+        (Corollary~\ref{cor:amplitude_formula}, extracted from the Laurent expansion
+        of $\Lambda'/\Lambda$) satisfies the unconditional lower bound
+        $A(\gamma) \ge 4/g_{\min}(\gamma)^2$, where $g_{\min}$ is the minimum
+        of the left and right gaps to neighbouring zeros (proof: positivity of
+        the Hadamard sum $H_1 = \sum_{k \ne n} 1/(\gamma_n - \gamma_k)^2$).
+        The Spearman anti-correlation $\rho(A, g) < 0$ is verified across
+        \textbf{ten} $L$-functions of degree~1 through~4
+        ($\zeta$, $\chi \bmod 3{,}4{,}5$, 11a1, 37a1, $\mathrm{sym}^2(11\mathrm{a}1)$,
+        $\mathrm{sym}^2(37\mathrm{a}1)$, $\mathrm{sym}^3(11\mathrm{a}1)$,
+        $\mathrm{sym}^3(37\mathrm{a}1)$): all ten correlations negative
+        ($\rho \in [-0.63, -0.42]$, $p < 10^{-4}$), establishing
+        degree-independent universality.
+        A GUE simulation ($N{=}300$, $1000$ trials) reproduces $86\%$
+        of the correlation ($\rho_{\mathrm{GUE}} = -0.50$ vs observed
+        $-0.58$); the $14\%$ residual is traced to the Gamma-factor
+        cross-term $\Delta\rho_\Gamma = -0.29$ ($p \approx 0$).
+        Height stability: the pairing $(A_\Lambda, g_{\min})$ is
+        $t$-independent (Kendall $\tau = -0.29$, $p = 0.40$, span~$0.16$
+        across 8~height bins), while $(A_\Lambda, g_{\mathrm{right}})$
+        decays ($\tau = +1.0$, $p = 5 \times 10^{-5}$).
+        Full treatment in a companion paper~\cite{paper4}.
+        \textcolor{ForestGreen}{[confirmed 2026-04-25; 10 $L$-functions,
+        degree 1--4; Theorem + numerical verification]}
 \end{enumerate}
 
 \smallskip\noindent\textbf{\textcolor{red}{\rule{0.9ex}{0.9ex}}\
@@ -6694,6 +6837,11 @@ A.~LeClair,
 Z.~Pei,
 ``Spectral flow for the Riemann zeros,''
 \textit{arXiv:2403.19118}, 2025.
+
+\bibitem{paper4}
+Y.-H.~Kim,
+``Hadamard amplitudes and zero spacing in automorphic $L$-functions,''
+2026 (companion paper, in preparation).
 
 \bibitem{moreta2014}
 J.~J.~G.~Moreta,
