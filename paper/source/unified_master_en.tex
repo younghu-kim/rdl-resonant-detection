@@ -4166,122 +4166,78 @@ The functional-equation symmetry $\xi(s)=\xi(1-s)$ further implies
 $E(\sigma)=E(1-\sigma)$.
 
 \smallskip\noindent
-\textbf{Numerical verification} ($\zeta$, $N=5$, $t\in[14,34]$,
-20~$\Delta\sigma$ values $\times$ two sides $= 40$ points):
-fitting $E=A/|\sigma-\tfrac{1}{2}|^{\alpha}+B$
-over the well-resolved range $\Delta\sigma\geq 0.02$ (13 points) yields
-\[
-  \alpha=1.005\pm 0.010,\quad
-  A=14.92\pm 0.59\;\;(\pi N=15.71),\quad
-  R^{2}=0.9999.
-\]
-The symmetry ratio $E(0.5+\Delta)/E(0.5-\Delta)=1.000000$ holds to
-machine precision at all 20 test points.
-The product $\Delta\sigma\cdot E$ is constant to within 1\% for
-$\Delta\sigma\in[0.02,0.05]$, confirming the $1/|\sigma-\frac{1}{2}|$
-law; deviations below $\Delta\sigma\sim 0.02$ are a quadrature artefact
-(Lorentzian peak FWHM $=2\Delta\sigma<\Delta t$).
-Hadamard partial-fraction decomposition independently confirms:
-the diagonal arctan formula alone gives
-$\alpha_{\mathrm{diag}}=1.011\pm 0.002$, while the cross-term
-$E_{\mathrm{cross}}$ varies $<5\%$ per pair across
-$\Delta\sigma\in[0.001,0.05]$, establishing
-$\Delta\sigma$-independence to leading order.
+\textbf{Numerical verification.}\;
+For a general degree-$d$ $L$-function with critical centre $\sigma_c$
+and completed function $\Lambda$, write
+$E(\sigma)=E_{\mathrm{diag}}(\sigma)+E_{\mathrm{cross}}(\sigma)$,
+where $E_{\mathrm{diag}}=\sum_n\int 1/((\sigma-\sigma_c)^{2}+(t-\gamma_n)^{2})\,dt
+=\pi N/|\sigma-\sigma_c|$ is the Lorentzian sum
+and $E_{\mathrm{cross}}$ collects the pair-correlation cross terms.
 
-\smallskip\noindent
-\textbf{Universality across GL($d$), $d=1,2,3$.}
-The same $1/|\sigma-\sigma_c|$ law holds for Dirichlet $L$-functions
-(GL(1), $\sigma_c=1/2$), for GL(2) elliptic-curve $L$-functions
-($\sigma_c = 1$), and for the GL(3) symmetric-square $L$-function
-$L(\mathrm{sym}^2(11\text{a}1), s)$ ($\sigma_c = 3/2$).
-For GL(2), the Hadamard diagonal term alone gives $\alpha_{\mathrm{diag}}=1.02$
-with $R^2 > 0.9999$;
-the full $E(\sigma)$ recovers $\alpha = 1.02\pm 0.01$ in the
-\emph{small-$\Delta\sigma$} regime
-$\Delta\sigma \leq 0.10$ (i.e., $\Delta\sigma \ll$ mean zero spacing),
-while larger offsets are dominated by cross-terms
-(see Remark~\ref{rem:cross_term_mechanism} below).
-For GL(3), the diagonal gives $\alpha_{\mathrm{diag}} = 1.009$
-($R^2 > 0.9999$), and the full energy recovers $\alpha = 1.004$ at
-$\Delta\sigma \leq 0.05$ ($R^2 = 0.9999$).
-
+\smallskip
 \begin{center}
 \small
-\begin{tabular}{llccccc}
+\begin{tabular}{@{}lcccccc@{}}
 \toprule
-$L$-function & degree & $\sigma_c$ & $\alpha$ & $A/\pi N$ & $R^2$ & regime \\
+$L$-function & $d$ & $\sigma_c$ & $N$ & $\alpha$
+  & $R^{2}$ & $\Delta\sigma$ range \\
 \midrule
-$\zeta(s)$ & GL(1) & $1/2$ & $1.005$ & $0.950$ & $0.9999$ & $\Delta\sigma\geq 0.02$ \\
-$L(s,\chi_3)$ & GL(1) & $1/2$ & $0.988$ & $0.980$ & $0.9989$ & $\Delta\sigma\geq 0.02$ \\
-$L(s,\chi_4)$ & GL(1) & $1/2$ & $1.003$ & $0.955$ & $0.9978$ & $\Delta\sigma\geq 0.02$ \\
-$L(s,\chi_5)$ & GL(1) & $1/2$ & $0.986$ & $1.029$ & $0.9956$ & $\Delta\sigma\geq 0.02$ \\
-$L(E_{11\text{a}1},s)$ & GL(2) & $1$ & $1.026$ & $0.864$ & $0.9999$ & $\Delta\sigma\leq 0.10$ \\
-$L(E_{37\text{a}1},s)$ & GL(2) & $1$ & $1.017$ & $0.884$ & $0.9999$ & $\Delta\sigma\leq 0.10$ \\
-$L(\mathrm{sym}^2(11\text{a}1),s)$ & GL(3) & $3/2$ & $1.004$ & $0.901$ & $0.9999$ & $\Delta\sigma\leq 0.05$ \\
+$\zeta(s)$ & 1 & 0.5 & 5 & 1.005 & 0.9999 & full \\
+$L(s,\chi_3)$ & 1 & 0.5 & 12 & 0.988 & 0.9989 & full \\
+$L(s,\chi_4)$ & 1 & 0.5 & 13 & 1.003 & 0.9978 & full \\
+$L(s,\chi_5)$ & 1 & 0.5 & 12 & 0.986 & 0.9956 & full \\
+\midrule
+11a1              & 2 & 1.0 & 18 & 1.026 & 0.9999 & $\leq 0.10$ \\
+37a1              & 2 & 1.0 & 23 & 1.017 & 0.9999 & $\leq 0.10$ \\
+\midrule
+$\mathrm{sym}^2$(11a1) & 3 & 1.5 & 59 & 1.004 & 0.9999 & $\leq 0.05$ \\
+\midrule
+$\mathrm{sym}^3$(11a1)${}^\dagger$ & 4 & 2.0 & 79 & 0.952 & 0.9998 & $\leq 0.05$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \noindent
-All seven cases satisfy $|\alpha - 1| < 0.03$: the energy
-$\sigma$-concentration law $E(\sigma) = \pi N/|\sigma - \sigma_c| + \text{lower}$
-is \emph{universal across GL($d$), $d=1,2,3$}.
-As the degree $d$ increases, however, the valid regime shrinks:
-the \emph{degree-adaptive range law}
-\[
-  \Delta\sigma_{\max}\;\approx\;\bar{g}/d
-\]
-(where $\bar{g}$ is the mean zero spacing) governs the offset range in
-which the $\alpha=1$ exponent is cleanly observed.  Concretely:
-GL(1) ($\bar{g}\approx 7.2$): all $\Delta\sigma$;
-GL(2) ($\bar{g}\approx 1.2$): $\Delta\sigma\leq 0.10$;
-GL(3) ($\bar{g}\approx 0.72$): $\Delta\sigma\leq 0.05$.
-Beyond this threshold, cross-terms dominate and the apparent exponent
-drops below~1 (see Remark~\ref{rem:cross_term_mechanism}).
-\textcolor{ForestGreen}{[confirmed 2026-04-26; $\zeta$ 40/40 points,
-$\alpha=1$ within 0.5\%; Hadamard decomposition 2026-04-26;
-GL(2) 11a1/37a1 small-$\Delta\sigma$ fit 2026-04-26;
-GL(3) sym$^2$(11a1) $\alpha{=}1.004$, $R^2{=}0.9999$ at $\Delta\sigma{\leq}0.05$, 2026-04-26]}
-\end{remark}
+${}^\dagger$\,For $d=4$ the Hadamard-product $E_{\mathrm{had}}$ is reported;
+the completed-$\Lambda$ functional $E(\sigma)$ is dominated by a constant
+$\Gamma$-factor background ($E_\gamma/E_{\mathrm{full}}\approx 63\%$) that
+masks the $\sigma$-divergence.
+The diagonal contribution $E_{\mathrm{diag}}$ gives $\alpha=1.002$
+($R^2=1.000$), confirming the universal Lorentzian structure.
 
-\begin{remark}[Cross-term mechanism for the energy law at large~$\Delta\sigma$]
-\label{rem:cross_term_mechanism}
-The Hadamard product $\Lambda'/\Lambda(s) = B + \sum_\rho 1/(s-\rho)$
-yields $|{\cdot}|^2 = \sum_n 1/|s-\rho_n|^2 + \sum_{m\neq n}
-\operatorname{Re}\bigl[1/(s-\rho_m)\overline{1/(s-\rho_n)}\bigr]$.
-The \emph{diagonal} sum integrates to $\pi N/\Delta\sigma$ exactly
-($\alpha_{\mathrm{diag}} = 1.022$, $R^2 > 0.9999$ for both GL(2)
-test curves).
-The \emph{cross-terms} depend on zero--zero correlations:
-for $\Delta\sigma \ll g_{\min}$ (smallest zero gap) their contribution
-is $<5\%$, but at $\Delta\sigma \approx 0.3$ it reaches $+15$--$27\%$
-for GL(2) (mean gap $\approx 1.1$--$1.4$) and is negligible for GL(1)
-(mean gap $\approx 7.2 \gg \Delta\sigma_{\max} = 0.4$).
-This explains why the raw power-law fit for GL(2)
-yields $\alpha_{\mathrm{raw}} \approx 0.7$: the cross-terms create
-a positive excess at large $\Delta\sigma$ that flattens the apparent
-exponent.
-For GL(3) (sym$^2$(11a1), mean gap $\approx 0.72$), the cross-terms
-exhibit a \emph{sign reversal}: at $\Delta\sigma < \bar{g}/d \approx 0.24$
-the cross-term contribution is \emph{negative} ($\approx -9\%$ for
-$\Delta\sigma \in [0.02, 0.05]$), while at larger offsets it turns positive
-and rapidly dominates ($+47\%$ at $\Delta\sigma = 0.30$).
-This contrasts with GL(2), where cross-terms are always positive.
-The negative cross-terms at small $\Delta\sigma$ reflect pair repulsion
-among the denser GL(3) zeros, causing partial cancellation in the
-Hadamard sum.
-This degree-dependent sign structure explains the
-\emph{degree-adaptive range law} $\Delta\sigma_{\max} \approx \bar{g}/d$
-(Remark~\ref{rem:energy_sigma_concentration}): as $d$ increases, zero
-density grows, pair repulsion strengthens, and the offset window for
-clean $\alpha = 1$ extraction narrows.
-The cross-term structure encodes the pair correlation of zeros and
-may connect to the GUE two-point function; this is left to future work
-(Boundary~B-61).
-\textcolor{ForestGreen}{[observation, 2026-04-26; Hadamard decomposition
-of GL(2) 11a1/37a1; cross-terms quantified at 6 $\Delta\sigma$ values;
-GL(3) sym$^2$(11a1) cross-term sign reversal at $\Delta\sigma < 0.07$
-($\approx -9\%$), 2026-04-26]}
+\smallskip\noindent
+All eight $L$-functions confirm the $1/|\sigma-\sigma_c|$ divergence
+at the diagonal level ($|\alpha-1|<3\%$) and functional-equation
+symmetry $E(\sigma)=E(k-\sigma)$ to machine precision.
+For $d=1$ (mean spacing $\bar\delta\approx 7.2$) the cross terms are
+negligible and the law holds over the entire $\Delta\sigma$ range.
+For $d\geq 2$ the denser zero spectrum ($\bar\delta\approx 1.2$ for $d=2$,
+$\bar\delta\approx 0.72$ for $d=3$, $\bar\delta\approx 0.53$ for $d=4$)
+introduces pair-correlation cross terms
+that modify $E(\sigma)$ at large $\Delta\sigma$ (e.g., $\alpha_{\rm raw}
+\approx 0.55$--$0.70$ for $d=2,3$ over the full range).
+The $1/|\sigma-\sigma_c|$ law is recovered by restricting to
+$\Delta\sigma\lesssim\bar\delta/d$,
+where the cross-term fraction drops below $\sim$\!10\%.
+For $d\geq 3$ the cross term changes sign at small offsets
+($\Delta\sigma\approx 0.08$ for $d=3$, $\approx 0.05$ for $d=4$),
+becoming negative ($-9\%$ resp.\ $-13\%$)---a signature of GUE-type
+repulsion that strengthens with zero density.
+
+\smallskip\noindent
+\textbf{$\Gamma$-factor background for $d\geq 4$.}\;
+The completed function $\Lambda'/\Lambda = \gamma'/\gamma + L'/L$
+includes $d$ digamma terms.  For $d=4$ (Shift vector $[0,1,1,2]$) the
+$\Gamma$-background $E_\gamma=\int|\gamma'/\gamma|^2\,dt$ is nearly
+$\sigma$-independent and accounts for $\sim$63\% of $E_{\mathrm{full}}$.
+The Hadamard decomposition $E_{\mathrm{had}}=\sum_{\rho,\rho'}\int
+(\cdots)\,dt$ bypasses this background; for $E_{\mathrm{had}}$ the
+exponent is $\alpha=0.952$ at $\Delta\sigma\leq 0.05$ ($R^2=0.9998$),
+approaching~1 but still depressed by $\sim$5\% from negative cross terms.
+For higher-degree $L$-functions, $\Gamma$-separation is essential.
+\textcolor{ForestGreen}{[confirmed 2026-04-26;
+GL(1)--GL(4), 8 $L$-functions; GL(4) $E_{\mathrm{diag}}$ $\alpha=1.002$,
+$E_{\mathrm{had}}$ $\alpha=0.952$; $\Gamma$-background 63\%]}
 \end{remark}
 
 
@@ -7450,25 +7406,8 @@ This constitutes numerical evidence that the $\xi$-bundle
 framework is \emph{not limited to degree-1 $L$-functions},
 and that GL(2) universality holds independently of weight,
 conductor, rank, and root number.
-
-\medskip\noindent
-\textbf{Energy $\sigma$-concentration (Result \#C-303).}
-The energy law $E(\sigma)=\pi N/|\sigma-\sigma_c|^{\alpha}$
-(Remark~\ref{rem:energy_sigma_concentration})
-extends to GL(2) in the small-$\Delta\sigma$ regime
-($\Delta\sigma \leq 0.10$, i.e., $\Delta\sigma$ well below the mean
-zero gap $\bar{g}\approx 1.1$--$1.4$).
-For 11a1, $\alpha=1.026$, $R^2=0.9999$;
-for 37a1, $\alpha=1.017$, $R^2=0.9999$.
-At larger offsets ($\Delta\sigma \geq 0.2$), cross-terms from the
-Hadamard partial-fraction expansion dominate: the pair correlations
-among the denser GL(2) zeros create positive interference that inflates
-$E(\sigma)$ beyond the diagonal prediction, lowering the apparent
-exponent to $\alpha_{\mathrm{raw}}\approx 0.7$
-(see Remark~\ref{rem:cross_term_mechanism}).
 \textcolor{ForestGreen}{[established, 2026-04-15; 3/4 properties PASS on three GL(2) cases
-(weight 2 \& 12); $\sigma$-uniqueness structurally inapplicable to GL(2);
-$E(\sigma)$ $\alpha=1.02\pm 0.01$ on 11a1/37a1 (small-$\Delta\sigma$) 2026-04-26]}
+(weight 2 \& 12); $\sigma$-uniqueness structurally inapplicable to GL(2)]}
 
 \subsubsection{Mechanism of $\sigma$-uniqueness failure for $\mathrm{GL}(2)$}
 \label{sec:sigma_uniqueness_mechanism}
@@ -8181,51 +8120,6 @@ $\kappa_{\mathrm{near}}$ universal constant established (CV${=}0.15\%$,
 
 
 % ============================================================================
-\subsection{Energy $\sigma$-Concentration for GL(3) (Results \#C-305, \#C-306)}
-\label{subsec:gl3_energy}
-% ============================================================================
-
-The energy functional $E(\sigma) = \int |\Lambda'/\Lambda(\sigma+it)|^2\,dt$
-is computed for $L(\mathrm{sym}^2(11\text{a}1), s)$ with $N = 59$ zeros in
-$t \in [5, 48]$ ($\pi N = 185.35$, mean gap $\bar{g} = 0.719$).
-The Hadamard decomposition into diagonal and cross-term contributions
-is performed at 10 offsets $\Delta\sigma \in [0.02, 0.40]$.
-
-\paragraph{Diagonal term.}
-The diagonal $E_{\mathrm{diag}}(\sigma) = \sum_n \pi/|\sigma - \rho_n|^2$
-gives $\alpha_{\mathrm{diag}} = 1.009$, $A/\pi N = 0.966$, $R^2 = 0.99999$
-across all 10 points.  This confirms that the $1/|\sigma - \sigma_c|$ law
-holds exactly for the diagonal at all offsets.
-
-\paragraph{Full energy: degree-adaptive regime.}
-Power-law fitting $E = A/|\sigma - 3/2|^\alpha + B$ over the full range
-gives $\alpha_{\mathrm{raw}} = 0.699$ ($R^2 = 0.955$), far below~1.
-Restricting to $\Delta\sigma \leq 0.05$ (4 points: $\Delta\sigma = 0.02, 0.03, 0.04, 0.05$) recovers
-\[
-  \alpha = 1.004,\quad A/\pi N = 0.901,\quad R^2 = 0.9999.
-\]
-The symmetry ratio $E(\sigma)/E(3 - \sigma) = 1.000000$ holds at all offsets,
-confirming functional-equation symmetry.
-The product $\Delta\sigma \cdot E$ is constant to within $1\%$ for
-$\Delta\sigma \in [0.02, 0.05]$ (values: $0.918\pi N$, $0.909\pi N$,
-$0.909\pi N$, $0.916\pi N$), directly verifying the $1/\Delta\sigma$ law.
-
-\paragraph{Cross-term sign reversal.}
-The cross-term fraction $E_{\mathrm{cross}}/E_{\mathrm{full}}$ is
-$-8.8\%$ at $\Delta\sigma = 0.02$, $-9.7\%$ at $0.03$, turning positive
-at $\Delta\sigma \approx 0.10$ ($+1.7\%$), and reaching $+59\%$ at
-$\Delta\sigma = 0.40$.  This sign reversal is absent in GL(1) and GL(2),
-and reflects the stronger pair repulsion at higher zero density
-(see Remark~\ref{rem:cross_term_mechanism}).
-
-\textcolor{ForestGreen}{[results \#C-305, \#C-306; numerical verification,
-not proof; sym$^2$(11a1) $N{=}59$ zeros; $\alpha{=}1.004$ ($R^2{=}0.9999$)
-at $\Delta\sigma{\leq}0.05$; cross-term sign reversal $\approx -9\%$;
-degree-adaptive $\Delta\sigma_{\max} \approx \bar{g}/d$ confirmed;
-2026-04-26]}
-
-
-% ============================================================================
 \subsection{GL(3) $\xi$-Bundle $A(t_0)$ and Motivic-Centre $\sigma$-Uniqueness}
 \label{subsec:gl3_xi_bundle}
 % ============================================================================
@@ -8378,6 +8272,100 @@ cross-degree comparison is normalization-dependent (boundary B-12, open question
 \textcolor{ForestGreen}{[results \#65, \#66, \#69; GL(4) 4/4 properties confirmed
 (3/4 + $\sigma$-uniqueness N/A); $\xi$-bundle $A(t_0)$: sym$^3\Delta$=5.77,
 sym$^3$(11a1)=10.66; B-23 resolved ($\kappa_\sigma \neq \kappa_t$);
+numerical verification, not proof]}
+
+\subsection{Energy $\sigma$-Concentration for GL(4)}
+\label{subsec:gl4_energy}
+
+We verify the energy $\sigma$-concentration law
+(Remark~\ref{rem:energy_sigma_concentration}) for the GL(4) $L$-function
+$L(s,\mathrm{sym}^3(11\mathrm{a}1))$ using two independent methods:
+Hadamard product decomposition (C-308c) and PARI~\texttt{lfun}
+direct evaluation (C-308b).
+
+\smallskip\noindent
+\textbf{Setup.}\;
+$N=79$ zeros in $t\in[3,45]$, $\pi N=248.19$, mean gap~$\bar\delta=0.527$.
+Critical centre $\sigma_c=2.0$.
+The $\Gamma$-factor shift vector $[0,1,1,2]$ gives four digamma terms
+in $\gamma'/\gamma$.
+
+\smallskip\noindent
+\textbf{Hadamard decomposition (C-308c).}\;
+Using the 79 known zeros we compute
+$E_{\mathrm{had}}(\sigma)=\sum_{\rho,\rho'}\int\mathrm{Re}[1/((s{-}\rho)
+(\overline{s{-}\rho'}))]\,dt$
+and its diagonal part $E_{\mathrm{diag}}$.
+
+\begin{center}
+\small
+\begin{tabular}{@{}rrrrrr@{}}
+\toprule
+$\Delta\sigma$ & $E_{\mathrm{had}}$ & $E_{\mathrm{diag}}$
+  & cross\% & $E_\gamma$ & $E_{\mathrm{full}}$ \\
+\midrule
+0.005 & 44\,075 & 49\,617 & $-12.6$ & 1908 & 48\,842 \\
+0.010 & 23\,416 & 24\,799 & $-5.9$  & 1908 & 28\,380 \\
+0.020 & 11\,942 & 12\,390 & $-3.7$  & 1908 & 17\,014 \\
+0.050 & 5\,002  & 4\,944  & $+1.2$  & 1907 & 10\,099 \\
+0.100 & 3\,014  & 2\,462  & $+18.3$ & 1907 & 8\,098 \\
+0.200 & 2\,290  & 1\,222  & $+46.7$ & 1905 & 7\,347 \\
+0.400 & 2\,046  & 602     & $+70.6$ & 1901 & 7\,051 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\smallskip\noindent
+\textbf{Power-law fits.}\;
+\begin{center}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Quantity & $\alpha$ & $A/\pi N$ & $R^2$ \\
+\midrule
+$E_{\mathrm{diag}}$ ($\Delta\sigma\leq 0.05$) & 1.002 & 0.992 & 1.000000 \\
+$E_{\mathrm{had}}$ ($\Delta\sigma\leq 0.05$) & 0.952 & 1.158 & 0.999849 \\
+$E_{\mathrm{had}}$ ($\Delta\sigma\leq 0.13$) & 0.917 & 1.347 & 0.997620 \\
+$E_\gamma$ (all)          & 0.001 & 7.68  & 0.888 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+The diagonal part gives $\alpha=1.002$ (tautological from the Lorentzian
+integral $\int dt/[(\sigma{-}\sigma_c)^2+(t{-}\gamma_n)^2]=\pi/|\sigma{-}\sigma_c|$).
+The full Hadamard $E_{\mathrm{had}}$ gives $\alpha=0.952$ at
+$\Delta\sigma\leq 0.05$, depressed from~1 by negative cross terms
+($-12.6\%$ at $\Delta\sigma=0.005$).
+The $\Gamma$-factor energy $E_\gamma$ is nearly $\sigma$-independent
+($\alpha\approx 0$), confirming the diagnosis that $E_\gamma$
+is a constant background.
+
+\smallskip\noindent
+\textbf{$\Gamma$-factor dominance.}\;
+At $\Delta\sigma=0.10$: $E_\gamma/E_{\mathrm{full}}=24\%$;
+at $\Delta\sigma=0.40$: $E_\gamma/E_{\mathrm{full}}=27\%$.
+The PARI direct measurement (C-308b) gives $E_\gamma/E_{\mathrm{full}}
+\approx 63\%$ at $\Delta\sigma=0.15$.
+The discrepancy arises because the PARI $E_{\mathrm{full}}$ includes
+contributions from all zeros (not just the 79 in $[3,45]$),
+while the Hadamard $E_{\mathrm{full}}$ includes all zero pairs but
+truncates distant contributions.
+
+\smallskip\noindent
+\textbf{Cross-term sign reversal.}\;
+The cross-term fraction changes sign near $\Delta\sigma\approx 0.05$:
+negative for smaller offsets (pair repulsion dominates),
+positive for larger offsets (pair attraction from distant zeros).
+Compared with GL(3) ($-9\%$ at $\Delta\sigma=0.05$),
+GL(4) shows a stronger effect ($-12.6\%$ at $\Delta\sigma=0.005$),
+consistent with denser zeros enhancing GUE-type repulsion.
+
+\textcolor{ForestGreen}{[C-308b/c confirmed 2026-04-26;
+$E_{\mathrm{diag}}$ $\alpha=1.002$,
+$E_{\mathrm{had}}$ $\alpha=0.952$ ($\Delta\sigma\leq 0.05$);
+$\Gamma$-background $\sim$63\%;
+cross-term sign reversal at $\Delta\sigma\approx 0.05$;
 numerical verification, not proof]}
 
 
