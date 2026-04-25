@@ -290,11 +290,14 @@ results/gamma_residual_c268.txt
 results/gap_stability_c270.txt
 results/gauss_bonnet_area_integral.txt
 results/generalized_dh_offcritical_121.txt
+results/gl2_Abare_gap_c279.txt
 results/gl2_A_gap_c263.txt
 results/gl2_blind_prediction_37a1_54.txt
 results/gl2_blind_prediction_52.txt
 results/gl2_fp_monodromy_51.txt
 results/gl2_high_t_scaling_59.txt
+results/gl3_11a1_c280b.txt
+results/gl3_Abare_gap_c280.txt
 results/gl3_A_gap_c264.txt
 results/gl3_blind_prediction_65.txt
 results/gl3_conductor_scaling_68.txt
@@ -406,7 +409,9 @@ results/xi_bundle_kappa_gl4_83.txt
 results/zero_107_analysis.txt
 results/zero_173_analysis.txt
 results/zeta_4property_71.txt
+results/zeta_Abare_gap_c278.txt
 sigma_A_crosscheck_c255.txt
 sigma_localization_profile_c254.txt
-results/zeta_Abare_gap_c278.txt
-results/gl2_Abare_gap_c279.txt
+results/gl3_Abare_gap_c280.txt
+results/gl3_11a1_c280b.txt
+gue_local_agap_c283.txt

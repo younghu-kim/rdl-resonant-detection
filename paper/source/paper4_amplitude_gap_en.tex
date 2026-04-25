@@ -496,11 +496,29 @@ $\GUE(N)$ & --- & --- & $-0.857$ & $\approx 0$ & $0.778$ \\
 
 Under the uniform $(A_L, g_{\min})$ metric, all nine $L$-functions give
 $\rho_{\mathrm{S}} \in [-0.525, -0.422]$ with no systematic degree
-dependence.  The arithmetic attenuation
-$|\rho_{\GUE}| - |\rho_L| \approx 0.38 \pm 0.04$ is itself
-degree-independent, indicating that the weakening from the GUE
-baseline is a universal feature of arithmetic $L$-functions rather
-than a degree-specific effect.
+dependence.
+
+\begin{remark}[Locality and $T$-range effects]\label{rem:locality}
+The gap between $|\rho_{\GUE}|$ and $|\rho_L|$ in
+\cref{tab:unified} ($\sim\!0.38$) is \emph{not} a pure arithmetic
+effect.  It conflates three distinct contributions:
+(i)~\emph{$T$-range truncation}: re-measuring $\zeta(s)$ with
+$T = 2000$ and $20\%$~trim (versus $T = 600$, no~trim) raises
+$|\rho_{\mathrm{S}}|$ from $0.44$ to~$0.93$;
+(ii)~\emph{locality of the sum}: restricting $A$ to
+$\pm 300$ nearest neighbours strengthens $\rho_{\mathrm{S}}$
+in GUE from $-0.912$ (full sum) to $-0.967$ ($\pm 300$~local),
+since distant eigenvalues add noise rather than signal; and
+(iii)~\emph{genuine arithmetic damping}: under matched conditions
+($\pm 300$~local, $20\%$~trim), $\zeta(s)$ gives
+$\rho_{\mathrm{S}} = -0.929$ versus GUE $-0.967$, a residual
+$\Delta\rho \approx 0.04$.  For GL(2) ($T = 500$, trim),
+$\rho \approx -0.67$, giving $\Delta\rho \approx 0.30$---the
+damping is degree-dependent, not the universal $0.38$ originally
+reported.  The $L$-function values in \cref{tab:unified} are
+lower bounds limited by their short $T$-ranges; only $d = 1$ has
+been corrected to sufficient height.
+\end{remark}
 
 \begin{observation}[Degree-dependent $2H_1/A_L$ ratio]\label{obs:h1_ratio}
 The ratio $2H_1/A_L$ (computed under the uniform metric) is:
@@ -652,44 +670,52 @@ The preceding analysis used a nearest-neighbour approximation
 $A \approx 2H_1$.  We now compute the \emph{full} Laurent amplitude
 $A = S_1^2 + 2H_1$ for GUE$(N)$ matrices with
 $N \in \{50,100,200,500,1000,2000\}$,
-reporting both Pearson and Spearman correlations with
+reporting Spearman correlations with
 $g_{\min}^{\GUE}$ (central $80\%$ of eigenvalues, $20$--$100$
-realisations per~$N$).
+realisations per~$N$).  We also measure the effect of restricting $A$
+to a local window of $\pm 300$ nearest eigenvalues, matching the
+methodology used for $\zeta(s)$ in \cref{ssec:unified}.
 
 \begin{center}
-\begin{tabular}{rcccc}
+\begin{tabular}{rccccc}
 \toprule
-$N$ & $\rho_{\mathrm{S}}(A,g_{\min})$ & $\rho_{\mathrm{P}}(A,g_{\min})$
-    & $2H_1/A$ & $H_1^{\mathrm{NN}}/H_1$ \\
+$N$ & $\rho_{\mathrm{S}}^{\text{full}}$ & $\rho_{\mathrm{S}}^{\text{local}}$
+    & $|\Delta\rho|$ & $2H_1/A$ & $H_1^{\mathrm{NN}}/H_1$ \\
 \midrule
-50   & $-0.862$ & $-0.124$ & $0.774$ & $0.685$ \\
-100  & $-0.854$ & $-0.321$ & $0.778$ & $0.675$ \\
-200  & $-0.857$ & $-0.330$ & $0.779$ & $0.672$ \\
-500  & $-0.857$ & $-0.226$ & $0.779$ & $0.669$ \\
-1000 & $-0.856$ & $-0.306$ & $0.778$ & $0.669$ \\
-2000 & $-0.859$ & $-0.331$ & $0.778$ & $0.669$ \\
+200  & $-0.915$ & $-0.915$ & $0.000$ & $0.779$ & $0.672$ \\
+500  & $-0.913$ & $-0.928$ & $0.015$ & $0.779$ & $0.669$ \\
+1000 & $-0.911$ & $-0.963$ & $0.052$ & $0.778$ & $0.669$ \\
+2000 & $-0.912$ & $-0.967$ & $0.054$ & $0.778$ & $0.669$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-Three conclusions follow.
+Four conclusions follow.
 
 \begin{enumerate}
   \item \textbf{Spearman stability.}\;
-        $\rho_{\mathrm{S}}(A,g_{\min}) = -0.857 \pm 0.003$
-        is constant across $N = 50$--$2000$ ($p \approx 0$ for all~$N$).
+        $\rho_{\mathrm{S}}^{\text{full}}(A,g_{\min}) = -0.912 \pm 0.002$
+        is constant across $N = 200$--$2000$ ($p \approx 0$ for all~$N$).
         The amplitude--gap anti-correlation is an intrinsic GUE property,
         independent of matrix size.
+  \item \textbf{Locality enhancement.}\;
+        Restricting $A$ to $\pm 300$ nearest eigenvalues
+        \emph{strengthens} the correlation from $-0.912$ to $-0.967$
+        at $N = 2000$ ($\Delta\rho = +0.054$).  Distant eigenvalues
+        contribute noise to $S_1$ without improving gap prediction.
+        This effect saturates by $N \approx 1000$.
+  \item \textbf{Arithmetic attenuation---corrected.}\;
+        Under matched conditions ($\pm 300$ local, $20\%$~trim),
+        GUE gives $\rho_{\mathrm{S}} = -0.967$ while $\zeta(s)$
+        gives $-0.929$ (\cref{rem:locality}).
+        The residual arithmetic damping is only $\Delta\rho \approx 0.04$
+        for $d = 1$, far smaller than the na\"{\i}ve $0.38$ obtained by
+        comparing GUE~full with $L$-function~local sums.
   \item \textbf{Pearson artefact.}\;
         Pearson $\rho_{\mathrm{P}}$ fluctuates between $-0.12$ and
         $-0.33$ because the heavy-tailed distribution of~$A$
-        (dominated by $1/\Delta^2$ near small gaps) violates the
-        linearity assumption.  Spearman, being rank-based, is immune.
-  \item \textbf{Arithmetic attenuation.}\;
-        The GUE Spearman value $|\rho_{\mathrm{S}}| = 0.86$ exceeds
-        the $L$-function values $0.42$--$0.58$ (\cref{sec:univ}).
-        Arithmetic structure \emph{weakens} the anti-correlation,
-        rather than creating it.
+        violates the linearity assumption.  Spearman, being rank-based,
+        is immune.  We therefore report only Spearman throughout.
 \end{enumerate}
 
 The ratio $H_1^{\mathrm{NN}}/H_1$ converges to $2/3$ (reaching
@@ -756,10 +782,13 @@ meaningful invariant of individual zeros of automorphic $L$-functions:
   \item The anti-correlation is verified across twelve $L$-functions
         of degree~1--6, establishing degree-independent universality.
   \item The GUE random matrix ensemble produces a Spearman
-        anti-correlation $\rho_{\mathrm{S}} = -0.857 \pm 0.003$
-        (constant over $N = 50$--$2000$), \emph{stronger} than
-        $L$-functions ($0.42$--$0.58$): arithmetic attenuates the
-        correlation rather than creating it.
+        anti-correlation $\rho_{\mathrm{S}}^{\text{full}} = -0.912$
+        (full sum, $20\%$~trim, constant over $N = 200$--$2000$),
+        strengthening to $\rho_{\mathrm{S}}^{\text{local}} = -0.967$
+        when restricted to $\pm 300$ nearest eigenvalues.
+        Under matched conditions, $\zeta(s)$ gives $-0.929$:
+        arithmetic weakens the correlation by $\Delta\rho \approx 0.04$,
+        with larger damping ($\Delta\rho \approx 0.30$) at $d = 2$.
   \item The pairing $(A_\La, g_{\min})$ is height-stable,
         while $(A_\La, g_{\mathrm{right}})$ decays, identifying
         $g_{\min}$ as the canonical metric.
@@ -785,12 +814,13 @@ is suggestive but remains unproven.
         (\cref{tab:unified}).  Can this specific range
         be derived from the pair correlation function and the GUE
         value $-0.857$?
-  \item \textbf{Mechanism of arithmetic attenuation.}\;
-        The GUE baseline $|\rho_{\mathrm{S}}| = 0.86$ attenuates to
-        $|\rho_{\mathrm{S}}| \approx 0.47$ for all arithmetic $L$-functions,
-        a degree-independent loss of $\sim\!0.38$.
-        Can this attenuation be traced to the Gamma factor
-        or to the Euler product?
+  \item \textbf{Mechanism of degree-dependent damping.}\;
+        Under matched methodology ($\pm 300$~local, $20\%$~trim),
+        the GUE baseline $|\rho_{\mathrm{S}}| = 0.97$ attenuates to
+        $0.93$ for $\zeta(s)$ ($\Delta\rho \approx 0.04$) and to
+        ${\sim}\,0.67$ for GL(2) ($\Delta\rho \approx 0.30$).
+        Is the degree-dependent damping traceable to the Gamma factor
+        complexity or to the Euler product structure at degree $d \ge 2$?
   \item \textbf{$2H_1/A_L \approx 2/3$ universality.}\;
         The ratio $2H_1/A_L$ clusters near $2/3$ across all
         degrees (\cref{obs:h1_ratio}), matching the GUE
