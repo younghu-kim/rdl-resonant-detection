@@ -459,14 +459,59 @@ in their Hadamard sums: if $\Delta_{n,n+1}$ is small, both $A_n$
 and $A_{n+1}$ receive a large $1/\Delta^2$ contribution.
 \end{observation}
 
-\begin{observation}[Degree-dependent $2H_1/A$ ratio]\label{obs:h1_ratio}
-The fraction $2H_1/A$ decreases with degree and saturates:
-$0.87$ (GL(1)) $\to$ $0.77$ (GL(2), estimated) $\to$
-$\sim\!0.67$ (GL(4)) $\to$ $0.66$ (GL(5)) $\to$ $0.66$ (GL(6)).  This reflects the
-increasing importance of $B^2 = \operatorname{Im}(c_0)^2$ at higher
-degree, where the alternating sum $B$ has more terms and is less
-completely cancelled.  The saturation at $d \ge 4$ suggests
-$S_1^2/A \to \sim 0.34$ as a structural limit.
+\subsection{Uniform metric comparison}
+\label{ssec:unified}
+
+The metrics in \cref{tab:universality} vary by degree:
+$A_\La / g_{\mathrm{right}}$ for $d = 1,2$ versus
+$A_L / g_{\min}$ for $d \ge 3$.
+To enable direct cross-degree comparison, we re-measure all
+$L$-functions using the uniform pair $(A_L, g_{\min})$
+with Spearman rank correlation (\cref{tab:unified}).
+
+\begin{table}[h]
+\centering
+\caption{Uniform comparison: $\rho_{\mathrm{S}}(A_L, g_{\min})$
+across degrees 1--6, with GUE baseline.}
+\label{tab:unified}
+\begin{tabular}{llrrrl}
+\toprule
+\textbf{$L$-function} & $d$ & $n$ &
+$\rho_{\mathrm{S}}$ & $p$ & $2H_1/A_L$ \\
+\midrule
+$\zeta(s)$ & 1 & 337 & $-0.437$ & $3.7 \times 10^{-17}$ & $0.666$ \\
+$L(s,E_{11\mathrm{a}1})$ & 2 & 90 & $-0.423$ & $3.3 \times 10^{-5}$ & $0.652$ \\
+$L(s,E_{37\mathrm{a}1})$ & 2 & 110 & $-0.525$ & $3.8 \times 10^{-9}$ & $0.675$ \\
+$L(s,\mathrm{sym}^2 E_{11})$ & 3 & 96 & $-0.422$ & $1.9 \times 10^{-5}$ & $0.748$ \\
+$L(s,\mathrm{sym}^2 E_{37})$ & 3 & 48 & $-0.492$ & $3.8 \times 10^{-4}$ & $0.678$ \\
+$L(s,\mathrm{sym}^3 E_{11})$ & 4 & 101 & $-0.520$ & $2.5 \times 10^{-8}$ & $0.661$ \\
+$L(s,\mathrm{sym}^3 E_{37})$ & 4 & 131 & $-0.514$ & $3.5 \times 10^{-10}$ & $0.676$ \\
+$L(s,\mathrm{sym}^4 E_{11})$ & 5 & 132 & $-0.485$ & $3.7 \times 10^{-9}$ & $0.661$ \\
+$L(s,\mathrm{sym}^5 E_{11})$ & 6 & 71 & $-0.423$ & $2.4 \times 10^{-4}$ & $0.657$ \\
+\midrule
+$\GUE(N)$ & --- & --- & $-0.857$ & $\approx 0$ & $0.778$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Under the uniform $(A_L, g_{\min})$ metric, all nine $L$-functions give
+$\rho_{\mathrm{S}} \in [-0.525, -0.422]$ with no systematic degree
+dependence.  The arithmetic attenuation
+$|\rho_{\GUE}| - |\rho_L| \approx 0.38 \pm 0.04$ is itself
+degree-independent, indicating that the weakening from the GUE
+baseline is a universal feature of arithmetic $L$-functions rather
+than a degree-specific effect.
+
+\begin{observation}[Degree-dependent $2H_1/A_L$ ratio]\label{obs:h1_ratio}
+The ratio $2H_1/A_L$ (computed under the uniform metric) is:
+$0.666$ (GL(1)) $\to$ $0.652$--$0.675$ (GL(2)) $\to$
+$0.678$--$0.748$ (GL(3)) $\to$
+$0.661$--$0.676$ (GL(4)) $\to$ $0.661$ (GL(5)) $\to$ $0.657$ (GL(6)).
+All values except the GL(3) outlier $0.748$ cluster near
+$2/3 \approx 0.667$.  This $2/3$ value matches the GUE
+nearest-neighbour dominance ratio $H_1^{\mathrm{NN}}/H_1 = 0.669$
+(\cref{ssec:gue-full}), suggesting that the nearest-neighbour
+contribution to $H_1$ controls the $2H_1/A_L$ ratio universally.
 \end{observation}
 
 
@@ -734,16 +779,23 @@ is suggestive but remains unproven.
 \subsection{Open problems}
 
 \begin{enumerate}
-  \item \textbf{Analytic derivation of $\rho \approx -0.57$.}\;
-        Can the specific value of the Spearman correlation be
-        derived from the pair correlation function?
-  \item \textbf{Degree scaling of $2H_1/A$.}\;
-        The ratio decreases from $0.87$ (GL(1)) and saturates
-        at ${\sim}0.66$ for $d \ge 4$.  The GUE value is $0.78$,
-        so the saturation at $0.66$ reflects arithmetic content
-        rather than a random-matrix universal.  Can the precise
-        value and the mechanism of attenuation be predicted from the
-        degree of the $L$-function?
+  \item \textbf{Analytic derivation of $\rho \approx -0.47$.}\;
+        Under the uniform $(A_L, g_{\min})$ metric, all nine
+        $L$-functions give $\rho_{\mathrm{S}} \in [-0.525, -0.422]$
+        (\cref{tab:unified}).  Can this specific range
+        be derived from the pair correlation function and the GUE
+        value $-0.857$?
+  \item \textbf{Mechanism of arithmetic attenuation.}\;
+        The GUE baseline $|\rho_{\mathrm{S}}| = 0.86$ attenuates to
+        $|\rho_{\mathrm{S}}| \approx 0.47$ for all arithmetic $L$-functions,
+        a degree-independent loss of $\sim\!0.38$.
+        Can this attenuation be traced to the Gamma factor
+        or to the Euler product?
+  \item \textbf{$2H_1/A_L \approx 2/3$ universality.}\;
+        The ratio $2H_1/A_L$ clusters near $2/3$ across all
+        degrees (\cref{obs:h1_ratio}), matching the GUE
+        nearest-neighbour dominance $H_1^{\mathrm{NN}}/H_1 = 0.669$.
+        Is the equality $2H_1/A_L = 2/3$ exact in any limit?
   \item \textbf{$\sigma$-localisation and $A$--gap duality.}\;
         The $\sigma$-profile $\kappa(\sigma) = 1/\varepsilon^2 + A + \cdots$
         and the gap bound $A \ge 2/\Delta_{\min}^2$ suggest a duality between

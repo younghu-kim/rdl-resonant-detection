@@ -453,13 +453,56 @@ $\rho(A_n, A_{n+1}) \in [+0.28, +0.53]$(일관되게 양수)이다.
 $\Delta_{n,n+1}$이 작으면 $A_n$과 $A_{n+1}$ 모두 큰 $1/\Delta^2$ 기여를 받는다.
 \end{observation}
 
-\begin{observation}[차수-의존 $2H_1/A$ 비율]\label{obs:h1_ratio}
-분수 $2H_1/A$는 차수에 따라 감소하고 포화한다:
-$0.87$(GL(1)) $\to$ $0.77$(GL(2), 추정) $\to$
-${\sim}0.67$(GL(4)) $\to$ $0.66$(GL(5)) $\to$ $0.66$(GL(6)).
-이는 높은 차수에서 교대 합 $B$의 항이 더 많아지고 소거가 덜 완전해짐에 따라
-$B^2 = \operatorname{Im}(c_0)^2$의 중요성이 증가하는 것을 반영한다.
-$d \ge 4$에서의 포화는 $S_1^2/A \to {\sim}0.34$가 구조적 한계임을 시사한다.
+\subsection{통일 메트릭 비교}
+\label{ssec:unified}
+
+\cref{tab:universality}의 메트릭은 차수에 따라 다르다:
+$d = 1,2$는 $A_\La / g_{\mathrm{right}}$, $d \ge 3$은
+$A_L / g_{\min}$.
+직접적인 차수 간 비교를 위해, 모든 $L$-함수를
+통일 쌍 $(A_L, g_{\min})$과 Spearman 순위 상관으로 재측정한다
+(\cref{tab:unified}).
+
+\begin{table}[h]
+\centering
+\caption{통일 비교: 차수 1--6에 걸친 $\rho_{\mathrm{S}}(A_L, g_{\min})$과
+GUE 기준선.}
+\label{tab:unified}
+\begin{tabular}{llrrrl}
+\toprule
+\textbf{$L$-함수} & $d$ & $n$ &
+$\rho_{\mathrm{S}}$ & $p$ & $2H_1/A_L$ \\
+\midrule
+$\zeta(s)$ & 1 & 337 & $-0.437$ & $3.7 \times 10^{-17}$ & $0.666$ \\
+$L(s,E_{11\mathrm{a}1})$ & 2 & 90 & $-0.423$ & $3.3 \times 10^{-5}$ & $0.652$ \\
+$L(s,E_{37\mathrm{a}1})$ & 2 & 110 & $-0.525$ & $3.8 \times 10^{-9}$ & $0.675$ \\
+$L(s,\mathrm{sym}^2 E_{11})$ & 3 & 96 & $-0.422$ & $1.9 \times 10^{-5}$ & $0.748$ \\
+$L(s,\mathrm{sym}^2 E_{37})$ & 3 & 48 & $-0.492$ & $3.8 \times 10^{-4}$ & $0.678$ \\
+$L(s,\mathrm{sym}^3 E_{11})$ & 4 & 101 & $-0.520$ & $2.5 \times 10^{-8}$ & $0.661$ \\
+$L(s,\mathrm{sym}^3 E_{37})$ & 4 & 131 & $-0.514$ & $3.5 \times 10^{-10}$ & $0.676$ \\
+$L(s,\mathrm{sym}^4 E_{11})$ & 5 & 132 & $-0.485$ & $3.7 \times 10^{-9}$ & $0.661$ \\
+$L(s,\mathrm{sym}^5 E_{11})$ & 6 & 71 & $-0.423$ & $2.4 \times 10^{-4}$ & $0.657$ \\
+\midrule
+$\GUE(N)$ & --- & --- & $-0.857$ & $\approx 0$ & $0.778$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+통일 $(A_L, g_{\min})$ 메트릭 하에서, 아홉 개의 $L$-함수 모두
+$\rho_{\mathrm{S}} \in [-0.525, -0.422]$이며 체계적인 차수 의존성이 없다.
+산술 감쇠 $|\rho_{\GUE}| - |\rho_L| \approx 0.38 \pm 0.04$
+자체도 차수-독립적이어서, GUE 기준선으로부터의 약화가 차수 특이적 효과가 아닌
+산술적 $L$-함수의 보편적 특성임을 보여준다.
+
+\begin{observation}[차수-의존 $2H_1/A_L$ 비율]\label{obs:h1_ratio}
+통일 메트릭 하의 비율 $2H_1/A_L$은:
+$0.666$(GL(1)) $\to$ $0.652$--$0.675$(GL(2)) $\to$
+$0.678$--$0.748$(GL(3)) $\to$
+$0.661$--$0.676$(GL(4)) $\to$ $0.661$(GL(5)) $\to$ $0.657$(GL(6)).
+GL(3) 이상값 $0.748$을 제외하면 모든 값이 $2/3 \approx 0.667$ 근처에
+밀집한다. 이 $2/3$ 값은 GUE 최근접 이웃 지배 비율
+$H_1^{\mathrm{NN}}/H_1 = 0.669$(\cref{ssec:gue-full})와 일치하여,
+$H_1$에 대한 최근접 이웃 기여가 $2H_1/A_L$ 비율을 보편적으로 제어함을 시사한다.
 \end{observation}
 
 
@@ -710,13 +753,19 @@ $A \sim$ 국소 상태 밀도와의 유추는 시사적이나
 \subsection{열린 문제들}
 
 \begin{enumerate}
-  \item \textbf{$\rho \approx -0.57$의 해석적 도출.}\;
-        Spearman 상관의 특정 값을 쌍 상관 함수로부터 도출할 수 있는가?
-  \item \textbf{$2H_1/A$의 차수 스케일링.}\;
-        비율이 $0.87$(GL(1))에서 감소하여 $d \ge 4$에서 ${\sim}0.66$으로 포화한다.
-        GUE 값은 $0.78$이므로, $0.66$으로의 포화는 랜덤 행렬 보편이 아닌
-        산술적 내용을 반영한다. 정확한 값과 감쇠 메커니즘이
-        $L$-함수의 차수로부터 예측될 수 있는가?
+  \item \textbf{$\rho \approx -0.47$의 해석적 도출.}\;
+        통일 $(A_L, g_{\min})$ 메트릭 하에서 아홉 개의 $L$-함수 모두
+        $\rho_{\mathrm{S}} \in [-0.525, -0.422]$이다(\cref{tab:unified}).
+        이 특정 범위가 쌍 상관 함수와 GUE 값 $-0.857$로부터 도출될 수 있는가?
+  \item \textbf{산술 감쇠 메커니즘.}\;
+        GUE 기준선 $|\rho_{\mathrm{S}}| = 0.86$이 모든 산술적 $L$-함수에서
+        $|\rho_{\mathrm{S}}| \approx 0.47$로 감쇠하며, 이 차수-독립적
+        손실 ${\sim}0.38$이 감마 인자에서 유래하는지 오일러 곱에서 유래하는지
+        추적할 수 있는가?
+  \item \textbf{$2H_1/A_L \approx 2/3$ 보편성.}\;
+        비율 $2H_1/A_L$이 모든 차수에서 $2/3$ 근처에 밀집하며(\cref{obs:h1_ratio}),
+        GUE 최근접 이웃 지배 $H_1^{\mathrm{NN}}/H_1 = 0.669$와 일치한다.
+        $2H_1/A_L = 2/3$이 어떤 극한에서 정확한가?
   \item \textbf{$\sigma$-국소화와 $A$--gap 이중성.}\;
         $\sigma$-프로파일 $\kappa(\sigma) = 1/\varepsilon^2 + A + \cdots$와
         간격 하한 $A \ge 2/\Delta_{\min}^2$은

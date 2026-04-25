@@ -324,8 +324,11 @@ results/gl4_sym3_pari_80.txt
 results/gl5_A_gap_c273.txt
 results/gl5_sym4_85.txt
 results/gl5_sym4_kd2_205.txt
+results/gl6_A_gap_c275.txt
 results/gl6_sym5_kd2_206.txt
 results/gram_point_curvature.txt
+results/gue_2H1A_ratio_c276.txt
+results/gue_agap_extension_c277.txt
 results/gue_A_gap_prediction_c265.txt
 results/gue_poisson_midpoint_comparison.txt
 results/hadamard_A_decomposition_90.txt
@@ -405,3 +408,5 @@ results/zero_173_analysis.txt
 results/zeta_4property_71.txt
 sigma_A_crosscheck_c255.txt
 sigma_localization_profile_c254.txt
+results/zeta_Abare_gap_c278.txt
+results/gl2_Abare_gap_c279.txt
