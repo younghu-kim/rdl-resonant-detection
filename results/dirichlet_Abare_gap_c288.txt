@@ -1,0 +1,55 @@
+# C-288 디리클레 A_bare gap_min d=1 보편성 검증
+# T=[5.0,500.0], Trim=20%, GUE_full=-0.912
+# 판정: ★★★★★ 양성
+
+## 비교표
+L-함수                   q     n     ρ_bare            p   δ_bare        ρ_L      δ_L
+--------------------------------------------------------------------------------
+ζ(s)                   1   215    -0.4755    1.581e-13   -0.437    -0.4388   -0.473
+χ₃ (mod 3)             3   284    -0.5410    5.430e-23   -0.371    -0.4575   -0.454
+χ₄ (mod 4)             4   303    -0.5697    1.815e-27   -0.342    -0.5096   -0.402
+χ₅ (mod 5)             5   317    -0.5395    2.420e-25   -0.372    -0.4526   -0.459
+
+## 보조 통계
+
+### ζ(s) (q=1)
+n_all=269, n_range=269, n_valid=269
+n_inner=267, n_trimmed=215
+t_range=[95.87, 459.51]
+mean_A_bare=4.2713
+mean_A_L=5.0191
+mean_gap_min_GUE=0.7437
+mean_B_smooth=0.786419
+
+### χ₃ (mod 3) (q=3)
+n_all=356, n_range=356, n_valid=356
+n_inner=354, n_trimmed=284
+t_range=[84.41, 457.02]
+mean_A_bare=8.1891
+mean_A_L=8.9319
+mean_gap_min_GUE=0.7619
+mean_B_smooth=0.784318
+
+### χ₄ (mod 4) (q=4)
+n_all=379, n_range=379, n_valid=379
+n_inner=377, n_trimmed=303
+t_range=[81.21, 457.78]
+mean_A_bare=9.1586
+mean_A_L=9.9083
+mean_gap_min_GUE=0.7519
+mean_B_smooth=0.784303
+
+### χ₅ (mod 5) (q=5)
+n_all=397, n_range=397, n_valid=397
+n_inner=395, n_trimmed=317
+t_range=[80.41, 457.72]
+mean_A_bare=8.5122
+mean_A_L=9.2634
+mean_gap_min_GUE=0.7630
+mean_B_smooth=0.784296
+
+## 판정
+★★★★★ 양성
+ζ ρ_bare = -0.4755
+Dirichlet mean ρ_bare = -0.5501 ± 0.0139
+최대 차이 = 0.0942

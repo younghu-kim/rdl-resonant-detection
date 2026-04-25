@@ -249,6 +249,7 @@ results/dh_off_critical_115.txt
 results/dh_parity_b36.txt
 results/dh_small_radius_diagnosis.txt
 results/difficulty_regression.txt
+results/dirichlet_Abare_gap_c288.txt
 results/dirichlet_A_gap_c261.txt
 results/dirichlet_A_gap_chi5_c262.txt
 results/dirichlet_blind_mod7_57.txt
@@ -296,6 +297,7 @@ results/gl2_Abare_gap_c279.txt
 results/gl2_A_gap_c263.txt
 results/gl2_blind_prediction_37a1_54.txt
 results/gl2_blind_prediction_52.txt
+results/gl2_conductor_dep_c285.txt
 results/gl2_fp_monodromy_51.txt
 results/gl2_high_t_scaling_59.txt
 results/gl2_trim_test_c282c.txt

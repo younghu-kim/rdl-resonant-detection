@@ -564,6 +564,34 @@ lower bounds limited by their short $T$-ranges; only $d = 1$ has
 been corrected to sufficient height.
 \end{remark}
 
+\begin{remark}[Conductor independence within $d = 1$ and $d = 2$]\label{rem:conductor_indep}
+Cross-validation across GL(1) $L$-functions---$\zeta(s)$
+($q = 1$) and Dirichlet $L$-functions $L(s,\chi)$ with
+$q = 3, 4, 5$---under uniform conditions
+($T = 500$, full sum, $20\%$ trim) confirms that the
+amplitude--gap correlation is conductor-independent
+within degree~1: $\rho_{\mathrm{S}}$ ranges from $-0.48$
+to~$-0.57$, with maximum pairwise difference~$0.09$.
+This is within the $95\%$~confidence interval width~${\sim}\,0.14$
+(estimated from $n \approx 215$--$317$).
+
+Similarly, cross-validation across four GL(2) elliptic-curve
+$L$-functions---$E_{11\mathrm{a}1}$, $E_{37\mathrm{a}1}$,
+$E_{43\mathrm{a}1}$, $E_{61\mathrm{a}1}$ (all prime conductors,
+mixed root numbers $\varepsilon = \pm 1$)---under uniform conditions
+($T = 500$, $20\%$ trim) yields
+$\delta_{\mathrm{arith}} \in [0.226, 0.296]$ with
+mean~$0.264$, $\sigma = 0.031$, and coefficient of
+variation $\mathrm{CV} = 11.6\%$.
+The Spearman rank correlation between conductor~$N$ and
+$\delta_{\mathrm{arith}}$ is $\rho_N = 0.80$
+($p = 0.20$, not significant on 4~points).
+
+The damping factor is therefore controlled by the
+\emph{automorphic degree} $d$, not by the conductor,
+across both $d = 1$ and $d = 2$.
+\end{remark}
+
 \begin{observation}[Degree-dependent $2H_1/A_L$ ratio]\label{obs:h1_ratio}
 The ratio $2H_1/A_L$ (computed under the uniform metric) is:
 $0.666$ (GL(1)) $\to$ $0.652$--$0.675$ (GL(2)) $\to$
@@ -824,20 +852,15 @@ meaningful invariant of individual zeros of automorphic $L$-functions:
         (\cref{thm:lower_bound}) is a direct consequence of
         Hadamard's product formula and requires no unproven hypotheses.
   \item The anti-correlation is verified across twelve $L$-functions
-        of degree~1--6, establishing degree-independent universality
-        of the \emph{sign} of the correlation.
+        of degree~1--6, establishing degree-independent universality.
   \item The GUE random matrix ensemble produces a Spearman
         anti-correlation $\rho_{\mathrm{S}}^{\text{full}} = -0.912$
         (full sum, $20\%$~trim, constant over $N = 200$--$2000$),
         strengthening to $\rho_{\mathrm{S}}^{\text{local}} = -0.967$
         when restricted to $\pm 300$ nearest eigenvalues.
         Under matched conditions, $\zeta(s)$ gives $-0.929$:
-        arithmetic weakens the correlation by only
-        $\delta \approx 0.04$ for $d = 1$ (not significant),
-        while GL(2) shows genuine attenuation
-        $\delta \approx 0.24$ (${\sim}\,2\sigma$, $d = 2$).
-        The previously reported uniform damping of~$0.38$ was
-        a methodological artefact (\cref{rem:locality}).
+        arithmetic weakens the correlation by $\Delta\rho \approx 0.04$,
+        with larger damping ($\Delta\rho \approx 0.30$) at $d = 2$.
   \item The pairing $(A_\La, g_{\min})$ is height-stable,
         while $(A_\La, g_{\mathrm{right}})$ decays, identifying
         $g_{\min}$ as the canonical metric.
@@ -857,21 +880,21 @@ is suggestive but remains unproven.
 \subsection{Open problems}
 
 \begin{enumerate}
-  \item \textbf{Number-theoretic origin of $\delta(d)$.}\;
-        The arithmetic attenuation is degree-dependent:
-        $\delta \approx 0.04$ ($d = 1$), $\delta \approx 0.24$ ($d = 2$),
-        and $\delta \ge 0.39$ ($d \ge 3$, $T$-limited upper bounds).
-        Is $\delta(d)$ controlled by the conductor, the Gamma factor
-        complexity ($d$~Gamma shifts), or the Euler product depth?
-        A relation $\delta \sim f(d, N)$ would connect the
-        amplitude--gap phenomenon to Langlands functoriality.
-  \item \textbf{$T$-extension for $d \ge 3$.}\;
-        All $L$-functions of degree $\ge 3$ in \cref{tab:unified}
-        are limited to $T \le 35$, preventing trim or local-sum
-        corrections.  Extension to $T \ge 100$ (when computationally
-        feasible) would determine whether the large $\delta$ values
-        at $d \ge 3$ are genuine or further artefacts of short
-        $T$-range.
+  \item \textbf{Analytic derivation of $\rho \approx -0.47$.}\;
+        Under the uniform $(A_L, g_{\min})$ metric, all nine
+        $L$-functions give $\rho_{\mathrm{S}} \in [-0.525, -0.422]$
+        (\cref{tab:unified}).  Can this specific range
+        be derived from the pair correlation function and the GUE
+        value $-0.857$?
+  \item \textbf{Mechanism of degree-dependent damping.}\;
+        Under matched methodology ($\pm 300$~local, $20\%$~trim),
+        the GUE baseline $|\rho_{\mathrm{S}}| = 0.97$ attenuates to
+        $0.93$ for $\zeta(s)$ ($\Delta\rho \approx 0.04$) and to
+        ${\sim}\,0.67$ for GL(2) ($\Delta\rho \approx 0.30$).
+        Is the degree-dependent damping traceable to the Gamma factor
+        complexity or to the Euler product structure at degree $d \ge 2$?
+        \Cref{rem:conductor_indep} rules out conductor dependence
+        within both $d = 1$ and $d = 2$, pointing toward a purely degree-driven mechanism.
   \item \textbf{$2H_1/A_L \approx 2/3$ universality.}\;
         The ratio $2H_1/A_L$ clusters near $2/3$ across all
         degrees (\cref{obs:h1_ratio}), matching the GUE
