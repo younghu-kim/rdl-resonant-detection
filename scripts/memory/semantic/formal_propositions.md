@@ -352,6 +352,16 @@ GL(4) 부수 관측: ρ(A_L, gap_right) ≈ -0.31 (약), ρ(Aₙ,Aₙ₊₁) ≈
 2H₁/A ≈ 0.67 (GL(1) 0.87 대비 감소 — degree 증가에 따른 S₁²/A 비율 증가).
 `gl4_A_gap_c269.txt`
 
+**GL(5) 확장 (C-273, zero-sum A_L)**:
+| L-함수 | degree | N | n_inner | ρ(A_L, gap_min_GUE) | p-value |
+|--------|--------|---|---------|---------------------|---------|
+| Sym⁴(11a1) | 5 | 14641 | 132 | -0.4854 | 3.7e-9 ✅ |
+
+GL(5) 부수 관측: ρ(A_L, gap_right) = -0.28 (⚠️, A_L/gap_right 약화 패턴 지속).
+2H₁/A = 0.661 (d=4의 0.67과 유사 — d≥4에서 S₁²/A 비율 포화).
+<A> = 132.37 (degree 증가에 따라 A 증가 지속).
+`gl5_A_gap_c273.txt`
+
 **A_Λ vs A_L 이분법 (C-264 교차검증)**:
   - A_Λ (completed Λ, Cauchy): gap_right와 상관 (ρ ≈ -0.55~-0.72)
   - A_L (primitive L, zero-sum): gap_min과 상관 (ρ ≈ -0.42~-0.52)
@@ -359,9 +369,9 @@ GL(4) 부수 관측: ρ(A_L, gap_right) ≈ -0.31 (약), ρ(Aₙ,Aₙ₊₁) ≈
   - ζ(s) 검증: A_Λ(Cauchy,n=15) ρ(gap_right)=-0.72✅, A_L(1517z,n=910) ρ(gap_min)=-0.61✅
   `crosscheck_c264.txt`
 
-**비평가**: **생존**. 10/10 일관 (GL(1)×4 A_Λ gap_right + GL(2)×2 A_Λ gap_right + GL(3)×2 A_L gap_min + GL(4)×2 A_L gap_min).
+**비평가**: **생존**. 11/11 일관 (GL(1)×4 A_Λ gap_right + GL(2)×2 A_Λ gap_right + GL(3)×2 A_L gap_min + GL(4)×2 A_L gap_min + GL(5)×1 A_L gap_min).
   A_Λ/A_L 이분법은 Gamma factor의 구조적 역할을 드러냄.
-**상태**: ★★★★ 양성. GL(1)~GL(4) degree-독립 보편성 확립. Paper 4 중심 정리.
+**상태**: ★★★★ 양성. GL(1)~GL(5) degree-독립 보편성 확립 (11/11). Paper 4 중심 정리.
 
 ---
 

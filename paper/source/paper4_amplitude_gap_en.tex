@@ -56,8 +56,8 @@ $A(\gamma_n) \ge 2/\Delta_{\min}(\gamma_n)^2$,
 where $\Delta_{\min} = \min(\gamma_n - \gamma_{n-1},\,\gamma_{n+1} - \gamma_n)$
 is the minimum spacing to a neighbouring zero, and demonstrate
 numerically that the Spearman anti-correlation $\rho(A, g_{\min})$ is
-(i)~\emph{universal}: consistently negative across ten automorphic
-$L$-functions of degree 1 through~4,
+(i)~\emph{universal}: consistently negative across eleven automorphic
+$L$-functions of degree 1 through~5,
 (ii)~\emph{height-stable}: the correlation is
 $t$-independent for the completed amplitude $A_\La$ paired with
 $g_{\min}$ (span~$0.16$ across eight height bins), and
@@ -120,10 +120,10 @@ positive---this asymmetry is the source of the results that follow.
         the positivity of $H_1$.
   \item \textbf{Degree-independent universality}
         (\cref{sec:universality}): the Spearman anti-correlation
-        $\rho(A, g) < 0$ is verified across ten $L$-functions of
-        degree~1 through~4, including Riemann~$\zeta$, Dirichlet
+        $\rho(A, g) < 0$ is verified across eleven $L$-functions of
+        degree~1 through~5, including Riemann~$\zeta$, Dirichlet
         $L$-functions, elliptic-curve $L$-functions, and symmetric
-        powers up to $\mathrm{sym}^3$.
+        powers up to $\mathrm{sym}^4$.
   \item \textbf{GUE mechanism} (\cref{sec:gue}): a GUE simulation
         reproduces $86\%$ of the observed correlation; the residual
         $14\%$ is explained by the Gamma-factor cross-term.
@@ -408,17 +408,17 @@ theoretical value.
 \label{sec:universality}
 % ============================================================================
 
-We verify the amplitude--gap anti-correlation across ten
-$L$-functions spanning degrees 1--4 of the Langlands hierarchy.
+We verify the amplitude--gap anti-correlation across eleven
+$L$-functions spanning degrees 1--5 of the Langlands hierarchy.
 For GL(1) and GL(2) $L$-functions, the Cauchy-contour
 amplitude $A_\La$ naturally pairs with $g_{\mathrm{right}}$;
-for GL(3) and GL(4), the zero-sum amplitude $A_L$ pairs with
+for GL(3) through GL(5), the zero-sum amplitude $A_L$ pairs with
 $g_{\min}$ (see \cref{sec:dichotomy} for the explanation of this
 pairing).
 
 \begin{table}[h]
 \centering
-\caption{Amplitude--gap Spearman correlation across ten $L$-functions.
+\caption{Amplitude--gap Spearman correlation across eleven $L$-functions.
 All correlations are negative ($p < 10^{-4}$ in every case).}
 \label{tab:universality}
 \begin{tabular}{llrrrrl}
@@ -436,13 +436,14 @@ $L(s,\mathrm{sym}^2 E_{11})$ & 3 & 121 & 96 & $g_{\min}$ & $-0.420$ & $1.9 \time
 $L(s,\mathrm{sym}^2 E_{37})$ & 3 & 1369 & 48 & $g_{\min}$ & $-0.490$ & $3.8 \times 10^{-4}$ \\
 $L(s,\mathrm{sym}^3 E_{11})$ & 4 & 1331 & 101 & $g_{\min}$ & $-0.520$ & $2.5 \times 10^{-8}$ \\
 $L(s,\mathrm{sym}^3 E_{37})$ & 4 & 50653 & 131 & $g_{\min}$ & $-0.514$ & $3.5 \times 10^{-10}$ \\
+$L(s,\mathrm{sym}^4 E_{11})$ & 5 & 14641 & 132 & $g_{\min}$ & $-0.485$ & $3.7 \times 10^{-9}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-All ten $L$-functions exhibit negative amplitude--gap correlation
+All eleven $L$-functions exhibit negative amplitude--gap correlation
 with $p < 10^{-4}$.  The correlation strength $\rho \in [-0.63, -0.42]$
-is robust across degree ($d = 1$--$4$), conductor ($N = 1$--$50653$),
+is robust across degree ($d = 1$--$5$), conductor ($N = 1$--$50653$),
 and root number ($\varepsilon = \pm 1$).  Notably, the
 $\sigma$-uniqueness diagnostic saturates at $d \ge 4$
 (becoming trivially PASS for all~$\sigma$), while the $A$--gap
@@ -458,11 +459,13 @@ and $A_{n+1}$ receive a large $1/\Delta^2$ contribution.
 \end{observation}
 
 \begin{observation}[Degree-dependent $2H_1/A$ ratio]\label{obs:h1_ratio}
-The fraction $2H_1/A$ decreases with degree:
+The fraction $2H_1/A$ decreases with degree and saturates:
 $0.87$ (GL(1)) $\to$ $0.77$ (GL(2), estimated) $\to$
-$\sim\!0.67$ (GL(4)).  This reflects the increasing importance
-of $B^2 = \operatorname{Im}(c_0)^2$ at higher degree, where the
-alternating sum $B$ has more terms and is less completely cancelled.
+$\sim\!0.67$ (GL(4)) $\to$ $0.66$ (GL(5)).  This reflects the
+increasing importance of $B^2 = \operatorname{Im}(c_0)^2$ at higher
+degree, where the alternating sum $B$ has more terms and is less
+completely cancelled.  The saturation at $d \ge 4$ suggests
+$S_1^2/A \to \sim 0.34$ as a structural limit.
 \end{observation}
 
 
@@ -651,8 +654,8 @@ meaningful invariant of individual zeros of automorphic $L$-functions:
   \item The unconditional bound $A \ge 2/\Delta_{\min}^2$
         (\cref{thm:lower_bound}) is a direct consequence of
         Hadamard's product formula and requires no unproven hypotheses.
-  \item The anti-correlation is verified across ten $L$-functions
-        of degree~1--4, establishing degree-independent universality.
+  \item The anti-correlation is verified across eleven $L$-functions
+        of degree~1--5, establishing degree-independent universality.
   \item The GUE random matrix ensemble explains $86\%$ of the
         correlation, with the residual traced to the Gamma-factor
         cross-term.
