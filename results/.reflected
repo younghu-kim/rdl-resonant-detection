@@ -390,3 +390,9 @@ results/zero_173_analysis.txt
 results/zeta_4property_71.txt
 sigma_A_crosscheck_c255.txt
 sigma_localization_profile_c254.txt
+results/A_height_scaling_c260.txt
+results/B42_partial_correlation_c258.txt
+results/gamma_residual_c266.txt
+results/gamma_residual_c268.txt
+results/gue_A_gap_prediction_c265.txt
+results/gl4_A_gap_c269.txt

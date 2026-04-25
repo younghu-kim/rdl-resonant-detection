@@ -1,0 +1,383 @@
+#!/usr/bin/env python3
+"""
+[사이클 #269] GL(4) Sym³(11a1) A-gap 상관 + Prop 12 검증
+  GL(3) C-264 스크립트 확장. degree 4까지 보편성 검증.
+
+  Sym³(11a1): gammaV=[-1,0,0,1], k=4, N=1331, ε=+1
+  center = k/2 = 2.0 (PARI 정규화)
+
+  Gamma smooth: (1/2)Σⱼ[ψ((s+μⱼ)/2) - log(π)] + (1/2)log(N)
+  μ = [-1, 0, 0, 1]
+
+  체크리스트:
+    [x] S₁, H₁ = 영점 합 + mpmath Gamma 보정
+    [x] center=2.0 (k=4)
+    [x] python -u
+    [x] mu = [-1, 0, 0, 1] (gammaV)
+    [x] 가장자리 절삭 (내부 영점만)
+"""
+
+import sys, os, time, math
+import numpy as np
+from scipy import stats
+import mpmath
+
+mpmath.mp.dps = 30
+
+sys.path.insert(0, '/home/k0who029/.local/lib/python3.12/site-packages')
+try:
+    import cypari2
+    pari = cypari2.Pari()
+    pari.allocatemem(2000000000)  # 2GB (GL(4) 필요)
+    pari.set_real_precision(100)
+    print("cypari2 OK (2 GB, precision=100)")
+except Exception as e:
+    print(f"FATAL: {e}")
+    sys.exit(1)
+
+T_MAX = 55.0
+T_MIN = 2.0
+CENTER = 2.0  # k=4 → center=k/2=2
+
+RESULT_PATH = os.path.expanduser('~/Desktop/gdl_unified/results/gl4_A_gap_c269.txt')
+
+
+def pf(x):
+    s = str(x).strip().replace(' E', 'e').replace('E ', 'e')
+    try:
+        return float(s)
+    except ValueError:
+        return float('nan')
+
+
+def get_zeros_sym3(coeffs, t_max):
+    """PARI lfunzeros로 GL(4) Sym³ 영점 수집."""
+    pari(f'E_sym3 = ellinit({coeffs})')
+    pari('L_sym3 = lfunsympow(E_sym3, 3)')
+    pari(f'Li_sym3 = lfuninit(L_sym3, [0, {t_max + 2}])')
+    pari(f'zv_sym3 = lfunzeros(Li_sym3, {t_max})')
+    n = int(str(pari('#zv_sym3')))
+    zeros = []
+    for i in range(1, n + 1):
+        t = pf(pari(f'zv_sym3[{i}]'))
+        if not math.isnan(t) and t > 0.5:
+            zeros.append(t)
+    return sorted(zeros)
+
+
+def gamma_smooth(gamma_0, mu_list, N_cond):
+    """
+    Γ 보정: Λ'/Λ의 smooth part at ρ₀ = center + i·γ₀
+    smooth = (1/2)log(N) + Γ_∞'/Γ_∞(ρ₀)
+    Γ_∞'/Γ_∞(s) = (1/2) Σⱼ [ψ((s+μⱼ)/2) - log(π)]
+
+    반환: (Re, Im) of smooth part
+    """
+    s = mpmath.mpc(CENTER, gamma_0)
+    total = mpmath.mpc(0)
+    for mu in mu_list:
+        total += mpmath.digamma((s + mu) / 2) - mpmath.log(mpmath.pi)
+    total /= 2
+    total += mpmath.log(N_cond) / 2
+    return float(mpmath.re(total)), float(mpmath.im(total))
+
+
+def compute_A_from_zeros(zeros, idx, mu_list, N_cond, n_max=200):
+    """
+    영점 위치에서 직접 A(γ₀) 계산 (zero-sum A_L).
+
+    ρₖ = center + i·γₖ (on-critical)
+    ρ₀ - ρₖ = i(γ₀ - γₖ)
+    1/(i·Δγ) = -i/Δγ → Re=0, Im=-1/Δγ
+
+    c₀_zeros: Im = -S₁
+    c₁_zeros: Re = H₁ = Σ 1/Δγ²
+
+    A = (S₁ - sm_im)² + 2·H₁
+    """
+    gamma_0 = zeros[idx]
+    n_zeros = len(zeros)
+
+    S1_sum = 0.0
+    H1_sum = 0.0
+    for k in range(max(0, idx - n_max), min(n_zeros, idx + n_max + 1)):
+        if k == idx:
+            continue
+        dg = gamma_0 - zeros[k]
+        if abs(dg) < 1e-15:
+            continue
+        S1_sum += 1.0 / dg
+        H1_sum += 1.0 / (dg * dg)
+
+    sm_re, sm_im = gamma_smooth(gamma_0, mu_list, N_cond)
+    S1_corrected = S1_sum - sm_im
+    H1_corrected = H1_sum
+    A = S1_corrected ** 2 + 2 * H1_corrected
+
+    return {
+        'A': A, 'S1': S1_corrected, 'H1': H1_corrected,
+        'S1_bare': S1_sum, 'H1_bare': H1_sum,
+        'smooth_im': sm_im, 'smooth_re': sm_re,
+    }
+
+
+def analyze_sym3(curve):
+    name = curve['name']
+    label = curve['label']
+    mu = curve['mu']
+    N = curve['N_cond']
+    degree = curve['degree']
+
+    print("=" * 70)
+    print(f"  {label}")
+    print("=" * 70)
+
+    # 영점 수집
+    print("[영점]...")
+    t0 = time.time()
+    all_zeros = get_zeros_sym3(curve['coeffs'], T_MAX)
+    zeros = [z for z in all_zeros if z >= T_MIN]
+    print(f"  전체 {len(all_zeros)}개, t≥{T_MIN}: {len(zeros)}개")
+    if len(zeros) < 2:
+        print("  영점 부족 — 건너뜀")
+        return None
+    print(f"  t ∈ [{zeros[0]:.3f}, {zeros[-1]:.3f}]")
+    print(f"  dt_min = {min(b-a for a,b in zip(zeros,zeros[1:])):.4f}")
+    print(f"  소요: {time.time()-t0:.1f}s")
+
+    if len(zeros) < 8:
+        print("  영점 부족 (<8) — 건너뜀")
+        return None
+
+    # A(γ) 계산
+    print(f"\n[A(γ)] 영점 합 계산 ({len(zeros)}개)...")
+    t0 = time.time()
+    data = []
+    for i in range(len(zeros)):
+        all_idx = all_zeros.index(zeros[i])
+        r = compute_A_from_zeros(all_zeros, all_idx, mu, N)
+        if r['A'] > 0 and not math.isnan(r['A']):
+            r['t'] = zeros[i]
+            data.append(r)
+    print(f"  완료: {len(data)}/{len(zeros)} ({time.time()-t0:.1f}s)")
+
+    if len(data) < 6:
+        print("  유효 데이터 부족 (<6) — 건너뜀")
+        return None
+
+    # 내부 영점 + 간격
+    inner = data[2:-2]
+    valid = []
+    for d in inner:
+        idx = data.index(d)
+        if idx <= 0 or idx >= len(data) - 1:
+            continue
+        t_n = d['t']
+        t_prev = data[idx-1]['t']
+        t_next = data[idx+1]['t']
+        gap_r = t_next - t_n
+        gap_l = t_n - t_prev
+        if gap_r <= 0 or gap_l <= 0:
+            continue
+        # GUE 정규화: 국소 밀도 d̄ = 2/(t_{n+1} - t_{n-1})
+        d_bar = 2.0 / (t_next - t_prev)
+        d['gap_r_gue'] = gap_r * d_bar
+        d['gap_min_gue'] = min(gap_r, gap_l) * d_bar
+        d['S1_plus_2overDR'] = d['S1'] + 2.0 / gap_r
+        d['H1_frac'] = (2.0 * d['H1'] / d['A']) if d['A'] > 1e-10 else float('nan')
+        valid.append(d)
+
+    print(f"  내부: {len(valid)}")
+    if len(valid) < 5:
+        print("  내부 영점 부족 (<5) — 건너뜀")
+        return None
+
+    # Spearman 상관
+    A_arr = np.array([d['A'] for d in valid])
+    gr = np.array([d['gap_r_gue'] for d in valid])
+    gm = np.array([d['gap_min_gue'] for d in valid])
+
+    rho_r, p_r = stats.spearmanr(A_arr, gr)
+    rho_m, p_m = stats.spearmanr(A_arr, gm)
+    rho_adj, p_adj = stats.spearmanr(A_arr[:-1], A_arr[1:]) if len(A_arr) > 2 else (float('nan'), float('nan'))
+
+    # bare (Gamma 무보정) 비교
+    A_bare = np.array([d['S1_bare']**2 + 2*d['H1_bare'] for d in valid])
+    rho_bare_r, p_bare_r = stats.spearmanr(A_bare, gr)
+    rho_bare_m, p_bare_m = stats.spearmanr(A_bare, gm)
+
+    sig = lambda p: '✅' if p < 0.01 else ('⚠️' if p < 0.05 else '❌')
+    print(f"\n[Spearman] (n={len(valid)})")
+    print(f"  ρ(A_L, gap_right_GUE)      = {rho_r:+.4f}  (p={p_r:.3e})  {sig(p_r)}")
+    print(f"  ρ(A_L, gap_min_GUE)        = {rho_m:+.4f}  (p={p_m:.3e})  {sig(p_m)}")
+    print(f"  ρ(A_bare, gap_right_GUE)   = {rho_bare_r:+.4f}  (p={p_bare_r:.3e})  {sig(p_bare_r)}")
+    print(f"  ρ(A_bare, gap_min_GUE)     = {rho_bare_m:+.4f}  (p={p_bare_m:.3e})  {sig(p_bare_m)}")
+    print(f"  ρ(Aₙ, Aₙ₊₁)               = {rho_adj:+.4f}  (p={p_adj:.3e})")
+
+    # Prop 12
+    s12 = np.array([d['S1_plus_2overDR'] for d in valid])
+    hf = np.array([d['H1_frac'] for d in valid])
+    n_pos = int(np.sum(s12 > 0))
+    print(f"\n[Prop 12]")
+    print(f"  S₁+2/Δ_R > 0: {n_pos}/{len(valid)} ({100*n_pos/len(valid):.0f}%)")
+    print(f"  2H₁/A: {np.nanmean(hf):.3f} ± {np.nanstd(hf):.3f}")
+    print(f"  <A>: {np.mean(A_arr):.2f}")
+
+    # 판정 (A_L은 gap_min과 상관이 더 강함 — C-264 발견)
+    verdict_min = '✅' if abs(rho_m) > 0.3 and p_m < 0.01 else ('⚠️' if abs(rho_m) > 0.2 and p_m < 0.05 else '❌')
+    verdict_r = '✅' if abs(rho_r) > 0.3 and p_r < 0.01 else ('⚠️' if abs(rho_r) > 0.2 and p_r < 0.05 else '❌')
+    print(f"\n  [판정] gap_min: {verdict_min}  gap_right: {verdict_r}")
+
+    return {
+        'label': label, 'N': N, 'degree': degree,
+        'n_zeros': len(zeros), 'n_inner': len(valid),
+        'rho_right_gue': float(rho_r), 'p_right_gue': float(p_r),
+        'rho_min_gue': float(rho_m), 'p_min_gue': float(p_m),
+        'rho_bare_right': float(rho_bare_r), 'p_bare_right': float(p_bare_r),
+        'rho_bare_min': float(rho_bare_m), 'p_bare_min': float(p_bare_m),
+        'rho_adj': float(rho_adj), 'p_adj': float(p_adj),
+        'verdict_min': verdict_min, 'verdict_right': verdict_r,
+        'prop12_pos_frac': n_pos / len(valid),
+        'prop12_H1_frac': float(np.nanmean(hf)),
+        'mean_A': float(np.mean(A_arr)),
+        'A_values': A_arr.tolist(),
+        'gap_min_values': gm.tolist(),
+    }
+
+
+# ===== 메인 =====
+print("=" * 70)
+print("[사이클 #269] GL(4) Sym³ A-gap + Prop 12")
+print(f"  영점 합 방식 (A_L), T=[{T_MIN},{T_MAX}], center={CENTER}")
+print("=" * 70)
+print()
+
+CURVES = [
+    {'name': 'sym3_11a1',
+     'coeffs': '[0,-1,1,-10,-20]',
+     'N_cond': 1331,
+     'mu': [-1, 0, 0, 1],
+     'degree': 4,
+     'label': 'Sym³(11a1) (N=1331, d=4)'},
+    {'name': 'sym3_37a1',
+     'coeffs': '[0,0,1,-1,0]',
+     'N_cond': 50653,  # 37³
+     'mu': [-1, 0, 0, 1],
+     'degree': 4,
+     'label': 'Sym³(37a1) (N=50653, d=4)'},
+]
+
+all_results = {}
+for curve in CURVES:
+    try:
+        result = analyze_sym3(curve)
+        if result is not None:
+            all_results[curve['name']] = result
+    except Exception as e:
+        print(f"  ⚠️ {curve['name']} 실패: {e}")
+    print()
+
+# 비교표 (GL(1)~GL(4) 전체)
+print("=" * 70)
+print("  전체 비교표: A-gap 보편성 (GL(1)~GL(4))")
+print("=" * 70)
+
+# 기존 결과 (gap_right_GUE 기준은 A_Λ, gap_min_GUE 기준은 A_L)
+REF_A_LAMBDA = [
+    ('ζ(s)', 1, 1, 198, -0.5898, 6.1e-20, 'gap_right'),
+    ('χ₃ (mod 3)', 1, 3, 72, -0.5733, 1.4e-7, 'gap_right'),
+    ('χ₄ (mod 4)', 1, 4, 80, -0.5530, 1.0e-7, 'gap_right'),
+    ('χ₅ (mod 5)', 1, 5, 46, -0.6334, 2.3e-6, 'gap_right'),
+    ('11a1', 2, 11, 92, -0.5688, 3.3e-9, 'gap_right'),
+    ('37a1', 2, 37, 112, -0.5500, 3.4e-10, 'gap_right'),
+]
+
+REF_A_L = [
+    ('Sym²(11a1)', 3, 121, 96, -0.42, 1.9e-5, 'gap_min'),
+    ('Sym²(37a1)', 3, 1369, 48, -0.49, 3.8e-4, 'gap_min'),
+]
+
+hdr = f"{'L-함수':<24} {'d':>2} {'N':>6} {'n':>5}  {'gap':>9}  {'ρ':>8}  {'p':>12}  s"
+print(hdr)
+print("-" * 75)
+
+for lbl, d, N, n, rho, p, gap in REF_A_LAMBDA:
+    s = '✅' if abs(rho) > 0.3 and p < 0.01 else '❌'
+    print(f"  {lbl:<22} {d:>2} {N:>6} {n:>5}  {gap:>9}  {rho:>8.4f}  {p:>12.3e}  {s}")
+
+for lbl, d, N, n, rho, p, gap in REF_A_L:
+    s = '✅' if abs(rho) > 0.3 and p < 0.01 else '❌'
+    print(f"  {lbl:<22} {d:>2} {N:>6} {n:>5}  {gap:>9}  {rho:>8.4f}  {p:>12.3e}  {s}")
+
+for nm, r in all_results.items():
+    s_min = r['verdict_min']
+    s_r = r['verdict_right']
+    print(f"  {r['label']:<22} {r['degree']:>2} {r['N']:>6} {r['n_inner']:>5}  "
+          f"{'gap_min':>9}  {r['rho_min_gue']:>8.4f}  {r['p_min_gue']:>12.3e}  {s_min}")
+    print(f"  {'':22} {'':>2} {'':>6} {'':>5}  "
+          f"{'gap_right':>9}  {r['rho_right_gue']:>8.4f}  {r['p_right_gue']:>12.3e}  {s_r}")
+
+# 보편성 판정
+all_rhos_min = [r[4] for r in REF_A_L] + [r['rho_min_gue'] for r in all_results.values()]
+all_rhos_right = [r[4] for r in REF_A_LAMBDA]
+all_neg_min = all(r < 0 for r in all_rhos_min)
+n_total = len(REF_A_LAMBDA) + len(REF_A_L) + len(all_results)
+
+if all_results and all_neg_min:
+    vt = f"★★★★ GL(1)~GL(4) degree-독립 보편성 ({n_total}/{n_total} 음)"
+else:
+    vt = "미완"
+print(f"\n  최종: {vt}")
+
+# Prop 12
+print("\n  Prop 12:")
+for nm, r in all_results.items():
+    print(f"    {r['label']}: S₁+2/Δ>0={r['prop12_pos_frac']*100:.0f}%, "
+          f"2H₁/A={r['prop12_H1_frac']:.3f}, <A>={r['mean_A']:.2f}")
+
+# 저장
+with open(RESULT_PATH, 'w') as f:
+    f.write("=" * 70 + "\n")
+    f.write("[사이클 #269] GL(4) Sym³ A-gap + Prop 12\n")
+    f.write(f"  영점 합 방식 (A_L), T=[{T_MIN},{T_MAX}], center={CENTER}\n")
+    f.write(f"  대상: Sym³(11a1) d=4 N=1331, Sym³(37a1) d=4 N=50653\n")
+    f.write("=" * 70 + "\n\n")
+
+    for nm, r in all_results.items():
+        f.write(f"  {r['label']}:\n")
+        f.write(f"    영점 {r['n_zeros']}, 내부 {r['n_inner']}\n")
+        f.write(f"    ρ(A_L, gap_right_GUE) = {r['rho_right_gue']:+.4f} (p={r['p_right_gue']:.3e})\n")
+        f.write(f"    ρ(A_L, gap_min_GUE)   = {r['rho_min_gue']:+.4f} (p={r['p_min_gue']:.3e})\n")
+        f.write(f"    ρ(A_bare, gap_right)   = {r['rho_bare_right']:+.4f} (p={r['p_bare_right']:.3e})\n")
+        f.write(f"    ρ(A_bare, gap_min)     = {r['rho_bare_min']:+.4f} (p={r['p_bare_min']:.3e})\n")
+        f.write(f"    ρ(Aₙ, Aₙ₊₁)           = {r['rho_adj']:+.4f} (p={r['p_adj']:.3e})\n")
+        f.write(f"    Prop 12: S₁+2/Δ>0 = {r['prop12_pos_frac']*100:.0f}%\n")
+        f.write(f"    Prop 12: 2H₁/A = {r['prop12_H1_frac']:.3f}\n")
+        f.write(f"    <A> = {r['mean_A']:.2f}\n\n")
+
+    f.write("=" * 70 + "\n  비교표: GL(1)~GL(4) A-gap\n" + "=" * 70 + "\n")
+    f.write(hdr + "\n" + "-" * 75 + "\n")
+    for lbl, d, N, n, rho, p, gap in REF_A_LAMBDA:
+        s = '✅' if abs(rho) > 0.3 and p < 0.01 else '❌'
+        f.write(f"  {lbl:<22} {d:>2} {N:>6} {n:>5}  {gap:>9}  {rho:>8.4f}  {p:>12.3e}  {s}\n")
+    for lbl, d, N, n, rho, p, gap in REF_A_L:
+        s = '✅' if abs(rho) > 0.3 and p < 0.01 else '❌'
+        f.write(f"  {lbl:<22} {d:>2} {N:>6} {n:>5}  {gap:>9}  {rho:>8.4f}  {p:>12.3e}  {s}\n")
+    for nm, r in all_results.items():
+        s_min = r['verdict_min']
+        f.write(f"  {r['label']:<22} {r['degree']:>2} {r['N']:>6} {r['n_inner']:>5}  "
+                f"{'gap_min':>9}  {r['rho_min_gue']:>8.4f}  {r['p_min_gue']:>12.3e}  {s_min}\n")
+
+    f.write(f"\n  최종: {vt}\n")
+    f.write(f"\n  Prop 12:\n")
+    for nm, r in all_results.items():
+        f.write(f"    {r['label']}: S₁+2/Δ>0={r['prop12_pos_frac']*100:.0f}%, "
+                f"2H₁/A={r['prop12_H1_frac']:.3f}, <A>={r['mean_A']:.2f}\n")
+    f.write(f"\n  [방법]\n")
+    f.write(f"  영점 합: S₁=Σ1/(γ₀-γₖ), H₁=Σ1/(γ₀-γₖ)², Γ보정=mpmath digamma\n")
+    f.write(f"  A_L = (S₁+Im(Γ'))² + 2H₁ (primitive, Gamma 보정)\n")
+    f.write(f"  GUE 정규화: d̄=2/(t_{{n+1}}-t_{{n-1}})\n")
+    f.write(f"  C-264 발견: A_L은 gap_min과 상관, A_Λ는 gap_right와 상관\n")
+
+print(f"\n저장: {RESULT_PATH}")
+print("완료.")

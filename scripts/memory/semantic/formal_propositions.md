@@ -342,16 +342,26 @@ Degree, conductor, ε-부호 독립. `gl2_A_gap_c263.txt`
 | Sym²(11a1) | 3 | 121 | 96 | -0.42 | 1.9e-5 ✅ |
 | Sym²(37a1) | 3 | 1369 | 48 | -0.49 | 3.8e-4 ✅ |
 
+**GL(4) 확장 (C-269, zero-sum A_L)**:
+| L-함수 | degree | N | n_inner | ρ(A_L, gap_min_GUE) | p-value |
+|--------|--------|---|---------|---------------------|---------|
+| Sym³(11a1) | 4 | 1331 | 101 | -0.5199 | 2.5e-8 ✅ |
+| Sym³(37a1) | 4 | 50653 | 131 | -0.5137 | 3.5e-10 ✅ |
+
+GL(4) 부수 관측: ρ(A_L, gap_right) ≈ -0.31 (약), ρ(Aₙ,Aₙ₊₁) ≈ +0.32 (일관적 양).
+2H₁/A ≈ 0.67 (GL(1) 0.87 대비 감소 — degree 증가에 따른 S₁²/A 비율 증가).
+`gl4_A_gap_c269.txt`
+
 **A_Λ vs A_L 이분법 (C-264 교차검증)**:
   - A_Λ (completed Λ, Cauchy): gap_right와 상관 (ρ ≈ -0.55~-0.72)
-  - A_L (primitive L, zero-sum): gap_min과 상관 (ρ ≈ -0.53~-0.61)
+  - A_L (primitive L, zero-sum): gap_min과 상관 (ρ ≈ -0.42~-0.52)
   - 관계: c₀^Λ = c₀^L + γ_R'/γ_R(ρ₀). Gamma factor가 gap 선택성 결정.
   - ζ(s) 검증: A_Λ(Cauchy,n=15) ρ(gap_right)=-0.72✅, A_L(1517z,n=910) ρ(gap_min)=-0.61✅
   `crosscheck_c264.txt`
 
-**비평가**: **생존**. 8/8 일관 (GL(1)×4 + GL(2)×2: A_Λ gap_right, GL(3)×2: A_L gap_min).
-  A_Λ/A_L 이분법은 Gamma factor의 구조적 역할을 드러냄. 이론적 해명 필요.
-**상태**: ★★★★ 양성. Paper 4 중심 정리 후보. Proposition 승격 권고.
+**비평가**: **생존**. 10/10 일관 (GL(1)×4 A_Λ gap_right + GL(2)×2 A_Λ gap_right + GL(3)×2 A_L gap_min + GL(4)×2 A_L gap_min).
+  A_Λ/A_L 이분법은 Gamma factor의 구조적 역할을 드러냄.
+**상태**: ★★★★ 양성. GL(1)~GL(4) degree-독립 보편성 확립. Paper 4 중심 정리.
 
 ---
 
