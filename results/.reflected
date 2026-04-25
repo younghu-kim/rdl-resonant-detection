@@ -196,6 +196,7 @@ gue_local_agap_c283.txt
 /home/k0who029/Desktop/gdl_unified/results/spacing_ratio_gue.txt
 /home/k0who029/Desktop/gdl_unified/results/synthetic_offcritical_control.txt
 /home/k0who029/Desktop/gdl_unified/results/triple_consistency_table.txt
+/home/k0who029/Desktop/gdl_unified/results/w_dependent_agap_c295.txt
 /home/k0who029/Desktop/gdl_unified/results/weight16_cusp_126.txt
 /home/k0who029/Desktop/gdl_unified/results/weight20_cusp_127.txt
 /home/k0who029/Desktop/gdl_unified/results/xi_bundle_kappa_gl4_83.txt
@@ -356,6 +357,8 @@ results/hadamard_gl4_sym3_102.txt
 results/high_height_scaling.txt
 results/high_t_calibration.txt
 results/high_t_scaling.txt
+results/high_T_w_dependence_c296_extrapolation.txt
+results/high_T_w_dependence_c296.txt
 results/holonomy_chern_dirichlet.txt
 results/holonomy_chern_even_character.txt
 results/holonomy_chern_number.txt
@@ -413,6 +416,7 @@ results/spacing_ratio_36b.txt
 results/spacing_ratio_gue.txt
 results/synthetic_offcritical_control.txt
 results/triple_consistency_table.txt
+results/w_dependent_agap_c295.txt
 results/weight16_cusp_126.txt
 results/weight20_cusp_127.txt
 results/xi_bundle_kappa_gl4_83.txt
@@ -425,4 +429,3 @@ results/zeta_tband_agap_c290c.txt
 results/zeta_tband_agap_c290.txt
 sigma_A_crosscheck_c255.txt
 sigma_localization_profile_c254.txt
-/home/k0who029/Desktop/gdl_unified/results/w_dependent_agap_c295.txt
