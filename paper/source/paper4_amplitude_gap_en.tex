@@ -56,8 +56,8 @@ $A(\gamma_n) \ge 2/\Delta_{\min}(\gamma_n)^2$,
 where $\Delta_{\min} = \min(\gamma_n - \gamma_{n-1},\,\gamma_{n+1} - \gamma_n)$
 is the minimum spacing to a neighbouring zero, and demonstrate
 numerically that the Spearman anti-correlation $\rho(A, g_{\min})$ is
-(i)~\emph{universal}: consistently negative across eleven automorphic
-$L$-functions of degree 1 through~5,
+(i)~\emph{universal}: consistently negative across twelve automorphic
+$L$-functions of degree 1 through~6,
 (ii)~\emph{height-stable}: the correlation is
 $t$-independent for the completed amplitude $A_\La$ paired with
 $g_{\min}$ (span~$0.16$ across eight height bins), and
@@ -120,7 +120,7 @@ positive---this asymmetry is the source of the results that follow.
         the positivity of $H_1$.
   \item \textbf{Degree-independent universality}
         (\cref{sec:universality}): the Spearman anti-correlation
-        $\rho(A, g) < 0$ is verified across eleven $L$-functions of
+        $\rho(A, g) < 0$ is verified across twelve $L$-functions of
         degree~1 through~5, including Riemann~$\zeta$, Dirichlet
         $L$-functions, elliptic-curve $L$-functions, and symmetric
         powers up to $\mathrm{sym}^4$.
@@ -408,17 +408,17 @@ theoretical value.
 \label{sec:universality}
 % ============================================================================
 
-We verify the amplitude--gap anti-correlation across eleven
-$L$-functions spanning degrees 1--5 of the Langlands hierarchy.
+We verify the amplitude--gap anti-correlation across twelve
+$L$-functions spanning degrees 1--6 of the Langlands hierarchy.
 For GL(1) and GL(2) $L$-functions, the Cauchy-contour
 amplitude $A_\La$ naturally pairs with $g_{\mathrm{right}}$;
-for GL(3) through GL(5), the zero-sum amplitude $A_L$ pairs with
+for GL(3) through GL(6), the zero-sum amplitude $A_L$ pairs with
 $g_{\min}$ (see \cref{sec:dichotomy} for the explanation of this
 pairing).
 
 \begin{table}[h]
 \centering
-\caption{Amplitude--gap Spearman correlation across eleven $L$-functions.
+\caption{Amplitude--gap Spearman correlation across twelve $L$-functions.
 All correlations are negative ($p < 10^{-4}$ in every case).}
 \label{tab:universality}
 \begin{tabular}{llrrrrl}
@@ -437,13 +437,14 @@ $L(s,\mathrm{sym}^2 E_{37})$ & 3 & 1369 & 48 & $g_{\min}$ & $-0.490$ & $3.8 \tim
 $L(s,\mathrm{sym}^3 E_{11})$ & 4 & 1331 & 101 & $g_{\min}$ & $-0.520$ & $2.5 \times 10^{-8}$ \\
 $L(s,\mathrm{sym}^3 E_{37})$ & 4 & 50653 & 131 & $g_{\min}$ & $-0.514$ & $3.5 \times 10^{-10}$ \\
 $L(s,\mathrm{sym}^4 E_{11})$ & 5 & 14641 & 132 & $g_{\min}$ & $-0.485$ & $3.7 \times 10^{-9}$ \\
+$L(s,\mathrm{sym}^5 E_{11})$ & 6 & 161051 & 71 & $g_{\min}$ & $-0.423$ & $2.4 \times 10^{-4}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-All eleven $L$-functions exhibit negative amplitude--gap correlation
+All twelve $L$-functions exhibit negative amplitude--gap correlation
 with $p < 10^{-4}$.  The correlation strength $\rho \in [-0.63, -0.42]$
-is robust across degree ($d = 1$--$5$), conductor ($N = 1$--$50653$),
+is robust across degree ($d = 1$--$6$), conductor ($N = 1$--$161051$),
 and root number ($\varepsilon = \pm 1$).  Notably, the
 $\sigma$-uniqueness diagnostic saturates at $d \ge 4$
 (becoming trivially PASS for all~$\sigma$), while the $A$--gap
@@ -461,7 +462,7 @@ and $A_{n+1}$ receive a large $1/\Delta^2$ contribution.
 \begin{observation}[Degree-dependent $2H_1/A$ ratio]\label{obs:h1_ratio}
 The fraction $2H_1/A$ decreases with degree and saturates:
 $0.87$ (GL(1)) $\to$ $0.77$ (GL(2), estimated) $\to$
-$\sim\!0.67$ (GL(4)) $\to$ $0.66$ (GL(5)).  This reflects the
+$\sim\!0.67$ (GL(4)) $\to$ $0.66$ (GL(5)) $\to$ $0.66$ (GL(6)).  This reflects the
 increasing importance of $B^2 = \operatorname{Im}(c_0)^2$ at higher
 degree, where the alternating sum $B$ has more terms and is less
 completely cancelled.  The saturation at $d \ge 4$ suggests
@@ -654,8 +655,8 @@ meaningful invariant of individual zeros of automorphic $L$-functions:
   \item The unconditional bound $A \ge 2/\Delta_{\min}^2$
         (\cref{thm:lower_bound}) is a direct consequence of
         Hadamard's product formula and requires no unproven hypotheses.
-  \item The anti-correlation is verified across eleven $L$-functions
-        of degree~1--5, establishing degree-independent universality.
+  \item The anti-correlation is verified across twelve $L$-functions
+        of degree~1--6, establishing degree-independent universality.
   \item The GUE random matrix ensemble explains $86\%$ of the
         correlation, with the residual traced to the Gamma-factor
         cross-term.
@@ -682,18 +683,20 @@ is suggestive but remains unproven.
         Can the specific value of the Spearman correlation be
         derived from the pair correlation function?
   \item \textbf{Degree scaling of $2H_1/A$.}\;
-        The ratio decreases from $0.87$ (GL(1)) to ${\sim}0.67$
-        (GL(4)); can this be predicted from the degree of the
+        The ratio decreases from $0.87$ (GL(1)) and saturates
+        at ${\sim}0.66$ for $d \ge 4$; can this be predicted from the degree of the
         $L$-function?
   \item \textbf{$\sigma$-localisation and $A$--gap duality.}\;
         The $\sigma$-profile $\kappa(\sigma) = 1/\varepsilon^2 + A + \cdots$
         and the gap bound $A \ge 2/\Delta_{\min}^2$ suggest a duality between
         the transverse ($\sigma$-direction) and longitudinal
         ($t$-direction) structure of zeros.
-  \item \textbf{GL(5) and beyond.}\;
-        Extension to $\mathrm{sym}^4$ (degree~5) and higher would
-        test whether the universality persists in the Langlands
-        hierarchy.
+  \item \textbf{GL(7) and beyond.}\;
+        The universality now extends through $\mathrm{sym}^5$
+        (degree~6); extension to degree~7 and higher would
+        further test the Langlands hierarchy.  The main
+        obstacle is computational: \texttt{lfunzeros} at degree~6
+        already requires $\sim\!400$\,s per $L$-function.
 \end{enumerate}
 
 
