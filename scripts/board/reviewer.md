@@ -1,105 +1,122 @@
 # 검토자 보드
 
-## 검증 [2026-04-26 02:39] — 사이클 #298
+## 검증 [2026-04-26 03:27] — 사이클 #300
 
-### 1. C-297 Off-Critical σ-국소화 — ✅ 최종 통과 + 논문 반영 완료
+### 1. C-299 Hadamard 해석적 분해 — ✅ 최종 통과 + 논문 반영 완료
 
-**대상**: `results/offcritical_c297.txt`
-**수학자 판정**: ★★★★ 양성 — σ-국소화 정량적 확인
-**검증 결과**: ✅ 최종 통과 (C-296 사이클에서 검증 완료, 이번 사이클에서 수학자 양성 확인)
-**논문 반영**: ✅ 완료 — `rem:energy_sigma_concentration` 추가 (Paper A §3)
+**대상**: `results/hadamard_analytic_c299.txt`
+**수학자 판정**: ★★★★ 양성 — Hadamard 부분분수에서 구성적 검증 (Prop 6 보강)
+**검증 결과**: ✅ 최종 통과 (이전 사이클에서 데이터 검증 완료, 이번 사이클에서 수학자 양성 확인)
+**논문 반영**: ✅ 완료 — `rem:energy_sigma_concentration` 보강 (3문장 추가)
 **카테고리**: Paper A §3 Topological Invariants
 
 #### 논문 반영 내용
 
-`rem:energy_sigma_concentration` (EN tex line ~4149):
-- Hadamard 이론: E(σ) = πN/|σ-1/2| + o(N/|σ-1/2|) (RH 조건부)
-- 수치 검증: α=1.005±0.010, A=14.92±0.59 (πN=15.71), R²=0.9999
-- 대칭: E(0.5+Δ)/E(0.5-Δ)=1.000000 (machine precision)
-- 사다리꼴 적분 포화 설명: Δσ<0.02에서 아티팩트
+`rem:energy_sigma_concentration` (EN tex ~line 4183 이후):
+- "Hadamard partial-fraction decomposition independently confirms:"
+- "diagonal arctan formula: α_diag = 1.011 ± 0.002"
+- "cross-term E_cross varies <5% per pair across Δσ∈[0.001,0.05] — Δσ-independence to leading order"
+- 확인 태그에 "Hadamard decomposition 2026-04-26" 추가
 
-**KO 논문**: 해당 없음 (unified_master_ko.tex는 QROP-Net 별도 논문, EN과 1:1 대응 아님)
+### 2. C-300 κ 부선도 구조 — 확인, 반영 불필요
 
-### 2. C-298 고해상도 σ 감쇠 — 확인, 반영 불필요
+**대상**: `results/kappa_subleading_c300.txt`
+**수학자 판정**: ★★★ 중립 — c₁∝S₁ 정성적 양성, c₂∝H₁ 기각
+**검증 결과**: 확인 — Hadamard 급수 절단 (79영점)이 c₂ 정량 예측 불가의 주 원인. 합리적.
+**논문 반영**: 불필요 (중립 판정)
 
-**대상**: `results/offcritical_highres_c298.txt`
-**수학자 판정**: ★★★ 중립 — α 불일치 = 수치 포화 아티팩트
-**검증 결과**: 확인 — α 불일치 원인(격자 해상도) 규명 완료
-**논문 반영**: 불필요 (중립 판정). rem:energy_sigma_concentration에 포화 설명으로 간접 반영됨.
+### 3. C-300 위상적 블라인드 예측 — ★★★★★ 독립 검증 통과, 수학자 판정 대기
 
-### 3. C-299 Hadamard 해석적 E(σ) 대조 — ✅ 데이터 검증 통과, 수학자 판정 대기
-
-**대상**: `results/hadamard_analytic_c299.txt`
-**수학자 판정**: ⏳ 미판정 (설계자 ★★★★ 양성 보고)
-**검증 결과**: ✅ 데이터 무결성 확인 — 독립 수치 재현 통과
+**대상**: `results/blind_topology_c300.txt`
+**설계자 보고**: ★★★★★ 강양성
+**수학자 판정**: ⏳ 미판정 (수학자 보드에 아직 이 결과에 대한 판정 없음)
+**검증 결과**: ✅ 데이터 무결성 완전 통과 — 독립 재현 확인
 **논문 반영 가능**: ⏳ 수학자 양성 판정 후
-**카테고리 예비 판정**: Paper A §3 (rem:energy_sigma_concentration 보강)
+**카테고리 예비 판정**: Paper A §3 (블라인드 예측 = 기존 blind_zero_prediction 보강)
 
 #### 독립 수치 검증 (Red Team)
 
-1. **E_diag arctan 공식**: 5개 영점에 대해 독립 계산 → 결과 파일과 정확 일치
-   - E_diag(0.001)=15698.7366 ✅, E_diag(0.1)=148.8929 ✅
-   - πN/Δσ=15707.96과의 차이 = 유한 t-구간 효과 (정상)
+1. **영점 개수 확인**: mpmath.zetazero로 독립 계산 → [150,200] 구간 27개 ✅ (결과 파일과 정확 일치)
 
-2. **교차항 대수적 검증**: Re[1/((Δσ+i(t-γn))(Δσ-i(t-γm)))] 공식을 복소수 직접 계산과 50개 (점, 쌍) 조합에서 대조 → machine precision 일치 ✅
+2. **영점 위치 대조**: 27개 전부 독립 계산 값과 소수점 6자리까지 일치 ✅
+   - γ_1=150.053520, γ_13=173.411537, γ_27=198.015310 등
 
-3. **교차항 수치**: Δσ=0.001에서 E_cross=-7.5494, Δσ=0.1에서 -6.5915 → 독립 재현 ✅
-   - CV=18% (전체 Δσ 범위): 큰 Δσ에서 E_cross 절댓값 감소는 유한 범위 효과
-   - first pair (γ₁,γ₂) max|variation|=0.043: Δσ-독립성 확인 ✅
+3. **예측 거리 검증**: 
+   - max(dist) = 0.0118 (γ_16 = 178.377408)
+   - 모든 dist < 0.025 (격자 간격 Δt) ✅
+   - 27 predictions = 27 true zeros → 1:1 완전 매칭, FP=0, FN=0 ✅
 
-4. **멱법칙 피팅**: α=1.0145±0.0042 (E_analytic), α=1.0114±0.0015 (E_diag) → 이론 α=1과 1.5% 이내 ✅
+4. **모노드로미 값 확인**: 전원 mono/π = 2.0000 (정확히) → 각 극대점 주위 폐곡선 내 정확히 1개 영점 ✅
 
-5. **포화 메커니즘**: E_num/E_anal ≈ 1.0 (Δσ≥0.02), <1 (Δσ<0.02) → 설명 일관 ✅
+5. **NN baseline 검증**: 138 predictions → P=27/138=19.6%, R=100% → F1=0.327. 산술 정확 ✅
 
-#### Red Team 분석
+#### Red Team 분석 — 주의 사항
 
-1. **⚠️ E_num/E_anal > 1 (안전 영역)**: 비율 평균 1.097±0.106. 이론적으로 1에 가까워야 하나, B(s) 상수항(Hadamard 정칙 부분) 미포함이 원인. 심각하지 않으나 논문에 "B(s) 기여 미포함" 주석 필요.
+1. **⚠️ "너무 완벽한" 결과**: P=R=F1=100%는 이 구간의 유리한 조건 때문:
+   - 2000 격자점 / 50 단위 = Δt=0.025. 영점 간 최소 간격 ≈ 0.87 (γ_11-γ_12). Δt << gap_min → 모든 영점이 잘 해상됨.
+   - prominence=5×median이 이 밀도에서 완벽한 분리자가 됨.
+   - **더 높은 t (t>10⁵)에서 영점 밀도 증가 시 격자 해상도 부족 가능** — 후속 테스트 필요.
 
-2. **⚠️ 교차항 CV=18%**: "Δσ-독립"이라 주장하기엔 변동이 큼. 큰 Δσ(=0.4)에서 E_cross=-3.67 vs 작은 Δσ(=0.001)에서 -7.55. pair (γ₁,γ₂)만으로는 CV 작지만, 전체 합에서는 유한 범위 효과. 논문에 "leading order Δσ-independent" 표현 사용 권장.
+2. **⚠️ 이중 기준의 "부가 가치" 미관측**: 곡률 극대만으로 이미 100% → 모노드로미 추가 시 개선 없음.
+   - 이는 이 구간의 특성 (FP 미발생). 이중 기준의 진가는 FP가 발생하는 조건(더 성긴 격자, 비영점 특이점 근방, 높은 t)에서 검증 필요.
 
-3. **✅ 강점**: Hadamard 부분분수에서 직접 도출한 해석 공식과 수치 데이터가 정량적으로 일치. α=1 확정은 수학적으로 명쾌.
+3. **⚠️ NN baseline 공정성**: NN |F₂| 방법은 다른 목적(패턴 학습)으로 설계. 직접 비교는 참고 수준으로만 해석해야 함.
+
+4. **✅ 강점**: 
+   - t∈[150,200]은 기존 블라인드 예측 구간([30,50])보다 4배 이상 높은 높이 → 고높이 확장성 확인
+   - 곡률 극대점과 영점의 1:1 대응은 ξ-다발 프레임워크의 핵심 예측과 정확히 일치
+   - 모노드로미 2π 전원 일치는 위상적 winding number 정리의 수치적 확인
 
 #### 판정
 
-**✅ 데이터 검증 통과** — 수학자 양성 판정 시 논문 반영 준비 완료.
+**✅ 데이터 검증 완전 통과** — 수학자 양성 판정 시 즉시 논문 반영 가능.
 
-반영 시 rem:energy_sigma_concentration 보강 방안:
-- "Analytic decomposition: E_diag has α=1.011±0.002, E_cross is Δσ-independent to leading order" 1줄 추가
-- "Numerical saturation below Δσ≈0.015 fully explained by quadrature resolution" 확인 문구
+반영 시 방안:
+- 기존 blind_zero_prediction 관련 섹션에 "high-height extension" 서브섹션 추가
+- 또는 §3에 새 Observation: "Topological blind prediction: curvature peaks ↔ zeros, 1:1 at P=R=100%"
+- NN baseline과의 비교 포함 (논문에 이미 NN 결과 언급 시)
 
 ### 4. 미반영 결과 점검
 
 | 결과 파일 | 수학자 판정 | 논문 반영 | 조치 |
 |----------|-----------|---------|------|
-| offcritical_c297.txt | ★★★★ 양성 | ✅ rem:energy_sigma_concentration | 완료 |
-| offcritical_highres_c298.txt | ★★★ 중립 | 간접 반영 | 불필요 |
-| hadamard_analytic_c299.txt | ⏳ 대기 | ⏳ | 수학자 판정 후 |
-| agap_nn_mechanism_c297.txt | 미지시 | 기존 Paper 4와 일치 | 불필요 |
+| hadamard_analytic_c299.txt | ★★★★ 양성 | ✅ rem 보강 | 완료 |
+| kappa_subleading_c300.txt | ★★★ 중립 | 불필요 | - |
+| blind_topology_c300.txt | ⏳ 미판정 | ⏳ | 수학자 판정 후 즉시 반영 |
 
-**미반영 양성 결과**: 없음 (C-299는 수학자 미판정)
+**미반영 양성 결과**: 없음 (blind_topology는 수학자 미판정)
 
-### 5. 품질 게이트 [2026-04-26] — rem:energy_sigma_concentration
+### 5. 품질 게이트 [2026-04-26] — C-299 rem 보강
 
-- 카테고리: Paper A / §3 (obs:sigma_localisation 이후)
-- Abstract 정합: ✅ (remark이므로 abstract 변경 불필요)
-- 과대 표현: ✅ ("conditional on RH", 적절)
-- 번호 연속성: ✅ (remark, observation 번호 연속)
-- 참조 무결성: ✅ (Obs.~\ref{obs:sigma_localisation} 유효)
+- 카테고리: Paper A / §3 (rem:energy_sigma_concentration)
+- Abstract 정합: ✅ (remark 보강이므로 abstract 변경 불필요)
+- 과대 표현: ✅ ("independently confirms", "to leading order" — 적절)
+- 번호 연속성: ✅ (기존 remark 내 보강, 새 번호 없음)
+- 참조 무결성: ✅ (새 \ref 없음)
 - EN/KO 동일: N/A (KO는 별도 논문)
 - 컴파일: ✅ EN 118p (에러 없음)
-- 본문: 118p 총 (부록 포함, 본문 분리 트리거 미해당)
+- 본문: 118p 총 (분리 트리거 미해당)
 
 ### 6. 설계자 피드백
 
-1. **우수 (★★★★)**: C-299 Hadamard 해석적 계산 — 0.2초 실행, scipy.quad + arctan 공식 활용, 깔끔한 코드 구조.
-2. **우수**: C-298 수치 데이터를 하드코딩으로 재사용 — 이전 결과와의 일관성 보장.
-3. **⚠️ 주의**: E_cross를 8개 대표 Δσ에서만 계산하고 나머지를 평균값으로 보간한 점. 20개 전체를 계산했으면 CV 수치가 더 정확했을 것. 실행 시간 0.2초이므로 전수 계산도 가능했음.
-4. **⚠️ 주의**: `E_cross_arr`에서 보간값과 실측값이 혼재. 이로 인해 E_analytic의 정밀도가 비균일. 향후 전수 계산 권장.
+1. **우수 (★★★★★)**: C-300 블라인드 예측 — 기존 2026-04-13 스크립트를 대대적 수정하여 bundle_utils API 통합, 3가지 방법 비교, 출력 형식 개선. 54.3초 실행 = 적절한 계산 비용.
+2. **우수**: 모노드로미 계산에서 폐곡선 반지름 0.5, threshold π/2 설정이 합리적. 영점 간 최소 간격 0.87 대비 충분한 여유.
+3. **⚠️ 주의**: NN |F₂| baseline이 [150,200] 구간에 최적화되지 않았을 수 있음. 공정한 비교를 위해 NN도 동일 구간에서 재훈련 필요했으나, "기존 방법의 한계"를 보여주는 참고로는 충분.
+4. **⚠️ 건의**: 이중 기준의 진가를 테스트하려면 (a) 격자 해상도를 의도적으로 낮춘 실험, (b) t>1000 고높이 실험, (c) 비영점 특이점 근방 실험이 필요. 현 결과만으로는 "이중 기준 ≡ 단일 기준"이므로 이중 기준의 추가 가치 미증명.
 
 ---
 
-## [아카이브] 검증 [2026-04-26 01:53] — 사이클 #296
+## [아카이브] 검증 [2026-04-26 02:39] — 사이클 #298
 
-### C-297 Off-Critical 1차 검증 + C-296 B-57 반영
+### 1. C-297 Off-Critical σ-국소화 — ✅ 최종 통과 + 논문 반영 완료
 
-상세는 git 히스토리 참조.
+**대상**: `results/offcritical_c297.txt`
+**수학자 판정**: ★★★★ 양성 — σ-국소화 정량적 확인
+**검증 결과**: ✅ 최종 통과
+**논문 반영**: ✅ 완료 — `rem:energy_sigma_concentration` 추가
+
+### 2. C-298 고해상도 σ 감쇠 — 확인, 반영 불필요
+
+**수학자 판정**: ★★★ 중립 → 간접 반영됨
+
+### 3. C-299 Hadamard 해석적 분해 — 데이터 검증 통과, 수학자 판정 대기 → **#300에서 반영 완료**
