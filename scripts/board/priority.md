@@ -5,9 +5,8 @@
 
 ## 현재 명령
 
-# 처리됨: 2026-04-25 13:15
-# 사이클 #266 [2026-04-25 13:15]
-# C-266: Gamma 교차항 ★★★ + Paper 4 outline + Prop 12 등록. 완료.
-# C-269: Paper 4 LaTeX 초안 또는 zero-sum/Cauchy 비교 또는 GL(4) 확장.
-PRIORITY:medium
+# 사이클 #270 [2026-04-25 13:39]
+# C-270: gap_min t-안정성 검증 + Cauchy 저-t 재현. B-46/B-45 해소 시도.
+# CPU 유휴, 장기 프로세스 없음. 탐사 허용.
+PRIORITY:high
 PAUSE_EXPLORATION:false

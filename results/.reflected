@@ -203,6 +203,7 @@ results/A_decomposition_77.txt
 results/A_formula_highdeg_b35.txt
 results/A_formula_independent_b37.txt
 results/A_gap_correlation_c256.txt
+results/A_height_scaling_c260.txt
 results/angle_at_zeros_inventory.txt
 results/artin_s3_121.txt
 results/artin_s3_precision_122.txt
@@ -211,6 +212,7 @@ results/artin_s4_kappa_124.txt
 results/artin_s4_standard_123.txt
 results/artin_s5_kd2_209.txt
 results/A_scaling_law_212.txt
+results/B42_partial_correlation_c258.txt
 results/basis_bandwidth_scaling.txt
 results/blind_zero_prediction.txt
 results/bundle_prediction_fp_monodromy.txt
@@ -280,6 +282,9 @@ results/f2_structure_correlation.txt
 results/f2_z3_deep.txt
 results/fp_anatomy.txt
 results/fp_monodromy_anatomy_49.txt
+results/gamma_residual_c266.txt
+results/gamma_residual_c268.txt
+results/gap_stability_c270.txt
 results/gauss_bonnet_area_integral.txt
 results/generalized_dh_offcritical_121.txt
 results/gl2_A_gap_c263.txt
@@ -300,6 +305,7 @@ results/gl3_sym2_37a1_64.txt
 results/gl3_sym2_37a1_87.txt
 results/gl3_sym2_kd2_202.txt
 results/gl3_sym2_xi_bundle_88.txt
+results/gl4_A_gap_c269.txt
 results/gl4_rankin_selberg_72.txt
 results/gl4_sym3_11a1_81.txt
 results/gl4_sym3_37a1_kd2_204.txt
@@ -316,6 +322,7 @@ results/gl5_sym4_85.txt
 results/gl5_sym4_kd2_205.txt
 results/gl6_sym5_kd2_206.txt
 results/gram_point_curvature.txt
+results/gue_A_gap_prediction_c265.txt
 results/gue_poisson_midpoint_comparison.txt
 results/hadamard_A_decomposition_90.txt
 results/hadamard_agap_mechanism_c265.txt
@@ -347,6 +354,7 @@ results/maass_4property_69b.txt
 results/maass_4property_69.txt
 results/maass_even_kd2_201.txt
 results/maass_kd2_200.txt
+results/midpoint_hadamard_c246.txt
 results/multiseed_if128.txt
 results/nonlocal_reach_decay.txt
 results/nonselfdual_parity_c241.txt
@@ -355,6 +363,7 @@ results/number_variance_rmt.txt
 results/number_variance_rmt_v1.txt
 results/offcritical_gauss_bonnet.txt
 results/optim_budget_scaling.txt
+results/parity_asymmetry_c243.txt
 results/phase_isolation_experiment.txt
 results/phase_L4_experiment.txt
 results/phase_nonzero_compare.txt
@@ -373,8 +382,10 @@ results/residual_spectrum.txt
 results/s1_full_integration.txt
 results/s1_geodesic_readout.txt
 results/s1_geo_high_height.txt
+results/sigma_A_crosscheck_c255.txt
 results/sigma_fail_quantification_98b.txt
 results/sigma_fail_quantification_98.txt
+results/sigma_localization_profile_c254.txt
 results/sigma_uniqueness_mechanism_47.txt
 results/smooth_target_full_loss.txt
 results/smooth_zero_crossing.txt
@@ -390,9 +401,3 @@ results/zero_173_analysis.txt
 results/zeta_4property_71.txt
 sigma_A_crosscheck_c255.txt
 sigma_localization_profile_c254.txt
-results/A_height_scaling_c260.txt
-results/B42_partial_correlation_c258.txt
-results/gamma_residual_c266.txt
-results/gamma_residual_c268.txt
-results/gue_A_gap_prediction_c265.txt
-results/gl4_A_gap_c269.txt

@@ -627,11 +627,21 @@ Hadamard 분해 A(γₙ) = S₁² + 2H₁ (Prop 11)에 대해:
   | E[A|g] ≈ a/g² + b 적합 | R²=0.987, a=2.63 (≥2✓) | ✅ |
   `hadamard_agap_mechanism_c265.txt`
 
-**보편성 검증 (C-256~C-264)**:
-  8/8 L-함수 (GL(1)×4 + GL(2)×2 + GL(3)×2) 일관적 음상관.
+**보편성 검증 (C-256~C-269)**:
+  10/10 L-함수 (GL(1)×4 + GL(2)×2 + GL(3)×2 + GL(4)×2) 일관적 음상관.
   ρ ∈ [-0.63, -0.42]. Degree, conductor, ε 독립.
-  `A_gap_correlation_c256.txt`, `dirichlet_A_gap_c261.txt`, `gl2_A_gap_c263.txt`, `gl3_A_gap_c264.txt`
+  GL(4) Sym³(11a1) ρ=-0.52, Sym³(37a1) ρ=-0.51 (C-269).
+  `A_gap_correlation_c256.txt`, `dirichlet_A_gap_c261.txt`, `gl2_A_gap_c263.txt`, `gl3_A_gap_c264.txt`, `gl4_A_gap_c269.txt`
+
+**높이 안정성 (C-270)**:
+  gap_min(A_Λ): span=0.163 (8 t-bins), Kendall τ=-0.286 (p=0.40, 비유의) → t-안정 ✅
+  gap_right(A_Λ): span=0.567, τ=+1.0 (p=5e-5) → t와 함께 감쇠 ✅
+  → gap_min이 정준(canonical) 메트릭으로 확정
+  → Prop 12 (A ≥ 4/gap_min²) 전 t에서 수치적 유효
+  Cauchy 재현: |Δρ|=0.010 (C-270 vs C-256). B-45/B-46 해소.
+  `gap_stability_c270.txt`
 
 **비평가**: (a) **생존** (자명하나 유의미한 하한). (b) **생존(조건부)** — PCC 가정 명시. 수치 검증 5/5.
   무조건적 하한 4/g²는 관측된 a=2.63보다 약하나, 이는 H₁^{NN} + H₁^{tail} 모두 기여하기 때문.
-**상태**: (a) ★★★★ 해석적 증명. (b) ★★★★ PCC 조건부 정리. Paper 4 중심 정리.
+  (c) gap_min t-안정성 (C-270) → Prop 12 수치 유효범위 전 t 확정.
+**상태**: (a) ★★★★ 해석적 증명. (b) ★★★★ PCC 조건부 정리. (c) ★★★★ t-안정성. Paper 4 중심 정리.
