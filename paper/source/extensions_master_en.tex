@@ -1677,6 +1677,60 @@ making $\rho(A,g_{\min})<0$ a structural necessity.
 Prop~12 (PCC-conditional); $n{=}910$; $E[A|g]$ monotone $7/7$;
 $\rho{=}{-}0.90$; $R^2{=}0.987$; $H_1{\geq}2/g^2$ mechanism]}
 
+\paragraph{Gamma factor contribution: three-factor decomposition
+(Result~\#C-268).}
+The Cauchy-method observation $\rho(A_\Lambda,g_{\mathrm{R}}^{\mathrm{GUE}})
+=-0.578$ (Result~\#219) exceeds the GUE theoretical prediction
+$\rho_{\mathrm{GUE}}=-0.50$.
+To quantify the role of the Gamma factor, we decompose $A_\Lambda$
+into the pure zero-sum amplitude $A_L$ (Gamma-free) and the Gamma
+correction $\Delta A = A_\Lambda - A_L$, where
+\[
+  \Delta A \;=\; -2\,S_1^L\cdot\operatorname{Im}\gamma_S
+  \;+\; (\operatorname{Im}\gamma_S)^2
+  \;+\; 2\operatorname{Re}\gamma_H, \qquad
+  \gamma_S = \tfrac{1}{2}\psi\!\left(\tfrac{s}{2}\right)
+  - \tfrac{1}{2}\log\pi.
+\]
+On $n=910$ inner zeros of~$\zeta(s)$ ($T=2000$, central $60\%$):
+\begin{itemize}
+  \item $\rho(A_L, g_{\mathrm{R}}^{\mathrm{GUE}}) = -0.165$
+        ($p=6.0\times10^{-7}$): the zero-sum amplitude alone
+        has weak $g_{\mathrm{R}}$ sensitivity;
+  \item $\rho(A_\Lambda, g_{\mathrm{R}}^{\mathrm{GUE}}) = -0.455$
+        ($p=9.0\times10^{-48}$): adding the Gamma factor amplifies
+        the correlation by $\Delta\rho = -0.291$;
+  \item $\rho(\Delta A, g_{\mathrm{R}}^{\mathrm{GUE}}) = -0.696$
+        ($p=9.8\times10^{-133}$): the Gamma correction itself
+        is strongly anticorrelated with $g_{\mathrm{R}}$.
+\end{itemize}
+The dominant mechanism is the cross-term
+$\Delta A \approx -2S_1^L\cdot\operatorname{Im}\gamma_S$,
+where $\operatorname{Im}\gamma_S \approx 0.786$ is nearly constant;
+the Gamma factor acts as an amplifier of the zero-sum $S_1^L$.
+The three-factor additive decomposition of $\rho(A_\Lambda, g_{\mathrm{R}})$:
+\[
+  \underbrace{-0.500}_{\rho_{\mathrm{GUE}}}
+  \;+\; \underbrace{+0.336}_{\rho_{\mathrm{arith}}}
+  \;+\; \underbrace{-0.291}_{\rho_{\Gamma}}
+  \;=\; -0.455,
+\]
+where $\rho_{\mathrm{arith}} = \rho(A_L, g_{\mathrm{R}}) - \rho_{\mathrm{GUE}}$
+reflects the arithmetic $S_1^2$ contribution.
+A residual of $0.12$ between the Hadamard-method $\rho=-0.455$ and
+the Cauchy-method $\rho=-0.578$ remains, attributable to methodological
+differences (finite truncation of the zero-sum vs.\ direct $\Lambda'/\Lambda$
+evaluation).
+The Gamma-to-$A$ ratio exhibits strong height dependence
+(Kendall $\tau=-1.00$, $p=5.0\times10^{-5}$):
+at low~$t$ ($\bar{t}\approx626$) $\Delta A/A_\Lambda \approx +10\%$,
+decreasing to $\approx -21\%$ at high~$t$ ($\bar{t}\approx1599$).
+
+\textcolor{ForestGreen}{[Result \#C-268, confirmed 2026-04-25;
+Gamma factor contribution $\Delta\rho{=}{-}0.291$;
+$\rho(\Delta A, g_{\mathrm{R}}){=}{-}0.696$ ($p{=}10^{-132}$);
+3-factor decomposition; B-45 partially resolved]}
+
 
 % ============================================================================
 \section{Discussion}
@@ -1727,6 +1781,10 @@ the Hadamard lower bound $A\geq 2/g_{\min}^2$ from nearest-neighbour
 dominance ($H_1^{\mathrm{NN}}/H_1=66\%$, $2H_1/A=87\%$) makes
 $\rho(A,g_{\min})<0$ a structural necessity under the GUE
 pair-correlation conjecture.
+The three-factor decomposition (Result~\#C-268) further shows that the
+Gamma factor amplifies the $g_{\mathrm{R}}$ anticorrelation by
+$\Delta\rho=-0.291$, with the cross-term
+$-2S_1^L\operatorname{Im}\gamma_S$ as the dominant channel.
 
 \paragraph{Euler product dispensability.}
 Theorem~\ref{thm:feonly} and Result~\#114 establish that the Euler
@@ -1878,6 +1936,7 @@ Result & Section & Rating & Key finding \\
 \#C-263 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A$--gap GL(2) degree-independent universality; $E_{11a1}$ $\rho{=}{-}0.57$, $E_{37a1}$ $\rho{=}{-}0.55$; $6/6$ GL(1)+GL(2) consistent; bare $L'/L{+}\psi$ \\
 \#C-264 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & GL(3) $A$--gap via zero-sum; $\mathrm{Sym}^2(\text{11a1})$ $\rho{=}{-}0.42$, $\mathrm{Sym}^2(\text{37a1})$ $\rho{=}{-}0.49$; $g_{\min}$ universality; $A_\Lambda/A_L$ dichotomy \\
 \#C-265 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Prop~12 (PCC-conditional): Hadamard mechanism $A{\geq}2/g_{\min}^2$; $E[A|g]$ monotone $7/7$; $\rho{=}{-}0.90$; $R^2{=}0.987$; $2H_1/A{=}87\%$ \\
+\#C-268 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & Gamma factor 3-factor decomposition: $\rho(\Delta A, g_{\mathrm{R}}){=}{-}0.696$ ($p{=}10^{-132}$); $\Delta\rho{=}{-}0.291$ amplification; cross-term $-2S_1^L\operatorname{Im}\gamma_S$ dominant; B-45 partial \\
 \end{longtable}
 
 
