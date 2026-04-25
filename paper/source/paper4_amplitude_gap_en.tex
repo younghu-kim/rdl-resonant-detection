@@ -61,13 +61,20 @@ $L$-functions of degree 1 through~6,
 (ii)~\emph{height-stable}: the correlation is
 $t$-independent for the completed amplitude $A_\La$ paired with
 $g_{\min}$ (span~$0.16$ across eight height bins), and
-(iii)~\emph{GUE-predicted}: the GUE random matrix ensemble
-reproduces $86\%$ of the observed gap--amplitude correlation.
-The residual $14\%$ is traced to the Gamma-factor cross-term
-$-2 S_1^L \cdot \operatorname{Im}(\psi'/2)$.
+(iii)~\emph{GUE-predicted with degree-dependent damping}:
+under method-matched conditions ($\pm 300$ local sum,
+$20\%$ trim), the GUE ensemble gives
+$\rho_{\mathrm{S}} = -0.967$, while $\zeta(s)$ gives $-0.929$
+($\Delta\rho \approx 0.04$, not significant) and GL(2) gives
+$\sim\!-0.67$ ($\Delta\rho \approx 0.24$, ${\sim}2\sigma$).
+The previously reported universal damping ${\sim}0.38$ is a
+methodological artefact conflating $T$-range truncation,
+sum locality, and genuine arithmetic attenuation.
 These results establish $A(\gamma)$ as a new invariant linking
-individual zero strength to local spectral spacing, with
-degree-independent universality across the Langlands hierarchy.
+individual zero strength to local spectral spacing:
+the anti-correlation sign is degree-independent across the
+Langlands hierarchy, while its magnitude exhibits
+degree-dependent arithmetic damping.
 \end{abstract}
 
 
@@ -133,6 +140,15 @@ positive---this asymmetry is the source of the results that follow.
         $g_{\mathrm{right}}$ decays with height ($\tau = +1.0$,
         $p = 5 \times 10^{-5}$), identifying $g_{\min}$ as the
         canonical gap metric.
+  \item \textbf{Methodology correction}
+        (\cref{rem:locality}): the na\"{\i}ve gap
+        $|\rho_{\GUE}| - |\rho_L| \approx 0.38$ conflates three
+        distinct effects: $T$-range truncation, locality of the
+        Hadamard sum, and genuine arithmetic damping.  Under
+        method-matched conditions the residual arithmetic
+        attenuation is $\Delta\rho \approx 0.04$ for $d = 1$
+        and $\sim\!0.24$ for $d = 2$, establishing that the
+        damping is degree-dependent.
 \end{enumerate}
 
 \medskip\noindent\textbf{Relation to prior work.}
@@ -471,32 +487,60 @@ with Spearman rank correlation (\cref{tab:unified}).
 
 \begin{table}[h]
 \centering
-\caption{Uniform comparison: $\rho_{\mathrm{S}}(A_L, g_{\min})$
-across degrees 1--6, with GUE baseline.}
+\caption{Method-matched amplitude--gap correlation across degrees 1--6.
+$\delta_{\mathrm{arith}} = |\rho_{\GUE}^{\text{ref}}| - |\rho_{\mathrm{S}}|$
+measures genuine arithmetic damping relative to the appropriate
+GUE baseline.  $\dagger$\,=\,$T$-limited (actual $\delta$ may be smaller).}
 \label{tab:unified}
-\begin{tabular}{llrrrl}
+\small
+\begin{tabular}{llrcllrl}
 \toprule
 \textbf{$L$-function} & $d$ & $n$ &
-$\rho_{\mathrm{S}}$ & $p$ & $2H_1/A_L$ \\
+$\rho_{\mathrm{S}}$ & \textbf{Method} &
+\textbf{GUE ref.} & $\delta_{\mathrm{arith}}$ & \textbf{Sig.} \\
 \midrule
-$\zeta(s)$ & 1 & 337 & $-0.437$ & $3.7 \times 10^{-17}$ & $0.666$ \\
-$L(s,E_{11\mathrm{a}1})$ & 2 & 90 & $-0.423$ & $3.3 \times 10^{-5}$ & $0.652$ \\
-$L(s,E_{37\mathrm{a}1})$ & 2 & 110 & $-0.525$ & $3.8 \times 10^{-9}$ & $0.675$ \\
-$L(s,\mathrm{sym}^2 E_{11})$ & 3 & 96 & $-0.422$ & $1.9 \times 10^{-5}$ & $0.748$ \\
-$L(s,\mathrm{sym}^2 E_{37})$ & 3 & 48 & $-0.492$ & $3.8 \times 10^{-4}$ & $0.678$ \\
-$L(s,\mathrm{sym}^3 E_{11})$ & 4 & 101 & $-0.520$ & $2.5 \times 10^{-8}$ & $0.661$ \\
-$L(s,\mathrm{sym}^3 E_{37})$ & 4 & 131 & $-0.514$ & $3.5 \times 10^{-10}$ & $0.676$ \\
-$L(s,\mathrm{sym}^4 E_{11})$ & 5 & 132 & $-0.485$ & $3.7 \times 10^{-9}$ & $0.661$ \\
-$L(s,\mathrm{sym}^5 E_{11})$ & 6 & 71 & $-0.423$ & $2.4 \times 10^{-4}$ & $0.657$ \\
-\midrule
-$\GUE(N)$ & --- & --- & $-0.857$ & $\approx 0$ & $0.778$ \\
+$\zeta(s)$ & 1 & ${\sim}400$ & $-0.929$ &
+  $\pm 300$, $T\!=\!2000$, trim\,$20\%$ &
+  $-0.967$ (local) & $0.038$ & n.s.\ \\
+$L(s,E_{11\mathrm{a}1})$ & 2 & ${\sim}54$ & $-0.658$ &
+  full, $T\!=\!500$, trim\,$20\%$ &
+  $-0.912$ (full) & $0.254$ & ${\sim}2.4\sigma$ \\
+$L(s,E_{37\mathrm{a}1})$ & 2 & ${\sim}66$ & $-0.686$ &
+  full, $T\!=\!500$, trim\,$20\%$ &
+  $-0.912$ (full) & $0.226$ & ${\sim}2.1\sigma$ \\
+$L(s,\mathrm{sym}^2 E_{11})$ & 3 & $96$ & $-0.422$ &
+  full, $T\!\le\!35$ &
+  $-0.912$ (full) & $0.490$ & $T$-lim$\dagger$ \\
+$L(s,\mathrm{sym}^2 E_{37})$ & 3 & $48$ & $-0.492$ &
+  full, $T\!\le\!35$ &
+  $-0.912$ (full) & $0.420$ & $T$-lim$\dagger$ \\
+$L(s,\mathrm{sym}^3 E_{11})$ & 4 & $101$ & $-0.520$ &
+  full, $T\!\le\!35$ &
+  $-0.912$ (full) & $0.392$ & $T$-lim$\dagger$ \\
+$L(s,\mathrm{sym}^3 E_{37})$ & 4 & $131$ & $-0.514$ &
+  full, $T\!\le\!35$ &
+  $-0.912$ (full) & $0.398$ & $T$-lim$\dagger$ \\
+$L(s,\mathrm{sym}^4 E_{11})$ & 5 & $132$ & $-0.485$ &
+  full, $T\!\le\!35$ &
+  $-0.912$ (full) & $0.427$ & $T$-lim$\dagger$ \\
+$L(s,\mathrm{sym}^5 E_{11})$ & 6 & $71$ & $-0.423$ &
+  full, $T\!\le\!35$ &
+  $-0.912$ (full) & $0.489$ & $T$-lim$\dagger$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Under the uniform $(A_L, g_{\min})$ metric, all nine $L$-functions give
-$\rho_{\mathrm{S}} \in [-0.525, -0.422]$ with no systematic degree
-dependence.
+Under method-matched conditions (\cref{tab:unified}),
+$\zeta(s)$ achieves $\rho_{\mathrm{S}} = -0.929$
+($T = 2000$, $\pm 300$ local, $20\%$ trim),
+GL(2) reaches $-0.66$ to $-0.69$ ($T = 500$, trim),
+while $d \ge 3$ remains at $\rho_{\mathrm{S}} \in [-0.52, -0.42]$
+with short $T$-ranges that preclude trim correction.
+The residual arithmetic damping $\delta_{\mathrm{arith}}$
+relative to the method-matched GUE baseline is
+$0.04$ for $d = 1$ (not significant),
+$0.23$--$0.25$ for $d = 2$ (${\sim}2\sigma$), and
+$0.39$--$0.49$ for $d \ge 3$ ($T$-limited lower bounds).
 
 \begin{remark}[Locality and $T$-range effects]\label{rem:locality}
 The gap between $|\rho_{\GUE}|$ and $|\rho_L|$ in
@@ -780,15 +824,20 @@ meaningful invariant of individual zeros of automorphic $L$-functions:
         (\cref{thm:lower_bound}) is a direct consequence of
         Hadamard's product formula and requires no unproven hypotheses.
   \item The anti-correlation is verified across twelve $L$-functions
-        of degree~1--6, establishing degree-independent universality.
+        of degree~1--6, establishing degree-independent universality
+        of the \emph{sign} of the correlation.
   \item The GUE random matrix ensemble produces a Spearman
         anti-correlation $\rho_{\mathrm{S}}^{\text{full}} = -0.912$
         (full sum, $20\%$~trim, constant over $N = 200$--$2000$),
         strengthening to $\rho_{\mathrm{S}}^{\text{local}} = -0.967$
         when restricted to $\pm 300$ nearest eigenvalues.
         Under matched conditions, $\zeta(s)$ gives $-0.929$:
-        arithmetic weakens the correlation by $\Delta\rho \approx 0.04$,
-        with larger damping ($\Delta\rho \approx 0.30$) at $d = 2$.
+        arithmetic weakens the correlation by only
+        $\delta \approx 0.04$ for $d = 1$ (not significant),
+        while GL(2) shows genuine attenuation
+        $\delta \approx 0.24$ (${\sim}\,2\sigma$, $d = 2$).
+        The previously reported uniform damping of~$0.38$ was
+        a methodological artefact (\cref{rem:locality}).
   \item The pairing $(A_\La, g_{\min})$ is height-stable,
         while $(A_\La, g_{\mathrm{right}})$ decays, identifying
         $g_{\min}$ as the canonical metric.
@@ -808,19 +857,21 @@ is suggestive but remains unproven.
 \subsection{Open problems}
 
 \begin{enumerate}
-  \item \textbf{Analytic derivation of $\rho \approx -0.47$.}\;
-        Under the uniform $(A_L, g_{\min})$ metric, all nine
-        $L$-functions give $\rho_{\mathrm{S}} \in [-0.525, -0.422]$
-        (\cref{tab:unified}).  Can this specific range
-        be derived from the pair correlation function and the GUE
-        value $-0.857$?
-  \item \textbf{Mechanism of degree-dependent damping.}\;
-        Under matched methodology ($\pm 300$~local, $20\%$~trim),
-        the GUE baseline $|\rho_{\mathrm{S}}| = 0.97$ attenuates to
-        $0.93$ for $\zeta(s)$ ($\Delta\rho \approx 0.04$) and to
-        ${\sim}\,0.67$ for GL(2) ($\Delta\rho \approx 0.30$).
-        Is the degree-dependent damping traceable to the Gamma factor
-        complexity or to the Euler product structure at degree $d \ge 2$?
+  \item \textbf{Number-theoretic origin of $\delta(d)$.}\;
+        The arithmetic attenuation is degree-dependent:
+        $\delta \approx 0.04$ ($d = 1$), $\delta \approx 0.24$ ($d = 2$),
+        and $\delta \ge 0.39$ ($d \ge 3$, $T$-limited upper bounds).
+        Is $\delta(d)$ controlled by the conductor, the Gamma factor
+        complexity ($d$~Gamma shifts), or the Euler product depth?
+        A relation $\delta \sim f(d, N)$ would connect the
+        amplitude--gap phenomenon to Langlands functoriality.
+  \item \textbf{$T$-extension for $d \ge 3$.}\;
+        All $L$-functions of degree $\ge 3$ in \cref{tab:unified}
+        are limited to $T \le 35$, preventing trim or local-sum
+        corrections.  Extension to $T \ge 100$ (when computationally
+        feasible) would determine whether the large $\delta$ values
+        at $d \ge 3$ are genuine or further artefacts of short
+        $T$-range.
   \item \textbf{$2H_1/A_L \approx 2/3$ universality.}\;
         The ratio $2H_1/A_L$ clusters near $2/3$ across all
         degrees (\cref{obs:h1_ratio}), matching the GUE

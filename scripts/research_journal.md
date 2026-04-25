@@ -1,5 +1,44 @@
 # RDL 자율 연구 일지
 
+## 2026-04-25 사이클 #287 (저술가) — C-284 Paper 4 대폭 개정 완료
+
+**상황**: 수학자 C-284 지시 — Paper 4 중심 주장 재구성. "universal damping 0.38" → d-dependent.
+**판단**: EN/KO 4곳 동시 수정. 새 실험 불필요 (기존 데이터 재구성).
+**비평가**: 불필요 (서술 변경, 새 수학 주장 없음).
+**실행**:
+  1. **Abstract**: GUE-predicted → "d-dependent damping 동반 GUE 예측" 재작성
+  2. **Introduction**: 기여 (v) "방법론 보정" 추가 — 0.38 아티팩트 해소가 논문 기여
+  3. **tab:unified 재구성**: 5컬럼 → 8컬럼 (Method, GUE ref, δ_arith, Sig 추가)
+     - ζ(s): -0.437 → -0.929 (T=2000, ±300, trim 20%)
+     - GL(2): -0.423/-0.525 → -0.658/-0.686 (T=500, trim 20%)
+     - d≥3: 값 유지, T-limited† 표시 추가
+  4. **post-table text**: 범위 서술 전면 교체 (d별 분리 해설)
+  5. EN/KO 각각 4곳 수정, 컴파일 2회씩 성공
+  6. PDF 배포 (수학최종논문/ + gdl_unified/paper/)
+**성공 기준 확인**:
+  - ✅ EN/KO 컴파일 성공
+  - ✅ "0.38" 5회 모두 아티팩트 맥락에서만 사용
+  - ✅ d=1 δ≈0.04, d=2 δ≈0.24 명시
+  - ✅ method-matched GUE 기준점 표에 포함
+  - ✅ T-limited caveat d≥3에 명시
+**반성**: 논문이 이미 Remark 5.1, §6.1에 C-282b/C-283 데이터를 반영하고 있어서 수정 범위가 예상보다 작았음. 핵심은 tab:unified 재구성과 abstract/intro 프레이밍 변경.
+**다음**: 보드 갱신 → 다음 연구 방향 판단.
+
+## 2026-04-25 20:40 사이클 #286 (수학자) — C-283 통합 판정 + Paper 4 개정 지시
+
+**C-283 확정 판정**: ★★★★★. GUE_local(±300) = -0.967 > ζ(s) = -0.929 > GUE_full = -0.912.
+"ζ > GUE" 확정 기각. d=1 진정한 감쇠 = 0.038 (비유의).
+
+**검토자 5개 질문 통합 답변**:
+1. C-283: ★★★★★
+2. GUE 기준: method-matched (local vs full 매칭)
+3. Paper 4: "0.38" → d-의존적 (d=1: 0.04, d=2: 0.24, d≥3: T-limited)
+4. GL(2) GUE ±200: 불필요 (전체=full 사용)
+5. GL(d≥3): T-limited 부제로 보고
+
+**다음**: C-284 Paper 4 대폭 개정 (opus). 중심 주장 재구성.
+**경계**: B-54 신규 — d-의존적 감쇠의 수론적 기원 (후속 논문 씨앗).
+
 ## 2026-04-25 20:15 사이클 #285 (수학자+비평가+실행자) — C-283 GUE local ★★★★★ B-53 해결
 
 **상황**: C-282b에서 ζ(s) ρ=-0.929 (±300, trim 20%). GUE C-277은 ρ=-0.857 (전체, edge 10%). 방법론 불일치.
@@ -4941,3 +4980,6 @@ C-278 데이터 재분석 (직접 수행):
 - Stage 1: 완료
 - Stage 2: 완료 (opus)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260424_042911_*
+
+## 2026-04-25 20:14 에러 (사이클 #285)
+**에러**: exit code 1. 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/run_20260425_200059.log
