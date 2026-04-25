@@ -44,6 +44,8 @@ results/dh_off_critical_115.txt
 results/dh_parity_b36.txt
 results/dh_small_radius_diagnosis.txt
 results/difficulty_regression.txt
+results/dirichlet_A_gap_c261.txt
+results/dirichlet_A_gap_chi5_c262.txt
 results/dirichlet_blind_mod7_57.txt
 results/dirichlet_blind_prediction.txt
 results/dirichlet_bundle_verification.txt
@@ -59,6 +61,7 @@ results/dirichlet_offcritical_anatomy.txt
 results/ec_kappa_conductor_111.txt
 results/ec_kappa_near_109.txt
 results/ec_monodromy_110.txt
+results/elliptic_A_gap_c263.txt
 results/elliptic_curve_11a1.txt
 results/elliptic_curve_37a1.txt
 results/ensemble_hard_zeros.txt
@@ -81,6 +84,7 @@ results/fp_anatomy.txt
 results/fp_monodromy_anatomy_49.txt
 results/gauss_bonnet_area_integral.txt
 results/generalized_dh_offcritical_121.txt
+results/gl2_A_gap_c263.txt
 results/gl2_blind_prediction_37a1_54.txt
 results/gl2_blind_prediction_52.txt
 results/gl2_fp_monodromy_51.txt

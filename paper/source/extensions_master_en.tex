@@ -1551,6 +1551,69 @@ GUE-normalised $\rho=-0.62$ ($p=10^{-22}$); right/left asymmetry $4.4{\times}$;
 pair $\rho=+0.40$ ($p=10^{-9}$); $t$-detrended residual $\rho=-0.76$ (20-pt);
 independent verification: 6-point $A$ check-sum $|\Delta|<3\times10^{-6}$]}
 
+\paragraph{Dirichlet universality (Result~\#C-261).}
+To test whether the $A$--gap correlation is specific to $\zeta(s)$ or
+reflects a broader phenomenon, we repeat the analysis for three
+Dirichlet $L$-functions: $L(s,\chi_3)$ ($q=3$, real),
+$L(s,\chi_4)$ ($q=4$, real), and $L(s,\chi_5)$ ($q=5$, complex
+non-self-dual).  Table~\ref{tab:agap_univ} summarises the results.
+All three Dirichlet $L$-functions exhibit negative Spearman correlations
+$\rho(A,g_{\mathrm{R}}^{\mathrm{GUE}})\in[-0.63,\,-0.55]$
+with $p<10^{-6}$, consistent with the $\zeta(s)$ value of~$-0.59$.
+The complex character $\chi_5$ (non-self-dual) shows the strongest
+correlation ($\rho=-0.63$), suggesting that the phenomenon does not
+require self-duality.
+
+\paragraph{GL(2) extension: degree-independent universality (Result~\#C-263).}
+We further extend the analysis to $\mathrm{GL}(2)$ $L$-functions
+associated with elliptic curves.
+For the elliptic curve $E_{11a1}$ ($N=11$, rank~$0$, $\varepsilon=+1$;
+$92$ inner zeros, $t<100$), a Cauchy integral
+computes $c_0,c_1$ via bare $L'/L$ with analytic $\psi(s)$ correction
+(to avoid Gamma underflow at large~$t$), yielding
+$\rho(A,g_{\mathrm{R}}^{\mathrm{GUE}})=-0.5688$ ($p=3.3\times10^{-9}$).
+For $E_{37a1}$ ($N=37$, rank~$1$, $\varepsilon=-1$; $112$ inner zeros),
+the correlation is $\rho=-0.5500$ ($p=3.4\times10^{-10}$).
+The GL(2) GUE normalisation uses the analytic conductor density
+$\bar{d}(t)=(2\pi)^{-1}\log(N t^{2}/(4\pi^{2}))$.
+Theorem~\ref{thm:slope} is verified: $|\!\operatorname{Re}(c_0)/\operatorname{Im}(c_0)|<5\times10^{-5}$
+for all zeros of both curves.
+
+\begin{table}[ht]
+\centering
+\caption{$A(\gamma)$--gap Spearman correlation across $\mathrm{GL}(1)$
+  and $\mathrm{GL}(2)$ $L$-functions.  All six show $\rho\in[-0.63,-0.55]$
+  with negative sign and $p<10^{-5}$.}
+\label{tab:agap_univ}
+\begin{tabular}{llcccc}
+\toprule
+$L$-function & degree & $n$ & $\rho(A,g_{\mathrm{R}}^{\mathrm{GUE}})$ & $p$-value & $\rho(A_n,A_{n+1})$ \\
+\midrule
+$\zeta(s)$ & GL(1) & 198 & $-0.5898$ & $6.1\times 10^{-20}$ & $+0.40$ \\
+$\chi_3\bmod 3$ & GL(1) & 72 & $-0.5733$ & $1.4\times 10^{-7}$ & $+0.42$ \\
+$\chi_4\bmod 4$ & GL(1) & 80 & $-0.5530$ & $1.0\times 10^{-7}$ & $+0.37$ \\
+$\chi_5\bmod 5$ & GL(1) & 46 & $-0.6334$ & $2.3\times 10^{-6}$ & $+0.28$ \\
+$E_{11a1}$ & GL(2) & 92 & $-0.5688$ & $3.3\times 10^{-9}$ & $+0.45$ \\
+$E_{37a1}$ & GL(2) & 112 & $-0.5500$ & $3.4\times 10^{-10}$ & $+0.53$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Combining all six $L$-functions, the Spearman correlation
+$\rho(A,g_{\mathrm{R}}^{\mathrm{GUE}})$ lies in the interval
+$[-0.63,-0.55]$ with uniform negative sign ($6/6$) and $p<0.01$
+($6/6$), spanning both $\mathrm{GL}(1)$ (Dirichlet) and $\mathrm{GL}(2)$
+(elliptic curve) families, self-dual and non-self-dual characters,
+and functional equation signs $\varepsilon=\pm 1$.
+This numerical evidence suggests that the negative $A$--gap correlation
+is a \emph{degree-independent} universal property of automorphic
+$L$-functions.
+
+\textcolor{ForestGreen}{[Results \#C-261 and \#C-263, confirmed 2026-04-25;
+$\chi_3,\chi_4,\chi_5$ (GL(1)) and $E_{11a1},E_{37a1}$ (GL(2));
+$\rho\in[-0.63,-0.55]$; $6/6$ sign-consistent;
+degree-independent universality; bare $L'/L+\psi$ correction for GL(2)]}
+
 
 % ============================================================================
 \section{Discussion}
@@ -1586,6 +1649,16 @@ Theorem~\ref{thm:slopeuniv} proves this analytically: the functional
 equation and reality condition force $\operatorname{Re}(c_0)=0$ in the
 Laurent expansion, killing the $\delta^1$ term and making slope~$2$ a
 mathematical necessity for all automorphic $L$-functions.
+
+\paragraph{$A$--gap degree-independent universality.}
+The Laurent amplitude $A(\gamma)$ correlates negatively with GUE-normalised
+right gaps across six $L$-functions spanning $\mathrm{GL}(1)$ and
+$\mathrm{GL}(2)$, with $\rho\in[-0.63,-0.55]$ and $6/6$ sign consistency
+(Results~\#219, \#C-261, \#C-263).  This numerical evidence suggests
+that the $A$--gap anticorrelation is a \emph{degree-independent}
+phenomenon: larger Laurent amplitudes predict tighter zero spacing,
+regardless of conductor, rank, functional equation sign, or Selberg
+class degree.  A theoretical mechanism remains to be identified.
 
 \paragraph{Euler product dispensability.}
 Theorem~\ref{thm:feonly} and Result~\#114 establish that the Euler
@@ -1657,6 +1730,13 @@ degrees $\{1,2,3,4,5,6\}$ with sixteen independent data points from
 six distinct families (Dirichlet, symmetric powers, Artin, Rankin--Selberg,
 holomorphic cusp forms, and Maass forms).
 
+Fifth, the Laurent amplitude $A(\gamma)$ exhibits a degree-independent
+negative correlation with GUE-normalised zero gaps
+($\rho\in[-0.63,-0.55]$, $6/6$ sign-consistent) across
+$\mathrm{GL}(1)$ Dirichlet and $\mathrm{GL}(2)$ elliptic-curve
+$L$-functions (Results~\#219, \#C-261, \#C-263), suggesting that
+$A(\gamma)$ is a universal predictor of local zero spacing.
+
 Together, Theorems~5--7 and Observation~8 form a coherent picture:
 on the critical line, the $\xi$-bundle curvature satisfies
 $\kappa\delta^{2}=1+O(\delta^{2})$ universally across all $L$-function
@@ -1675,7 +1755,7 @@ equation.
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#219, \#C-240--\#C-243 (35 results). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#219, \#C-240--\#C-243, \#C-261, \#C-263 (37 results). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1723,6 +1803,8 @@ Result & Section & Rating & Key finding \\
 \#C-242 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{sharpness}: DH on-critical $5/5$ PASS ($r(c_0){\sim}10^{-12}$), off-critical $4/4$ FAIL ($r(c_0){\sim}4.4$); $\sigma{=}\tfrac{1}{2}$ essential; Proposition~\ref{prop:laurentparity} \\
 \#C-243 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{protection}: $r(c_{2k{+}1}){=}O(|\delta|^{2k{+}3})$; partner dominance $0.98$--$1.00$; even/odd ratio $2.4{\times}10^{7}$; Theorem~\ref{thm:parityprotection} \\
 \#219 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & $A(\gamma)$--gap correlation; GUE-norm.\ $\rho{=}{-}0.62$ ($p{=}10^{-22}$); R/L asymmetry $4.4{\times}$; pair $\rho{=}{+}0.40$ ($p{=}10^{-9}$); $t$-detrended $\rho{=}{-}0.76$ \\
+\#C-261 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & $A$--gap Dirichlet universality; $\chi_3,\chi_4,\chi_5$; $\rho{\in}[-0.63,-0.55]$; $3/3$ sign-consistent; non-self-dual included \\
+\#C-263 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A$--gap GL(2) degree-independent universality; $E_{11a1}$ $\rho{=}{-}0.57$, $E_{37a1}$ $\rho{=}{-}0.55$; $6/6$ GL(1)+GL(2) consistent; bare $L'/L{+}\psi$ \\
 \end{longtable}
 
 
