@@ -1,5 +1,12 @@
 # RDL 자율 연구 일지
 
+## 2026-04-25 사이클 #287 (검토자) — C-284 Paper 4 대폭 개정 검증 ✅
+
+**대상**: Paper 4 EN/KO (paper4_amplitude_gap_{en,ko}.tex) C-284 대폭 개정.
+**검증**: 수학자 성공 기준 7/7 모두 충족. tab:unified 9행 수치 완전 일치. "0.38" EN 6회/KO 6회 모두 아티팩트 맥락에서만. d=1 δ=0.038, d=2 δ=0.254/0.226 정확 반영. T-limited† caveat d≥3 명시. GUE 기준점(local/full) 방법론 매칭 정확.
+**마이너 관찰**: rem:locality GL(2) "Δρ≈0.30"은 GUE_local 대비 총 차이(tab:unified의 0.24는 GUE_full 대비). 맥락상 정당하나 독자 혼동 가능. 차단 이슈 아님.
+**결과**: C-282b/c/C-283 모든 양성 결과 Paper 4에 반영 완료. .reflected 갱신 완료. 미반영 결과 없음.
+
 ## 2026-04-25 사이클 #287 (저술가) — C-284 Paper 4 대폭 개정 완료
 
 **상황**: 수학자 C-284 지시 — Paper 4 중심 주장 재구성. "universal damping 0.38" → d-dependent.
@@ -4983,3 +4990,6 @@ C-278 데이터 재분석 (직접 수행):
 
 ## 2026-04-25 20:14 에러 (사이클 #285)
 **에러**: exit code 1. 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/run_20260425_200059.log
+
+## 2026-04-25 20:55 에러 (사이클 #287)
+**에러**: exit code 1. 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/run_20260425_204458.log

@@ -3,6 +3,7 @@ gl4_A_gap_c269.txt
 gl4_sym3_37a1_kd2_204.txt
 gl4_sym3_kd2_203.txt
 gl6_A_gap_c275.txt
+gue_local_agap_c283.txt
 /home/k0who029/Desktop/gdl_unified/results/A_decomposition_77.txt
 /home/k0who029/Desktop/gdl_unified/results/A_formula_highdeg_b35.txt
 /home/k0who029/Desktop/gdl_unified/results/A_formula_independent_b37.txt
@@ -215,6 +216,7 @@ results/artin_s4_kappa_124.txt
 results/artin_s4_standard_123.txt
 results/artin_s5_kd2_209.txt
 results/A_scaling_law_212.txt
+results/attenuation_mechanism_c282.txt
 results/B42_partial_correlation_c258.txt
 results/basis_bandwidth_scaling.txt
 results/blind_zero_prediction.txt
@@ -296,6 +298,7 @@ results/gl2_blind_prediction_37a1_54.txt
 results/gl2_blind_prediction_52.txt
 results/gl2_fp_monodromy_51.txt
 results/gl2_high_t_scaling_59.txt
+results/gl2_trim_test_c282c.txt
 results/gl3_11a1_c280b.txt
 results/gl3_Abare_gap_c280.txt
 results/gl3_A_gap_c264.txt
@@ -333,6 +336,7 @@ results/gram_point_curvature.txt
 results/gue_2H1A_ratio_c276.txt
 results/gue_agap_extension_c277.txt
 results/gue_A_gap_prediction_c265.txt
+results/gue_local_agap_c283.txt
 results/gue_poisson_midpoint_comparison.txt
 results/hadamard_A_decomposition_90.txt
 results/hadamard_agap_mechanism_c265.txt
@@ -410,8 +414,6 @@ results/zero_107_analysis.txt
 results/zero_173_analysis.txt
 results/zeta_4property_71.txt
 results/zeta_Abare_gap_c278.txt
+results/zeta_conj_fix_c282.txt
 sigma_A_crosscheck_c255.txt
 sigma_localization_profile_c254.txt
-results/gl3_Abare_gap_c280.txt
-results/gl3_11a1_c280b.txt
-gue_local_agap_c283.txt

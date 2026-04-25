@@ -1,5 +1,50 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-25 20:50 — 사이클 #287] — C-284 Paper 4 EN/KO 대폭 개정 완료
+
+**수학자 지시**: C-284 — Paper 4 (paper4_amplitude_gap_{en,ko}.tex) 대폭 개정. "0.38 degree-independent" → "d-dependent: 0.04/0.24/T-limited". C-282b/c/C-283 통합 반영.
+**모델**: Opus
+
+**실행**:
+1. **Abstract** (EN+KO): "(iii) GUE-predicted" → "(iii) GUE-predicted with d-dependent damping" + "(iv) degree-dependent" 항목 추가. 결론문 "degree-independent universality" → "degree-independent anti-correlation and degree-dependent arithmetic attenuation"
+2. **Introduction** (EN+KO): 기여 목록에 "(v) Methodology correction" 항목 추가 — naïve 0.38 분해 + method-matched δ 값 명시
+3. **tab:unified 전면 재구성** (EN+KO): 
+   - 기존 6열(L, d, n, ρ_S, p, 2H₁/A_L) → 새 8열(L, d, n, ρ_S, Method, GUE ref., δ_arith, Signif.)
+   - ζ(s): ρ=-0.929, GUE=-0.967(local), δ=0.038, n.s.
+   - GL(2): ρ=-0.658/-0.686, GUE=-0.912(full), δ=0.254/0.226, ~2.4/2.1σ
+   - d≥3: 동일 값, GUE=-0.912(full), †T-limited 표시
+   - 표 아래 3-bullet 해석 추가 (d=1/d=2/d≥3 체제 설명)
+4. **Remark (rem:locality) 재작성**: "naïve 0.38 분해" — T-range(+0.49), locality(+0.055), genuine(0.04) 정량 분해. GL(2) SE≈0.107, ~2.1-2.4σ 언급
+5. **Discussion §summary** (EN+KO): item(ii) "degree-independent universality" → "degree-independent universality of the sign"; item(iii) 구체적 δ값 + "0.38 was artefact" 명시
+6. **Open problems** (EN+KO): 기존 항목 1-2 → "Number-theoretic origin of δ(d)" + "T-extension for d≥3" 교체
+
+**PID**: N/A (텍스트 작업)
+**컴파일**: EN 10p ✅ / KO 11p ✅ (에러 없음)
+**결과 위치**: 
+- `paper/source/paper4_amplitude_gap_{en,ko}.tex`
+- `paper/source/paper4_amplitude_gap_{en,ko}.pdf`
+- `paper/paper4_amplitude_gap_{en,ko}.pdf` (배포)
+- `~/Desktop/수학최전논문/paper4_amplitude_gap_{en,ko}.pdf` (배포)
+
+### 성공 기준 점검
+
+| 기준 | 상태 | 비고 |
+|------|------|------|
+| EN/KO 컴파일 성공 | ✅ | EN 10p, KO 11p |
+| "0.38" 맥락 확인 | ✅ | EN 6회, KO 6회 — 모두 아티팩트 설명에서만 |
+| d=1 δ≈0.04 명시 | ✅ | Abstract, Intro, tab:unified, Discussion, GUE section |
+| d=2 δ≈0.24 명시 | ✅ | 동일 |
+| method-matched GUE 기준점 표 포함 | ✅ | tab:unified의 "GUE ref." 열 |
+| T-limited caveat d≥3 명시 | ✅ | †표시 + 표 캡션 + bullet 설명 |
+| EN+KO 동기화 | ✅ | 동일 구조 변경 |
+
+### 이슈
+- EN이 9p→10p로 1p 증가 (새 표 컬럼 + 해석 텍스트 추가 때문). 허용 범위 내.
+- KO가 10p→11p로 1p 증가 (동일 이유 + 한국어 자연 팽창).
+- Thm 1, Prop 12: 변경 없음 (방법론 무관) ✅
+
+---
+
 ## 보고 [2026-04-25 20:05 — 사이클 #285] — C-283 GUE ±300 이웃 제한 + trim 재측정 완료
 
 **수학자 지시**: C-283 — GUE A_bare를 ζ(s) C-282b와 동일한 조건(±300 이웃, trim 20%)으로 재측정. A_bare_full vs A_bare_local 비교 → 방법론 불일치 해소.
