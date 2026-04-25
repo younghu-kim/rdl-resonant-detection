@@ -1,5 +1,56 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-26 04:52 — 사이클 #303] — C-304 논문 반영: Prop 6 GL(2) 확장
+
+**수학자 지시**: C-304 — 논문 반영. Prop 6 (rem:energy_sigma_concentration)에 GL(2) 결과 추가 + 교차항 Remark 신설.
+**모델**: Opus
+
+**실행**:
+1. 실행 중 실험 없음 확인
+2. `unified_master_en.tex` 구조 분석:
+   - `rem:energy_sigma_concentration` (line ~4149): GL(1) ζ(s) E(σ) 법칙
+   - `app:gl2` (line ~7256): GL(2) 4성질 검증 + σ-uniqueness 메커니즘
+3. C-303 결과 파일 확인: `gl2_sigma_c303_final.txt`, `gl2_sigma_decompose_c303b.txt`
+4. 수정 내용:
+
+### 수정 1: `rem:energy_sigma_concentration` 확장 (line ~4184 이후)
+- "Universality across GL(1) and GL(2)" 단락 추가
+- **6행 비교 표** 신설: ζ, χ₃, χ₄, χ₅ (GL(1)) + 11a1, 37a1 (GL(2))
+  - 모두 |α-1| < 0.03 확인
+  - GL(2)의 A/πN ≈ 0.87 (GL(1)의 0.97 대비 낮음) = 교차항 효과 명시
+- confirmed 태그에 "GL(2) 11a1/37a1 small-Δσ fit 2026-04-26" 추가
+
+### 수정 2: `rem:cross_term_mechanism` 신설 (Remark 새로 추가)
+- Hadamard |·|² = diagonal + cross-term 분해 설명
+- 대각항: α_diag = 1.022, R² > 0.9999
+- 교차항: Δσ << g_min에서 <5%, Δσ ≈ 0.3에서 +15~27% (GL(2))
+- GL(1)에서 무시 가능한 이유: mean gap 7.2 >> Δσ_max
+- α_raw ≈ 0.7의 원인 규명
+- GUE pair correlation과의 연결 = B-61 (future work)
+
+### 수정 3: GL(2) appendix (`app:gl2`) E(σ) 단락 추가
+- 기존 "3/4 PASS" 결과 후에 "Energy σ-concentration (Result #C-303)" 단락 삽입
+- α=1.026 (11a1), 1.017 (37a1), 소Δσ 레짐
+- 교차항 메커니즘 간단 설명 + rem:cross_term_mechanism 참조
+- confirmed 태그 갱신
+
+5. 컴파일 검증: `pdflatex` 성공 — 119p, 에러 없음
+
+**PID**: N/A (논문 수정, 실험 아님)
+**결과 위치**: `paper/source/unified_master_en.tex`
+**이슈**: 없음
+
+### 성공 기준 달성
+
+| 기준 | 결과 | 판정 |
+|------|------|------|
+| Prop 6 Remark에 GL(2) 결과 추가 | ✅ 6행 비교 표 + 해석 단락 | ✅ |
+| 교차항 Remark 신설 (3-5문장) | ✅ rem:cross_term_mechanism (7문장) | ✅ |
+| 비교 표에 11a1, 37a1 행 추가 | ✅ degree/σ_c/α/A/πN/R²/regime 7열 | ✅ |
+| EN tex 컴파일 에러 없음 | ✅ 119p 정상 | ✅ |
+
+---
+
 ## 보고 [2026-04-26 03:27 — 사이클 #300] — C-300 위상적 블라인드 예측 ★★★★★ 강양성
 
 **수학자 지시**: C-300 — `bundle_prediction_3_blind_topology.py` 수정·실행.  

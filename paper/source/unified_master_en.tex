@@ -4187,8 +4187,70 @@ $\alpha_{\mathrm{diag}}=1.011\pm 0.002$, while the cross-term
 $E_{\mathrm{cross}}$ varies $<5\%$ per pair across
 $\Delta\sigma\in[0.001,0.05]$, establishing
 $\Delta\sigma$-independence to leading order.
+
+\smallskip\noindent
+\textbf{Universality across GL(1) and GL(2).}
+The same $1/|\sigma-\sigma_c|$ law holds for Dirichlet $L$-functions
+(GL(1), $\sigma_c=1/2$) and for GL(2) elliptic-curve $L$-functions
+($\sigma_c = 1$).
+For GL(2), the Hadamard diagonal term alone gives $\alpha_{\mathrm{diag}}=1.02$
+with $R^2 > 0.9999$;
+the full $E(\sigma)$ recovers $\alpha = 1.02\pm 0.01$ in the
+\emph{small-$\Delta\sigma$} regime
+$\Delta\sigma \leq 0.10$ (i.e., $\Delta\sigma \ll$ mean zero spacing),
+while larger offsets are dominated by cross-terms
+(see Remark~\ref{rem:cross_term_mechanism} below).
+
+\begin{center}
+\small
+\begin{tabular}{llccccc}
+\toprule
+$L$-function & degree & $\sigma_c$ & $\alpha$ & $A/\pi N$ & $R^2$ & regime \\
+\midrule
+$\zeta(s)$ & GL(1) & $1/2$ & $1.005$ & $0.950$ & $0.9999$ & $\Delta\sigma\geq 0.02$ \\
+$L(s,\chi_3)$ & GL(1) & $1/2$ & $0.988$ & $0.980$ & $0.9989$ & $\Delta\sigma\geq 0.02$ \\
+$L(s,\chi_4)$ & GL(1) & $1/2$ & $1.003$ & $0.955$ & $0.9978$ & $\Delta\sigma\geq 0.02$ \\
+$L(s,\chi_5)$ & GL(1) & $1/2$ & $0.986$ & $1.029$ & $0.9956$ & $\Delta\sigma\geq 0.02$ \\
+$L(E_{11\text{a}1},s)$ & GL(2) & $1$ & $1.026$ & $0.864$ & $0.9999$ & $\Delta\sigma\leq 0.10$ \\
+$L(E_{37\text{a}1},s)$ & GL(2) & $1$ & $1.017$ & $0.884$ & $0.9999$ & $\Delta\sigma\leq 0.10$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+All six cases satisfy $|\alpha - 1| < 0.03$: the energy
+$\sigma$-concentration law $E(\sigma) = \pi N/|\sigma - \sigma_c| + \text{lower}$
+is \emph{approximately universal} across Selberg class degrees~1 and~2.
+The GL(2) amplitude ratio $A/\pi N \approx 0.87$ (versus $\approx 0.97$
+for GL(1)) reflects the larger relative contribution of the cross-terms,
+which grow with zero density.
 \textcolor{ForestGreen}{[confirmed 2026-04-26; $\zeta$ 40/40 points,
-$\alpha=1$ within 0.5\%; Hadamard decomposition 2026-04-26]}
+$\alpha=1$ within 0.5\%; Hadamard decomposition 2026-04-26;
+GL(2) 11a1/37a1 small-$\Delta\sigma$ fit 2026-04-26]}
+\end{remark}
+
+\begin{remark}[Cross-term mechanism for the energy law at large~$\Delta\sigma$]
+\label{rem:cross_term_mechanism}
+The Hadamard product $\Lambda'/\Lambda(s) = B + \sum_\rho 1/(s-\rho)$
+yields $|{\cdot}|^2 = \sum_n 1/|s-\rho_n|^2 + \sum_{m\neq n}
+\operatorname{Re}\bigl[1/(s-\rho_m)\overline{1/(s-\rho_n)}\bigr]$.
+The \emph{diagonal} sum integrates to $\pi N/\Delta\sigma$ exactly
+($\alpha_{\mathrm{diag}} = 1.022$, $R^2 > 0.9999$ for both GL(2)
+test curves).
+The \emph{cross-terms} depend on zero--zero correlations:
+for $\Delta\sigma \ll g_{\min}$ (smallest zero gap) their contribution
+is $<5\%$, but at $\Delta\sigma \approx 0.3$ it reaches $+15$--$27\%$
+for GL(2) (mean gap $\approx 1.1$--$1.4$) and is negligible for GL(1)
+(mean gap $\approx 7.2 \gg \Delta\sigma_{\max} = 0.4$).
+This explains why the raw power-law fit for GL(2)
+yields $\alpha_{\mathrm{raw}} \approx 0.7$: the cross-terms create
+a positive excess at large $\Delta\sigma$ that flattens the apparent
+exponent.
+The cross-term structure encodes the pair correlation of zeros and
+may connect to the GUE two-point function; this is left to future work
+(Boundary~B-61).
+\textcolor{ForestGreen}{[observation, 2026-04-26; Hadamard decomposition
+of GL(2) 11a1/37a1; cross-terms quantified at 6 $\Delta\sigma$ values]}
 \end{remark}
 
 
@@ -7357,8 +7419,25 @@ This constitutes numerical evidence that the $\xi$-bundle
 framework is \emph{not limited to degree-1 $L$-functions},
 and that GL(2) universality holds independently of weight,
 conductor, rank, and root number.
+
+\medskip\noindent
+\textbf{Energy $\sigma$-concentration (Result \#C-303).}
+The energy law $E(\sigma)=\pi N/|\sigma-\sigma_c|^{\alpha}$
+(Remark~\ref{rem:energy_sigma_concentration})
+extends to GL(2) in the small-$\Delta\sigma$ regime
+($\Delta\sigma \leq 0.10$, i.e., $\Delta\sigma$ well below the mean
+zero gap $\bar{g}\approx 1.1$--$1.4$).
+For 11a1, $\alpha=1.026$, $R^2=0.9999$;
+for 37a1, $\alpha=1.017$, $R^2=0.9999$.
+At larger offsets ($\Delta\sigma \geq 0.2$), cross-terms from the
+Hadamard partial-fraction expansion dominate: the pair correlations
+among the denser GL(2) zeros create positive interference that inflates
+$E(\sigma)$ beyond the diagonal prediction, lowering the apparent
+exponent to $\alpha_{\mathrm{raw}}\approx 0.7$
+(see Remark~\ref{rem:cross_term_mechanism}).
 \textcolor{ForestGreen}{[established, 2026-04-15; 3/4 properties PASS on three GL(2) cases
-(weight 2 \& 12); $\sigma$-uniqueness structurally inapplicable to GL(2)]}
+(weight 2 \& 12); $\sigma$-uniqueness structurally inapplicable to GL(2);
+$E(\sigma)$ $\alpha=1.02\pm 0.01$ on 11a1/37a1 (small-$\Delta\sigma$) 2026-04-26]}
 
 \subsubsection{Mechanism of $\sigma$-uniqueness failure for $\mathrm{GL}(2)$}
 \label{sec:sigma_uniqueness_mechanism}

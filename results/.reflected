@@ -224,6 +224,8 @@ results/A_scaling_law_212.txt
 results/attenuation_mechanism_c282.txt
 results/B42_partial_correlation_c258.txt
 results/basis_bandwidth_scaling.txt
+results/blind_topology_c300.txt
+results/blind_topology_c301.txt
 results/blind_zero_prediction.txt
 results/bundle_prediction_fp_monodromy.txt
 results/c1_pair_correlation_215.txt
@@ -269,6 +271,7 @@ results/dirichlet_midpoint_nonlocal.txt
 results/dirichlet_mod7_40b.txt
 results/dirichlet_mod7_verification.txt
 results/dirichlet_offcritical_anatomy.txt
+results/dirichlet_sigma_profile_c302.txt
 results/ec_kappa_conductor_111.txt
 results/ec_kappa_near_109.txt
 results/ec_monodromy_110.txt
@@ -305,6 +308,9 @@ results/gl2_blind_prediction_52.txt
 results/gl2_conductor_dep_c285.txt
 results/gl2_fp_monodromy_51.txt
 results/gl2_high_t_scaling_59.txt
+results/gl2_sigma_c303_final.txt
+results/gl2_sigma_decompose_c303b.txt
+results/gl2_sigma_profile_c303.txt
 results/gl2_theoretical_norm_c291.txt
 results/gl2_trim_test_c282c.txt
 results/gl3_11a1_c280b.txt
@@ -370,6 +376,7 @@ results/holonomy_chern_number.txt
 results/h_scaling_r_init.txt
 results/kappa_delta_scaling_73.txt
 results/kappa_delta_scaling_74.txt
+results/kappa_subleading_c300.txt
 results/kd2_slope2_proof_214.txt
 results/kuramoto_order_parameter.txt
 results/laurent_parity_c240.txt
@@ -389,7 +396,9 @@ results/nonselfdual_parity_c241.txt
 results/nonselfdual_slope_b34.txt
 results/number_variance_rmt.txt
 results/number_variance_rmt_v1.txt
+results/offcritical_c297.txt
 results/offcritical_gauss_bonnet.txt
+results/offcritical_highres_c298.txt
 results/optim_budget_scaling.txt
 results/parity_asymmetry_c243.txt
 results/phase_isolation_experiment.txt
