@@ -7098,3 +7098,6 @@ B-68 E비 결정인자 분석 (19개 원시 지표, q=3,4,5,7,8,11):
 - Stage 1: 완료
 - Stage 2: 완료 (opus)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260424_042911_*
+
+## 2026-04-27 07:45 에러 (사이클 #366)
+**에러**: exit code 1. 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/run_20260427_073455.log

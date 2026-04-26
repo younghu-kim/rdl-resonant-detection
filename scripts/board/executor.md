@@ -1,6 +1,69 @@
 # 설계자/실행자 보드
 
-## 보고 [2026-04-27 07:05 — 사이클 #365] — C-357 Paper B §3 KO 집필 검증 완료
+## 보고 [2026-04-27 07:42 — 사이클 #367] — C-358 §1 Intro + §6 Discussion 갱신 완료
+
+**수학자 지시**: C-358 — extensions_master_{en,ko}.tex §1 Introduction + §6 Discussion 갱신
+**모델**: Sonnet
+**PID**: 없음 (논문 TeX 수정 작업)
+**결과 위치**: `paper/source/extensions_master_en.pdf` (32p), `paper/source/extensions_master_ko.pdf` (29p)
+
+### 발견: §1/§6 대부분 이미 갱신 완료
+
+이전 사이클(추정 C-356/C-357 시점)에서 §1/§6의 핵심 갱신이 이미 수행되어 있었음:
+- §1 Objective A: "twenty-curve corpus" + blind 99.6% 이미 존재
+- §1 Summary: Blind zero prediction(478/480) 항목, κ_bg, Nyquist 항목 이미 삽입됨
+- §6: Universality(20 curves, 19/20), Blind prediction 문단, A(t₀) 음성 결과 문단 이미 존재
+- §6 Limitations: 11642a1 FAIL + FN dt<Δt/2 이미 기술
+
+### 수행한 수정 (5건)
+
+| # | 파일 | 위치 | 수정 내용 |
+|---|------|------|----------|
+| 1 | EN §1 | line 207-211 | Objective A: "varying rank and conductor" → "rank 0-3, conductor 11-13766" 구체 수치 추가 + "19/20 pass" + "478/480" 명시 |
+| 2 | EN §1 | line 230-234 | Theorem 5: "twenty elliptic-curve L-functions" + "19/20 PASS; sole failure at conductor 11642" 추가 |
+| 3 | EN §6 | line 1908 | 11642a1 rank 오류 수정: "rank~1" → **"rank~3"** (실제 데이터 기준) |
+| 4 | EN §6 | line 1926-1931 | Future directions: 11642a1 δ=0.01 해상도 개선 + 블라인드 캠페인 확장 항목 추가 |
+| 5 | KO §1 | line 233-235 | Objective A: "계수 0-3, 도체 11-13766의 20개 타원곡선" + "19/20 통과" + "478/480" 구체화 |
+| 6 | KO §1 | line 253-256 | 정리 5: "20개 타원곡선" + "19/20 통과; 도체 11642 단일 실패" 추가 |
+| 7 | KO §6 | line 1870 | 11642a1 rank 오류 수정: "계수~1" → **"계수~3"** |
+| 8 | KO §6 | line 1887-1892 | 향후 방향: 고도체 해상도 + 블라인드 캠페인 확장 항목 추가 |
+
+### ⚠️ 중요 버그 수정: 11642a1 rank 오류
+
+EN/KO 양쪽 §6 Limitations에서 11642a1이 **"rank~1"/"계수~1"**로 표기되어 있었음. 
+실제 데이터: 11642a1은 **rank 3** (ec_20curves_c349.txt의 rank 3 그룹에 속함).
+→ **"rank~3"/"계수~3"**으로 수정.
+
+### 성공 기준 검증
+
+| 기준 | EN | KO | 판정 |
+|------|----|----|------|
+| "8 curves" → "20/twenty curves" 전환 | ✅ §1 "twenty", §6 "20 curves" | ✅ §1 "20개", §6 "20개" | **완료** |
+| 478/480, κ_bg CV=9.3%, FN dt<gap/2 언급 | ✅ §1 line 211,247; §6 line 1844,1849,1853 | ✅ §1 line 235,270; §6 line 1806,1810,1813 | **완료** |
+| 11642a1 FAIL이 §6 Limitations에 기술 | ✅ line 1908 (rank~3 수정) | ✅ line 1870 (계수~3 수정) | **완료** |
+| A(t₀) 음성 결과 §6 언급 | ✅ line 1855-1863 | ✅ line 1816-1823 | **완료** |
+| EN pdflatex 에러 0 | ✅ (32p, 에러 0, undefined ref 0) | — | **통과** |
+| KO xelatex 에러 0 | — | ✅ (29p, 에러 0, 폰트경고 2건 기존) | **통과** |
+| 기존 Theorem/label 번호 불변 | ✅ Thm 5/6/7, slopeuniv 모두 기존 유지 | ✅ 정리 5/6/7 기존 유지 | **통과** |
+
+### conductor 상한 참고
+
+수학자 지시에서 "conductor 11-11642"로 명시했으나, 실제 20곡선 데이터는 13766a1(rank 3, N=13766)을 포함하여 **최대 conductor=13766**. EN §6가 이미 "11-13766"으로 기재되어 있어, 사실에 맞게 §1도 "11-13766"으로 통일함.
+
+### 수학자에게
+
+1. **실질 작업**: §1/§6의 핵심 갱신은 이미 완료되어 있었음. 본 사이클에서는 수치 구체화(rank/conductor 범위) + rank 오류 수정 + Future directions 추가를 수행.
+2. **rank 오류 발견**: 11642a1이 §6에서 "rank 1"로 잘못 표기 → "rank 3"으로 수정. 이 오류가 이전 사이클에서 삽입된 것으로 추정.
+3. **conductor 범위**: 13766 사용 (실제 데이터 기준). 수학자 지시의 11642와 불일치하나, 사실 우선.
+4. **다음**: C-359 전체 정합성 점검 (수학자 로드맵 순서 6).
+
+### 이슈
+
+- 없음. 컴파일 정상, 수치 정합.
+
+---
+
+## [아카이브] 보고 [2026-04-27 07:05 — 사이클 #365] — C-357 Paper B §3 KO 집필 검증 완료
 
 **수학자 지시**: C-357 — extensions_master_ko.tex §3에 5개 서브섹션 한국어 미러링
 **모델**: Opus
