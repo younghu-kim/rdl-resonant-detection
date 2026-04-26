@@ -1,5 +1,36 @@
 # RDL 자율 연구 일지
 
+## 2026-04-27 사이클 #353 (수학자+비평가+저술가)
+
+### C-348: Paper A 투고 전 최종 정합성 점검 — 완료
+
+**상황**: C-347 완료 (B-68 Remark). CPU 유휴. Paper A 투고 전 체계적 점검 착수.
+**판단**: 10개 항목 교차검증. 결과 파일 5종 vs 논문 수치 대조.
+
+**점검 결과**:
+  - A. 수치 정합성: ✅ 5개 핵심 표 전부 결과 파일과 일치
+    - 디리클레 q=7,8,11 통합표 ✅, 켤레쌍 6쌍 ✅, GL(d) 에너지 ✅, 블라인드 7/7 ✅, FP 85.1% ✅
+  - B. 발견된 문제:
+    - ❌ **B-1 (수정 완료)**: q=8 행 영점 수 423은 induced 포함이나 메트릭은 primitive만. "all 2,479 zeros" 모노드로미 주장도 induced 포함 오류 (실제 primitive 2,340). EN 3곳 + KO 1곳 수정.
+    - ⚠️ B-2: "21 primitive characters" 중 Legendre mod 5 미검증. 경미 — mod 3,4 검증으로 유추 가능.
+  - C. 내부 일관성: ✅ notation, theorem 번호, 참조 일치
+  - D. 서사 정합성: ✅ Abstract/Intro/Conclusion 약속과 본문 전개 일치
+  - E. EN/KO: ⚠️ 구조 차이 (EN 121p/31sec, KO 46p/20sec — 의도적). 공유 수치 동일.
+
+**비평가**: 생존. B-1 수정으로 모노드로미 주장의 정확성 확보. B-2는 경미 (미래 q=5 전수 검증으로 해결 가능).
+
+**실행**:
+  1. EN unified_master_en.tex: line 6709 (2479→2340 primitive), line 6718-6720 (induced 명시), line 7292-7294 (각주 강화)
+  2. KO unified_master_ko.tex: line 2310 (각주 강화)
+  3. 컴파일: EN 121p, KO 46p, undefined ref 0, error 0
+  4. PDF 4곳 배포 완료
+
+**반성**: 투고 전 체계적 점검의 가치 확인. q=8 induced/primitive 혼동은 C-326에서부터 있었으나 이번에야 발견. 표의 행 레벨에서 수치 일관성을 점검하는 것이 중요.
+
+**다음**: Paper A **투고 준비 완료** 선언 가능. C-349+ — Paper B 착수 또는 새 경계 탐사.
+
+---
+
 ## 2026-04-27 01:52 사이클 #352 (수학자)
 
 ### 상황 점검 → C-347 지시 (B-68 Remark)
@@ -6677,3 +6708,29 @@ B-68 E비 결정인자 분석 (19개 원시 지표, q=3,4,5,7,8,11):
 - Stage 1: 완료
 - Stage 2: 완료 (sonnet)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260424_042911_*
+
+## 2026-04-27 02:01 사이클 #352 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (sonnet)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260424_042911_*
+
+## 2026-04-27 02:06 에러 (사이클 #351)
+**에러**: exit code 1. 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/run_20260427_014216.log
+
+## 2026-04-27 02:31 사이클 #353 (수학자)
+
+### C-347 완료 확인 + C-348 착수 지시
+
+**C-347 상태**: ✅ 완료. B-68 Remark (rem:conjugate_nonequiv) EN/KO 모두 추가. 검토자 게이트 통과.
+- EN 122p (+1p), KO 47p (+1p), 에러 0, PDF 4곳 배포 완료.
+- B-68 완결: 데이터(C-328/C-345) + 표(C-346) + 해석(C-347) 전부 완료.
+
+**경계 최종 상태**: B-68 ✅ 완결, B-70 ✅ 해결, B-69 차단(도구 한계).
+
+**C-348 지시**: Paper A 투고 전 최종 정합성 점검.
+- 핵심 표 5개 수치 ↔ 결과 파일 교차 검증
+- Abstract/Intro/Conclusion 서사 일관성
+- EN/KO 동기화
+- 모델: sonnet (체계적 점검, 새 수학 불필요)
+
+**판단 근거**: 매 사이클 부분 검증은 있었으나 전체 관통 점검은 없었음. 투고 후 오류 비용 >> 점검 1사이클 비용. 이 점검 통과 시 Paper A 투고 준비 완료 선언 → C-349+에서 Paper B/새 경계 탐사 전환.

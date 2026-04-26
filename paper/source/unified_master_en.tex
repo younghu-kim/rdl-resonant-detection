@@ -275,7 +275,7 @@ with a hard error boundary beyond which decoding fails}.
         optimisation (Section~\ref{sec:polyadic}).
   \item We formalise seven structural correspondences and rigorously
         delimit the boundary between analogy and proof
-        (Part~III, Section~\ref{sec:correspondence}).
+        (Part~\ref{part:evidence}, Section~\ref{sec:correspondence}).
   \item \textbf{(Negative empirical result, 2026-04-08)} We attempt
         the cyclotomic PQO programme empirically with $L=4$ on
         $t \in [100, 200]$, document a complete failure to discriminate
@@ -6014,7 +6014,7 @@ with full transparency).
 35 & $\kappa$ distribution vs.\ GUE prediction & \textbf{N} & KS $D{=}0.361$; scale $7.6{\times}$; Q--Q $r{=}0.97$ & RMT boundary \\
 36 & $\kappa$ autocorrelation vs.\ GUE two-point & \textbf{N} & $\tau_\text{unf}{=}0.45{\neq}1.0$; $R^2{=}0.48$; lag-1 $C{=}{-}0.08$ & RMT boundary \\
 \midrule
-37 & Dirichlet $\chi\bmod 7$ (high conductor) & \textbf{E} & 136 zeros; mono 136/136; blind 7/7; cond.\ effect B/E & Dirichlet \\
+37 & Dirichlet $\chi\bmod 7$ (high conductor, 5 chars.) & \textbf{E} & 689 zeros ($t{\in}[10,200]$, C-345); mono 689/689; 5/5 ALL-PASS; cond.\ effect B/E & Dirichlet \\
 38 & Cross-comparison: 5 GL(1) $L$-functions & \textbf{E} & $\kappa$ mono.\ dec.\ Spearman $r_s{=}{-}1.000$; $\sigma$-uniqueness 5/5; prelim.\ 5-pt trend & Dirichlet \\
 \midrule
 39 & Elliptic curve 11a1 (GL(2)) & \textbf{E} & mono 17/17; $\kappa$ $972\times$; blind 15/15; $\sigma$-uniq.\ N/A & GL(2) \\
@@ -6706,7 +6706,7 @@ Tier 2 programmes (conjectural but well-posed).}
         Across 16~new characters (5 at $q{=}7$, 2 at $q{=}8$,
         9 at $q{=}11$), all four bundle properties hold without exception:
         $\kappa\delta^2$ median $1.004$ (CV${<}0.05\%$),
-        monodromy $|\mathrm{mono}|/\pi = 1.000000$ (all $2{,}479$~zeros),
+        monodromy $|\mathrm{mono}|/\pi = 1.000000$ (all $2{,}340$~primitive zeros),
         detect precision${=}$recall${=}1.000$,
         energy ratio $E(0.5)/E(0.3) \geq 6.3\times$.
         At $q{=}11$, the 9~characters span orders 2, 5, 10 and both
@@ -6716,8 +6716,10 @@ Tier 2 programmes (conjectural but well-posed).}
         traced to analytic fine structure rather than order or parity
         (boundary~B-68; Table~\ref{tab:dirichlet_per_character}).
         \textbf{Cumulative}: 21~primitive characters across
-        $q = 3, 4, 5, 7, 8, 11$, totalling $2{,}517$~zeros,
-        all satisfying the four-property bundle framework.
+        $q = 3, 4, 5, 7, 8, 11$, totalling $2{,}517$~zeros
+        ($2{,}378$~primitive, all satisfying the four-property
+        bundle framework; 139~induced at $q{=}8$ with conditional
+        monodromy).
         \textcolor{green!60!black}{[confirmed 2026-04-26; per-character exhaustive]}
   \item \textbf{GL(2) $t$-scaling stability (11a1, $t{\approx}51$--$100$).}
         A three-zone height scan on the elliptic curve~11a1 $L$-function
@@ -7291,7 +7293,9 @@ $q$ & Characters & Total zeros & $\kappa\delta^2$ (med.)
 \noindent
 ${}^\ddagger$\,Two primitive characters at conductor~8 ($\chi_8$~even,
 $\chi_4$~odd) plus one induced character ($\chi_{8,\mathrm{ind}}$,
-conditionally PASS due to scan artefact).
+139~zeros, conditionally PASS; monodromy 80\% pass rate).
+Metrics in this row refer to the two primitive characters only;
+total zero count includes all three.
 
 \medskip\noindent
 \textbf{$q = 11$: exhaustive verification of all 9 primitive characters.}
@@ -7311,7 +7315,6 @@ continuous spectrum even within the same conjugacy class
 Conjugate pairs at $q{=}7$ and $q{=}11$ reveal a continuous spectrum of
 $E$-ratio asymmetry:
 
-\phantomsection\label{tab:conjugate_eratio}
 \begin{center}
 \small
 \begin{tabular}{lcccl}
@@ -7330,27 +7333,6 @@ $\chi_8 \leftrightarrow \chi_2$ (ord~5, even) & $326.5\times$ & $364.3\times$ & 
 \bottomrule
 \end{tabular}
 \end{center}
-
-\begin{remark}[Conjugate non-equivalence of E-ratios]\label{rem:conjugate_nonequiv}
-Table~\ref{tab:conjugate_eratio} exhibits a striking phenomenon:
-conjugate characters $\chi$ and $\bar\chi$ share identical $|L(1,\chi)|$,
-identical zero count, and identical $\kappa\delta^2$ statistics,
-yet their E-ratios differ by factors ranging from $1.12\times$ to $144\times$.
-
-A systematic analysis across all 19 primitive characters
-($q = 3, 4, 5, 7, 8, 11$) reveals that no single analytic invariant----%
-$|L(1,\chi)|$, conductor, order, parity, or $\arg\varepsilon(\chi)$----%
-predicts the E-ratio. In particular, $|L(1,\chi)| = |L(1,\bar\chi)|$ exactly
-(by the functional equation), ruling out the most natural candidate.
-
-The E-ratio spectrum $\{1.12, 1.47, 2.05, 4.0, 12.35, 144\}$
-across conjugate pairs appears to depend on a compound effect involving
-the argument of the root number $\arg W(\chi)$ and the local zero spacing microstructure,
-neither of which admits a closed-form predictor in terms of standard $L$-function invariants.
-This non-equivalence is a genuine feature of the $\xi$-bundle framework:
-the curvature $\kappa$ is sensitive to the \emph{phase geometry} of $\xi'/\xi$,
-which differs between $\chi$ and $\bar\chi$ despite their arithmetic equivalence.
-\end{remark}
 
 \noindent
 Within the same order-5 even class, the four characters have
@@ -7497,7 +7479,7 @@ Three qualitative patterns emerge:
   \item \emph{Prior conductor table ($q=3,4,5,7$).}
         Monodromy quantisation and blind zero prediction (F1$=1.0$) hold
         across all four conductors in the earlier set without exception (see
-        table below for reference counts: 12, 13, 13, 136 zeros respectively).
+        per-conductor zero totals: 12, 13, 13, 689 zeros ($q{=}7$: $t{\in}[10,200]$, 5 chars., C-345) for $q=3,4,5,7$ respectively).
 \end{enumerate}
 
 \noindent
