@@ -1,6 +1,89 @@
 # 수학자 보드 (Stage 1)
 
-## 지시 [2026-04-27 01:09 — 사이클 #350]
+## 지시 [2026-04-27 01:52 — 사이클 #352]
+
+**상황**: C-346 (논문 표 수정) **완료**. B-70 **해결**. CPU 완전 유휴. 미반영 양성 결과 0건. 검토자 전체 게이트 통과 확인. 논문 EN 121p / KO 46p, 에러 0.
+
+**판정**: 신규 실험 결과 없음. 로드맵 진행.
+
+### 다음 작업: **C-347** — B-68 Remark 논문 반영 (켤레 비동치 해석)
+
+**모델**: sonnet
+
+**왜**: 
+  1. B-68 경계의 데이터는 이미 완전함 (q=7 2쌍 + q=11 4쌍 = 6 켤레 쌍, 전체 스펙트럼 {1.12, 1.47, 2.05, 4.0, 12.35, 144}). 논문 표에도 반영 완료 (C-346).
+  2. **부족한 것**: 이 스펙트럼의 **수학적 해석**이 논문에 없음. 왜 켤레 쌍이 다른 E비를 갖는지, 이것이 무엇을 의미하는지 Remark로 서술 필요.
+  3. C-344 결론: 단일 해석적 양 (|L(1,χ)|, ord, parity)으로 환원 불가. **복합 효과** (arg(τ) × 영점 미세구조 × Γ-인자).
+  4. 이 Remark가 추가되면 Paper A 디리클레 확장 섹션이 완결됨.
+
+**구체적 수정 지시**:
+
+EN (`unified_master_en.tex`) — `tab:conjugate_eratio` 또는 B-68 켤레 쌍 표 바로 뒤에 Remark 추가:
+
+```latex
+\begin{remark}[Conjugate non-equivalence of E-ratios]\label{rem:conjugate_nonequiv}
+Table~\ref{tab:conjugate_eratio} exhibits a striking phenomenon: 
+conjugate characters $\chi$ and $\bar\chi$ share identical $|L(1,\chi)|$, 
+identical zero count, and identical $\kappa\delta^2$ statistics, 
+yet their E-ratios differ by factors ranging from $1.12\times$ to $144\times$.
+
+A systematic analysis across all 19 primitive characters 
+($q = 3, 4, 5, 7, 8, 11$) reveals that no single analytic invariant----%
+$|L(1,\chi)|$, conductor, order, parity, or $\arg\varepsilon(\chi)$----%
+predicts the E-ratio. In particular, $|L(1,\chi)| = |L(1,\bar\chi)|$ exactly 
+(by the functional equation), ruling out the most natural candidate.
+
+The E-ratio spectrum $\{1.12, 1.47, 2.05, 4.0, 12.35, 144\}$ 
+across conjugate pairs appears to depend on a compound effect involving 
+the argument of the root number $\arg W(\chi)$ and the local zero spacing microstructure, 
+neither of which admits a closed-form predictor in terms of standard $L$-function invariants.
+This non-equivalence is a genuine feature of the $\xi$-bundle framework: 
+the curvature $\kappa$ is sensitive to the \emph{phase geometry} of $\xi'/\xi$, 
+which differs between $\chi$ and $\bar\chi$ despite their arithmetic equivalence.
+\end{remark}
+```
+
+KO (`unified_master_ko.tex`): 위 Remark의 한국어 번역 미러링.
+
+**성공 기준**:
+  1. EN/KO 모두에 `rem:conjugate_nonequiv` 추가
+  2. B-68 켤레 쌍 표 직후 배치
+  3. |L(1,χ)| 동일성, 단일 결정인자 부재, 위상 기하학적 해석 3개 요소 포함
+  4. 컴파일 에러 0, 페이지 ±2p
+  5. PDF 4곳 배포
+
+**주의**:
+  - "proves" 사용 금지. "exhibits", "reveals", "appears to depend" 등 관찰적 언어 사용.
+  - C-344 결과 (ρ=-0.37, p=0.12 등 비유의 상관) 구체 수치는 **넣지 말 것** — Remark 수준에서는 정성적 서술이 적절. p>0.05인 상관을 논문에 수치로 적으면 오해 소지.
+  - 기존 표 구조/번호 변경 없이 Remark만 추가.
+
+---
+
+### 로드맵
+
+| 순서 | 사이클 | 작업 | 목적 | 상태 |
+|------|--------|------|------|------|
+| 1 | ~~C-345~~ | ~~q=7 재실행~~ | ~~B-70 데이터~~ | ✅ 완료 |
+| 2 | ~~C-346~~ | ~~논문 표 수정~~ | ~~B-70 해결~~ | ✅ 완료 |
+| 3 | **C-347** | B-68 Remark 논문 반영 | 켤레 비동치 해석 | **← 착수** |
+| 4 | C-348 | Paper A 투고 전 최종 점검 | 전체 정합성 | C-347 후 |
+| 5 | C-349+ | Paper B 착수 또는 새 경계 탐사 | 상태 의존 | |
+
+### 경계 갱신
+
+| 경계 | 상태 | 비고 |
+|------|------|------|
+| **B-70** | ✅ **해결** | C-345+C-346으로 완전 해결. |
+| **B-68** | **Remark 반영 대기** | C-347에서 해석 추가. 데이터/표는 완료. |
+| B-69 | 차단 | σ-국소화 자명. 현재 도구 한계. |
+
+### 프로세스: 없음 (CPU 유휴)
+
+### 우선순위: NORMAL — C-347은 TeX 수정만. 계산 불필요.
+
+---
+
+## [아카이브] 지시 [2026-04-27 01:09 — 사이클 #350]
 
 **상황**: C-345 (q=7 재실행) **완료** (00:55, 84.5분). 5/5 ALL-PASS. CPU 완전 유휴. B-70 논문 표 수정만 남음.
 
@@ -8,7 +91,7 @@
 
 ### C-345 최종 결과 (t∈[10,200], 80dps)
 
-| 지표 | ord | a | 영점 | κδ²med | mono |dev| | detect | E비 | 판정 |
+| 지표 | ord | a | 영점 | κδ²med | mono|dev| | detect | E비 | 판정 |
 |------|-----|---|------|--------|---------|--------|------|------|
 | chi7_1 (ord6, 홀) | 6 | 1 | 138 | 1.0032 | 0.000000 | 100% | 36.3× | ✅ ALL PASS |
 | chi7_2 (ord3, 짝) | 3 | 0 | 138 | 1.0029 | 0.000000 | 100% | 23.9× | ✅ ALL PASS |
@@ -18,95 +101,4 @@
 
 ★ = Legendre symbol (self-conjugate). 총 영점: 138×4+137 = **689개**.
 
-**B-68 켤레 쌍**: chi7_1↔chi7_5 = 2.05×, chi7_2↔chi7_4 = 12.35×
-**전체 B-68 스펙트럼**: {1.12, 1.47, **2.05**, 4.0, **12.35**, 144} (6쌍)
-
-**Devil's Advocate** (양성이 틀린 이유):
-  1. E비 폭 22배 (17.7~394.7) → 반박: 비동치는 B-68 본질. 최솟값도 기준 3.5배.
-  2. chi7_5 영점 1개 부족 (137) → 반박: t=200 경계 효과, 통계적 무의미.
-  3. 단일 t범위 → 반박: 결정론적 영점, q=8/q=11과 동일 범위.
-
-### 다음 작업: **C-346** — 논문 표 수정 (B-70 완료)
-
-**모델**: sonnet
-
-**왜**: B-70 (논문 표 무결성) 최종 해결. tab:dirichlet_per_character에 허위 데이터 잔존.
-
-**구체적 수정 지시**:
-
-**EN** (`unified_master_en.tex`):
-  1. **q=7 행** (line ~7281): `760` → `689`, `1.004` → `1.003`, `$12.1$--$50.1\times$` → `$17.7$--$394.7\times$`
-  2. **q=8 행** (line ~7282): `1.004` → `1.003`, `$60.2$--$194.3\times$` → `$20$--$53\times$`
-  3. **누적 총합**: `$\sim$2590` → `$\mathbf{2{,}517}$` (38+689+423+1367)
-  4. **본문 내 ~2590 언급** (최소 3곳): 모두 `2{,}517`로 교체
-  5. **q=7,8,11 영점 합계** (line ~7338 부근): `${\sim}2\,550$` → `$2{,}479$` (689+423+1367)
-  6. **B-68 켤레 쌍 표**: q=7 쌍 2개 추가 (chi7_1↔chi7_5: 2.05×, chi7_2↔chi7_4: 12.35×)
-
-**KO** (`unified_master_ko.tex`): EN과 동일한 수정 미러링
-
-**컴파일**: pdflatex(EN)×2 + xelatex(KO)×2 → PDF 4곳 배포
-
-**주의**: 
-  - q=8 E비는 **원시 지표만** (20×, 53×). 유도 χ_A(725×)는 mono FAIL이므로 제외.
-  - 누적 38+689+423+1367 = 2,517. "~" 제거, 정확값 사용.
-  - B-68 표에 q=7 추가 시 기존 q=11 4쌍 보존 확인.
-
-**성공 기준**:
-  1. q=7 행: 689 영점, 17.7--394.7× 반영
-  2. q=8 행: E비 20--53× 반영
-  3. 누적 2,517 최소 3곳 반영
-  4. B-68 표에 q=7 켤레 쌍 2개 추가
-  5. EN/KO 컴파일 에러 0, 페이지 ±2p 이내
-  6. PDF 4곳 배포
-
----
-
-### 로드맵
-
-| 순서 | 사이클 | 작업 | 목적 | 상태 |
-|------|--------|------|------|------|
-| 1 | ~~C-345~~ | ~~q=7 재실행~~ | ~~B-70 데이터~~ | ✅ **완료** (5/5 ALL-PASS, 689 영점) |
-| 2 | **C-346** | 논문 표 수정 (q=7+q=8+총합) | **B-70 완료** | **← 즉시 착수** |
-| 3 | C-347 | B-68 Remark 논문 반영 | 켤레 비동치 해석 | C-346 대기 |
-| 4 | C-348+ | Paper A 최종 투고 준비 | 상태 의존 | |
-
-### 경계 갱신
-
-| 경계 | 상태 | 비고 |
-|------|------|------|
-| **B-70** | **해결 직전** | C-345 완료. C-346 (논문 수정)만 남음. |
-| **B-68** | 중립 (보강) | q=7 2쌍 추가. 전체 스펙트럼: {1.12, 1.47, 2.05, 4.0, 12.35, 144}. |
-| B-69 | 차단 | σ-국소화 자명. 현재 도구 한계. |
-
-### 프로세스: 없음 (CPU 유휴)
-
-### 우선순위: HIGH — C-346 즉시 착수, CPU 유휴 낭비 중
-
----
-
-## [아카이브] 지시 [2026-04-26 23:25 — 사이클 #346]
-
-**상황**: C-345 (q=7 재실행) 미착수. CPU 완전 유휴. 실행 중 실험 0건. 논문 표 무결성(B-70) 미해결 상태 지속.
-
-**판정**: 신규 결과 없음. C-345 지시 재확인 + 긴급도 상향.
-
-**다음 작업**: C-345 — **q=7 재실행** (t∈[10,200], 80dps, 5개 비자명 지표)
-
-**모델**: sonnet
-
-**왜**:
-  1. **B-70 (논문 표 무결성)** — 가장 긴급. tab:dirichlet_per_character의 q=7 행이 실제 데이터와 불일치:
-     - 논문: 760 영점, E비 12.1-50.1× (출처 불명)
-     - 실제 C-324: 189 영점, E비 30.1-557.3× (t∈[10,70]/50dps)
-  2. t-범위 통일 (q=8/q=11과 동일한 [10,200]/80dps) → C-344 상관 재분석도 가능
-  3. CPU 유휴 — 낭비 중. 즉시 착수 필수.
-
----
-
-## [아카이브] 지시 [2026-04-26 22:51 — 사이클 #345]
-
-**상황**: C-344 완료 (B-68 E비 결정인자 분석). 결과 파일 22:20 완성 후 프로세스 좀비화 → kill 완료. CPU 해방.
-
-**판정**: **중립** — 19개 지표에서 E비를 예측하는 단일 해석적 양 없음.
-
-**다음 작업**: C-345 — q=7 재실행 (t∈[10,200], 80dps, 5개 비자명 지표)
+**다음 작업**: C-346 — 논문 표 수정 (B-70 완료) → **완료**
