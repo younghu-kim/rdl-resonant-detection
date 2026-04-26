@@ -1,3 +1,6 @@
+alpha1_proof_c311.txt
+alpha1_proof_scaling_c311b.txt
+cross_term_gue_c311.txt
 gap_stability_c270.txt
 gl4_A_gap_c269.txt
 gl4_sym3_37a1_kd2_204.txt
@@ -213,6 +216,8 @@ results/A_formula_independent_b37.txt
 results/A_gap_correlation_c256.txt
 results/agap_nn_mechanism_c297.txt
 results/A_height_scaling_c260.txt
+results/alpha1_proof_c311.txt
+results/alpha1_proof_scaling_c311b.txt
 results/angle_at_zeros_inventory.txt
 results/artin_s3_121.txt
 results/artin_s3_precision_122.txt
@@ -236,6 +241,7 @@ results/cluster_physics_v2.txt
 results/compare_fourier_modes.txt
 results/complex_vector_readout.txt
 results/crosscheck_c264.txt
+results/cross_term_gue_c311.txt
 results/curvature_autocorr_38.txt
 results/curvature_delta_sweep.txt
 results/curvature_gue_distribution_37.txt
@@ -448,6 +454,3 @@ results/zeta_tband_agap_c290c.txt
 results/zeta_tband_agap_c290.txt
 sigma_A_crosscheck_c255.txt
 sigma_localization_profile_c254.txt
-alpha1_proof_c311.txt
-alpha1_proof_scaling_c311b.txt
-cross_term_gue_c311.txt
