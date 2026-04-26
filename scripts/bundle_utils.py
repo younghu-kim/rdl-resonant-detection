@@ -208,8 +208,12 @@ def find_zeros_dirichlet(char_info, t_min=10.0, t_max=40.0, n_scan=2000):
                     sv = mpmath.mpf('0.5') + 1j * mpmath.mpf(t_var)
                     return mpmath.re(completed_L(sv, char_info))
                 t_zero = float(mpmath.findroot(f_real, (prev_t, t)))
-                if not zeros or abs(t_zero - zeros[-1]) > 0.1:
-                    zeros.append(t_zero)
+                # |Λ| 검증: Re(Λ)=0 교차가 진짜 영점인지 확인
+                # (실수 지표에서 Λ이 순허수일 때 Re≈0 항상 → 가짜 교차 방지)
+                sv = mpmath.mpf('0.5') + 1j * mpmath.mpf(str(t_zero))
+                if abs(completed_L(sv, char_info)) < mpmath.mpf('1e-10'):
+                    if not zeros or abs(t_zero - zeros[-1]) > 0.1:
+                        zeros.append(t_zero)
             except Exception:
                 pass
         prev_re, prev_t = curr_re, t
