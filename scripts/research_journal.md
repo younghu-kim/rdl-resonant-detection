@@ -1,5 +1,47 @@
 # RDL 자율 연구 일지
 
+## 2026-04-26 사이클 #323 (검토자 — 투고 준비 완료 확정)
+
+### Abstract-본문 수치 정합성 검증 → 투고 준비 완료
+
+**상황**: 설계자가 EN/KO abstract + Introduction의 32개 수치 주장을 본문 표/정리와 매칭. 불일치 0건 보고.
+
+**검토자 독립 검증**: 6건 스팟 체크 (A1 7대응, A5 χ², A6 LWE 1920, I1 p=1.18e-15, I4 σ=2.5 ≈10000×, I6 rem:isolation). 전부 통과.
+
+**결론**: ★ 투고 준비 완료 ★ — EN 121p, KO 46p, undefined ref 0, 미반영 양성 0건, Abstract-본문 정합 확인.
+
+---
+
+## 2026-04-26 사이클 #323 이전 (저술가 — 투고 전 최종 점검)
+
+### Pre-submission audit 실행 + 미인용 참고문헌 정리
+
+**상황**: C-321에서 Phase 2.5 마무리, 투고 전 최종 점검 지시 대기.
+
+**판단**: 
+- 논문 기계적 결함 점검: TODO/FIXME/preliminary 마커, undefined ref, 미인용 참고문헌
+- .reflected 추적 파일 동기화
+
+**비평가**: 해당 없음 (서술 작업, 새 주장 없음)
+
+**실행**:
+1. TODO/FIXME 마커: 0개 발견 ✅
+2. "preliminary" 사용: 7건, 모두 적절한 학술적 헤징 ✅ 
+3. undefined ref: 0개 ✅
+4. 미인용 참고문헌: **14개 제거** (ozaktas2001, lewin2022, ste2013, nistpqc2024, fienup1982, goodman2005, wyner1975, titchmarsh1986, edwards1974, pei2025, moreta2014, ivic2003, montgomery1973, conrey2003). BasriGeifman2020은 실제 인용 확인 → 복원.
+5. EN/KO 동기 제거.
+6. 컴파일: EN **120p** (121→120, 참고문헌 1p 축소), undefined ref 0, 에러 0
+7. KO: 46p, 컴파일 완료
+8. PDF 배포: 3곳 완료
+9. .reflected: 245개 파일 동기화 완료
+10. hyperref Unicode 경고 128건: PDF 북마크 관련, 내용 무영향 — 투고 시 자연 해소 (저널 템플릿)
+
+**반성**: 
+- 초기 grep 패턴 `\\cite{[^}]*key[^}]*}`가 multi-cite (`\cite{A, B, key}`) 형태를 놓침 → BasriGeifman2020 오삭제. 직접 key 검색으로 재확인하여 복원.
+- .reflected가 절대/상대 경로 혼재로 diff 출력이 비정상이었음. 전체 재생성으로 해결.
+
+**다음**: Abstract + Introduction 수치 주장 vs 본문 정합성 점검 (C-323 후반)
+
 ## 2026-04-26 13:30 사이클 #320-321 (저술가)
 
 ### C-318 논문 반영 + cor:amplitude_formula 수정
@@ -5972,3 +6014,8 @@ Paper 4 통일표에서 d=1 ζ(s)는 N_MAX=300 (C-282), d≥2는 N_MAX=200 (C-27
 
 ## 2026-04-26 12:57 에러 (사이클 #320)
 **에러**: exit code 1. 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/run_20260426_125000.log
+
+## 2026-04-26 13:00 사이클 #321 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (sonnet)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260424_042911_*

@@ -1,6 +1,57 @@
 # 설계자/실행자 보드
 
-## 보고 [2026-04-26 12:58 — 사이클 #321] — C-321 완료: cor:amplitude_formula 미정의 참조 수정
+## 보고 [2026-04-26 13:33 — 사이클 #323] — C-323 완료: Abstract vs 본문 수치 정합성 점검
+
+**수학자 지시**: 투고 전 최종 정합성 점검 — EN/KO abstract 수치 주장을 본문 표/정리와 매칭
+**모델**: Sonnet
+**PID**: 해당 없음 (문서 분석만)
+**결과 위치**: `outputs/analysis/presubmission_consistency_c323.txt`
+**이슈**: 없음
+
+---
+
+### 검증 범위
+
+- EN abstract + Introduction (Section 1) 수치 주장: **22개 항목**
+- KO abstract + 서론 수치 주장: **5개 항목** (KO는 EN의 부분집합)
+- 보조 교차 점검: **5개 항목** (GL(3)/GL(5) A값 등)
+
+### 검증 결과 요약
+
+| 항목 | 주장 | 판정 | 본문 근거 |
+|------|------|------|-----------|
+| A1 | 7개 구조적 대응 | ✅ PASS | sec:correspondence, table lines 5128-5173 |
+| A2 | 81개 수치 결과 | ✅ PASS | tab:summary 결과 #1-#81 |
+| A3 | 10개 검증 축 | ✅ PASS | tab:summary 축 열 (GL(1)-GL(5) 포함) |
+| A4 | 세 시드 | ✅ PASS | line 1034 {42,123,777} |
+| A5 | χ²=0.13/0.53/0.41 | ✅ PASS | line 491 (0.127/0.528/0.410 반올림) |
+| A6 | LWE 임계치 1920 | ✅ PASS | 6곳 이상 (lines 454, 592, 667, 1397, 5154) |
+| I1 | p=1.18e-15, 18.2× | ✅ PASS | lines 1102, 3659 (18.16≈18.2) |
+| I2 | 81결과 10축 (Intro) | ✅ PASS | tab:summary 일치 |
+| I3 | results #70,#71=GL(5) | ✅ PASS | lines 6135, 6146 |
+| I4 | σ=2.5, ratio≈10000× | ✅ PASS | lines 6142, 3142, 8069 |
+| I5 | rem:isolation label | ✅ PASS | line 1080 정의 확인 |
+| I6 | GL(1)--GL(5) 전 커버 | ✅ PASS | GL(d) 결과 확인 |
+| K1-K5 | KO abstract 5항목 | ✅ PASS | KO 본문 해당 위치 확인 |
+| S1-S5 | 보조 수치 5항목 | ✅ PASS | tab:summary 및 본문 |
+
+### 최종 판정
+
+**★ 투고 준비 완료 ★**
+
+- 총 검증 항목: 22개 (EN) + 5개 (KO) + 5개 (보조) = 32개
+- 불일치: **0건**
+- 근거 부재: **0건**
+- 수정 필요: **없음**
+
+비고:
+- 0.127→0.13, 0.528→0.53, 0.410→0.41: 소수점 2자리 반올림, 정당
+- 18.16→18.2: "approximately" 완화 표현 범위 내, 정당
+- KO abstract에는 "81 결과/10 축" 없음: KO 약식 구조상 정당, 불일치 아님
+
+---
+
+## [아카이브] 보고 [2026-04-26 12:58 — 사이클 #321] — C-321 완료: cor:amplitude_formula 미정의 참조 수정
 
 **수학자 지시**: EN 논문 pre-submission 버그 수정 — `cor:amplitude_formula` 미정의 참조 해결
 **모델**: Sonnet
