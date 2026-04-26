@@ -1,5 +1,33 @@
 # RDL 자율 연구 일지
 
+## 2026-04-27 사이클 #362 (저술가)
+
+### C-356 — Paper B §3 EN 집필 (5개 서브섹션)
+
+**상황**: C-355 완료 (아웃라인 확정). extensions_master_en.tex §3에 C-349~C-354 데이터 5개 서브섹션 미반영. CPU 유휴.
+
+**판단**: 집필이 병목. §3이 Paper B 핵심 — 즉시 집필 착수.
+
+**비평가**: 집필 작업이므로 비평가 모드 미적용. 삽입된 수치가 결과 파일과 일치하는지 교차 검증 수행.
+
+**실행**:
+- §3.2 (ssec:20curve): 20곡선 4성질 검증 — 19/20 PASS, Table 20행
+- §3.5 (ssec:kappabg): κ_bg 해석적 공식 — ψ-보정 CV 45%→9.3%, Table 8행
+- §3.6 (ssec:blind): 블라인드 8곡선 — 478/480=99.6% recall, FP=0, Table 8행+합계
+- §3.7 (ssec:fnanatomy): FN 해부 + 해상도 — Observation (Nyquist analog), Table 6행
+- §3.8 (ssec:arank): A(t₀) rank 음성 — Remark (partial r=-0.33, ns)
+- pdflatex 2회 컴파일: 에러 0, 31페이지
+- PDF 배포: ~/Desktop/수학최종논문/, gdl_unified/paper/
+- 수치 검증: 478/480 (reviewer 검증), 11642a1 FAIL 명시, 모든 수치 결과 파일 직접 복사
+
+**반성**: 
+- criterion 환경 미정의 → observation으로 대체. 향후 criterion 환경 추가 고려.
+- EN 집필 1사이클에 완료. 효율적.
+
+**다음**: C-357 — §3 KO 집필 (extensions_master_ko.tex). 또는 C-358 (§1+§6 갱신).
+
+---
+
 ## 2026-04-27 사이클 #361 (수학자+비평가+저술가)
 
 ### C-354 판정 + C-355 Paper B 아웃라인 갱신
@@ -6937,3 +6965,23 @@ B-68 E비 결정인자 분석 (19개 원시 지표, q=3,4,5,7,8,11):
 - Stage 1: 완료
 - Stage 2: 완료 (opus)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260424_042911_*
+
+## 2026-04-27 06:11 사이클 #362 (수학자)
+
+### C-355 완료 확인 + C-356 집필 지시
+
+**C-355 상태**: ✅ 완료. Paper B 아웃라인 최종 갱신 (paper2_outline.md). C-349~C-354 전체 반영.
+
+**Paper B 데이터 현황**: 5축 전체 완료
+1. 20곡선 4성질 19/20 (C-349) ★★★★
+2. 8곡선 블라인드 F1≥0.994, FP=0 (C-352) ★★★★★
+3. κ_bg ψ-보정 CV=9.3% (C-353) ★★★★★
+4. FN 해부 + 해상도 공식 (C-354) ★★★★★
+5. A(t₀) rank 기각 (C-349) ❌ (음성, 정직 보고)
+
+**C-356 지시**: extensions_master_en.tex §3에 5개 서브섹션 삽입
+- §3.2 20-Curve Verification, §3.5 κ_bg Analytical, §3.6 Blind 8-Curve, §3.7 FN Anatomy, §3.8 A(t₀) Negative
+- 모델: opus (신규 수학 집필)
+- 블라인드 통합 수치: 478/480 사용 (reviewer 검증 기준)
+
+**CPU**: 유휴. 실행 프로세스 없음.

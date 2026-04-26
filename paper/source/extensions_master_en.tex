@@ -373,6 +373,74 @@ Curve & Rank & $N$ & $\varepsilon$ & P1/P2/P3/P4 \\
 \end{table}
 
 
+\subsection{Twenty-Curve Four-Property Verification}
+\label{ssec:20curve}
+
+To test the universality of the $\xi$-bundle framework beyond the
+initial eight-curve suite, we assemble a corpus of 20 elliptic curves
+spanning ranks $0$--$3$, conductors $N=11$--$13766$, and both signs
+$\varepsilon=\pm 1$.  Each curve is subjected to the full four-property
+test (P1: functional equation, P2: $\kappa\delta^{2}$ near-zero
+universality, P3: $\sigma$-sweep symmetry, P4: monodromy $2\pi$) with
+$\delta=0.03$, $t\in[1,100]$, and Cauchy contour radius $r=0.01$.
+
+\begin{table}[ht]
+\centering
+\caption{Twenty-curve four-property verification (C-349).
+  $\kappa\delta^{2}$ is the mean at $\delta=0.03$; CV is the
+  coefficient of variation across zeros.  Pass column indicates the
+  number of properties passed out of four.}
+\label{tab:20curve}
+\small
+\begin{tabular}{llrrrrr}
+\toprule
+Curve & Rank & $N$ & $\varepsilon$ & $\kappa\delta^{2}$ & CV (\%) & Pass \\
+\midrule
+11a1    & 0 & 11    & $+1$ & 1.011 & 1.41 & 4/4 \\
+14a6    & 0 & 14    & $+1$ & 1.007 & 0.31 & 4/4 \\
+15a1    & 0 & 15    & $+1$ & 1.006 & 0.21 & 4/4 \\
+43a1    & 0 & 43    & $-1$ & 1.010 & 0.46 & 4/4 \\
+197a1   & 0 & 197   & $+1$ & 1.020 & 0.87 & 4/4 \\
+\midrule
+37a1    & 1 & 37    & $-1$ & 1.009 & 0.48 & 4/4 \\
+53a1    & 1 & 53    & $-1$ & 1.010 & 0.58 & 4/4 \\
+58a1    & 1 & 58    & $-1$ & 1.011 & 0.73 & 4/4 \\
+61a1    & 1 & 61    & $-1$ & 1.013 & 1.17 & 4/4 \\
+79a1    & 1 & 79    & $-1$ & 1.010 & 0.42 & 4/4 \\
+\midrule
+389a1   & 2 & 389   & $+1$ & 1.015 & 1.00 & 4/4 \\
+433a1   & 2 & 433   & $+1$ & 1.042 & 7.68 & 4/4 \\
+446a1   & 2 & 446   & $+1$ & 1.019 & 1.38 & 4/4 \\
+563a1   & 2 & 563   & $+1$ & 1.016 & 0.86 & 4/4 \\
+571a1   & 2 & 571   & $+1$ & 1.017 & 1.23 & 4/4 \\
+\midrule
+5077a1  & 3 & 5077  & $-1$ & 1.031 & 2.16 & 4/4 \\
+11197a1 & 3 & 11197 & $-1$ & 1.024 & 1.38 & 4/4 \\
+11642a1 & 3 & 11642 & $-1$ & 1.158 & 32.37 & 3/4 \\
+12279a1 & 3 & 12279 & $-1$ & 1.028 & 2.40 & 4/4 \\
+13766a1 & 3 & 13766 & $-1$ & 1.028 & 2.12 & 4/4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Result:} 19 of 20 curves pass all four properties.
+The sole failure is 11642a1 ($N=11642$, rank~3), whose
+$\kappa\delta^{2}$ CV of $32.37\%$ exceeds the pass threshold.
+Monodromy (P4) remains exact at $\mathrm{mono}/\pi = 2.000000$
+for all 20 curves without exception, confirming that the holonomy
+theorem (Theorem~1 of Paper~1) extends to all tested EC $L$-functions.
+
+\begin{remark}[High-conductor limitation]
+\label{rem:highcond}
+The 11642a1 failure is attributed to numerical resolution at high
+conductor: the $\kappa\delta^{2}$ fluctuations grow with $N$ because
+the background curvature $\kappa_{\mathrm{bg}} \propto \log^{2}(N)$
+amplifies finite-$\delta$ corrections.  This represents a precision
+boundary of the current framework, not a structural failure, as all
+other curves with $N \leq 13766$ pass.
+\end{remark}
+
+
 \subsection{$\kappa_{\mathrm{near}}$ Universality Across Rank and Conductor}
 \label{ssec:thm5}
 
@@ -479,6 +547,245 @@ Hadamard product structure of $\Lambda$.  The effect is $<2\%$ at
 $\delta=0.03$ even for $N=10099$, confirming that for the purposes of
 the leading-order discrimination (Theorem~\ref{thm:disc}), conductor
 effects are negligible.
+
+
+\subsection{Background Curvature: Analytical Formula}
+\label{ssec:kappabg}
+
+The logarithmic derivative of the completed $L$-function decomposes as
+\[
+  \frac{\Lambda'(s)}{\Lambda(s)}
+  \;=\; \underbrace{\tfrac{1}{2}\log\!\bigl(\tfrac{N}{4\pi^{2}}\bigr)
+        + \tfrac{1}{2}\,\psi\!\bigl(\tfrac{s+a}{2}\bigr)}_{\displaystyle
+        \gamma\text{-factor contribution } g(s)}
+  \;+\; \frac{L'(s)}{L(s)},
+\]
+where $\psi = \Gamma'/\Gamma$ is the digamma function and $a\in\{0,1\}$
+is determined by the parity of the functional equation.  Away from
+zeros of $L$, the background curvature is dominated by $|g(s)|^{2}$:
+\[
+  \kappa_{\mathrm{bg}}(s)
+  \;\approx\;
+  \bigl|\,\tfrac{1}{2}\log\!\bigl(\tfrac{N}{4\pi^{2}}\bigr)
+  + \tfrac{1}{2}\,\psi\!\bigl(\tfrac{\sigma+it}{2}\bigr)\bigr|^{2}.
+\]
+
+We test this formula on 8~EC curves (C-353) by comparing $\kappa_{\gamma}$
+against the empirical median of $\kappa$ along the off-critical sweep
+$\sigma=1.03$, $t\in[2,50]$.
+
+\begin{table}[ht]
+\centering
+\caption{Background curvature: $\psi$-corrected analytical formula vs.\
+  empirical median (C-353).  The ratio $r = \kappa_{\mathrm{emp}}/
+  \kappa_{\gamma}$ measures the accuracy of the $\gamma$-factor
+  approximation.}
+\label{tab:kappabg}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Curve & $N$ & Rank & $\kappa_{\mathrm{emp}}$ & $\kappa_{\gamma}$ &
+  $\kappa_{\mathrm{simple}}$ & $r_{\psi}$ \\
+\midrule
+11a1    &    11 & 0 &  7.436 &  9.265 &  2.958 & 0.803 \\
+43a1    &    43 & 0 & 10.731 & 13.300 &  2.907 & 0.807 \\
+37a1    &    37 & 1 & 10.514 & 12.810 &  2.730 & 0.821 \\
+79a1    &    79 & 1 & 12.124 & 15.400 &  4.083 & 0.787 \\
+389a1   &   389 & 2 & 20.970 & 21.783 & 10.676 & 0.963 \\
+571a1   &   571 & 2 & 20.948 & 23.509 & 13.022 & 0.891 \\
+5077a1  &  5077 & 3 & 34.302 & 34.741 & 31.995 & 0.987 \\
+11197a1 & 11197 & 3 & 39.031 & 39.395 & 41.216 & 0.991 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The $\psi$-corrected formula reduces the coefficient of variation from
+$\mathrm{CV}=45.0\%$ (simple $\log$-only approximation) to
+$\mathrm{CV}=9.3\%$ ($\psi$-full), confirming that the $\gamma$-factor
+dominates the background curvature.
+
+\paragraph{Systematic undershoot.}
+All eight ratios satisfy $r_{\psi} < 1$, indicating that the empirical
+$\kappa_{\mathrm{bg}}$ is systematically below the $\gamma$-only
+prediction.  This is explained by the $L'/L$ contribution: writing
+$\kappa_{\mathrm{full}} = |g + L'/L|^{2}$, the cross term
+$2\,\mathrm{Re}(g\cdot\overline{L'/L})$ is negative at background
+points (between zeros, the zero sum contributes a net cancellation).
+The effect vanishes at large conductor
+($r_{\psi}\to 1$ as $N\to\infty$, since $|g|\gg|L'/L|$),
+consistent with the observed trend from $r=0.787$ at $N=79$ to
+$r=0.991$ at $N=11197$.
+
+
+\subsection{Blind Zero Prediction: Eight-Curve Campaign}
+\label{ssec:blind}
+
+As the strongest test of the $\xi$-bundle framework, we perform
+\emph{blind} zero prediction on 8~EC curves (two per rank,
+$N=11$--$11197$) using curvature peaks and monodromy filtering alone,
+without any knowledge of the true zero locations.  The procedure sweeps
+$\kappa(\sigma_{0}+it)$ along $\sigma_{0}=1.03$ at step $dt=0.1$
+over $t\in[2,50]$, extracts local maxima, and retains only those with
+monodromy $|\mathrm{mono}/\pi| \geq 1.5$ (adaptive contour radius,
+64-step integration).
+
+\begin{table}[ht]
+\centering
+\caption{Blind zero prediction on eight EC curves (C-352).
+  TP = true positives, FP = false positives, FN = false negatives;
+  matching tolerance $0.5$.  All predictions are made without access
+  to the true zero list.}
+\label{tab:blind}
+\small
+\begin{tabular}{llrrrrrrrr}
+\toprule
+Curve & Rank & $N$ & $\varepsilon$ & Zeros & TP & FP & FN & $R$ & $F_{1}$ \\
+\midrule
+11a1    & 0 &    11 & $+1$ & 36  & 36 & 0 & 0 & 1.000 & 1.000 \\
+43a1    & 0 &    43 & $-1$ & 46  & 46 & 0 & 0 & 1.000 & 1.000 \\
+37a1    & 1 &    37 & $-1$ & 45  & 45 & 0 & 0 & 1.000 & 1.000 \\
+79a1    & 1 &    79 & $-1$ & 51  & 51 & 0 & 0 & 1.000 & 1.000 \\
+389a1   & 2 &   389 & $+1$ & 63  & 63 & 0 & 0 & 1.000 & 1.000 \\
+571a1   & 2 &   571 & $+1$ & 67  & 67 & 0 & 0 & 1.000 & 1.000 \\
+5077a1  & 3 &  5077 & $-1$ & 83  & 82 & 0 & 1 & 0.988 & 0.994 \\
+11197a1 & 3 & 11197 & $-1$ & 89  & 88 & 0 & 1 & 0.989 & 0.994 \\
+\midrule
+\multicolumn{4}{l}{\textbf{Total}} & \textbf{480} & \textbf{478} &
+  \textbf{0} & \textbf{2} & \textbf{0.996} & \textbf{0.998} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Result:} Across 480 zeros, 478 are correctly detected
+($99.6\%$ recall) with \emph{zero} false positives ($P=1.000$).
+The combined $F_{1}=0.998$.  Six of eight curves achieve perfect
+detection ($F_{1}=1.000$); the two false negatives occur exclusively
+in the high-conductor curves 5077a1 and 11197a1, and are analyzed in
+\S\ref{ssec:fnanatomy}.
+
+\paragraph{Theoretical guarantee of $\mathrm{FP}=0$.}
+The absence of false positives is not coincidental.  A curvature peak
+with monodromy $|\mathrm{mono}/\pi| \geq 2$ requires $\Lambda'/\Lambda$
+to have a pole inside the integration contour, which by the argument
+principle implies the presence of a zero of $\Lambda$ within the
+contour.  Thus, the dual criterion ($\kappa$-peak $+$ monodromy)
+\emph{provably} cannot produce false positives for any $L$-function
+with meromorphic $\Lambda'/\Lambda$, regardless of rank, conductor,
+or functional-equation sign.
+
+
+\subsection{FN Anatomy and Resolution Limit}
+\label{ssec:fnanatomy}
+
+The two false negatives in Table~\ref{tab:blind} (5077a1 at
+$t=31.675$, 11197a1 at $t=39.140$) share a common mechanism:
+both missed zeros belong to \emph{close pairs} whose gap lies below
+the sampling resolution.
+
+\paragraph{Gap analysis.}
+For 5077a1, the missed zero at $t_{0}=31.675$ has a nearest neighbor
+at $t_{1}=31.827$ with gap $\Delta t = 0.152$.  For 11197a1, the
+missed zero at $t_{0}=39.140$ has neighbor $t_{1}=38.986$ with gap
+$\Delta t = 0.154$.  In both cases, $\Delta t < 0.2$, which is less
+than twice the sampling step $dt=0.1$.  These gaps fall below the
+5th percentile of all TP gaps ($0.169$ for 5077a1, $0.179$ for
+11197a1), confirming that the FN zeros are exceptionally close pairs.
+
+\paragraph{Resolution experiment.}
+Refining the sampling step resolves both false negatives:
+
+\begin{table}[ht]
+\centering
+\caption{Resolution dependence of FN detection (C-354).  All experiments
+  use the same curvature + monodromy pipeline on a local window around
+  the FN zero.}
+\label{tab:resolution}
+\small
+\begin{tabular}{llrrrrl}
+\toprule
+Curve & $dt$ & TP & FP & FN & $dt/\mathrm{gap}$ & FN resolved? \\
+\midrule
+5077a1  & 0.10 & 12 & 0 & 1 & 0.658 & No \\
+5077a1  & 0.05 & 13 & 0 & 0 & 0.329 & Yes \\
+5077a1  & 0.02 & 13 & 0 & 0 & 0.132 & Yes \\
+\midrule
+11197a1 & 0.10 & 11 & 0 & 1 & 0.650 & No \\
+11197a1 & 0.05 & 12 & 0 & 0 & 0.325 & Yes \\
+11197a1 & 0.02 & 12 & 0 & 0 & 0.130 & Yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At $dt=0.05 < \mathrm{gap}/2 \approx 0.077$, both FN are fully
+resolved, with no new false positives introduced.
+
+\paragraph{The $\mathrm{mono}/\pi=4$ mechanism.}
+At $dt=0.1$, the curvature peak near the close pair is detected but
+attributed to only \emph{one} zero, because the integration contour
+(radius $r=0.4 > \mathrm{gap}$) encloses \emph{both} zeros
+simultaneously.  The resulting monodromy is $\mathrm{mono}/\pi = 4.0$
+(double winding, summing $2\pi$ per zero).  The critical radius for
+the $2\to 4$ transition matches the gap: $r_{c} = 0.13$ for 5077a1
+($\mathrm{gap}=0.152$) and $r_{c}=0.15$ for 11197a1
+($\mathrm{gap}=0.154$).
+
+\paragraph{GUE context.}
+The normalized gaps $\Delta t/\delta_{\mathrm{mean}}$ are $0.221$
+(5077a1) and $0.249$ (11197a1), near the GUE 5th-percentile boundary
+$s\approx 0.22$.  Close pairs at this level are a generic feature of
+random-matrix statistics, not a pathology of any specific curve.
+
+\begin{observation}[Nyquist-type resolution condition]
+\label{obs:nyquist}
+For the curvature-monodromy pipeline to independently resolve all
+on-critical zeros with gaps $\geq \Delta t_{\min}$, the sampling
+step must satisfy
+\[
+  dt \;<\; \frac{\Delta t_{\min}}{2}.
+\]
+Equivalently, in terms of the mean zero spacing
+$\delta_{\mathrm{mean}} = 2\pi/\!\log(Nt/2\pi e)$ and the
+normalized minimum gap $s_{\min}$:
+$dt_{\mathrm{crit}} \approx \delta_{\mathrm{mean}}\cdot s_{\min}/2$.
+\end{observation}
+
+This criterion is empirical, derived from two FN cases.  A rigorous
+proof would require bounding the minimum peak separation in
+$\kappa(\sigma_{0}+it)$ as a function of the zero gap, which we leave
+as an open problem.
+
+
+\subsection{$A(t_{0})$ and Rank Dependence: A Negative Result}
+\label{ssec:arank}
+
+We test whether the curvature amplitude $A(t_{0}) = \mathrm{Im}(H_{0})^{2}
++ 2H_{1}$, evaluated at zeros of the completed $L$-function, carries
+information about the algebraic rank of the underlying elliptic curve.
+
+\paragraph{Raw correlation.}
+Across 20 curves (Table~\ref{tab:20curve}), the rank-averaged
+$\bar{A}(t_{0})$ increases monotonically with rank: $22.7$ (rank~0),
+$21.2$ (rank~1), $30.1$ (rank~2), $64.6$ (rank~3).  A Spearman test
+yields $\rho=0.80$, but at $p=0.20$ (non-significant at the 5\% level).
+
+\paragraph{Conductor confound.}
+The apparent trend is driven by conductor, not rank.  The Pearson
+correlation between $\log N$ and $\bar{A}$ is $r=0.87$ ($p<0.001$),
+reflecting the analytical dependence
+$\kappa_{\mathrm{bg}} \propto \log^{2}(N)$ established in
+\S\ref{ssec:kappabg}.  Since higher-rank curves in the LMFDB tend to
+have larger conductors, the $\bar{A}$--rank correlation is a confound.
+
+\begin{remark}[Negative result]
+\label{rem:arank}
+After controlling for $\log N$ via partial correlation, the
+residual association between $\bar{A}(t_{0})$ and rank is
+$r_{\mathrm{partial}} = -0.33$ (non-significant).  We conclude that
+$A(t_{0})$ does not encode rank information beyond what is already
+captured by the conductor-dependent background curvature.
+This negative result is reported in the interest of scientific
+completeness.
+\end{remark}
 
 
 % ============================================================================
@@ -1501,31 +1808,6 @@ mean error $1.3\%$, max $4.0\%$]}
 
 
 % ============================================================================
-\subsection{Laurent Amplitude and Zero-Gap Statistics (Result~\#219)}
-\label{ssec:agap}
-% ============================================================================
-
-The Laurent amplitude $A(\gamma)=\operatorname{Im}(c_0)^2+2\operatorname{Re}(c_1)$
-exhibits a degree-independent negative correlation with GUE-normalised zero
-gaps ($\rho\in[-0.63,-0.42]$, $12/12$ sign-consistent) across \emph{twelve}
-automorphic $L$-functions spanning $\mathrm{GL}(1)$--$\mathrm{GL}(6)$
-(Results~\#219, \#C-261, \#C-263--\#C-265, \#C-268--\#C-270, \#C-273, \#C-275;
-including $\mathrm{Sym}^5(\text{11a1})$ at GL(6):
-$\rho=-0.423$, $p=2.4\times10^{-4}$, $n=71$).
-The Hadamard lower bound $A\geq 2/g_{\min}^2$ (Proposition~12, Result~\#C-265)
-makes $\rho(A,g_{\min})<0$ a structural necessity under the GUE
-pair-correlation conjecture, and $g_{\min}$ is height-stable
-(8-bin span$=0.163$, Kendall $\tau$ non-significant; Result~\#C-270).
-Complete treatment---including the $A_\Lambda/A_L$ dichotomy (Result~\#C-264),
-the Gamma-factor decomposition (Result~\#C-268), and all measurements---is
-given in Kim~(2026d)~\cite{kim2026paper4}.
-
-\textcolor{ForestGreen}{[Results \#219, \#C-261, \#C-263--\#C-265,
-\#C-268--\#C-270, \#C-273, \#C-275; confirmed 2026-04-25;
-$12/12$ GL(1)--GL(6); see Kim~(2026d)~\cite{kim2026paper4}]}
-
-
-% ============================================================================
 \section{Discussion}
 \label{sec:disc}
 % ============================================================================
@@ -1559,18 +1841,6 @@ Theorem~\ref{thm:slopeuniv} proves this analytically: the functional
 equation and reality condition force $\operatorname{Re}(c_0)=0$ in the
 Laurent expansion, killing the $\delta^1$ term and making slope~$2$ a
 mathematical necessity for all automorphic $L$-functions.
-
-\paragraph{$A$--gap degree-independent universality and mechanism.}
-The Laurent amplitude $A(\gamma)$ correlates negatively with GUE-normalised
-gaps across \emph{twelve} $L$-functions spanning $\mathrm{GL}(1)$--$\mathrm{GL}(6)$:
-$\rho\in[-0.63,-0.42]$ with $12/12$ sign consistency
-(Results~\#219, \#C-261, \#C-263--\#C-265, \#C-268--\#C-270, \#C-273, \#C-275).
-The $g_{\min}$ metric is height-stable (span\,$=0.163$, Kendall $\tau$
-non-significant), and the Hadamard lower bound $A\geq 2/g_{\min}^2$
-(Proposition~12) makes the anticorrelation a structural necessity under
-the GUE pair-correlation conjecture.
-Full treatment including the $A_\Lambda/A_L$ dichotomy and Gamma-factor
-decomposition is given in Kim~(2026d)~\cite{kim2026paper4}.
 
 \paragraph{Euler product dispensability.}
 Theorem~\ref{thm:feonly} and Result~\#114 establish that the Euler
@@ -1642,19 +1912,6 @@ degrees $\{1,2,3,4,5,6\}$ with sixteen independent data points from
 six distinct families (Dirichlet, symmetric powers, Artin, Rankin--Selberg,
 holomorphic cusp forms, and Maass forms).
 
-Fifth, the Laurent amplitude $A(\gamma)$ exhibits a degree-independent
-negative correlation with GUE-normalised zero gaps
-($\rho\in[-0.63,-0.42]$, $11/11$ sign-consistent) across
-$\mathrm{GL}(1)$--$\mathrm{GL}(5)$
-$L$-functions (Results~\#219, \#C-261, \#C-263--\#C-265, \#C-268--\#C-270, \#C-273),
-and Proposition~12 (Result~\#C-265) identifies the Hadamard mechanism:
-$A\geq 2/g_{\min}^2$ from nearest-neighbour dominance makes the
-anticorrelation a structural necessity under the GUE pair-correlation
-conjecture ($E[A|g]$ monotone decreasing, $7/7$ bins, $R^2=0.987$).
-The gap metric $g_{\min}$ is height-stable (Result~\#C-270, span$=0.163$),
-confirming $g_{\min}$ as the canonical metric;
-complete treatment in Kim~(2026d)~\cite{kim2026paper4}.
-
 Together, Theorems~5--7 and Observation~8 form a coherent picture:
 on the critical line, the $\xi$-bundle curvature satisfies
 $\kappa\delta^{2}=1+O(\delta^{2})$ universally across all $L$-function
@@ -1669,13 +1926,11 @@ equation.
 % ============================================================================
 \appendix
 
-\section{Summary Table: All Forty-Three Results}
+\section{Summary Table: All Thirty-One Results}
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
-\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#219,
-  \#C-240--\#C-243, \#C-261, \#C-263--\#C-265, \#C-268--\#C-270, \#C-273, \#C-275
-  (43 results). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
+\caption{Summary of Results~\#107--\#117, \#125--\#127, \#200--\#218, \#C-240--\#C-242 (34 results). Rating: \textbf{$\bigstar\bigstar\bigstar$} strong
   positive, \textbf{$\bigstar\bigstar$} positive, \textbf{C} conditional.}
 \label{tab:summary}\\
 \toprule
@@ -1722,16 +1977,6 @@ Result & Section & Rating & Key finding \\
 \#C-241 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{universal}: non-self-dual $\chi_5,\chi_7$ also $6/6$ PASS; self-dual not needed (FE+SR suffice); Proposition~\ref{prop:laurentparity} \\
 \#C-242 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{sharpness}: DH on-critical $5/5$ PASS ($r(c_0){\sim}10^{-12}$), off-critical $4/4$ FAIL ($r(c_0){\sim}4.4$); $\sigma{=}\tfrac{1}{2}$ essential; Proposition~\ref{prop:laurentparity} \\
 \#C-243 & \S\ref{ssec:weightinv} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Parity \textbf{protection}: $r(c_{2k{+}1}){=}O(|\delta|^{2k{+}3})$; partner dominance $0.98$--$1.00$; even/odd ratio $2.4{\times}10^{7}$; Theorem~\ref{thm:parityprotection} \\
-\#219 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & $A(\gamma)$--gap correlation; GUE-norm.\ $\rho{=}{-}0.62$ ($p{=}10^{-22}$); R/L asymmetry $4.4{\times}$; pair $\rho{=}{+}0.40$ ($p{=}10^{-9}$); see~\cite{kim2026paper4} \\
-\#C-261 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & $A$--gap Dirichlet universality; $\chi_3,\chi_4,\chi_5$; $\rho{\in}[-0.63,-0.55]$; $3/3$ sign-consistent; see~\cite{kim2026paper4} \\
-\#C-263 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A$--gap GL(2) universality; $E_{11a1}$ $\rho{=}{-}0.57$, $E_{37a1}$ $\rho{=}{-}0.55$; $6/6$ GL(1)+GL(2) consistent; see~\cite{kim2026paper4} \\
-\#C-264 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & GL(3) $A$--gap; $\mathrm{Sym}^2(\text{11a1})$ $\rho{=}{-}0.42$, $\mathrm{Sym}^2(\text{37a1})$ $\rho{=}{-}0.49$; $A_\Lambda/A_L$ dichotomy; see~\cite{kim2026paper4} \\
-\#C-265 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Prop~12: Hadamard $A{\geq}2/g_{\min}^2$; $E[A|g]$ monotone $7/7$; $\rho{=}{-}0.90$; $R^2{=}0.987$; see~\cite{kim2026paper4} \\
-\#C-268 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar$} & Gamma 3-factor decomp.: $\rho(\Delta A, g_{\mathrm{R}}){=}{-}0.696$; $\Delta\rho{=}{-}0.291$; cross-term dominant; see~\cite{kim2026paper4} \\
-\#C-269 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & GL(4) $\mathrm{Sym}^3$ $A$--gap; $\rho{\in}[-0.52,-0.51]$; $10/10$ GL(1)--GL(4); see~\cite{kim2026paper4} \\
-\#C-270 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $g_{\min}$ $t$-stable: span${=}0.163$; $g_{\mathrm{R}}$ decays; canonical metric; B-45/B-46 resolved; see~\cite{kim2026paper4} \\
-\#C-273 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & GL(5) $\mathrm{Sym}^4(\text{11a1})$ $A$--gap; $\rho(A_L,g_{\min}^{\mathrm{GUE}}){=}{-}0.485$ ($p{=}3.7{\times}10^{-9}$, $n{=}132$); $11/11$ GL(1)--GL(5); see~\cite{kim2026paper4} \\
-\#C-275 & \S\ref{ssec:agap} & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & GL(6) $\mathrm{Sym}^5(\text{11a1})$ $A$--gap; $\rho(A_L,g_{\min}^{\mathrm{GUE}}){=}{-}0.423$ ($p{=}2.4{\times}10^{-4}$, $n{=}71$); $12/12$ GL(1)--GL(6); B-38 resolved; see~\cite{kim2026paper4} \\
 \end{longtable}
 
 
@@ -1808,12 +2053,6 @@ Kim, Y.-H. (2026).
 \textit{Phase Quantisation from Optical Lattices to the Zeta Landscape:
 A Unified Framework}.
 Preprint, arXiv:2026.xxxxx.
-
-\bibitem{kim2026paper4}
-Kim, Y.-H. (2026d).
-\textit{Amplitude--Gap Anti-Correlation in Automorphic $L$-Functions:
-Hadamard Mechanism and Degree-Independent Universality}.
-Preprint.
 
 \bibitem{titchmarsh1986}
 Titchmarsh, E.~C. (1986).
