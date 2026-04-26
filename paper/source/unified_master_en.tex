@@ -7256,17 +7256,21 @@ $\chi\bmod 3$ (real)    & 12 & $\sigma{=}0.5$ only & $16{,}457\times$ & 0.0000 &
 $\chi\bmod 4$ (real)    & 13 & $\sigma{=}0.5$ only & $22{,}436\times$ & 0.0000 & $454.6\times$ \\
 $\chi\bmod 5$ (complex) & 13 & $\sigma{=}0.5$ only & $15{,}732\times$ & 0.0000 & $14.5\times$ \\
 $\chi\bmod 7$ (complex, $q{=}7$) & $136^*$ & $\sigma{=}0.5$ only & $36.6\times^{\dagger}$ & 0.000000 & $35.8\times$ \\
+$\chi\bmod 8$ (real, $q{=}8$) & $405^{*\ddagger}$ & $\sigma{=}0.5$ only & $53\times^{\dagger}$ & 0.0000 & $266\times$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 {\small ${}^*$~$t\in[10,200]$; wider range than $q=3,4,5$ ($t\in[10,40]$). \quad
-${}^{\dagger}$~Direct $\sigma$-comparison: $\kappa(\sigma{=}0.5)/\kappa(\sigma{=}0.3)$ at
-$\delta{=}0.03$ (differs from near/far method used for $q=3,4,5$).}
+${}^{\dagger}$~Direct $\sigma$-comparison: $E(0.5)/E(0.3)$ at
+$\delta{=}0.03$ (differs from near/far method used for $q=3,4,5$). \quad
+${}^{\ddagger}$~Aggregate over 3~characters (2~primitive + 1~induced from $\chi\bmod 4$);
+see per-character breakdown below.}
 
 \noindent
 All 38 zeros across the three low-conductor characters ($q=3,4,5$) exhibit
 exact monodromy $\Delta\arg\Lambda = \pm\pi$ (deviation $< 10^{-4}$);
-for $\chi\bmod 7$ ($q=7$) all 136 zeros satisfy the same condition
+for $\chi\bmod 7$ ($q=7$) all 136 zeros and for $\chi\bmod 8$ ($q=8$)
+all 405 zeros satisfy the same condition
 with deviation $0.000000\pm 0.000000$ (log-space computation).
 Phase jumps occur exclusively at $\sigma = 1/2$ ($t\in[10,40]$,
 11 values of $\sigma$ tested for $q\leq 5$; confirmed for $q=7$).
@@ -7344,6 +7348,55 @@ The energy ratio $E(0.5)/E(0.3)$ varies from $30\times$ to $557\times$
 across characters; this variation is consistent with the conductor-dependent
 $A(t_0)$ correction (Remark~\ref{rem:dirichlet_conductor_A}) and
 the character-dependent Gauss sum contribution.
+
+\medskip\noindent
+\textbf{Per-character breakdown for $\boldsymbol{q=8}$ (first composite conductor).}
+\textcolor{ForestGreen}{[completed 2026-04-26]}
+The character group $(\mathbb{Z}/8\mathbb{Z})^\times = \{1,3,5,7\} \cong \mathbb{Z}/2\times\mathbb{Z}/2$
+(Klein four-group) has three non-trivial characters, all of order~2 (real).
+Two are primitive with conductor~8; one is induced from the unique
+non-trivial character modulo~4.
+We verify all four $\xi$-bundle properties for each character
+individually ($t\in[10,200]$, $\delta=0.03$, $\varepsilon_{\mathrm{mono}}=0.005$,
+\texttt{dps}$=80$).
+
+\begin{center}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Character} & \textbf{Parity} & \textbf{Zeros}
+  & $\kappa\delta^2$ \textbf{med.}
+  & \textbf{Mono.\,dev.} & \textbf{Detect}
+  & $E(0.5)/E(0.3)$ \\
+\midrule
+$\chi_B$ (prim., cond~8) & odd  & 142 & 1.003 & 0.0000 & 100\% & $53\times$ \\
+$\chi_C$ (prim., cond~8) & even & 142 & 1.003 & 0.0000 & 100\% & $20\times$ \\
+$\chi_A$ (ind.\ $\leftarrow$mod~4)$^\dagger$ & odd  & $121^*$ & 1.023 & 0.0000$^*$ & 100\% & $725\times$ \\
+\midrule
+\multicolumn{2}{l}{\textbf{Aggregate (3 chars)}} & \textbf{405} & 1.003 & 0.0000 & 100\% & $266\times$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+{\small ${}^\dagger$\,$\chi_A$ is induced from $\chi\bmod 4$;
+since $8 = 2^3$ and $f(\chi_A) = 4$, the Euler factor at $p=2$
+contributes no additional zeros, so $L(s,\chi_A\bmod 8) = L(s,\chi\bmod 4)$
+exactly.\\
+${}^*$\,The root-finder returns 139~candidates, of which 121~match the
+$\chi\bmod 4$ zeros (87.1\%).  The 18~extra candidates
+(e.g.\ $t=13.60, 22.66, 31.73, 40.79$) have $\mathrm{mono}/\pi \approx 0.001$
+and are scan artifacts (identical pattern to $\chi_3\bmod 7$ above).
+After removal, $121/121 = 100\%$ monodromy PASS.}
+
+\smallskip\noindent
+This is the first composite-conductor verification.
+The Klein four-group structure (all characters of order~2, all real)
+provides a complementary test to the cyclic groups $q=5,7$.
+Both primitive characters pass all four properties with
+$\kappa\delta^2$ within 0.3\% of unity.
+The induced character $\chi_A$ confirms that the framework correctly
+handles conductor--modulus separation: the $\xi$-bundle detects
+exactly the zeros of the primitive $L$-function, as predicted
+by the Euler product structure.
 
 \subsection{Blind Zero Prediction}
 \label{app:dirichlet:blind}

@@ -57,6 +57,7 @@
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_blind_prediction.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_bundle_verification.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_chi7_c324.txt
+/home/k0who029/Desktop/gdl_unified/results/dirichlet_chi8_c326.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_cross_comparison.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_high_conductor.txt
 /home/k0who029/Desktop/gdl_unified/results/dirichlet_kappa_75.txt
@@ -303,6 +304,7 @@ results/dirichlet_blind_mod7_57.txt
 results/dirichlet_blind_prediction.txt
 results/dirichlet_bundle_verification.txt
 results/dirichlet_chi7_c324.txt
+results/dirichlet_chi8_c326.txt
 results/dirichlet_cross_comparison.txt
 results/dirichlet_high_conductor.txt
 results/dirichlet_kappa_75.txt
@@ -490,4 +492,3 @@ results/zeta_Abare_gap_c278.txt
 results/zeta_conj_fix_c282.txt
 results/zeta_tband_agap_c290c.txt
 results/zeta_tband_agap_c290.txt
-/home/k0who029/Desktop/gdl_unified/results/dirichlet_chi8_c326.txt
