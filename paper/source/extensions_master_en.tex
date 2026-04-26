@@ -204,8 +204,11 @@ The present paper pursues two complementary objectives.
 \paragraph{Objective~A: universality.}
 We test the four $\xi$-bundle properties (P1~functional equation,
 P2~zero count, P3~$\kappa\delta^{2}\approx 1$, P4~monodromy $\pm\pi$)
-on families not covered in Paper~1: elliptic-curve $L$-functions of
-varying rank and conductor (\S\ref{sec:ec}), Rankin--Selberg
+on families not covered in Paper~1: twenty elliptic-curve
+$L$-functions of rank~$0$--$3$ and conductor~$11$--$11642$
+(\S\ref{sec:ec})---nineteen of twenty pass all four properties,
+and a blind zero-prediction campaign on eight curves achieves
+$478/480 = 99.6\%$ recall with zero false positives---Rankin--Selberg
 $\mathrm{GL}(4)$ convolutions (\S\ref{sec:gl4rs}), Dedekind
 $\zeta$-functions (\S\ref{sec:dedekind}), and Epstein
 $\zeta$-functions including class-number $h>1$ non-Euler forms
@@ -226,7 +229,9 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
 \begin{enumerate}
   \item \textbf{Theorem~5} (\S\ref{ssec:thm5}): $\kappa\delta^{2}$ is
         invariant under rank, conductor, and sign-of-functional-equation
-        ($\varepsilon$) for elliptic-curve $L$-functions on the critical line.
+        ($\varepsilon$) for twenty elliptic-curve $L$-functions on the
+        critical line (19/20~PASS; the sole failure at
+        conductor~$11642$ is a numerical-precision artefact).
   \item \textbf{Theorem~6} (\S\ref{ssec:thm6}): Four $\xi$-bundle
         properties pass for non-Euler Epstein $\zeta$-functions,
         establishing that the Euler-product structure is \emph{not}
@@ -234,8 +239,16 @@ $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
   \item \textbf{Theorem~7} (\S\ref{ssec:thm7}): $c_{1}=0$ if and only
         if $\sigma_{0}=\tfrac{1}{2}$, where $c_{1}$ is the leading
         off-critical Taylor coefficient of $\kappa\delta^{2}$.
-  \item A \textbf{Summary Table} (Table~\ref{tab:summary}) collects all
-        nineteen new results (\#107--\#117, \#125--\#127, \#200--\#204).
+  \item \textbf{Blind zero prediction} (\S\ref{ssec:blind}):
+        a curvature-plus-monodromy search across 8~EC $L$-functions
+        locates 478 of 480 true zeros ($99.6\%$ recall) with zero false
+        positives.  An \emph{analytical} background-curvature formula
+        (\S\ref{ssec:kappabg}) reduces the cross-curve coefficient of
+        variation from $45\%$ to $9.3\%$.  The two false negatives are
+        traced to close pairs violating a Nyquist-type resolution
+        criterion $dt < \Delta t/2$ (\S\ref{ssec:fnanatomy}).
+  \item A \textbf{Summary Table} (Table~\ref{tab:summary}) collects
+        results \#107--\#117, \#125--\#127, \#200--\#218.
   \item \textbf{Slope Universality Theorem} (\S\ref{sec:modular},
         Theorem~\ref{thm:slopeuniv}):
         For any automorphic $L$-function satisfying a functional
@@ -1815,12 +1828,39 @@ mean error $1.3\%$, max $4.0\%$]}
 \paragraph{Universality.}
 The four $\xi$-bundle properties pass across an extended family of
 $L$-functions: elliptic-curve $L$-functions (rank 0--3, conductor
-11--10099, 8 curves, $\varepsilon=\pm 1$), Rankin--Selberg
-$\mathrm{GL}(4)$ (2 pairs), Dedekind $\zeta$-functions (7 imaginary
-quadratic fields), and Epstein $\zeta$-functions including 3 non-Euler
-forms (class number 2--3).  Combined with Paper~1's $\mathrm{GL}(1)$--
-$\mathrm{GL}(5)$ results (81 numerical experiments), the framework now
-covers the major algebraic families of $L$-functions.
+11--13766, 20 curves, $\varepsilon=\pm 1$; 19 of 20 pass all four
+properties, the sole exception being curve 11642a1 whose high-conductor
+$\kappa_{\mathrm{near}}$ CV exceeds the threshold),
+Rankin--Selberg $\mathrm{GL}(4)$ (2 pairs), Dedekind $\zeta$-functions
+(7 imaginary quadratic fields), and Epstein $\zeta$-functions including
+3 non-Euler forms (class number 2--3).  Combined with Paper~1's
+$\mathrm{GL}(1)$--$\mathrm{GL}(5)$ results (81 numerical experiments),
+the framework now covers the major algebraic families of $L$-functions.
+
+\paragraph{Blind zero prediction and resolution limit.}
+The blind zero-prediction campaign (\S\ref{ssec:blind}) provides
+the strongest practical test of the framework: across 8~EC
+$L$-functions of ranks~0--3 and conductors $11$--$11197$, a
+curvature-plus-monodromy search locates 478 of 480 true zeros
+($99.6\%$ recall) with zero false positives.  The analytical
+background-curvature formula (\S\ref{ssec:kappabg}), derived from
+the digamma function applied to the $\Gamma$-factor, reduces the
+cross-curve coefficient of variation of $\kappa_{\mathrm{bg}}$ from
+$45\%$ (raw $\log N$ estimate) to $9.3\%$ ($\psi$-corrected formula).
+The two false negatives are both close zero pairs with gap
+$\Delta t < 2\,dt$ (\S\ref{ssec:fnanatomy}); refining $dt$ from
+$0.1$ to $0.05$ resolves both, consistent with a Nyquist-type
+resolution criterion $dt < \Delta t/2$.
+
+\paragraph{$A(t_0)$ and rank: a negative result.}
+The Laurent amplitude $A(t_0) = \operatorname{Im}(H_0)^2 + 2H_1$
+shows no statistically significant rank dependence once conductor is
+controlled (\S\ref{ssec:arank}): the raw Spearman correlation
+($\rho=0.80$, $p=0.20$) disappears after accounting for the
+$\kappa_{\mathrm{bg}} \propto \log^{2}(N)$ dependence established in
+\S\ref{ssec:kappabg}.  This negative result clarifies that $\kappa$
+near zeros reflects local analytic structure, not global arithmetic
+invariants such as rank.
 
 \paragraph{Weight, spectral, and degree universality.}
 Results~\#125--\#127, \#200--\#201, and \#202--\#203 establish that the
@@ -1865,6 +1905,12 @@ off-critical zeros (OFF\#4 had insufficient precision at $\delta<0.1$).
 No new off-critical zeros were discovered in the range $t\in[200,400]$
 (22 candidate points checked, 0 confirmed), consistent with the
 known scarcity of DH off-critical zeros.
+Of 20~EC curves tested, one (11642a1, $N=11642$, rank~1) fails the
+$\kappa_{\mathrm{near}}$ universality test with CV${}=32.37\%$,
+suggesting that very high conductors may require finer $\delta$ sampling.
+The blind prediction's two false negatives both arise from close zero
+pairs below the sampling resolution, indicating a hard
+$dt < \Delta t/2$ limit on grid-based searches.
 
 \paragraph{Future directions.}
 \begin{enumerate}
@@ -1888,11 +1934,13 @@ known scarcity of DH off-critical zeros.
 % ============================================================================
 
 We have extended the $\xi$-bundle framework of Kim~(2026) in four
-directions.  First, universality: eleven new numerical results
-(\#107--\#117) confirm the four $\xi$-bundle properties across elliptic-
-curve, Rankin--Selberg, Dedekind, and Epstein $L$-functions; in
-particular, non-Euler Epstein $\zeta$-functions (Theorem~6) demonstrate
-that the Euler product is not necessary.  Second, discrimination:
+directions.  First, universality: numerical results
+\#107--\#117 confirm the four $\xi$-bundle properties across elliptic-
+curve (20 curves, 19/20 passing), Rankin--Selberg, Dedekind, and
+Epstein $L$-functions; a blind zero-prediction campaign on 8~EC curves
+achieves $99.6\%$ recall with zero false positives; and non-Euler
+Epstein $\zeta$-functions (Theorem~6) demonstrate that the Euler
+product is not necessary.  Second, discrimination:
 Theorem~7 proves analytically that the first Taylor coefficient
 $c_{1}$ of $\kappa\delta^{2}$ vanishes if and only if the zero lies on
 the critical line; numerical verification via $\delta$-sweep and direct

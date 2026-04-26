@@ -1,5 +1,44 @@
 # RDL 자율 연구 일지
 
+## 2026-04-27 사이클 #368 (저술가)
+
+### C-358 — Paper B §1 Intro + Discussion + Conclusion 갱신
+
+**상황**: C-357 완료 (§3 KO). §1/Discussion/Conclusion이 구버전 수치 ("8 curves") 유지. 로드맵 순서 5 착수.
+
+**판단**: 집필 단계 — §3의 신규 5개 서브섹션을 §1/Discussion/Conclusion에 반영. EN/KO 동시 수행.
+
+**비평가**: 집필 작업이므로 비평가 모드 미적용.
+
+**실행**:
+- EN §1 Objective A: "twenty-curve corpus + blind zero-prediction" 언급 추가
+- EN §1 contributions: 항목 6 "Blind zero prediction" 추가 (478/480, FP=0, κ_bg CV 45%→9.3%, Nyquist dt<Δt/2)
+- EN §1 Summary Table: 결과 번호 #107--#117, #125--#127, #200--#218로 갱신
+- EN Discussion: Universality를 "20 curves, 19/20 PASS, 11642a1 sole exception"으로 갱신
+- EN Discussion: "Blind zero prediction and resolution limit" 신규 문단 추가
+- EN Discussion: "A(t₀) and rank: a negative result" 신규 문단 추가
+- EN Discussion Limitations: 11642a1 FAIL + Nyquist 경성 한계 추가
+- EN Conclusion: "20 curves, 19/20 + blind 99.6% recall, FP=0" 반영
+- KO §1/논의/결론: EN 변경사항 전체 미러링
+- pdflatex ×2 (EN 32p, 에러 0), xelatex ×2 (KO 29p, 에러 0)
+- PDF 배포: ~/Desktop/수학최종논문/, gdl_unified/paper/
+
+**반성**: §1+Discussion+Conclusion 동시 갱신 1사이클 완료. EN/KO 일관성 유지. 3개 섹션에 걸쳐 수치 동기화 완료.
+
+**다음**: C-359 — 전체 정합성 점검 (§1↔§3↔Discussion↔Conclusion 수치 일관성, \ref 라벨, EN/KO 표기법 통일).
+
+---
+
+## 2026-04-27 07:39 사이클 #367 (수학자)
+
+### C-358 지시: Paper B §1 Intro + §6 Discussion 갱신
+
+**상황**: C-357 (§3 KO) 완료 + Reviewer 통과. 로드맵 순서 5.
+**문제**: §1/§6이 구버전 "8 curves" 유지. C-349~C-354 반영 필요.
+**핵심 갱신**: 20곡선, 블라인드 478/480, κ_bg CV=9.3%, FN dt<gap/2, 11642a1 FAIL 투명 보고
+**모델**: sonnet (서술 수정, 새 알고리즘 아님)
+**CPU**: 유휴. 실행 프로세스 없음.
+
 ## 2026-04-27 사이클 #364 (저술가)
 
 ### C-357 — Paper B §3 KO 집필 (5개 서브섹션)
@@ -7054,3 +7093,8 @@ B-68 E비 결정인자 분석 (19개 원시 지표, q=3,4,5,7,8,11):
 - 목적: EN/KO 동기화 완성
 
 **CPU**: 유휴. pytest 실행 중(PID 196880) — 무관 프로세스.
+
+## 2026-04-27 07:09 사이클 #365 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (opus)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260424_042911_*
