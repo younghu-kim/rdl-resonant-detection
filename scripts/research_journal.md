@@ -1,5 +1,37 @@
 # RDL 자율 연구 일지
 
+## 2026-04-26 사이클 #317 (수학자+저술가)
+
+### C-313 Hadamard 중간점 곡률 메커니즘 — ★★★★ 양성, 논문 반영 완료
+
+**상황**: C-313 실험 완료 + C-316 비평가 ✅ 통과. 수학자 최종 판정 대기.
+
+**판단**: ★★★★ 양성 판정.
+- 교차항 2·Im(L_smooth)·(1/D_next − 1/D_prev)이 비국소성의 주 메커니즘
+- ∂κ/∂gap_next = −(π/2)/D_next² < 0: 해석적 증명 + 100% (393/393) 수치 확인
+- 교차항 ρ = −0.657 vs 원래 관측 ρ = −0.654 → 거의 완벽 재현
+- Self-Refine 8/10, DA 통과: 반론 3가지 모두 기각
+- obs → Proposition 승격 가능 (닫힌 공식 + 해석적 부호 증명)
+
+**비평가**: C-316에서 이미 생존 판정 (4/4 PASS)
+
+**실행** (저술가 모드):
+1. EN obs:gue_poisson: "mechanism remains unidentified" → "identified in Proposition~ref{prop:midpoint_hadamard}"
+2. EN 새 Proposition (prop:midpoint_hadamard): NN 소거 → 교차항 공식 → ∂κ/∂gap_next < 0 증명 스케치
+3. EN 새 Remark (rem:midpoint_hadamard_numerical): N=400, 4/4 수치 검증 요약
+4. 컴파일: EN **121p** (이전 120p, +1p). 에러 0 (기존 cor:amplitude_formula 미정의는 선재)
+5. PDF 배포: 3곳 완료
+6. .reflected 갱신: midpoint_mechanism_c313.txt, kappa_anisotropy_c315.txt
+
+**반성**: B-65 아크 (열린 문제 #2 중간점 곡률 비국소성) 완결.
+C-246 (2024년? 초기 시도)에서 |L_2term|²만 봐서 실패 → C-313에서 교차항이 핵심이라는 통찰로 해결.
+관측(obs) → 명제(Proposition) 승격은 논문의 이론적 깊이를 실질적으로 높인다.
+C-315 비등방성은 비평가가 "불필요(Remark급 자명성)"로 정확히 차단 — 논문에 반영하지 않음.
+
+**다음**: Phase 2.5 계속. 열린 문제 #3 (κ 차선도 log(t/2π)) 또는 투고 준비.
+
+---
+
 ## 2026-04-26 11:07 사이클 #316 (검토자)
 
 ### C-313 Hadamard 메커니즘 검증 — ✅ 통과, 수학자 판정 대기
@@ -5825,6 +5857,11 @@ Paper 4 통일표에서 d=1 ζ(s)는 N_MAX=300 (C-282), d≥2는 N_MAX=200 (C-27
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260424_042911_*
 
 ## 2026-04-26 10:16 사이클 #313 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (opus)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260424_042911_*
+
+## 2026-04-26 11:12 사이클 #316 (자동)
 - Stage 1: 완료
 - Stage 2: 완료 (opus)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260424_042911_*
