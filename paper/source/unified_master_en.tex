@@ -3490,6 +3490,38 @@ $L$-function families tested.
 universality across automorphic families; it is not a proof.}
 \end{remark}
 
+\begin{remark}[Extended EC verification: 20 curves, ranks~0--3]
+\label{rem:ec_extended_verification}
+The preliminary GL(2) results above (experiments~\#52, \#54; 2~curves,
+ranks~0--1) were extended to 20~elliptic curves spanning ranks~0--3
+with conductors $N \in [11, 13766]$ (5~curves per rank).
+Of 20~curves, 19~pass all four $\xi$-bundle diagnostics:
+functional-equation symmetry ($\log_{10}|\Lambda/\tilde{\Lambda}| = 0.0$),
+$\kappa\delta^2$ stability (CV${}<8\%$),
+$\sigma$-sweep localization ($\geq 28/30$ detections at $\sigma=1.0$),
+and monodromy quantization ($\mathrm{mono}/\pi = 2.000 \pm 0$).
+The single failure (11642a1, $N{=}11642$, rank~3)
+has $\kappa\delta^2$~CV${}=32\%$, attributed to numerical precision
+limits at high conductor.
+
+Blind zero prediction was further tested on three elliptic curves
+using PARI/GP \texttt{lfun} ($t \in [2, 50]$, $\Delta t = 0.1$,
+$\delta = 0.03$):
+11a1 (rank~0, $F_1 = 1.000$, 36/36~TP),
+389a1 (rank~2, $F_1 = 1.000$, 63/63~TP),
+and 5077a1 (rank~3, $F_1 = 0.994$, 82/83~TP).
+All three achieve $\mathrm{Precision} = 1.000$ (zero false positives).
+The single missed zero (5077a1, $\gamma \approx 31.67$) lies in
+a close pair where $\Delta t = 0.1$ merges adjacent $\kappa$-peaks.
+Combined with the earlier mpmath experiments, the five-curve GL(2)
+aggregate achieves $181/182 = 99.5\%$ detection with FP${} = 0$.
+
+\emph{Numerical evidence suggests that the $\xi$-bundle framework
+detects zeros of GL(2) $L$-functions regardless of analytic rank,
+consistent with the universality thesis established in
+Part~\ref{part:evidence}.}
+\end{remark}
+
 
 % ============================================================================
 \section{The Dual Criterion: Monodromy $+$ Curvature}

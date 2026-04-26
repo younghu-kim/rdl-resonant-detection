@@ -263,6 +263,7 @@ results/artin_s5_kd2_209.txt
 results/A_scaling_law_212.txt
 results/attenuation_mechanism_c282.txt
 results/B42_partial_correlation_c258.txt
+results/b68_eratio_determinant_c344.txt
 results/basis_bandwidth_scaling.txt
 results/blind_topology_c300.txt
 results/blind_topology_c301.txt
@@ -303,7 +304,9 @@ results/dirichlet_A_gap_chi5_c262.txt
 results/dirichlet_blind_mod7_57.txt
 results/dirichlet_blind_prediction.txt
 results/dirichlet_bundle_verification.txt
+results/dirichlet_chi11_c328.txt
 results/dirichlet_chi7_c324.txt
+results/dirichlet_chi7_c345.txt
 results/dirichlet_chi8_c326.txt
 results/dirichlet_cross_comparison.txt
 results/dirichlet_high_conductor.txt
@@ -315,9 +318,13 @@ results/dirichlet_mod7_40b.txt
 results/dirichlet_mod7_verification.txt
 results/dirichlet_offcritical_anatomy.txt
 results/dirichlet_sigma_profile_c302.txt
+results/ec_20curves_c349.txt
+results/ec_blind_prediction_c351.txt
+results/ec_blind_prediction_c352.txt
 results/ec_kappa_conductor_111.txt
 results/ec_kappa_near_109.txt
 results/ec_monodromy_110.txt
+results/ec_rank_A_c349.txt
 results/elliptic_A_gap_c263.txt
 results/elliptic_curve_11a1.txt
 results/elliptic_curve_37a1.txt
@@ -492,10 +499,3 @@ results/zeta_Abare_gap_c278.txt
 results/zeta_conj_fix_c282.txt
 results/zeta_tband_agap_c290c.txt
 results/zeta_tband_agap_c290.txt
-results/dirichlet_chi11_c328.txt
-results/b68_eratio_determinant_c344.txt
-results/dirichlet_chi11_c328.txt
-results/dirichlet_chi7_c345.txt
-results/ec_20curves_c349.txt
-results/ec_rank_A_c349.txt
-results/ec_blind_prediction_c351.txt
