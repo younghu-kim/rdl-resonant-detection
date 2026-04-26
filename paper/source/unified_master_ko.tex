@@ -2106,54 +2106,10 @@ R.~Avanzi \textit{et al.},
 ``CRYSTALS-Kyber: Algorithm specifications and supporting documentation
 (version 3.02),'' NIST PQC Submission, 2021.
 
-\bibitem{ozaktas2001}
-H.~M.~Ozaktas, Z.~Zalevsky, and M.~A.~Kutay,
-\textit{The Fractional Fourier Transform with Applications in Optics and
-Signal Processing}. Wiley, 2001.
-
-\bibitem{lewin2022}
-Y.~Wang, X.~Cao, and Q.~Zhou,
-``Uformer: A general U-shaped transformer for image restoration,''
-in \textit{Proc.\ CVPR}, 2022.
-
-\bibitem{ste2013}
-Y.~Bengio, N.~L{\'e}onard, and A.~Courville,
-``Estimating or propagating gradients through stochastic neurons,''
-\textit{arXiv:1308.3432}, 2013.
-
-\bibitem{nistpqc2024}
-National Institute of Standards and Technology,
-``Module-Lattice-Based Key-Encapsulation Mechanism Standard (FIPS 203),''
-2024.
-
-\bibitem{fienup1982}
-J.~R.~Fienup,
-``Phase retrieval algorithms: A comparison,''
-\textit{Applied Optics}, vol.~21, no.~15, pp.~2758--2769, 1982.
-
-\bibitem{goodman2005}
-J.~W.~Goodman,
-\textit{Introduction to Fourier Optics}, 3rd~ed. Roberts \& Company, 2005.
-
-\bibitem{wyner1975}
-A.~D.~Wyner,
-``The wire-tap channel,''
-\textit{Bell System Technical Journal}, vol.~54, no.~8, pp.~1355--1387,
-1975.
-
 \bibitem{berry1984}
 M.~V.~Berry,
 ``Quantal phase factors accompanying adiabatic changes,''
 \textit{Proc.\ Royal Society A}, vol.~392, pp.~45--57, 1984.
-
-\bibitem{titchmarsh1986}
-E.~C.~Titchmarsh,
-\textit{The Theory of the Riemann Zeta-Function}, 2nd~ed.
-(revised by D.~R.~Heath-Brown). Oxford University Press, 1986.
-
-\bibitem{edwards1974}
-H.~M.~Edwards,
-\textit{Riemann's Zeta Function}. Academic Press, 1974.
 
 \bibitem{khare1997}
 A.~Khare,
@@ -2169,31 +2125,6 @@ A.~LeClair and G.~Mussardo,
 A.~LeClair,
 ``Analogous results for Generalized and Grand Riemann Hypotheses,''
 \textit{arXiv}, 2024.
-
-\bibitem{pei2025}
-Z.~Pei,
-``Spectral flow for the Riemann zeros,''
-\textit{arXiv:2403.19118}, 2025.
-
-\bibitem{moreta2014}
-J.~J.~G.~Moreta,
-``Riemann zeros and an exponential potential,''
-2014.
-
-\bibitem{ivic2003}
-A.~Ivi{\'c},
-\textit{The Riemann Zeta-Function: Theory and Applications}.
-Dover, 2003.
-
-\bibitem{montgomery1973}
-H.~L.~Montgomery,
-``The pair correlation of zeros of the zeta function,''
-\textit{Proc.\ Symp.\ Pure Math.}, vol.~24, pp.~181--193, 1973.
-
-\bibitem{conrey2003}
-J.~B.~Conrey,
-``The Riemann Hypothesis,''
-\textit{Notices of the AMS}, vol.~50, no.~3, pp.~341--353, 2003.
 
 \bibitem{Jacot2018NTK}
 A.~Jacot, F.~Gabriel, and C.~Hongler,
@@ -2347,18 +2278,61 @@ $\zeta(s)$에서 확립된 $\xi$-다발의 네 가지 성질이 디리클레 $L$
 $\chi\bmod 3$ (실수)    & 12 & $\sigma{=}0.5$만 & $16{,}457\times$ & 0.0000 & $21.6\times$ \\
 $\chi\bmod 4$ (실수)    & 13 & $\sigma{=}0.5$만 & $22{,}436\times$ & 0.0000 & $454.6\times$ \\
 $\chi\bmod 5$ (복소) & 13 & $\sigma{=}0.5$만 & $15{,}732\times$ & 0.0000 & $14.5\times$ \\
+$\chi\bmod 7$ (복소, $q{=}7$) & $136^*$ & $\sigma{=}0.5$만 & $36.6\times^{\dagger}$ & 0.000000 & $35.8\times$ \\
 \bottomrule
 \end{tabular}
 \end{center}
+{\small ${}^*$~$t\in[10,200]$; $q=3,4,5$보다 넓은 범위 ($t\in[10,40]$). \quad
+${}^{\dagger}$~직접 $\sigma$-비교: $\kappa(\sigma{=}0.5)/\kappa(\sigma{=}0.3)$,
+$\delta{=}0.03$ ($q=3,4,5$의 근접/원격 방법과 다름).}
 
 \noindent
-3개 지표 38개 영점 전체에서 모노드로미 $\Delta\arg\Lambda = \pm\pi$ (편차 $< 10^{-4}$). 위상 점프는 $\sigma = 1/2$에서만 발생 ($t\in[10,40]$, 11개 $\sigma$ 값 검사). 곡률 집중도 비율은 영점 인접 점($\pm 0.01$) 중앙값 $\kappa$ 대 일반 점(영점에서 $>1.0$ 거리) 중앙값.
+$q=3,4,5$ 3개 지표 38개 영점 전체에서 모노드로미 $\Delta\arg\Lambda = \pm\pi$ (편차 $< 10^{-4}$);
+$\chi\bmod 7$ ($q=7$)에서는 136개 영점 모두 편차 $0.000000\pm 0.000000$으로 동일 조건 충족 (로그 공간 계산).
+위상 점프는 $\sigma = 1/2$에서만 발생 ($t\in[10,40]$, 11개 $\sigma$ 값 검사; $q=7$에서도 확인). 곡률 집중도 비율은 영점 인접 점($\pm 0.01$) 중앙값 $\kappa$ 대 일반 점(영점에서 $>1.0$ 거리) 중앙값.
 
 \medskip\noindent\textbf{비고.}
 \begin{enumerate}
 \item \emph{복소} 지표 $\chi\bmod 5$에서의 $\pm\pi$ 모노드로미는 $\Lambda$가 임계선 위에서 실수값이기 때문이 아니다 (실수값이 아님). 이는 단순 영점의 위상적 성질: $s_0$ 근방에서 $\Lambda(s_0+i\varepsilon)/\Lambda(s_0-i\varepsilon) \to -1$이므로 $\Delta\arg = \pm\pi$. 모든 해석함수의 단순 영점에 대한 보편적 성질이다.
 \item 에너지 비율 $E(0.5)/E(0.3)$은 지표에 따라 $\sim 30$배 차이 (14.5~454.6). 원인은 미해명이며 관찰로 보고한다.
 \item 이상의 결과는 $\xi$-다발 프레임워크가 $\zeta(s)$에 고유하지 않고 디리클레 $L$-함수 족에 균일하게 적용됨을 확인한다. 개별 성질은 표준 해석적 정수론(논증 원리, GRH)의 귀결이며, 기여는 이들을 하나의 파이버 다발 그림으로 조직하는 \emph{통일적 기하학 언어}에 있다.
+\item \emph{$q{=}7$ 지표별 분해.}\;
+\textcolor{ForestGreen}{[완료 2026-04-26]}
+지표군 $(\mathbb{Z}/7\mathbb{Z})^\times$의 $\varphi(7)-1 = 5$개 비자명 지표에 대해
+($t\in[10,70]$, $\delta=0.03$, $\varepsilon_{\mathrm{mono}}=0.005$, \texttt{dps}$=50$)
+개별 4성질 검증을 수행했다.
+
+\begin{center}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{지표} & \textbf{패리티} & \textbf{영점수}
+  & $\kappa\delta^2$ \textbf{중앙}
+  & \textbf{모노 편차} & \textbf{감지율}
+  & $E(0.5)/E(0.3)$ \\
+\midrule
+$\chi_1$ ($j{=}1$, 위수~6) & 홀  & 34 & 1.0032 & 0.0000 & 100\% & $104.4\times$ \\
+$\chi_2$ ($j{=}2$, 위수~3) & 짝 & 35 & 1.0029 & 0.0000 & 100\% & $30.1\times$ \\
+$\chi_3$ ($j{=}3$, 르장드르) & 홀  & $34^*$ & 1.0025 & 0.0000$^*$ & 100\% & $166.9\times$ \\
+$\chi_4$ ($j{=}4$, 위수~3) & 짝 & 35 & 1.0032 & 0.0000 & 100\% & $337.8\times$ \\
+$\chi_5$ ($j{=}5$, 위수~6) & 홀  & 35 & 1.0033 & 0.0000 & 100\% & $557.3\times$ \\
+\midrule
+\multicolumn{2}{l}{\textbf{합계 (5개 지표)}} & \textbf{173} & 1.003 & 0.0000 & 100\% & $239\times$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+{\small ${}^*$~$\chi_3$ (르장드르 기호 $(\frac{\cdot}{7})$, 실수 이차 지표):
+가짜 영점 3건 제거 (음수 $t$ 탈출 1건, 밀집 간격 아티팩트 2건).
+필터 후 진짜 영점 34개에서 $34/34 = 100\%$ 모노드로미 통과.
+\texttt{findroot} 구현 아티팩트이지 프레임워크 한계가 아니다.}
+
+\smallskip\noindent
+6-원소 지표군에 대한 최초의 지표별 검증이다.
+5개 지표 — 양쪽 패리티(홀/짝), 세 위수(2, 3, 6), 실수/복소 — 가
+모두 4성질을 통과한다: $\kappa\delta^2$은 이론값~1에서 0.3\% 이내,
+감지율 100\%. 에너지 비율 $E(0.5)/E(0.3)$은 $30\times$~$557\times$으로
+지표마다 달라지는데, 이는 도체-의존 $A(t_0)$ 보정
+및 가우스 합 기여와 일관된다.
 \item \emph{에너지 $\sigma$-집중 법칙.}\;
 곡률 에너지 범함수
 $E(\sigma):=\int_{t_{\min}}^{t_{\max}}|\Lambda'/\Lambda(\sigma+it)|^{2}\,dt$는

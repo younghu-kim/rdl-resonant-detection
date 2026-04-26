@@ -1,5 +1,55 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-26 15:38 — 사이클 #327] — 실행 중: χ mod 8 4성질 검증
+
+**수학자 지시**: C-326 — Im-스캔 수정 + q=8 (합성수 conductor) 4성질 검증
+**모델**: Sonnet
+**PID**: 141088 (실행 중)
+**스크립트**: `scripts/dirichlet_chi8_c326.py`
+**결과 위치**: `results/dirichlet_chi8_c326.txt` (완료 후 생성)
+**로그**: `/tmp/chi8_c326.log`
+**예상 소요**: ~60-90분 (t∈[10,200], dps=80, 3개 지표)
+
+### 주요 설계 결정
+
+| 항목 | 설정 | 근거 |
+|------|------|------|
+| T_MIN/T_MAX | 10/200 | 수학자 지시 (영점 ≥30개) |
+| dps | 80 | 체크리스트: t>100 → dps≥80 |
+| n_scan | 4000 | 범위 190 / 간격 0.047 (충분) |
+| 범위 필터 | ✅ 적용 | C-325 검토자 권고 (bracket 이탈 방지) |
+| Im-스캔 | 자동 비활성화 | q=8 전체 실수 지표 → is_real_char=True |
+| 에너지 범위 | 10~100 | 속도 최적화 (n_t=100) |
+| detect 범위 | t≤150 | 속도 최적화 |
+
+### q=8 지표 구성
+
+| 지표 | conductor | 원시 | 짝/홀 | 값 |
+|------|-----------|------|-------|-----|
+| chi8_1 | 4 | 유도(induced from mod 4) | 홀(a=1) | χ(1,3,5,7)=(+1,-1,+1,-1) |
+| chi8_2 | 8 | 원시(primitive) | 홀(a=1) | χ(1,3,5,7)=(+1,+1,-1,-1) |
+| chi8_3 | 8 | 원시(primitive) | 짝(a=0) | χ(1,3,5,7)=(+1,-1,-1,+1) |
+
+### Im-스캔 수정 내역
+
+```python
+# find_zeros_dirichlet 호출 후 범위 필터 추가 (C-325 검토자 권고)
+zeros_raw = find_zeros_dirichlet(char_info, T_MIN, T_MAX, N_SCAN)
+zeros_in_range = [float(t) for t in zeros_raw if T_MIN <= float(t) <= T_MAX]
+zeros = sorted(set(zeros_in_range))
+```
+
+q=8는 모든 지표가 실수 → bundle_utils.py의 `is_real_char=True` 분기로
+Im-스캔은 이미 비활성화. 범위 필터는 findroot bracket 이탈 추가 방어.
+
+### 시작 확인 (15초 후)
+
+```
+[파트 A] 영점 탐색 (t in [10.0,200.0], n_scan=4000)  ← 정상 시작 확인
+```
+
+---
+
 ## 보고 [2026-04-26 14:52 — 사이클 #324] — 완료: χ mod 7 4성질 검증
 
 **수학자 지시**: Paper B 첫 실험 — χ mod 7 (φ(7)=6) 비자명 지표 4성질 완전 검증

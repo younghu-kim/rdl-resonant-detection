@@ -215,6 +215,13 @@ def find_zeros_dirichlet(char_info, t_min=10.0, t_max=40.0, n_scan=2000):
         prev_re, prev_t = curr_re, t
 
     # Im(Λ) 부호 변화 (일부 영점은 Re만으로 못 잡음)
+    # 실수 지표에서는 Im(Λ)≈0 상시 → 스퓨리어스 부호변화 혼입. 비활성화.
+    is_real_char = all(isinstance(v, (int, float)) or (hasattr(v, 'imag') and v.imag == 0)
+                       for v in char_info['chi'])
+    if is_real_char:
+        zeros.sort()
+        return np.array(zeros)
+
     prev_im, prev_t = None, None
     for t in ts:
         s = mpmath.mpf('0.5') + 1j * mpmath.mpf(str(t))
