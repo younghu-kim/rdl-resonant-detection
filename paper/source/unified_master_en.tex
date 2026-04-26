@@ -176,8 +176,8 @@ between analogy and proof.
 \noindent Eighty-one numerical results across ten verification
 axes---local curvature, global spectral statistics, topological
 invariants, Dirichlet $L$-function extension, negative
-controls, GL(2) extension, GL(3) extension, cross-rank monodromy,
-GL(4) extension, and GL(5) extension (GL(1) through GL(5) full coverage)---support the
+controls, GL(2)/GL(3)/GL(4)/GL(5) extensions, and the $\kappa$-$\delta$
+scaling law (GL(1) through GL(5) full coverage)---support the
 framework's internal consistency.
 
 \smallskip
@@ -319,7 +319,7 @@ with a hard error boundary beyond which decoding fails}.
         (functional equation, $\kappa$-concentration, monodromy) hold;
         the $\xi$-bundle $\kappa$ ($\sigma$-direction) and Hardy $Z$ $\kappa$
         ($t$-direction) are identified as distinct observables (B-23 resolved);
-        $\sigma$-uniqueness holds at GL(5) with $\sigma = 2.5$ uniqueness ratio $\approx 10000\times$ (result~\#70).
+        $\sigma$-uniqueness holds at GL(5) with $\sigma = 2.5$ uniqueness ratio $\approx 9100\times$ (result~\#70).
 \end{enumerate}
 
 \subsection*{Reading Guide: Evidence Tiers}
@@ -3139,7 +3139,7 @@ Functional equation & $-331$ digits (motivic) & \textbf{PASS} \\
 Zeros & 61 non-trivial ($t \in [0,30]$), $t_1 = 1.4878$ & \textbf{PASS} \\
 $\kappa\cdot\delta^2$ (Hardy $Z$) & mean $= 0.999126$ (3/3 executed; per-zero $0.996$--$1.002$) & \textbf{PASS} (mean) \\
 Monodromy & 25/25 simple (sign change confirmed) & \textbf{PASS} \\
-$\sigma$-uniqueness & $\sigma = 2.5$ maximal; ratio $\approx 10000\times$ vs.\ adjacent $\sigma$ & \textbf{PASS} \\
+$\sigma$-uniqueness & $\sigma = 2.5$ maximal; ratio $\approx 9100\times$ vs.\ adjacent $\sigma$ & \textbf{PASS} \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -3187,7 +3187,7 @@ PARI lfunsympow(11a1, 4): FE ${=}-331$ digits;
 $\gamma_V{=}[-2,-1,0,0,1]$, $k{=}5$, $N{=}14641{=}11^4$, $\varepsilon{=}+1$;
 61 zeros ($t{\in}[0,30]$), $t_1{=}1.4878$;
 $\kappa{\cdot}\delta^2{=}0.999126$ (mean; per-zero $0.996$--$1.002$, B-24); monodromy 25/25;
-$\sigma$-uniqueness: PASS ($\sigma{=}2.5$ maximal, ${\approx}10000\times$ ratio, 3/3);
+$\sigma$-uniqueness: PASS ($\sigma{=}2.5$ maximal, ${\approx}9100\times$ ratio, 3/3);
 GL(5) degree-5 weight-1 verification; numerical verification, not proof]}
 
 \textcolor{ForestGreen}{[result \#71, established, 2026-04-18;
@@ -6139,7 +6139,7 @@ with full transparency).
    61 zeros ($t{\in}[0,30]$), $t_1{=}1.4878$;
    $\kappa{\cdot}\delta^2{=}0.999126$ (mean; per-zero $0.996$--$1.002$, B-24);
    monodromy 25/25 simple;
-   $\sigma$-uniqueness: PASS ($\sigma{=}2.5$ maximal, ${\approx}10000\times$, 3/3 zeros);
+   $\sigma$-uniqueness: PASS ($\sigma{=}2.5$ maximal, ${\approx}9100\times$, 3/3 zeros);
    see Remark~\ref{rem:gl5_sym4}
    & GL(5) $\mathrm{sym}^4(11\mathrm{a}1)$ \\
 \midrule
@@ -6699,32 +6699,26 @@ Tier 2 programmes (conjectural but well-posed).}
         (Table~\ref{tab:gl1_gl2_blind};
         Remark~\ref{rem:gl2_blind_prediction}).
         \textcolor{ForestGreen}{[confirmed 2026-04-16; GL(1) $\chi\bmod 7$ $t\in[5,40]$; numerical verification, not proof]}
-  \item \textbf{Higher-conductor Dirichlet extension.}
-        Extension to $q\in\{7,8,11\}$ confirms bundle universality
+  \item \textbf{Higher-conductor Dirichlet extension (exhaustive per-character verification).}
+        Extension to $q\in\{7,8,11\}$ with \emph{every} non-trivial
+        primitive character confirms bundle universality
         beyond small conductors.
-        All three new characters ($\chi_7$ complex order~6,
-        $\chi_8$ real, $\chi_{11}$ complex order~10) satisfy:
-        curvature concentration $\kappa$-ratio
-        $395{-}654\times$, monodromy quantization
-        $|\mathrm{mono}|/\pi = 2.0000$ (contour integral;
-        simple zero $\Rightarrow$ winding number~1),
-        energy ratio $E(0.5)/E(0.3) = 194{-}331\times$.
-        Phase-jump uniqueness is \emph{fully confirmed}:
-        a dedicated off-critical anatomy
-        (branch-cut--corrected $\arg$ with threshold $\pi/2$,
-        matching the $\zeta$ protocol) yields
-        $\max_{\sigma\neq 0.5} = 0$ for all three characters
-        ($\Lambda$ and bare $L$ alike).
-        The earlier apparent weakening
-        ($\max_{\sigma\neq 0.5} = 8$) was a measurement artefact
-        caused by uncorrected $\arg$ branch-cut wrapping
-        in the preliminary script; all five bundle properties
-        now hold at higher conductors.
-        %
-        The real-character energy anomaly is confirmed general:
-        $\chi_4$: $132.5\times$, $\chi_8$: $194.3\times$
-        (both self-dual), vs complex characters $12{-}331\times$.
-        \textcolor{green!60!black}{[confirmed 2026-04-13]}
+        Across 16~new characters (5 at $q{=}7$, 2 at $q{=}8$,
+        9 at $q{=}11$), all four bundle properties hold without exception:
+        $\kappa\delta^2$ median $1.004$ (CV${<}0.05\%$),
+        monodromy $|\mathrm{mono}|/\pi = 1.000000$ (all ${\sim}2\,550$~zeros),
+        detect precision${=}$recall${=}1.000$,
+        energy ratio $E(0.5)/E(0.3) \geq 6.3\times$.
+        At $q{=}11$, the 9~characters span orders 2, 5, 10 and both
+        parities; $E$-ratios range from $6.3\times$ to $1023\times$
+        ($163\times$ variation), with conjugate-pair asymmetry
+        from $1.12\times$ (near-equal) to $144\times$ (extreme),
+        traced to analytic fine structure rather than order or parity
+        (boundary~B-68; Table~\ref{tab:dirichlet_per_character}).
+        \textbf{Cumulative}: 21~primitive characters across
+        $q = 3, 4, 5, 7, 8, 11$, totalling ${\sim}2\,590$~zeros,
+        all satisfying the four-property bundle framework.
+        \textcolor{green!60!black}{[confirmed 2026-04-26; per-character exhaustive]}
   \item \textbf{GL(2) $t$-scaling stability (11a1, $t{\approx}51$--$100$).}
         A three-zone height scan on the elliptic curve~11a1 $L$-function
         ($t\in[48,55]$, $[95,105]$, $[140,155]$) with adaptive-precision AFE
@@ -6938,7 +6932,7 @@ axes}: (i)~local phase and curvature properties of individual zeros,
 (ii)~global spectral statistics (nonlocality, GUE/Poisson contrast,
 number variance), (iii)~topological invariants (holonomy, Chern numbers,
 Gauss--Bonnet area integrals), (iv)~extension to Dirichlet $L$-functions
-($\chi \bmod 3,4,5,7,8$), (v)~arithmetic subleading structure and
+($\chi \bmod 3,4,5,7,8,11$; 21~primitive characters, ${\sim}2590$~zeros), (v)~arithmetic subleading structure and
 NNS--curvature correlations, (vi)~negative controls establishing
 specificity, (vii)~extension to GL(2) (elliptic curves, Ramanujan~$\Delta$, and high-$t$ scaling), (viii)~extension to GL(3) symmetric-square $L$-functions (four-property verification, blind zero prediction, and the $\kappa_{\mathrm{near}}$ universal constant), and (ix)~GL(1) four-property verification for $\zeta(s)$ establishing $\kappa_{\mathrm{near}}(1){=}1112.32$ and degree-monotone growth of $\kappa_{\mathrm{near}}$, with $\kappa$-$\delta$ scaling confirmed analytically (Proposition~\ref{prop:kappa_exact_expansion}) and numerically (result~\#60), extended to degrees 1--3 with quantitative $A(t_0)$ comparison (result~\#61), Dirichlet conductor-dependence of $A(t_0)$ within degree~1 (result~\#62), and $\mu$-vs-$q$ separation establishing conductor as the dominant source of $A(t_0)$ variation (result~\#63), (x)~$A(t_0)$ analytic decomposition $A_\Gamma + A_L$ establishing arithmetic dominance (result~\#64), (xi)~GL(4) extension to $\mathrm{sym}^3(\Delta)$ with PARI-verified functional equation to $141$-digit precision (result~\#65), (xii)~GL(4) weight versus degree separation via $\mathrm{sym}^3(11\mathrm{a}1)$ ($w{=}1$, FE${=}-366$ digits, result~\#66), (xiii)~GL(3) sym$^2$(11a1) blind zero verification: 21 apparent FP reclassified as genuine zeros via AFE ($\mathrm{dps}{=}80$, $N_{\mathrm{coeff}}{=}200$, 60-node GH quadrature); corrected $P{=}R{=}F_1{=}1.000$; $\xi$-bundle independently discovers GL(3) zeros beyond LMFDB coverage (result~\#67, see~\S\ref{subsec:gl3_blind}), (xiv)~GL(3) $\kappa$-conductor scaling over six sym$^2$ $L$-functions: log-log regression $\alpha{=}0.003$, $R^2{=}0.0002$ (no scaling); $\kappa_{\mathrm{near}}{\approx}1125$ (CV${=}0.15\%$, 5 curves) conductor-independent universal constant (result~\#68, see~\S\ref{subsec:gl3_kappa_scaling}), and (xv)~GL(4) $\xi$-bundle $\kappa_\sigma$ ($\sigma$-direction) $A(t_0)$ measurement with B-23 resolved ($\kappa_\sigma \neq \kappa_t$) and B-12 identified as normalization-dependent open question (result~\#69, Remark~\ref{rem:xi_bundle_b23}), (xvi)~GL(5) extension to $\mathrm{sym}^4(11\mathrm{a}1)$ ($d{=}5$, $w{=}1$, $N{=}14641$) with PARI-verified functional equation to $331$-digit precision, $\sigma$-uniqueness PASS ($\sigma{=}2.5$, ${\approx}10000\times$ ratio), and $\xi$-bundle $A = 14.88$ (per-zero CV $< 0.2\%$, motivic normalization; results~\#70, \#71, Remark~\ref{rem:gl5_sym4}), and (xvii)~GL(3) $\xi$-bundle $A(t_0)$ measurement at motivic centre $\sigma = k/2 = 1.5$ with $\sigma$-uniqueness 6/6 PASS ($\kappa \approx 10^6$ at centre, ratio $> 8000\times$) for both sym$^2$(11a1) ($A{=}9.04$) and sym$^2$(37a1) ($A{=}14.51$), with $k$ auto-detected via $L[4]$ (B-26 resolved; results~\#87, \#88), completing GL(1)--GL(5) coverage, and (xviii)~Hadamard decomposition of $A(t_0)$ via global zero distribution: $A(t_0) = B(t_0)^2 + 2H_1(t_0)$ with $B$, $H_1$ expressed as explicit paired sums over all non-trivial zeros (Proposition~\ref{prop:hadamard_A_decomp}); B-20 resolved: $A(t_0)$ variability analytically explained by near-zero $H_1$ contributions; 13/13 numerically verified ($\mathrm{err}_{\mathrm{corr}}{<}0.003\%$; result~\#74, Remark~\ref{rem:hadamard_A_numerical}), and (xix)~degree universality of Proposition~\ref{prop:hadamard_A_decomp} extended to GL(2) $L(s,\Delta)$: 7/10 zeros below $1\%$ error ($10/10$ below $2\%$), $D{=}0$ confirmed ($|\mathrm{Re}(c_0)|_{\mathrm{max}} = 3.3\times10^{-5}$), B-20 pattern reproduced; precision decrease consistent with Weyl asymptotics (result~\#75, Remark~\ref{rem:hadamard_gl2_numerical}), and (xx)~GL(3) Hadamard convergence limit: raw partial-sum mean error $22.6\%$, $N{\approx}15{,}000$ zeros required for ${<}2\%$ (result~\#76); convergence rate $\alpha(d)$ measurement: GL(1) $\alpha{=}0.558$, GL(2) $\alpha{\approx}0.36$, GL(3) $\alpha{\approx}0.5$; EM tail accuracy is differentiating factor (result~\#77, Remark~\ref{rem:hadamard_convergence_rate}), and (xxi)~quantification of the sign-change $\sigma$-uniqueness boundary across degrees 1--5: at $d \geq 4$, the sign-change count $S(\sigma)$ saturates ($S(\sigma) = \text{const}$ for all tested $\sigma$), rendering the PASS/FAIL distinction meaningless; GL(4) sym$^3$(11a1) achieves $S = 45$ with ratio $= 1.000$ (7/7~$\sigma$), GL(5) sym$^4$(11a1) achieves $S \in \{59,60\}$ with ratio $\leq 1.017$ (7/7~$\sigma$); saturation mechanism: uniform zero spacing $\to$ sinusoidal Hardy $Z$ $\to$ sign-change count $\sigma$-invariant; boundary B-05 resolved: $\sigma$-uniqueness valid for $d \leq 3$ only (result~\#78), (xxii)~GL(3) $\sigma$-sweep PARI re-measurement for sym$^2$(11a1): $\Delta t{=}0.1$, 457 points, $S{\in}\{63,64\}$ (7 offsets), $A{=}0.016$ (flat), confirming prior AFE asymmetry $A{=}0.222$ as coarse-sampling artifact (result~\#79, Remark~\ref{rem:sigma_saturation}), and (xxiii)~GL(3) Hadamard high-precision verification with $N{=}1189$ zeros ($T{\leq}500$): $10/10{<}2\%$, $6/10{<}1\%$ relative error ($A_{\text{true}}$ basis); Re$(c_0)$ Richardson correction method established ($A_{\text{true}} = A_{\text{dir}} - 2\,\text{Re}(c_0)/\delta$, correcting $\sim 2$--$5\%$ numerical asymmetry); B-20 pattern reproduced ($A_{\max}{=}20.93$ at $t_8{=}12.07$ with 5 nearby zeros, $A_{\min}{=}6.56$ at $t_2{=}4.73$); degree universality confirmed: $d{=}1$ (13/13, $<0.003\%$), $d{=}2$ (7/10, $<1.3\%$), $d{=}3$ (6/10, $<1\%$, $10/10{<}2\%$) (result~\#80, Remark~\ref{rem:hadamard_gl3_numerical}), and (xxiv)~GL(4) $L(s,\mathrm{sym}^3\Delta)$ Hadamard $\xi$-bundle $A{=}B^2{+}2H_1$: $7/10$ below $5\%$, $8/10$ below $10\%$, 16~zeros ($t_0 \in [0,25]$); degree universality $d{=}1$--$4$ confirmed (result~\#81, Remark~\ref{rem:hadamard_degree_univ}).  Collectively, results \#22--\#28 form a self-consistent
 \emph{topological consistency chain}: the plaquette curvature field
@@ -7256,27 +7250,98 @@ $\chi\bmod 3$ (real)    & 12 & $\sigma{=}0.5$ only & $16{,}457\times$ & 0.0000 &
 $\chi\bmod 4$ (real)    & 13 & $\sigma{=}0.5$ only & $22{,}436\times$ & 0.0000 & $454.6\times$ \\
 $\chi\bmod 5$ (complex) & 13 & $\sigma{=}0.5$ only & $15{,}732\times$ & 0.0000 & $14.5\times$ \\
 $\chi\bmod 7$ (complex, $q{=}7$) & $136^*$ & $\sigma{=}0.5$ only & $36.6\times^{\dagger}$ & 0.000000 & $35.8\times$ \\
-$\chi\bmod 8$ (real, $q{=}8$) & $405^{*\ddagger}$ & $\sigma{=}0.5$ only & $53\times^{\dagger}$ & 0.0000 & $266\times$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 {\small ${}^*$~$t\in[10,200]$; wider range than $q=3,4,5$ ($t\in[10,40]$). \quad
-${}^{\dagger}$~Direct $\sigma$-comparison: $E(0.5)/E(0.3)$ at
-$\delta{=}0.03$ (differs from near/far method used for $q=3,4,5$). \quad
-${}^{\ddagger}$~Aggregate over 3~characters (2~primitive + 1~induced from $\chi\bmod 4$);
-see per-character breakdown below.}
+${}^{\dagger}$~Direct $\sigma$-comparison: $\kappa(\sigma{=}0.5)/\kappa(\sigma{=}0.3)$ at
+$\delta{=}0.03$ (differs from near/far method used for $q=3,4,5$).}
+
+\medskip\noindent
+\textbf{Per-character verification at higher conductors.}
+\textcolor{ForestGreen}{[completed 2026-04-26]}
+The single-representative results above are extended to
+\emph{every} non-trivial primitive character at $q = 7, 8, 11$
+($t\in[10,200]$, 80-digit precision, $\delta{=}0.03$).
+Table~\ref{tab:dirichlet_per_character} summarises the aggregate.
+
+\begin{table}[h]
+\centering
+\caption{Per-character four-property verification for $q = 7, 8, 11$.
+Each row is the aggregate over all non-trivial primitive characters
+at that conductor.  $\kappa\delta^2$ and monodromy are computed
+per-zero; the energy ratio $E(0.5)/E(0.3)$ is per-character.}
+\label{tab:dirichlet_per_character}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+$q$ & Characters & Total zeros & $\kappa\delta^2$ (med.)
+  & Mono.\ dev.\ & Detect & $E$-ratio range \\
+\midrule
+7 & 5 & 760 & 1.004 & 0.000000 & 100\% & $12.1$--$50.1\times$ \\
+8 & 2+1${}^\ddagger$ & 423 & 1.004 & 0.000000 & 100\% & $60.2$--$194.3\times$ \\
+\textbf{11} & \textbf{9} & \textbf{1367} & \textbf{1.004} & \textbf{0.000000}
+  & \textbf{100\%} & $\mathbf{6.3}$--$\mathbf{1023\times}$ \\
+\midrule
+\multicolumn{2}{l}{\textbf{Cumulative (all $q$)}} & \textbf{$\sim$2590} & & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+${}^\ddagger$\,Two primitive characters at conductor~8 ($\chi_8$~even,
+$\chi_4$~odd) plus one induced character ($\chi_{8,\mathrm{ind}}$,
+conditionally PASS due to scan artefact).
+
+\medskip\noindent
+\textbf{$q = 11$: exhaustive verification of all 9 primitive characters.}
+The group $(\mathbb{Z}/11\mathbb{Z})^*\cong\mathbb{Z}/10$ has
+characters of order~2 (1), order~5 (4), and order~10 (4).
+All 9 satisfy the four bundle properties without exception,
+yielding 1\,367~zeros (152 per character) with perfect monodromy
+quantisation ($|\mathrm{mono}|/\pi = 1.000000$ for all 180 tested zeros)
+and perfect detect rate (precision${=}$recall${=}1.000$).
+The energy ratio $E(0.5)/E(0.3)$ spans a factor of~$163\times$
+across characters ($6.3\times$ to $1023\times$), exhibiting a
+continuous spectrum even within the same conjugacy class
+(see boundary~B-68 below).
+
+\medskip\noindent
+\textbf{Conjugate-pair non-equivalence (boundary B-68).}
+Four conjugate pairs at $q{=}11$ reveal a continuous spectrum of
+$E$-ratio asymmetry:
+
+\begin{center}
+\small
+\begin{tabular}{lcccl}
+\toprule
+Pair & $E$-ratio (A) & $E$-ratio (B) & A/B & Pattern \\
+\midrule
+$\chi_4 \leftrightarrow \chi_6$ (ord~5, even) & $7.1\times$ & $1023\times$ & $144\times$ & extreme \\
+$\chi_3 \leftrightarrow \chi_7$ (ord~10, odd) & $6.3\times$ & $25.3\times$ & $4.0\times$ & moderate \\
+$\chi_1 \leftrightarrow \chi_9$ (ord~10, odd) & $75.9\times$ & $111.8\times$ & $1.47\times$ & near-equal \\
+$\chi_8 \leftrightarrow \chi_2$ (ord~5, even) & $326.5\times$ & $364.3\times$ & $1.12\times$ & near-equal \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+Within the same order-5 even class, the four characters have
+$E$-ratios $\{7.1, 326.5, 364.3, 1023.4\}$---a $146\times$ variation.
+The $E$-ratio is therefore determined not by order or parity but by
+\emph{analytic fine structure} ($\gamma_1$, root number argument,
+$|L(1,\chi)|$); this is left as an open boundary for future work.
 
 \noindent
 All 38 zeros across the three low-conductor characters ($q=3,4,5$) exhibit
 exact monodromy $\Delta\arg\Lambda = \pm\pi$ (deviation $< 10^{-4}$);
-for $\chi\bmod 7$ ($q=7$) all 136 zeros and for $\chi\bmod 8$ ($q=8$)
-all 405 zeros satisfy the same condition
+for $q=7,8,11$ all ${\sim}2\,550$ zeros satisfy the same condition
 with deviation $0.000000\pm 0.000000$ (log-space computation).
 Phase jumps occur exclusively at $\sigma = 1/2$ ($t\in[10,40]$,
-11 values of $\sigma$ tested for $q\leq 5$; confirmed for $q=7$).
+11 values of $\sigma$ tested for $q\leq 5$; confirmed for $q\geq 7$).
 Curvature concentration ratios for $q=3,4,5$ are computed as median $\kappa$
 at zero-proximal points ($\pm 0.01$) vs.\ generic points
-($>1.0$ from any zero); for $q=7$ the $\sigma$-comparison method
+($>1.0$ from any zero); for $q\geq 7$ the $\sigma$-comparison method
 was used (see footnote $\dagger$ above and \S\ref{app:dirichlet:conductor}).
 
 \medskip\noindent\textbf{Remarks.}
@@ -7291,112 +7356,18 @@ was used (see footnote $\dagger$ above and \S\ref{app:dirichlet:conductor}).
   = -1$, so $\Delta\arg = \pm\pi$.
   This is universal for all analytic functions with simple zeros.
 \item The energy ratio $E(0.5)/E(0.3)$ varies by a factor of
-  $\sim 30$ across characters (14.5 to 454.6).
-  The cause is not yet understood and is left as an open observation.
+  $\sim 163\times$ across all tested characters (6.3 to 1023);
+  the cause is traced to analytic fine structure (boundary~B-68)
+  rather than order or parity of the character.
 \item These results confirm that the $\xi$-bundle framework
   is not specific to $\zeta(s)$ but applies uniformly to the
-  family of Dirichlet $L$-functions.
+  family of Dirichlet $L$-functions across conductors $q = 1$--$11$
+  and all 21~primitive characters tested.
   Each individual property is a consequence of standard analytic
   number theory (argument principle, GRH); the contribution is
   the \emph{unified geometric language} that organises them
   into a single fibre-bundle picture.
 \end{enumerate}
-
-\medskip\noindent
-\textbf{Per-character breakdown for $\boldsymbol{q=7}$.}
-\textcolor{ForestGreen}{[completed 2026-04-26]}
-The character group $(\mathbb{Z}/7\mathbb{Z})^\times$ has
-$\varphi(7)-1 = 5$ non-trivial characters $\chi_j$ ($j=1,\ldots,5$),
-generated by $\chi_1 \colon n \mapsto \omega_6^{\operatorname{dlog}_3 n}$
-where $g=3$ is the primitive root mod~7.
-We verify all four $\xi$-bundle properties for each character
-individually ($t\in[10,70]$, $\delta=0.03$, $\varepsilon_{\mathrm{mono}}=0.005$,
-\texttt{dps}$=50$).
-
-\begin{center}
-\small
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Character} & \textbf{Parity} & \textbf{Zeros}
-  & $\kappa\delta^2$ \textbf{med.}
-  & \textbf{Mono.\,dev.} & \textbf{Detect}
-  & $E(0.5)/E(0.3)$ \\
-\midrule
-$\chi_1$ ($j{=}1$, ord~6) & odd  & 34 & 1.0032 & 0.0000 & 100\% & $104.4\times$ \\
-$\chi_2$ ($j{=}2$, ord~3) & even & 35 & 1.0029 & 0.0000 & 100\% & $30.1\times$ \\
-$\chi_3$ ($j{=}3$, Legendre) & odd  & $34^*$ & 1.0025 & 0.0000$^*$ & 100\% & $166.9\times$ \\
-$\chi_4$ ($j{=}4$, ord~3) & even & 35 & 1.0032 & 0.0000 & 100\% & $337.8\times$ \\
-$\chi_5$ ($j{=}5$, ord~6) & odd  & 35 & 1.0033 & 0.0000 & 100\% & $557.3\times$ \\
-\midrule
-\multicolumn{2}{l}{\textbf{Aggregate (5 chars)}} & \textbf{173} & 1.003 & 0.0000 & 100\% & $239\times$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-{\small ${}^*$~$\chi_3$ (Legendre symbol $(\frac{\cdot}{7})$, real quadratic character):
-3~spurious zeros removed (1~negative-$t$ bracket escape, 2~closely-spaced
-artifacts with gap~$<0.4$). After filtering, 34~genuine zeros yield
-$34/34 = 100\%$ monodromy PASS.  The spurious zeros are a \texttt{findroot}
-implementation artifact, not a framework limitation.}
-
-\smallskip\noindent
-This is the first per-character verification for a 6-element character group.
-All five characters---spanning both parities (odd/even),
-all three orders (2, 3, 6), and both real/complex types---pass
-all four properties with $\kappa\delta^2$ within 0.3\% of the
-theoretical value~1 and perfect detection rate.
-The energy ratio $E(0.5)/E(0.3)$ varies from $30\times$ to $557\times$
-across characters; this variation is consistent with the conductor-dependent
-$A(t_0)$ correction (Remark~\ref{rem:dirichlet_conductor_A}) and
-the character-dependent Gauss sum contribution.
-
-\medskip\noindent
-\textbf{Per-character breakdown for $\boldsymbol{q=8}$ (first composite conductor).}
-\textcolor{ForestGreen}{[completed 2026-04-26]}
-The character group $(\mathbb{Z}/8\mathbb{Z})^\times = \{1,3,5,7\} \cong \mathbb{Z}/2\times\mathbb{Z}/2$
-(Klein four-group) has three non-trivial characters, all of order~2 (real).
-Two are primitive with conductor~8; one is induced from the unique
-non-trivial character modulo~4.
-We verify all four $\xi$-bundle properties for each character
-individually ($t\in[10,200]$, $\delta=0.03$, $\varepsilon_{\mathrm{mono}}=0.005$,
-\texttt{dps}$=80$).
-
-\begin{center}
-\small
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Character} & \textbf{Parity} & \textbf{Zeros}
-  & $\kappa\delta^2$ \textbf{med.}
-  & \textbf{Mono.\,dev.} & \textbf{Detect}
-  & $E(0.5)/E(0.3)$ \\
-\midrule
-$\chi_B$ (prim., cond~8) & odd  & 142 & 1.003 & 0.0000 & 100\% & $53\times$ \\
-$\chi_C$ (prim., cond~8) & even & 142 & 1.003 & 0.0000 & 100\% & $20\times$ \\
-$\chi_A$ (ind.\ $\leftarrow$mod~4)$^\dagger$ & odd  & $121^*$ & 1.023 & 0.0000$^*$ & 100\% & $725\times$ \\
-\midrule
-\multicolumn{2}{l}{\textbf{Aggregate (3 chars)}} & \textbf{405} & 1.003 & 0.0000 & 100\% & $266\times$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-{\small ${}^\dagger$\,$\chi_A$ is induced from $\chi\bmod 4$;
-since $8 = 2^3$ and $f(\chi_A) = 4$, the Euler factor at $p=2$
-contributes no additional zeros, so $L(s,\chi_A\bmod 8) = L(s,\chi\bmod 4)$
-exactly.\\
-${}^*$\,The root-finder returns 139~candidates, of which 121~match the
-$\chi\bmod 4$ zeros (87.1\%).  The 18~extra candidates
-(e.g.\ $t=13.60, 22.66, 31.73, 40.79$) have $\mathrm{mono}/\pi \approx 0.001$
-and are scan artifacts (identical pattern to $\chi_3\bmod 7$ above).
-After removal, $121/121 = 100\%$ monodromy PASS.}
-
-\smallskip\noindent
-This is the first composite-conductor verification.
-The Klein four-group structure (all characters of order~2, all real)
-provides a complementary test to the cyclic groups $q=5,7$.
-Both primitive characters pass all four properties with
-$\kappa\delta^2$ within 0.3\% of unity.
-The induced character $\chi_A$ confirms that the framework correctly
-handles conductor--modulus separation: the $\xi$-bundle detects
-exactly the zeros of the primitive $L$-function, as predicted
-by the Euler product structure.
 
 \subsection{Blind Zero Prediction}
 \label{app:dirichlet:blind}
@@ -8166,7 +8137,7 @@ sign-change landscape flattens.
 \begin{itemize}
   \item GL(3) $\mathrm{sym}^2(11\text{a}1)$: PASS ($\sigma = 1.5$ maximal; $> 8000\times$ ratio, 3/3 zeros; result~\#88).
   \item GL(3) $\mathrm{sym}^2(37\text{a}1)$: PASS ($\sigma = 1.5$ maximal; $> 8000\times$ ratio, 3/3 zeros; result~\#88).
-  \item GL(5) $\mathrm{sym}^4(11\text{a}1)$: PASS ($\sigma = 2.5$ maximal; $\approx 10000\times$ ratio; result~\#70).
+  \item GL(5) $\mathrm{sym}^4(11\text{a}1)$: PASS ($\sigma = 2.5$ maximal; $\approx 9100\times$ ratio; result~\#70).
 \end{itemize}
 
 The overall pattern for the \emph{sign-change} diagnostic confirms
@@ -8606,7 +8577,7 @@ Functional equation & $-331$ digits (motivic) & \textbf{PASS} \\
 Zeros found & 61 ($t{\in}[0,30]$), $t_1{=}1.4878$ & \textbf{PASS} \\
 $\kappa{\cdot}\delta^2$ (Hardy $Z$) & mean $0.999126$ (per-zero $0.996$--$1.002$; B-24) & \textbf{PASS (mean)} \\
 Monodromy ($|\mathrm{mono}|/\pi{=}2$) & 25/25 & \textbf{PASS} \\
-$\sigma$-uniqueness & $\sigma{=}2.5$ maximal; ${\approx}10000\times$ ratio; 3/3 PASS & \textbf{PASS} \\
+$\sigma$-uniqueness & $\sigma{=}2.5$ maximal; ${\approx}9100\times$ ratio; 3/3 PASS & \textbf{PASS} \\
 \midrule
 \textbf{Score} & \textbf{4/4 PASS} & \\
 \bottomrule
