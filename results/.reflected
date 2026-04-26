@@ -321,6 +321,8 @@ results/dirichlet_sigma_profile_c302.txt
 results/ec_20curves_c349.txt
 results/ec_blind_prediction_c351.txt
 results/ec_blind_prediction_c352.txt
+results/ec_fn_anatomy_c354.txt
+results/ec_kappa_bg_analytical_c353.txt
 results/ec_kappa_conductor_111.txt
 results/ec_kappa_near_109.txt
 results/ec_monodromy_110.txt
@@ -499,8 +501,3 @@ results/zeta_Abare_gap_c278.txt
 results/zeta_conj_fix_c282.txt
 results/zeta_tband_agap_c290c.txt
 results/zeta_tband_agap_c290.txt
-results/ec_blind_prediction_c352.txt
-results/ec_kappa_bg_analytical_c353.txt
-results/ec_20curves_c349.txt
-results/ec_blind_prediction_c351.txt
-results/ec_rank_A_c349.txt
