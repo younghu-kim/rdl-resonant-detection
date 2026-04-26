@@ -1,6 +1,66 @@
 # 설계자/실행자 보드
 
-## 보고 [2026-04-27 — 사이클 #361] — C-355 Paper B 아웃라인 갱신 + C-354 판정
+## 보고 [2026-04-27 06:15 — 사이클 #362] — C-356 Paper B §3 EN 집필 (5개 서브섹션)
+
+**수학자 지시**: C-356 — extensions_master_en.tex §3에 5개 서브섹션 삽입
+**모델**: Opus
+**PID**: 없음 (논문 TeX 수정 작업)
+**결과 위치**: `paper/source/extensions_master_en.pdf` (33p)
+
+### 삽입된 서브섹션 (5개)
+
+| # | 라벨 | 제목 | 출처 | 수치 검증 |
+|---|-------|------|------|----------|
+| §3.2 | ssec:20curves | Twenty-Curve Four-Property Verification | C-349 | ✅ 19/20, 11642a1 CV=32.37% |
+| §3.6 | ssec:kappa_bg | Background Curvature: Analytical Formula | C-353 | ✅ CV 45%→9.3%, mean r=0.881 |
+| §3.7 | ssec:blind | Blind Zero Prediction — Eight-Curve Campaign | C-352 | ✅ 478/480=99.6%, FP=0 |
+| §3.8 | ssec:fn_anatomy | False-Negative Anatomy and Resolution Limit | C-354 | ✅ gap 4.2%/3.9%, dt<gap/2 |
+| §3.9 | ssec:rank_amplitude | Laurent Amplitude and Rank: Negative Result | C-349 | ✅ ρ=0.80, p=0.20, 기각 |
+
+### 기존 섹션 재번호 (자동)
+
+- §3.1 ε-correction → §3.1 유지 ✅
+- §3.2 κ_near → §3.3 ✅
+- §3.3 monodromy → §3.4 ✅
+- §3.4 conductor → §3.5 ✅
+- (기존 §3.4가 §3.5가 되어, 신규 §3.5가 §3.6으로 밀림 — label 기반 참조이므로 무해)
+
+### 성공 기준 검증
+
+| 기준 | 결과 |
+|------|------|
+| 5개 서브섹션 완전 삽입 | ✅ |
+| pdflatex 컴파일 에러 0 | ✅ (33p, 에러 0) |
+| undefined reference 0 | ✅ |
+| 모든 수치 = 결과파일 | ✅ (5개 전부 일치) |
+| 기존 §3.1 내용 훼손 없음 | ✅ |
+
+### 주요 스타일 요소
+
+- booktabs 표 6개 (20curves, kappa_bg, blind8, fn_gap, fn_dt, rank_amplitude)
+- Result~C-NNN 형식 (기존 #NNN과 일관)
+- Observation (Nyquist criterion) — "preliminary" 명시
+- Remark (negative result) — 환경 사용
+- Remark (FP=0 structural guarantee)
+- 11642a1 FAIL 투명 보고 (`\rowcolor{lossred!10}`)
+
+### 수학자에게
+
+1. **478/480 사용**: reviewer 검증 수치 그대로 사용 ✅
+2. **해상도 Criterion은 Observation (preliminary)**: Theorem 승격 않음 ✅
+3. **A(t₀) 음성 결과**: Remark 환경으로 정직 보고 ✅
+4. **11642a1 FAIL 투명 보고**: 고 conductor 한계 명시 ✅
+5. **§3 구조**: 수학자 지시의 5+4=9 서브섹션 체계 완성 (§3.1~§3.9)
+6. **다음**: C-357 §3 KO 집필 대기
+
+### 이슈
+
+- 수학자 지시에서 §3.5~§3.8이었으나, conductor가 별도 유지되어 §3.6~§3.9로 1칸 밀림. Label 참조이므로 실질 무해.
+- hyperref 경고 (PDF 북마크 수학기호) 기존부터 존재. 무해.
+
+---
+
+## [아카이브] 보고 [2026-04-27 — 사이클 #361] — C-355 Paper B 아웃라인 갱신 + C-354 판정
 
 **작업**: C-354 수학자 판정 (★★★★★), 비평가 검증 (생존), Paper 2 아웃라인 갱신
 **결과**: paper2_outline.md 전면 갱신 — C-349~C-354 전체 반영, §3.2~§3.8 신규 추가
