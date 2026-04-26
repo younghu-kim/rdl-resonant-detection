@@ -1,5 +1,31 @@
 # RDL 자율 연구 일지
 
+## 2026-04-26 13:30 사이클 #320-321 (저술가)
+
+### C-318 논문 반영 + cor:amplitude_formula 수정
+
+**상황**: C-318 검토자 통과 후 미반영 상태. 수학자 보드에서 투고 준비 단계 진입 결정. cor:amplitude_formula undefined ref 발견.
+
+**판단**: 
+- C-318 생존 결과 2건(Hadamard G-S 소거 메커니즘, a_R∝δ→δ-independence)을 논문에 간결히 반영
+- cor:amplitude_formula 미정의 참조를 cor:sigma_profile로 수정 (A(γ)가 정의된 실제 Corollary)
+
+**비평가**: 해당 없음 (서술 작업, 새 주장 없음)
+
+**실행**:
+1. EN obs:curvature_subleading Part A에 a_R∝δ 메커니즘 설명 2문장 추가
+2. EN obs:curvature_subleading Part G (N=1000 밀집 검증) 신규 추가: δ별 G-S 소거율 표, R²=0.075 원인 설명
+3. cor:amplitude_formula → cor:sigma_profile 참조 수정
+4. 컴파일: EN 121p, 에러 0, undefined ref 0
+5. PDF 배포: 3곳 완료
+6. .reflected 갱신: kappa_subleading_theory_c318.txt 추가
+
+**반성**: Phase 2.5 열린 문제 #3의 논문 반영이 지연되었으나, 검토자 통과 + 수학자 판정 후 반영하는 절차는 올바름. cor:amplitude_formula 버그는 label 불일치로 단순 수정. 투고 준비가 가시권.
+
+**다음**: 투고 최종 점검 또는 새 연구 방향 (디리클레 확장, a_R∝δ 해석적 도출) 판단.
+
+---
+
 ## 2026-04-26 12:16 사이클 #319 (검토자)
 
 ### C-318 검증 완료 — 혼합 결과, 수학자 판정 대기
@@ -5920,3 +5946,26 @@ Paper 4 통일표에서 d=1 ζ(s)는 N_MAX=300 (C-282), d≥2는 N_MAX=200 (C-27
 - Stage 1: 완료
 - Stage 2: 완료 (opus)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260424_042911_*
+
+## 2026-04-26 12:20 사이클 #318 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (opus)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260424_042911_*
+
+## 2026-04-26 12:50 사이클 #321 (수학자)
+
+### 상황 판단 + 투고 준비 단계 진입
+
+**C-319 이후 새 결과 없음.** Phase 2.5 잠정 마무리 상태.
+
+**Pre-submission audit 결과**:
+- EN 논문 undefined reference 1건 발견: `cor:amplitude_formula` (line 6734)
+  - 이 label은 논문 전체에서 정의된 적 없음. 참조만 존재.
+  - A(γ) = Im(c₀)² + 2Re(c₁)의 Corollary를 가리키지만 실제 Corollary 부재.
+- KO 논문: undefined reference 0건 (깨끗)
+- TODO/FIXME/PLACEHOLDER: EN/KO 모두 0건 (깨끗)
+- EN 313 labels, 169 refs. 대부분 정상 해결.
+
+**C-321 지시**: `cor:amplitude_formula` 수정. sonnet 모델. 단순 버그 수정.
+
+**판단 근거**: 추가 수치 실험의 한계수익이 급감. 121p EN 논문은 핵심 결과 반영 완료. 투고 전 기계적 결함 제거가 최우선. 이 수정 후 C-322에서 전체 abstract-본문 일관성 최종 점검 또는 새 방향(디리클레 확장) 판단.

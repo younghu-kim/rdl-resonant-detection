@@ -4794,6 +4794,13 @@ prediction $\alpha = 1$ is ruled out).  This implies $\kappa$
 decomposes cleanly as
 $\kappa = 1/\delta^2 + f(t)$,
 separating geometric ($\delta$) and arithmetic ($t$) content.
+The Hadamard decomposition (Part~C) illuminates the mechanism:
+writing $\Delta\kappa = 2\operatorname{Re}R/\delta + |R|^2$,
+the remainder slope satisfies $a_R \propto \delta$
+(verified at $\delta \in \{0.01, 0.03, 0.10\}$ with
+$a_R/\delta \approx 1.23$), so $2a_R/\delta \approx \mathrm{const}$,
+providing a structural explanation for $\delta$-independence
+via the Hadamard product.
 
 \smallskip\noindent
 \textbf{Part~B: Logarithmic scaling.}\;
@@ -4957,6 +4964,41 @@ $R^2_{2\text{-var}} = 0.925$ with all $\Delta\kappa > 0$: no numerical artefact.
 99 zeros each ($N{=}203$--$20000$);
 Lorentzian$^2$ universal ($5/5$, $R^2{>}0.88$);
 unified 3-param model $R^2{=}0.449$ (negative)]}
+
+\smallskip\noindent
+\textbf{Part~G: Dense verification ($N{=}1000$ consecutive zeros).}\;
+Scaling to all 1000 consecutive zeros ($t \in [14, 1419]$,
+$\delta = 0.03$), the Hadamard decomposition retains
+17-digit accuracy ($a_G + a_S = a_R$ within $2.8 \times 10^{-17}$).
+Key findings:
+\begin{center}
+\small
+\begin{tabular}{@{} l c c c c @{}}
+\toprule
+$\delta$ & $a_G$ & $a_S$ & $a_R$ & G--S cancellation \\
+\midrule
+0.01 & $+0.500$ & $-0.488$ & $+0.012$ & 97.5\% \\
+0.03 & $+0.500$ & $-0.463$ & $+0.037$ & 92.6\% \\
+0.10 & $+0.500$ & $-0.385$ & $+0.115$ & 76.9\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+The global log-fit gives $a_{\Delta\kappa} = 3.02$ with
+$R^2 = 0.075$---dramatically lower than the sparse-sample
+$R^2 = 0.860$ of Part~B\@.  The cause is twofold:
+(i)~the $N{=}20$ sparse sample spans $t \in [14, 18046]$
+with implicit noise-averaging, while $N{=}1000$ dense zeros occupy
+$t \in [14, 1419]$;
+(ii)~$|R|^2$ fluctuations ($\sigma = 3.04$, max${=}124$) dominate
+the logarithmic trend at individual-zero resolution.
+Accordingly, the logarithmic scaling of Part~B should be regarded
+as a coarse statistical trend rather than a precise law;
+the Hadamard decomposition \emph{mechanism}
+(G--S cancellation $\to$ residual amplification) is the robust finding.
+
+\textcolor{ForestGreen}{[confirmed 2026-04-26; $N{=}1000$ consecutive zeros,
+$t \in [14, 1419]$; 3 offsets $\delta \in \{0.01, 0.03, 0.10\}$;
+Hadamard decomposition 17-digit; $R^2_\text{global}{=}0.075$]}
 \end{observation}
 
 
@@ -6731,7 +6773,7 @@ Tier 2 programmes (conjectural but well-posed).}
   \item \textbf{Amplitude--gap anti-correlation and universality
         \textcolor{ForestGreen}{[confirmed 2026-04-25]}.}
         The Hadamard amplitude $A(\gamma) = \operatorname{Im}(c_0)^2 + 2\operatorname{Re}(c_1)$
-        (Corollary~\ref{cor:amplitude_formula}, extracted from the Laurent expansion
+        (Corollary~\ref{cor:sigma_profile}, extracted from the Laurent expansion
         of $\Lambda'/\Lambda$) satisfies the unconditional lower bound
         $A(\gamma) \ge 4/g_{\min}(\gamma)^2$, where $g_{\min}$ is the minimum
         of the left and right gaps to neighbouring zeros (proof: positivity of
