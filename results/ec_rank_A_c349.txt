@@ -1,0 +1,152 @@
+==============================================================================
+[C-349] EC rank vs A(t₀) — Paper B 핵심 실험
+==============================================================================
+  곡선: 18개 (rank 0×5, rank 1×5, rank 2×5, rank 3×3)
+  T=[0.5,60.0], Cauchy_R=0.01, N_PTS=64
+  중심: s = 1 + it (weight 2, center = k/2 = 1)
+
+[Step 0] PARI L-함수 초기화 + rank 검증...
+  11a1         N=   11 rank=0 ellrank≥0 FE=-171자리 ✅
+  14a1         N=   14 rank=0 ellrank≥0 FE=-173자리 ✅
+  15a1         N=   15 rank=0 ellrank≥0 FE=-173자리 ✅
+  19a1         N=   19 rank=0 ellrank≥0 FE=-173자리 ✅
+  20a1         N=   20 rank=0 ellrank≥0 FE=-172자리 ✅
+  37a1         N=   37 rank=1 ellrank≥1 FE=-178자리 ✅
+  43a1         N=   43 rank=1 ellrank≥1 FE=-170자리 ✅
+  53a1         N=   53 rank=1 ellrank≥1 FE=-170자리 ✅
+  57a          N=   57 rank=1 ellrank≥1 FE=-169자리 ✅
+  58a1         N=   58 rank=1 ellrank≥1 FE=-172자리 ✅
+  r2_389       N=  389 rank=2 ellrank≥2 FE=-175자리 ✅
+  r2_571       N=  571 rank=2 ellrank≥2 FE=-173자리 ✅
+  r2_664       N=  664 rank=2 ellrank≥2 FE=-175자리 ✅
+  r2_681       N=  681 rank=2 ellrank≥2 FE=-173자리 ✅
+  r2_709       N=  709 rank=2 ellrank≥2 FE=-175자리 ✅
+  r3_5077      N= 5077 rank=3 ellrank≥3 FE=-171자리 ✅
+  r3_12279     N=12279 rank=3 ellrank≥3 FE=-174자리 ✅
+  r3_16811     N=16811 rank=3 ellrank≥3 FE=-174자리 ✅
+
+  유효 곡선: 18/18
+  초기화 소요: 0.1s
+
+==============================================================================
+[Step 1] 영점 탐색 + A(t₀) 계산
+==============================================================================
+
+--- 11a1 (rank 0, N=11) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- 14a1 (rank 0, N=14) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- 15a1 (rank 0, N=15) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- 19a1 (rank 0, N=19) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- 20a1 (rank 0, N=20) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- 37a1 (rank 1, N=37) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- 43a1 (rank 1, N=43) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- 53a1 (rank 1, N=53) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- 57a (rank 1, N=57) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- 58a1 (rank 1, N=58) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- r2_389 (rank 2, N=389) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- r2_571 (rank 2, N=571) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- r2_664 (rank 2, N=664) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- r2_681 (rank 2, N=681) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- r2_709 (rank 2, N=709) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- r3_5077 (rank 3, N=5077) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- r3_12279 (rank 3, N=12279) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+--- r3_16811 (rank 3, N=16811) ---
+  ⚠️ lfunzeros 실패: syntax error, unexpected invalid token, expecting end of file
+  영점 0개 — 부족, 스킵
+
+==============================================================================
+[Step 2] rank별 A(t₀) 비교
+==============================================================================
+
+  [개별 곡선 요약]
+  곡선           rank      N    n     A_mean      A_std      A_med
+  --------------------------------------------------------------
+  11a1            0     11    0   (실패)
+  14a1            0     14    0   (실패)
+  15a1            0     15    0   (실패)
+  19a1            0     19    0   (실패)
+  20a1            0     20    0   (실패)
+  37a1            1     37    0   (실패)
+  43a1            1     43    0   (실패)
+  53a1            1     53    0   (실패)
+  57a             1     57    0   (실패)
+  58a1            1     58    0   (실패)
+  r2_389          2    389    0   (실패)
+  r2_571          2    571    0   (실패)
+  r2_664          2    664    0   (실패)
+  r2_681          2    681    0   (실패)
+  r2_709          2    709    0   (실패)
+  r3_5077         3   5077    0   (실패)
+  r3_12279        3  12279    0   (실패)
+  r3_16811        3  16811    0   (실패)
+
+  [rank별 통합]
+  rank n_curves  n_zeros     A_mean      A_std      A_med
+  ----------------------------------------------------
+     0        0        0       N/A       N/A       N/A
+     1        0        0       N/A       N/A       N/A
+     2        0        0       N/A       N/A       N/A
+     3        0        0       N/A       N/A       N/A
+
+  [통계 검정]
+  Kruskal-Wallis: 비교 가능 그룹 부족
+
+  [쌍별 Mann-Whitney U]
+  rank_i rank_j          U            p    A_i-A_j
+  ------------------------------------------------
+
+==============================================================================
+[C-349 최종 판정]
+==============================================================================
+
+  총 소요: 0.1s
