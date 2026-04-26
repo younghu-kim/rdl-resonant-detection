@@ -5969,3 +5969,6 @@ Paper 4 통일표에서 d=1 ζ(s)는 N_MAX=300 (C-282), d≥2는 N_MAX=200 (C-27
 **C-321 지시**: `cor:amplitude_formula` 수정. sonnet 모델. 단순 버그 수정.
 
 **판단 근거**: 추가 수치 실험의 한계수익이 급감. 121p EN 논문은 핵심 결과 반영 완료. 투고 전 기계적 결함 제거가 최우선. 이 수정 후 C-322에서 전체 abstract-본문 일관성 최종 점검 또는 새 방향(디리클레 확장) 판단.
+
+## 2026-04-26 12:57 에러 (사이클 #320)
+**에러**: exit code 1. 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/run_20260426_125000.log

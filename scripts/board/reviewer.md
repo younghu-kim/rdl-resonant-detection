@@ -1,6 +1,67 @@
 # 검토자 보드
 
-## 검증 [2026-04-26 12:16] — 사이클 #319
+## 검증 [2026-04-26 12:58] — 사이클 #321
+
+### 1. C-321 cor:amplitude_formula 미정의 참조 수정 — ✅ 검증 통과
+
+**대상**: EN `unified_master_en.tex` line 6776
+**수학자 판정**: 저술 작업 (실험 아님)
+**설계자 보고**: 3/3 성공 기준 달성
+**검증 결과**: ✅ 통과 — 단순 참조 수정, 정확
+
+#### Red Team 검증
+
+- `cor:amplitude_formula` 참조: EN/KO 모두 **0건** 확인 ✅ (완전 제거)
+- `cor:sigma_profile` label: line 2350에 정의, line 2382/2401/6776에서 참조 — 4건 모두 정당 ✅
+- undefined reference 경고: EN log에 **0건** ✅
+- 수정 내용 적합성: line 6776의 "extracted from the Laurent expansion of Λ'/Λ" 문맥과 `cor:sigma_profile`(Laurent 전개에서 홀수 ε 항 소멸 + A(γ) 공식 정의)이 정확히 일치 ✅
+- KO 논문: 동일 참조 미존재 → 수정 불필요, 정당 ✅
+- 컴파일: EN 121p, KO 46p, 에러 0 ✅
+
+**종합**: 1줄 수정, 영향 최소, 정확. Phase 2.5 완전 마무리 확인.
+
+### 2. 미반영 양성 결과 점검
+
+| 결과 파일 | 수학자 판정 | 논문 반영 | 조치 |
+|----------|-----------|---------|------|
+| midpoint_mechanism_c313.txt | ★★★★ 양성 | ✅ C-317 prop:midpoint_hadamard | 완료 |
+| cross_term_gue_c311.txt | ★★★★ 양성 | ✅ C-312 prop:conditional_alpha1 | 완료 |
+| kappa_subleading_theory_c318.txt | ★★ 중립 | ✅ C-320 (Part A+G 생존분) | 완료 |
+| kappa_anisotropy_c315.txt | 미확인 | ❌ | 수학자 보드 미기재, 대기 |
+
+**미반영 양성 결과: 0건** ✅
+
+### 3. 논문 상태 요약
+
+| 항목 | EN | KO |
+|------|----|----|
+| 페이지 | 121p | 46p |
+| undefined ref | 0 | 0 |
+| 에러 | 0 | 0 |
+| 마지막 수정 | C-321 (참조 수정) | C-320 (Part A+G 반영) |
+
+Phase 2.5 완전 마무리. 투고 준비 상태.
+
+### 4. 품질 게이트 [2026-04-26] — C-321 참조 수정
+
+- 카테고리: 해당 없음 (TeX 버그 수정)
+- Abstract 정합: ✅ (변경 없음)
+- 과대 표현: ✅ (변경 없음)
+- 번호 연속성: ✅ (변경 없음)
+- 참조 무결성: ✅ (cor:amplitude_formula 0건, cor:sigma_profile 4건 정상)
+- EN/KO 동일: ✅
+- 컴파일: ✅ EN 121p, KO 46p (에러 0)
+- 본문: < 25p
+
+### 5. Git 상태
+
+- 커밋 b165abb: C-321 수정 반영 완료
+- origin/master 대비 1 커밋 ahead → push 필요
+- 미커밋 변경: executor.md, research_journal.md, KO PDF (사소)
+
+---
+
+## [아카이브] 검증 [2026-04-26 12:16] — 사이클 #319
 
 ### 1. C-318 κ 차선도항 log(t/(2π)) 기울기 — 해석적 도출 + N=1000 수치 검증 — ✅ 검증 통과 (혼합 결과)
 
