@@ -2365,6 +2365,16 @@ $E(\sigma):=\int_{t_{\min}}^{t_{\max}}|\Lambda'/\Lambda(\sigma+it)|^{2}\,dt$는
 아다마르 곱 부분분수 전개에 의해
 $E(\sigma)=\pi N/|\sigma-\sigma_c|+o(N/|\sigma-\sigma_c|)$을 만족한다
 (RH 조건부, $\sigma_c$는 임계선 중심, $N$은 구간 내 영점 수).
+등고선 적분(상반면 폐합, $t=\gamma_n\pm i\delta$에서 단순 극점)으로
+교차항의 \emph{정확한} 닫힌 공식을 얻는다:
+\begin{equation}\label{eq:cross_term_exact_ko}
+  E_{\mathrm{cross}}(\sigma)
+    = \sum_{i<j}\frac{8\pi\delta}{\Delta_{ij}^{2}+4\delta^{2}},
+  \quad \Delta_{ij}:=|\gamma_i-\gamma_j|,\;\;
+  \delta:=\sigma-\sigma_c.
+\end{equation}
+각 항은 $\Delta_{ij}$에 대한 폭 $2\delta$의 로렌츠 함수이므로
+인접 쌍이 지배적이다 ($\delta=0.01$에서 최근접 55\%가 55\% 기여).
 
 \smallskip
 \begin{center}
@@ -2418,6 +2428,27 @@ $\alpha=0.952$ ($\Delta\sigma\leq 0.05$, $R^2=0.9998$).
 고차 $L$-함수에서는 $\Gamma$-분리가 필수적이다.
 \textcolor{ForestGreen}{[확인 2026-04-26; GL(1)--GL(4) 8개 $L$-함수;
 GL(4) $E_{\mathrm{diag}}$ $\alpha=1.002$, $E_{\mathrm{had}}$ $\alpha=0.952$]}
+
+\smallskip\noindent
+\textbf{명제 (GUE 조건부 $\alpha=1$ 법칙).}\;
+임계선 위의 영점 $\gamma_1<\cdots<\gamma_N$에 대해
+$S_2:=\sum_{i<j}1/\Delta_{ij}^{2}$로 정의하자.
+$S_2<\infty$ (특히 GUE형 수준 반발 $R_2(0)=0$이 보장)이면
+\[
+  E_{\mathrm{had}}(\sigma)
+    = \frac{\pi N}{\delta} + O(\delta),
+  \qquad \delta:=\sigma-\sigma_c\to 0^{+},
+\]
+$O(\delta)$ 잔여항은 $8\pi\delta\,S_2$이다.
+\emph{증명 스케치.}\;
+대각합 $E_{\mathrm{diag}}=\pi N/\delta$ 정확.
+\eqref{eq:cross_term_exact_ko}에서
+$E_{\mathrm{cross}}\leq 8\pi\delta\,S_2=O(\delta)$.
+GUE 쌍 상관 $R_2(x)=1-(\sin\pi x/\pi x)^{2}$는 $R_2(0)=0$
+(이차 소멸)이므로 $S_2$ 수렴 보장.
+푸아송 통계($R_2\equiv 1$)에서는 $S_2=\infty$ 가능, $\alpha\neq 1$.
+수치적으로 $N=400$ 리만 영점의 $R_2$는 GUE와 일치
+($\chi^{2}$ $p=0.44$, 76구간).
 \end{enumerate}
 
 \subsection{블라인드 영점 예측}

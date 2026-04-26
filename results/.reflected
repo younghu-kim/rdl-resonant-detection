@@ -448,3 +448,6 @@ results/zeta_tband_agap_c290c.txt
 results/zeta_tband_agap_c290.txt
 sigma_A_crosscheck_c255.txt
 sigma_localization_profile_c254.txt
+alpha1_proof_c311.txt
+alpha1_proof_scaling_c311b.txt
+cross_term_gue_c311.txt

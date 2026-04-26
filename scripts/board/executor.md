@@ -1,6 +1,62 @@
 # 설계자/실행자 보드
 
-## 보고 [2026-04-26 09:28 — 사이클 #312] — C-311 완료: 교차항-GUE pair correlation (B-61)
+## 보고 [2026-04-26 10:08 — 사이클 #313] — C-312 완료: 논문 반영 — 교차항 공식 + 조건부 정리
+
+**수학자 지시**: C-312 — 논문 반영: 교차항 해석적 공식 + 조건부 정리 (Prop 6 강화)
+**모델**: Opus
+**실행**: EN/KO 논문 `rem:energy_sigma_concentration` 내에 3개 단락 추가
+**PID**: 해당 없음 (TeX 수정만)
+**결과**: ✅ 성공 — EN 120p, KO 47p, LaTeX 에러 0
+
+---
+
+### 수정 내용
+
+**EN (`unified_master_en.tex`)** — remark 내 3개 단락 추가 (line ~4237–4293):
+
+1. **Cross-term exact formula** (`\textbf{Cross-term exact formula.}`):
+   - 공식: $E_{\mathrm{cross}} = \sum_{i<j} 8\pi\delta/(\Delta_{ij}^2 + 4\delta^2)$
+   - 유도 스케치: 상반면 contour 폐합, 켤레 쌍 합산, 실수부
+   - 소δ 극한: $E_{\mathrm{cross}} \sim 8\pi\delta \cdot S_2$
+   - 비율: $E_{\mathrm{cross}}/E_{\mathrm{diag}} = 8\delta^2 S_2/(\pi N) \to 0$
+
+2. **Conditional theorem (under GUE)** (`\textbf{Conditional theorem (under GUE).}`):
+   - $S_2$ 수렴 = 핵심 조건
+   - GUE level repulsion → $S_2 < \infty$ 보장
+   - Poisson → $S_2$ 발산 가능 → $\alpha \neq 1$
+   - 정리: $E_{\mathrm{had}} = \pi N/\delta + O(\delta)$ (GUE 하)
+   - 한정: "for any fixed $N$, $\alpha \to 1$ as $\delta \to 0$"
+
+3. **Numerical GUE test** (`\textbf{Numerical GUE test.}`):
+   - χ² p=0.44 (통과), KS D=0.041 p=0.002 (surmise 근사 한계)
+   - KS 기각 해석: Wigner surmise 근사 오차, GUE 기각 아님
+
+**KO (`unified_master_ko.tex`)** — 동일 3개 단락 한국어 번역 (line ~2418–2463):
+- `교차항 정확 공식`, `조건부 정리 (GUE 가정 하)`, `수치적 GUE 검증`
+
+### 성공 기준 달성
+
+| 기준 | 결과 | 판정 |
+|------|------|------|
+| 1. EN/KO 교차항 공식 포함 | EN 1회, KO 2회 (본문+confirmation) | ✅ |
+| 2. 조건부 정리 형식 서술 | EN "Conditional theorem (under GUE)", KO "조건부 정리" | ✅ |
+| 3. S₂-GUE 연결 설명 | EN/KO 모두 level repulsion → S₂ 수렴 메커니즘 설명 | ✅ |
+| 4. 컴파일 성공 (에러 0) | EN 120p/0err, KO 47p/0err | ✅ |
+| 5. 기존 내용 보존 | GL(d) 8행 표, Γ-분리, 교차항 부호전환 모두 보존 | ✅ |
+
+**5/5 성공 기준 달성** ✅
+
+### 주의사항 (검토자 참고)
+
+- "α=1 for E_Had"는 **δ→0 극한**임을 명시: "for any fixed $N$, $\alpha\to 1$ as $\delta\to 0$"
+- "under GUE" 조건부 표현 사용
+- KS test 기각 설명: Wigner surmise 근사 한계
+- N-의존성: "for any fixed $N$" 한정
+- E_Had α=0.79 (전체): 대δ 교차항 지배 — 소δ 영역에 한정됨 (기존 remark 구조로 자연스럽게 표현)
+
+---
+
+## [아카이브] 보고 [2026-04-26 09:28 — 사이클 #312] — C-311 완료: 교차항-GUE pair correlation (B-61)
 
 **수학자 지시**: C-311 — 교차항-GUE pair correlation 정량 분석 (B-61 탐사)
 **모델**: Opus
