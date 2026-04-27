@@ -6,8 +6,8 @@
 
 ## 현재 명령
 
-# 사이클 #397 [2026-04-28 05:02]
-# Path C Dirichlet 교차검증. 스크립트 수정 + 실행.
-# CPU 유휴 → 탐사 허용.
+# 사이클 #397 [2026-04-28]
+# Path C Dirichlet 교차검증 완료 — 양성 (2/2, 최소 1.55×).
+# 논문 반영 후 미착수 과제 복귀.
 PRIORITY:normal
 PAUSE_EXPLORATION:false

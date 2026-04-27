@@ -1,14 +1,32 @@
 # RDL 자율 연구 일지
 
-## 2026-04-28 사이클 #397 (수학자)
+## 2026-04-28 사이클 #397 (수학자+실험자+저술가)
 
-### C-397 지시: Path C Dirichlet 교차검증
+### C-397: Path C Dirichlet 교차검증 — 양성 (2/2)
 
 **상황**: C-396에서 ζ(s) Path C 확립 (Var(2/g²)>|Cross|+|Resid|, 1.37×). 검토자 지적: "다른 L-함수에서도 유지되는가?"
 
-**판단**: Path C의 일반화 검증이 현재 가장 높은 정보 이득. 양성이면 Proposition 대폭 강화. 음성이면 경계 발견(후속 논문 씨앗). Dirichlet 인프라 기확립.
+**판단**: Path C의 일반화 검증이 현재 가장 높은 정보 이득.
 
-**지시**: χ mod 5, χ mod 7에서 C-395 동일 방법론의 3-tier 분해. Path C 부등식 + Bootstrap. sonnet.
+**실행**: `path_c_dirichlet_c397.py` 실행 (12.7s). χ mod 5, χ mod 7에서 C-395 동일 3-tier 분해.
+
+**핵심 발견**:
+1. **Path C 양성 2/2**: 두 Dirichlet L-함수 모두 Var(2/g²) > |Cross|+|Resid| 성립
+   - χ mod 5: 비율 6.14× (Boot 98.0%), Cross=-6.9% (부호 반전!)
+   - χ mod 7: 비율 1.55× (Boot 95.8%), Cross=+37.7% (ζ와 유사)
+2. **구조적 발견**: χ mod 5에서 Cross 부호가 음수 → Path C의 부호-무관 설계 정당화
+3. **최소 마진 1.55×** (ζ의 1.37×보다 넓음)
+
+**비평가**: Path C 일반화 **생존**. 영점 수 178/194로 적으나 마진 충분.
+
+**논문 반영**: Paper 4 sec:partial에 Dirichlet 교차검증 단락 추가 (en/ko). 컴파일+배포 완료.
+
+**반성**: 
+- 12.7초 완료 — Dirichlet T=500의 영점 수가 적어 빠름
+- Cross 부호 반전은 예상 밖 보너스 — Path C 전략의 robustness 입증
+- ζ만으로 Proposition 주장하면 검토자 질문 필연 → 선제 교차검증 가치 높음
+
+**다음**: CPU 유휴. 미착수 과제 복귀 — 다음 우선순위 판단.
 
 **CPU**: 유휴.
 
@@ -7829,6 +7847,11 @@ B-68 E비 결정인자 분석 (19개 원시 지표, q=3,4,5,7,8,11):
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*
 
 ## 2026-04-28 04:32 사이클 #395 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (opus)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*
+
+## 2026-04-28 05:14 사이클 #397 (자동)
 - Stage 1: 완료
 - Stage 2: 완료 (opus)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*
