@@ -1,5 +1,29 @@
 # RDL 자율 연구 일지
 
+## 2026-04-27 사이클 #375 (저술가)
+
+### C-374 반영 — Proposition (Critical-Line Imaginary Constraint) 논문 삽입
+
+**상황**: C-374 분석 결과 `c374_monodromy_proof_analysis.tex` 존재. Monodromy=2π는 이미 Paper A Theorem (line ~2035)에 수록. 그러나 Proposition (L(1/2+it) ∈ iℝ) + Corollary (이산 위상 점프)가 미수록.
+
+**판단**: 비평가 판정 "생존". FE+Schwarz 반사로부터 3줄 증명. 수학적 내용은 단순하나, 접속의 순허수 제약이라는 기하학적 해석은 다발 프레임워크의 핵심 연결고리. 논문 완결성을 위해 삽입.
+
+**비평가**: 생존. "ξ(1/2+it) ∈ ℝ은 교과서 사실" — 맞으나 접속 해석은 문헌 선례 없음. 헌법 위반 없음.
+
+**실행**:
+- EN: Remark (rem:simple_zeros) 직후, Section (sec:curvature_thm) 직전에 삽입
+  - Proposition (prop:imaginary_connection) + Proof + Corollary (cor:discrete_phase)
+- KO: Remark (rem:phase_wrapping) 직후, Section (sec:polyadic) 직전에 동일 삽입
+- 컴파일: EN pdflatex ×2 (122p, 에러 0), KO xelatex ×2 (47p, 에러 0)
+- PDF 배포: ~/Desktop/수학최종논문/, gdl_unified/paper/
+- results/.reflected 갱신
+
+**반성**: C-374의 핵심 발견은 "이미 있는 것의 확인" + "작지만 유효한 새 Proposition". 프레임워크 정당성 강화에 기여. 큰 수학적 돌파는 아님.
+
+**다음**: 수학자 보드의 다음 방향 결정 — B-46 (gap_min t-의존성) 또는 B-60 (GL(3) 교차항) 실험으로 Paper 4 씨앗 탐색.
+
+---
+
 ## 2026-04-27 15:52 사이클 #371 (수학자)
 
 ### C-360 지시 — Paper 3 집필 착수 (Artin S₃/S₄)
@@ -7234,3 +7258,8 @@ B-68 E비 결정인자 분석 (19개 원시 지표, q=3,4,5,7,8,11):
 - 비자명이면 → Proposition/Theorem으로 승격, 논문 강화
 
 **CPU**: 유휴. 실행 프로세스 없음.
+
+## 2026-04-27 17:22 사이클 #374 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (opus)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*

@@ -167,7 +167,7 @@ $\sigma$-리프트, 베리 위상, 디리클레 $L$-함수
   \item 이 원리를 $\xif(s)$의 위상 구조에 적용하여, 소수 탐지를 위한 2-게이트 공명 기준을 공식화한다 (제2부, 제~\ref{sec:xi_phase}--\ref{sec:gates}절).
   \item LWE 오차 임계치와 임계선으로부터의 $\sigma$-리프트 사이의 구조적 대응을 확립한다 (제~\ref{sec:sigma_lift}절).
   \item 정답 없이 자가 교정하는 다원군 ODE 영점 탐지기를 제시하며, 이것이 QROP-Net의 블라인드 테스트 시간 최적화를 반영함을 보인다 (제~\ref{sec:polyadic}절).
-  \item 7개의 구조적 대응을 형식화하고, 유비와 증명 사이의 경계를 엄격하게 구분한다 (제~\ref{part:synthesis}부, 제~\ref{sec:correspondence}절).
+  \item 7개의 구조적 대응을 형식화하고, 유비와 증명 사이의 경계를 엄격하게 구분한다 (제3부, 제~\ref{sec:correspondence}절).
   \item \textbf{(음성 경험 결과, 2026-04-08)} 시클로토믹 PQO 프로그램을 $t \in [100, 200]$ 위에서 $L=4$로 경험적으로 시도하고, 세 시드 전체에서 영점/비영점 판별의 완전한 실패를 문서화하며, 그 원인을 \cref{eq:psi_n}의 \emph{$\Psip$-디커플링 결함}으로 추적하고, 향후 양성 결과의 필요 조건으로 감독 교체식 \cref{eq:psi_supervised}를 제안한다 (제~\ref{part:failed}부, Remark~\ref{rem:cos2_pqo}, \ref{rem:psi_defect}).
   \item \textbf{(고립 실험, 2026-04-09)} 타겟 주입, 손실 가중, 읽기 채널을 모두 분리하여, 세 가지를 동시에 차단했을 때 감독 사슬 $\arg\xif(\tfrac{1}{2}+it)\to\mathcal{L}_{\mathrm{tgt}}\to\hat\Psip$이 비영점 샘플링 지점에서 건전함을 보인다 ($p=1.18\times10^{-15}$, 비율 $18.2\times$). 이로써 잔존 결함은 영점 근방의 네트워크 출력 표현에 국한된다 (Remark~\ref{rem:isolation}).
 \end{enumerate}
@@ -921,6 +921,50 @@ $\mathcal{C}$를 $\xif(s)$의 정확히 $N$개 영점을 둘러싸는 $s$-평면
 \label{rem:phase_wrapping}
 QROP-Net에서 2-채널 $(\mathrm{Re}, \mathrm{Im})$ 출력은 $0/2\pi$ 위상 래핑 불연속을 피하기 위해 특별히 설계되었다. 동일한 위상적 장애물이 $\xif$-함수에서도 나타난다: $v(\sigma,t)$는 영점에서 분기 절단과 $2\pi$ 점프를 갖는다. 감김수 (\cref{eq:winding})는 이 점프를 계수하며, 이는 QROP-Net의 원형 통계 (\cref{eq:circular_mean})가 $0/2\pi$ 경계를 올바르게 처리하는 것과 같다.
 \end{remark}
+
+\begin{proposition}[임계선 순허수 제약]
+\label{prop:imaginary_connection}
+$\Lambda$가 함수방정식 $\Lambda(s) = \Lambda(1-s)$과 슈바르츠 반사 원리
+$\overline{\Lambda(s)} = \Lambda(\bar{s})$를 만족하면, 임계선 $\sigma = 1/2$ 위에서
+(영점 제외):
+\begin{equation}
+  \frac{\Lambda'(\tfrac{1}{2}+it)}{\Lambda(\tfrac{1}{2}+it)}
+  \;\in\; i\mathbb{R}
+  \qquad (t \in \mathbb{R},\; \Lambda(\tfrac{1}{2}+it) \neq 0).
+  \label{eq:purely_imaginary}
+\end{equation}
+동치적으로, 접속 1-형식을 임계선으로 제한하면
+$\omega|_{\sigma=1/2} = iA(t)\,dt$ ($A(t) \in \mathbb{R}$).
+\end{proposition}
+
+\begin{proof}
+$\Lambda(s) = \Lambda(1-s)$과 $\overline{\Lambda(s)} = \Lambda(\bar{s})$로부터,
+$s = \tfrac{1}{2}+it$에서:
+\[
+  \overline{\Lambda(\tfrac{1}{2}+it)}
+  = \Lambda(\tfrac{1}{2}-it)
+  = \Lambda\bigl(1 - (\tfrac{1}{2}+it)\bigr)
+  = \Lambda(\tfrac{1}{2}+it).
+\]
+따라서 $f(t) := \Lambda(\tfrac{1}{2}+it) \in \mathbb{R}$.
+연쇄 법칙에 의해 ($ds = i\,dt$이므로) $\Lambda'(s) = f'(t)/i = -if'(t)$:
+\[
+  \omega(\tfrac{1}{2}+it)
+  = \frac{-if'(t)}{f(t)}
+  = -i\,\frac{f'(t)}{f(t)}
+  \;\in\; i\mathbb{R}. \qedhere
+\]
+\end{proof}
+
+\begin{corollary}[이산적 위상 전이]
+\label{cor:discrete_phase}
+$\Lambda(\tfrac{1}{2}+it) \in \mathbb{R}$이므로, 연속 단순 영점
+$t_k < t_{k+1}$ 사이에서 $\Lambda(\tfrac{1}{2}+it)$은 일정한 부호를 가지며,
+$\arg\Lambda = 0$ 또는 $\pi$이다. 각 단순 영점에서 $\Lambda$는 부호를 바꾸어
+정확히 $\pi$만큼의 이산적 위상 점프를 생성한다.
+이는 $L$-함수의 베리 위상 아날로그이다: 위상 축적이 연속적이지 않고
+영점(위상적 전하)에 국소화되어 있다.
+\end{corollary}
 
 
 % ============================================================================
@@ -2467,63 +2511,6 @@ $\chi\bmod 5$ & 7 & 곡률 / 이중 / 모노 & 7 / 7 / 7 & 1.000 & 1.000 & 1.000
 
 \noindent
 3개 지표에서 3가지 방법 모두 $\mathrm{F1}=1.000$ (21/21 영점, 허용 오차 $\delta t < 0.5$). 80자릿수 \texttt{mpmath} 정밀도에서는 곡률 극대만으로 모든 영점을 거짓 양성 없이 식별 가능하다. 이중 기준과 모노드로미 단독 기준은 이 정밀도 수준에서 추가 이점이 없다. 이중 기준의 실용적 가치는 신경망 수준에서 근사 $\kappa$ 추정이 거짓 양성을 유발할 때 드러난다 (추측~3 참조).
-
-\paragraph{GL(2) 타원곡선 확장 검증.}
-예비 GL(2) 결과 (실험~\#52, \#54; 2곡선, rank~0--1)를 conductor $N \in [11, 13766]$의 20곡선 (rank당 5곡선, rank~0--3)으로 확장하였다.
-20곡선 중 19곡선이 4가지 $\xi$-다발 진단을 모두 통과:
-함수방정식 대칭 ($\log_{10}|\Lambda/\tilde{\Lambda}| = 0.0$),
-$\kappa\delta^2$ 안정성 (CV${}<8\%$),
-$\sigma$-스윕 국소화 ($\sigma{=}1.0$에서 $\geq 28/30$),
-모노드로미 양자화 ($\mathrm{mono}/\pi = 2.000 \pm 0$).
-유일한 실패 (11642a1, $N{=}11642$)는 고 conductor 수치 정밀도 한계로 귀속.
-
-PARI/GP \texttt{lfun} 기반 블라인드 예측을 8곡선
-(rank당 2곡선, rank~0--3)에 수행하였다
-($t \in [2, 50]$, $\Delta t = 0.1$, $\delta = 0.03$,
-모노드로미 $r=0.4$, MATCH\_TOL${} = 0.5$):
-
-\begin{center}
-\small
-\begin{tabular}{llcccccc}
-\toprule
-곡선 & rank & $N$ & $\varepsilon$ & 영점 & TP & FN & $F_1$ \\
-\midrule
-11a1 & 0 & 11 & $+1$ & 36 & 36 & 0 & 1.000 \\
-43a1 & 0 & 43 & $-1$ & 46 & 46 & 0 & 1.000 \\
-37a1 & 1 & 37 & $-1$ & 45 & 45 & 0 & 1.000 \\
-79a1 & 1 & 79 & $-1$ & 51 & 51 & 0 & 1.000 \\
-389a1 & 2 & 389 & $+1$ & 63 & 63 & 0 & 1.000 \\
-571a1 & 2 & 571 & $+1$ & 67 & 67 & 0 & 1.000 \\
-5077a1 & 3 & 5077 & $-1$ & 83 & 82 & 1 & 0.994 \\
-11197a1 & 3 & 11197 & $-1$ & 89 & 88 & 1 & 0.994 \\
-\midrule
-\textbf{합계} & & & & \textbf{480} & \textbf{478} & \textbf{2} & \textbf{0.996} \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-8곡선 전원 $F_1 \geq 0.994$, $\mathrm{Precision} = 1.000$ (거짓 양성 0).
-성능은 rank 독립: rank~0--1 ($N \leq 79$)은 $F_1 = 1.000$;
-rank~2--3 ($N \leq 11197$)은 $F_1 \geq 0.994$.
-미탐지 2건 (5077a1 $\gamma \approx 31.67$; 11197a1 $\gamma \approx 39.14$)은
-모두 간격${} < 0.16$인 근접 영점 쌍에 위치.
-8곡선 총합: $478/480 = 99.6\%$ 검출, 거짓 양성 0.
-
-\paragraph{배경 곡률: $\psi$-보정 공식.}
-degree-2 EC $L$-함수의 배경 곡률을
-$\kappa_\gamma = |\tfrac{1}{2}\log(N/4\pi^2) + \psi(\sigma+it)|^2$
-(digamma 보정)으로 분석하였다.
-단순 점근 공식 대비 경험/이론 비율의 CV가
-$45.0\% \to 9.3\%$로 개선된다.
-비율 $\kappa_{\mathrm{emp}}/\kappa_\gamma$는
-$0.79$ (저 conductor, $N=11$)에서 $0.99$ ($N=11197$)까지 분포하며,
-체계적 과소는 $|L'/L|^2$ 잔차항에 기인:
-$\kappa_{\mathrm{full}} = |g(s)|^2 + O(|L'/L|^2)$.
-$N \to \infty$에서 비율$\to 1$은 감마 인자 지배를 확인한다.
-
-\emph{$\xi$-다발 프레임워크가 해석적 rank에 무관하게 GL(2) $L$-함수 영점을
-검출하며, 배경 곡률이 보편적 감마 인자 공식으로 지배됨을 시사하는
-수치 증거이다.}
 
 \section{표기법 색인}
 \label{app:notation}

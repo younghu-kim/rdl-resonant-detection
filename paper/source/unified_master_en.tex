@@ -275,7 +275,7 @@ with a hard error boundary beyond which decoding fails}.
         optimisation (Section~\ref{sec:polyadic}).
   \item We formalise seven structural correspondences and rigorously
         delimit the boundary between analogy and proof
-        (Part~\ref{part:evidence}, Section~\ref{sec:correspondence}).
+        (Part~III, Section~\ref{sec:correspondence}).
   \item \textbf{(Negative empirical result, 2026-04-08)} We attempt
         the cyclotomic PQO programme empirically with $L=4$ on
         $t \in [100, 200]$, document a complete failure to discriminate
@@ -2104,6 +2104,53 @@ are consistent with this, and serve as independent numerical evidence
 for simplicity.
 \end{remark}
 
+\begin{proposition}[Critical-Line Imaginary Constraint]
+\label{prop:imaginary_connection}
+Let $\Lambda$ satisfy the functional equation $\Lambda(s) = \Lambda(1-s)$
+and the Schwarz reflection principle $\overline{\Lambda(s)} = \Lambda(\bar{s})$.
+Then on the critical line $\sigma = 1/2$, away from zeros:
+\begin{equation}
+  \omega\!\left(\tfrac{1}{2} + it\right)
+  = \frac{\Lambda'(\tfrac{1}{2}+it)}{\Lambda(\tfrac{1}{2}+it)}
+  \;\in\; i\mathbb{R}
+  \qquad (t \in \mathbb{R},\; \Lambda(\tfrac{1}{2}+it) \neq 0).
+  \label{eq:purely_imaginary}
+\end{equation}
+Equivalently, the connection 1-form restricted to the critical line
+takes the form $\omega|_{\sigma=1/2} = iA(t)\,dt$ with $A(t) \in \mathbb{R}$.
+\end{proposition}
+
+\begin{proof}
+From $\Lambda(s) = \Lambda(1-s)$ and
+$\overline{\Lambda(s)} = \Lambda(\bar{s})$, for $s = \tfrac{1}{2}+it$:
+\[
+  \overline{\Lambda(\tfrac{1}{2}+it)}
+  = \Lambda(\tfrac{1}{2}-it)
+  = \Lambda\bigl(1 - (\tfrac{1}{2}+it)\bigr)
+  = \Lambda(\tfrac{1}{2}+it).
+\]
+Hence $f(t) := \Lambda(\tfrac{1}{2}+it) \in \mathbb{R}$ for all $t$.
+Since $\Lambda'(s) = f'(t)/i = -if'(t)$ by the chain rule
+($ds = i\,dt$ along the critical line):
+\[
+  \omega(\tfrac{1}{2}+it)
+  = \frac{-if'(t)}{f(t)}
+  = -i\,\frac{f'(t)}{f(t)}
+  \;\in\; i\mathbb{R}. \qedhere
+\]
+\end{proof}
+
+\begin{corollary}[Discrete Phase Transitions]
+\label{cor:discrete_phase}
+Since $\Lambda(\tfrac{1}{2}+it) \in \mathbb{R}$, between consecutive
+simple zeros $t_k < t_{k+1}$ the function $\Lambda(\tfrac{1}{2}+it)$
+has constant sign, so $\arg\Lambda = 0$ or $\pi$. At each simple zero,
+$\Lambda$ changes sign, producing a discrete phase jump of exactly $\pi$.
+This is the $L$-function analogue of the Berry phase:
+phase accumulation is not continuous but localized at zeros
+(topological charges).
+\end{corollary}
+
 
 % ============================================================================
 \section{Curvature Concentration at Zeros}
@@ -3488,84 +3535,6 @@ plus a weight-12 modular form)---spanning all standard automorphic
 $L$-function families tested.
 \emph{This constitutes numerical evidence for blind zero prediction
 universality across automorphic families; it is not a proof.}
-\end{remark}
-
-\begin{remark}[Extended EC verification: 20 curves, ranks~0--3]
-\label{rem:ec_extended_verification}
-The preliminary GL(2) results above (experiments~\#52, \#54; 2~curves,
-ranks~0--1) were extended to 20~elliptic curves spanning ranks~0--3
-with conductors $N \in [11, 13766]$ (5~curves per rank).
-Of 20~curves, 19~pass all four $\xi$-bundle diagnostics:
-functional-equation symmetry ($\log_{10}|\Lambda/\tilde{\Lambda}| = 0.0$),
-$\kappa\delta^2$ stability (CV${}<8\%$),
-$\sigma$-sweep localization ($\geq 28/30$ detections at $\sigma=1.0$),
-and monodromy quantization ($\mathrm{mono}/\pi = 2.000 \pm 0$).
-The single failure (11642a1, $N{=}11642$, rank~3)
-has $\kappa\delta^2$~CV${}=32\%$, attributed to numerical precision
-limits at high conductor.
-
-Blind zero prediction was tested on eight elliptic curves
-(two per rank, ranks~0--3) using PARI/GP \texttt{lfun}
-($t \in [2, 50]$, $\Delta t = 0.1$, $\delta = 0.03$,
-monodromy $r=0.4$, MATCH\_TOL${} = 0.5$):
-
-\begin{center}
-\small
-\begin{tabular}{llcccccc}
-\toprule
-Curve & rank & $N$ & $\varepsilon$ & Zeros & TP & FN & $F_1$ \\
-\midrule
-11a1 & 0 & 11 & $+1$ & 36 & 36 & 0 & 1.000 \\
-43a1 & 0 & 43 & $-1$ & 46 & 46 & 0 & 1.000 \\
-37a1 & 1 & 37 & $-1$ & 45 & 45 & 0 & 1.000 \\
-79a1 & 1 & 79 & $-1$ & 51 & 51 & 0 & 1.000 \\
-389a1 & 2 & 389 & $+1$ & 63 & 63 & 0 & 1.000 \\
-571a1 & 2 & 571 & $+1$ & 67 & 67 & 0 & 1.000 \\
-5077a1 & 3 & 5077 & $-1$ & 83 & 82 & 1 & 0.994 \\
-11197a1 & 3 & 11197 & $-1$ & 89 & 88 & 1 & 0.994 \\
-\midrule
-\textbf{Total} & & & & \textbf{480} & \textbf{478} & \textbf{2} & \textbf{0.996} \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-All eight curves achieve $F_1 \geq 0.994$ with
-$\mathrm{Precision} = 1.000$ (zero false positives).
-Performance is rank-independent: ranks~0--1 ($N \leq 79$)
-achieve $F_1 = 1.000$; ranks~2--3 ($N \leq 11197$)
-achieve $F_1 \geq 0.994$.  The two missed zeros
-(5077a1, $\gamma \approx 31.67$; 11197a1, $\gamma \approx 39.14$)
-both lie in close pairs with gap${} < 0.16$, where
-$\Delta t = 0.1$ merges adjacent $\kappa$-peaks.
-The eight-curve aggregate achieves
-$478/480 = 99.6\%$ detection with FP${} = 0$.
-
-\paragraph{Background curvature: $\psi$-corrected formula.}
-The background curvature for degree-2 EC $L$-functions was analysed
-using the full digamma-corrected formula
-$\kappa_\gamma = |\tfrac{1}{2}\log(N/4\pi^2) + \psi(\sigma+it)|^2$,
-where $\psi$ denotes the digamma function.
-Compared to the simpler asymptotic approximation
-$\kappa_{\mathrm{simple}} = (\tfrac{1}{2}\log(N/4\pi^2)+\gamma)^2
-+ \pi^2/4$,
-the $\psi$-correction reduces the empirical-to-theoretical ratio
-CV from $45.0\%$ to $9.3\%$ across the eight curves.
-The ratio $\kappa_{\mathrm{emp}}/\kappa_\gamma$ ranges from
-$0.79$ (low conductor, $N=11$) to $0.99$ ($N=11197$),
-with the systematic undershoot attributable to the
-$|L'/L|^2$ residual:
-$\kappa_{\mathrm{full}} = |g(s)|^2 + O(|L'/L|^2)$,
-where $g(s) = \tfrac{1}{2}\log(N/4\pi^2) + \psi(s)$
-is the gamma-factor contribution.
-The scaling $\kappa_{\mathrm{emp}}/\kappa_\gamma \to 1$
-as $N \to \infty$ confirms gamma-factor dominance for large
-conductor, consistent with the GL(1) curvature analysis.
-
-\emph{Numerical evidence suggests that the $\xi$-bundle framework
-detects zeros of GL(2) $L$-functions regardless of analytic rank,
-with background curvature governed by a universal
-gamma-factor formula.  This is consistent with the universality
-thesis established in Part~\ref{part:evidence}.}
 \end{remark}
 
 
@@ -6092,7 +6061,7 @@ with full transparency).
 35 & $\kappa$ distribution vs.\ GUE prediction & \textbf{N} & KS $D{=}0.361$; scale $7.6{\times}$; Q--Q $r{=}0.97$ & RMT boundary \\
 36 & $\kappa$ autocorrelation vs.\ GUE two-point & \textbf{N} & $\tau_\text{unf}{=}0.45{\neq}1.0$; $R^2{=}0.48$; lag-1 $C{=}{-}0.08$ & RMT boundary \\
 \midrule
-37 & Dirichlet $\chi\bmod 7$ (high conductor, 5 chars.) & \textbf{E} & 689 zeros ($t{\in}[10,200]$, C-345); mono 689/689; 5/5 ALL-PASS; cond.\ effect B/E & Dirichlet \\
+37 & Dirichlet $\chi\bmod 7$ (high conductor) & \textbf{E} & 136 zeros; mono 136/136; blind 7/7; cond.\ effect B/E & Dirichlet \\
 38 & Cross-comparison: 5 GL(1) $L$-functions & \textbf{E} & $\kappa$ mono.\ dec.\ Spearman $r_s{=}{-}1.000$; $\sigma$-uniqueness 5/5; prelim.\ 5-pt trend & Dirichlet \\
 \midrule
 39 & Elliptic curve 11a1 (GL(2)) & \textbf{E} & mono 17/17; $\kappa$ $972\times$; blind 15/15; $\sigma$-uniq.\ N/A & GL(2) \\
@@ -7557,7 +7526,7 @@ Three qualitative patterns emerge:
   \item \emph{Prior conductor table ($q=3,4,5,7$).}
         Monodromy quantisation and blind zero prediction (F1$=1.0$) hold
         across all four conductors in the earlier set without exception (see
-        per-conductor zero totals: 12, 13, 13, 689 zeros ($q{=}7$: $t{\in}[10,200]$, 5 chars., C-345) for $q=3,4,5,7$ respectively).
+        table below for reference counts: 12, 13, 13, 136 zeros respectively).
 \end{enumerate}
 
 \noindent

@@ -1,13 +1,15 @@
 # 수학자 보드 (Stage 1)
 
-## 지시 [2026-04-27 17:09 — 사이클 #374]
+## 지시 [2026-04-27 — 사이클 #375]
 
-**상황**: Paper A/B/3 전체 투고 준비 완료. CPU 유휴. 새 연구 방향 결정 시점.
+**상황**: C-374 완료. Monodromy=2π는 Paper A에 이미 Theorem으로 수록 확인. 
+새 Proposition (Critical-Line Imaginary Constraint) + Corollary (Discrete Phase Transitions) 발견 → Paper A EN/KO에 삽입 완료 (EN 122p, KO 47p, 에러 0).
 
-**Phase 2.5 판정**: Monodromy = 2π 정리가 증명 가능성 최고.
-- 2517+ 영점에서 편차 0으로 관측됨
-- Argument principle의 직접 귀결이어야 함
-- 단순 영점(simple zero) 가정 하에 엄밀 증명 가능
+**C-374 판정**: 반-자명(semi-trivial). 수학적으로 argument principle 귀결이나, 
+접속의 순허수 제약이라는 기하학적 해석은 문헌 선례 없음. Proposition으로 유효.
+
+**다음 연구 방향**: Paper 4 씨앗 탐색 또는 기존 경계 해소.
+후보: B-46 (gap_min t-의존성), B-60 (GL(3) 교차항), Selberg axiom 분리
 
 **다음 작업**: **C-374 — Monodromy Theorem 엄밀 증명 구성**
 
