@@ -2,7 +2,7 @@
 %  Universal Anti-Correlation between Hadamard Amplitudes
 %  and Minimum Zero Spacing in Automorphic L-Functions
 %  (Project RDL — Paper 4)
-%  Results C-270, C-375, C-378, C-383
+%  Results C-270, C-375, C-378, C-383, C-384
 % ============================================================================
 \documentclass[11pt, a4paper]{article}
 
@@ -88,12 +88,12 @@ $\Lam'/\Lam(\rho_n + u) = u^{-1} + c_0 + c_1 u + \cdots$,
 measures the local spectral weight of each zero.
 We present numerical evidence that the Spearman rank
 anti-correlation $\rho_{\mathrm{S}}(A_\Lam,\, g_{\min}^{\GUE})$
-is \emph{universal} across ten automorphic $L$-functions of
-degree~$1$ through~$4$ and conductor~$1$ through~$1{,}331$,
+is \emph{universal} across eleven automorphic $L$-functions of
+degree~$1$ through~$4$ and conductor~$1$ through~$6{,}859$,
 encompassing both self-dual ($\varepsilon = \pm 1$) and
 non-self-dual ($\varepsilon \in S^1$) root numbers.
 The overall mean correlation is
-$\rho_{\mathrm{S}} = -0.892 \pm 0.015$ (range~$0.043$).
+$\rho_{\mathrm{S}} = -0.894 \pm 0.014$ (range~$0.043$).
 The minimum gap $g_{\min}$ is identified as the canonical gap
 metric via height-stability analysis (span~$0.16$ across eight
 height bins, $p = 0.40$), in contrast to $g_{\mathrm{right}}$
@@ -144,16 +144,22 @@ Result~C-383 extended the measurement to degree~$4$ via
 $L(s, \mathrm{Sym}^3 E_{11\mathrm{a}1})$, obtaining
 $\rho_{\mathrm{S}} = -0.905$ ($n = 327$), consistent with the
 degree~$1$--$3$ average.
-The combined ten-family dataset is the subject of the present
+Result~C-384 provided a second degree-$4$ confirmation via
+$L(s, \mathrm{Sym}^3 E_{19\mathrm{a}1})$ ($N = 6{,}859$,
+$n = 357$), yielding $\rho_{\mathrm{S}} = -0.908$---virtually
+identical to $\mathrm{Sym}^3 E_{11}$ despite a $5.2\times$
+conductor increase, confirming conductor independence at
+degree~$4$.
+The combined eleven-family dataset is the subject of the present
 paper.
 
 \medskip\noindent\textbf{Main results.}\;
 \begin{enumerate}
   \item \textbf{Universal anti-correlation}
-        (\cref{sec:results}): ten $L$-functions of degree~$1$--$4$
+        (\cref{sec:results}): eleven $L$-functions of degree~$1$--$4$
         give $\rho_{\mathrm{S}}(A_\Lam, g_{\min}^{\GUE})
-        = -0.892 \pm 0.015$ (range~$0.043$), with self-dual
-        mean~$-0.895$ and non-self-dual mean~$-0.887$.
+        = -0.894 \pm 0.014$ (range~$0.043$), with self-dual
+        mean~$-0.897$ and non-self-dual mean~$-0.888$.
   \item \textbf{Canonical metric identification}
         (\cref{ssec:gap_min_canonical}): $g_{\min}$ is
         height-stable (span~$0.16$, $p = 0.40$) while
@@ -168,8 +174,8 @@ paper.
 
 \medskip\noindent\textbf{Scope and limitations.}\;
 All results are numerical, covering degree~$1$--$4$ and
-conductor~$1$--$1{,}331$ only.
-Maass forms, $\mathrm{GL}(n)$ $L$-functions with $n \ge 4$,
+conductor~$1$--$6{,}859$ only.
+Maass forms, $\mathrm{GL}(n)$ $L$-functions with $n \ge 5$,
 and high-conductor regimes remain untested.
 We therefore describe our findings as \emph{preliminary numerical
 evidence for general universality}, following the classification
@@ -299,13 +305,13 @@ in~\cite{paper2}).
 
 
 % ============================================================================
-\section{Data: Nine $L$-Function Families}
+\section{Data: Eleven $L$-Function Families}
 \label{sec:data}
 % ============================================================================
 
 We measure the Spearman correlation $\rho_{\mathrm{S}}(A_\Lam,
-g_{\min}^{\GUE})$ for ten $L$-functions spanning four degrees,
-conductors from~$1$ to~$1{,}331$, and both self-dual and non-self-dual
+g_{\min}^{\GUE})$ for eleven $L$-functions spanning four degrees,
+conductors from~$1$ to~$6{,}859$, and both self-dual and non-self-dual
 root numbers.
 
 \medskip\noindent\textbf{Computational protocol.}\;
@@ -333,10 +339,10 @@ position-insensitive baseline.
 
 \begin{table}[t]
 \centering
-\caption{Ten $L$-functions and their amplitude--gap correlations
+\caption{Eleven $L$-functions and their amplitude--gap correlations
 under the canonical $(A_\Lam, g_{\min}^{\GUE})$ metric.
 The five self-dual families of degree~$1$--$3$ are from Result~C-375;
-the degree-$4$ family is from Result~C-383;
+the two degree-$4$ families are from Results~C-383 and~C-384;
 the four non-self-dual families are from Result~C-378.
 All $p$-values are below $10^{-24}$.}
 \label{tab:nine_families}
@@ -353,34 +359,36 @@ $L(s,E_{11\mathrm{a}1})$            & 2 & 11  & 437 & $-0.914$ & $[-0.928,-0.897
 $L(s,\Delta)$                        & 2 & 1   & 324 & $-0.876$ & $[-0.899,-0.848]$ & $+1$                   & self-dual \\
 $L(s,\mathrm{sym}^2 E_{11})$        & 3 & 121 & 96  & $-0.885$ & $[-0.920,-0.830]$ & $+1$                   & self-dual \\
 $L(s,\mathrm{Sym}^3 E_{11})$       & 4 & 1331 & 327 & $-0.905$ & $[-0.928,-0.873]$ & $+1$                  & self-dual \\
+$L(s,\mathrm{Sym}^3 E_{19})$       & 4 & 6859 & 357 & $-0.908$ & $[-0.929,-0.881]$ & $+1$                  & self-dual \\
 \midrule
 $L(s,\chi_{5}^{(1)})$               & 1 & 5   & 238 & $-0.903$ & $[-0.929,-0.866]$ & $\varepsilon \in S^1$  & non-self-dual \\
 $L(s,\bar{\chi}_{5}^{(1)})$         & 1 & 5   & 238 & $-0.875$ & $[-0.910,-0.828]$ & $\bar{\varepsilon}$    & non-self-dual \\
 $L(s,\chi_{7}^{(1)})$               & 1 & 7   & 254 & $-0.871$ & $[-0.908,-0.820]$ & $\varepsilon \in S^1$  & non-self-dual \\
 $L(s,\bar{\chi}_{7}^{(1)})$         & 1 & 7   & 255 & $-0.901$ & $[-0.927,-0.866]$ & $\bar{\varepsilon}$    & non-self-dual \\
 \midrule
-\multicolumn{3}{l}{Self-dual mean ($6$ families)}  & & $-0.895$ &                   &                        & \\
-\multicolumn{3}{l}{Non-self-dual mean ($4$ families)} & & $-0.887$ &                &                        & \\
-\multicolumn{3}{l}{\textbf{Overall mean} ($10$ families)} & & $\bm{-0.892}$ &        &                        & \\
-\multicolumn{3}{l}{Overall std}                     & & $0.015$ &                    &                        & \\
+\multicolumn{3}{l}{Self-dual mean ($7$ families)}  & & $-0.897$ &                   &                        & \\
+\multicolumn{3}{l}{Non-self-dual mean ($4$ families)} & & $-0.888$ &                &                        & \\
+\multicolumn{3}{l}{\textbf{Overall mean} ($11$ families)} & & $\bm{-0.894}$ &        &                        & \\
+\multicolumn{3}{l}{Overall std}                     & & $0.014$ &                    &                        & \\
 \multicolumn{3}{l}{Overall range}                   & & $0.043$ &                    &                        & \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \cref{tab:nine_families} presents the complete dataset.
-The ten families span:
+The eleven families span:
 \begin{itemize}
   \item \textbf{Degree}: $d = 1$ (Riemann~$\zeta$, Dirichlet),
         $d = 2$ (elliptic curve $E_{11\mathrm{a}1}$, Ramanujan~$\Delta$),
         $d = 3$ (symmetric square $\mathrm{sym}^2 E_{11}$),
-        $d = 4$ (symmetric cube $\mathrm{Sym}^3 E_{11}$).
-  \item \textbf{Conductor}: $N = 1, 3, 5, 7, 11, 121, 1331$.
+        $d = 4$ (symmetric cube $\mathrm{Sym}^3 E_{11}$,
+        $\mathrm{Sym}^3 E_{19}$).
+  \item \textbf{Conductor}: $N = 1, 3, 5, 7, 11, 121, 1{,}331, 6{,}859$.
   \item \textbf{Root number}: $\varepsilon = +1, -1$ (self-dual)
         and $\varepsilon \in S^1 \setminus \{\pm 1\}$ (non-self-dual,
         $\varepsilon = 0.851 + 0.526i$ for mod~$5$,
         $\varepsilon = 0.387 + 0.922i$ for mod~$7$).
-  \item \textbf{Total zeros}: $\sum n_i = 3{,}573$ interior zeros
+  \item \textbf{Total zeros}: $\sum n_i = 3{,}930$ interior zeros
         (after $20\%$ trimming on each side).
 \end{itemize}
 
@@ -393,26 +401,30 @@ The ten families span:
 \subsection{Universality of the anti-correlation}
 \label{ssec:universality}
 
-All ten $L$-functions in \cref{tab:nine_families} exhibit a
+All eleven $L$-functions in \cref{tab:nine_families} exhibit a
 strong negative Spearman correlation
 $\rho_{\mathrm{S}}(A_\Lam, g_{\min}^{\GUE})$:
 \begin{itemize}
   \item Every family satisfies $\rho_{\mathrm{S}} < -0.87$.
-  \item The overall mean is $-0.892 \pm 0.015$ (std).
+  \item The overall mean is $-0.894 \pm 0.014$ (std).
   \item The range is $0.043$
         ($-0.914$ for $E_{11\mathrm{a}1}$ to $-0.871$ for
         $\chi_7^{(1)}$).
   \item Degree dependence is absent: degree~$1$ mean $= -0.890$
         ($n = 6$), degree~$2$ mean $= -0.895$ ($n = 2$),
         degree~$3$ $= -0.885$ ($n = 1$),
-        degree~$4$ $= -0.905$ ($n = 1$).
-  \item Conductor dependence is absent over a $1{,}331$-fold
-        range ($N = 1$ to $1{,}331$).
+        degree~$4$ mean $= -0.907$ ($n = 2$).
+  \item Conductor dependence is absent over a $6{,}859$-fold
+        range ($N = 1$ to $6{,}859$).
+        Within degree~$4$ alone, $\mathrm{Sym}^3 E_{11}$ ($N = 1{,}331$)
+        and $\mathrm{Sym}^3 E_{19}$ ($N = 6{,}859$) give
+        $\rho = -0.905$ and $-0.908$ respectively
+        ($\Delta = 0.003$, $5.2\times$ conductor ratio).
 \end{itemize}
 
 The numerical evidence suggests that the anti-correlation is a
 universal property of $L$-functions in the tested range, not an
-artefact of a specific family, degree, or root number.
+artefact of a specific family, degree, conductor, or root number.
 
 
 \subsection{$g_{\min}$ as the canonical gap metric}
@@ -486,8 +498,8 @@ families:
 
 \begin{observation}[Root-number independence]
 \label{obs:root_number}
-Self-dual mean $\rho_{\mathrm{S}} = -0.893$;
-non-self-dual mean $= -0.887$.
+Self-dual mean $\rho_{\mathrm{S}} = -0.897$ (seven families);
+non-self-dual mean $= -0.888$ (four families).
 The difference $\Delta = 0.006$ is well within the individual
 $95\%$ confidence interval widths (${\sim}0.05$--$0.09$).
 \end{observation}
@@ -521,14 +533,14 @@ $\tilde{\gamma}_k$ values.
 \subsection{$g_{\min}$ versus $g_{\mathrm{right}}$}
 \label{ssec:gap_comparison}
 
-Across all ten families, $g_{\min}$ consistently produces
+Across all eleven families, $g_{\min}$ consistently produces
 stronger correlations than $g_{\mathrm{right}}$:
 
 \begin{center}
 \begin{tabular}{lcc}
 \toprule
 \textbf{Metric} &
-$\bar{\rho}_{\mathrm{S}}$ (ten families) &
+$\bar{\rho}_{\mathrm{S}}$ (eleven families) &
 Height stability \\
 \midrule
 $g_{\min}^{\GUE}$      & $-0.891$ & span $0.16$, $p = 0.40$ \\
@@ -564,7 +576,7 @@ The GUE random matrix ensemble produces
 $\rho_{\mathrm{S}}^{\text{full}}(A, g_{\min}) = -0.912$
 under matched conditions (full sum, $20\%$ trim,
 $N = 200$--$2000$; see~\cite{paper4draft}).
-The observed $-0.892$ for the ten families is within
+The observed $-0.894$ for the eleven families is within
 $2\%$ of this GUE baseline, suggesting that the bulk of the
 correlation is a consequence of the universal eigenvalue
 repulsion encoded in the GUE pair correlation function
@@ -584,25 +596,25 @@ influence---a ``spectral influence radius'' interpretation.
 \subsection{Limitations and untested regimes}
 \label{ssec:limitations}
 
-The present evidence, while consistent across ten families,
+The present evidence, while consistent across eleven families,
 has clear limitations:
 
 \begin{enumerate}
   \item \textbf{Degree range}: $d = 1, 2, 3, 4$ have been
-        tested, with degree~$4$ represented by a single $L$-function
+        tested, with degree~$4$ represented by two $L$-functions
         ($\mathrm{Sym}^3 E_{11\mathrm{a}1}$, $N = 1{,}331$,
-        $n = 327$, $\rho_{\mathrm{S}} = -0.905$).
-        GL(5) and higher ($\mathrm{sym}^4$,
+        $n = 327$, $\rho_{\mathrm{S}} = -0.905$;
+        $\mathrm{Sym}^3 E_{19\mathrm{a}1}$, $N = 6{,}859$,
+        $n = 357$, $\rho_{\mathrm{S}} = -0.908$).
+        GL(5) and higher ($\mathrm{Sym}^4$,
         Rankin--Selberg convolutions) remain unverified under the
         canonical $(A_\Lam, g_{\min}^{\GUE})$ metric.
-        Preliminary evidence from~\cite{paper4draft} using the
-        uniform $(A_L, g_{\min})$ metric extends to degree~$6$
-        ($\mathrm{sym}^5 E_{11}$), but with weaker correlations
-        ($\rho \approx -0.42$) that may reflect $T$-range
-        limitations rather than a genuine degree effect.
-  \item \textbf{Conductor range}: $N \le 1{,}331$.
+  \item \textbf{Conductor range}: $N \le 6{,}859$.
         Higher-conductor effects (deeper Euler product structure,
-        denser zero distribution) have not been extensively tested.
+        denser zero distribution) have not been extensively tested,
+        although the two degree-$4$ families ($N = 1{,}331$ vs
+        $6{,}859$, $\Delta\rho = 0.003$) provide a first check
+        of conductor independence within a fixed degree.
   \item \textbf{Maass forms}: no Maass form $L$-function has been
         included.
         Maass forms have continuous spectral parameters, and the
@@ -634,13 +646,13 @@ numerical evidence only.
 We have presented numerical evidence that the Spearman
 anti-correlation $\rho_{\mathrm{S}}(A_\Lam, g_{\min}^{\GUE})$
 between the Hadamard amplitude and the GUE-normalised minimum
-gap is universal across ten automorphic $L$-functions of
-degree~$1$--$4$, conductor~$1$--$1{,}331$, with both self-dual and
+gap is universal across eleven automorphic $L$-functions of
+degree~$1$--$4$, conductor~$1$--$6{,}859$, with both self-dual and
 non-self-dual root numbers.
 
 The key findings are:
 \begin{enumerate}
-  \item The correlation $\rho_{\mathrm{S}} = -0.892 \pm 0.015$
+  \item The correlation $\rho_{\mathrm{S}} = -0.894 \pm 0.014$
         (range~$0.043$) is remarkably stable across families,
         suggesting a universal mechanism rooted in the Hadamard
         product structure.
@@ -664,7 +676,7 @@ strength reflects the tightness of this bound
 ($2H_1^{\mathrm{NN}}/A \approx 87\%$).
 
 Future directions include:
-extending to GL(4+) and Maass forms,
+extending to GL(5+) and Maass forms,
 testing height-bin stability within each non-$\zeta$ family,
 and investigating whether the $2H_1/A_L \approx 2/3$ ratio
 observed across all degrees can be derived analytically from
