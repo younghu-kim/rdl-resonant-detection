@@ -1,6 +1,83 @@
 # 설계자/실행자 보드
 
-## 보고 [2026-04-27 16:31 — 사이클 #372] — C-361 Paper 3 §6/§7/Abstract에 S₅ 반영 완료
+## 보고 [2026-04-27 17:13 — 사이클 #374] — C-374 Monodromy Theorem 엄밀 증명 구성 및 자명성 판정
+
+**수학자 지시**: C-374 — Monodromy = 2π 엄밀 증명 구성, 자명성 판정, 논문 위치 결정
+**모델**: Opus
+**PID**: 없음 (수학적 분석 작업, 실험 아님)
+**결과 위치**: `results/c374_monodromy_proof_analysis.tex`
+
+### 핵심 발견: 이미 논문에 존재
+
+**Monodromy = 2π 정리는 이미 Paper A에 수록되어 있음**:
+- Theorem `thm:holonomy` (line 2035–2065): 완전한 정리문 + 증명
+- Proof (line 2068–2083): "direct application of the argument principle" 명시
+- Remark `rem:hol_geometric` (line 2087): "classical argument principle restated" 인정
+- Remark `rem:simple_zeros` (line 2097): 단순 영점 조건 + 수치 증거
+
+### 자명성 판정: **반-자명 (Semi-trivial)**
+
+| 측면 | 판정 | 근거 |
+|------|------|------|
+| 수학적 내용 | **자명** | Argument principle 직접 적용 |
+| 기하학적 해석 | **비자명** | ξ'/ξ를 U(1)-접속으로 보는 시점은 선례 없음 |
+| 정량적 결과 | **비자명** | 300× 곡률 분리, 보편성 등은 별개 Obs |
+| 논문 서술 | **최적** | 이미 정직하게 "arg principle restated" 명시 |
+
+### 수학자 제안 FE-기반 유도 분석
+
+수학자 전략: "σ=1/2 위의 적분 = 윤곽 한 변, FE로 반대편 동일, 합하면 2π"
+
+**분석 결과**: 이 논증은 직사각형 윤곽의 좌/우 대칭을 줄 뿐, "선적분 = π"를 의미하지 않음.
+- 임계선 위에서 ξ'/ξ는 영점에서 발산 → 선적분 부정적분으로 정의 불가
+- ξ가 임계선에서 **실수값** (FE + 반사 원리) → 위상 = {0, π}만 가능 (연속 축적 아님)
+- 영점에서의 위상 변화 = 이산적 π 점프 (부호 반전)
+
+### 비자명 추가 명제 발견: Critical-Line Imaginary Constraint
+
+**현재 논문에 없는 비자명 진술**:
+
+> **Proposition**: FE + 반사 원리 ⇒ L(1/2+it) = ξ'(1/2+it)/ξ(1/2+it) ∈ iℝ (순허수)
+
+**증명 3줄**: ξ(1/2+it) ∈ ℝ (FE로 증명) → ξ' = -if'(t) → L = -if'/f ∈ iℝ.
+
+**Corollary**: 연속 영점 사이에서 arg(ξ) ∈ {0, π}. 단순 영점에서 π 점프. 위상 축적은 연속적이지 않고 영점에 국소화됨.
+
+**의의**: "왜 영점이 위상적 전하처럼 보이는가"의 기하학적 설명. Berry phase analog. 현재 논문에 **미수록**.
+
+### 권고
+
+| 내용 | 현재 | 권고 |
+|------|------|------|
+| Monodromy = 2πm Theorem | ✅ 유지 | 변경 불필요 |
+| "= arg principle" Remark | ✅ 유지 | 변경 불필요 |
+| L|_{σ=1/2} ∈ iℝ Proposition | **미수록** | **추가 권고** |
+| 이산 위상 점프 Corollary | **미수록** | 추가 권고 |
+| FE contour decomposition | 미수록 | 선택적 Remark |
+
+### 성공 기준 검증
+
+| 기준 | 결과 | 판정 |
+|------|------|------|
+| Monodromy = 2π 엄밀 증명 문장 (LaTeX) | 이미 존재 (Thm line 2035) + 신규 Prop 작성 | ✅ |
+| 자명/비자명 판정 + 근거 | 반-자명: 수학적 자명, 해석적 비자명 | ✅ |
+| 논문 내 위치 결정 | 기존 Theorem 유지 + Prop 추가 가능 위치 식별 | ✅ |
+
+### 수학자에게
+
+1. **이미 논문에 있음**: Theorem `thm:holonomy` + Proof + 2개 Remark으로 완전히 cover됨. 추가 작업 불필요.
+2. **FE 전략은 새 정리를 주지 않음**: 선적분 해석은 영점에서 발산하므로 "Δφ = π" 식 서술 불가.
+3. **하나의 신규 Proposition 존재**: L|_{σ=1/2} ∈ iℝ + 이산 위상 점프. 이것은 비자명이며 논문에 없음.
+4. **권고 방향**: (a) 기존 Theorem은 건드리지 않기, (b) Prop `imaginary_connection` 추가 여부만 결정, (c) 추가한다면 Thm `holonomy` 직후가 적절.
+5. **대안 전환 시점**: Monodromy 방향은 더 파낼 것 없음. B-46 (gap_min t-의존성) 또는 Paper 4 방향 탐색이 다음 생산적 작업.
+
+### 이슈
+
+- 없음. 수학적 분석 완료.
+
+---
+
+## [아카이브] 보고 [2026-04-27 16:31 — 사이클 #372] — C-361 Paper 3 §6/§7/Abstract에 S₅ 반영 완료
 
 **수학자 지시**: C-361 — Paper 3 §6 Discussion/§7 Conclusion/Abstract에 S₅ 결과 반영
 **모델**: Sonnet
