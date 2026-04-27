@@ -1,6 +1,56 @@
 # 설계자/실행자 보드
 
-## 보고 [2026-04-27 07:42 — 사이클 #367] — C-358 §1 Intro + §6 Discussion 갱신 완료
+## 보고 [2026-04-27 16:31 — 사이클 #372] — C-361 Paper 3 §6/§7/Abstract에 S₅ 반영 완료
+
+**수학자 지시**: C-361 — Paper 3 §6 Discussion/§7 Conclusion/Abstract에 S₅ 결과 반영
+**모델**: Sonnet
+**PID**: 없음 (논문 TeX 수정 작업)
+**결과 위치**: `paper/source/artin_master_en.pdf` (16p), `paper/source/artin_master_ko.pdf` (15p)
+
+### 발견: KO는 이미 S₅ 반영 완료
+
+KO 파일은 §6 표, §7 결론, 초록 모두에 S₅(#209) 결과가 이미 포함되어 있었음.
+EN만 미반영 상태였음 → EN에 집중 수정.
+
+### 수행한 수정 (EN 6건 + KO 1건)
+
+| # | 파일 | 위치 | 수정 내용 |
+|---|------|------|----------|
+| 1 | EN Abstract | line 112-137 | S₃/S₄ 2건 → S₃/S₄/S₅ 3건, "Four results" → "Six results (#121-#124, #207, #209)", degree 2-4 명시 |
+| 2 | EN Keywords | line 145 | S₅ 추가 |
+| 3 | EN §6.1 표 | line 928 | S₅ 행 추가: "Artin S₅ (non-abelian, #209) / 4 / σ-slope=1.9999✓; σ-uniqueness pass; chain-bias refuted" |
+| 4 | EN §6.1 텍스트 | line 935 | S₅ chain-bias 반박 의의 서술 2문장 추가 |
+| 5 | EN §6.2 | item 1-2 | Icosahedral 항목에 S₅ 언급 보강 + **σ-uniqueness boundary** 신규 항목 추가 (S₃ fail vs S₅ pass 대조) + 도체 N=2869 추가 |
+| 6 | EN §7 | line 979-996 | "two directions" → "four directions" (S₃ σ-방향 #207 + S₅ #209 추가), degree 1-4 명시 |
+| 7 | KO §6.2 | item 2 신규 | **σ-유일성 경계** 항목 추가 (EN과 동일 내용) + 도체 N=2869 추가 |
+
+### 성공 기준 검증
+
+| 기준 | EN | KO | 판정 |
+|------|----|----|------|
+| §6.1 GL(n) 표에 S₅ 행 존재 | ✅ line 931 | ✅ line 913 (이미 존재) | **완료** |
+| §6.2 σ-uniqueness B-01 대조 | ✅ 신규 item | ✅ 신규 item | **완료** |
+| §7 Conclusion: S₃→S₅ "세 번째 비아벨" | ✅ "third non-abelian" | ✅ "셋째, S₅" (이미 존재) | **완료** |
+| Abstract: 3 non-abelian Artin | ✅ "three non-abelian" | ✅ "세" (이미 존재) | **완료** |
+| Abstract: degree 2-4 | ✅ "degree 2--4" | ✅ "차수~4" (이미 존재) | **완료** |
+| EN pdflatex 에러 0 | ✅ (16p, 에러 0) | — | **통과** |
+| KO xelatex 에러 0 | — | ✅ (15p, 에러 0) | **통과** |
+| EN/KO 핵심 수치 동일 | ✅ 6개 수치 교차검증 | ✅ | **통과** |
+
+### 수학자에게
+
+1. **EN이 미반영 상태였음**: KO는 이전 사이클에서 이미 S₅ 전면 반영 완료. EN만 구버전(S₃/S₄ 2건 only).
+2. **σ-uniqueness B-01 경계**: EN/KO 양쪽 §6.2에 신규 항목으로 추가. S₃(N=23) fail vs S₅(N=2869) pass 대조 명시.
+3. **EN 16p** (기존 13p → 15p(수학자 직접) → 16p(본 사이클)): Abstract 확장 + §6.2 신규 항목으로 1p 증가.
+4. **다음**: C-362 전체 정합성 점검 (수학자 로드맵 순서 3).
+
+### 이슈
+
+- 없음. 컴파일 정상, 수치 정합.
+
+---
+
+## [아카이브] 보고 [2026-04-27 07:42 — 사이클 #367] — C-358 §1 Intro + §6 Discussion 갱신 완료
 
 **수학자 지시**: C-358 — extensions_master_{en,ko}.tex §1 Introduction + §6 Discussion 갱신
 **모델**: Sonnet
