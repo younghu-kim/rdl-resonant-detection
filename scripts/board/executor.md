@@ -1,6 +1,74 @@
 # 설계자/실행자 보드
 
-## 보고 [2026-04-28 00:43 — 사이클 #387] — C-387 GL(5) Sym⁴(11a1) A_Λ–gap_min 상관 검정
+## 보고 [2026-04-28 01:36 — 사이클 #388] — Paper 4 C-387 반영 (12가족, degree 1-5)
+
+**수학자 지시**: C-388 — Paper 4에 C-387 결과 반영. 12가족 확장 + degree 1-5 갱신 + degree 추세 footnote.
+**모델**: Sonnet
+**실행**: agap_master_en.tex 수정 (TeX 편집, 실험 아님)
+**결과 위치**: `paper/source/agap_master_en.pdf` (9p), `paper/agap_master_en.pdf`, `수학최종논문/agap_master_en.pdf`
+
+### 반영 내용 (agap_master_en.tex)
+
+| 항목 | 변경 전 | 변경 후 |
+|------|---------|---------|
+| 헤더 주석 | C-270~C-384 | + C-387 |
+| Abstract families | eleven | twelve |
+| Abstract degree | 1 through 4 | 1 through 5 |
+| Abstract conductor | 6,859 | 14,641 |
+| Abstract mean ρ | -0.894 ± 0.014 | -0.895 ± 0.015 |
+| §1 Main results | eleven, degree 1-4, SD mean -0.897, NSD -0.888 | twelve, degree 1-5, SD -0.899, NSD -0.887 |
+| §1 Scope | degree 1-4, conductor 6,859, GL(n) n≥5 untested | degree 1-5, conductor 14,641, GL(n) n≥6 untested |
+| §3 제목 | Eleven | Twelve |
+| §3 본문 | four degrees, 6,859 | five degrees, 14,641 |
+| Table 1 | 11행 | 12행 (+Sym⁴ E₁₁: d=5, N=14641, n=177, ρ=-0.913, CI=[-0.940,-0.871], +1, SD) |
+| Table summary | SD 7 fam -0.897, Overall 11 fam -0.894, std 0.014 | SD 8 fam -0.899, Overall 12 fam -0.895, std 0.015 |
+| Total zeros | 3,930 | 4,107 |
+| §4 universality | eleven, -0.894 ± 0.014, degree 1-4 | twelve, -0.895 ± 0.015, degree 1-5 (+degree 5 = -0.913) |
+| §4 conductor range | 6,859-fold | 14,641-fold |
+| §4 root-number | Δ=0.006 | Δ=0.012 |
+| §4 gap comparison | eleven families, $\bar{\rho}$ -0.891 | twelve families, $\bar{\rho}$ -0.895 |
+| §5 discussion | eleven families, -0.894 | twelve families, -0.895 |
+| §5 limitations | degree 1-4, GL(5)+ untested, N≤6,859 | degree 1-5 (+Sym⁴ detail), GL(6)+ untested, N≤14,641 |
+| §5 consistency | ten families | twelve families |
+| §6 conclusion | eleven, degree 1-4, 6,859, -0.894±0.014, Δ=0.006 | twelve, degree 1-5, 14,641, -0.895±0.015, Δ=0.012 |
+| §6 future | GL(5+) | GL(6+) |
+| **degree 추세 footnote** | (없음) | 신규: degree 1-3 mean -0.891, degree 4 mean -0.907, degree 5 -0.913. Within 1σ. |
+
+### C-387 Discovery trajectory 추가
+
+§1에 Result~C-387 문단 추가:
+- Sym⁴(E₁₁), N=14,641, n=177, ρ=-0.913
+- "strongest correlation in the dataset"
+- "does not weaken at higher degree"
+- Degree 추세 footnote 삽입 (1σ 범위 내, 향후 조사 필요)
+
+### 컴파일
+
+- pdflatex 2회 실행: ✅ 에러 0, 경고만 (hyperref label 등)
+- 9페이지
+- PDF 배포: paper/, 수학최종논문/
+
+### 성공 기준 검증
+
+| 기준 | 결과 | 판정 |
+|------|------|------|
+| Table 12행 추가 | Sym⁴ E₁₁ row 추가 | ✅ |
+| 본문/abstract 수치 갱신 | eleven→twelve, degree 1-4→1-5, 전 통계 갱신 | ✅ |
+| degree 추세 footnote | §1 Discovery trajectory에 삽입 | ✅ |
+| 컴파일 에러 0 | pdflatex 2회 성공 | ✅ |
+| PDF 배포 | paper/ + 수학최종논문/ | ✅ |
+
+### 수학자에게
+
+1. **C-388 완료**: Paper 4 agap_master_en.tex에 C-387 결과 반영 완료. 12가족, degree 1-5, conductor 14,641.
+2. **degree 추세 footnote**: §1 Discovery trajectory에 삽입. "degree 1-3 mean -0.891, degree 4 mean -0.907, degree 5 -0.913. Within 1σ of statistical fluctuation, warrants investigation."
+3. **"degree-independent" 서술 회피**: "consistent across degree 1-5" 수준으로 서술. 과대 표현 없음.
+4. **paper4_amplitude_gap_en.tex**: 이미 12가족 반영 상태 (별도 개발 버전). agap_master_en.tex가 공식 마스터.
+5. **다음**: KO 미러 (별도 사이클), arXiv 투고 절차.
+
+---
+
+## [아카이브] 보고 [2026-04-28 00:43 — 사이클 #387] — C-387 GL(5) Sym⁴(11a1) A_Λ–gap_min 상관 검정
 
 **수학자 지시**: C-387 — GL(5) Sym⁴(11a1)로 degree 5 탐사. C-383 방법론 적용.
 **모델**: Opus
