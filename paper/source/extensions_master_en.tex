@@ -2,7 +2,7 @@
 %  ξ-Bundle Curvature as a Critical-Line Discriminator:
 %  Universality Across L-Function Families and an Analytic Detection Theorem
 %  (Project RDL — Paper 2)
-%  Results #107–#117, #125–#127, #200–#209
+%  Results #107–#117, #125–#127, #200–#218
 % ============================================================================
 \documentclass[11pt, a4paper]{article}
 
@@ -112,19 +112,19 @@ the curvature invariant $\kappa\delta^{2}$ satisfies four universal
 properties---functional-equation verification, zero enumeration,
 $\kappa\delta^{2}\approx 1$, and monodromy $\pm\pi$---across an enlarged
 family of $L$-functions: elliptic-curve $L$-functions (rank 0--3,
-conductor 11--10099), Rankin-Selberg $\mathrm{GL}(4)$, Dedekind
+conductor 11--13766), Rankin-Selberg $\mathrm{GL}(4)$, Dedekind
 $\zeta$-functions (7 imaginary quadratic fields), and Epstein
 $\zeta$-functions including three \emph{non-Euler} forms (class number
 $h>1$).  The Epstein result establishes that the $\xi$-bundle depends
 only on the functional equation structure, not on the presence of an
-Euler product (\textbf{Theorem~6}).
+Euler product (\textbf{Theorem~\ref{thm:feonly}}).
 
 A systematic investigation of the Davenport--Heilbronn (DH) function,
 which satisfies a functional equation yet possesses off-critical zeros,
 reveals a sharp discriminator: on-critical zeros satisfy $\kappa\delta^{2}
 = 1 + O(\delta^{2})$, whereas off-critical zeros satisfy $\kappa\delta^{2}
 = 1 + c_{1}\delta + O(\delta^{2})$ with $c_{1}\neq 0$.  We prove
-analytically (\textbf{Theorem~7}) that $c_{1} = 0$ if and only if
+analytically (\textbf{Theorem~\ref{thm:disc}}) that $c_{1} = 0$ if and only if
 $\sigma_{0}=\tfrac{1}{2}$, and verify numerically that
 $c_{1} = \mathrm{Re}(\Lambda''(\rho)/\Lambda'(\rho))$ to within $0.5\%$
 for all four known DH off-critical zeros.  A $\delta$-sweep across eight
@@ -152,7 +152,7 @@ precise measurement to date).  Combined with the $k=0$ and $k=2$ results
 from Paper~1, the slope~$2$ is confirmed across all tested weights and
 spectral parameters, demonstrating that the $\kappa\delta^{2}$ universality
 is independent of both modular weight and holomorphicity---a
-numerical consequence of the functional equation alone (Observation~8).
+numerical consequence of the functional equation alone (Theorem~\ref{thm:slopeuniv}).
 
 \smallskip
 \noindent Results~\#202--\#206 further extend the slope verification
@@ -205,7 +205,7 @@ The present paper pursues two complementary objectives.
 We test the four $\xi$-bundle properties (P1~functional equation,
 P2~zero count, P3~$\kappa\delta^{2}\approx 1$, P4~monodromy $\pm\pi$)
 on families not covered in Paper~1: twenty elliptic-curve
-$L$-functions of rank~$0$--$3$ and conductor~$11$--$11642$
+$L$-functions of rank~$0$--$3$ and conductor~$11$--$13766$
 (\S\ref{sec:ec})---nineteen of twenty pass all four properties,
 and a blind zero-prediction campaign on eight curves achieves
 $478/480 = 99.6\%$ recall with zero false positives---Rankin--Selberg
@@ -213,7 +213,7 @@ $\mathrm{GL}(4)$ convolutions (\S\ref{sec:gl4rs}), Dedekind
 $\zeta$-functions (\S\ref{sec:dedekind}), and Epstein
 $\zeta$-functions including class-number $h>1$ non-Euler forms
 (\S\ref{sec:epstein}).  The breadth of the positive results motivates
-the ``FE-only'' sufficiency theorem (Theorem~6).
+the ``FE-only'' sufficiency theorem (Theorem~\ref{thm:feonly}).
 
 \paragraph{Objective~B: discrimination.}
 The Davenport--Heilbronn (DH) function provides the first
@@ -221,22 +221,22 @@ The Davenport--Heilbronn (DH) function provides the first
 known.  Comparing $\kappa\delta^{2}$ at on-critical vs.\ off-critical
 DH zeros (\S\ref{sec:dh}) reveals a qualitative difference:
 $\kappa\delta^{2}-1 = O(\delta^{2})$ vs.\ $O(\delta)$.  We prove this
-difference analytically (Theorem~7) and validate it via a systematic
+difference analytically (Theorem~\ref{thm:disc}) and validate it via a systematic
 $\delta$-sweep (Result~\#116) and a Taylor-coefficient calculation
 (Result~\#117).
 
 \paragraph{Summary of contributions.}
 \begin{enumerate}
-  \item \textbf{Theorem~5} (\S\ref{ssec:thm5}): $\kappa\delta^{2}$ is
+  \item \textbf{Theorem~\ref{thm:rankinv}} (\S\ref{ssec:thm5}): $\kappa\delta^{2}$ is
         invariant under rank, conductor, and sign-of-functional-equation
         ($\varepsilon$) for twenty elliptic-curve $L$-functions on the
         critical line (19/20~PASS; the sole failure at
         conductor~$11642$ is a numerical-precision artefact).
-  \item \textbf{Theorem~6} (\S\ref{ssec:thm6}): Four $\xi$-bundle
+  \item \textbf{Theorem~\ref{thm:feonly}} (\S\ref{ssec:thm6}): Four $\xi$-bundle
         properties pass for non-Euler Epstein $\zeta$-functions,
         establishing that the Euler-product structure is \emph{not}
         required.
-  \item \textbf{Theorem~7} (\S\ref{ssec:thm7}): $c_{1}=0$ if and only
+  \item \textbf{Theorem~\ref{thm:disc}} (\S\ref{ssec:thm7}): $c_{1}=0$ if and only
         if $\sigma_{0}=\tfrac{1}{2}$, where $c_{1}$ is the leading
         off-critical Taylor coefficient of $\kappa\delta^{2}$.
   \item \textbf{Blind zero prediction} (\S\ref{ssec:blind}):
@@ -313,7 +313,7 @@ satisfying a functional equation $\Lambda(s) = \varepsilon\,
   consequence of the functional equation---not an independent
   statement.  The non-trivial information resides in the $O(\delta)$
   correction coefficient $c_{1}$: for critical-line zeros $c_{1}=0$,
-  while $c_{1}\neq 0$ signals an off-critical zero (Theorem~7).
+  while $c_{1}\neq 0$ signals an off-critical zero (Theorem~\ref{thm:disc}).
 \end{remark}
 
 The three main theorems of Paper~1 (Theorems 1--3) establish:
@@ -323,8 +323,8 @@ zeros; (T3) the monodromy $\pm\pi$ property for Dirichlet $L$-functions
 up to $\mathrm{GL}(5)$.  Theorem~4 of Paper~1 states the on-critical
 $\kappa\delta^{2}$ universality for $\mathrm{GL}(1)$--$\mathrm{GL}(5)$.
 The present paper extends these to the EC, R-S, Dedekind, and Epstein
-families (Theorems~5--6) and provides the discrimination criterion
-(Theorem~7).
+families (Theorems~\ref{thm:rankinv}--\ref{thm:feonly}) and provides the discrimination criterion
+(Theorem~\ref{thm:disc}).
 
 
 % ============================================================================
@@ -748,7 +748,7 @@ The normalized gaps $\Delta t/\delta_{\mathrm{mean}}$ are $0.221$
 $s\approx 0.22$.  Close pairs at this level are a generic feature of
 random-matrix statistics, not a pathology of any specific curve.
 
-\begin{observation}[Nyquist-type resolution condition]
+\begin{remark}[Nyquist-type resolution condition]
 \label{obs:nyquist}
 For the curvature-monodromy pipeline to independently resolve all
 on-critical zeros with gaps $\geq \Delta t_{\min}$, the sampling
@@ -760,7 +760,7 @@ Equivalently, in terms of the mean zero spacing
 $\delta_{\mathrm{mean}} = 2\pi/\!\log(Nt/2\pi e)$ and the
 normalized minimum gap $s_{\min}$:
 $dt_{\mathrm{crit}} \approx \delta_{\mathrm{mean}}\cdot s_{\min}/2$.
-\end{observation}
+\end{remark}
 
 This criterion is empirical, derived from two FN cases.  A rigorous
 proof would require bounding the minimum peak separation in
@@ -1023,7 +1023,7 @@ mirror partner), consistent with a single off-critical zero plus its
 symmetric counterpart.
 
 
-\subsection{Theorem~7: Analytic Discrimination}
+\subsection{Analytic Discrimination}
 \label{ssec:thm7}
 
 \begin{theorem}[Critical-line discriminator]
@@ -1737,7 +1737,7 @@ Even/odd asymmetry ratio: $2.4\times 10^7$.
   terms in $\Lambda'/\Lambda$).
 \end{corollary}
 
-\noindent\textit{Numerical verification} (Result~\#214):
+\noindent\textit{Numerical verification} (Results~\#214,\,\#216):
 $35$ zeros across seven $L$-functions---four self-dual
 ($\zeta$, $L(s,\chi_{-3})$, $L(s,\chi_{-7})$, $L(s,\chi_{-11})$)
 and three non-self-dual
@@ -1905,7 +1905,7 @@ off-critical zeros (OFF\#4 had insufficient precision at $\delta<0.1$).
 No new off-critical zeros were discovered in the range $t\in[200,400]$
 (22 candidate points checked, 0 confirmed), consistent with the
 known scarcity of DH off-critical zeros.
-Of 20~EC curves tested, one (11642a1, $N=11642$, rank~1) fails the
+Of 20~EC curves tested, one (11642a1, $N=11642$, rank~3) fails the
 $\kappa_{\mathrm{near}}$ universality test with CV${}=32.37\%$,
 suggesting that very high conductors may require finer $\delta$ sampling.
 The blind prediction's two false negatives both arise from close zero
@@ -1925,6 +1925,11 @@ $dt < \Delta t/2$ limit on grid-based searches.
         non-horizontal offsets (complex $\delta$).
   \item \textit{Additional DH off-critical zeros}: extending the search
         to $t>400$ with higher precision.
+  \item \textit{High-conductor resolution}: refining 11642a1 with
+        $\delta=0.01$ to determine whether the $\kappa_{\mathrm{near}}$
+        failure is a genuine anomaly or a sampling artefact.
+  \item \textit{Blind campaign expansion}: extending the blind
+        zero-prediction protocol to $t>40$ and additional curves.
 \end{enumerate}
 
 
@@ -1939,9 +1944,9 @@ directions.  First, universality: numerical results
 curve (20 curves, 19/20 passing), Rankin--Selberg, Dedekind, and
 Epstein $L$-functions; a blind zero-prediction campaign on 8~EC curves
 achieves $99.6\%$ recall with zero false positives; and non-Euler
-Epstein $\zeta$-functions (Theorem~6) demonstrate that the Euler
+Epstein $\zeta$-functions (Theorem~\ref{thm:feonly}) demonstrate that the Euler
 product is not necessary.  Second, discrimination:
-Theorem~7 proves analytically that the first Taylor coefficient
+Theorem~\ref{thm:disc} proves analytically that the first Taylor coefficient
 $c_{1}$ of $\kappa\delta^{2}$ vanishes if and only if the zero lies on
 the critical line; numerical verification via $\delta$-sweep and direct
 analytic computation confirms this for all four known DH off-critical
@@ -1955,12 +1960,12 @@ via symmetric powers; Result~\#209 adds an irreducible degree-4
 Artin $L$-function (standard representation of~$S_5$, slope
 $1.9999\pm 0.0003$); and Result~\#210 adds the Rankin--Selberg
 tensor product $L(s,\text{11a1}\times\text{37a1})$ (slope
-$1.9960\pm 0.0072$), confirming Observation~8 across Selberg class
+$1.9960\pm 0.0072$), confirming Theorem~\ref{thm:slopeuniv} across Selberg class
 degrees $\{1,2,3,4,5,6\}$ with sixteen independent data points from
 six distinct families (Dirichlet, symmetric powers, Artin, Rankin--Selberg,
 holomorphic cusp forms, and Maass forms).
 
-Together, Theorems~5--7 and Observation~8 form a coherent picture:
+Together, Theorems~\ref{thm:rankinv}--\ref{thm:disc} and Theorem~\ref{thm:slopeuniv} form a coherent picture:
 on the critical line, the $\xi$-bundle curvature satisfies
 $\kappa\delta^{2}=1+O(\delta^{2})$ universally across all $L$-function
 families, modular weights, and spectral types tested; off the critical
@@ -1974,7 +1979,7 @@ equation.
 % ============================================================================
 \appendix
 
-\section{Summary Table: All Thirty-One Results}
+\section{Summary Table: All Thirty-Four Results}
 \label{app:summary}
 
 \begin{longtable}{lllp{5.5cm}}
@@ -2017,6 +2022,7 @@ Result & Section & Rating & Key finding \\
 \#210 & \S\ref{sec:gl4rs}         & \textbf{$\bigstar\bigstar\bigstar$}    & R-S $\text{11a1}\times\text{37a1}$; eff.\ 4/4 PASS; slope $\mathbf{1.9960\pm0.0072}$; tensor-product construction \\
 \#212 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar$}           & $A(d,N)$ scaling law; $R^{2}=0.983$; Artin $S_5$ out-of-sample $4\%$ error; tentative coefficients \\
 \#213 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar$}    & Dirichlet $L(s,\chi_D)$, $D\in\{-3,-4,5,-7\}$; slope $\mathbf{2.0002\pm0.0001}$; 6th family (conductor independence) \\
+\#214 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar$}    & $\kappa\delta^{2}$ slope${}=2$ theorem verification; $20$ zeros, $4$ self-dual $L$-functions; mean slope $2.0003\pm0.0022$; $A$-error $0.5\%$ \\
 \#215 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar$}           & $A(t_0)$ Hadamard decomposition; $H_1$ verified $0.7\%$; CV$=42\%$ intrinsic; $2H_1=76\%$ of $A$ \\
 \#216 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & Non-self-dual ($\chi_5,\chi_7,\chi_{13}$); slope $\mathbf{2.0004\pm0.0024}$; FE+SR proof; Thm generalised \\
 \#217 & \S\ref{ssec:weightinv}    & \textbf{$\bigstar\bigstar\bigstar\bigstar$} & $A$ formula degrees $1$--$4$; $25$ zeros, $5$ $L$-functions; mean error $1.3\%$; Cor.~\ref{cor:amplitude} verified \\

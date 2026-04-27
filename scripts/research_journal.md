@@ -18,9 +18,20 @@
 - 통계: 전체 평균 -0.892±0.015, 범위 0.043
 - obs:root_number: 자기쌍대 평균 -0.895 (6개)
 
-**실행 중**: C-384 Sym³(19a1) PARI lfunzeros (N=6859, T=200). CPU 100%, 메모리 안정 (13.9%). C-383 소요 1002초(N=1331) → 추정 ~5000초(~83분).
+**C-384 결과** (2026-04-28 00:00):
+- Sym³(19a1): ρ = **-0.908**, 95% CI [-0.929, -0.881], p = 3.7e-136, n=357
+- t-bin 안정성: 4-bin 모두 ρ < -0.88, span=0.073
+- GL(4) 2/2 보편성 확정: ★★★★★
+- C-383 vs C-384: Δρ = -0.003 (N ratio 5.2×), conductor 독립성 확인
 
-**다음**: C-384 완료 시 수학자 판정 + Paper 4 두 번째 GL(4) 행 추가 + 컴파일 + git.
+**저술가 (Phase 4)**:
+- Paper 4 EN/KO: 11 L-함수 통합 (ρ̄=-0.894±0.014, range 0.043)
+- tab:canonical: GL(4) 2행 추가 (Sym³(11a1) + Sym³(19a1))
+- abstract/discussion/obs:root_number 모두 업데이트
+- EN pdflatex + KO xelatex 컴파일 완료 (각 12p)
+- PDF 배포: 수학최종논문/, gdl_unified/paper/, paper/source/
+- .reflected 생성 완료
+- git commit 예정
 
 ---
 
@@ -7535,6 +7546,11 @@ B-68 E비 결정인자 분석 (19개 원시 지표, q=3,4,5,7,8,11):
 **CPU**: 유휴. 실행 프로세스 없음.
 
 ## 2026-04-27 21:57 사이클 #383 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (opus)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*
+
+## 2026-04-27 23:39 사이클 #384 (자동)
 - Stage 1: 완료
 - Stage 2: 완료 (opus)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*

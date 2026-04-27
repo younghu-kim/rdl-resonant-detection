@@ -56,10 +56,10 @@ $A(\gamma_n) \ge 2/\Delta_{\min}(\gamma_n)^2$,
 where $\Delta_{\min} = \min(\gamma_n - \gamma_{n-1},\,\gamma_{n+1} - \gamma_n)$
 is the minimum spacing to a neighbouring zero, and demonstrate
 numerically that the Spearman anti-correlation $\rho(A, g_{\min})$ is
-(i)~\emph{universal}: consistently negative across nine automorphic
-$L$-functions of degree 1 through~3 under the canonical
+(i)~\emph{universal}: consistently negative across eleven automorphic
+$L$-functions of degree 1 through~4 under the canonical
 $(A_\La, g_{\min}^{\GUE})$ pairing, with
-$\rho_{\mathrm{S}} = -0.891 \pm 0.015$ (range $0.043$),
+$\rho_{\mathrm{S}} = -0.894 \pm 0.014$ (range $0.043$),
 including both self-dual ($\varepsilon = \pm 1$) and
 non-self-dual ($\varepsilon \in S^1$) families;
 further verified across twelve $L$-functions of degree 1 through~6
@@ -659,8 +659,9 @@ $95\%$ confidence intervals.
 
 \begin{table}[h]
 \centering
-\caption{Canonical-metric amplitude--gap correlation across nine
-$L$-functions (five self-dual, four non-self-dual).
+\caption{Canonical-metric amplitude--gap correlation across eleven
+$L$-functions (seven self-dual, four non-self-dual), spanning
+degrees 1--4.
 All $p$-values are below $10^{-76}$.}
 \label{tab:canonical}
 \small
@@ -678,20 +679,23 @@ $\overline{L}(s,\chi_{7}^{(1)})$ & 1 & 7 & 255 & $-0.901$ & $[-0.927,-0.866]$ & 
 $L(s,E_{11\mathrm{a}1})$ & 2 & 11  & 437 & $-0.914$ & $[-0.928,-0.897]$ & $+1$ \\
 $L(s,\Delta)$         & 2 & 1   & 324 & $-0.876$ & $[-0.899,-0.848]$ & $+1$ \\
 $L(s,\mathrm{sym}^2 E_{11})$ & 3 & 121 & 96 & $-0.885$ & $[-0.920,-0.830]$ & $+1$ \\
+$L(s,\mathrm{sym}^3 E_{11})$ & 4 & 1331 & 327 & $-0.905$ & $[-0.928,-0.873]$ & $+1$ \\
+$L(s,\mathrm{sym}^3 E_{19})$ & 4 & 6859 & 357 & $-0.908$ & $[-0.929,-0.881]$ & $+1$ \\
 \midrule
-\multicolumn{3}{l}{Self-dual mean ($n = 5$)} & & $-0.893$ & & $\varepsilon = \pm 1$ \\
+\multicolumn{3}{l}{Self-dual mean ($n = 7$)} & & $-0.896$ & & $\varepsilon = \pm 1$ \\
 \multicolumn{3}{l}{Non-self-dual mean ($n = 4$)} & & $-0.887$ & & $\varepsilon \in S^1$ \\
-\multicolumn{3}{l}{Overall mean ($n = 9$)} & & $-0.891$ & & \\
-\multicolumn{3}{l}{Overall std} & & $0.015$ & & \\
+\multicolumn{3}{l}{Overall mean ($n = 11$)} & & $-0.894$ & & \\
+\multicolumn{3}{l}{Overall std} & & $0.014$ & & \\
 \multicolumn{3}{l}{Overall range} & & $0.043$ & & \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{observation}[Root-number independence]\label{obs:root_number}
-The mean Spearman correlation is $-0.893$ for self-dual families
-($\varepsilon = \pm 1$) and $-0.887$ for non-self-dual families
-($\varepsilon \in S^1$), a difference of~$0.006$ that is well
+The mean Spearman correlation is $-0.896$ for self-dual families
+($\varepsilon = \pm 1$, including two GL(4) entries) and $-0.887$
+for non-self-dual families
+($\varepsilon \in S^1$), a difference of~$0.009$ that is well
 within the individual $95\%$ confidence intervals.
 The correlation is therefore independent of the root number,
 ruling out the hypothesis that the self-dual constraint
@@ -985,7 +989,7 @@ meaningful invariant of individual zeros of automorphic $L$-functions:
   \item The anti-correlation is verified across twelve $L$-functions
         of degree~1--6, establishing degree-independent universality.
         Under the canonical $(A_\La, g_{\min}^{\GUE})$ metric,
-        nine families give $\rho = -0.891 \pm 0.015$
+        eleven families of degree~1--4 give $\rho = -0.894 \pm 0.014$
         (\cref{tab:canonical}), with both self-dual and non-self-dual
         root numbers represented.
   \item The GUE random matrix ensemble produces a Spearman
