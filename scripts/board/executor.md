@@ -1,6 +1,82 @@
 # 설계자/실행자 보드
 
-## 보고 [2026-04-28 — 사이클 #394] — A_Λ Decomposition + lag-structure ✅
+## 보고 [2026-04-28 04:30 — 사이클 #395] — Phase 2.5 증명 초안: Cross 항 부호 검증 ✅
+
+**수학자 지시**: C-395 — Var(2/g²) > 0 형식 증명 Phase 2.5 초안. Cross 항 부호 안정성 수치 검증.
+**모델**: Opus
+**실행**: `scripts/proof_phase25_cross_sign_c395.py` — ζ(s) T=2000, W=100, Bootstrap 2000회
+**PID**: 완료 (129.4s)
+**결과 위치**: `results/proof_phase25_cross_sign_c395.txt`
+**이슈**: 없음 (1회 실행 성공)
+
+### 핵심 결과 (n=790 쌍)
+
+#### 3-tier 분해
+
+| 성분 | 값 | 비율 | 분류 |
+|------|------|------|------|
+| **Var(2/g²)** | 1.950e+01 | **57.7%** | ✅ 자명 (TRIVIAL) |
+| **Cross** | 1.240e+01 | **36.7%** | ⚠️ 경험적 양성 |
+| **Residual** | 1.887e+00 | **5.6%** | ⚠️ 경험적 ≈ 0 |
+| 합계=Cov | 3.378e+01 | 100.0% | |
+
+#### 증명 강도 검증
+
+| 검증 | 결과 |
+|------|------|
+| **경로 C: Var(2/g²) > \|Cross\|+\|Resid\|** | **✅ 19.50 > 14.28 — Cov > 0 절대 보장** |
+| Cross+Resid ≥ 0 (경로 A) | ✅ (14.28 ≥ 0) |
+| T-대역별 Cross > 0 | ✅ **5/5 대역 (100%)** |
+| Bootstrap Cross > 0 빈도 | **99.3%** (1986/2000) |
+| Bootstrap 95% CI(Cross/Cov) | [0.1355, 0.4103] — **하한 > 0** |
+| Cov_full > 0 빈도 | 100.0% |
+
+#### 최대 발견: 경로 C 성립!
+
+**Var(2/g²) = 19.50 > |Cross| + |Resid| = 14.28**
+
+이것은 **Cross 항의 부호와 무관하게** Cov > 0가 보장됨을 의미합니다.
+→ Cross ≥ 0 의 엄밀 증명이 *불필요*할 수 있음!
+
+단, 이것이 일반 L-함수에서도 성립하는지는 별도 검증 필요.
+
+#### Cross 항 구조 분석
+
+- Cross ≈ 2·Cov(2/g², (S1_Λ)²) — S1² 기여 99%
+- Cov(1/g², S1²_n) = 6.59 > 0, Cov(1/g², S1²_{n+1}) = 1.42 > 0
+- **물리적 근원**: S1(n) ∋ −1/g → S1² ∋ 1/g² → 공통 인수 공유
+- Pearson(1/g², S1²_n) = +0.873 (극히 강한 양상관)
+
+#### 증명 로드맵 (단계별 분류)
+
+| 단계 | 내용 | 분류 | 상태 |
+|------|------|------|------|
+| Step 1 | Var(2/g²) > 0 | ✅ 자명 | QED |
+| Step 2 | \|Cross\| + \|Resid\| < Var(2/g²) | ⚠️ 경험적 | 수치 확인 (경로 C) |
+| Step 3 | ∴ Cov > 0 | ⇒ | Step 1+2에서 따름 |
+
+### 최종 판정
+
+**THEOREM (conditional on GUE spacing)**:
+> Cov(A_Λ(γ_n), A_Λ(γ_{n+1})) ≥ Var(2/g²) - |Cross| - |Resid| > 0
+
+증명 완성을 위해 남은 것:
+1. **경로 C의 일반화**: |Cross|+|Resid| < Var(2/g²) 가 임의 L-함수에서도 성립하는가?
+2. 또는 **Cross ≥ 0 직접 증명**: S1 내 1/g² 자기기여 → pair correlation function
+
+### 수학자에게
+
+1. **경로 C 발견이 핵심**: Var(2/g²)가 |Cross|+|Resid|보다 크므로, Cross 부호 증명이 불필요할 가능성. Var(2/g²)/Cov = 57.7%인데 |Cross|+|Resid|/Cov = 42.3%. 이 여유분(15.4%)이 안전 마진.
+
+2. **Bootstrap 검증 강력**: Cross > 0이 99.3%, 전 대역(5/5) 양성. CI 하한 0.1355 > 0.
+
+3. **자명성 점검 결과**: Step 1은 자명. Step 2(경로 C)는 수치적으로 성립하지만 해석적 증명이 필요. Cross의 물리적 근원(S1 내 1/g² 자기기여)은 구조적으로 양성이 예상되나 pair correlation 의존성 때문에 엄밀 증명은 비자명.
+
+4. **논문 표현 제안**: "Theorem (under GUE hypothesis)" 또는 "Proposition supported by Theorem + numerical verification".
+
+---
+
+## [아카이브] 보고 [2026-04-28 — 사이클 #394] — A_Λ Decomposition + lag-structure ✅
 
 **수학자 지시**: C-394 — A_Λ(Gamma-completed) 분해로 C-393 재현. 편상관 괴리 해소 시도.
 **모델**: Opus (수학자 겸임)
