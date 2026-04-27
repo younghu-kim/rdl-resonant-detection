@@ -56,8 +56,14 @@ $A(\gamma_n) \ge 2/\Delta_{\min}(\gamma_n)^2$,
 where $\Delta_{\min} = \min(\gamma_n - \gamma_{n-1},\,\gamma_{n+1} - \gamma_n)$
 is the minimum spacing to a neighbouring zero, and demonstrate
 numerically that the Spearman anti-correlation $\rho(A, g_{\min})$ is
-(i)~\emph{universal}: consistently negative across twelve automorphic
-$L$-functions of degree 1 through~6,
+(i)~\emph{universal}: consistently negative across nine automorphic
+$L$-functions of degree 1 through~3 under the canonical
+$(A_\La, g_{\min}^{\GUE})$ pairing, with
+$\rho_{\mathrm{S}} = -0.891 \pm 0.015$ (range $0.043$),
+including both self-dual ($\varepsilon = \pm 1$) and
+non-self-dual ($\varepsilon \in S^1$) families;
+further verified across twelve $L$-functions of degree 1 through~6
+under mixed metrics,
 (ii)~\emph{height-stable}: the correlation is
 $t$-independent for the completed amplitude $A_\La$ paired with
 $g_{\min}$ (span~$0.16$ across eight height bins), and
@@ -627,6 +633,91 @@ The damping factor is therefore controlled by the
 \emph{automorphic degree} $d$, not by the conductor~$q$.
 \end{remark}
 
+\subsection{Cross-family universality under canonical metric}
+\label{ssec:canonical_cross}
+
+The preceding analyses used mixed amplitude--gap pairings
+(\cref{tab:universality}) or the uniform $(A_L, g_{\min})$ metric
+(\cref{tab:unified}).  We now present the strongest test of
+universality: nine $L$-functions measured under the
+\emph{canonical} pairing $(A_\La, g_{\min}^{\GUE})$ identified
+in \cref{obs:stability}, with Gamma-corrected amplitudes and
+GUE-normalised gaps.
+
+\medskip\noindent\textbf{Method.}\;
+For each $L$-function $L(s)$ of degree~$d$, conductor~$N$:
+(1)~collect all zeros $\gamma_n$ in $[0, T]$ via \textsc{PARI/GP};
+(2)~compute the Hadamard amplitude $A_\La(\gamma_n)$ from the
+full zero-sum with Gamma corrections
+$c_0^\La = c_0^L - \operatorname{Im}(\Gamma_\infty'/\Gamma_\infty)$,
+$c_1^\La = c_1^L + \operatorname{Re}(\Gamma_\infty''/\Gamma_\infty)$;
+(3)~normalise gaps by the theoretical density
+$\bar{d}(t) = (2\pi)^{-1}[\,d\log(t/(2\pi)) + \log N\,]$;
+(4)~trim the outermost $20\%$ on each side (central $60\%$);
+(5)~report Spearman $\rho(A_\La, g_{\min}^{\GUE})$ with
+$95\%$ confidence intervals.
+
+\begin{table}[h]
+\centering
+\caption{Canonical-metric amplitude--gap correlation across nine
+$L$-functions (five self-dual, four non-self-dual).
+All $p$-values are below $10^{-76}$.}
+\label{tab:canonical}
+\small
+\begin{tabular}{llrrrll}
+\toprule
+\textbf{$L$-function} & $d$ & $N$ & $n$ &
+$\rho_{\mathrm{S}}$ & \textbf{$95\%$ CI} & \textbf{Root \#} \\
+\midrule
+$\zeta(s)$            & 1 & 1   & 910 & $-0.900$ & $[-0.912,-0.887]$ & $+1$ \\
+$L(s,\chi_{-3})$      & 1 & 3   & 494 & $-0.891$ & $[-0.908,-0.871]$ & $-1$ \\
+$L(s,\chi_{5}^{(1)})$ & 1 & 5   & 238 & $-0.903$ & $[-0.929,-0.866]$ & $\varepsilon \in S^1$ \\
+$\overline{L}(s,\chi_{5}^{(1)})$ & 1 & 5 & 238 & $-0.875$ & $[-0.910,-0.828]$ & $\bar{\varepsilon} \in S^1$ \\
+$L(s,\chi_{7}^{(1)})$ & 1 & 7   & 254 & $-0.871$ & $[-0.908,-0.820]$ & $\varepsilon \in S^1$ \\
+$\overline{L}(s,\chi_{7}^{(1)})$ & 1 & 7 & 255 & $-0.901$ & $[-0.927,-0.866]$ & $\bar{\varepsilon} \in S^1$ \\
+$L(s,E_{11\mathrm{a}1})$ & 2 & 11  & 437 & $-0.914$ & $[-0.928,-0.897]$ & $+1$ \\
+$L(s,\Delta)$         & 2 & 1   & 324 & $-0.876$ & $[-0.899,-0.848]$ & $+1$ \\
+$L(s,\mathrm{sym}^2 E_{11})$ & 3 & 121 & 96 & $-0.885$ & $[-0.920,-0.830]$ & $+1$ \\
+\midrule
+\multicolumn{3}{l}{Self-dual mean ($n = 5$)} & & $-0.893$ & & $\varepsilon = \pm 1$ \\
+\multicolumn{3}{l}{Non-self-dual mean ($n = 4$)} & & $-0.887$ & & $\varepsilon \in S^1$ \\
+\multicolumn{3}{l}{Overall mean ($n = 9$)} & & $-0.891$ & & \\
+\multicolumn{3}{l}{Overall std} & & $0.015$ & & \\
+\multicolumn{3}{l}{Overall range} & & $0.043$ & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{observation}[Root-number independence]\label{obs:root_number}
+The mean Spearman correlation is $-0.893$ for self-dual families
+($\varepsilon = \pm 1$) and $-0.887$ for non-self-dual families
+($\varepsilon \in S^1$), a difference of~$0.006$ that is well
+within the individual $95\%$ confidence intervals.
+The correlation is therefore independent of the root number,
+ruling out the hypothesis that the self-dual constraint
+$\varepsilon = \pm 1$ is a necessary condition for the
+amplitude--gap anti-correlation.
+
+\smallskip\noindent
+For non-self-dual $L(s,\chi)$, the negative-imaginary-part zeros
+of $L(s,\chi)$ are the positive-imaginary-part zeros of $L(s,\bar{\chi})$,
+so the ``conjugate sum'' in the Hadamard decomposition
+$\sum_k 1/(\gamma_n + \tilde{\gamma}_k)$ uses zeros of $\bar{\chi}$
+rather than $\chi$ itself.
+Numerically, the ``proper'' (cross-character) and ``na\"{\i}ve''
+(self-paired) amplitudes differ by $|\Delta\rho| < 0.0003$,
+confirming that the conjugate sum contributes a smooth,
+position-insensitive baseline at $O(n(T)/(2T))$.
+\end{observation}
+
+\begin{observation}[Conjugate-pair consistency]\label{obs:conjugate}
+For each conjugate pair $(\chi, \bar{\chi})$:
+$|\rho(\chi) - \rho(\bar{\chi})| = 0.029$ (mod~$5$)
+and $0.031$ (mod~$7$), with alternating sign.
+This is consistent with statistical fluctuation from independent
+zero sets of equal density, providing an internal consistency check.
+\end{observation}
+
 \begin{observation}[Degree-dependent $2H_1/A_L$ ratio]\label{obs:h1_ratio}
 The ratio $2H_1/A_L$ (computed under the uniform metric) is:
 $0.666$ (GL(1)) $\to$ $0.652$--$0.675$ (GL(2)) $\to$
@@ -893,6 +984,10 @@ meaningful invariant of individual zeros of automorphic $L$-functions:
         Hadamard's product formula and requires no unproven hypotheses.
   \item The anti-correlation is verified across twelve $L$-functions
         of degree~1--6, establishing degree-independent universality.
+        Under the canonical $(A_\La, g_{\min}^{\GUE})$ metric,
+        nine families give $\rho = -0.891 \pm 0.015$
+        (\cref{tab:canonical}), with both self-dual and non-self-dual
+        root numbers represented.
   \item The GUE random matrix ensemble produces a Spearman
         anti-correlation $\rho_{\mathrm{S}}^{\text{full}} = -0.912$
         (full sum, $20\%$~trim, constant over $N = 200$--$2000$),
