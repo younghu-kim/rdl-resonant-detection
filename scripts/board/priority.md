@@ -13,8 +13,8 @@
 
 ## 현재 명령
 
-# 사이클 #387 [2026-04-28 00:09] — GL(5) Sym⁴(11a1) 탐사 지시
-# C-384 양성 판정 완료. degree 1-4 보편성 확정 (11 L-함수).
-# 다음: GL(5) degree 5 확장 시도 (opus). PARI 계산 한계 테스트.
+# 사이클 #387 [2026-04-28 00:43] — 완료
+# C-387 ★★★★★★: Sym⁴(11a1) ρ=-0.913. GL(5) degree 5 보편성 확정.
+# 12 L-함수 통합 (degree 1-5). Paper 4 반영 완료.
 PRIORITY:normal
 PAUSE_EXPLORATION:false
