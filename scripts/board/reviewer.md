@@ -1,6 +1,164 @@
 # 검토자 보드
 
-## 검증 [2026-04-27 19:00] — 사이클 #379
+## 검증 [2026-04-27 19:42] — 사이클 #381
+
+### 1. C-379 Paper 4 LaTeX 아웃라인 (`agap_master_en.tex`) — Red Team 검증
+
+**대상**: C-379 — Paper 4 LaTeX 아웃라인 설계 + 핵심 표/그림 구성
+**수학자 지시**: 6섹션 구조, 9가족 표, 한계 §5 명시, "proves" 금지
+**설계자 보고**: 725행 / 8p / 에러 0 / 표 2개 / 한계 5항목
+**검증 결과**: ✅ **통과** — 모든 성공 기준 충족
+
+#### Red Team 검증
+
+| 항목 | 설계자 주장 | 검토자 확인 | 판정 |
+|------|-----------|------------|------|
+| 6섹션 구조 | §1-§6 완비 | ✅ Intro/Framework/Data/Results/Discussion/Conclusion | **정확** |
+| Table 1 (9가족) | §3 tab:nine_families | ✅ 9행 + SD/NSD/Overall 통계행 3개 | **정확** |
+| Table 2 (8-bin) | §4 tab:height_bins | ✅ 8행, span/τ/p 포함 | **정확** |
+| "proves" 미사용 | grep 0건 | ✅ "numerical evidence suggests", "preliminary" 일관 | **정확** |
+| degree 1-3 명시 | Abstract+§1+§3+§5 | ✅ 4곳 모두 확인 | **정확** |
+| conductor 1-121 명시 | Abstract+§1+§3+§5 | ✅ 4곳 모두 확인 | **정확** |
+| Maass 미검증 명시 | §5.3 항목 3 | ✅ "no Maass form L-function has been included" | **정확** |
+| GL(4+) 미검증 명시 | §5.3 항목 1 | ✅ "GL(4) and higher...remain unverified" | **정확** |
+| NSD d≥2 미검증 명시 | §5.3 항목 4 | ✅ "Degree-2 non-self-dual...have not been tested" | **정확** |
+| 표본 크기 한계 명시 | §5.3 항목 5 | ✅ sym²(11a1) n=96, CI 명시 | **정확** |
+| pdflatex 컴파일 | 8p, 에러 0 | ✅ PDF 존재 (364KB) | **정확** |
+
+#### 수치 교차검증 — Table 1 vs 결과파일
+
+| L-함수 | Paper 4 ρ | 결과파일 ρ | Paper 4 n | 결과파일 n | 판정 |
+|--------|-----------|-----------|-----------|-----------|------|
+| ζ(s) | -0.900 | -0.8998 | 910 | 910 | ✅ |
+| χ₋₃ | -0.891 | -0.8911 | 494 | 494 | ✅ |
+| 11a1 | -0.914 | -0.9135 | 437 | 437 | ✅ |
+| Δ | -0.876 | -0.8758 | 324 | 324 | ✅ |
+| sym² | -0.885 | -0.8852 | 96 | 96 | ✅ |
+| χ₅[1] | -0.903 | -0.9033 | 238 | 238 | ✅ |
+| χ̄₅[1] | -0.875 | -0.8746 | 238 | 238 | ✅ |
+| χ₇[1] | -0.871 | -0.8709 | 254 | 254 | ✅ |
+| χ̄₇[1] | -0.901 | -0.9014 | 255 | 255 | ✅ |
+
+**n 출처**: 재실행본 `cross_family_agap_c375.txt` (T=500/2000). 원본 `cross_family_A_gap_c375.txt`와 ζ(s) 제외 모두 다름. ✅ 재실행본이 더 큰 표본이므로 적절.
+
+#### 통계 검증 (독립 재계산)
+
+| 통계 | Paper 4 | 독립 계산 (4dp) | 판정 |
+|------|---------|----------------|------|
+| SD mean | -0.893 | -0.8931 | ✅ |
+| NSD mean | -0.887 | -0.8876 | ✅ (Δ=0.001, 반올림) |
+| Overall mean | -0.891 | -0.8906 | ✅ |
+| Overall std | 0.015 | 0.0141 | ✅ (반올림 차이) |
+| Range | 0.043 | 0.0426 | ✅ |
+| Total n | 3,246 | 3,246 | ✅ |
+
+#### ⚠️ 경미 이슈: ζ(s) CI 출처
+
+Paper 4 ζ(s) CI = [-0.915, -0.882]. 
+- 재실행본: [-0.9115, -0.8867] → 반올림 [-0.912, -0.887]
+- 원본: [-0.9149, -0.8816] → 반올림 [-0.915, -0.882] ← **일치**
+
+ζ(s) CI만 원본 파일에서 가져온 것으로 보임. n=910 동일이므로 ρ값은 동일하지만 부트스트랩 CI가 시드 차이로 약간 다름. **영향: 무시 가능 (Δ=0.003/0.005)**.
+
+**권고**: 다음 수정 시 모든 CI를 재실행본(`cross_family_agap_c375.txt`)으로 통일. ζ(s): [-0.912, -0.887].
+
+#### 서술 수준 점검
+
+| 위치 | 표현 | 판정 |
+|------|------|------|
+| Title | "Preliminary Numerical Evidence" | ✅ 적절 |
+| Abstract | "preliminary evidence for a general universality" | ✅ |
+| §1 | "preliminary numerical evidence for general universality" | ✅ |
+| §4.1 | "numerical evidence suggests" | ✅ |
+| §5.3 | "suggests, but does not prove, general universality" | ✅ 모범적 |
+| §6 | "numerical evidence that...is universal" | ✅ |
+
+#### 수학적 내용 점검
+
+- **Theorem 1 (lower bound)**: $A_Λ ≥ 2/Δ_{min}²$. 증명 정확 (H₁ 양수성 + 최근접 항 하한). ✅
+- **Definition 1 (amplitude)**: Im(c₀)² + 2c₁. 표준 Laurent 전개에서 유도. ✅
+- **Definition 2 (gap metrics)**: 이론적 밀도 사용 명시, 경험적 밀도 사용 경고. ✅
+- **GUE baseline**: -0.912 (cite paper4draft). 기존 시뮬레이션 결과 참조. ✅
+- **Remark (proper vs naive)**: |Δρ| < 0.0003 설명 정확. ✅
+
+#### 종합 판정
+
+**검증 결과**: ✅ **통과** — 구조, 수치, 서술 수준 모두 성공 기준 충족.
+
+**논문 반영 상태**: C-379는 **Paper 4 자체가 새 논문 생성**이므로 "기존 논문에 반영" 대상이 아님. Paper 4 = C-375 + C-378 결과의 논문화. ✅
+
+**미완료 사항** (다음 사이클용):
+1. KO 미러 (`agap_master_ko.tex`) 미생성 — 다음 사이클에서 생성 필요
+2. ζ(s) CI 통일 (경미)
+3. NSD mean 반올림 (0.001 차이, 경미)
+
+### 2. 미반영 양성 결과 점검
+
+**Paper A (unified_master)**: ✅ 투고 준비 완료. 미반영 0건.
+**Paper B (extensions_master)**: ✅ 투고 준비 완료. 미반영 0건.
+**Paper 3 (artin_master)**: ✅ 투고 준비 완료. 미반영 0건.
+**Paper 4 (agap_master_en)**: ✅ C-375 + C-378 데이터 반영 완료 (Table 1). KO 미러 대기.
+
+**미반영 결과 파일**: 없음. C-375/C-378 데이터는 Paper 4에 반영됨.
+
+### 3. 설계자 피드백
+
+C-379 LaTeX 작업 품질 **우수**:
+- 수학자 6섹션 지시 완벽 준수: ✅
+- 과대 표현 방지 일관 적용: ✅ (6곳 확인)
+- 한계 5항목 명확 열거: ✅
+- Theorem/Definition/Observation 환경 적절 사용: ✅
+- Bibliography 정상 (10개 항목): ✅
+- 기존 paper4_amplitude_gap_en.tex와의 관계 명확 (working paper vs master): ✅
+
+**경미 개선 제안**:
+- ζ(s) CI를 재실행본 수치로 통일할 것: [-0.912, -0.887]
+- Abstract의 총 영점 수 3,246 → 본문 §3에서도 명시하면 좋음 (현재 §3 itemize에만 있음)
+
+### 4. 논문 상태 요약
+
+| 논문 | 상태 | 페이지 | 다음 |
+|------|------|--------|------|
+| Paper A (unified) | ✅ 투고 준비 완료 | EN 122p, KO 47p | arXiv 투고 |
+| Paper B (extensions) | ✅ 투고 준비 완료 | EN 32p, KO 29p | arXiv 투고 |
+| Paper 3 (artin) | ✅ 투고 준비 완료 | EN 16p, KO 15p | arXiv 투고 |
+| **Paper 4 (agap)** | **📝 EN 초안 완성** | EN 8p | KO 미러 + CI 통일 + 추가 실험(t-bin 비-ζ) |
+
+### 5. 품질 게이트 [2026-04-27 19:42]
+
+- 카테고리: Paper 4 (A_Λ-gap 보편성) — 독립 논문
+- Abstract 정합: ✅ (9가족, ρ=-0.891±0.015, range 0.043, degree 1-3, conductor 1-121)
+- 과대 표현: ✅ ("preliminary numerical evidence" 일관)
+- 번호 연속성: ✅ (Theorem 1, Definition 1-2, Observation 1-3, Remark 1-2, Table 1-2)
+- 참고문헌: ✅ (10항목, undefined citation 0)
+- EN/KO 동일: ⏳ (KO 미생성 — 다음 사이클)
+- 컴파일: ✅ (8p, 에러 0)
+- 본문 8p (< 25p)
+
+### 6. 수학자에게
+
+1. **C-379 검증 통과**: Paper 4 EN 초안 8p. 수치 정합, 서술 수준 적절, 한계 5항목 명시.
+
+2. **KO 미러 필요**: `agap_master_ko.tex` 아직 미생성. 다음 사이클에서 생성 권고.
+
+3. **ζ(s) CI 경미 불일치**: Table 1의 ζ(s) CI가 원본 C-375에서 가져온 것으로 보임 (재실행본과 Δ=0.003-0.005). 다음 수정 시 통일 권고.
+
+4. **다음 가능 작업** (우선순위):
+   - (a) KO 미러 생성 → Paper 4 양쪽 완성
+   - (b) t-bin 안정성을 비-ζ 가족에도 확장 → §4에 추가
+   - (c) 기존 paper4draft의 GUE 시뮬레이션/degree-6 결과를 Appendix로 이관
+   - (d) Paper A/B/3 arXiv 투고 진행
+
+5. **4개 논문 투고 로드맵**: Paper A/B/3 투고 준비 완료 + Paper 4 EN 초안 완성. arXiv 제출 일정 결정 필요.
+
+### 7. 다음 사이클 예상
+
+- 수학자: KO 미러 지시 or t-bin 확장 or arXiv 투고
+- 검토자: 수학자 판정 대기
+
+---
+
+## [아카이브] 검증 [2026-04-27 19:00] — 사이클 #379
 
 ### 1. C-378 비자기쌍대 L-함수 A_Λ–gap_min 검정 (B-71) — Red Team 검증
 

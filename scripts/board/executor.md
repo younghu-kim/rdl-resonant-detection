@@ -1,5 +1,69 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-27 19:36 — 사이클 #380] — C-379 Paper 4 LaTeX 아웃라인 설계 (agap_master_en.tex)
+
+**수학자 지시**: C-379 — Paper 4 LaTeX 아웃라인 설계 + 핵심 표/그림 구성
+**모델**: Opus
+**PID**: 없음 (LaTeX 작성 작업)
+**결과 위치**: `paper/source/agap_master_en.pdf` (8p)
+
+### 수행 내용
+
+기존 `paper4_amplitude_gap_en.tex` (C-271 초안, 10섹션 1106행)을 수학자 지시의 6섹션 구조로 재구성하여 `agap_master_en.tex` 신규 생성.
+
+### 구조 (수학자 지시 대비)
+
+| 수학자 지시 | 구현 | 판정 |
+|------------|------|------|
+| §1 Introduction: A_Λ-gap_min 발견 (C-270→C-375→C-378) | ✅ 발견 궤적 명시, 3개 main results | **완료** |
+| §2 Framework: ξ-다발, A_Λ 정의, gap_min GUE 정규화 | ✅ §2 Framework — Selberg class, amplitude def, gap metrics, Thm 1 (lower bound) | **완료** |
+| §3 Data: 9개 L-함수 명세표 | ✅ §3 — Table 1 (tab:nine_families) 9행 + 통계 요약행 | **완료** |
+| §4 Results: (a) 보편성, (b) gap_min≫gap_right, (c) 비자기쌍대 | ✅ §4 — §4.1 보편성, §4.2 g_min 정준 메트릭 (8-bin 표), §4.3 비자기쌍대, §4.4 gap 비교 | **완료** |
+| §5 Discussion: 이론적 의미, GUE, 한계 | ✅ §5 — GUE 맥락, ξ-다발 관계, §5.3 한계 5항목 (Maass/GL4+/고conductor/비자기쌍대 d≥2/표본크기) | **완료** |
+| §6 Conclusion | ✅ 4개 핵심 발견 요약 + 향후 방향 | **완료** |
+
+### 성공 기준 검증
+
+| 기준 | 결과 | 판정 |
+|------|------|------|
+| LaTeX 파일 생성 + pdflatex 컴파일 성공 | ✅ 8p, 에러 0, undefined ref 0 | **통과** |
+| 9가족 표가 §3에 존재 | ✅ Table 1 (tab:nine_families) — 9행 + SD/NSD mean + overall mean/std/range | **통과** |
+| §5에 한계/미검증 범위 명시 | ✅ §5.3: degree 1-3 한정, Maass 미검증, GL(4+) 미검증, 고conductor 미검증, NSD d≥2 미검증 | **통과** |
+| "proves"/"establishes" 미사용 | ✅ grep 0건. "numerical evidence suggests", "preliminary evidence" 사용 | **통과** |
+| degree 1-3, conductor 1-121 범위 명시 | ✅ Abstract, §1, §3, §5 모두에서 명시 | **통과** |
+
+### 핵심 표 (2개)
+
+1. **Table 1** (tab:nine_families): 9가족 × (L-함수, d, N, n, ρ_S, 95%CI, Root#, Type) — 수학자 보드 데이터 사용
+2. **Table 2** (tab:height_bins): 8-bin 높이 안정성 분석 (g_min vs g_right)
+
+### 서술 수준 준수
+
+- Title: "Preliminary Numerical Evidence for Universal Anti-Correlation..."
+- Abstract: "preliminary evidence for a general universality"
+- §1: "preliminary numerical evidence for general universality"
+- §4.1: "numerical evidence suggests"
+- §5.3 마지막: "suggests, but does not prove, general universality"
+
+### 기존 초안과의 관계
+
+- `paper4_amplitude_gap_en.tex`: C-271 초안, 12개 L-함수 mixed-metric 결과 + GUE 시뮬레이션 + 높이 스케일링 + partial correlation 등 10섹션. 이 파일은 technical working paper로 유지.
+- `agap_master_en.tex`: 수학자 지시의 "canonical (A_Λ, g_min^GUE) 9가족 보편성" 초점 논문. 6섹션, 8p. 투고용 마스터 파일.
+
+### 수학자에게
+
+1. **8p 아웃라인 완성**: 수학자 지시 6섹션 구조 그대로 구현. 핵심 표 2개 (9가족 + 8-bin). 
+2. **검토자 지적 반영**: "preliminary evidence", degree/conductor 범위 명시, Maass/GL(4+) 한계 §5.3에 5항목으로 열거.
+3. **기존 초안 활용**: Theorem 1 (lower bound), GUE 기준값(-0.912), 8-bin 표는 `paper4_amplitude_gap_en.tex`에서 검증된 수치 사용.
+4. **다음 가능 작업**: (a) t-bin 안정성을 비-ζ 가족에도 확장 → §4에 추가, (b) KO 미러 생성, (c) 기존 초안의 GUE 시뮬레이션/degree-6 결과를 Appendix로 이관.
+5. **수학자 보드 표와의 수치 차이**: 수학자 보드는 "ρ=-0.891±0.015, range=0.043"이고 C-375 원본은 mean=-0.874±0.028. C-375 재실행본(T=500/2000)에서 n이 증가하여 수치가 변경됨. Table 1에는 재실행본 수치 사용 (수학자 보드 기준).
+
+### 이슈
+
+- 없음. 컴파일 정상.
+
+---
+
 ## 보고 [2026-04-27 18:50 — 사이클 #378] — C-378 비자기쌍대 L-함수 A_Λ–gap_min 검정 (B-71 해소)
 
 **수학자 지시**: C-378 — 비자기쌍대(복소 근호수 ε ∈ S¹) L-함수에서 A_Λ–gap_min 상관 검정 (B-71)
