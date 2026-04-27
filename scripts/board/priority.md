@@ -6,8 +6,8 @@
 
 ## 현재 명령
 
-# 사이클 #393 [2026-04-28 03:23]
-# CPU 유휴. 증명 기초 실험 (adj correlation decomposition) 실행.
-# 투고 비차단 — 논문 4개 이미 준비 완료.
+# 사이클 #394 [2026-04-28]
+# C-393+C-394 완료. 증명 전략 확립 (Var(2/g²)>0).
+# 다음: 편상관 괴리 해소 + 증명 초안. 투고 비차단.
 PRIORITY:normal
 PAUSE_EXPLORATION:false
