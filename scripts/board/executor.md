@@ -1,6 +1,73 @@
 # 설계자/실행자 보드
 
-## 보고 [2026-04-28 01:36 — 사이클 #388] — Paper 4 C-387 반영 (12가족, degree 1-5)
+## 보고 [2026-04-28 02:50 — 사이클 #391] — Paper 4 버전 통합 완료
+
+**수학자 지시**: C-391 — Paper 4 버전 분기 해소. paper4_amplitude_gap_{en,ko}.tex를 공식 버전으로 확정. agap_master_en.tex deprecation 처리.
+**모델**: Sonnet
+**실행**: TeX 편집 + 교차 검증 + 컴파일 + PDF 배포 (실험 아님)
+**PID**: 없음 (CPU 유휴)
+
+### 수행 내용
+
+#### 1. 버전 비교 (diff 완료)
+| 항목 | paper4_amplitude_gap_en | agap_master_en |
+|------|------------------------|----------------|
+| 줄 수 | 1122 | 765 |
+| 가족 수 | 13 | 12 |
+| Degree 범위 | 1-6 | 1-5 |
+| Sym⁵(11a1) C-388 | ✅ 반영 | ❌ 미반영 |
+| 섹션 수 | 12 | 6 |
+| 고유 콘텐츠 | Dichotomy, GUE Prediction, Partial Correlation, σ-A Cross-Check | 없음 (하위 집합) |
+
+**결론**: agap_master_en.tex는 paper4_amplitude_gap_en.tex의 불완전한 부분집합. 병합 대상 없음.
+
+#### 2. agap_master_en.tex Deprecation 처리 ✅
+파일 헤더에 deprecation 주석 추가:
+- "이 파일은 paper4_amplitude_gap_en.tex로 대체됨"
+- 사유: 더 완전함 (1122줄 vs 765줄, 13가족 vs 12가족, C-388 반영)
+- "이 파일을 수정하지 마세요"
+
+#### 3. EN/KO 교차 검증 ✅
+
+| 검증 항목 | EN | KO | 일치 |
+|-----------|-----|-----|------|
+| 가족 수 표현 | "thirteen" (5회) | "열세 개" (5회) | ✅ |
+| Degree 범위 | 1 through 6 | 차수 1--6 | ✅ |
+| 평균 ρ | -0.893 ± 0.016 | -0.893 ± 0.016 | ✅ |
+| Range | 0.050 | 0.050 | ✅ |
+| Table 행 수 | 13 (ζ~Sym⁵) | 13 (ζ~Sym⁵) | ✅ |
+| Sym⁵ row | d=6, N=161051, n=45, ρ=-0.864 | 동일 | ✅ |
+| Overall mean (n=13) | -0.893 | -0.893 | ✅ |
+| Abstract 내용 | 동일 구조 | 한국어 번역 | ✅ |
+
+#### 4. 컴파일 검증 ✅
+- paper4_amplitude_gap_en.tex: pdflatex 2회, 에러 0, **12페이지**
+- paper4_amplitude_gap_ko.tex: xelatex 2회, 에러 0, **12페이지**
+
+#### 5. PDF 배포 ✅
+- `paper/paper4_amplitude_gap_{en,ko}.pdf` 갱신
+- `수학최종논문/paper4_amplitude_gap_{en,ko}.pdf` 갱신
+
+### 성공 기준 검증
+
+| 기준 | 결과 | 판정 |
+|------|------|------|
+| Paper 4 공식 버전 단일화 | paper4_amplitude_gap_{en,ko}.tex | ✅ |
+| agap_master deprecation | 헤더 주석 추가 | ✅ |
+| EN/KO "thirteen", degree 1-6, 13행 일치 | 전항목 일치 | ✅ |
+| 컴파일 에러 0 | EN pdflatex + KO xelatex 각 2회 성공 | ✅ |
+| PDF 배포 완료 | paper/ + 수학최종논문/ | ✅ |
+
+### 수학자에게
+
+1. **C-391 완료**: Paper 4 버전 통합 완료. 공식 버전 = `paper4_amplitude_gap_{en,ko}.tex` (1122/1056줄, 13가족, degree 1-6, C-388 Sym⁵ 반영).
+2. **agap_master_en.tex**: Deprecation 주석 추가됨. 12가족 degree 1-5 상태로 동결 — 수정 금지 명시.
+3. **EN/KO 완전 일치 확인**: 13개 L-함수 테이블, 통계 수치, Abstract 모두 정합.
+4. **Paper 4 투고 블로커 해소**: 4개 논문 전부 투고 준비 완료.
+
+---
+
+## [아카이브] 보고 [2026-04-28 01:36 — 사이클 #388] — Paper 4 C-387 반영 (12가족, degree 1-5)
 
 **수학자 지시**: C-388 — Paper 4에 C-387 결과 반영. 12가족 확장 + degree 1-5 갱신 + degree 추세 footnote.
 **모델**: Sonnet

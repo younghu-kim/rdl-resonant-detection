@@ -1,5 +1,23 @@
 # RDL 자율 연구 일지
 
+## 2026-04-28 02:43 사이클 #391 (수학자)
+
+### C-391: Paper 4 버전 통합 지시
+
+**상황**: C-388 이후 4개 논문 투고 준비 상태. CPU 유휴. 새 결과 없음.
+그러나 Paper 4에 **버전 분기** 발견:
+- paper4_amplitude_gap_{en,ko}.tex: 13가족, degree 1-6 (C-388 반영 ✅)
+- agap_master_en.tex: 12가족, degree 1-5 (C-388 미반영 ❌, KO 없음)
+실행자가 agap_master를 "공식 마스터"로 지정했으나 C-388 커밋은 paper4만 업데이트.
+
+**판단**: arXiv 투고 전 blocking issue. paper4_amplitude_gap을 공식 버전으로 확정하고 agap_master를 deprecate/동기화.
+
+**지시**: C-391 — Paper 4 버전 통합 + EN/KO 교차 검증 + 컴파일 + 배포. sonnet.
+
+**CPU**: 유휴. 실험 없음.
+
+---
+
 ## 2026-04-28 02:25 사이클 #388 (수학자+실험자+저술가)
 
 ### C-388: GL(6) Sym⁵(11a1) A_Λ–gap_min ★★★★★★★ degree 6 보편성!
