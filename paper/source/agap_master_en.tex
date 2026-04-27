@@ -1,0 +1,735 @@
+% ============================================================================
+%  Universal Anti-Correlation between Hadamard Amplitudes
+%  and Minimum Zero Spacing in Automorphic L-Functions
+%  (Project RDL — Paper 4)
+%  Results C-270, C-375, C-378, C-383
+% ============================================================================
+\documentclass[11pt, a4paper]{article}
+
+% ── Typography & Layout ─────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ── Mathematics ─────────────────────────────────────────────────────────────
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{bm}
+
+% ── Tables ──────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+
+% ── Colors ──────────────────────────────────────────────────────────────────
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\definecolor{txblue}{HTML}{2563EB}
+\definecolor{chgreen}{HTML}{059669}
+\definecolor{accentblue}{HTML}{3B82F6}
+\definecolor{zetaviolet}{HTML}{6D28D9}
+\definecolor{primegold}{HTML}{B45309}
+\definecolor{lossred}{HTML}{DC2626}
+
+% ── Cross-references & Links ───────────────────────────────────────────────
+\usepackage[colorlinks=true, linkcolor=accentblue, citecolor=chgreen,
+            urlcolor=txblue]{hyperref}
+\usepackage[capitalise, noabbrev]{cleveref}
+
+% ── Theorem Environments ───────────────────────────────────────────────────
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{observation}[theorem]{Observation}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}[section]
+
+% ── Custom Commands ────────────────────────────────────────────────────────
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\eg}{\textit{e.g.}}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\kap}{\kappa}
+\DeclareMathOperator{\GUE}{GUE}
+
+% ============================================================================
+\title{%
+  Preliminary Numerical Evidence for Universal Anti-Correlation \\
+  between Hadamard Amplitudes and Minimum Zero Spacing \\
+  across Self-Dual and Non-Self-Dual $L$-Functions%
+}
+\author{Kim Young-Hu}
+\date{Draft: April 2026}
+
+\begin{document}
+\maketitle
+
+% ============================================================================
+%  Abstract
+% ============================================================================
+\begin{abstract}
+For a degree-$d$ $L$-function $L(s)$ in the Selberg class with
+simple zeros $\rho_n = \tfrac{1}{2} + i\gamma_n$ on the critical
+line, the \emph{Hadamard amplitude}
+\[
+  A_\Lam(\gamma_n)
+  \;=\; \operatorname{Im}(c_0)^2 + 2\operatorname{Re}(c_1),
+\]
+extracted from the Laurent expansion
+$\Lam'/\Lam(\rho_n + u) = u^{-1} + c_0 + c_1 u + \cdots$,
+measures the local spectral weight of each zero.
+We present numerical evidence that the Spearman rank
+anti-correlation $\rho_{\mathrm{S}}(A_\Lam,\, g_{\min}^{\GUE})$
+is \emph{universal} across ten automorphic $L$-functions of
+degree~$1$ through~$4$ and conductor~$1$ through~$1{,}331$,
+encompassing both self-dual ($\varepsilon = \pm 1$) and
+non-self-dual ($\varepsilon \in S^1$) root numbers.
+The overall mean correlation is
+$\rho_{\mathrm{S}} = -0.892 \pm 0.015$ (range~$0.043$).
+The minimum gap $g_{\min}$ is identified as the canonical gap
+metric via height-stability analysis (span~$0.16$ across eight
+height bins, $p = 0.40$), in contrast to $g_{\mathrm{right}}$
+which decays systematically with height.
+These results constitute preliminary evidence for a
+general universality of the amplitude--gap anti-correlation
+across the Langlands hierarchy, within the tested range of
+degree and conductor.
+\end{abstract}
+
+
+% ============================================================================
+\section{Introduction}
+\label{sec:intro}
+% ============================================================================
+
+The distribution of nontrivial zeros of $L$-functions has been a
+central object of study since Riemann's 1859 memoir.  While the
+vertical distribution---zero density, pair correlation---is well
+understood through the work of
+Montgomery~\cite{montgomery1973}, Odlyzko~\cite{odlyzko1987},
+and Rudnick--Sarnak~\cite{rudnick1996}, the \emph{individual}
+character of each zero has received comparatively little attention.
+
+In the companion papers~\cite{paper1,paper2,paper3}, we developed
+the $\xi$-bundle framework, in which the completed $L$-function
+$\Lam(s)$ defines a $U(1)$-connection on the critical line with
+curvature $\kap = |\Lam'/\Lam|^2$.
+Near a simple zero $\rho_n = \tfrac{1}{2} + i\gamma_n$, the
+curvature admits the Laurent expansion
+$\kap\,\delta^2 = 1 + A(\gamma_n)\,\delta^2 + O(\delta^3)$,
+where $\delta = |s - \rho_n|$ and the coefficient
+$A(\gamma_n) = \operatorname{Im}(c_0)^2 + 2\,c_1$ is the
+\emph{Hadamard amplitude} of the zero.
+
+\medskip\noindent\textbf{Discovery trajectory.}\;
+The anti-correlation between $A$ and the local zero spacing was
+first observed for the Riemann zeta function in
+Result~C-270, where $\rho_{\mathrm{S}}(A_\Lam, g_{\min}^{\GUE})
+= -0.900$ ($n = 910$ zeros, $\gamma \le 2000$).
+Result~C-375 extended the measurement to five self-dual
+$L$-functions of degree~$1$--$3$ (conductor $1$--$121$),
+finding $\rho_{\mathrm{S}} = -0.874 \pm 0.028$ across all five.
+Result~C-378 further extended to four non-self-dual $L$-functions
+with complex root numbers $\varepsilon \in S^1$, yielding
+$\rho_{\mathrm{S}} = -0.887 \pm 0.015$.
+Result~C-383 extended the measurement to degree~$4$ via
+$L(s, \mathrm{Sym}^3 E_{11\mathrm{a}1})$, obtaining
+$\rho_{\mathrm{S}} = -0.905$ ($n = 327$), consistent with the
+degree~$1$--$3$ average.
+The combined ten-family dataset is the subject of the present
+paper.
+
+\medskip\noindent\textbf{Main results.}\;
+\begin{enumerate}
+  \item \textbf{Universal anti-correlation}
+        (\cref{sec:results}): ten $L$-functions of degree~$1$--$4$
+        give $\rho_{\mathrm{S}}(A_\Lam, g_{\min}^{\GUE})
+        = -0.892 \pm 0.015$ (range~$0.043$), with self-dual
+        mean~$-0.895$ and non-self-dual mean~$-0.887$.
+  \item \textbf{Canonical metric identification}
+        (\cref{ssec:gap_min_canonical}): $g_{\min}$ is
+        height-stable (span~$0.16$, $p = 0.40$) while
+        $g_{\mathrm{right}}$ decays with height (span~$0.57$,
+        $p = 5 \times 10^{-5}$).
+  \item \textbf{Root-number independence}
+        (\cref{ssec:non_self_dual}): the complex root number
+        $\varepsilon \in S^1$ does not affect the correlation
+        ($\Delta\rho = 0.006$, well within confidence intervals),
+        ruling out self-duality as a necessary condition.
+\end{enumerate}
+
+\medskip\noindent\textbf{Scope and limitations.}\;
+All results are numerical, covering degree~$1$--$4$ and
+conductor~$1$--$1{,}331$ only.
+Maass forms, $\mathrm{GL}(n)$ $L$-functions with $n \ge 4$,
+and high-conductor regimes remain untested.
+We therefore describe our findings as \emph{preliminary numerical
+evidence for general universality}, following the classification
+of the companion papers.
+
+
+% ============================================================================
+\section{Framework}
+\label{sec:framework}
+% ============================================================================
+
+\subsection{Selberg class and completed $L$-functions}
+
+Let $L(s)$ belong to the Selberg class $\mathcal{S}$ with
+degree~$d$, conductor~$N$, and root number~$\varepsilon$
+($|\varepsilon| = 1$).
+The completed $L$-function is
+\begin{equation}\label{eq:FE}
+  \Lam(s) = \gamma(s)\, L(s), \qquad
+  \Lam(s) = \varepsilon\, \overline{\Lam(1 - \bar{s})},
+\end{equation}
+where $\gamma(s) = \prod_{j=1}^{d} \Gamma_{\mathbb{R}}(s + \mu_j)$
+is the Gamma factor with spectral parameters~$\mu_j$.
+
+For self-dual $L$-functions, $\varepsilon = \pm 1$ and the zeros
+are symmetric: $\gamma \in \mathrm{zeros}(L)$ implies
+$-\gamma \in \mathrm{zeros}(L)$.
+For non-self-dual $L$-functions (e.g., Dirichlet $L$-functions
+with complex primitive characters), $\varepsilon \in S^1
+\setminus \{\pm 1\}$ and
+$\gamma \in \mathrm{zeros}(L(s,\chi))$ implies
+$-\gamma \in \mathrm{zeros}(L(s,\bar{\chi}))$---the
+negative-height zeros belong to the conjugate $L$-function.
+
+
+\subsection{Hadamard amplitude $A_\Lam$}
+\label{ssec:amplitude_def}
+
+At a simple zero $\rho_n = \tfrac{1}{2} + i\gamma_n$, the
+logarithmic derivative has a simple pole:
+\begin{equation}\label{eq:laurent}
+  \frac{\Lam'}{\Lam}(\rho_n + u) = \frac{1}{u}
+  + c_0 + c_1\, u + c_2\, u^2 + \cdots.
+\end{equation}
+By the parity theorem (\cite[Theorem~5]{paper2}),
+$c_0 \in i\mathbb{R}$ and $c_1 \in \mathbb{R}$ for on-critical
+zeros.  Setting $B = \operatorname{Im}(c_0)$ and $H_1 = c_1$:
+
+\begin{definition}[Hadamard amplitude]\label{def:amplitude}
+\begin{equation}\label{eq:amplitude_def}
+  A_\Lam(\gamma_n)
+  \;=\; B(\gamma_n)^2 + 2\,H_1(\gamma_n)
+  \;=\; \operatorname{Im}(c_0)^2 + 2\,c_1.
+\end{equation}
+\end{definition}
+
+The Hadamard product representation yields the decomposition:
+\begin{align}
+  B(\gamma_n) &= -\sideset{}{'}\sum_{k \ne n}
+    \frac{1}{\gamma_n - \gamma_k}
+    + \Gamma\text{-terms},
+  \label{eq:B_sum} \\
+  H_1(\gamma_n) &= \sideset{}{'}\sum_{k \ne n}
+    \frac{1}{(\gamma_n - \gamma_k)^2}
+    + \Gamma'\text{-terms}.
+  \label{eq:H1_sum}
+\end{align}
+Since every term in the $H_1$ sum~\eqref{eq:H1_sum} is positive,
+$H_1 > 0$ unconditionally.  The sum $B$ is alternating and
+partially cancellative.
+
+\begin{theorem}[Amplitude--gap lower bound, {\cite[Theorem~1]{paper4draft}}]
+\label{thm:lower_bound}
+Let $L(s) \in \mathcal{S}$ have simple zeros on the critical line.
+Then
+\begin{equation}\label{eq:lower_bound}
+  A_\Lam(\gamma_n) \;\ge\; \frac{2}{\Delta_{\min}(\gamma_n)^2},
+\end{equation}
+where $\Delta_{\min} = \min(\gamma_n - \gamma_{n-1},\;
+\gamma_{n+1} - \gamma_n)$.
+\end{theorem}
+
+\begin{proof}
+$A_\Lam = B^2 + 2H_1 \ge 2H_1 \ge 2(1/\Delta_L^2 + 1/\Delta_R^2)
+\ge 2/\Delta_{\min}^2$.
+\end{proof}
+
+This bound is unconditional and height-independent,
+relying only on the Hadamard product structure.
+Numerically, the nearest-neighbour contribution
+$2H_1^{\mathrm{NN}}/A_\Lam \approx 87\%$ for $\zeta(s)$,
+so the bound captures the dominant mechanism.
+
+
+\subsection{GUE-normalised gap metrics}
+\label{ssec:gap_def}
+
+The theoretical zero density at height~$t$ for an $L$-function
+of degree~$d$ and conductor~$N$ is:
+\begin{equation}\label{eq:density}
+  \bar{d}(t) = \frac{1}{2\pi}\left[
+    d\,\log\!\left(\frac{t}{2\pi}\right) + \log N
+  \right]
+  + \text{(Gamma corrections)}.
+\end{equation}
+
+\begin{definition}[Gap metrics]\label{def:gaps}
+The GUE-normalised gap metrics for the $n$-th zero are:
+\begin{align}
+  g_{\min}^{\GUE}(\gamma_n) &=
+    \min(\gamma_n - \gamma_{n-1},\;\gamma_{n+1} - \gamma_n)
+    \cdot \bar{d}(\gamma_n),
+  \label{eq:gap_min} \\
+  g_{\mathrm{right}}^{\GUE}(\gamma_n) &=
+    (\gamma_{n+1} - \gamma_n) \cdot \bar{d}(\gamma_n).
+  \label{eq:gap_right}
+\end{align}
+\end{definition}
+
+The density $\bar{d}(t)$ in~\eqref{eq:density} is the
+\emph{theoretical} density from the explicit formula,
+not the empirical estimate $2/(\gamma_{n+1} - \gamma_{n-1})$.
+This distinction is critical: the empirical estimate introduces
+spurious correlations between the gap and the normalisation
+factor (cf.\ gap normalisation artefacts documented
+in~\cite{paper2}).
+
+
+% ============================================================================
+\section{Data: Nine $L$-Function Families}
+\label{sec:data}
+% ============================================================================
+
+We measure the Spearman correlation $\rho_{\mathrm{S}}(A_\Lam,
+g_{\min}^{\GUE})$ for ten $L$-functions spanning four degrees,
+conductors from~$1$ to~$1{,}331$, and both self-dual and non-self-dual
+root numbers.
+
+\medskip\noindent\textbf{Computational protocol.}\;
+For each $L$-function:
+\begin{enumerate}
+  \item Collect all zeros $\gamma_n$ up to height~$T$ via
+        \textsc{PARI/GP} (\texttt{lfunzeros}).
+  \item Compute $A_\Lam(\gamma_n)$ from the full Hadamard
+        zero-sum with Gamma corrections derived from the spectral
+        parameters~$\mu_j$.
+  \item Normalise gaps by the theoretical density
+        $\bar{d}(t)$ from~\eqref{eq:density}.
+  \item Trim the outermost $20\%$ on each side (central $60\%$)
+        to avoid boundary effects.
+  \item Report Spearman $\rho_{\mathrm{S}}$ with bootstrap $95\%$
+        confidence intervals ($2000$ resamples).
+\end{enumerate}
+
+For non-self-dual characters $\chi$ (mod~$q$), the Hadamard sum
+over negative-height zeros uses the zeros of $\bar{\chi}$
+(``proper'' method).  The ``na\"{\i}ve'' method (using $\chi$'s own
+zeros for the conjugate sum) yields $|\Delta\rho| < 0.0003$,
+confirming that the conjugate-sum contribution is a smooth,
+position-insensitive baseline.
+
+\begin{table}[t]
+\centering
+\caption{Ten $L$-functions and their amplitude--gap correlations
+under the canonical $(A_\Lam, g_{\min}^{\GUE})$ metric.
+The five self-dual families of degree~$1$--$3$ are from Result~C-375;
+the degree-$4$ family is from Result~C-383;
+the four non-self-dual families are from Result~C-378.
+All $p$-values are below $10^{-24}$.}
+\label{tab:nine_families}
+\small
+\begin{tabular}{llrrrlll}
+\toprule
+\textbf{$L$-function} & $d$ & $N$ & $n$ &
+$\rho_{\mathrm{S}}$ & \textbf{$95\%$ CI} &
+\textbf{Root \#} & \textbf{Type} \\
+\midrule
+$\zeta(s)$                           & 1 & 1   & 910 & $-0.900$ & $[-0.915,-0.882]$ & $+1$                   & self-dual \\
+$L(s,\chi_{-3})$                     & 1 & 3   & 494 & $-0.891$ & $[-0.908,-0.871]$ & $-1$                   & self-dual \\
+$L(s,E_{11\mathrm{a}1})$            & 2 & 11  & 437 & $-0.914$ & $[-0.928,-0.897]$ & $+1$                   & self-dual \\
+$L(s,\Delta)$                        & 2 & 1   & 324 & $-0.876$ & $[-0.899,-0.848]$ & $+1$                   & self-dual \\
+$L(s,\mathrm{sym}^2 E_{11})$        & 3 & 121 & 96  & $-0.885$ & $[-0.920,-0.830]$ & $+1$                   & self-dual \\
+$L(s,\mathrm{Sym}^3 E_{11})$       & 4 & 1331 & 327 & $-0.905$ & $[-0.928,-0.873]$ & $+1$                  & self-dual \\
+\midrule
+$L(s,\chi_{5}^{(1)})$               & 1 & 5   & 238 & $-0.903$ & $[-0.929,-0.866]$ & $\varepsilon \in S^1$  & non-self-dual \\
+$L(s,\bar{\chi}_{5}^{(1)})$         & 1 & 5   & 238 & $-0.875$ & $[-0.910,-0.828]$ & $\bar{\varepsilon}$    & non-self-dual \\
+$L(s,\chi_{7}^{(1)})$               & 1 & 7   & 254 & $-0.871$ & $[-0.908,-0.820]$ & $\varepsilon \in S^1$  & non-self-dual \\
+$L(s,\bar{\chi}_{7}^{(1)})$         & 1 & 7   & 255 & $-0.901$ & $[-0.927,-0.866]$ & $\bar{\varepsilon}$    & non-self-dual \\
+\midrule
+\multicolumn{3}{l}{Self-dual mean ($6$ families)}  & & $-0.895$ &                   &                        & \\
+\multicolumn{3}{l}{Non-self-dual mean ($4$ families)} & & $-0.887$ &                &                        & \\
+\multicolumn{3}{l}{\textbf{Overall mean} ($10$ families)} & & $\bm{-0.892}$ &        &                        & \\
+\multicolumn{3}{l}{Overall std}                     & & $0.015$ &                    &                        & \\
+\multicolumn{3}{l}{Overall range}                   & & $0.043$ &                    &                        & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\cref{tab:nine_families} presents the complete dataset.
+The ten families span:
+\begin{itemize}
+  \item \textbf{Degree}: $d = 1$ (Riemann~$\zeta$, Dirichlet),
+        $d = 2$ (elliptic curve $E_{11\mathrm{a}1}$, Ramanujan~$\Delta$),
+        $d = 3$ (symmetric square $\mathrm{sym}^2 E_{11}$),
+        $d = 4$ (symmetric cube $\mathrm{Sym}^3 E_{11}$).
+  \item \textbf{Conductor}: $N = 1, 3, 5, 7, 11, 121, 1331$.
+  \item \textbf{Root number}: $\varepsilon = +1, -1$ (self-dual)
+        and $\varepsilon \in S^1 \setminus \{\pm 1\}$ (non-self-dual,
+        $\varepsilon = 0.851 + 0.526i$ for mod~$5$,
+        $\varepsilon = 0.387 + 0.922i$ for mod~$7$).
+  \item \textbf{Total zeros}: $\sum n_i = 3{,}573$ interior zeros
+        (after $20\%$ trimming on each side).
+\end{itemize}
+
+
+% ============================================================================
+\section{Results}
+\label{sec:results}
+% ============================================================================
+
+\subsection{Universality of the anti-correlation}
+\label{ssec:universality}
+
+All ten $L$-functions in \cref{tab:nine_families} exhibit a
+strong negative Spearman correlation
+$\rho_{\mathrm{S}}(A_\Lam, g_{\min}^{\GUE})$:
+\begin{itemize}
+  \item Every family satisfies $\rho_{\mathrm{S}} < -0.87$.
+  \item The overall mean is $-0.892 \pm 0.015$ (std).
+  \item The range is $0.043$
+        ($-0.914$ for $E_{11\mathrm{a}1}$ to $-0.871$ for
+        $\chi_7^{(1)}$).
+  \item Degree dependence is absent: degree~$1$ mean $= -0.890$
+        ($n = 6$), degree~$2$ mean $= -0.895$ ($n = 2$),
+        degree~$3$ $= -0.885$ ($n = 1$),
+        degree~$4$ $= -0.905$ ($n = 1$).
+  \item Conductor dependence is absent over a $1{,}331$-fold
+        range ($N = 1$ to $1{,}331$).
+\end{itemize}
+
+The numerical evidence suggests that the anti-correlation is a
+universal property of $L$-functions in the tested range, not an
+artefact of a specific family, degree, or root number.
+
+
+\subsection{$g_{\min}$ as the canonical gap metric}
+\label{ssec:gap_min_canonical}
+
+To determine which gap metric is intrinsic to the amplitude
+anti-correlation, we partition the $910$ interior zeros of
+$\zeta(s)$ ($\gamma \le 2000$) into eight height bins and
+measure the correlation in each (\cref{tab:height_bins}).
+
+\begin{table}[h]
+\centering
+\caption{Height-bin analysis for $\zeta(s)$ ($n = 910$, eight bins).
+The $(A_\Lam, g_{\min})$ pairing is height-stable
+(span~$0.163$, $p = 0.40$), while
+$(A_\Lam, g_{\mathrm{right}})$ decays systematically.}
+\label{tab:height_bins}
+\small
+\begin{tabular}{rrrrr}
+\toprule
+\textbf{Bin} & $\bar{t}$ &
+$\rho(A_\Lam, g_{\min})$ &
+$\rho(A_\Lam, g_{\mathrm{right}})$ & $n$ \\
+\midrule
+1 &  626 & $-0.814$ & $-0.686$ & 114 \\
+2 &  778 & $-0.889$ & $-0.641$ & 114 \\
+3 &  924 & $-0.938$ & $-0.624$ & 113 \\
+4 & 1064 & $-0.961$ & $-0.504$ & 114 \\
+5 & 1202 & $-0.977$ & $-0.496$ & 114 \\
+6 & 1337 & $-0.948$ & $-0.339$ & 113 \\
+7 & 1469 & $-0.954$ & $-0.262$ & 114 \\
+8 & 1599 & $-0.867$ & $-0.120$ & 114 \\
+\midrule
+\multicolumn{2}{l}{Span}         & $0.163$  & $0.567$  & \\
+\multicolumn{2}{l}{Kendall $\tau$} & $-0.29$ & $+1.00$  & \\
+\multicolumn{2}{l}{$p$-value}    & $0.40$   & $5 \times 10^{-5}$ & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{observation}[$g_{\min}$ as canonical metric]
+\label{obs:canonical}
+The pairing $(A_\Lam,\, g_{\min}^{\GUE})$ is the unique
+height-stable combination among the four natural pairings
+($A_\Lam$ or $A_L$ with $g_{\min}$ or $g_{\mathrm{right}}$).
+Its span of~$0.163$ is below the $0.20$ threshold, and the
+Kendall trend is not significant ($p = 0.40$).
+All three other pairings exhibit significant monotonic trends
+($p < 0.01$).
+\end{observation}
+
+The mechanism for height stability is the unconditional
+bound~\eqref{eq:lower_bound}: since
+$A_\Lam \ge 2/\Delta_{\min}^2$ is purely algebraic and
+height-independent, and since the nearest-neighbour contribution
+accounts for ${\sim}87\%$ of~$A_\Lam$, the rank correlation
+inherits the height-independence of the bound.
+The $g_{\mathrm{right}}$ metric, by contrast, receives
+Gamma-factor contamination that grows as $\sim \log t$.
+
+
+\subsection{Non-self-dual $L$-functions}
+\label{ssec:non_self_dual}
+
+Four non-self-dual $L$-functions---two conjugate pairs
+$(\chi_5^{(1)}, \bar{\chi}_5^{(1)})$ and
+$(\chi_7^{(1)}, \bar{\chi}_7^{(1)})$ with complex root numbers
+$\varepsilon \in S^1 \setminus \{\pm 1\}$---yield
+$\rho_{\mathrm{S}}$ values indistinguishable from the self-dual
+families:
+
+\begin{observation}[Root-number independence]
+\label{obs:root_number}
+Self-dual mean $\rho_{\mathrm{S}} = -0.893$;
+non-self-dual mean $= -0.887$.
+The difference $\Delta = 0.006$ is well within the individual
+$95\%$ confidence interval widths (${\sim}0.05$--$0.09$).
+\end{observation}
+
+This rules out the hypothesis that the self-dual constraint
+$\varepsilon = \pm 1$ is a necessary condition for the
+amplitude--gap anti-correlation.
+
+\begin{observation}[Conjugate-pair consistency]
+\label{obs:conjugate}
+Within each conjugate pair:
+$|\rho(\chi) - \rho(\bar{\chi})| = 0.029$ (mod~$5$) and
+$0.031$ (mod~$7$), with alternating sign.
+These differences are consistent with statistical fluctuation
+from independent zero sets of equal density.
+\end{observation}
+
+\begin{remark}\label{rem:proper_naive}
+For non-self-dual characters, the ``proper'' Hadamard sum uses
+the zeros of $\bar{\chi}$ for the conjugate terms, while the
+``na\"{\i}ve'' method uses $\chi$'s own zeros.
+The resulting $|\Delta\rho| < 0.0003$ in all four cases.
+The explanation is that the conjugate sum
+$\sum_k 1/(\gamma_n + \tilde{\gamma}_k)$ involves
+$\tilde{\gamma}_k \gg \gamma_n$ for most terms, making each
+contribution $\sim 1/(2\gamma_n)$, insensitive to the specific
+$\tilde{\gamma}_k$ values.
+\end{remark}
+
+
+\subsection{$g_{\min}$ versus $g_{\mathrm{right}}$}
+\label{ssec:gap_comparison}
+
+Across all ten families, $g_{\min}$ consistently produces
+stronger correlations than $g_{\mathrm{right}}$:
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Metric} &
+$\bar{\rho}_{\mathrm{S}}$ (ten families) &
+Height stability \\
+\midrule
+$g_{\min}^{\GUE}$      & $-0.891$ & span $0.16$, $p = 0.40$ \\
+$g_{\mathrm{right}}^{\GUE}$ & $-0.44$ to $-0.53$ & span $0.57$, $p < 10^{-4}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The $g_{\min}$ metric captures the symmetric nearest-neighbour
+structure predicted by the lower
+bound~\eqref{eq:lower_bound}---a zero with small minimum gap
+\emph{must} have large amplitude, regardless of which side the
+close neighbour lies on.
+
+
+% ============================================================================
+\section{Discussion}
+\label{sec:discussion}
+% ============================================================================
+
+\subsection{Theoretical context}
+
+The unconditional bound $A_\Lam \ge 2/\Delta_{\min}^2$
+(\cref{thm:lower_bound}) guarantees that the anti-correlation
+sign is negative for any $L$-function with non-degenerate gap
+distribution.
+The \emph{strength} of the correlation ($|\rho| \approx 0.89$)
+is not predicted by the bound alone; it reflects the tightness
+of the bound, which in turn depends on the dominance of the
+nearest-neighbour terms in the Hadamard sum.
+
+The GUE random matrix ensemble produces
+$\rho_{\mathrm{S}}^{\text{full}}(A, g_{\min}) = -0.912$
+under matched conditions (full sum, $20\%$ trim,
+$N = 200$--$2000$; see~\cite{paper4draft}).
+The observed $-0.892$ for the ten families is within
+$2\%$ of this GUE baseline, suggesting that the bulk of the
+correlation is a consequence of the universal eigenvalue
+repulsion encoded in the GUE pair correlation function
+$R_2(x) = 1 - (\sin\pi x / \pi x)^2$.
+
+\subsection{Relation to the $\xi$-bundle framework}
+
+The amplitude $A_\Lam$ is the curvature coefficient in the
+$\xi$-bundle framework~\cite{paper1,paper2}: the identity
+$\kap\,\delta^2 - 1 = A_\Lam\,\delta^2 + O(\delta^3)$ shows
+that $A_\Lam$ governs the leading deviation of the bundle
+curvature from its singular $1/\delta^2$ behaviour near a zero.
+The anti-correlation $\rho(A_\Lam, g_{\min}) < 0$ therefore
+implies that zeros with small spacing exert stronger curvature
+influence---a ``spectral influence radius'' interpretation.
+
+\subsection{Limitations and untested regimes}
+\label{ssec:limitations}
+
+The present evidence, while consistent across ten families,
+has clear limitations:
+
+\begin{enumerate}
+  \item \textbf{Degree range}: $d = 1, 2, 3, 4$ have been
+        tested, with degree~$4$ represented by a single $L$-function
+        ($\mathrm{Sym}^3 E_{11\mathrm{a}1}$, $N = 1{,}331$,
+        $n = 327$, $\rho_{\mathrm{S}} = -0.905$).
+        GL(5) and higher ($\mathrm{sym}^4$,
+        Rankin--Selberg convolutions) remain unverified under the
+        canonical $(A_\Lam, g_{\min}^{\GUE})$ metric.
+        Preliminary evidence from~\cite{paper4draft} using the
+        uniform $(A_L, g_{\min})$ metric extends to degree~$6$
+        ($\mathrm{sym}^5 E_{11}$), but with weaker correlations
+        ($\rho \approx -0.42$) that may reflect $T$-range
+        limitations rather than a genuine degree effect.
+  \item \textbf{Conductor range}: $N \le 1{,}331$.
+        Higher-conductor effects (deeper Euler product structure,
+        denser zero distribution) have not been extensively tested.
+  \item \textbf{Maass forms}: no Maass form $L$-function has been
+        included.
+        Maass forms have continuous spectral parameters, and the
+        Gamma factor structure differs from holomorphic forms.
+  \item \textbf{Non-self-dual at $d \ge 2$}: the four
+        non-self-dual families are all degree~$1$ (Dirichlet
+        characters).
+        Degree-$2$ non-self-dual $L$-functions (e.g., twisted
+        elliptic curve $L$-functions, $\mathrm{GL}(2)$ Maass forms)
+        have not been tested.
+  \item \textbf{Sample size}: the smallest family
+        ($\mathrm{sym}^2 E_{11}$) has $n = 96$ interior zeros.
+        While the $95\%$ CI $[-0.920, -0.830]$ excludes $-0.70$
+        comfortably, larger samples would sharpen the estimate.
+\end{enumerate}
+
+We emphasise that the consistency across ten families
+\emph{suggests}, but does not \emph{prove}, general universality.
+The mathematical content is the unconditional lower bound
+(\cref{thm:lower_bound}); the universality claim rests on
+numerical evidence only.
+
+
+% ============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% ============================================================================
+
+We have presented numerical evidence that the Spearman
+anti-correlation $\rho_{\mathrm{S}}(A_\Lam, g_{\min}^{\GUE})$
+between the Hadamard amplitude and the GUE-normalised minimum
+gap is universal across ten automorphic $L$-functions of
+degree~$1$--$4$, conductor~$1$--$1{,}331$, with both self-dual and
+non-self-dual root numbers.
+
+The key findings are:
+\begin{enumerate}
+  \item The correlation $\rho_{\mathrm{S}} = -0.892 \pm 0.015$
+        (range~$0.043$) is remarkably stable across families,
+        suggesting a universal mechanism rooted in the Hadamard
+        product structure.
+  \item The minimum gap $g_{\min}$ is the canonical metric:
+        it is the unique gap metric yielding a height-stable
+        correlation with $A_\Lam$.
+  \item Self-dual and non-self-dual families produce
+        indistinguishable correlations ($\Delta = 0.006$),
+        ruling out the root-number constraint as a necessary
+        condition.
+  \item The observed correlation is within $2\%$ of the GUE
+        prediction ($-0.912$), consistent with the
+        random-matrix universality of local zero statistics.
+\end{enumerate}
+
+The unconditional lower bound
+$A_\Lam \ge 2/\Delta_{\min}^2$ provides the theoretical
+underpinning: the anti-correlation sign is guaranteed by the
+positivity of the Hadamard sum $H_1$, and the correlation
+strength reflects the tightness of this bound
+($2H_1^{\mathrm{NN}}/A \approx 87\%$).
+
+Future directions include:
+extending to GL(4+) and Maass forms,
+testing height-bin stability within each non-$\zeta$ family,
+and investigating whether the $2H_1/A_L \approx 2/3$ ratio
+observed across all degrees can be derived analytically from
+the GUE pair correlation function.
+
+
+% ============================================================================
+% References
+% ============================================================================
+\begin{thebibliography}{99}
+
+\bibitem{montgomery1973}
+H.~L.~Montgomery,
+``The pair correlation of zeros of the zeta function,''
+\textit{Proc.\ Symp.\ Pure Math.}, vol.~24, pp.~181--193, 1973.
+
+\bibitem{odlyzko1987}
+A.~M.~Odlyzko,
+``On the distribution of spacings between zeros of the zeta
+function,''
+\textit{Math.\ Comp.}, vol.~48, pp.~273--308, 1987.
+
+\bibitem{rudnick1996}
+Z.~Rudnick and P.~Sarnak,
+``Zeros of principal $L$-functions and random matrix theory,''
+\textit{Duke Math.\ J.}, vol.~81, pp.~269--322, 1996.
+
+\bibitem{paper1}
+Y.-H.~Kim,
+``The $\xi$-bundle framework for $L$-function zeros~I:
+Unified theory,''
+2026 (preprint).
+
+\bibitem{paper2}
+Y.-H.~Kim,
+``The $\xi$-bundle framework for $L$-function zeros~II:
+Extensions and universality,''
+2026 (preprint).
+
+\bibitem{paper3}
+Y.-H.~Kim,
+``The $\xi$-bundle framework for $L$-function zeros~III:
+Non-abelian Artin $L$-functions,''
+2026 (preprint).
+
+\bibitem{paper4draft}
+Y.-H.~Kim,
+``Hadamard amplitudes and zero spacing in automorphic
+$L$-functions,''
+2026 (working paper).
+
+\bibitem{titchmarsh1986}
+E.~C.~Titchmarsh,
+\textit{The Theory of the Riemann Zeta-Function}, 2nd~ed.
+(revised by D.~R.~Heath-Brown). Oxford University Press, 1986.
+
+\bibitem{iwaniec2004}
+H.~Iwaniec and E.~Kowalski,
+\textit{Analytic Number Theory}.
+AMS Colloquium Publications, vol.~53, 2004.
+
+\bibitem{mehta2004}
+M.~L.~Mehta,
+\textit{Random Matrices}, 3rd~ed. Academic Press, 2004.
+
+\end{thebibliography}
+
+\end{document}
