@@ -1,5 +1,29 @@
 # RDL 자율 연구 일지
 
+## 2026-04-28 사이클 #396 (수학자+비평가+저술가)
+
+### C-396: Phase 2.5 증명 초안 결과 — 경로 C 성공, 논문 반영
+
+**상황**: C-395에서 `proof_phase25_cross_sign_c395.py` 실행 완료 (129.4s). Cross 항 부호 안정성 검증.
+
+**판단**: 결과 분석 + 비평가 검증 + 논문 반영.
+
+**실행**:
+1. Cov = Var(2/g²)(57.7%) + Cross(36.7%) + Residual(5.6%)
+2. **경로 C**: Var(2/g²) > |Cross| + |Resid| (1.37×, 5/5 T-대역) → Cross 부호 무관 Cov > 0
+3. Bootstrap Cross > 0: 99.3%, 95% CI [0.136, 0.410]
+4. Paper 4 en/ko sec:partial에 공분산 분해 단락 추가
+
+**비평가**: 경로 C **생존**. "Theorem" 라벨 **취약** → "Proposition" 적절.
+
+**반성**: 경로 C는 Cross 부호 증명을 불필요하게 만드는 예상 밖 보너스. 스크립트 if-elif 순서 오류도 발견.
+
+**다음**: CPU 유휴. 미착수 과제 복귀 권고.
+
+**CPU**: 유휴.
+
+---
+
 ## 2026-04-28 사이클 #395 (수학자)
 
 ### C-395: 편상관 괴리 해소 — Paper 4 변수 오귀속 오류 발견 및 수정
@@ -7786,6 +7810,11 @@ B-68 E비 결정인자 분석 (19개 원시 지표, q=3,4,5,7,8,11):
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*
 
 ## 2026-04-28 03:40 사이클 #393 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (opus)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*
+
+## 2026-04-28 04:32 사이클 #395 (자동)
 - Stage 1: 완료
 - Stage 2: 완료 (opus)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*

@@ -919,3 +919,18 @@ Hadamard 분해 A(γₙ) = S₁² + 2H₁ (Prop 11)에 대해:
 **파일**: `ec_kappa_bg_analytical_c353.txt`
 **비평가**: **생존** (감마 지배). Conductor scaling law 취약 (R²=0.66).
 **상태**: ★★★★ 수치 검증 완료. 해석적 증명은 Λ'/Λ 분해의 직접 귀결.
+
+---
+
+### Proposition N+1 (인접 진폭 양상관 — 공분산 분해) **[NEW]**
+**서술**: ζ(s)의 인접 영점 γ_n, γ_{n+1}에서 Hadamard 진폭 A_Λ에 대해
+  Cov(A_Λ(γ_n), A_Λ(γ_{n+1})) = Var(2/g²) + Cross + Residual
+여기서 g = γ_{n+1} - γ_n (공유 간격), Cross = Cov(2/g², A'_n) + Cov(2/g², A'_{n+1}), A'_n = A_Λ_n - 2/g².
+Var(2/g²) > |Cross| + |Residual| (비율 1.37×) 이므로 Cov > 0.
+**검증**: n=790 쌍, T=2000, W=100. 5/5 T-대역 독립 검증. Bootstrap Cross>0 99.3% (B=2000).
+  - Var(2/g²): 57.7%, Cross: 36.7%, Residual: 5.6%.
+  - 경로 C: Var(19.50) > |Cross|(12.40) + |Resid|(1.89) = 14.28.
+**상태**: 수치 검증됨. 해석적 증명은 Var(2/g²) > |Cross|+|Resid| 점근 bound 필요.
+**파일**: `proof_phase25_cross_sign_c395.txt`, `adj_corr_decomp_c393.txt`, `adj_corr_decomp_ALambda_c394.txt`
+**비평가 판정**: **생존** (핵심). "Theorem" 라벨 **취약** → Proposition 적절.
+**논문**: Paper 4 sec:partial에 단락 추가 (C-396).
