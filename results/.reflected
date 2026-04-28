@@ -482,8 +482,10 @@ results/offcritical_gauss_bonnet.txt
 results/offcritical_highres_c298.txt
 results/optim_budget_scaling.txt
 results/parity_asymmetry_c243.txt
+results/path_c_asymptotic_c398.txt
 results/path_c_asymptotic_c399.txt
 results/path_c_dirichlet_c397.txt
+results/path_c_mpmath_c400.txt
 results/phase_isolation_experiment.txt
 results/phase_L4_experiment.txt
 results/phase_nonzero_compare.txt

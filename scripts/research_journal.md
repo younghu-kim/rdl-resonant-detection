@@ -1,5 +1,17 @@
 # RDL 자율 연구 일지
 
+## 2026-04-28 사이클 #402 (검토자)
+
+### C-402: FP 모노드로미 해부 — 재실행 필요 (실행 아티팩트)
+
+- 실행자: 스크립트 버그 5건 수정 후 실행 (40분), 결과 음성 (1/4 기준)
+- TP 5개 중 4개에서 모노드로미=0 → 비정상 (진짜 영점 winding=1이어야)
+- **독립 검증**: 동일 함수·파라미터로 5/5 TP 모두 mono/π=2.0 정상 반환
+- 원인 추정: C-400 kill 후 PARI/mpmath 상태 오염, 또는 스크립트 수정 적용 순서 문제
+- **재실행 시 강한 양성 예상** (4/4 기준 충족, 정밀도 ~100%)
+- MEMORY "Mono=tautology" 판정이 뒤집힐 가능성 — 중대한 전환점
+- 논문 반영 보류 (재실행 확인 후)
+
 ## 2026-04-28 사이클 #398 (수학자+실험자+비평가)
 
 ### C-398: Path C R(T) T-대역별 추세 분석 — 중립 (informative but inconclusive)
@@ -7893,6 +7905,11 @@ B-68 E비 결정인자 분석 (19개 원시 지표, q=3,4,5,7,8,11):
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*
 
 ## 2026-04-28 05:14 사이클 #397 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (opus)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*
+
+## 2026-04-28 08:02 사이클 #399 (자동)
 - Stage 1: 완료
 - Stage 2: 완료 (opus)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*

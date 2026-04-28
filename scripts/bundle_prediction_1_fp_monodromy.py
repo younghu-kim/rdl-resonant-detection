@@ -21,18 +21,21 @@ import numpy as np
 import torch
 import torch.nn as nn
 import mpmath
+from scipy import stats
 
 os.environ.setdefault("OMP_NUM_THREADS", "6")
 os.environ.setdefault("MKL_NUM_THREADS", "6")
 torch.set_num_threads(6)
 
 sys.path.insert(0, os.path.expanduser('~/Desktop/gdl_unified'))
+sys.path.insert(0, os.path.expanduser('~/Desktop/gdl_unified/scripts'))
 from gdl.rdl.constants import PrecisionManager
 from gdl.rdl.pipeline.xi_feature_dataset import (
     get_or_build_cache, compute_zeros_in_range, XiFeatureDataset
 )
 from gdl.rdl.models.master_net import MasterResonantNetwork
 from gdl.rdl.losses.total_loss import TotalResonanceLoss
+from bundle_utils import xi_func, monodromy_contour
 
 PrecisionManager.setup_precision()
 
@@ -45,54 +48,18 @@ LR = 1e-3
 BATCH = 32
 IN_FEATURES = 128
 SEEDS = [42, 7, 123, 314, 2024]
-MONO_EPS = [0.1, 0.01, 0.001]  # 모노드로미 계산용 epsilon
+MONO_RADII = [0.1, 0.01, 0.001]  # 모노드로미 계산용 반지름
 
 mpmath.mp.dps = 30  # 30자리 정밀도
 
 
-# ─── mpmath 기반 모노드로미 계산 ───
-
-def xi_func(s):
-    """ξ(s) = (1/2) s(s-1) π^(-s/2) Γ(s/2) ζ(s)"""
-    half = mpmath.mpf('0.5')
-    return half * s * (s - 1) * mpmath.power(mpmath.pi, -s/2) * mpmath.gamma(s/2) * mpmath.zeta(s)
-
-def compute_monodromy(t, radius=0.5):
-    """점 t 주위 소형 원 폐곡선에서 모노드로미 계산: (1/2πi)∮ξ'/ξ ds
-
-    핵심: eps 차분이 아니라, 반지름 radius 원을 따라 위상 누적.
-    영점이 원 안에 있으면 ±π, 없으면 ≈0.
-    """
-    n_steps = 64
-    s_center = mpmath.mpf('0.5') + 1j * mpmath.mpf(str(t))
-
-    total_delta = 0.0
-    prev_arg = None
-    for k in range(n_steps + 1):
-        theta = 2 * np.pi * k / n_steps
-        s = s_center + radius * mpmath.exp(1j * theta)
-        xi_val = xi_func(s)
-        if abs(xi_val) < mpmath.mpf(10)**(-mpmath.mp.dps + 10):
-            continue
-        curr_arg = float(mpmath.arg(xi_val))
-
-        if prev_arg is not None:
-            delta = curr_arg - prev_arg
-            # branch cut 보정
-            while delta > np.pi:
-                delta -= 2 * np.pi
-            while delta < -np.pi:
-                delta += 2 * np.pi
-            total_delta += delta
-        prev_arg = curr_arg
-
-    return total_delta
+# ─── mpmath 기반 곡률 계산 ───
 
 def compute_curvature(t):
     """임계선 위 점 t에서 곡률 κ = |ξ'/ξ|² 계산"""
     s = mpmath.mpf('0.5') + 1j * mpmath.mpf(str(t))
     xi_val = xi_func(s)
-    if abs(xi_val) < 1e-30:
+    if abs(xi_val) < mpmath.mpf(10)**(-mpmath.mp.dps + 10):
         return float('inf')
     h = mpmath.mpf('1e-15')
     xi_deriv = (xi_func(s + h) - xi_func(s - h)) / (2 * h)
@@ -250,18 +217,30 @@ def main():
         nearest_idx = np.argmin(dists)
         t_zero = float(true_t[nearest_idx])
         dist = dists[nearest_idx]
-        mono = compute_monodromy(t_zero, eps=0.001)
+        # 다중 반지름으로 모노드로미 계산
+        monos_by_r = {}
+        for r in MONO_RADII:
+            monos_by_r[r] = monodromy_contour(t_zero, radius=r)
+        mono = monos_by_r[0.001]  # 가장 작은 반지름 사용
         kappa = compute_curvature(t_det)  # 곡률은 검출점에서 (신경망이 보는 값)
-        results.append(('TP', t_det, mono, kappa, t_zero, dist))
+        results.append(('TP', t_det, mono, kappa, t_zero, dist, monos_by_r))
         print(f"    t_det={t_det:.4f} → t_zero={t_zero:.4f} (Δ={dist:.4f}): "
-              f"mono={mono/np.pi:.4f}π, κ={kappa:.2e}")
+              f"mono(r=0.1)={monos_by_r[0.1]/np.pi:.4f}π, "
+              f"mono(r=0.01)={monos_by_r[0.01]/np.pi:.4f}π, "
+              f"mono(r=0.001)={monos_by_r[0.001]/np.pi:.4f}π, κ={kappa:.2e}")
 
     print("\n  [False Positives] — monodromy at detection point")
     for i, t in enumerate(fp_unique[:30]):  # 최대 30개
-        mono = compute_monodromy(t, eps=0.001)
+        monos_by_r = {}
+        for r in MONO_RADII:
+            monos_by_r[r] = monodromy_contour(t, radius=r)
+        mono = monos_by_r[0.001]
         kappa = compute_curvature(t)
-        results.append(('FP', t, mono, kappa, None, None))
-        print(f"    t={t:.4f}: mono={mono/np.pi:.4f}π, κ={kappa:.2e}")
+        results.append(('FP', t, mono, kappa, None, None, monos_by_r))
+        print(f"    t={t:.4f}: "
+              f"mono(r=0.1)={monos_by_r[0.1]/np.pi:.4f}π, "
+              f"mono(r=0.01)={monos_by_r[0.01]/np.pi:.4f}π, "
+              f"mono(r=0.001)={monos_by_r[0.001]/np.pi:.4f}π, κ={kappa:.2e}")
 
     # 통계
     tp_monos = [abs(r[2]) for r in results if r[0] == 'TP']
@@ -273,11 +252,23 @@ def main():
     print("통계 요약")
     print("=" * 70)
 
+    # 반지름별 통계
+    for r in MONO_RADII:
+        tp_m = [abs(res[6][r]) for res in results if res[0] == 'TP']
+        fp_m = [abs(res[6][r]) for res in results if res[0] == 'FP']
+        if tp_m and fp_m:
+            print(f"\n  radius={r}:")
+            print(f"    TP |mono|/π: mean={np.mean(tp_m)/np.pi:.4f}, std={np.std(tp_m)/np.pi:.4f}")
+            print(f"    FP |mono|/π: mean={np.mean(fp_m)/np.pi:.4f}, std={np.std(fp_m)/np.pi:.4f}")
+            ks_stat, ks_p = stats.ks_2samp(tp_m, fp_m)
+            print(f"    KS test: stat={ks_stat:.4f}, p={ks_p:.6f}")
+
     if tp_monos:
-        print(f"\nTP 모노드로미 |Δarg|/π: mean={np.mean(tp_monos)/np.pi:.4f}, "
+        print(f"\n주 통계 (r=0.001):")
+        print(f"  TP |mono|/π: mean={np.mean(tp_monos)/np.pi:.4f}, "
               f"std={np.std(tp_monos)/np.pi:.4f}")
     if fp_monos:
-        print(f"FP 모노드로미 |Δarg|/π: mean={np.mean(fp_monos)/np.pi:.4f}, "
+        print(f"  FP |mono|/π: mean={np.mean(fp_monos)/np.pi:.4f}, "
               f"std={np.std(fp_monos)/np.pi:.4f}")
 
     if tp_kappas:
@@ -286,6 +277,27 @@ def main():
     if fp_kappas:
         print(f"FP 곡률 κ: mean={np.mean(fp_kappas):.2e}, "
               f"median={np.median(fp_kappas):.2e}")
+
+    # KS 검정 (r=0.001 주 결과)
+    ks_stat_main, ks_p_main = None, None
+    if len(tp_monos) >= 2 and len(fp_monos) >= 2:
+        ks_stat_main, ks_p_main = stats.ks_2samp(tp_monos, fp_monos)
+        print(f"\nKS 검정 (TP vs FP, r=0.001): stat={ks_stat_main:.4f}, p={ks_p_main:.6f}")
+
+    # 성공 기준 체크
+    print("\n" + "=" * 70)
+    print("성공 기준 체크")
+    print("=" * 70)
+
+    # 기준 1: FP |mono| < 0.3 비율 > 70%
+    fp_low_mono = sum(1 for m in fp_monos if m < 0.3) / len(fp_monos) if fp_monos else 0
+    crit1 = fp_low_mono > 0.7
+    print(f"  FP |mono| < 0.3 비율: {fp_low_mono:.1%} ({'✅' if crit1 else '❌'} > 70%)")
+
+    # 기준 2: TP |mono| > 2.0 비율 > 70%
+    tp_high_mono = sum(1 for m in tp_monos if m > 2.0) / len(tp_monos) if tp_monos else 0
+    crit2 = tp_high_mono > 0.7
+    print(f"  TP |mono| > 2.0 비율: {tp_high_mono:.1%} ({'✅' if crit2 else '❌'} > 70%)")
 
     # 이중 기준 테스트
     mono_threshold = np.pi * 0.5  # |Δarg| > π/2 = 모노드로미 있음
@@ -297,6 +309,7 @@ def main():
     print(f"  TP 통과: {tp_pass}/{len(tp_monos)}")
     print(f"  FP 통과: {fp_pass}/{len(fp_monos)}")
 
+    new_precision, old_precision = 0, 0
     if tp_pass + fp_pass > 0:
         new_precision = tp_pass / (tp_pass + fp_pass)
         old_precision = len(tp_monos) / (len(tp_monos) + len(fp_monos))
@@ -304,37 +317,73 @@ def main():
         print(f"  새 정밀도 (κ+mono): {new_precision:.1%}")
         print(f"  개선: {new_precision/old_precision:.1f}×")
 
+    # 기준 3: 이중 기준 정밀도 > 40%
+    crit3 = new_precision > 0.4
+    print(f"  이중기준 정밀도 > 40%: {'✅' if crit3 else '❌'} ({new_precision:.1%})")
+
+    # 기준 4: KS p < 0.01
+    crit4 = (ks_p_main is not None and ks_p_main < 0.01)
+    print(f"  KS p < 0.01: {'✅' if crit4 else '❌'} (p={ks_p_main})")
+
+    overall = "양성" if (crit1 and crit2 and crit3 and crit4) else \
+              "약한 양성" if sum([crit1, crit2, crit3, crit4]) >= 2 else "음성"
+    print(f"\n  *** 종합 판정: {overall} ({sum([crit1,crit2,crit3,crit4])}/4 기준 충족) ***")
+
     # 결과 저장
     with open(out_path, 'w') as f:
         f.write("=" * 70 + "\n")
         f.write("다발 예측 실험 #1: FP = 곡률 without 모노드로미\n")
-        f.write(f"Conjecture 3 검증\n")
+        f.write(f"Conjecture 3 검증 — 사이클 #402\n")
         f.write(f"날짜: {time.strftime('%Y-%m-%d %H:%M')}\n")
         f.write("=" * 70 + "\n\n")
 
         f.write(f"설정: t∈[{T_MIN},{T_MAX}], K={IN_FEATURES}, "
                 f"시드 {SEEDS}, {EPOCHS} epochs\n")
-        f.write(f"수정: TP monodromy를 nearest true_zero에서 계산 "
-                f"(사이클 27 코드 오류 수정)\n\n")
+        f.write(f"모노드로미 반지름: {MONO_RADII}\n")
+        f.write(f"수정: TP monodromy를 nearest true_zero에서 계산, "
+                f"bundle_utils.monodromy_contour 사용\n\n")
 
-        f.write(f"{'Type':>4} {'t_det':>12} {'t_zero':>12} {'Δt':>8} {'mono/π':>12} {'κ':>12}\n")
-        f.write("-" * 70 + "\n")
-        for r in results:
-            if r[0] == 'TP':
-                f.write(f"{r[0]:>4} {r[1]:>12.4f} {r[4]:>12.4f} {r[5]:>8.4f} "
-                        f"{r[2]/np.pi:>12.4f} {r[3]:>12.2e}\n")
+        # 다중 반지름 테이블
+        header = f"{'Type':>4} {'t_det':>10} {'t_zero':>10} {'Δt':>7}"
+        for r in MONO_RADII:
+            header += f" {'mono_r='+str(r):>14}"
+        header += f" {'κ':>12}"
+        f.write(header + "\n")
+        f.write("-" * len(header) + "\n")
+        for res in results:
+            if res[0] == 'TP':
+                line = f"{res[0]:>4} {res[1]:>10.4f} {res[4]:>10.4f} {res[5]:>7.4f}"
             else:
-                f.write(f"{r[0]:>4} {r[1]:>12.4f} {'—':>12} {'—':>8} "
-                        f"{r[2]/np.pi:>12.4f} {r[3]:>12.2e}\n")
+                line = f"{res[0]:>4} {res[1]:>10.4f} {'—':>10} {'—':>7}"
+            for r in MONO_RADII:
+                line += f" {res[6][r]/np.pi:>14.4f}π"
+            line += f" {res[3]:>12.2e}"
+            f.write(line + "\n")
 
-        f.write(f"\n\n통계:\n")
+        f.write(f"\n\n반지름별 통계:\n")
+        for r in MONO_RADII:
+            tp_m = [abs(res[6][r]) for res in results if res[0] == 'TP']
+            fp_m = [abs(res[6][r]) for res in results if res[0] == 'FP']
+            if tp_m and fp_m:
+                ks_s, ks_p = stats.ks_2samp(tp_m, fp_m)
+                f.write(f"\n  radius={r}:\n")
+                f.write(f"    TP |mono|/π: {np.mean(tp_m)/np.pi:.4f} ± {np.std(tp_m)/np.pi:.4f}\n")
+                f.write(f"    FP |mono|/π: {np.mean(fp_m)/np.pi:.4f} ± {np.std(fp_m)/np.pi:.4f}\n")
+                f.write(f"    KS: stat={ks_s:.4f}, p={ks_p:.6f}\n")
+
+        f.write(f"\n\n주 통계 (r=0.001):\n")
         if tp_monos:
             f.write(f"  TP |mono|/π: {np.mean(tp_monos)/np.pi:.4f} ± {np.std(tp_monos)/np.pi:.4f}\n")
         if fp_monos:
             f.write(f"  FP |mono|/π: {np.mean(fp_monos)/np.pi:.4f} ± {np.std(fp_monos)/np.pi:.4f}\n")
 
-        if tp_pass + fp_pass > 0:
-            f.write(f"\n이중 기준 정밀도: {new_precision:.1%} (기존 {old_precision:.1%})\n")
+        f.write(f"\n성공 기준:\n")
+        f.write(f"  FP |mono|<0.3 비율: {fp_low_mono:.1%} ({'PASS' if crit1 else 'FAIL'})\n")
+        f.write(f"  TP |mono|>2.0 비율: {tp_high_mono:.1%} ({'PASS' if crit2 else 'FAIL'})\n")
+        f.write(f"  이중기준 정밀도: {new_precision:.1%} ({'PASS' if crit3 else 'FAIL'})\n")
+        f.write(f"  KS p-value: {ks_p_main} ({'PASS' if crit4 else 'FAIL'})\n")
+        f.write(f"\n  이중 기준 정밀도: {new_precision:.1%} (기존 {old_precision:.1%})\n")
+        f.write(f"  종합 판정: {overall} ({sum([crit1,crit2,crit3,crit4])}/4)\n")
 
     print(f"\n결과 저장: {out_path}")
     print("완료.")
