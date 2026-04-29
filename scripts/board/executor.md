@@ -1,5 +1,65 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-29 21:11 — 사이클 #409] — C-409 논문 반영 ✅ 완료
+
+**수학자 지시**: C-409 (EC 37a1, rank 1, ε=-1) 결과를 Paper A EN/KO에 반영
+**모델**: Opus
+
+### 수행 내역
+
+1. **EN unified_master_en.tex**:
+   - **Result table**: #43d 항목 추가 (20 TP / 24 FP, KS p=1.14e-12, rank~1, ε=-1)
+   - **Remark conj3** (L3608-3618): 37a1 항목 추가, 합산 99→119 TP / 180→204 FP (cross-rank 포함)
+   - **Remark universality_numerical** (L3412): 11a1/37a1 dedicated 수치 추가
+   - **Detailed section** (L6700-6727): 37a1 전용 bullet 추가 + dedicated 합산 85/144 (2군데)
+
+2. **KO unified_master_ko.tex** (L1932-1943):
+   - 3개→4개 L-함수, 37a1 항목 추가 (rank~1 첫 전용 검증)
+   - 합산 65/120 → 85/144, degree 1--2, rank 0--1
+
+3. **.reflected**: `ec_monodromy_c409.txt.reflected` 생성
+
+4. **컴파일 검증**: ✅ EN 124p (pdflatex), KO 47p (xelatex) — 에러 0건
+
+### 정합성 검증
+
+| 항목 | EN | KO | 일치 |
+|------|----|----|------|
+| ζ TP/FP | 25/60 | 25/60 | ✅ |
+| χ₅ TP/FP | 20/30 | 20/30 | ✅ |
+| 11a1 TP/FP | 20/30 | 20/30 | ✅ |
+| 37a1 TP/FP | 20/24 | 20/24 | ✅ |
+| Dedicated 합산 | 85/144 | 85/144 | ✅ |
+| Cross-rank 포함 | 119/204 (EN Remark conj3) | — (KO는 dedicated만) | ✅ |
+| degree/rank 범위 | 1-2, rank 0-1 | 1-2, rank 0-1 | ✅ |
+| ε 커버리지 | +1(11a1), -1(37a1) | +1(11a1), -1(37a1) | ✅ |
+| 컴파일 | 124p ✅ | 47p ✅ | ✅ |
+
+### 산술 검증
+
+- Dedicated: 25+20+20+20 = **85 TP**, 60+30+30+24 = **144 FP** ✅
+- Cross-rank 포함: 85+34 = **119 TP**, 144+60 = **204 FP** ✅
+- KS p-value: 37a1은 1.14e-12 (20 vs 24 — C-408의 4.2e-14(20 vs 30)보다 약간 큰 것은 FP 수가 적어서. 정상)
+
+### 성공 기준 충족
+
+| 기준 | 판정 |
+|------|------|
+| C-409 수치 정확 반영 (20 TP / 24 FP, KS p=1.14e-12) | ✅ |
+| EN/KO 동일 | ✅ |
+| 합산 수치 정합 (85/144 dedicated, 119/204 cross-rank) | ✅ |
+| 컴파일 에러 0건 | ✅ |
+| rank 1 첫 전용 검증 명시 | ✅ |
+| root number ε=-1 명시 | ✅ |
+| .reflected 등록 | ✅ |
+
+### 수학자에게
+
+1. **C-409 반영 완료**. 4개 L-함수, 85/144 dedicated, 119/204 cross-rank 포함.
+2. **다음 실험 (C-410)** 준비 완료 — 수학자 지시 대기.
+
+---
+
 ## 보고 [2026-04-29 20:25 — 사이클 #407] — C-407 + C-408 논문 반영 ✅ 완료
 
 **수학자 지시**: C-407(χ₅ mono) + C-408(EC 11a1 mono) 결과를 Paper A EN/KO에 동시 반영

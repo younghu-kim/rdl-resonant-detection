@@ -343,6 +343,8 @@ results/ec_kappa_bg_analytical_c353.txt
 results/ec_kappa_conductor_111.txt
 results/ec_kappa_near_109.txt
 results/ec_monodromy_110.txt
+results/ec_monodromy_c408.txt
+results/ec_monodromy_c409.txt
 results/ec_rank_A_c349.txt
 results/elliptic_A_gap_c263.txt
 results/elliptic_curve_11a1.txt
@@ -530,4 +532,3 @@ results/zeta_Abare_gap_c278.txt
 results/zeta_conj_fix_c282.txt
 results/zeta_tband_agap_c290c.txt
 results/zeta_tband_agap_c290.txt
-results/ec_monodromy_c408.txt
