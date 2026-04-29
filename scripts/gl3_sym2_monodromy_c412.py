@@ -157,34 +157,50 @@ def curvature_sym2(lf, t, center, delta_h=0.01):
     return abs(conn) ** 2
 
 
-def generate_fp_points(true_zeros, t_min, t_max, n_midpoints=None, n_random=20):
-    """FP 후보 생성: 인접 영점 중점 + 랜덤 비영점 (degree 3: 영점 밀집 대응)"""
+def generate_fp_points(true_zeros, t_min, t_max, n_midpoints=None, n_random=30):
+    """
+    FP 후보 생성: 인접 영점 중점 + 저t 영역 + 랜덤 비영점.
+    degree 3: 영점이 밀집 (평균 갭 ~0.8)하므로 공격적 전략 필요.
+    r=0.1 contour가 영점을 포함하지 않으려면 min_dist > 0.15 필요.
+    """
     fps = []
+    zeros_arr = np.array(true_zeros)
 
-    # 1. 인접 영점 중점 (영점에서 >0.5 거리인 것만)
+    # 1. 인접 영점 중점 (갭 > 0.4이면 포함 — 이전 1.0에서 완화)
     if len(true_zeros) >= 2:
         for i in range(len(true_zeros) - 1):
             mid = (true_zeros[i] + true_zeros[i + 1]) / 2.0
             gap = true_zeros[i + 1] - true_zeros[i]
-            if gap > 1.0:  # 충분히 넓은 갭만
+            if gap > 0.4:
                 fps.append(mid)
 
-    # 2. 랜덤: 다양한 시드로 영점 밀집 구간 밖에서 생성
-    # degree 3: 영점이 밀집하므로 min_dist를 줄이고 시드를 다양화
-    min_dist = 0.6  # 0.5보다 살짝 크게 (최종 필터 0.5와 분리)
-    for seed in [42, 7, 123, 314, 2024]:
+    # 2. 저t 영역 (첫 영점 이전): 영점이 없는 확실한 FP
+    if len(true_zeros) > 0:
+        first_zero = true_zeros[0]
+        if first_zero > 1.0:
+            # 0.5 ~ first_zero - 0.2 범위에서 균등 배치
+            low_t_max = first_zero - 0.2
+            if low_t_max > 1.0:
+                n_low = min(5, int((low_t_max - 0.5) / 0.3))
+                for i in range(n_low):
+                    t = 0.5 + (low_t_max - 0.5) * (i + 0.5) / n_low
+                    fps.append(t)
+
+    # 3. 랜덤: min_dist=0.2 (r=0.1 contour 안전 거리)
+    min_dist = 0.2
+    for seed in [42, 7, 123, 314, 2024, 999, 55, 77]:
         rng = np.random.RandomState(seed)
         added = 0
         attempts = 0
-        while added < n_random // 5 + 2 and attempts < 200:
-            # T 범위를 넓혀서 (t_min ~ t_max*1.5) 더 많은 비영점 확보
-            t_rand = rng.uniform(t_min, t_max * 1.2)
+        target = n_random // 8 + 2
+        while added < target and attempts < 500:
+            t_rand = rng.uniform(t_min, t_max)
             if len(true_zeros) > 0:
-                dists = np.abs(np.array(true_zeros) - t_rand)
+                dists = np.abs(zeros_arr - t_rand)
                 if dists.min() < min_dist:
                     attempts += 1
                     continue
-            if fps and min(abs(t_rand - f) for f in fps) < 0.4:
+            if fps and min(abs(t_rand - f) for f in fps) < 0.15:
                 attempts += 1
                 continue
             fps.append(t_rand)
@@ -291,12 +307,14 @@ def main():
 
     # ─── 4. FP 생성 ───
     print("\n[4단계] FP 후보 생성...")
-    fp_points = generate_fp_points(true_zeros, 2.0, T_MAX, n_random=11)
+    # all_zeros를 사용하여 FP 필터링 (T_MAX 밖의 영점도 고려)
+    fp_points = generate_fp_points(all_zeros, 2.0, T_MAX, n_random=20)
 
-    # 영점과 겹치는 FP 제거
+    # 영점과 겹치는 FP 제거 (all_zeros 기준, min_dist=0.15 — r=0.1 안전)
     fp_clean = []
+    all_zeros_arr = np.array(all_zeros)
     for f in fp_points:
-        if np.min(np.abs(np.array(true_zeros) - f)) > 0.5:
+        if np.min(np.abs(all_zeros_arr - f)) > 0.15:
             fp_clean.append(f)
     fp_unique = np.array(fp_clean)
     print(f"  FP 후보: {len(fp_unique)}개 (영점에서 >0.5 거리)")
