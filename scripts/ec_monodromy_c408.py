@@ -35,8 +35,8 @@ print(f"PARI 초기화: 2GB 메모리, realprecision=100")
 
 # ─── 설정 ───
 T_MAX = 50.0
-MONO_RADII = [0.1, 0.01, 0.001]
-MONO_NSTEPS = 256
+MONO_RADII = [0.1, 0.05, 0.01]
+MONO_NSTEPS = 128  # lf 직접 사용으로 속도 절약. #110은 64로 성공.
 SEEDS = [42, 7, 123, 314, 2024]
 
 CURVE_INFO = {
@@ -56,21 +56,26 @@ def init_ec_lfun(info):
     E = pari.ellinit(info['coeffs'])
     lf = pari.lfuncreate(E)
     eps = int(pari.ellrootno(E))
-    linit = pari.lfuninit(lf, [0, T_MAX + 10])
+    # lfuninit(lf, [a, b]) — Re(s)=1/2, a <= Im(s) <= b
+    # lfuninit(lf, [a, b, h]) — |Re(s)-1/2| <= h도 커버
+    # lfuninit은 EC에서 "insufficient initialization" 경고 유발
+    # lf 직접 사용이 느리지만 정확 (PARI가 매 호출마다 재계산)
+    linit = lf
+    print(f"  lf 직접 사용 (정확성 우선)")
     return E, lf, linit, eps
 
 
-def ec_lambda(linit, sigma, t):
+def ec_lambda(linit_or_lf, sigma, t):
     """PARI로 Λ(s) 계산. s = sigma + i*t"""
     s = pari(f"{sigma} + {t}*I")
     try:
-        val = complex(pari.lfunlambda(linit, s))
+        val = complex(pari.lfunlambda(linit_or_lf, s))
         return val
     except Exception:
         return None
 
 
-def monodromy_contour_ec(linit, t_zero, radius=0.1, n_steps=256, center=0.5):
+def monodromy_contour_ec(linit, t_zero, radius=0.1, n_steps=256, center=1.0):
     """
     EC L-함수의 점 s=center+i*t_zero 주위 반지름 radius 원에서 모노드로미 계산.
     """
@@ -102,10 +107,10 @@ def monodromy_contour_ec(linit, t_zero, radius=0.1, n_steps=256, center=0.5):
 
 
 def curvature_ec(linit, t, delta=0.01):
-    """EC L-함수의 곡률 κ = |Λ'/Λ|² 근사 (차분)"""
-    s_center = ec_lambda(linit, 0.5 + delta, t)
-    s_plus = ec_lambda(linit, 0.5 + delta, t + delta)
-    s_minus = ec_lambda(linit, 0.5 + delta, t - delta)
+    """EC L-함수의 곡률 κ = |Λ'/Λ|² 근사 (차분). EC 임계선=σ=1"""
+    s_center = ec_lambda(linit, 1.0 + delta, t)
+    s_plus = ec_lambda(linit, 1.0 + delta, t + delta)
+    s_minus = ec_lambda(linit, 1.0 + delta, t - delta)
     if s_center is None or s_plus is None or s_minus is None:
         return 0.0
     if abs(s_center) < 1e-300:
@@ -178,11 +183,15 @@ def main():
         print(f"    ... ({len(true_zeros)}개 총)")
 
     # ─── 2.5. 건전성 검사 ───
+    # linit에 문제가 있으면 lf 직접 사용으로 전환
     print("\n[2.5단계] Λ 건전성 검사...")
+    # EC L-함수: 임계선은 σ=1 (FE: Λ(s)=ε·Λ(2-s), 대칭 중심 s=1)
+    print("  ※ EC 임계선: σ=1 (FE Λ(s)=ε·Λ(2-s), weight 2)")
     for z in true_zeros[:5]:
-        val = ec_lambda(linit, 0.5, z)
+        val = ec_lambda(lf, 1.0, z)
         if val is not None:
-            print(f"  Λ(1/2+i·{z:.4f}) = {val.real:.2e} + {val.imag:.2e}i  |Λ| = {abs(val):.2e}")
+            print(f"  Λ(1+i·{z:.4f}) = {val.real:.2e} + {val.imag:.2e}i  |Λ| = {abs(val):.2e}")
+    lfunc = lf
 
     # ─── 3. FP 생성 ───
     print("\n[3단계] FP 후보 생성...")
@@ -218,18 +227,16 @@ def main():
         monos_by_r = {}
         for r in MONO_RADII:
             try:
-                monos_by_r[r] = monodromy_contour_ec(linit, t, radius=r, n_steps=MONO_NSTEPS)
+                monos_by_r[r] = monodromy_contour_ec(lfunc, t, radius=r, n_steps=MONO_NSTEPS)
             except Exception as e:
                 print(f"    WARNING: monodromy r={r} t={t:.4f} 실패: {e}")
                 monos_by_r[r] = 0.0
 
-        kappa = curvature_ec(linit, t)
-        mono_main = monos_by_r[0.1]
+        kappa = curvature_ec(lfunc, t)
+        mono_main = monos_by_r[MONO_RADII[0]]
         results.append(('TP', t, mono_main, kappa, monos_by_r))
-        print(f"    t={t:.4f}: "
-              f"mono(r=0.1)={monos_by_r[0.1]/np.pi:.4f}π, "
-              f"mono(r=0.01)={monos_by_r[0.01]/np.pi:.4f}π, "
-              f"mono(r=0.001)={monos_by_r[0.001]/np.pi:.4f}π, κ={kappa:.2e}")
+        parts = [f"mono(r={r})={monos_by_r[r]/np.pi:.4f}π" for r in MONO_RADII]
+        print(f"    t={t:.4f}: {', '.join(parts)}, κ={kappa:.2e}")
 
     n_fp = min(30, len(fp_unique))
     print(f"\n  [False Positives] — {n_fp}개 비영점")
@@ -238,18 +245,16 @@ def main():
         monos_by_r = {}
         for r in MONO_RADII:
             try:
-                monos_by_r[r] = monodromy_contour_ec(linit, t, radius=r, n_steps=MONO_NSTEPS)
+                monos_by_r[r] = monodromy_contour_ec(lfunc, t, radius=r, n_steps=MONO_NSTEPS)
             except Exception as e:
                 print(f"    WARNING: monodromy r={r} t={t:.4f} 실패: {e}")
                 monos_by_r[r] = 0.0
 
-        kappa = curvature_ec(linit, t)
-        mono_main = monos_by_r[0.1]
+        kappa = curvature_ec(lfunc, t)
+        mono_main = monos_by_r[MONO_RADII[0]]
         results.append(('FP', t, mono_main, kappa, monos_by_r))
-        print(f"    t={t:.4f}: "
-              f"mono(r=0.1)={monos_by_r[0.1]/np.pi:.4f}π, "
-              f"mono(r=0.01)={monos_by_r[0.01]/np.pi:.4f}π, "
-              f"mono(r=0.001)={monos_by_r[0.001]/np.pi:.4f}π, κ={kappa:.2e}")
+        parts = [f"mono(r={r})={monos_by_r[r]/np.pi:.4f}π" for r in MONO_RADII]
+        print(f"    t={t:.4f}: {', '.join(parts)}, κ={kappa:.2e}")
 
     # ─── 5. 통계 ───
     print("\n" + "=" * 70)

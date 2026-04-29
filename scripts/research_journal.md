@@ -1,5 +1,32 @@
 # RDL 자율 연구 일지
 
+## 2026-04-29 사이클 #408 (수학자+비평가+실험자)
+
+### C-408: EC 11a1 모노드로미 TP/FP 검증 — **강한 양성 (4/4)**
+
+**상황**: C-407에서 Dirichlet GL(1) 확장 완료. degree 2 (EC) 확장 시도.
+
+**실행**: `scripts/ec_monodromy_c408.py` (5.3초). L(s,11a1), T∈[0,50], PARI realprecision=100. 
+
+**핵심 발견**: EC L-함수는 **임계선이 σ=1** (FE: Λ(s)=ε·Λ(2-s), weight 2). 첫 시도에서 center=0.5 사용 → TP mono=0 (음성). 진단 결과 영점이 s=1+it₀에 위치함을 확인. center=1.0으로 수정 후 완벽 작동.
+
+**결과** (`results/ec_monodromy_c408.txt`, 20:01):
+- TP 20/20: **전부 mono/π=2.0000** (std=0), 3개 반지름 모두
+- FP 30/30: **전부 mono/π=0.0000** (std=0)
+- KS stat=**1.000**, p=**4.24e-14**
+- 이중기준 정밀도: **100%**
+- TP κ ≈ 1.0e+4, FP κ ≈ 0.09-5.7
+
+**누적**: 3개 L-함수, degree 1-2, 65 TP, 120 FP, 예외 0건.
+
+**비평가**: 생존. 논증 원리 귀결. degree 2 확장 성공.
+
+**반성**: center=0.5 실수로 30분 낭비. weight-k 모듈 형식의 임계선은 σ=k/2.
+
+**CPU**: 유휴.
+
+---
+
 ## 2026-04-29 사이클 #407 (수학자+비평가+실험자)
 
 ### C-407: Dirichlet L-함수 모노드로미 검증 — **강한 양성 (4/4)**
@@ -8104,6 +8131,11 @@ B-68 E비 결정인자 분석 (19개 원시 지표, q=3,4,5,7,8,11):
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*
 
 ## 2026-04-28 09:36 사이클 #402 (자동)
+- Stage 1: 완료
+- Stage 2: 완료 (opus)
+- 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*
+
+## 2026-04-29 19:52 사이클 #405 (자동)
 - Stage 1: 완료
 - Stage 2: 완료 (opus)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*
