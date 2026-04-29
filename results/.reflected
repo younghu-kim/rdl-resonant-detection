@@ -289,6 +289,7 @@ results/capacity_indirect_evidence.txt
 results/capacity_scaling.txt
 results/cluster_physics_v2.txt
 results/compare_fourier_modes.txt
+results/complex_dirichlet_monodromy_c410.txt
 results/complex_vector_readout.txt
 results/crosscheck_c264.txt
 results/cross_family_agap_c375.txt
@@ -502,6 +503,7 @@ results/proof_phase25_cross_sign_c395.txt
 results/ramanujan_delta_125.txt
 results/ramanujan_delta_46.txt
 results/ramanujan_delta_blind_56.txt
+results/ramanujan_delta_monodromy_c411.txt
 results/rank_dependent_corrected_108.txt
 results/rank_dependent_xi_bundle_107.txt
 results/rankin_selberg_112.txt
@@ -532,4 +534,3 @@ results/zeta_Abare_gap_c278.txt
 results/zeta_conj_fix_c282.txt
 results/zeta_tband_agap_c290c.txt
 results/zeta_tband_agap_c290.txt
-results/complex_dirichlet_monodromy_c410.txt
