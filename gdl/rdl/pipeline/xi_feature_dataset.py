@@ -29,9 +29,10 @@ KNOWN_ZEROS = [
 
 
 def compute_zeros_in_range(t_min, t_max, dps=20):
-    """mpmath로 [t_min, t_max] 범위의 제타 영점을 계산하여 반환"""
+    """mpmath로 [t_min, t_max] 범��의 제타 영점을 계산하여 반환"""
     if not MPMATH_AVAILABLE:
         raise ImportError("mpmath 필요: pip install mpmath")
+    _saved_dps = mpmath.mp.dps
     mpmath.mp.dps = dps
     import math as _math
     # N(T) ~ (T/2pi)*log(T/2pi) - T/2pi 으로 시작 인덱스 추정
@@ -51,6 +52,7 @@ def compute_zeros_in_range(t_min, t_max, dps=20):
             zeros.append(round(t_val, 6))
         k += 1
     print(f"[Zeros] {len(zeros)}개 영점 발견 in [{t_min}, {t_max}] (k={k_start}~{k-1})")
+    mpmath.mp.dps = _saved_dps  # 호출자의 dps 복원
     return zeros
 
 

@@ -3401,8 +3401,13 @@ verbatim.
 Cross-rank universality is confirmed by our numerical experiments:
 \begin{itemize}
   \item \textbf{GL(1)}: Riemann $\zeta$ (mono$/\pi = 2.000$,
-    10/10 zeros; FP anatomy: 19 FP all mono$/\pi = 0.000$)
-    and 5 Dirichlet $L$-functions
+    25/25 zeros across $T\in[14,300]$; 60 FP all mono$/\pi = 0.000$;
+    KS $p = 4.2\times 10^{-14}$)
+    and Dirichlet $L(s,\chi_5)$ (mod~5, even quadratic character:
+    mono$/\pi = 2.000$, 20/20 zeros, 30 FP all mono$/\pi = 0.000$;
+    KS $p = 4.2\times 10^{-14}$).
+    Combined GL(1): 45~TP, 90~FP, zero exceptions.
+    Five further Dirichlet $L$-functions
     (\S\ref{sec:summary}, Observations~14--18);
   \item \textbf{GL(2)}: elliptic curves 11a1 and 37a1
     (mono$/\pi = 2.000$, 17/17 and 23/23 zeros) and the Ramanujan
@@ -3592,11 +3597,16 @@ a direct consequence of the argument principle
 (Theorem~\ref{thm:holonomy}) and the Laurent structure of
 $\Lambda'/\Lambda$ (Theorem~\ref{thm:curvature}). The numerical
 measurements confirm the theorem across ranks:
-GL(1) $\zeta$: mono$/\pi = 2.000 \pm 0.000$ for 10~TP,
-$0.000 \pm 0.000$ for 19~FP ($p = 6.2 \times 10^{-6}$);
+GL(1) $\zeta$: mono$/\pi = 2.000 \pm 0.000$ for 25~TP
+($T\in[14,300]$),
+$0.000 \pm 0.000$ for 60~FP (KS $p = 4.2 \times 10^{-14}$);
+GL(1) Dirichlet $L(s,\chi_5)$: mono$/\pi = 2.000 \pm 0.000$ for
+20~TP, $0.000 \pm 0.000$ for 30~FP (KS $p = 4.2 \times 10^{-14}$);
 GL(2) (11a1, 37a1, $\Delta$): mono$/\pi = 2.000 \pm 0.000$
 for 34~TP, $0.000 \pm 0.000$ for 60~FP
-($p = 9.7 \times 10^{-17}$). The dual criterion improves
+($p = 9.7 \times 10^{-17}$).
+Combined across GL(1)--GL(2): 79~TP, 150~FP, zero exceptions.
+The dual criterion improves
 precision by $+63$ percentage points at $\kappa > 0.5$ for GL(2),
 confirming degree-independent perfect separation.
 \end{remark}
@@ -6069,7 +6079,8 @@ with full transparency).
 41 & Ramanujan $\Delta$ (GL(2), weight 12) & \textbf{E} & mono 8/8; $\kappa$ $1396\times$; blind 7/7; $\sigma$-uniq.\ N/A & GL(2) \\
 42 & $\sigma$-uniqueness mechanism (GL(1) vs GL(2)) & \textbf{C} & $R_{\mathrm{GL}(1)}{\approx}0.4$, $R_{\Delta}{=}1.000$ (exact); $\chi_3$ emp.\ $0.38{\approx}0.37$ & GL(2) \\
 \midrule
-43 & FP monodromy anatomy (Conj.\,3) & \textbf{E} & TP mono$/\pi{=}2.000{\pm}0$; FP mono$/\pi{=}0.000$; $p{=}6.2{\times}10^{-6}$; dual prec.\ $+44\%$p & Topological \\
+43 & $\zeta$ FP monodromy (Conj.\,3) & \textbf{E} & 25 TP mono$/\pi{=}2.000{\pm}0$; 60 FP mono$/\pi{=}0.000$; KS $p{=}4.2{\times}10^{-14}$; dual prec.\ 100\%; $T{\in}[14{,}300]$ & Topological \\
+43b & Dirichlet $L(s{,}\chi_5)$ monodromy & \textbf{E} & 20 TP mono$/\pi{=}2.000{\pm}0$; 30 FP mono$/\pi{=}0.000$; KS $p{=}4.2{\times}10^{-14}$; dual prec.\ 100\% & Dirichlet \\
 44 & GL(2) FP monodromy (cross-rank) & \textbf{E} & 34 TP mono$/\pi{=}2.000{\pm}0$; 60 FP mono$/\pi{=}0.000$; $p{=}9.7{\times}10^{-17}$; 3/3 $L$-func.\ consistent & GL(2) \\
 45 & GL(2) blind zero prediction (11a1) & \textbf{E} & 16/17 TP ($P{=}R{=}F_1{=}0.941$); loc.\ err.\ max${=}0.051$; $\kappa$-peak blind; FP $t{\approx}28.4$ (double-peak artefact) & GL(2) \\
 46 & GL(2) blind zero prediction (37a1, rank 1) & \textbf{E} & 22/23 TP ($P{=}1.000$, $R{=}0.957$, $F_1{=}0.978$); FP${=}0$; mono$/\pi{=}4.0$ (winding${=}2$, 2 zeros in contour); $\varepsilon{=}{-1}$, rank~1 & GL(2) \\

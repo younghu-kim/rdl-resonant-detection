@@ -1,18 +1,9 @@
 """
 =============================================================================
-[Project RDL] 다발 예측 실험 #1: FP = 곡률 without 모노드로미
+[C-406] 모노드로미 보편성 확장 — T∈[100,300]
 =============================================================================
-Conjecture 3 검증:
-  - True zero: κ → ∞ AND monodromy = ±π
-  - False positive: κ가 높지만 monodromy ≈ 0
-
-방법:
-  1. 기존 FP anatomy 파이프라인으로 FP/TP 위치 수집 (5 시드)
-  2. 각 위치에서 mpmath로 모노드로미 계산
-  3. TP vs FP의 모노드로미 분포 비교
-  4. 이중 기준 (κ + monodromy) 적용 시 정밀도 변화 측정
-
-예측: 이중 기준 정밀도 >> 단일 기준(κ만) 정밀도
+C-403 (T∈[14,50], 4/4 강한 양성) 결과를 높은 T 구간에서 재현.
+이 구간에는 ~60개 영점 존재 → TP 후보 풍부.
 =============================================================================
 """
 
@@ -40,8 +31,8 @@ from bundle_utils import xi_func, monodromy_contour
 PrecisionManager.setup_precision()
 
 # ─── 설정 ───
-T_MIN, T_MAX = 14.0, 50.0
-N_POINTS = 1000
+T_MIN, T_MAX = 100.0, 300.0
+N_POINTS = 2000
 HIDDEN = 64
 EPOCHS = 100
 LR = 1e-3
@@ -160,7 +151,7 @@ def train_and_get_predictions(dataset, seed):
 
 def main():
     out_path = os.path.expanduser(
-        '~/Desktop/gdl_unified/results/bundle_prediction_fp_monodromy.txt'
+        '~/Desktop/gdl_unified/results/monodromy_extension_c406.txt'
     )
 
     print("=" * 70)
@@ -334,8 +325,8 @@ def main():
     # 결과 저장
     with open(out_path, 'w') as f:
         f.write("=" * 70 + "\n")
-        f.write("다발 예측 실험 #1: FP = 곡률 without 모노드로미\n")
-        f.write(f"Conjecture 3 검증 �� 사이클 #403 (dps=80 수정, n_steps=256)\n")
+        f.write("[C-406] 모노드로미 보편성 확장 — T∈[100,300]\n")
+        f.write(f"Conjecture 3 검증 — C-403 재현 (dps=80, n_steps=256)\n")
         f.write(f"날짜: {time.strftime('%Y-%m-%d %H:%M')}\n")
         f.write("=" * 70 + "\n\n")
 

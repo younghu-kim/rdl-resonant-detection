@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""[C-400] Path C R(T) T=10000 확장 — mpmath Z-함수 스캔
-질문: R(T) = Var(2/g²)/(|Cross|+|Resid|) 가 T→∞에서 c>1에 수렴하는가?
-방법: mpmath.siegelz 부호변환 스캔 → 영점 수집 → 3-tier 분해 (C-398 동일)
+"""[C-404] Path C 정밀도 검증 — T=2000 mpmath 보간 vs C-398 PARI
+질문: C-400 음성(R=0.801)이 진짜인가 아니면 선형 보간 아티팩트인가?
+방법: T=2000에서 mpmath 보간 R(T)을 계산, C-398 PARI R=1.365와 비교.
 """
 import sys, os, time, math
 import numpy as np
@@ -10,13 +10,13 @@ sys.path.insert(0, '/home/k0who029/.local/lib/python3.12/site-packages')
 import mpmath
 
 mpmath.mp.dps = 30
-T_MAX = 10000.0
+T_MAX = 2000.0
 W = 100
 TRIM = 0.20
 N_BANDS = 10
 N_BOOT = 2000
 SIGMA_C = 0.5
-RPATH = os.path.expanduser('~/Desktop/gdl_unified/results/path_c_mpmath_c400.txt')
+RPATH = os.path.expanduser('~/Desktop/gdl_unified/results/path_c_verify_c404.txt')
 out_f = open(RPATH, 'w')
 
 def log(m=''):
@@ -30,7 +30,7 @@ def gamma_corr(t0):
 
 # ===================================================================
 log("=" * 70)
-log("[C-400] Path C R(T) T=10000 확장 — mpmath Z-함수 스캔")
+log("[C-404] Path C 정밀도 검증 — T=2000 mpmath 보간 vs C-398 PARI")
 log("=" * 70)
 log(f"  T_MAX={T_MAX}, W={W}, TRIM={TRIM}, N_BANDS={N_BANDS}, N_BOOT={N_BOOT}")
 log(f"  밀도: d(t) = log(t/(2π))/(2π) (이론적)")
