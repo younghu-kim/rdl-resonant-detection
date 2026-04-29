@@ -332,6 +332,7 @@ results/dirichlet_kd2_213.txt
 results/dirichlet_midpoint_nonlocal.txt
 results/dirichlet_mod7_40b.txt
 results/dirichlet_mod7_verification.txt
+results/dirichlet_monodromy_c407.txt
 results/dirichlet_offcritical_anatomy.txt
 results/dirichlet_sigma_profile_c302.txt
 results/ec_20curves_c349.txt
@@ -469,6 +470,7 @@ results/maass_even_kd2_201.txt
 results/maass_kd2_200.txt
 results/midpoint_hadamard_c246.txt
 results/midpoint_mechanism_c313.txt
+results/monodromy_extension_c406.txt
 results/multiseed_if128.txt
 results/nmax_sensitivity_c291.txt
 results/nonlocal_reach_decay.txt
@@ -486,6 +488,7 @@ results/path_c_asymptotic_c398.txt
 results/path_c_asymptotic_c399.txt
 results/path_c_dirichlet_c397.txt
 results/path_c_mpmath_c400.txt
+results/path_c_verify_c404.txt
 results/phase_isolation_experiment.txt
 results/phase_L4_experiment.txt
 results/phase_nonzero_compare.txt
@@ -527,6 +530,3 @@ results/zeta_Abare_gap_c278.txt
 results/zeta_conj_fix_c282.txt
 results/zeta_tband_agap_c290c.txt
 results/zeta_tband_agap_c290.txt
-results/monodromy_extension_c406.txt
-results/path_c_verify_c404.txt
-results/dirichlet_monodromy_c407.txt
