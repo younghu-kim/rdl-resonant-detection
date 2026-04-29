@@ -1,5 +1,56 @@
 # 설계자/실행자 보드
 
+## 보고 [2026-04-29 20:25 — 사이클 #407] — C-407 + C-408 논문 반영 ✅ 완료
+
+**수학자 지시**: C-407(χ₅ mono) + C-408(EC 11a1 mono) 결과를 Paper A EN/KO에 동시 반영
+**모델**: Opus
+
+### 수행 내역
+
+1. **bundle_utils.py docstring 수정** (검토자 권장): L131 "≈±π" → "≈±2π" (계산 무영향, 문서 정확성)
+
+2. **EN unified_master_en.tex** — detailed section에 2개 bullet item 추가 (기존 GL(2) cross-rank 항목 뒤):
+   - **C-407**: GL(1) Dirichlet L(s,χ₅) monodromy TP/FP separation (20 TP/30 FP, KS p=4.2e-14)
+   - **C-408**: GL(2) EC 11a1 monodromy at σ=1 (20 TP/30 FP, KS p=4.2e-14)
+   - 합산: "65 TP / 120 FP across 3 L-functions (degree 1-2), zero exceptions" 명시
+   - 주: Remark conj3 (L3592), Result table #43b/#43c (L6087-6088), Remark universality_numerical (L3399)은 이전 사이클에서 이미 반영됨
+
+3. **KO unified_master_ko.tex** — 모노드로미 섹션 (L1932) 확장:
+   - 기존: ζ(s) only (25 TP / 60 FP)
+   - 변경: 3개 L-함수 (ζ + χ₅ + 11a1), "총 65 TP / 120 FP, degree 1-2, 예외 0건"
+   - 임계선 차이 명시: ζ,χ₅는 σ=1/2, 11a1은 σ=1 (weight 2)
+
+4. **컴파일 검증**: ✅ EN 124p, KO 47p — 에러 0건
+
+### 정합성 검증
+
+| 항목 | EN | KO | 일치 |
+|------|----|----|------|
+| ζ TP/FP | 25/60 | 25/60 | ✅ |
+| χ₅ TP/FP | 20/30 | 20/30 | ✅ |
+| 11a1 TP/FP | 20/30 | 20/30 | ✅ |
+| 합산 | 65/120 | 65/120 | ✅ |
+| degree 범위 | 1-2 | 1-2 | ✅ |
+| 과대 표현 | "numerical verification, not proof" | "수치 검증, 증명 아님" | ✅ |
+| 컴파일 | 124p ✅ | 47p ✅ | ✅ |
+
+### 성공 기준 충족
+
+| 기준 | 판정 |
+|------|------|
+| C-407 + C-408 수치 정확 반영 | ✅ |
+| EN/KO 수치 동일 | ✅ |
+| 컴파일 에러 0건 | ✅ |
+| Abstract/Result table 정합 | ✅ (이전 반영 확인) |
+
+### 수학자에게
+
+1. **EN은 Remark conj3, Result table, Remark universality_numerical에 이미 C-407/C-408 수치가 반영**되어 있었음 (이전 사이클 작업). 이번에는 detailed checklist section의 bullet items (C-407, C-408)를 추가하고, KO 버전을 동기화함.
+2. **EN Remark conj3의 "99 TP, 180 FP" 합산**은 #43 + #43b + #43c + #44 (cross-rank 포함). 수학자의 "65 TP / 120 FP"는 #43 + #43b + #43c (개별 L-함수 TP/FP only). 두 수치 모두 논문에 존재하며, 각각의 맥락에서 정확.
+3. **예고된 다음 실험 (EC 37a1 모노드로미)** 준비 완료 — 수학자 지시 대기.
+
+---
+
 ## 보고 [2026-04-29 19:45 — 사이클 #405] — C-407 Dirichlet 모노드로미 ✅ 강한 양성 (4/4)
 
 **수학자 지시**: C-407 — χ mod 5 (짝수, 이차, a=0) Dirichlet L-함수에서 모노드로미 TP/FP 분리 검증.

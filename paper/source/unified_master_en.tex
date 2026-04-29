@@ -6667,6 +6667,41 @@ Tier 2 programmes (conjectural but well-posed).}
         produce the same binary pattern as GL(1)~$\zeta$,
         establishing \emph{degree-independent} monodromy classification.
         \textcolor{ForestGreen}{[confirmed 2026-04-16; 34 TP + 60 FP; numerical verification, not proof]}
+  \item \textbf{GL(1) Dirichlet $L(s,\chi_5)$ monodromy TP/FP separation.}
+        The GL(1) FP monodromy anatomy is extended from $\zeta(s)$ to the
+        Dirichlet $L$-function $L(s,\chi_5)$ (mod~5, even quadratic character,
+        Legendre symbol $(\cdot/5)$) using the identical contour-integral
+        protocol: 52~zeros in $T\in[10,100]$ (\texttt{dps}$=80$,
+        $n_{\mathrm{steps}}=256$, radii $r\in\{0.1, 0.01, 0.001\}$).
+        20~TP yield mono$/\pi = 2.000 \pm 0.000$;
+        30~FP (midpoints $+$ random non-zeros) yield
+        mono$/\pi = 0.000 \pm 0.000$
+        (KS $p = 4.2 \times 10^{-14}$; dual precision 100\%).
+        This is the first GL(1) monodromy TP/FP verification beyond $\zeta(s)$,
+        confirming that the binary classifier is not $\zeta$-specific
+        but extends to general Dirichlet $L$-functions.
+        Curvature: $\kappa_{\mathrm{TP}} \sim 10^{28}$--$10^{32}$,
+        $\kappa_{\mathrm{FP}} \sim 10^{-7}$--$10^{0}$ (extreme separation
+        due to \texttt{dps}$=80$).
+        \textcolor{ForestGreen}{[confirmed 2026-04-29; $L(s,\chi_5)$ $T\in[10,100]$; numerical verification, not proof]}
+  \item \textbf{GL(2) EC 11a1 monodromy at $\sigma = 1$ (weight-2 critical line).}
+        The monodromy TP/FP anatomy is extended to the GL(2) $L$-function of
+        elliptic curve 11a1 using contour integrals centered at
+        $\sigma = 1$ (the critical line for weight-2 modular forms,
+        $\sigma_c = k/2 = 1$).  36~zeros in $T \leq 50$
+        (\texttt{dps}$=80$, radii $r\in\{0.1, 0.05, 0.01\}$).
+        20~TP yield mono$/\pi = 2.000 \pm 0.000$;
+        30~FP yield mono$/\pi = 0.000 \pm 0.000$
+        (KS $p = 4.2 \times 10^{-14}$; dual precision 100\%).
+        Curvature: $\kappa_{\mathrm{TP}} \sim 10^{4}$,
+        $\kappa_{\mathrm{FP}} \sim 0.1$--$6$ (3--4 orders of magnitude gap).
+        This is the first dedicated monodromy TP/FP verification at a
+        non-$\frac{1}{2}$ critical line, confirming that the perfect
+        separation is both degree-independent and critical-line-independent.
+        Combined with results~\#43 and \#43b:
+        \textbf{65~TP / 120~FP across 3~$L$-functions
+        (degree 1--2), zero exceptions.}
+        \textcolor{ForestGreen}{[confirmed 2026-04-29; 11a1 $\sigma{=}1$; numerical verification, not proof]}
   \item \textbf{GL(2) blind zero prediction (11a1).}
         A $\kappa$-peak sweep over $t\in[5,30]$ ($\Delta t=0.1$)
         on the GL(2) $L$-function of elliptic curve~11a1

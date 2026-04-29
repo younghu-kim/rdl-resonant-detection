@@ -128,7 +128,7 @@ def curvature_dirichlet(s, char_info):
 def monodromy_contour(t, radius=0.5, n_steps=64, func='zeta', char_info=None):
     """
     점 s=1/2+it 주위 반지름 radius 원에서 모노드로미 계산.
-    영점이 원 안에 있으면 ≈±π, 없으면 ≈0.
+    영점이 원 안에 있으면 ≈±2π, 없으면 ≈0.
 
     Parameters:
         t: 임계선 위 좌표
