@@ -8139,3 +8139,24 @@ B-68 E비 결정인자 분석 (19개 원시 지표, q=3,4,5,7,8,11):
 - Stage 1: 완료
 - Stage 2: 완료 (opus)
 - 로그: /home/k0who029/Desktop/gdl_unified/outputs/auto_research_logs/20260427_155205_*
+
+## 사이클 #407 검토 [2026-04-29 20:32]
+
+**검토자 작업**: C-408 검증 + 미반영 결과 점검
+
+### C-408 EC 11a1 모노드로미 검증
+- **판정**: ✅ 통과 (전 항목)
+- 20 TP mono/π=2.000, 30 FP mono/π=0.000, KS p=4.2e-14
+- σ=1 (weight 2 임계선) 정확, root number ε=1 정확
+- Red Team: KS 한계(degenerate), modest sample → 무해
+
+### 논문 반영 상태 확인
+- C-407 + C-408 모두 이전 사이클(#409, 커밋 fe37270)에서 **이미 반영 완료**
+- EN: Remark conj3 + Result table #43b/#43c + Detailed §7
+- KO: FP 해부 (L1932-1943)
+- 산술 정합: 45+90(GL1), 65+120(dedicated), 99+180(total) — 전부 정확
+- **미반영 양성 결과: 0건**
+
+### 다음
+- 수학자 다음 실험: EC 37a1 (rank=1) 모노드로미 검증 예고
+- bundle_utils.py docstring "±π"→"±2π" 수정 미처리 (설계자 앞)
