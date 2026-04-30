@@ -3426,15 +3426,6 @@ Cross-rank universality is confirmed by our numerical experiments:
     20~TP / 30~FP; all with perfect separation.
     The TP/FP separation is identical to GL(1), confirming degree-independent
     and weight-independent monodromy classification.
-  \item \textbf{GL(3)--GL(5)}: dedicated monodromy tests on
-    the sym$^k$(11a1) tower ($k=2,3,4$; degree $d=3,4,5$;
-    $\sigma_c = 1.5, 2, 2.5$ respectively):
-    each yields 20~TP / 30~FP with mono$/\pi = 2.000 \pm 0.000$
-    (TP) and $0.000 \pm 0.000$ (FP), KS $p \leq 7.1 \times 10^{-14}$,
-    dual precision 100\%.
-    The sym$^k$ tower provides the strongest universality evidence:
-    \emph{identical} monodromy quantisation across five degrees,
-    six critical lines, and four distinct $\Gamma$-factor structures.
 \end{itemize}
 The \emph{only} diagnostic that varies across rank is
 $\sigma$-uniqueness, which fails for GL(2) due to the different
@@ -3606,9 +3597,9 @@ independent, continuously-valued confirmation with a ratio gap of
 $(d_{\min}/\delta)^2 \gg 1$.
 \end{proof}
 
-\begin{remark}[Relation to Conjecture~3]
+\begin{remark}[Relation to Conjecture~\ref{conj:mono_universality}]
 \label{rem:conj3}
-What was previously labelled ``Conjecture~3'' (the dual criterion
+What was previously labelled ``Conjecture~3'' (now Conjecture~\ref{conj:mono_universality}; the dual criterion
 separates TP from FP) is now seen to be a \textbf{theorem}: it is
 a direct consequence of the argument principle
 (Theorem~\ref{thm:holonomy}) and the Laurent structure of
@@ -3633,27 +3624,72 @@ GL(1) complex Dirichlet $L(s,\chi_{5,\mathrm{odd}})$ (order~4, $a=1$):
 mono$/\pi = 2.000 \pm 0.000$ for 20~TP, $0.000 \pm 0.000$ for 30~FP
 (KS $p = 4.2 \times 10^{-14}$; $\Lambda(\tfrac{1}{2}+it)$ complex-valued;
 first \emph{complex} character monodromy verification).
-GL(2) Ramanujan~$\Delta$ ($N=1$, weight~12, $\sigma_c=6$):
-mono$/\pi = 2.000 \pm 0.000$ for 20~TP, $0.000 \pm 0.000$ for 30~FP
-(KS $p = 4.2 \times 10^{-14}$; first weight$\geq 3$ dedicated).
-GL(3) sym$^2$(11a1) ($N=121$, degree~3, $\sigma_c=1.5$):
-mono$/\pi = 2.000 \pm 0.000$ for 20~TP, $0.000 \pm 0.000$ for 30~FP
-(KS $p = 7.1 \times 10^{-14}$; first degree-3 dedicated).
-GL(4) sym$^3$(11a1) ($N=1331$, degree~4, $\sigma_c=2$):
-mono$/\pi = 2.000 \pm 0.000$ for 20~TP, $0.000 \pm 0.000$ for 30~FP
-(KS $p = 4.2 \times 10^{-14}$; first degree-4 dedicated).
-GL(5) sym$^4$(11a1) ($N=14641$, degree~5, $\sigma_c=2.5$):
-mono$/\pi = 2.000 \pm 0.000$ for 20~TP, $0.000 \pm 0.000$ for 30~FP
-(KS $p = 4.2 \times 10^{-14}$; first degree-5 dedicated).
-Combined across GL(1)--GL(5): \textbf{185~TP (dedicated) + 34~TP (cross-rank) = 219~TP},
-\textbf{294~FP (dedicated) + 60~FP (cross-rank) = 354~FP},
-9~$L$-functions, degree 1--5, weight 1--12, rank 0--1,
-6~distinct critical lines
-$\{\tfrac{1}{2}, 1, \tfrac{3}{2}, 2, \tfrac{5}{2}, 6\}$,
-zero exceptions.
+Combined across GL(1)--GL(2): \textbf{139~TP, 234~FP}, zero exceptions.
+Dedicated monodromy experiments (\#43--\#43j) extend this to
+GL(3)--GL(5) symmetric powers and Dedekind zeta:
+\textbf{205~TP / 395~FP across 10~$L$-functions
+(degree 1--5, weight 1--12, rank 0--1), zero exceptions},
+including the Dedekind zeta $\zeta_K$ of $K = \mathbb{Q}(\alpha)$,
+$\alpha^3 - \alpha - 1 = 0$ ($\mathrm{Gal} \cong S_3$),
+the first verification from a non-abelian Galois extension.
 The dual criterion improves
 precision by $+63$ percentage points at $\kappa > 0.5$ for GL(2),
 confirming degree-independent perfect separation.
+\end{remark}
+
+\begin{conjecture}[Monodromy Universality]
+\label{conj:mono_universality}
+Let $L(s,\pi)$ be a primitive $L$-function of degree $d \geq 1$
+in the Selberg class, with completed function
+$\xi(s,\pi) = \gamma(s,\pi)\,L(s,\pi)$.
+Define the $\xi$-bundle connection
+$\mathcal{L} = \xi'/\xi$ and the monodromy
+\[
+  \mathrm{mono}(\gamma_r(\rho))
+  \;=\;
+  \Bigl|\oint_{\gamma_r(\rho)} \operatorname{Im}\mathcal{L}\,ds\Bigr|
+\]
+for a circular contour $\gamma_r(\rho)$ of radius~$r$ about~$\rho$.
+
+Then for every nontrivial zero~$\rho$ of $L(s,\pi)$ of multiplicity~$m$:
+\[
+  \mathrm{mono}(\gamma_r(\rho)) = m\pi
+  \qquad
+  \text{for all } r < \min_{j\neq\rho}|\rho - \rho_j|,
+\]
+and for every point~$z$ that is not a zero:
+\[
+  \mathrm{mono}(\gamma_r(z)) = 0
+  \qquad
+  \text{for all } r < \min_j |z - \rho_j|.
+\]
+This holds independently of: degree~$d$, weight~$k$,
+conductor~$N$, analytic rank, root number~$\varepsilon$,
+and critical line~$\sigma = d/2$.
+\end{conjecture}
+
+\begin{remark}[Content and status of
+    Conjecture~\textup{\ref{conj:mono_universality}}]
+\label{rem:mono_universality_content}
+The monodromy identity $\mathrm{mono} = m\pi$ at a zero of
+multiplicity~$m$ is a direct consequence of the argument principle
+(Theorem~\ref{thm:holonomy}); the non-trivial content is the
+\textbf{quantitative exactness} (mono $= m\pi$, not approximately)
+and its \textbf{universality} across all tested Selberg class elements.
+The conjecture is supported by numerical verification,
+\emph{not a proof of universality}:
+10~primitive $L$-functions, degree $\{1,2,3,4,5\}$,
+weight $\{1,2,3,12\}$, 7~distinct construction paths
+(Riemann~$\zeta$, Dirichlet, elliptic curve, Ramanujan~$\Delta$,
+sym$^k$, Dedekind~$\zeta_K$ with $\mathrm{Gal}\cong S_3$),
+6~distinct critical lines
+$\{\tfrac12,1,\tfrac32,2,\tfrac52,6\}$,
+\textbf{205~TP / 395~FP, dual criterion pass rate 100\%,
+KS $p < 10^{-12}$ in every case, zero exceptions}.
+The empirical observation does not constitute a proof that the
+identity holds for \emph{all} $L$-functions in the Selberg class;
+it is a falsifiable prediction awaiting further verification
+(e.g.\ Artin $L$-functions for higher non-abelian groups).
 \end{remark}
 
 \begin{remark}[What remains conjectural]
@@ -6133,6 +6169,7 @@ with full transparency).
 43g & GL(3) sym$^2$(11a1) monodromy ($\sigma_c{=}1.5$, $d{=}3$) & \textbf{E} & 20 TP mono$/\pi{=}2.000{\pm}0$; 30 FP mono$/\pi{=}0.000$; KS $p{=}7.1{\times}10^{-14}$; dual prec.\ 100\%; first degree-3 dedicated; $\kappa$ TP${\sim}10^4$, FP${\sim}1$--$11$ & GL(3) \\
 43h & GL(4) sym$^3$(11a1) monodromy ($\sigma_c{=}2$, $d{=}4$) & \textbf{E} & 20 TP mono$/\pi{=}2.000{\pm}0$; 30 FP mono$/\pi{=}0.000$; KS $p{=}4.2{\times}10^{-14}$; dual prec.\ 100\%; first degree-4 dedicated; $N{=}1331$; $\kappa$ TP${\sim}10^4$, FP${\sim}15$ & GL(4) \\
 43i & GL(5) sym$^4$(11a1) monodromy ($\sigma_c{=}2.5$, $d{=}5$) & \textbf{E} & 20 TP mono$/\pi{=}2.000{\pm}0$; 30 FP mono$/\pi{=}0.000$; KS $p{=}4.2{\times}10^{-14}$; dual prec.\ 100\%; first degree-5 dedicated; $N{=}14641{=}11^4$; $\kappa$ TP${\sim}10^4$, FP${\sim}0.3$--$57$ & GL(5) \\
+43j & Dedekind $\zeta_K$ monodromy ($K{=}\mathbb{Q}(\alpha)$, $\alpha^3{-}\alpha{-}1{=}0$, $\mathrm{Gal}{\cong}S_3$) & \textbf{E} & 20 TP mono$/\pi{=}2.000{\pm}0$; 101 FP mono$/\pi{=}0.000$; KS $p{=}5.7{\times}10^{-23}$; dual prec.\ 100\%; $|\mathrm{disc}|{=}23$; $\zeta_K{=}\zeta{\cdot}L(s{,}\rho_2)$; 17 zeros from $L(\rho_2)$, 3 from $\zeta$; $\kappa$ ratio $178\times$; first non-abelian Galois origin & Dedekind \\
 44 & GL(2) FP monodromy (cross-rank) & \textbf{E} & 34 TP mono$/\pi{=}2.000{\pm}0$; 60 FP mono$/\pi{=}0.000$; $p{=}9.7{\times}10^{-17}$; 3/3 $L$-func.\ consistent & GL(2) \\
 45 & GL(2) blind zero prediction (11a1) & \textbf{E} & 16/17 TP ($P{=}R{=}F_1{=}0.941$); loc.\ err.\ max${=}0.051$; $\kappa$-peak blind; FP $t{\approx}28.4$ (double-peak artefact) & GL(2) \\
 46 & GL(2) blind zero prediction (37a1, rank 1) & \textbf{E} & 22/23 TP ($P{=}1.000$, $R{=}0.957$, $F_1{=}0.978$); FP${=}0$; mono$/\pi{=}4.0$ (winding${=}2$, 2 zeros in contour); $\varepsilon{=}{-1}$, rank~1 & GL(2) \\
@@ -6682,7 +6719,7 @@ Tier 2 programmes (conjectural but well-posed).}
         (phase jumps and energy concentration) confirmed for all four
         functions ($\zeta$ and three Dirichlet $L$-functions);
         curvature/monodromy comparison pending zero-finding fix.
-  \item \textbf{FP monodromy anatomy (Conjecture~3 direct verification).}
+  \item \textbf{FP monodromy anatomy (Conjecture~\ref{conj:mono_universality} direct verification).}
         The FP anatomy experiment (\cref{sec:open}, Tier~1) established
         that $\kappa$ separates TP from FP by ${\sim}300\times$.
         A direct contour-integral monodromy measurement on 10~true zeros
@@ -6877,9 +6914,17 @@ Tier 2 programmes (conjectural but well-posed).}
         (degree $d=2,\ldots,5$), all yielding perfect separation.
         Degree coverage: $\{1, 2, 3, 4, 5\}$; critical-line coverage:
         $\{\tfrac{1}{2}, 1, \tfrac{3}{2}, 2, \tfrac{5}{2}, 6\}$ (6~distinct values).
-        Combined dedicated results (\#43, \#43b--\#43i):
-        \textbf{185~TP / 294~FP across 9~$L$-functions
+        Combined dedicated results (\#43, \#43b--\#43j):
+        \textbf{205~TP / 395~FP across 10~$L$-functions
         (degree 1--5, weight 1--12, rank 0--1), zero exceptions.}
+        The latest addition (\#43j) is the Dedekind zeta $\zeta_K$ of
+        $K = \mathbb{Q}(\alpha)$ ($\alpha^3 - \alpha - 1 = 0$,
+        $\mathrm{disc} = -23$, $\mathrm{Gal}(\widetilde{K}/\mathbb{Q}) \cong S_3$):
+        20~TP ($17$ from $L(s,\rho_2)$, $3$ from $\zeta$),
+        101~FP, mono$/\pi = 2.000 \pm 0$ vs.\ $0.000 \pm 0$,
+        KS $p = 5.7 \times 10^{-23}$, $\kappa$ ratio $178\times$.
+        This is the first verification from a \emph{Dedekind zeta}
+        (non-abelian Galois extension), confirming construction-path independence.
         \textcolor{ForestGreen}{[confirmed 2026-04-30; sym$^4$(11a1) degree~5, $\sigma_c{=}2.5$; numerical verification, not proof]}
   \item \textbf{GL(2) blind zero prediction (11a1).}
         A $\kappa$-peak sweep over $t\in[5,30]$ ($\Delta t=0.1$)
@@ -7245,7 +7290,7 @@ it does not, a necessary step toward any rigorous formulation.
 \textbf{Open problems.}\;
 Several mathematical questions raised by this work remain open.
 (i)~\emph{Effective constant for $\kappa$ concentration.}
-Conjecture~1 asserts that $\kappa$ is large near zeros and small away from
+Conjecture~\ref{conj:mono_universality} asserts that $\kappa$ is large near zeros and small away from
 them, but the effective constant $C(K,\delta)$ bounding the concentration
 ratio has not been determined analytically.
 A rigorous derivation from the analytic properties of $\xi$ would sharpen
@@ -7684,7 +7729,7 @@ to locate every zero without false positives; the dual and
 monodromy-only criteria offer no additional benefit in this regime.
 The practical value of the dual criterion emerges only at the
 neural-network level, where approximate $\kappa$ estimation introduces
-false positives (cf.\ Conjecture~3).
+false positives (cf.\ Conjecture~\ref{conj:mono_universality}).
 
 
 \subsection{Conductor Dependence: Topological vs.\ Quantitative Properties}
@@ -8309,7 +8354,7 @@ $\sigma$-uniq.\ (motivic $\sigma{=}k/2{=}1.5$, $\xi$-bundle) & 3/3 PASS & 3/3 PA
 Both curves pass the functional equation with machine-zero residual.  The
 $\kappa$~concentration ratios ($283\times$ and $222\times$) far exceed the
 100$\times$ threshold established for GL(1) and GL(2), confirming that
-Conjecture~1 extends to GL(3).  Monodromy quantisation yields mono/$\pi =
+Conjecture~\ref{conj:mono_universality} extends to GL(3).  Monodromy quantisation yields mono/$\pi =
 2.000$ at every tested zero.%
 \footnote{For sym$^2$(11a1), only 3 far-sample points were available for
 $\kappa_{\mathrm{far}}$; the ratio $283\times$ should therefore be regarded

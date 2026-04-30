@@ -305,6 +305,7 @@ results/curvature_residual_nonlocal.txt
 results/curvature_subleading.txt
 results/data_density_scaling.txt
 results/davenport_heilbronn_adversarial.txt
+results/dedekind_s3_monodromy_c415.txt
 results/dedekind_zeta_113.txt
 results/delta_4property_70.txt
 results/delta_independence_82.txt

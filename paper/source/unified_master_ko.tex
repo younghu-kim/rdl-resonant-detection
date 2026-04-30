@@ -1957,10 +1957,17 @@ $p$-값은 경계선이다.
         20 TP / 30 FP; KS $p = 4.2 \times 10^{-14}$; degree~5 첫 전용 검증;
         $\kappa_{\mathrm{TP}} \sim 10^4$, $\kappa_{\mathrm{FP}} \sim 0.3$--$57$;
         11a1의 sym$^k$ 타워: $k=1$ (degree~2), $k=2$ (degree~3), $k=3$ (degree~4), $k=4$ (degree~5) 전부 완벽 분리).
-        \textbf{총 185 TP / 294 FP, degree 1--5, weight 1--12, rank 0--1, 실수 및 복소 지표, 예외 0건.}
+        Dedekind 제타 $\zeta_K$ ($K = \mathbb{Q}(\alpha)$, $\alpha^3-\alpha-1=0$,
+        $\mathrm{disc}=-23$, $\mathrm{Gal} \cong S_3$; degree~3;
+        $\zeta_K = \zeta \cdot L(s,\rho_2)$;
+        20 TP (17개는 $L(\rho_2)$ 기원, 3개는 $\zeta$ 기원) / 101 FP;
+        KS $p = 5.7 \times 10^{-23}$; $\kappa$ 비율 $178\times$;
+        비가환 Galois 확장에서의 첫 검증).
+        \textbf{총 205 TP / 395 FP, 10개 $L$-함수, degree 1--5, weight 1--12, rank 0--1, 실수·복소 지표, Dedekind 제타 포함, 예외 0건.}
         이중 기준($\kappa + \mathrm{mono}$)이 정밀도 $100\%$를 보장한다.
         임계선 커버리지: $\{\tfrac{1}{2}, 1, \tfrac{3}{2}, 2, \tfrac{5}{2}, 6\}$ (6종).
-        \textcolor{ForestGreen}{[2026-04-30 확인; 9개 $L$-함수, degree 1--5, weight 1--12, rank 0--1; 수치 검증, 증명 아님]}
+        구성 경로: GL(1) Dirichlet, GL(2) EC/Maass/$\Delta$, GL(3)--GL(5) sym$^k$, Dedekind zeta (7종).
+        \textcolor{ForestGreen}{[2026-04-30 확인; 10개 $L$-함수, degree 1--5; 수치 검증, 증명 아님]}
   \item \textbf{$S^1$ 측지선 위상 예측
         \textcolor{ForestGreen}{[2026-04-12 확인]}.}
         $\arg\xif$를 스칼라로 예측하는 대신 (영점에서 $\pm\pi$
@@ -2052,6 +2059,48 @@ $p$-값은 경계선이다.
         $p$-값은 경계선이다; 확인되었으나 겸손한 개선으로
         보고한다.
 \end{itemize}
+
+\begin{conjecture}[모노드로미 보편성]
+\label{conj:mono_universality}
+$L(s,\pi)$를 Selberg 류에 속하는 degree $d \geq 1$의 원시 $L$-함수,
+완비 함수를 $\xi(s,\pi) = \gamma(s,\pi)\,L(s,\pi)$로 놓는다.
+$\xi$-다발 연결 $\mathcal{L} = \xi'/\xi$에 대해,
+$\rho$ 중심 반지름~$r$ 원형 경로 $\gamma_r(\rho)$의 모노드로미를
+$\mathrm{mono}(\gamma_r(\rho))
+= |\oint_{\gamma_r(\rho)} \operatorname{Im}\mathcal{L}\,ds|$
+로 정의한다.
+
+$L(s,\pi)$의 중복도~$m$인 모든 비자명 영점~$\rho$에 대해
+\[
+  \mathrm{mono}(\gamma_r(\rho)) = m\pi
+  \qquad
+  \text{($r < \min_{j\neq\rho}|\rho - \rho_j|$ 일 때)},
+\]
+영점이 아닌 모든 점~$z$에 대해
+\[
+  \mathrm{mono}(\gamma_r(z)) = 0
+  \qquad
+  \text{($r < \min_j |z - \rho_j|$ 일 때)}.
+\]
+이것은 degree~$d$, weight~$k$, 도체~$N$, 해석적 계수,
+근 수~$\varepsilon$, 임계선~$\sigma = d/2$에 \textbf{무관}하게 성립한다.
+\end{conjecture}
+
+\begin{remark}[추측~\ref{conj:mono_universality}의 내용과 현황]
+\label{rem:mono_universality_content}
+영점에서의 모노드로미 항등식 $\mathrm{mono} = m\pi$는 편각 원리의
+직접적 결과이다; 비자명한 내용은 \textbf{정량적 정확성}(근사가 아닌 정확히 $m\pi$)과
+Selberg 류 전체에 걸친 \textbf{보편성}이다.
+이 추측은 \emph{수치 검증에 근거하며, 보편성의 증명이 아니다}:
+10개 원시 $L$-함수, degree $\{1,2,3,4,5\}$, weight $\{1,2,3,12\}$,
+7종 구성 경로(Riemann $\zeta$, Dirichlet, 타원 곡선, Ramanujan $\Delta$,
+sym$^k$, Dedekind $\zeta_K$ ($\mathrm{Gal}\cong S_3$)),
+6종 임계선 $\{\tfrac12,1,\tfrac32,2,\tfrac52,6\}$,
+\textbf{205 TP / 395 FP, 이중 기준 통과율 100\%,
+KS $p < 10^{-12}$ (모든 경우), 예외 0건}.
+이 경험적 관찰은 Selberg 류의 \emph{모든} $L$-함수에 대한 증명이 아니며,
+추가 검증을 기다리는 반증 가능한 예측이다.
+\end{remark}
 
 \smallskip\noindent\textbf{\textcolor{orange}{\rule{0.9ex}{0.9ex}}\ 계층 2 프로그램 (추측적이지만 잘 정의됨).}
 \begin{enumerate}
@@ -2539,7 +2588,7 @@ $\chi\bmod 5$ & 7 & 곡률 / 이중 / 모노 & 7 / 7 / 7 & 1.000 & 1.000 & 1.000
 \end{center}
 
 \noindent
-3개 지표에서 3가지 방법 모두 $\mathrm{F1}=1.000$ (21/21 영점, 허용 오차 $\delta t < 0.5$). 80자릿수 \texttt{mpmath} 정밀도에서는 곡률 극대만으로 모든 영점을 거짓 양성 없이 식별 가능하다. 이중 기준과 모노드로미 단독 기준은 이 정밀도 수준에서 추가 이점이 없다. 이중 기준의 실용적 가치는 신경망 수준에서 근사 $\kappa$ 추정이 거짓 양성을 유발할 때 드러난다 (추측~3 참조).
+3개 지표에서 3가지 방법 모두 $\mathrm{F1}=1.000$ (21/21 영점, 허용 오차 $\delta t < 0.5$). 80자릿수 \texttt{mpmath} 정밀도에서는 곡률 극대만으로 모든 영점을 거짓 양성 없이 식별 가능하다. 이중 기준과 모노드로미 단독 기준은 이 정밀도 수준에서 추가 이점이 없다. 이중 기준의 실용적 가치는 신경망 수준에서 근사 $\kappa$ 추정이 거짓 양성을 유발할 때 드러난다 (추측~\ref{conj:mono_universality} 참조).
 
 \section{표기법 색인}
 \label{app:notation}

@@ -934,3 +934,62 @@ Var(2/g²) > |Cross| + |Residual| (비율 1.37×) 이므로 Cov > 0.
 **파일**: `proof_phase25_cross_sign_c395.txt`, `adj_corr_decomp_c393.txt`, `adj_corr_decomp_ALambda_c394.txt`
 **비평가 판정**: **생존** (핵심). "Theorem" 라벨 **취약** → Proposition 적절.
 **논문**: Paper 4 sec:partial에 단락 추가 (C-396).
+
+---
+
+## Conjectures (수치 기반, 증명 미완)
+
+### Conjecture 1 (모노드로미 보편성 — Monodromy Universality) **[NEW, 2026-04-30]**
+
+**서술**:
+$L(s,\pi)$를 Selberg 클래스 $\mathcal{S}$의 원시(primitive) L-함수라 하자.
+즉, $L(s,\pi)$는 다음을 만족한다:
+  (i) 해석적 접속 + 유한 차수의 극점
+  (ii) 함수방정식: $\Lambda(s) = \varepsilon \cdot \overline{\Lambda}(w-\bar{s})$, $|\varepsilon|=1$
+  (iii) 오일러 곱 (또는 Epstein 확장: 함수방정식만으로 충분)
+
+$\Lambda(s) = \gamma(s) \cdot L(s,\pi)$를 완비 L-함수, $\sigma_c = w/2$를 임계선이라 하자.
+$\rho = \sigma_c + i\gamma$가 $\Lambda$의 단순 영점이면:
+
+**(a) 모노드로미 양자화**: 반지름 $r < d_{\min}(\rho)/2$인 원 $C_r(\rho)$에 대해
+$$\mu(\rho) := \oint_{C_r(\rho)} \mathrm{Im}\left(\frac{\Lambda'}{\Lambda}(s)\right) ds = 2\pi$$
+(중복도 $m$ 영점이면 $\mu = 2\pi m$.)
+
+**(b) 곡률 집중**: $\kappa(\rho; \delta) := |\Lambda'/\Lambda(\sigma_c + \delta + i\gamma)|^2$에 대해
+$$\kappa(\rho; \delta) \cdot \delta^2 = 1 + O(\delta^2) \quad (\delta \to 0)$$
+
+**(c) 이중기준 완전 분리**: 임의의 비영점 $q = \sigma_c + i\tau$ ($\tau \neq \gamma_n$ for all $n$)에 대해
+$$\mu(q) = 0 \quad \text{and} \quad \kappa(q; \delta) \cdot \delta^2 \neq 1 + O(\delta^2)$$
+따라서 $(\mu, \kappa\delta^2)$의 이중기준은 영점과 비영점을 예외 없이 분리한다.
+
+**이론적 근거**: (a)는 논증 원리(argument principle)의 직접 귀결이며, $L(s,\pi)$의 구체적 형태에 무관하다. (b)는 $\Lambda'/\Lambda$의 Laurent 전개에서 따른다 (Theorem 4). (c)는 (a)+(b)의 조합이다 (Corollary, dual criterion).
+
+**핵심**: 이론적으로 (a)-(c)는 정리(Theorem)이나, **"임의의 Selberg 클래스 원소"**에 대한 수치적 확인은 유한 표본에 의존한다. 추측의 핵심 내용은 "모든 자기 형식(automorphic) L-함수, 모든 Artin L-함수, 모든 Dedekind 제타에서 **정량적** 분리가 실용적으로 작동한다"는 것이다.
+
+**수치 증거 (2026-04-30 기준)**:
+| # | L-함수 | degree | weight | σ_c | TP | FP | 이중기준 | 구성 경로 |
+|---|--------|--------|--------|-----|----|----|---------|----------|
+| 1 | ζ(s) | 1 | 1 | 1/2 | 25 | 60 | 100% | GL(1) |
+| 2 | L(s,χ₅_even) | 1 | 1 | 1/2 | 20 | 30 | 100% | Dirichlet (실) |
+| 3 | L(s,χ₅_odd) | 1 | 1 | 1/2 | 20 | 30 | 100% | Dirichlet (복소) |
+| 4 | L(s,11a1) | 2 | 2 | 1 | 20 | 30 | 100% | EC rank-0 |
+| 5 | L(s,37a1) | 2 | 2 | 1 | 20 | 24 | 100% | EC rank-1 |
+| 6 | L(s,Δ) | 2 | 12 | 6 | 20 | 30 | 100% | Ramanujan Δ |
+| 7 | L(s,sym²(11a1)) | 3 | 3 | 3/2 | 20 | 30 | 100% | GL(3) sym² |
+| 8 | L(s,sym³(11a1)) | 4 | 4 | 2 | 20 | 30 | 100% | GL(4) sym³ |
+| 9 | L(s,sym⁴(11a1)) | 5 | 5 | 5/2 | 20 | 30 | 100% | GL(5) sym⁴ |
+| **합계** | | 1-5 | 1-12 | 6종 | **185** | **294** | **100%** | 6종 |
+
+**예외**: 0건. 모든 TP mono/π = 2.000±0.000, 모든 FP mono/π = 0.000±0.000.
+
+**미검증 영역** (추측의 예측):
+  - Artin L-함수 (비가환 갈루아 군: S₃, A₄ 등)
+  - Rankin-Selberg L(f⊗g) (독립 구성 경로)
+  - Dedekind zeta ζ_K (수체의 제타)
+  - GL(n) n≥6 독립 가족
+  - 비-자기형식(non-automorphic) L-함수
+
+**검증 계획**: Dedekind ζ_K(s), K=Q(α), α³-α-1=0, Gal(K/Q)≅S₃ — C-415.
+
+**비평가**: (대기 — C-415 결과 후 판정)
+**상태**: 추측. 9 L-함수 수치 증거. 이론적으로는 Thm 1-4의 조합이지만, 보편성의 실용적 범위는 경험적.
