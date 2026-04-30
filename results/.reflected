@@ -401,6 +401,7 @@ results/gl3_sym2_11a1_63.txt
 results/gl3_sym2_37a1_64.txt
 results/gl3_sym2_37a1_87.txt
 results/gl3_sym2_kd2_202.txt
+results/gl3_sym2_monodromy_c412.txt
 results/gl3_sym2_xi_bundle_88.txt
 results/gl4_A_gap_c269.txt
 results/gl4_rankin_selberg_72.txt
@@ -417,6 +418,7 @@ results/gl4_sym3_delta_72v3.txt
 results/gl4_sym3_delta_72v4.txt
 results/gl4_sym3_delta_72v5.txt
 results/gl4_sym3_kd2_203.txt
+results/gl4_sym3_monodromy_c413.txt
 results/gl4_sym3_pari_78.txt
 results/gl4_sym3_pari_79.txt
 results/gl4_sym3_pari_80.txt
@@ -424,6 +426,7 @@ results/gl5_A_gap_c273.txt
 results/gl5_sym4_85.txt
 results/gl5_sym4_agap_c387.txt
 results/gl5_sym4_kd2_205.txt
+results/gl5_sym4_monodromy_c414.txt
 results/gl6_A_gap_c275.txt
 results/gl6_sym5_agap_c388.txt
 results/gl6_sym5_kd2_206.txt
@@ -534,6 +537,3 @@ results/zeta_Abare_gap_c278.txt
 results/zeta_conj_fix_c282.txt
 results/zeta_tband_agap_c290c.txt
 results/zeta_tband_agap_c290.txt
-results/ramanujan_delta_monodromy_c411.txt
-results/gl3_sym2_monodromy_c412.txt
-results/gl4_sym3_monodromy_c413.txt

@@ -3426,6 +3426,15 @@ Cross-rank universality is confirmed by our numerical experiments:
     20~TP / 30~FP; all with perfect separation.
     The TP/FP separation is identical to GL(1), confirming degree-independent
     and weight-independent monodromy classification.
+  \item \textbf{GL(3)--GL(5)}: dedicated monodromy tests on
+    the sym$^k$(11a1) tower ($k=2,3,4$; degree $d=3,4,5$;
+    $\sigma_c = 1.5, 2, 2.5$ respectively):
+    each yields 20~TP / 30~FP with mono$/\pi = 2.000 \pm 0.000$
+    (TP) and $0.000 \pm 0.000$ (FP), KS $p \leq 7.1 \times 10^{-14}$,
+    dual precision 100\%.
+    The sym$^k$ tower provides the strongest universality evidence:
+    \emph{identical} monodromy quantisation across five degrees,
+    six critical lines, and four distinct $\Gamma$-factor structures.
 \end{itemize}
 The \emph{only} diagnostic that varies across rank is
 $\sigma$-uniqueness, which fails for GL(2) due to the different
@@ -3624,7 +3633,24 @@ GL(1) complex Dirichlet $L(s,\chi_{5,\mathrm{odd}})$ (order~4, $a=1$):
 mono$/\pi = 2.000 \pm 0.000$ for 20~TP, $0.000 \pm 0.000$ for 30~FP
 (KS $p = 4.2 \times 10^{-14}$; $\Lambda(\tfrac{1}{2}+it)$ complex-valued;
 first \emph{complex} character monodromy verification).
-Combined across GL(1)--GL(2): \textbf{139~TP, 234~FP}, zero exceptions.
+GL(2) Ramanujan~$\Delta$ ($N=1$, weight~12, $\sigma_c=6$):
+mono$/\pi = 2.000 \pm 0.000$ for 20~TP, $0.000 \pm 0.000$ for 30~FP
+(KS $p = 4.2 \times 10^{-14}$; first weight$\geq 3$ dedicated).
+GL(3) sym$^2$(11a1) ($N=121$, degree~3, $\sigma_c=1.5$):
+mono$/\pi = 2.000 \pm 0.000$ for 20~TP, $0.000 \pm 0.000$ for 30~FP
+(KS $p = 7.1 \times 10^{-14}$; first degree-3 dedicated).
+GL(4) sym$^3$(11a1) ($N=1331$, degree~4, $\sigma_c=2$):
+mono$/\pi = 2.000 \pm 0.000$ for 20~TP, $0.000 \pm 0.000$ for 30~FP
+(KS $p = 4.2 \times 10^{-14}$; first degree-4 dedicated).
+GL(5) sym$^4$(11a1) ($N=14641$, degree~5, $\sigma_c=2.5$):
+mono$/\pi = 2.000 \pm 0.000$ for 20~TP, $0.000 \pm 0.000$ for 30~FP
+(KS $p = 4.2 \times 10^{-14}$; first degree-5 dedicated).
+Combined across GL(1)--GL(5): \textbf{185~TP (dedicated) + 34~TP (cross-rank) = 219~TP},
+\textbf{294~FP (dedicated) + 60~FP (cross-rank) = 354~FP},
+9~$L$-functions, degree 1--5, weight 1--12, rank 0--1,
+6~distinct critical lines
+$\{\tfrac{1}{2}, 1, \tfrac{3}{2}, 2, \tfrac{5}{2}, 6\}$,
+zero exceptions.
 The dual criterion improves
 precision by $+63$ percentage points at $\kappa > 0.5$ for GL(2),
 confirming degree-independent perfect separation.
@@ -6106,6 +6132,7 @@ with full transparency).
 43f & Ramanujan $\Delta$ monodromy ($\sigma_c{=}6$, weight~12) & \textbf{E} & 20 TP mono$/\pi{=}2.000{\pm}0$; 30 FP mono$/\pi{=}0.000$; KS $p{=}4.2{\times}10^{-14}$; dual prec.\ 100\%; $\sigma_c{=}6$; weight~12; first $w{\geq}3$ dedicated & GL(2) $\Delta$ \\
 43g & GL(3) sym$^2$(11a1) monodromy ($\sigma_c{=}1.5$, $d{=}3$) & \textbf{E} & 20 TP mono$/\pi{=}2.000{\pm}0$; 30 FP mono$/\pi{=}0.000$; KS $p{=}7.1{\times}10^{-14}$; dual prec.\ 100\%; first degree-3 dedicated; $\kappa$ TP${\sim}10^4$, FP${\sim}1$--$11$ & GL(3) \\
 43h & GL(4) sym$^3$(11a1) monodromy ($\sigma_c{=}2$, $d{=}4$) & \textbf{E} & 20 TP mono$/\pi{=}2.000{\pm}0$; 30 FP mono$/\pi{=}0.000$; KS $p{=}4.2{\times}10^{-14}$; dual prec.\ 100\%; first degree-4 dedicated; $N{=}1331$; $\kappa$ TP${\sim}10^4$, FP${\sim}15$ & GL(4) \\
+43i & GL(5) sym$^4$(11a1) monodromy ($\sigma_c{=}2.5$, $d{=}5$) & \textbf{E} & 20 TP mono$/\pi{=}2.000{\pm}0$; 30 FP mono$/\pi{=}0.000$; KS $p{=}4.2{\times}10^{-14}$; dual prec.\ 100\%; first degree-5 dedicated; $N{=}14641{=}11^4$; $\kappa$ TP${\sim}10^4$, FP${\sim}0.3$--$57$ & GL(5) \\
 44 & GL(2) FP monodromy (cross-rank) & \textbf{E} & 34 TP mono$/\pi{=}2.000{\pm}0$; 60 FP mono$/\pi{=}0.000$; $p{=}9.7{\times}10^{-17}$; 3/3 $L$-func.\ consistent & GL(2) \\
 45 & GL(2) blind zero prediction (11a1) & \textbf{E} & 16/17 TP ($P{=}R{=}F_1{=}0.941$); loc.\ err.\ max${=}0.051$; $\kappa$-peak blind; FP $t{\approx}28.4$ (double-peak artefact) & GL(2) \\
 46 & GL(2) blind zero prediction (37a1, rank 1) & \textbf{E} & 22/23 TP ($P{=}1.000$, $R{=}0.957$, $F_1{=}0.978$); FP${=}0$; mono$/\pi{=}4.0$ (winding${=}2$, 2 zeros in contour); $\varepsilon{=}{-1}$, rank~1 & GL(2) \\
@@ -6832,6 +6859,28 @@ Tier 2 programmes (conjectural but well-posed).}
         \textbf{165~TP / 264~FP across 8~$L$-functions
         (degree 1--4, weight 1--12, rank 0--1), zero exceptions.}
         \textcolor{ForestGreen}{[confirmed 2026-04-30; sym$^3$(11a1) degree~4, $\sigma_c{=}2$; numerical verification, not proof]}
+  \item \textbf{GL(5) sym$^4$(11a1) dedicated monodromy at $\sigma_c = 2.5$ (degree~5).}
+        The monodromy TP/FP anatomy is extended to the first
+        \emph{degree-5} $L$-function: $L(s, \mathrm{sym}^4(11\mathrm{a}1))$
+        (conductor~$14641 = 11^4$, $\Gamma$-vector $[-2,-1,0,0,1]$,
+        critical line $\sigma_c = 2.5$, FE: $\Lambda(s) = \Lambda(5-s)$).
+        121~zeros in $T \leq 50$, 187~in $T \leq 70$
+        (PARI \texttt{lfunsympow}, \texttt{realprecision}$=150$,
+        $n_{\mathrm{steps}} = 128$, radii $r \in \{0.1, 0.01, 0.001\}$;
+        \texttt{lfuncheckfeq}$=-43$ digits).
+        20~TP yield mono$/\pi = 2.000 \pm 0.000$ at all three radii;
+        30~FP yield mono$/\pi = 0.000 \pm 0.000$
+        (KS $p = 4.2 \times 10^{-14}$; dual precision 100\%).
+        Curvature: $\kappa_{\mathrm{TP}} \sim 10^{4}$,
+        $\kappa_{\mathrm{FP}} \sim 0.3$--$57$ (2--4 orders of magnitude gap).
+        The $\mathrm{sym}^k$(11a1) tower now spans $k=1,\ldots,4$
+        (degree $d=2,\ldots,5$), all yielding perfect separation.
+        Degree coverage: $\{1, 2, 3, 4, 5\}$; critical-line coverage:
+        $\{\tfrac{1}{2}, 1, \tfrac{3}{2}, 2, \tfrac{5}{2}, 6\}$ (6~distinct values).
+        Combined dedicated results (\#43, \#43b--\#43i):
+        \textbf{185~TP / 294~FP across 9~$L$-functions
+        (degree 1--5, weight 1--12, rank 0--1), zero exceptions.}
+        \textcolor{ForestGreen}{[confirmed 2026-04-30; sym$^4$(11a1) degree~5, $\sigma_c{=}2.5$; numerical verification, not proof]}
   \item \textbf{GL(2) blind zero prediction (11a1).}
         A $\kappa$-peak sweep over $t\in[5,30]$ ($\Delta t=0.1$)
         on the GL(2) $L$-function of elliptic curve~11a1
